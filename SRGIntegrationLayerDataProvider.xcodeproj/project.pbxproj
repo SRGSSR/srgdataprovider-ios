@@ -1,0 +1,371 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9F1519391AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9F1519381AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.h */; };
+		9F15193B1AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F15193A1AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.m */; };
+		9F1519411AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1519351AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9F1519421AC5A7F200AE051D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F15192D1AC5A7F200AE051D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9F1519341AC5A7F200AE051D;
+			remoteInfo = SRGIntegrationLayerDataProvider;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9F1519331AC5A7F200AE051D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				9F1519391AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		9F1519351AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSRGIntegrationLayerDataProvider.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F1519381AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGIntegrationLayerDataProvider.h; sourceTree = "<group>"; };
+		9F15193A1AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SRGIntegrationLayerDataProvider.m; sourceTree = "<group>"; };
+		9F1519401AC5A7F200AE051D /* SRGIntegrationLayerDataProviderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SRGIntegrationLayerDataProviderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F1519461AC5A7F200AE051D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9F1519321AC5A7F200AE051D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F15193D1AC5A7F200AE051D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F1519411AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9F15192C1AC5A7F200AE051D = {
+			isa = PBXGroup;
+			children = (
+				9F1519371AC5A7F200AE051D /* SRGIntegrationLayerDataProvider */,
+				9F1519441AC5A7F200AE051D /* SRGIntegrationLayerDataProviderTests */,
+				9F1519361AC5A7F200AE051D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9F1519361AC5A7F200AE051D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F1519351AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a */,
+				9F1519401AC5A7F200AE051D /* SRGIntegrationLayerDataProviderTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F1519371AC5A7F200AE051D /* SRGIntegrationLayerDataProvider */ = {
+			isa = PBXGroup;
+			children = (
+				9F1519381AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.h */,
+				9F15193A1AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.m */,
+			);
+			path = SRGIntegrationLayerDataProvider;
+			sourceTree = "<group>";
+		};
+		9F1519441AC5A7F200AE051D /* SRGIntegrationLayerDataProviderTests */ = {
+			isa = PBXGroup;
+			children = (
+				9F1519451AC5A7F200AE051D /* Supporting Files */,
+			);
+			path = SRGIntegrationLayerDataProviderTests;
+			sourceTree = "<group>";
+		};
+		9F1519451AC5A7F200AE051D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9F1519461AC5A7F200AE051D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9F1519341AC5A7F200AE051D /* SRGIntegrationLayerDataProvider */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9F1519491AC5A7F200AE051D /* Build configuration list for PBXNativeTarget "SRGIntegrationLayerDataProvider" */;
+			buildPhases = (
+				9F1519311AC5A7F200AE051D /* Sources */,
+				9F1519321AC5A7F200AE051D /* Frameworks */,
+				9F1519331AC5A7F200AE051D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SRGIntegrationLayerDataProvider;
+			productName = SRGIntegrationLayerDataProvider;
+			productReference = 9F1519351AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		9F15193F1AC5A7F200AE051D /* SRGIntegrationLayerDataProviderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9F15194C1AC5A7F200AE051D /* Build configuration list for PBXNativeTarget "SRGIntegrationLayerDataProviderTests" */;
+			buildPhases = (
+				9F15193C1AC5A7F200AE051D /* Sources */,
+				9F15193D1AC5A7F200AE051D /* Frameworks */,
+				9F15193E1AC5A7F200AE051D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9F1519431AC5A7F200AE051D /* PBXTargetDependency */,
+			);
+			name = SRGIntegrationLayerDataProviderTests;
+			productName = SRGIntegrationLayerDataProviderTests;
+			productReference = 9F1519401AC5A7F200AE051D /* SRGIntegrationLayerDataProviderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9F15192D1AC5A7F200AE051D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = SRG;
+				TargetAttributes = {
+					9F1519341AC5A7F200AE051D = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					9F15193F1AC5A7F200AE051D = {
+						CreatedOnToolsVersion = 6.2;
+					};
+				};
+			};
+			buildConfigurationList = 9F1519301AC5A7F200AE051D /* Build configuration list for PBXProject "SRGIntegrationLayerDataProvider" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9F15192C1AC5A7F200AE051D;
+			productRefGroup = 9F1519361AC5A7F200AE051D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9F1519341AC5A7F200AE051D /* SRGIntegrationLayerDataProvider */,
+				9F15193F1AC5A7F200AE051D /* SRGIntegrationLayerDataProviderTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9F15193E1AC5A7F200AE051D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9F1519311AC5A7F200AE051D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F15193B1AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F15193C1AC5A7F200AE051D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9F1519431AC5A7F200AE051D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9F1519341AC5A7F200AE051D /* SRGIntegrationLayerDataProvider */;
+			targetProxy = 9F1519421AC5A7F200AE051D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9F1519471AC5A7F200AE051D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		9F1519481AC5A7F200AE051D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9F15194A1AC5A7F200AE051D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		9F15194B1AC5A7F200AE051D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		9F15194D1AC5A7F200AE051D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SRGIntegrationLayerDataProviderTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9F15194E1AC5A7F200AE051D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SRGIntegrationLayerDataProviderTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9F1519301AC5A7F200AE051D /* Build configuration list for PBXProject "SRGIntegrationLayerDataProvider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F1519471AC5A7F200AE051D /* Debug */,
+				9F1519481AC5A7F200AE051D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9F1519491AC5A7F200AE051D /* Build configuration list for PBXNativeTarget "SRGIntegrationLayerDataProvider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F15194A1AC5A7F200AE051D /* Debug */,
+				9F15194B1AC5A7F200AE051D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		9F15194C1AC5A7F200AE051D /* Build configuration list for PBXNativeTarget "SRGIntegrationLayerDataProviderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F15194D1AC5A7F200AE051D /* Debug */,
+				9F15194E1AC5A7F200AE051D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9F15192D1AC5A7F200AE051D /* Project object */;
+}
