@@ -6,6 +6,12 @@
 // project.
 
 
+// AFNetworking
+#define COCOAPODS_POD_AVAILABLE_AFNetworking
+#define COCOAPODS_VERSION_MAJOR_AFNetworking 1
+#define COCOAPODS_VERSION_MINOR_AFNetworking 3
+#define COCOAPODS_VERSION_PATCH_AFNetworking 4
+
 // RTSAnalytics
 #define COCOAPODS_POD_AVAILABLE_RTSAnalytics
 #define COCOAPODS_VERSION_MAJOR_RTSAnalytics 0
@@ -17,6 +23,12 @@
 #define COCOAPODS_VERSION_MAJOR_RTSMediaPlayer 0
 #define COCOAPODS_VERSION_MINOR_RTSMediaPlayer 0
 #define COCOAPODS_VERSION_PATCH_RTSMediaPlayer 1
+
+// SGVReachability
+#define COCOAPODS_POD_AVAILABLE_SGVReachability
+#define COCOAPODS_VERSION_MAJOR_SGVReachability 1
+#define COCOAPODS_VERSION_MINOR_SGVReachability 0
+#define COCOAPODS_VERSION_PATCH_SGVReachability 0
 
 // TransitionKit
 #define COCOAPODS_POD_AVAILABLE_TransitionKit

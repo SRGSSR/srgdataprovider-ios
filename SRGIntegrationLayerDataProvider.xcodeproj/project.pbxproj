@@ -167,7 +167,6 @@
 				9FC7D86B1ACADCDB00D1502F /* IL Network */,
 				9FC7D8671ACADA0800D1502F /* Media Data Source */,
 				9F1519371AC5A7F200AE051D /* Analytics */,
-				9FB315781ACAE339005AEBBC /* Categories */,
 				9F1519441AC5A7F200AE051D /* Unit Tests */,
 				9F1519361AC5A7F200AE051D /* Products */,
 				77070573698EDF5E66AA0B19 /* Pods */,
@@ -256,13 +255,6 @@
 				9F1519831ACAD5F200AE051D /* SRGILVideo.m */,
 			);
 			name = "IL Model";
-			sourceTree = "<group>";
-		};
-		9FB315781ACAE339005AEBBC /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Categories;
 			sourceTree = "<group>";
 		};
 		9FC7D8671ACADA0800D1502F /* Media Data Source */ = {

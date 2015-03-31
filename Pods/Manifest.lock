@@ -1,4 +1,5 @@
 PODS:
+  - AFNetworking (1.3.4)
   - comScore-iOS-SDK (3.1502.26)
   - libextobjc/EXTScope (0.4.1):
     - libextobjc/RuntimeExtensions
@@ -9,11 +10,15 @@ PODS:
   - RTSMediaPlayer (0.0.1):
     - libextobjc/EXTScope (~> 0.4.1)
     - TransitionKit (~> 2.1.1)
+  - SGVReachability (1.0.0)
   - TransitionKit (2.1.1)
 
 DEPENDENCIES:
+  - AFNetworking (~> 1.3.4)
   - RTSAnalytics (from `git@bitbucket.org:rtsmb/rtsanalytics-ios.git`, branch `develop`)
   - RTSMediaPlayer (from `git@bitbucket.org:rtsmb/rtsmediaplayer-ios.git`, branch `develop`)
+  - SGVReachability (~> 1.0.0)
+  - TransitionKit (from `https://github.com/0xced/TransitionKit.git`, commit `6874dea2229bdefb89f6c8f708f1fae467ee5ba2`)
 
 EXTERNAL SOURCES:
   RTSAnalytics:
@@ -22,20 +27,28 @@ EXTERNAL SOURCES:
   RTSMediaPlayer:
     :branch: develop
     :git: git@bitbucket.org:rtsmb/rtsmediaplayer-ios.git
+  TransitionKit:
+    :commit: 6874dea2229bdefb89f6c8f708f1fae467ee5ba2
+    :git: https://github.com/0xced/TransitionKit.git
 
 CHECKOUT OPTIONS:
   RTSAnalytics:
-    :commit: 3efd6c793153a8df4c30a7d34341400785425c5e
+    :commit: 587b31d00d63b367df76c23012a103899be04981
     :git: git@bitbucket.org:rtsmb/rtsanalytics-ios.git
   RTSMediaPlayer:
     :commit: 0f686b73568bf1da3a3cf9627c910e5e85298e3f
     :git: git@bitbucket.org:rtsmb/rtsmediaplayer-ios.git
+  TransitionKit:
+    :commit: 6874dea2229bdefb89f6c8f708f1fae467ee5ba2
+    :git: https://github.com/0xced/TransitionKit.git
 
 SPEC CHECKSUMS:
+  AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
   comScore-iOS-SDK: 75e852619b2c7353156023d4eb7cae42ef83c670
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   RTSAnalytics: fde7a0a3bd60438e9022daf893ab5aefea821420
   RTSMediaPlayer: 3e6088559aad02b89a06f9783e8c64da71b63f8d
+  SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
   TransitionKit: 3a14b6acc7cf2d1dd3e454e24dbad1cfab9a1ef1
 
 COCOAPODS: 0.36.0
