@@ -20,7 +20,8 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = "SRGIntegrationLayerDataProvider"
-  s.public_header_files   = "SRGIntegrationLayerDataProvider/*.h"
+  s.public_header_files = "SRGIntegrationLayerDataProvider/*.h"
+  s.private_header_files = "SRGIntegrationLayerDataProvider/SRGILMedia+Private.h"
 
   s.frameworks = [ "Foundation", "UIKit" ]
 
