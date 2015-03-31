@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol SRGAnalyticsIndividualDataSource <NSObject>
+@protocol SRGILAnalyticsIndividualDataSource <NSObject>
 
 - (instancetype)initWithIdentifier:(NSString *)identifier;
 

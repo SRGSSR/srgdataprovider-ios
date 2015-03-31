@@ -12,7 +12,7 @@
 
 #import "SRGILComScoreAnalyticsIndividualDataSource.h"
 #import "SRGILStreamSenseAnalyticsIndividualDataSource.h"
-#import "SRGAnalyticsIndividualDataSource.h"
+#import "SRGILAnalyticsIndividualDataSource.h"
 
 static NSString * const comScoreKeypathPrefix = @"SRGILComScoreAnalyticsIndividualDataSource.";
 static NSString * const streamSenseKeypathPrefix = @"SRGILStreamSenseAnalyticsIndividualDataSource.";
@@ -33,7 +33,7 @@ static NSString * const streamSenseKeypathPrefix = @"SRGILStreamSenseAnalyticsIn
     return self;
 }
 
-- (id<SRGAnalyticsIndividualDataSource>)individualDataSourceForKeyPath:(NSString *)keyPath
+- (id<SRGILAnalyticsIndividualDataSource>)individualDataSourceForKeyPath:(NSString *)keyPath
 {
     id ds = [_individualDataSources valueForKeyPath:keyPath];
     if (!ds) {

@@ -49,7 +49,8 @@
 		9F1519521ACA9D7B00AE051D /* SRGILComScoreAnalyticsIndividualDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILComScoreAnalyticsIndividualDataSource.m; sourceTree = "<group>"; };
 		9F1519541ACAA02900AE051D /* SRGILStreamSenseAnalyticsIndividualDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILStreamSenseAnalyticsIndividualDataSource.h; sourceTree = "<group>"; };
 		9F1519551ACAA02900AE051D /* SRGILStreamSenseAnalyticsIndividualDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILStreamSenseAnalyticsIndividualDataSource.m; sourceTree = "<group>"; };
-		9F1519571ACAA30A00AE051D /* SRGAnalyticsIndividualDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGAnalyticsIndividualDataSource.h; sourceTree = "<group>"; };
+		9F1519571ACAA30A00AE051D /* SRGILAnalyticsIndividualDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILAnalyticsIndividualDataSource.h; sourceTree = "<group>"; };
+		9F1519581ACAA85A00AE051D /* SRGIntegrationLayerDataProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGIntegrationLayerDataProvider.h; sourceTree = "<group>"; };
 		B78A0E1C877A3AAFA06CB8E2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CC7117E85185279031EDDD7C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,9 +107,10 @@
 		9F1519371AC5A7F200AE051D /* SRGIntegrationLayerDataProvider */ = {
 			isa = PBXGroup;
 			children = (
+				9F1519581ACAA85A00AE051D /* SRGIntegrationLayerDataProvider.h */,
 				9F1519381AC5A7F200AE051D /* SRGILAnalyticsDataSource.h */,
 				9F15193A1AC5A7F200AE051D /* SRGILAnalyticsDataSource.m */,
-				9F1519571ACAA30A00AE051D /* SRGAnalyticsIndividualDataSource.h */,
+				9F1519571ACAA30A00AE051D /* SRGILAnalyticsIndividualDataSource.h */,
 				9F1519511ACA9D7B00AE051D /* SRGILComScoreAnalyticsIndividualDataSource.h */,
 				9F1519521ACA9D7B00AE051D /* SRGILComScoreAnalyticsIndividualDataSource.m */,
 				9F1519541ACAA02900AE051D /* SRGILStreamSenseAnalyticsIndividualDataSource.h */,

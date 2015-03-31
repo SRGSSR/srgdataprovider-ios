@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SRGAnalyticsIndividualDataSource.h"
+#import "SRGILAnalyticsIndividualDataSource.h"
 
-@interface SRGILStreamSenseAnalyticsIndividualDataSource : NSObject <SRGAnalyticsIndividualDataSource>
+@interface SRGILStreamSenseAnalyticsIndividualDataSource : NSObject <SRGILAnalyticsIndividualDataSource>
 
 - (NSDictionary *)playlistMetadata;
 - (NSDictionary *)fullLengthClipMetadata;
