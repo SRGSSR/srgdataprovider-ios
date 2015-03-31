@@ -1,0 +1,36 @@
+{
+  "name": "RTSAnalytics",
+  "version": "0.0.1",
+  "summary": "RTS Analytics for the RTS Media Player",
+  "description": "RTS Analytics for the RTS Media Player",
+  "homepage": "http://rts.ch",
+  "license": {
+    "type": "N/A"
+  },
+  "authors": {
+    "Cédric Foellmi": "cedric.foellmi@hortis.ch",
+    "Cédric Luthi": "cedric.luthi@rts.ch"
+  },
+  "source": {
+    "git": "git@bitbucket.org:rtsmb/rtsanalytics-ios.git",
+    "tag": "0.0.1"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "source_files": "RTSAnalytics",
+  "public_header_files": "RTSAnalytics/*.h",
+  "frameworks": [
+    "Foundation",
+    "UIKit"
+  ],
+  "dependencies": {
+    "comScore-iOS-SDK": [
+      "3.1502.26"
+    ],
+    "RTSMediaPlayer": [
+      "~> 0.0.1"
+    ]
+  }
+}

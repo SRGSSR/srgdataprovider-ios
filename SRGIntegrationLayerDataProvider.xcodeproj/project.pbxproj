@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		550ACD350A8B78B628CF3902 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F6EBD656367387D07A08A6 /* libPods.a */; };
 		9F1519391AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9F1519381AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.h */; };
 		9F15193B1AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F15193A1AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.m */; };
 		9F1519411AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1519351AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a */; };
@@ -36,11 +37,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		79F6EBD656367387D07A08A6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F1519351AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSRGIntegrationLayerDataProvider.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F1519381AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGIntegrationLayerDataProvider.h; sourceTree = "<group>"; };
 		9F15193A1AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SRGIntegrationLayerDataProvider.m; sourceTree = "<group>"; };
 		9F1519401AC5A7F200AE051D /* SRGIntegrationLayerDataProviderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SRGIntegrationLayerDataProviderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F1519461AC5A7F200AE051D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B78A0E1C877A3AAFA06CB8E2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		CC7117E85185279031EDDD7C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				550ACD350A8B78B628CF3902 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,12 +67,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		77070573698EDF5E66AA0B19 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B78A0E1C877A3AAFA06CB8E2 /* Pods.debug.xcconfig */,
+				CC7117E85185279031EDDD7C /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		9F15192C1AC5A7F200AE051D = {
 			isa = PBXGroup;
 			children = (
 				9F1519371AC5A7F200AE051D /* SRGIntegrationLayerDataProvider */,
 				9F1519441AC5A7F200AE051D /* SRGIntegrationLayerDataProviderTests */,
 				9F1519361AC5A7F200AE051D /* Products */,
+				77070573698EDF5E66AA0B19 /* Pods */,
+				C234D6DD835E193A87DED721 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +121,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C234D6DD835E193A87DED721 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				79F6EBD656367387D07A08A6 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -112,9 +136,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9F1519491AC5A7F200AE051D /* Build configuration list for PBXNativeTarget "SRGIntegrationLayerDataProvider" */;
 			buildPhases = (
+				B07018D5379C0A3A8120C0C9 /* Check Pods Manifest.lock */,
 				9F1519311AC5A7F200AE051D /* Sources */,
 				9F1519321AC5A7F200AE051D /* Frameworks */,
 				9F1519331AC5A7F200AE051D /* CopyFiles */,
+				8C5B864E76EF03A80796708F /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -187,6 +213,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8C5B864E76EF03A80796708F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B07018D5379C0A3A8120C0C9 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9F1519311AC5A7F200AE051D /* Sources */ = {
@@ -291,8 +350,12 @@
 		};
 		9F15194A1AC5A7F200AE051D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B78A0E1C877A3AAFA06CB8E2 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -300,8 +363,12 @@
 		};
 		9F15194B1AC5A7F200AE051D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC7117E85185279031EDDD7C /* Pods.release.xcconfig */;
 			buildSettings = {
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -356,6 +423,7 @@
 				9F15194B1AC5A7F200AE051D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9F15194C1AC5A7F200AE051D /* Build configuration list for PBXNativeTarget "SRGIntegrationLayerDataProviderTests" */ = {
 			isa = XCConfigurationList;
@@ -364,6 +432,7 @@
 				9F15194E1AC5A7F200AE051D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,0 +1,34 @@
+PODS:
+  - comScore-iOS-SDK (3.1502.26)
+  - libextobjc/EXTScope (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/RuntimeExtensions (0.4.1)
+  - RTSAnalytics (0.0.1):
+    - comScore-iOS-SDK (= 3.1502.26)
+    - RTSMediaPlayer (~> 0.0.1)
+  - RTSMediaPlayer (0.0.1):
+    - libextobjc/EXTScope (~> 0.4.1)
+    - TransitionKit (~> 2.1.1)
+  - TransitionKit (2.1.1)
+
+DEPENDENCIES:
+  - RTSAnalytics (from `git@bitbucket.org:rtsmb/rtsanalytics-ios.git`, branch `develop`)
+
+EXTERNAL SOURCES:
+  RTSAnalytics:
+    :branch: develop
+    :git: git@bitbucket.org:rtsmb/rtsanalytics-ios.git
+
+CHECKOUT OPTIONS:
+  RTSAnalytics:
+    :commit: 3efd6c793153a8df4c30a7d34341400785425c5e
+    :git: git@bitbucket.org:rtsmb/rtsanalytics-ios.git
+
+SPEC CHECKSUMS:
+  comScore-iOS-SDK: 75e852619b2c7353156023d4eb7cae42ef83c670
+  libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
+  RTSAnalytics: fde7a0a3bd60438e9022daf893ab5aefea821420
+  RTSMediaPlayer: 956d7c4c3a051ec53d7a3b9c5ec35eede71d18c9
+  TransitionKit: 3a14b6acc7cf2d1dd3e454e24dbad1cfab9a1ef1
+
+COCOAPODS: 0.36.0
