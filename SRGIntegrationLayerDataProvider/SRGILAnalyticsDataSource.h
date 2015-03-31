@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <RTSAnalytics/RTSAnalyticsDataSource.h>
 
-@interface SRGIntegrationLayerDataProvider : NSObject
+@interface SRGILAnalyticsDataSource : NSObject <RTSAnalyticsDataSource>
 
 @end

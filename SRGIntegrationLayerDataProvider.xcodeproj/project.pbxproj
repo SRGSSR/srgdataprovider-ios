@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		550ACD350A8B78B628CF3902 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F6EBD656367387D07A08A6 /* libPods.a */; };
-		9F1519391AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9F1519381AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.h */; };
-		9F15193B1AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F15193A1AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.m */; };
+		9F1519391AC5A7F200AE051D /* SRGILAnalyticsDataSource.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9F1519381AC5A7F200AE051D /* SRGILAnalyticsDataSource.h */; };
+		9F15193B1AC5A7F200AE051D /* SRGILAnalyticsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F15193A1AC5A7F200AE051D /* SRGILAnalyticsDataSource.m */; };
 		9F1519411AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1519351AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a */; };
+		9F1519531ACA9D7B00AE051D /* SRGILComScoreAnalyticsIndividualDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1519521ACA9D7B00AE051D /* SRGILComScoreAnalyticsIndividualDataSource.m */; };
+		9F1519561ACAA02900AE051D /* SRGILStreamSenseAnalyticsIndividualDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1519551ACAA02900AE051D /* SRGILStreamSenseAnalyticsIndividualDataSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +32,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				9F1519391AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.h in CopyFiles */,
+				9F1519391AC5A7F200AE051D /* SRGILAnalyticsDataSource.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,10 +41,15 @@
 /* Begin PBXFileReference section */
 		79F6EBD656367387D07A08A6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F1519351AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSRGIntegrationLayerDataProvider.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9F1519381AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGIntegrationLayerDataProvider.h; sourceTree = "<group>"; };
-		9F15193A1AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SRGIntegrationLayerDataProvider.m; sourceTree = "<group>"; };
+		9F1519381AC5A7F200AE051D /* SRGILAnalyticsDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGILAnalyticsDataSource.h; sourceTree = "<group>"; };
+		9F15193A1AC5A7F200AE051D /* SRGILAnalyticsDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SRGILAnalyticsDataSource.m; sourceTree = "<group>"; };
 		9F1519401AC5A7F200AE051D /* SRGIntegrationLayerDataProviderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SRGIntegrationLayerDataProviderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F1519461AC5A7F200AE051D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9F1519511ACA9D7B00AE051D /* SRGILComScoreAnalyticsIndividualDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILComScoreAnalyticsIndividualDataSource.h; sourceTree = "<group>"; };
+		9F1519521ACA9D7B00AE051D /* SRGILComScoreAnalyticsIndividualDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILComScoreAnalyticsIndividualDataSource.m; sourceTree = "<group>"; };
+		9F1519541ACAA02900AE051D /* SRGILStreamSenseAnalyticsIndividualDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILStreamSenseAnalyticsIndividualDataSource.h; sourceTree = "<group>"; };
+		9F1519551ACAA02900AE051D /* SRGILStreamSenseAnalyticsIndividualDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILStreamSenseAnalyticsIndividualDataSource.m; sourceTree = "<group>"; };
+		9F1519571ACAA30A00AE051D /* SRGAnalyticsIndividualDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGAnalyticsIndividualDataSource.h; sourceTree = "<group>"; };
 		B78A0E1C877A3AAFA06CB8E2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CC7117E85185279031EDDD7C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,8 +106,13 @@
 		9F1519371AC5A7F200AE051D /* SRGIntegrationLayerDataProvider */ = {
 			isa = PBXGroup;
 			children = (
-				9F1519381AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.h */,
-				9F15193A1AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.m */,
+				9F1519381AC5A7F200AE051D /* SRGILAnalyticsDataSource.h */,
+				9F15193A1AC5A7F200AE051D /* SRGILAnalyticsDataSource.m */,
+				9F1519571ACAA30A00AE051D /* SRGAnalyticsIndividualDataSource.h */,
+				9F1519511ACA9D7B00AE051D /* SRGILComScoreAnalyticsIndividualDataSource.h */,
+				9F1519521ACA9D7B00AE051D /* SRGILComScoreAnalyticsIndividualDataSource.m */,
+				9F1519541ACAA02900AE051D /* SRGILStreamSenseAnalyticsIndividualDataSource.h */,
+				9F1519551ACAA02900AE051D /* SRGILStreamSenseAnalyticsIndividualDataSource.m */,
 			);
 			path = SRGIntegrationLayerDataProvider;
 			sourceTree = "<group>";
@@ -252,7 +264,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F15193B1AC5A7F200AE051D /* SRGIntegrationLayerDataProvider.m in Sources */,
+				9F1519561ACAA02900AE051D /* SRGILStreamSenseAnalyticsIndividualDataSource.m in Sources */,
+				9F1519531ACA9D7B00AE051D /* SRGILComScoreAnalyticsIndividualDataSource.m in Sources */,
+				9F15193B1AC5A7F200AE051D /* SRGILAnalyticsDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
