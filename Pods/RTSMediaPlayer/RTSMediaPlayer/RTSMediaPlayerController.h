@@ -21,27 +21,32 @@
  */
 typedef NS_ENUM(NSInteger, RTSMediaPlaybackState) {
 	/**
-	 *  Default state when controller is initialized
+	 *  Default state when controller is initialized. The player also returns to the idle state when an error occurs or when the `stop` method is called.
 	 */
 	RTSMediaPlaybackStateIdle,
 	
 	/**
-	 *  Player is ready to play or buffering media, the AVPlayer object has been loaded
+	 *  Player is preparing to play the media. It will load everything needed to play the media. This can typically take some time under bad network conditions.
 	 */
-	RTSMediaPlaybackStatePendingPlay,
+	RTSMediaPlaybackStatePreparing,
 	
 	/**
-	 *  Media is playing
+	 *  The media is playing, i.e. you can hear sound and/or see a video playing.
 	 */
 	RTSMediaPlaybackStatePlaying,
 	
 	/**
-	 *  Media is paused
+	 *  The player is paused at the user request.
 	 */
 	RTSMediaPlaybackStatePaused,
 	
 	/**
-	 *  Ends either when the media's end is reached, if an error occurs or if the user dismiss it's enclosing view controller
+	 *  The player is stalled, i.e. it is waiting for the media to resume playing.
+	 */
+	RTSMediaPlaybackStateStalled,
+	
+	/**
+	 *  The player is in the ended state when the media has reached its end. For a live media, this state is impossible.
 	 */
 	RTSMediaPlaybackStateEnded
 };
@@ -94,7 +99,7 @@ FOUNDATION_EXTERN NSString * const RTSMediaPlayerNowPlayingMediaDidChangeNotific
 /**
  *  Posted when the AVPlayer instances has been created and is ready to play the media`
  */
-FOUNDATION_EXTERN NSString * const RTSMediaPlayerReadyToPlayNotification;
+FOUNDATION_EXTERN NSString * const RTSMediaPlayerIsReadyToPlayNotification;
 
 /**
  *  RTSMediaPlayerController is inspired by the MPMoviePlayerController class.
@@ -157,7 +162,7 @@ FOUNDATION_EXTERN NSString * const RTSMediaPlayerReadyToPlayNotification;
  *
  *  @discussion This property contains the view used for presenting the media content. To display the view into your own view hierarchy, use the `attachPlayerToView:` method.
  *  This view has two gesture recognziers: a single tap gesture recognizer and a double tap gesture recognizer which respectively toggle overlays visibility and toggle the video of aspect between `AVLayerVideoGravityResizeAspectFill` and `AVLayerVideoGravityResizeAspect`.
- *  If you want to handle taps yourself, you can remove the gesture recognizers from the view and add your own gesture recognizer instead.
+ *  If you want to handle taps yourself, you can disable these gesture recognizers and add your own gesture recognizer.
  *
  *  @see attachPlayerToView:
  */
@@ -206,6 +211,8 @@ FOUNDATION_EXTERN NSString * const RTSMediaPlayerReadyToPlayNotification;
  */
 - (void) play;
 
+- (void) prepareToPlay;
+
 /**
  *  Start playing media specified with its identifier.
  *
@@ -233,10 +240,20 @@ FOUNDATION_EXTERN NSString * const RTSMediaPlayerReadyToPlayNotification;
 - (void) seekToTime:(NSTimeInterval)time;
 
 /**
- *  ----------------------------
- *  @name Managing Overlay Views
- *  ----------------------------
+ *  -------------------
+ *  @name Overlay Views
+ *  -------------------
  */
+
+FOUNDATION_EXTERN NSString * const RTSMediaPlayerWillShowControlOverlaysNotification;
+FOUNDATION_EXTERN NSString * const RTSMediaPlayerDidShowControlOverlaysNotification;
+FOUNDATION_EXTERN NSString * const RTSMediaPlayerWillHideControlOverlaysNotification;
+FOUNDATION_EXTERN NSString * const RTSMediaPlayerDidHideControlOverlaysNotification;
+
+/**
+ *  <#Description#>
+ */
+@property (weak) IBOutlet UIView *activityView;
 
 /**
  *  A collection of views that will be shown/hidden automatically or manually when user interacts with the view.
