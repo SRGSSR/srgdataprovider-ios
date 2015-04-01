@@ -7,12 +7,14 @@
 //
 
 #import <AFNetworking/AFNetworking.h>
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
 #import "SRGILTokenHandler.h"
 #import "SRGILErrors.h"
 
 // Keep the trailing slash
 //static NSString * const SRGTokenHandlerBaseURLString = @"http://www.srf.ch/player/token?acl=/";
-static NSString * const SRGTokenHandlerBaseURLString = @"http://tp.srgssr.ch/token/akahd.json.xml?stream=/";
+static NSString * const SRGILTokenHandlerBaseURLString = @"http://tp.srgssr.ch/token/akahd.json.xml?stream=/";
 
 @implementation SRGILTokenHandler
 
@@ -42,7 +44,9 @@ static NSString * const SRGTokenHandlerBaseURLString = @"http://tp.srgssr.ch/tok
            completionBlock:(SRGILTokenRequestCompletionBlock)completionBlock;
 {
     NSAssert(url, @"One needs an URL here.");
-        
+    
+    DDLogDebug(@"Requesting token for URL: %@", url);
+
     [[NSOperationQueue new] addOperationWithBlock:^{
         NSError *error = nil;
         NSString *JSONString = [NSString stringWithContentsOfURL:[self tokenRequestURLForURL:url]
@@ -88,7 +92,7 @@ static NSString * const SRGTokenHandlerBaseURLString = @"http://tp.srgssr.ch/tok
             [finalURLString appendString:segmentation];
         }
        
-        NSLog(@"[Debug] Final Tokenized URL: %@", finalURLString);
+        DDLogDebug(@"Final Tokenized URL: %@", finalURLString);
         
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             completionBlock(!!error ? nil : [NSURL URLWithString:finalURLString], error);
@@ -106,18 +110,8 @@ static NSString * const SRGTokenHandlerBaseURLString = @"http://tp.srgssr.ch/tok
     [urlPaths removeLastObject];
     [urlPaths addObject:@"*"];
     
-    return [NSURL URLWithString:[SRGTokenHandlerBaseURLString stringByAppendingString:[urlPaths componentsJoinedByString:@"/"]]];
+    return [NSURL URLWithString:[SRGILTokenHandlerBaseURLString stringByAppendingString:[urlPaths componentsJoinedByString:@"/"]]];
 }
 
-// Obsolete. But might be useful again in the future?
-- (BOOL)canReadURL:(NSURL *)url
-{
-    NSAssert(url, @"Needs an URL to test");
-    NSAssert(![NSThread isMainThread], @"Must not be run on the main thread");
-    
-    NSError *error;
-    [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error] ;
-    return (error == nil);
-}
 
 @end

@@ -1,5 +1,13 @@
 PODS:
   - AFNetworking (1.3.4)
+  - CocoaLumberjack (2.0.0):
+    - CocoaLumberjack/Default (= 2.0.0)
+    - CocoaLumberjack/Extensions (= 2.0.0)
+  - CocoaLumberjack/Core (2.0.0)
+  - CocoaLumberjack/Default (2.0.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.0.0):
+    - CocoaLumberjack/Default
   - comScore-iOS-SDK (3.1502.26)
   - libextobjc/EXTScope (0.4.1):
     - libextobjc/RuntimeExtensions
@@ -15,6 +23,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 1.3.4)
+  - CocoaLumberjack (~> 2.0.0)
   - RTSAnalytics (from `git@bitbucket.org:rtsmb/rtsanalytics-ios.git`, branch `develop`)
   - RTSMediaPlayer (from `git@bitbucket.org:rtsmb/rtsmediaplayer-ios.git`, branch `develop`)
   - SGVReachability (~> 1.0.0)
@@ -33,10 +42,10 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   RTSAnalytics:
-    :commit: aa818e67d95128e1b7f8ba634a6f4e4a08b7eede
+    :commit: ab38a436bad6f99e4bf1f4ac1776411b8987252c
     :git: git@bitbucket.org:rtsmb/rtsanalytics-ios.git
   RTSMediaPlayer:
-    :commit: 833a162ef1da78fa605d3cf963e74b087163cc3a
+    :commit: aa1f8c1bf787ac0c2ba4af2cf2a82ad459ddf633
     :git: git@bitbucket.org:rtsmb/rtsmediaplayer-ios.git
   TransitionKit:
     :commit: 6874dea2229bdefb89f6c8f708f1fae467ee5ba2
@@ -44,6 +53,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
+  CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
   comScore-iOS-SDK: 75e852619b2c7353156023d4eb7cae42ef83c670
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   RTSAnalytics: fde7a0a3bd60438e9022daf893ab5aefea821420

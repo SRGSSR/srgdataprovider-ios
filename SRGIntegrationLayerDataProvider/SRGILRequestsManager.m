@@ -5,6 +5,7 @@
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import <SGVReachability/SGVReachability.h>
 #import <AFNetworking/AFNetworking.h>
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 #import "SRGILRequestsManager.h"
 
@@ -80,9 +81,9 @@ static SGVReachability *reachability;
         return nil; // Avoid caching response.
     }];
     [self.httpClient enqueueHTTPRequestOperation:operation];
-#ifdef DEBUG
-    NSLog(@"[Info] <%p> Requesting URL: %@", self, request.URL);
-#endif
+    
+    DDLogDebug(@"<%p> Requesting URL: %@", self, request.URL);
+
     return operation;
 }
 
@@ -163,7 +164,8 @@ static SGVReachability *reachability;
         return;
     }
 
-    NSLog(@"[Debug] Cancelling all (%lu) requests.", (unsigned long)[self.ongoingVideoListRequests count]+[self.ongoingAssetRequests count]);
+    DDLogInfo(@"Cancelling all (%lu) requests.", (unsigned long)[self.ongoingVideoListRequests count]+[self.ongoingAssetRequests count]);
+
     [[self.ongoingVideoListRequests allValues] makeObjectsPerformSelector:@selector(cancel)];
     [[self.ongoingAssetRequests allValues] makeObjectsPerformSelector:@selector(cancel)];
     [self.ongoingAssetRequests removeAllObjects];

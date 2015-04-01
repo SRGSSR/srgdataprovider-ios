@@ -16,7 +16,6 @@ typedef void (^SRGILTokenRequestCompletionBlock) (NSURL *tokenizedURL, NSError *
 
 /**
  * Perform an async operation to return a tokenized URL
- * To check the validity of the 'tokenized' URL, use: canReadURL:
  */
 - (void)requestTokenForURL:(NSURL *)url
  appendLogicalSegmentation:(NSString *)segmentation
