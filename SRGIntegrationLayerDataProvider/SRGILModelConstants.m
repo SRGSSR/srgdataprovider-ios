@@ -91,3 +91,79 @@ NSString *SRGILMediaBlockingReasonMessageForReason(SRGILMediaBlockingReason reas
     }
 }
 
+SRGILAssetSubSetType SRGILAssetSubSetTypeForString(NSString *subtypeString)
+{
+    SRGILAssetSubSetType result = SRGILAssetSubSetTypeUnknown;
+    if (subtypeString) {
+        if ([@"EPISODE" isEqualToString:subtypeString]) {
+            return SRGILAssetSubSetTypeEpisode;
+        }
+        
+        if ([@"TRAILER" isEqualToString:subtypeString]) {
+            return SRGILAssetSubSetTypeTrailer;
+        }
+        
+        if ([@"LIVESTREAM" isEqualToString:subtypeString]) {
+            return SRGILAssetSubSetTypeLivestream;
+        }
+    }
+    
+    return result;
+}
+
+SRGILPlaylistProtocol SRGILPlayListProtocolForString(NSString *protocol)
+{
+    if (protocol) {
+        if ([@"HTTP-HDS" isEqualToString:protocol]) {
+            return SRGILPlaylistProtocolHDS;
+        }
+        if ([@"HTTP-HLS" isEqualToString:protocol]) {
+            return SRGILPlaylistProtocolHLS;
+        }
+        if ([@"HTTP" isEqualToString:protocol]) {
+            return SRGILPlaylistProtocolHTTP;
+        }
+        if ([@"RTMP" isEqualToString:protocol]) {
+            return SRGILPlaylistProtocolRTMP;
+        }
+    }
+    return SRGILPlaylistProtocolUnknown;
+}
+
+SRGILPlaylistURLQuality SRGILPlaylistURLQualityForString(NSString *quality)
+{
+    if (quality) {
+        if ([@"SD" isEqualToString:quality]) {
+            return SRGILPlaylistURLQualitySD;
+        }
+        if ([@"HD" isEqualToString:quality]) {
+            return SRGILPlaylistURLQualityHD;
+        }
+        if ([@"SQ" isEqualToString:quality]) {
+            return SRGILPlaylistURLQualitySQ;
+        }
+        if ([@"LQ" isEqualToString:quality]) {
+            return SRGILPlaylistURLQualityLQ;
+        }
+        if ([@"MQ" isEqualToString:quality]) {
+            return SRGILPlaylistURLQualityMQ;
+        }
+        if ([@"HQ" isEqualToString:quality]) {
+            return SRGILPlaylistURLQualityHQ;
+        }
+    }
+    return SRGILPlaylistURLQualityUnknown;
+}
+
+SRGILPlaylistSegmentation SRGILPlaylistSegmentationForString(NSString *segmentation)
+{
+    if (segmentation) {
+        if ([@"PHYSICAL" isEqualToString:segmentation]) {
+            return SRGILPlaylistSegmentationPhysical;
+        }
+        if ([@"LOGICAL" isEqualToString:segmentation]) {
+            return SRGILPlaylistSegmentationLogical;
+        }
+    }
+    return SRGILPlaylistSegmentationUnknown;
+}

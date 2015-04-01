@@ -9,22 +9,10 @@
 #import <Foundation/Foundation.h>
 
 #import "SRGILModelObject.h"
+#import "SRGILModelConstants.h"
 #import "SRGILRubric.h"
 #import "SRGILShow.h"
 #import "SRGILVideo.h"
-
-
-/*
- * Asset sub-types (can be used in SRGVideo or SRGAsset)
- */
-typedef NS_ENUM(NSInteger, SRGAssetSubSetType) {
-    SRGAssetSubSetTypeEpisode,
-    SRGAssetSubSetTypeTrailer,
-    SRGAssetSubSetTypeLivestream,
-    SRGAssetSubSetTypeUnknown,
-};
-
-extern SRGAssetSubSetType assetSubSetTypeForString(NSString* subtypeString);
 
 /**
  * See https://github.com/mmz-srf/srf-integrationtest/blob/master/intlayer-integrationtests/src/test/resources/schema/assetSet.xsd

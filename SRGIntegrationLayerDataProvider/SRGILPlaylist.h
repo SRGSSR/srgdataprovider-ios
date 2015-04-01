@@ -8,36 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "SRGILModelObject.h"
-
-typedef NS_ENUM(NSInteger, SRGPlaylistProtocol) {
-    SRGPlaylistProtocolHLS,
-    SRGPlaylistProtocolHDS,
-    SRGPlaylistProtocolRTMP,
-    SRGPlaylistProtocolHTTP,
-    SRGPlaylistProtocolUnknown
-};
-
-typedef NS_ENUM(NSInteger, SRGPlaylistURLQuality) {
-    SRGPlaylistURLQualitySD,
-    SRGPlaylistURLQualityHD,
-    SRGPlaylistURLQualitySQ,
-    SRGPlaylistURLQualityLQ,
-    SRGPlaylistURLQualityMQ,
-    SRGPlaylistURLQualityHQ,
-    SRGPlaylistURLQualityUnknown
-};
-
-typedef NS_ENUM(NSInteger, SRGPlaylistSegmentation) {
-    SRGPlaylistSegmentationUnknown,
-    SRGPlaylistSegmentationLogical,
-    SRGPlaylistSegmentationPhysical
-};
+#import "SRGILModelConstants.h"
 
 @interface SRGILPlaylist : SRGILModelObject
 
-@property(nonatomic, assign, readonly) SRGPlaylistProtocol protocol;
-@property(nonatomic, assign, readonly) SRGPlaylistSegmentation segmentation;
+@property(nonatomic, assign, readonly) SRGILPlaylistProtocol protocol;
+@property(nonatomic, assign, readonly) SRGILPlaylistSegmentation segmentation;
 
-- (NSURL *)URLForQuality:(SRGPlaylistURLQuality)quality;
+- (NSURL *)URLForQuality:(SRGILPlaylistURLQuality)quality;
 
 @end

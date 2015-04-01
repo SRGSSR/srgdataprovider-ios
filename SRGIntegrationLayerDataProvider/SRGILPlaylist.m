@@ -8,68 +8,11 @@
 
 #import "SRGILPlaylist.h"
 
-SRGPlaylistProtocol SRGPlayListProtocolForString(NSString *protocol)
-{
-    if (protocol) {
-        if ([@"HTTP-HDS" isEqualToString:protocol]) {
-            return SRGPlaylistProtocolHDS;
-        }
-        if ([@"HTTP-HLS" isEqualToString:protocol]) {
-            return SRGPlaylistProtocolHLS;
-        }
-        if ([@"HTTP" isEqualToString:protocol]) {
-            return SRGPlaylistProtocolHTTP;
-        }
-        if ([@"RTMP" isEqualToString:protocol]) {
-            return SRGPlaylistProtocolRTMP;
-        }
-    }
-    return SRGPlaylistProtocolUnknown;
-}
-
-SRGPlaylistURLQuality SRGPlaylistURLQualityForString(NSString *quality)
-{
-    if (quality) {
-        if ([@"SD" isEqualToString:quality]) {
-            return SRGPlaylistURLQualitySD;
-        }
-        if ([@"HD" isEqualToString:quality]) {
-            return SRGPlaylistURLQualityHD;
-        }
-        if ([@"SQ" isEqualToString:quality]) {
-            return SRGPlaylistURLQualitySQ;
-        }
-        if ([@"LQ" isEqualToString:quality]) {
-            return SRGPlaylistURLQualityLQ;
-        }
-        if ([@"MQ" isEqualToString:quality]) {
-            return SRGPlaylistURLQualityMQ;
-        }
-        if ([@"HQ" isEqualToString:quality]) {
-            return SRGPlaylistURLQualityHQ;
-        }
-    }
-    return SRGPlaylistURLQualityUnknown;
-}
-
-SRGPlaylistSegmentation SRGPlaylistSegmentationForString(NSString *segmentation)
-{
-    if (segmentation) {
-        if ([@"PHYSICAL" isEqualToString:segmentation]) {
-            return SRGPlaylistSegmentationPhysical;
-        }
-        if ([@"LOGICAL" isEqualToString:segmentation]) {
-            return SRGPlaylistSegmentationLogical;
-        }
-    }
-    return SRGPlaylistSegmentationUnknown;
-}
-
 @interface SRGILPlaylist()
 
-@property(nonatomic) SRGPlaylistProtocol protocol;
-@property(nonatomic) SRGPlaylistSegmentation segmentation;
-@property(nonatomic) SRGPlaylistURLQuality quality;
+@property(nonatomic) SRGILPlaylistProtocol protocol;
+@property(nonatomic) SRGILPlaylistSegmentation segmentation;
+@property(nonatomic) SRGILPlaylistURLQuality quality;
 @property(nonatomic) NSDictionary *URLs;
 
 @end
@@ -88,13 +31,13 @@ SRGPlaylistSegmentation SRGPlaylistSegmentationForString(NSString *segmentation)
     self = [super initWithDictionary:dictionary];
     
     if (self) {
-        _protocol = SRGPlayListProtocolForString([dictionary objectForKey:@"@protocol"]);
-        _segmentation = SRGPlaylistSegmentationForString([dictionary objectForKey:@"@segmentation"]);
+        _protocol = SRGILPlayListProtocolForString([dictionary objectForKey:@"@protocol"]);
+        _segmentation = SRGILPlaylistSegmentationForString([dictionary objectForKey:@"@segmentation"]);
         
         NSArray *rawURLs = [dictionary objectForKey:@"url"];
         NSMutableDictionary *tmp = [NSMutableDictionary dictionary];
         for (NSDictionary *rawURLDict in rawURLs) {
-            NSNumber *key = @(SRGPlaylistURLQualityForString([rawURLDict objectForKey:@"@quality"]));
+            NSNumber *key = @(SRGILPlaylistURLQualityForString([rawURLDict objectForKey:@"@quality"]));
             NSURL *value = [NSURL URLWithString:[rawURLDict objectForKey:@"text"]];
             if (key && value) {
                 tmp[key] = value;
@@ -106,7 +49,7 @@ SRGPlaylistSegmentation SRGPlaylistSegmentationForString(NSString *segmentation)
     return self;
 }
 
-- (NSURL *)URLForQuality:(SRGPlaylistURLQuality)quality
+- (NSURL *)URLForQuality:(SRGILPlaylistURLQuality)quality
 {
     return [_URLs objectForKey:@(quality)];
 }

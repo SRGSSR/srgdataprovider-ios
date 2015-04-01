@@ -44,4 +44,44 @@ typedef NS_ENUM(NSInteger, SRGILMediaBlockingReason) {
 SRGILMediaBlockingReason SRGILMediaBlockingReasonForKey(NSString *key);
 NSString *SRGILMediaBlockingReasonMessageForReason(SRGILMediaBlockingReason reason);
 
+/*
+ * Asset sub-types (can be used in SRGVideo or SRGAsset)
+ */
+typedef NS_ENUM(NSInteger, SRGILAssetSubSetType) {
+    SRGILAssetSubSetTypeEpisode,
+    SRGILAssetSubSetTypeTrailer,
+    SRGILAssetSubSetTypeLivestream,
+    SRGILAssetSubSetTypeUnknown,
+};
+
+SRGILAssetSubSetType SRGILAssetSubSetTypeForString(NSString *subtypeString);
+
+typedef NS_ENUM(NSInteger, SRGILPlaylistProtocol) {
+    SRGILPlaylistProtocolHLS,
+    SRGILPlaylistProtocolHDS,
+    SRGILPlaylistProtocolRTMP,
+    SRGILPlaylistProtocolHTTP,
+    SRGILPlaylistProtocolUnknown
+};
+
+typedef NS_ENUM(NSInteger, SRGILPlaylistURLQuality) {
+    SRGILPlaylistURLQualitySD,
+    SRGILPlaylistURLQualityHD,
+    SRGILPlaylistURLQualitySQ,
+    SRGILPlaylistURLQualityLQ,
+    SRGILPlaylistURLQualityMQ,
+    SRGILPlaylistURLQualityHQ,
+    SRGILPlaylistURLQualityUnknown
+};
+
+typedef NS_ENUM(NSInteger, SRGILPlaylistSegmentation) {
+    SRGILPlaylistSegmentationUnknown,
+    SRGILPlaylistSegmentationLogical,
+    SRGILPlaylistSegmentationPhysical
+};
+
+SRGILPlaylistProtocol SRGILPlayListProtocolForString(NSString *protocol);
+SRGILPlaylistURLQuality SRGILPlaylistURLQualityForString(NSString *quality);
+SRGILPlaylistSegmentation SRGILPlaylistSegmentationForString(NSString *segmentation);
+
 #endif

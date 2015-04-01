@@ -9,25 +9,6 @@
 #import "SRGILAssetSet.h"
 #import "SRGILAsset.h"
 
-SRGAssetSubSetType assetSubSetTypeForString(NSString *subtypeString)
-{
-    SRGAssetSubSetType result = SRGAssetSubSetTypeUnknown;    
-    if (subtypeString) {
-        if ([@"EPISODE" isEqualToString:subtypeString]) {
-            return SRGAssetSubSetTypeEpisode;
-        }
-        
-        if ([@"TRAILER" isEqualToString:subtypeString]) {
-            return SRGAssetSubSetTypeTrailer;
-        }
-        
-        if ([@"LIVESTREAM" isEqualToString:subtypeString]) {
-            return SRGAssetSubSetTypeLivestream;
-        }
-    }
-    
-    return result;
-}
 
 @implementation SRGILAssetSet
 
@@ -37,7 +18,7 @@ SRGAssetSubSetType assetSubSetTypeForString(NSString *subtypeString)
     if (self) {
         _show = [[SRGILShow alloc] initWithDictionary:[dictionary objectForKey:@"Show"]];
         _rubric = [[SRGILRubric alloc] initWithDictionary:[dictionary objectForKey:@"Rubric"]];
-        _subtype = assetSubSetTypeForString([dictionary objectForKey:@"assetSubSetId"]);
+        _subtype = SRGILAssetSubSetTypeForString([dictionary objectForKey:@"assetSubSetId"]);
         
         NSString *publishedDateString = (NSString *)[dictionary objectForKey:@"publishedDate"];
         static NSDateFormatter *dateFormatter;
