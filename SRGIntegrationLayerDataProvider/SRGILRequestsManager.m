@@ -349,7 +349,7 @@ static SGVReachability *reachability;
                     newError = error;
                 }
                 else {
-                    newError = SRGCreateUserFacingError(error.localizedDescription, error, SRGILErrorCodeInvalidData);
+                    newError = SRGILCreateUserFacingError(error.localizedDescription, error, SRGILErrorCodeInvalidData);
                 }
                 return completionBlock(nil, newError);
             });
@@ -361,7 +361,7 @@ static SGVReachability *reachability;
                     return completionBlock(media, nil);
                 }
                 else {
-                    NSError *newError = SRGCreateUserFacingError(errorMessage, nil, SRGILErrorCodeInvalidData);
+                    NSError *newError = SRGILCreateUserFacingError(errorMessage, nil, SRGILErrorCodeInvalidData);
                     return completionBlock(nil, newError);
                 }
             });

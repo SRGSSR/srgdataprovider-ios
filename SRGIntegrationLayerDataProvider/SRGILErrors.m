@@ -11,7 +11,7 @@
 
 NSString *const SRGILErrorDomain = @"ch.srgssr.integrationlayer";
 
-NSError *SRGCreateUserFacingError(NSString *failureReason, NSError *underlyingError, enum SRGILErrorCode errorCode)
+NSError *SRGILCreateUserFacingError(NSString *failureReason, NSError *underlyingError, enum SRGILErrorCode errorCode)
 {
     NSMutableDictionary *errorInfo = [NSMutableDictionary dictionary];
     

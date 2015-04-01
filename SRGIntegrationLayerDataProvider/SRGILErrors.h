@@ -34,4 +34,4 @@ typedef NS_ENUM (NSInteger, SRGILErrorCode) {
 // Domain for IL errors
 extern NSString *const SRGILErrorDomain;
 
-NSError *SRGCreateUserFacingError(NSString *failureReason, NSError *underlyingError, enum SRGILErrorCode errorCode);
+NSError *SRGILCreateUserFacingError(NSString *failureReason, NSError *underlyingError, enum SRGILErrorCode errorCode);
