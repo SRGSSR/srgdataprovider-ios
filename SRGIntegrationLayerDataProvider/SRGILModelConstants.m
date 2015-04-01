@@ -10,6 +10,27 @@
 
 NSString * const SRGILVideoUseHighQualityOverCellularNetworkKey = @"SRGILVideoUseHighQualityOverCellularNetworkKey";
 
+SRGILMediaImageUsage SRGILMediaImageUsageFromString(NSString *input)
+{
+    SRGILMediaImageUsage usage = SRGILMediaImageUsageUnknown;
+    if ([@"HEADER_SRF_PLAYER" isEqualToString:input]) {
+        usage = SRGILMediaImageUsageHeader;
+    }
+    else if ([@"PODCAST" isEqualToString:input]) {
+        usage = SRGILMediaImageUsagePodcast;
+    }
+    else if ([@"WEBVISUAL" isEqualToString:input]) {
+        usage = SRGILMediaImageUsageWeb;
+    }
+    else if ([@"EDITORIALPICK" isEqualToString:input]) {
+        usage = SRGILMediaImageUsageEditorialPick;
+    }
+    else if ([@"EPISODE_IMAGE" isEqualToString:input]) {
+        usage = SRGILMediaImageUsageShowEpisode;
+    }
+    return usage;
+}
+
 NSString * const SRGILMediaBlockingReasonKeyNone           = @"NONE";
 NSString * const SRGILMediaBlockingReasonKeyGeoblock       = @"GEOBLOCK";
 NSString * const SRGILMediaBlockingReasonKeyLegal          = @"LEGAL";
@@ -70,23 +91,3 @@ NSString *SRGILMediaBlockingReasonMessageForReason(SRGILMediaBlockingReason reas
     }
 }
 
-SRGILMediaImageUsage SRGMediaImageUsageFromString(NSString *input)
-{
-    SRGILMediaImageUsage usage = SRGILMediaImageUsageUnknown;
-    if ([@"HEADER_SRF_PLAYER" isEqualToString:input]) {
-        usage = SRGILMediaImageUsageHeader;
-    }
-    else if ([@"PODCAST" isEqualToString:input]) {
-        usage = SRGILMediaImageUsagePodcast;
-    }
-    else if ([@"WEBVISUAL" isEqualToString:input]) {
-        usage = SRGILMediaImageUsageWeb;
-    }
-    else if ([@"EDITORIALPICK" isEqualToString:input]) {
-        usage = SRGILMediaImageUsageEditorialPick;
-    }
-    else if ([@"EPISODE_IMAGE" isEqualToString:input]) {
-        usage = SRGILMediaImageUsageShowEpisode;
-    }
-    return usage;
-}
