@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^SRGTokenRequestCompletionBlock) (NSURL *tokenizedURL, NSError *error);
+typedef void (^SRGILTokenRequestCompletionBlock) (NSURL *tokenizedURL, NSError *error);
 
-@interface SRGTokenHandler : NSObject
+@interface SRGILTokenHandler : NSObject
 
 + (instancetype)sharedHandler;
 
@@ -20,6 +20,6 @@ typedef void (^SRGTokenRequestCompletionBlock) (NSURL *tokenizedURL, NSError *er
  */
 - (void)requestTokenForURL:(NSURL *)url
  appendLogicalSegmentation:(NSString *)segmentation
-           completionBlock:(SRGTokenRequestCompletionBlock)completionBlock;
+           completionBlock:(SRGILTokenRequestCompletionBlock)completionBlock;
 
 @end

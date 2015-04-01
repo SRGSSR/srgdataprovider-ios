@@ -37,7 +37,7 @@
 /**
  * AssetSet sub-type.
  */
-@property (nonatomic, assign, readonly) SRGAssetSubSetType subtype;
+@property (nonatomic, assign, readonly) SRGILAssetSubSetType subtype;
 
 @property (nonatomic, strong) NSArray *assets;
 

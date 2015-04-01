@@ -55,7 +55,7 @@
  * Asset set subtype (episode, trailer or livestream)
  * Optional field: is either filled in SRGVideo or in SRGAsset.
  */
-@property (nonatomic, assign) SRGAssetSubSetType assetSetSubType;
+@property (nonatomic, assign) SRGILAssetSubSetType assetSetSubType;
 
 @property (nonatomic) BOOL isLivestreamPlaylist;
 
@@ -64,7 +64,7 @@
 - (NSURL *)MQHLSURL;
 - (NSURL *)MQHTTPURL;
 
-- (SRGPlaylistSegmentation)segmentationForURL:(NSURL *)URL;
+- (SRGILPlaylistSegmentation)segmentationForURL:(NSURL *)URL;
 
 /**
  * List of the playlist (i.e. URLs) of the video

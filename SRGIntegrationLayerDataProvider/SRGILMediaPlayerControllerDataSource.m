@@ -8,7 +8,7 @@
 
 #import "SRGILMediaPlayerControllerDataSource.h"
 #import "SRGILRequestsManager.h"
-#import "SRGTokenHandler.h"
+#import "SRGILTokenHandler.h"
 
 #import "SRGILModel.h"
 #import "SRGILMedia+Private.h"
@@ -45,7 +45,7 @@
     
     if (video) {
         NSURL *contentURL = [self contentURLForMedia:video];
-        [[SRGTokenHandler sharedHandler] requestTokenForURL:contentURL
+        [[SRGILTokenHandler sharedHandler] requestTokenForURL:contentURL
                                   appendLogicalSegmentation:nil
                                             completionBlock:^(NSURL *tokenizedURL, NSError *error) {
                                                 completionHandler(tokenizedURL, error);
@@ -57,7 +57,7 @@
                             completionBlock:^(SRGILMedia *media, NSError *error) {
                                 _identifiedDataSources[identifier] = media;
                                 NSURL *contentURL = [self contentURLForMedia:video];
-                                [[SRGTokenHandler sharedHandler] requestTokenForURL:contentURL
+                                [[SRGILTokenHandler sharedHandler] requestTokenForURL:contentURL
                                                           appendLogicalSegmentation:nil
                                                                     completionBlock:^(NSURL *tokenizedURL, NSError *error) {
                                                                         completionHandler(tokenizedURL, error);

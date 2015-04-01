@@ -64,7 +64,7 @@
         _assetMetadatas = [NSArray arrayWithArray:tmp];
 
         _assetSet = [[SRGILAssetSet alloc] initWithDictionary:[dictionary objectForKey:@"AssetSet"]];
-        _assetSetSubType = assetSubSetTypeForString([dictionary objectForKey:@"assetSubSetId"]);
+        _assetSetSubType = SRGILAssetSubSetTypeForString([dictionary objectForKey:@"assetSubSetId"]);
         
         _image = [[SRGILImage alloc] initWithDictionary:[dictionary objectForKey:@"Image"]];
         _blockingReason = SRGILMediaBlockingReasonForKey([dictionary objectForKey:@"block"]); // it handles missing key.
@@ -127,8 +127,8 @@
 - (BOOL)isLiveStream
 {
     // TODO: Still not have a definitive answer on the subject
-    return self.assetSetSubType == SRGAssetSubSetTypeLivestream
-    || self.assetSet.subtype == SRGAssetSubSetTypeLivestream
+    return self.assetSetSubType == SRGILAssetSubSetTypeLivestream
+    || self.assetSet.subtype == SRGILAssetSubSetTypeLivestream
     || self.isLivestreamPlaylist;
 }
 
@@ -190,25 +190,25 @@
 
 - (NSURL *)HDHLSURL
 {
-    return [self URLForPlaylistWithProtocol:SRGPlaylistProtocolHLS withQuality:SRGPlaylistURLQualityHD];
+    return [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityHD];
 }
 
 - (NSURL *)SDHLSURL
 {
-    return [self URLForPlaylistWithProtocol:SRGPlaylistProtocolHLS withQuality:SRGPlaylistURLQualitySD];
+    return [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualitySD];
 }
 
 - (NSURL *)MQHLSURL
 {
-    return [self URLForPlaylistWithProtocol:SRGPlaylistProtocolHLS withQuality:SRGPlaylistURLQualityMQ];
+    return [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityMQ];
 }
 
 - (NSURL *)MQHTTPURL
 {
-    return [self URLForPlaylistWithProtocol:SRGPlaylistProtocolHTTP withQuality:SRGPlaylistURLQualityMQ];
+    return [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTP withQuality:SRGILPlaylistURLQualityMQ];
 }
 
-- (NSURL *)URLForPlaylistWithProtocol:(enum SRGPlaylistProtocol)playlistProtocol withQuality:(SRGPlaylistURLQuality)quality {
+- (NSURL *)URLForPlaylistWithProtocol:(enum SRGILPlaylistProtocol)playlistProtocol withQuality:(SRGILPlaylistURLQuality)quality {
     __block NSURL *result = nil;
 
     [self.playlists enumerateObjectsUsingBlock:^(SRGILPlaylist *pl, NSUInteger idx, BOOL *stop) {
@@ -224,12 +224,12 @@
     return result;
 }
 
-- (SRGPlaylistSegmentation)segmentationForURL:(NSURL *)URL
+- (SRGILPlaylistSegmentation)segmentationForURL:(NSURL *)URL
 {
     if ([_cachedSegmentationFlags objectForKey:URL]) {
-        return (SRGPlaylistSegmentation)[[_cachedSegmentationFlags objectForKey:URL] integerValue];
+        return (SRGILPlaylistSegmentation)[[_cachedSegmentationFlags objectForKey:URL] integerValue];
     }
-    return SRGPlaylistSegmentationUnknown;
+    return SRGILPlaylistSegmentationUnknown;
 }
 
 - (BOOL)isBlocked

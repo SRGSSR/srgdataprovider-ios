@@ -1,5 +1,5 @@
 //
-//  SRGPlaylist.h
+//  SRGILPlaylist.h
 //  SRFPlayer
 //
 //  Created by Frédéric VERGEZ on 20/03/14.

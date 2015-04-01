@@ -7,18 +7,18 @@
 //
 
 #import <AFNetworking/AFNetworking.h>
-#import "SRGTokenHandler.h"
+#import "SRGILTokenHandler.h"
 #import "SRGILErrors.h"
 
 // Keep the trailing slash
 //static NSString * const SRGTokenHandlerBaseURLString = @"http://www.srf.ch/player/token?acl=/";
 static NSString * const SRGTokenHandlerBaseURLString = @"http://tp.srgssr.ch/token/akahd.json.xml?stream=/";
 
-@implementation SRGTokenHandler
+@implementation SRGILTokenHandler
 
 + (instancetype)sharedHandler
 {
-    static SRGTokenHandler *sharedInstance = nil;
+    static SRGILTokenHandler *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[[self class] alloc] tokenHandlerCustomInit];
@@ -39,7 +39,7 @@ static NSString * const SRGTokenHandlerBaseURLString = @"http://tp.srgssr.ch/tok
 
 - (void)requestTokenForURL:(NSURL *)url
  appendLogicalSegmentation:(NSString *)segmentation
-           completionBlock:(SRGTokenRequestCompletionBlock)completionBlock;
+           completionBlock:(SRGILTokenRequestCompletionBlock)completionBlock;
 {
     NSAssert(url, @"One needs an URL here.");
         

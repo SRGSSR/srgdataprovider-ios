@@ -35,7 +35,7 @@
 		9FC7D8781ACADCE900D1502F /* SRGILRequestsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7D86D1ACADCE900D1502F /* SRGILRequestsManager.m */; };
 		9FC7D8791ACADCE900D1502F /* SRGILErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7D86F1ACADCE900D1502F /* SRGILErrors.m */; };
 		9FC7D87A1ACADCE900D1502F /* SRGILList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7D8711ACADCE900D1502F /* SRGILList.m */; };
-		9FC7D87D1ACADCE900D1502F /* SRGTokenHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7D8771ACADCE900D1502F /* SRGTokenHandler.m */; };
+		9FC7D87D1ACADCE900D1502F /* SRGILTokenHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7D8771ACADCE900D1502F /* SRGILTokenHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,8 +119,8 @@
 		9FC7D86F1ACADCE900D1502F /* SRGILErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRGILErrors.m; path = SRGIntegrationLayerDataProvider/SRGILErrors.m; sourceTree = "<group>"; };
 		9FC7D8701ACADCE900D1502F /* SRGILList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGILList.h; path = SRGIntegrationLayerDataProvider/SRGILList.h; sourceTree = "<group>"; };
 		9FC7D8711ACADCE900D1502F /* SRGILList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRGILList.m; path = SRGIntegrationLayerDataProvider/SRGILList.m; sourceTree = "<group>"; };
-		9FC7D8761ACADCE900D1502F /* SRGTokenHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGTokenHandler.h; path = SRGIntegrationLayerDataProvider/SRGTokenHandler.h; sourceTree = "<group>"; };
-		9FC7D8771ACADCE900D1502F /* SRGTokenHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRGTokenHandler.m; path = SRGIntegrationLayerDataProvider/SRGTokenHandler.m; sourceTree = "<group>"; };
+		9FC7D8761ACADCE900D1502F /* SRGILTokenHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGILTokenHandler.h; path = SRGIntegrationLayerDataProvider/SRGILTokenHandler.h; sourceTree = "<group>"; };
+		9FC7D8771ACADCE900D1502F /* SRGILTokenHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRGILTokenHandler.m; path = SRGIntegrationLayerDataProvider/SRGILTokenHandler.m; sourceTree = "<group>"; };
 		9FD74D351ACBEC0800A2D86A /* SRGILModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SRGILModel.h; path = SRGIntegrationLayerDataProvider/SRGILModel.h; sourceTree = "<group>"; };
 		B78A0E1C877A3AAFA06CB8E2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CC7117E85185279031EDDD7C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -274,8 +274,8 @@
 				9FC7D86F1ACADCE900D1502F /* SRGILErrors.m */,
 				9FC7D86C1ACADCE900D1502F /* SRGILRequestsManager.h */,
 				9FC7D86D1ACADCE900D1502F /* SRGILRequestsManager.m */,
-				9FC7D8761ACADCE900D1502F /* SRGTokenHandler.h */,
-				9FC7D8771ACADCE900D1502F /* SRGTokenHandler.m */,
+				9FC7D8761ACADCE900D1502F /* SRGILTokenHandler.h */,
+				9FC7D8771ACADCE900D1502F /* SRGILTokenHandler.m */,
 			);
 			name = "IL Network";
 			sourceTree = "<group>";
@@ -429,7 +429,7 @@
 				9F15198F1ACAD5F200AE051D /* SRGILPlaylist.m in Sources */,
 				9F1519871ACAD5F200AE051D /* SRGILAssetSet.m in Sources */,
 				9F1519861ACAD5F200AE051D /* SRGILAssetMetadata.m in Sources */,
-				9FC7D87D1ACADCE900D1502F /* SRGTokenHandler.m in Sources */,
+				9FC7D87D1ACADCE900D1502F /* SRGILTokenHandler.m in Sources */,
 				9F1519841ACAD5F200AE051D /* SRGILAnalyticsExtendedData.m in Sources */,
 				9F15198D1ACAD5F200AE051D /* SRGILMedia.m in Sources */,
 				9F1519941ACAD5F200AE051D /* SRGILVideo.m in Sources */,
