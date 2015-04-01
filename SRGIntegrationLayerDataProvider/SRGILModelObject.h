@@ -17,6 +17,7 @@
  * It is automatically set when using the initWithDictionary constructor.
  */
 @property(nonatomic, strong, readonly) NSString *identifier;
+@property(nonatomic, strong, readonly) NSDate *downloadDate;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

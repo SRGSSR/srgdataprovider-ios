@@ -11,6 +11,8 @@
 #ifndef SRGIntegrationLayerDataProvider_SRGILModelConstants_h
 #define SRGIntegrationLayerDataProvider_SRGILModelConstants_h
 
+extern NSString * const SRGILVideoUseHighQualityOverCellularNetworkKey;
+
 typedef NS_ENUM (NSInteger, SRGILMediaType) {
     SRGILMediaTypeUndefined,
     SRGILMediaTypeVideo,

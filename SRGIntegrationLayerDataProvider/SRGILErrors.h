@@ -14,7 +14,7 @@
 * Let's try to keep this in sync with the Android code ( ErrorCursor.java )
 *
 */
-typedef NS_ENUM (NSUInteger, SRGILErrorCode) {
+typedef NS_ENUM (NSInteger, SRGILErrorCode) {
     SRGILErrorCodeEnumBegin = 0,
     SRGILErrorCodeInvalidData = SRGILErrorCodeEnumBegin,
     SRGILErrorContentProviderWrongUri = 1,
@@ -32,6 +32,6 @@ typedef NS_ENUM (NSUInteger, SRGILErrorCode) {
 };
 
 // Domain for IL errors
-extern NSString *const SRGErrorDomain;
+extern NSString *const SRGILErrorDomain;
 
-//NSError *SRGCreateUserFacingError(NSString *failureReason, NSError *underlyingError, enum SRGILErrorCode errorCode);
+NSError *SRGCreateUserFacingError(NSString *failureReason, NSError *underlyingError, enum SRGILErrorCode errorCode);

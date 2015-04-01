@@ -6,21 +6,41 @@
 #import <SGVReachability/SGVReachability.h>
 #import <AFNetworking/AFNetworking.h>
 
-#import "SRGBaseRequestsManager.h"
-#import "SRGRequestsManager.h"
+#import "SRGILRequestsManager.h"
+
+#import "SRGILModel.h"
+#import "SRGILErrors.h"
 #import "SRGILList.h"
 
-@interface SRGBaseRequestsManager ()
+@interface SRGILRequestsManager ()
+@property (nonatomic, strong) AFHTTPClient *httpClient;
+@property (nonatomic, strong) NSMutableDictionary *ongoingVideoListRequests;
+@property (nonatomic, strong) NSMutableDictionary *ongoingVideoListDownloads;
+@property (nonatomic, strong) NSMutableDictionary *ongoingAssetRequests;
 @end
 
-@implementation SRGBaseRequestsManager
+@implementation SRGILRequestsManager
+
 static SGVReachability *reachability;
 
-- (id)initWithBaseURL:(NSURL *)baseURL
++ (void)initialize
 {
-    NSAssert(baseURL != nil, @"Expecting base URL string for request manager");
+    if (self != [SRGILRequestsManager class]) {
+        return;
+    }
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        reachability = [SGVReachability mainQueueReachability];
+    });
+}
+
+- (id)initWithBusinessUnit:(NSString *)businessUnit
+{
+    NSAssert(businessUnit != nil, @"Expecting 3-letters business identifier string for request manager");
     self = [super init];
     if (self) {
+        NSURL *baseURL = [[NSURL URLWithString:@"http://il.srgssr.ch/integrationlayer/1.0/ue/"] URLByAppendingPathComponent:businessUnit];
         self.httpClient = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
         [self.httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
         [self.httpClient setDefaultHeader:@"Accept" value:@"application/json"];
@@ -28,24 +48,13 @@ static SGVReachability *reachability;
         self.ongoingVideoListRequests = [NSMutableDictionary dictionary];
         self.ongoingVideoListDownloads = [NSMutableDictionary dictionary];
         self.ongoingAssetRequests = [NSMutableDictionary dictionary];
-
-//#if DEBUG || BETA || NIGHTLY
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(debugServerURLDidChange:)
-//                                                     name:SRGDebugServerURLDidChangeNotification
-//                                                   object:nil];
-//#endif
     }
     return self;
 }
 
-- (void)dealloc
+- (NSString *)businessUnit
 {
-//#if DEBUG || BETA || NIGHTLY
-//    [[NSNotificationCenter defaultCenter] removeObserver:self
-//                                                    name:SRGDebugServerURLDidChangeNotification
-//                                                  object:nil];
-//#endif
+    return [self.httpClient.baseURL lastPathComponent];
 }
 
 - (NSURL *)baseURL
@@ -53,18 +62,6 @@ static SGVReachability *reachability;
     return self.httpClient.baseURL;
 }
 
-//- (void)debugServerURLDidChange:(NSNotification *)notification
-//{
-//    NSURL *baseURL = notification.userInfo[@"URL"];
-//    if (baseURL) {
-//        self.httpClient = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
-//        [self.httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
-//        [self.httpClient setDefaultHeader:@"Accept" value:@"application/json"];
-//    }
-//    else {
-//        DDLogWarn(@"Missing new base URL in notification. AFHTTPClient didn't change.");
-//    }
-//}
 
 - (NSArray *)ongoingRequestPaths
 {
@@ -83,7 +80,9 @@ static SGVReachability *reachability;
         return nil; // Avoid caching response.
     }];
     [self.httpClient enqueueHTTPRequestOperation:operation];
-    NSLog(@"[Info] Requesting URL: %@", request.URL);
+#ifdef DEBUG
+    NSLog(@"[Info] <%p> Requesting URL: %@", self, request.URL);
+#endif
     return operation;
 }
 
@@ -260,18 +259,6 @@ static SGVReachability *reachability;
 //    });
 //}
 
-+ (void)initialize
-{
-    if (self != [SRGRequestsManager class]) {
-        return;
-    }
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        reachability = [SGVReachability mainQueueReachability];
-    });
-}
-
 //+ (NSDate *)downloadDateForKey:(NSString *)key
 //{
 //    if ([[NSUserDefaults standardUserDefaults] objectForKey:key]) {
@@ -287,6 +274,121 @@ static SGVReachability *reachability;
 //    [[NSUserDefaults standardUserDefaults] synchronize];
 //}
 
+
+- (BOOL)requestMediaOfType:(enum SRGILMediaType)mediaType withIdentifier:(NSString *)identifier completionBlock:(SRGRequestMediaCompletionBlock)completionBlock
+{
+    NSString *path = nil;
+    Class objectClass = NULL;
+    NSString *JSONKey = nil;
+    NSString *errorMessage = nil;
+
+    switch (mediaType) {
+        case SRGILMediaTypeVideo:
+            path = [NSString stringWithFormat:@"video/play/%@.json", identifier];
+            objectClass = [SRGILVideo class];
+            JSONKey = @"Video";
+            errorMessage = NSLocalizedString(@"UNABLE_TO_CREATE_VIDEO", nil);
+            break;
+        case SRGILMediaTypeAudio:
+            path = [NSString stringWithFormat:@"audio/play/%@.json", identifier];
+            objectClass = [SRGILAudio class];
+            JSONKey = @"Audio";
+            errorMessage = NSLocalizedString(@"UNABLE_TO_CREATE_AUDIO", nil);
+            break;
+
+        default:
+            NSAssert(NO, @"Wrong to be here.");
+            break;
+    }
+
+    return [self requestModelObject:objectClass
+                               path:path
+                            assetId:identifier
+                            JSONKey:JSONKey
+                       errorMessage:errorMessage
+                    completionBlock:completionBlock];
+}
+//
+//- (BOOL)requestLiveMetaInfosForMediaType:(SRGMediaType)mediaType withAssetId:(NSString *)assetId completionBlock:(SRGRequestMediaCompletionBlock)completionBlock
+//{
+//    NSAssert(mediaType == SRGMediaTypeAudio, @"Unknown for media type other than audio.");
+//    NSString *path = [NSString stringWithFormat:@"channel/%@/nowAndNext.json", assetId];
+//    return [self requestModelObject:[SRGLiveHeaderChannel class]
+//                               path:path
+//                            assetId:path // Trying this
+//                            JSONKey:@"Channel"
+//                       errorMessage:nil
+//                    completionBlock:completionBlock];
+//}
+
+- (BOOL)requestModelObject:(Class)modelClass
+                      path:(NSString *)path
+                   assetId:(NSString *)identifier
+                   JSONKey:(NSString *)JSONKey
+              errorMessage:(NSString *)errorMessage
+           completionBlock:(SRGRequestMediaCompletionBlock)completionBlock
+{
+    NSAssert(modelClass, @"Missing model class");
+    NSAssert(path, @"Missing model request URL path");
+    NSAssert(identifier, @"Missing media ID");
+    NSAssert(JSONKey, @"Missing JSON key");
+    NSAssert(completionBlock, @"Missing completion block");
+
+    if ([self.ongoingAssetRequests objectForKey:identifier]) {
+        return NO;
+    }
+
+    __weak typeof(self) welf = self;
+    void (^completion)(id JSON, NSError *error) = ^(id JSON, NSError *error) {
+        [welf.ongoingAssetRequests removeObjectForKey:identifier];
+
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSError *newError = nil;
+                if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == -1009) {
+                    newError = error;
+                }
+                else {
+                    newError = SRGCreateUserFacingError(error.localizedDescription, error, SRGILErrorCodeInvalidData);
+                }
+                return completionBlock(nil, newError);
+            });
+        }
+        else {
+            id media = [[modelClass alloc] initWithDictionary:[JSON valueForKey:JSONKey]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (media) {
+                    return completionBlock(media, nil);
+                }
+                else {
+                    NSError *newError = SRGCreateUserFacingError(errorMessage, nil, SRGILErrorCodeInvalidData);
+                    return completionBlock(nil, newError);
+                }
+            });
+        }
+    };
+
+    AFHTTPRequestOperation *operation = [self requestOperationWithPath:path completion:completion];
+    self.ongoingAssetRequests[identifier] = operation;
+
+    return YES;
+}
+
+//- (void)sendViewCountUpdate:(NSString *)assetId forMediaTypeName:(NSString *)mediaType
+//{
+//    NSParameterAssert(assetId);
+//
+//    NSString *path = [NSString stringWithFormat:@"%@/%@/clicked.json", mediaType, assetId];
+//    [self.httpClient postPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"[Debug] View count update success for asset ID: %@", assetId);
+//    }                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"[Error] View count failed for asset ID:%@ with error: %@", assetId, [error localizedDescription]);
+//    }];
+//}
+
+
+#pragma mark - Utilities
+
 + (BOOL)isUsingWIFI
 {
     return [reachability isReachableViaWiFi];
@@ -294,7 +396,7 @@ static SGVReachability *reachability;
 
 + (NSString *)WIFISSID
 {
-    if ([SRGBaseRequestsManager isUsingWIFI]) {
+    if ([SRGILRequestsManager isUsingWIFI]) {
         NSArray *interfaces = (__bridge_transfer id)CNCopySupportedInterfaces();
         if ([interfaces count] == 1 && [[interfaces lastObject] isEqualToString:@"en0"]) {
             NSString *interface = [interfaces lastObject];
@@ -310,7 +412,7 @@ static SGVReachability *reachability;
 
 + (BOOL)isUsingSwisscomWIFI
 {
-    NSString *ssid = [SRGBaseRequestsManager WIFISSID];
+    NSString *ssid = [SRGILRequestsManager WIFISSID];
     if (ssid) {
         // See http://www.swisscom.ch/en/residential/internet/internet-on-the-move/pwlan.html
         NSSet *swisscomSSIDs = [NSSet setWithArray:@[@"MOBILE", @"MOBILE-EAPSIM", @"Swisscom", @"Swisscom_Auto_Login"]];

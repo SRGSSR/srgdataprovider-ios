@@ -72,7 +72,7 @@ static NSString * const SRGTokenHandlerBaseURLString = @"http://tp.srgssr.ch/tok
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 //TODO Add this localized string somewhere
                 NSDictionary *userInfo = @{NSLocalizedDescriptionKey : NSLocalizedString(@"MISSING_TOKEN_AUTHPARAMS_ERROR_DESCRIPTION", nil)};
-                completionBlock(nil, [NSError errorWithDomain:SRGErrorDomain code:SRGILErrorCodeInvalidData userInfo:userInfo]);
+                completionBlock(nil, [NSError errorWithDomain:SRGILErrorDomain code:SRGILErrorCodeInvalidData userInfo:userInfo]);
             }];
             return;
         }

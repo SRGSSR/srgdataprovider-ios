@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <RTSMediaPlayer/RTSMediaPlayer.h>
 
-@interface SRGILMediaPlayerDataProvider : NSObject <RTSMediaPlayerControllerDataSource>
+@interface SRGILMediaPlayerControllerDataSource : NSObject <RTSMediaPlayerControllerDataSource>
+
+- (instancetype)initWithBusinessUnit:(NSString *)businessUnit;
+- (NSString *)businessUnit;
+
+- (BOOL)isHDURL:(NSURL *)URL forIdentifier:(NSString *)identifier;
 
 @end

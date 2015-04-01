@@ -8,6 +8,8 @@
 
 #import "SRGILModelConstants.h"
 
+NSString * const SRGILVideoUseHighQualityOverCellularNetworkKey = @"SRGILVideoUseHighQualityOverCellularNetworkKey";
+
 NSString * const SRGILMediaBlockingReasonKeyNone           = @"NONE";
 NSString * const SRGILMediaBlockingReasonKeyGeoblock       = @"GEOBLOCK";
 NSString * const SRGILMediaBlockingReasonKeyLegal          = @"LEGAL";

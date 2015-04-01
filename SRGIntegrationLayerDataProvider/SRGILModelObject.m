@@ -32,6 +32,7 @@
     self = [super init];
     if (self) {
         _identifier = [dictionary objectForKey:@"id"];
+        _downloadDate = [NSDate date];
     }
     return self;
 }
