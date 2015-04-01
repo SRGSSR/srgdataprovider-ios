@@ -10,6 +10,9 @@
 #define SRGIntegrationLayerDataProvider_SRGIntegrationLayerDataProvider_h
 
 #import "SRGILModel.h"
+
+#import "SRGILMediaPlayerControllerDataSource.h"
+
 #import "SRGILAnalyticsDataSource.h"
 #import "SRGILAnalyticsIndividualDataSource.h"
 #import "SRGILComScoreAnalyticsIndividualDataSource.h"
