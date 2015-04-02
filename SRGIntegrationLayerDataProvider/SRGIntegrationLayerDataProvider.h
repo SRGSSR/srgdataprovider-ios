@@ -10,12 +10,6 @@
 #define SRGIntegrationLayerDataProvider_SRGIntegrationLayerDataProvider_h
 
 #import "SRGILModel.h"
-
 #import "SRGILDataProvider.h"
-
-#import "SRGILAnalyticsDataSource.h"
-#import "SRGILAnalyticsIndividualDataSource.h"
-#import "SRGILComScoreAnalyticsIndividualDataSource.h"
-#import "SRGILStreamSenseAnalyticsIndividualDataSource.h"
 
 #endif
