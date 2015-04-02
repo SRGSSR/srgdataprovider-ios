@@ -6,15 +6,44 @@
 #import <SGVReachability/SGVReachability.h>
 #import <AFNetworking/AFNetworking.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import <libextobjc/EXTScope.h>
 
+#import "SRGILDataProvider.h"
 #import "SRGILRequestsManager.h"
+#import "SRGILOrganisedModelDataItem.h"
 
 #import "SRGILModel.h"
 #import "SRGILErrors.h"
 #import "SRGILList.h"
 
-//typedef void (^SRGRequestArrayCompletionBlock)(id<NSCopying>tag, SRGILList *items, Class itemClass, NSError *error);
-//typedef void (^SRGRequestDownloadProgressBlock)(float fraction);
+
+@interface NSError (SRGNetwork)
+- (BOOL)isNetworkError;
+@end
+
+@implementation NSError (SRGNetwork)
+
+- (BOOL)isNetworkError
+{
+    NSArray *connectionErrorList = @[
+                                     @(NSURLErrorUnknown),
+                                     @(NSURLErrorCancelled),
+                                     @(NSURLErrorTimedOut),
+                                     @(NSURLErrorCannotFindHost),
+                                     @(NSURLErrorNetworkConnectionLost),
+                                     @(NSURLErrorDNSLookupFailed),
+                                     @(NSURLErrorNotConnectedToInternet),
+                                     @(NSURLErrorCannotLoadFromNetwork),
+                                     
+                                     @(NSURLErrorInternationalRoamingOff),
+                                     @(NSURLErrorCallIsActive),
+                                     @(NSURLErrorDataNotAllowed),
+                                     ];
+    
+    return [self.domain isEqualToString:NSURLErrorDomain] && [connectionErrorList containsObject:@(self.code)];
+}
+
+@end
 
 @interface SRGILRequestsManager ()
 @property (nonatomic, strong) AFHTTPClient *httpClient;
@@ -90,20 +119,8 @@ static SGVReachability *reachability;
     return operation;
 }
 
-- (void)cancelAllRequests
-{
-    if ([self.ongoingVideoListRequests count] == 0 && [self.ongoingAssetRequests count] == 0) {
-        return;
-    }
-    
-    DDLogInfo(@"Cancelling all (%lu) requests.", (unsigned long)[self.ongoingVideoListRequests count]+[self.ongoingAssetRequests count]);
-    
-    [[self.ongoingVideoListRequests allValues] makeObjectsPerformSelector:@selector(cancel)];
-    [[self.ongoingAssetRequests allValues] makeObjectsPerformSelector:@selector(cancel)];
-    [self.ongoingAssetRequests removeAllObjects];
-    [self.ongoingVideoListRequests removeAllObjects];
-    [self.ongoingVideoListDownloads removeAllObjects];
-}
+
+#pragma mark - Requesting Media
 
 - (BOOL)requestMediaOfType:(enum SRGILMediaType)mediaType withIdentifier:(NSString *)identifier completionBlock:(SRGRequestMediaCompletionBlock)completionBlock
 {
@@ -192,6 +209,75 @@ static SGVReachability *reachability;
     return YES;
 }
 
+#pragma mark - Requesting Item Lists
+
+- (BOOL)requestItemsWithURLPath:(NSString *)path
+                     onProgress:(SRGILFetchListDownloadProgressBlock)downloadBlock
+                   onCompletion:(SRGILRequestArrayCompletionBlock)completionBlock
+{
+    NSAssert(path, @"An URL path is required, otherwise, what's the point?");
+    NSAssert(completionBlock, @"A completion block is required, otherwise, what's the point?");
+    
+        // Fill dictionary with 0 numbers, as we need the count of requests for the total fraction
+    NSNumber *downloadFraction = [self.ongoingVideoListDownloads objectForKey:path];
+    if (!downloadFraction) {
+        [self.ongoingVideoListDownloads setObject:@(0.0) forKey:path];
+    }
+    
+    @weakify(self)
+    
+    void (^completion)(id rawDictionary, NSError *error) = ^(id rawDictionary, NSError *error) {
+        @strongify(self)
+        
+        BOOL hasBeenCancelled = (![self.ongoingVideoListRequests objectForKey:path]);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.ongoingVideoListRequests removeObjectForKey:path];
+            if ([self.ongoingVideoListRequests count] == 0) {
+                [self.ongoingVideoListDownloads removeAllObjects];
+            }
+        });
+        
+        if (!hasBeenCancelled) {
+            if (error || !rawDictionary || ![rawDictionary isKindOfClass:[NSDictionary class]]) {
+                NSError *newError = nil;
+                if ([error isNetworkError]) {
+                    newError = error;
+                }
+                else {
+                    newError = SRGILCreateUserFacingError(NSLocalizedString(@"INVALID_DATA_FOR_CATEGORY", nil), error, SRGILErrorCodeInvalidData);
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(nil, newError);
+                });
+                return;
+            }
+            
+            completionBlock(rawDictionary, nil);
+        }
+    };
+    
+    void (^progress)(NSUInteger, long long, long long) = ^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        if (totalBytesExpectedToRead >= 0) { // Will be -1 when unknown
+            float fraction = (float)bytesRead/(float)totalBytesRead;
+            [self.ongoingVideoListDownloads setObject:@(fraction) forKey:path];
+        }
+        
+        if (downloadBlock) {
+            NSNumber *sumFractions = [[self.ongoingVideoListDownloads allValues] valueForKeyPath:@"@sum.self"];
+            downloadBlock([sumFractions floatValue]/[self.ongoingVideoListDownloads count]);
+        }
+    };
+    
+    AFHTTPRequestOperation *operation = [self requestOperationWithPath:path completion:completion];
+    [operation setDownloadProgressBlock:progress];
+    self.ongoingVideoListRequests[path] = operation;
+    
+    return YES;
+}
+
+#pragma mark - View Count
+
 - (void)sendViewCountUpdate:(NSString *)identifier forMediaTypeName:(NSString *)mediaType
 {
     NSParameterAssert(identifier);
@@ -204,6 +290,22 @@ static SGVReachability *reachability;
     }];
 }
 
+#pragma mark - Operations
+
+- (void)cancelAllRequests
+{
+    if ([self.ongoingVideoListRequests count] == 0 && [self.ongoingAssetRequests count] == 0) {
+        return;
+    }
+    
+    DDLogInfo(@"Cancelling all (%lu) requests.", (unsigned long)[self.ongoingVideoListRequests count]+[self.ongoingAssetRequests count]);
+    
+    [[self.ongoingVideoListRequests allValues] makeObjectsPerformSelector:@selector(cancel)];
+    [[self.ongoingAssetRequests allValues] makeObjectsPerformSelector:@selector(cancel)];
+    [self.ongoingAssetRequests removeAllObjects];
+    [self.ongoingVideoListRequests removeAllObjects];
+    [self.ongoingVideoListDownloads removeAllObjects];
+}
 
 #pragma mark - Utilities
 

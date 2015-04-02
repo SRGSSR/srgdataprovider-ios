@@ -4,11 +4,13 @@
 
 #import <Foundation/Foundation.h>
 #import "SRGILModelConstants.h"
+#import "SRGILDataProvider.h"
 
 @class SRGILMedia;
 @class SRGILList;
 
 typedef void (^SRGRequestMediaCompletionBlock)(SRGILMedia *media, NSError *error);
+typedef void (^SRGILRequestArrayCompletionBlock)(NSDictionary *rawDictionary, NSError *error);
 
 @interface SRGILRequestsManager : NSObject
 
@@ -17,7 +19,14 @@ typedef void (^SRGRequestMediaCompletionBlock)(SRGILMedia *media, NSError *error
 - (NSString *)businessUnit;
 - (NSURL *)baseURL;
 
-- (BOOL)requestMediaOfType:(enum SRGILMediaType)mediaType withIdentifier:(NSString *)assetIdentifier completionBlock:(SRGRequestMediaCompletionBlock)completionBlock;
+- (BOOL)requestMediaOfType:(enum SRGILMediaType)mediaType
+            withIdentifier:(NSString *)assetIdentifier
+           completionBlock:(SRGRequestMediaCompletionBlock)completionBlock;
+
+- (BOOL)requestItemsWithURLPath:(NSString *)path
+                     onProgress:(SRGILFetchListDownloadProgressBlock)downloadBlock
+                   onCompletion:(SRGILRequestArrayCompletionBlock)completionBlock;
+
 - (void)cancelAllRequests;
 
 - (void)sendViewCountUpdate:(NSString *)identifier forMediaTypeName:(NSString *)mediaType;

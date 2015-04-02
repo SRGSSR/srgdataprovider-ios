@@ -7,6 +7,9 @@
 //
 
 #import "SRGILDataProvider.h"
+#import "SRGILOrganisedModelDataItem.h"
+
+#import "SRGILErrors.h"
 #import "SRGILRequestsManager.h"
 #import "SRGILTokenHandler.h"
 
@@ -23,7 +26,8 @@ static NSString * const comScoreKeyPathPrefix = @"SRGILComScoreAnalyticsInfos.";
 static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsInfos.";
 
 @interface SRGILDataProvider () {
-    NSMutableDictionary *_identifiedDataSources;
+    NSMutableDictionary *_identifiedMedias;
+    NSMutableDictionary *_taggedItemLists;
     NSMutableDictionary *_analyticsInfos;
 }
 @property(nonatomic, strong) SRGILRequestsManager *requestManager;
@@ -45,7 +49,8 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 {
     self = [super init];
     if (self) {
-        _identifiedDataSources = [[NSMutableDictionary alloc] init];
+        _identifiedMedias = [[NSMutableDictionary alloc] init];
+        _taggedItemLists = [[NSMutableDictionary alloc] init];
         _analyticsInfos = [[NSMutableDictionary alloc] init];
         _requestManager = [[SRGILRequestsManager alloc] initWithBusinessUnit:businessUnit];
         
@@ -62,12 +67,14 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     return _requestManager.businessUnit;
 }
 
+#pragma mark - RTSMediaPlayerControllerDataSource
+
 - (void)mediaPlayerController:(RTSMediaPlayerController *)mediaPlayerController
       contentURLForIdentifier:(NSString *)identifier
             completionHandler:(void (^)(NSURL *contentURL, NSError *error))completionHandler
 {
     NSAssert(identifier, @"Missing identifier to work with.");
-    SRGILMedia *existingMedia = _identifiedDataSources[identifier];
+    SRGILMedia *existingMedia = _identifiedMedias[identifier];
     
     @weakify(self)
     
@@ -81,14 +88,14 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                               }];
     };
     
-    if (existingMedia) {
+    if ([self contentURLForMedia:existingMedia]) {
         tokenBlock(existingMedia);
     }
     else {
         [_requestManager requestMediaOfType:SRGILMediaTypeVideo
                              withIdentifier:identifier
                             completionBlock:^(SRGILMedia *media, NSError *error) {
-                                _identifiedDataSources[identifier] = media;
+                                _identifiedMedias[identifier] = media;
                                 [self prepareAnalyticsInfosForMedia:media];
                                 tokenBlock(media);
                             }];
@@ -116,17 +123,11 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     else if ([media isKindOfClass:[SRGILAudio class]]) {
         return media.MQHLSURL ? media.MQHLSURL : media.MQHTTPURL;
     }
+    
     return nil;
 }
 
-- (BOOL)isHDURL:(NSURL *)URL forIdentifier:(NSString *)identifier
-{
-    SRGILVideo *video = _identifiedDataSources[identifier];
-    if (!video) {
-        return NO;
-    }
-    return [URL isEqual:video.HDHLSURL];
-}
+#pragma mark - View Count
 
 - (void)sendViewCountMetaDataUponMediaPlayerPlaybackStateChange:(NSNotification *)notification
 {
@@ -135,7 +136,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     RTSMediaPlaybackState newState = player.playbackState;
 
     if (oldState == RTSMediaPlaybackStatePreparing && newState == RTSMediaPlaybackStateReady) {
-        SRGILMedia *media = _identifiedDataSources[player.identifier];
+        SRGILMedia *media = _identifiedMedias[player.identifier];
         if (media) {
             NSString *typeName = nil;
             switch ([[media class] type]) {
@@ -212,5 +213,224 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     SRGILStreamSenseAnalyticsInfos *ds = [self streamSenseIndividualDataSourceForIdenfifier:identifier];
     return [ds fullLengthClipMetadata];
 }
+
+#pragma mark - Item Lists
+
+- (void)fetchListOfItemType:(enum SRGILModelItemType)itemType
+                  organised:(SRGILModelDataOrganisationType)orgType
+                 onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
+               onCompletion:(SRGILFetchListCompletionBlock)completionBlock
+{
+    id<NSCopying> tag = nil;
+    NSString *path = nil;
+    
+    switch (itemType) {
+        case SRGILModelItemTypeVideoLiveStreams:
+            tag = @(itemType);
+            path = @"video/livestream.json";
+            break;
+            
+        default:
+            break;
+    }
+    
+    @weakify(self);
+    
+    if (tag && path) {
+        [self.requestManager requestItemsWithURLPath:path
+                                          onProgress:progressBlock
+                                        onCompletion:^(NSDictionary *rawDictionary, NSError *error) {
+                                            @strongify(self);
+                                            [self extractItemsAndClassNameFromRawDictionary:rawDictionary
+                                                                                     forTag:tag
+                                                                           organisationType:orgType
+                                                                        withCompletionBlock:completionBlock];
+                                        }];
+    }
+}
+
+- (void)extractItemsAndClassNameFromRawDictionary:(NSDictionary *)rawDictionary
+                                           forTag:(id<NSCopying>)tag
+                                 organisationType:(SRGILModelDataOrganisationType)orgType
+                              withCompletionBlock:(SRGILFetchListCompletionBlock)completionBlock
+{
+    if ([[rawDictionary allKeys] count] != 1) {
+            // As for now, we will only extract items from a dictionary that has a single key/value pair.
+        [self sendUserFacingErrorForTag:tag withTechError:nil completionBlock:completionBlock];
+        return;
+    }
+    
+        // The only way to distinguish an array of items with the dictionary of a single item, is to parse the main
+        // dictionary and see if we can build an _array_ of the following class names. This is made necessary due to the
+        // change of semantics from XML to JSON.
+    NSArray *validItemClassKeys = @[@"Video", @"Show", @"AssetSet", @"Audio"];
+    
+    NSString *mainKey = [[rawDictionary allKeys] lastObject];
+    NSDictionary *mainValue = [[rawDictionary allValues] lastObject];
+    
+    __block NSString *className = nil;
+    __block NSArray *itemsDictionaries = nil;
+    NSMutableDictionary *globalProperties = [NSMutableDictionary dictionary];
+    
+    [mainValue enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+        if (NSClassFromString([@"SRGIL" stringByAppendingString:key]) && // We have an Obj-C class to build with
+            [validItemClassKeys containsObject:key] && // It is among the known class keys
+            [obj isKindOfClass:[NSArray class]]) // Its value is an array of siblings.
+        {
+            className = key;
+            itemsDictionaries = [mainValue objectForKey:className];
+        }
+        else if ([key length] > 1 && [key hasPrefix:@"@"]) {
+            [globalProperties setObject:obj forKey:[key substringFromIndex:1]];
+        }
+    }];
+    
+    
+        // We haven't found an array of items. The root object is probably what we are looking for.
+    if (!className && NSClassFromString([@"SRGIL" stringByAppendingString:mainKey])) {
+        className = mainKey;
+        itemsDictionaries = @[mainValue];
+    }
+    
+    if (!className) {
+        [self sendUserFacingErrorForTag:tag withTechError:nil completionBlock:completionBlock];
+    }
+    else {
+        Class itemClass = NSClassFromString([@"SRGIL" stringByAppendingString:className]);
+        
+        NSError *error = nil;
+        NSArray *organisedItems = [self organiseItemsWithGlobalProperties:globalProperties
+                                                          rawDictionaries:itemsDictionaries
+                                                                   forTag:tag
+                                                         organisationType:orgType
+                                                               modelClass:itemClass
+                                                                    error:&error];
+        
+        if (error) {
+            [self sendUserFacingErrorForTag:tag withTechError:error completionBlock:completionBlock];
+        }
+        else {
+            NSLog(@"[Info] Returning %tu organised data item for tag %@", [organisedItems count], tag);
+            
+            for (SRGILOrganisedModelDataItem *dataItem in organisedItems) {
+                SRGILList *newItems = dataItem.items;
+#warning Put also itemClass in dataItem and store the whole SRGILOrganisedModelDataItem instance.
+                _taggedItemLists[tag] = newItems;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(newItems, itemClass, nil);
+                });
+            }
+        }
+    }
+}
+
+- (NSArray *)organiseItemsWithGlobalProperties:(NSDictionary *)properties
+                               rawDictionaries:(NSArray *)dictionaries
+                                        forTag:(id<NSCopying>)tag
+                              organisationType:(SRGILModelDataOrganisationType)orgType
+                                    modelClass:(Class)modelClass
+                                         error:(NSError * __autoreleasing *)error;
+{
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    [dictionaries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        id modelObject = [[modelClass alloc] initWithDictionary:obj];
+        if (modelObject) {
+            [items addObject:modelObject];
+            
+            if ([modelObject isKindOfClass:[SRGILMedia class]]) {
+                NSString *identifier = [(SRGILMedia *)modelObject identifier];
+                _identifiedMedias[identifier] = modelObject;
+            }
+        }
+    }];
+    
+    if ([dictionaries count] == 1 || modelClass == [SRGILAssetSet class] || modelClass == [SRGILAudio class]) {
+        SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemWithTag:tag
+                                                                                       items:items
+                                                                                  properties:properties];
+        return @[dataItem];
+    }
+    else if (modelClass == [SRGILVideo class]) {
+        NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES];
+        SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemWithTag:tag
+                                                                                       items:[items sortedArrayUsingDescriptors:@[desc]]
+                                                                                  properties:properties];
+        return @[dataItem];
+    }
+    else if (modelClass == [SRGILShow class]) {
+        if (orgType == SRGILModelDataOrganisationTypeAlphabetical) {
+                // In order to produce sections in the collection view, we split the list of Shows according to their
+                // alphabetical order. Hence numbers and letters become the new section tags that will then be used used
+                // to build the collection view headers.
+            
+            NSComparator comparator = ^NSComparisonResult(id obj1, id obj2) {
+                return [(NSString *)obj1 compare:(NSString *)obj2
+                                         options:NSCaseInsensitiveSearch
+                                           range:NSMakeRange(0, ((NSString *)obj1).length)
+                                          locale:[NSLocale currentLocale]];
+            };
+            
+            NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES comparator:comparator];
+            NSArray *sortedShows = [items sortedArrayUsingDescriptors:@[desc]];
+            
+            NSArray *numberStrings = @[@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9"];
+            static NSString *digitKey = @"0-9";
+            __block NSString *currentKey = digitKey;
+            
+            NSMutableDictionary *showsGroups = [NSMutableDictionary dictionary];
+            showsGroups[currentKey] = [NSMutableArray array];
+            
+            [sortedShows enumerateObjectsUsingBlock:^(SRGILShow *show, NSUInteger idx, BOOL *stop) {
+                NSString *firstLetter = [[show.title substringToIndex:1] uppercaseString];
+                if (![numberStrings containsObject:firstLetter] && ![currentKey isEqualToString:firstLetter]) {
+                    currentKey = firstLetter;
+                    showsGroups[currentKey] = [NSMutableArray array];
+                }
+                [showsGroups[currentKey] addObject:show];
+            }];
+            
+            NSMutableArray *splittedShows = [NSMutableArray array];
+            NSArray *sortedShowsGroupsKeys = [[showsGroups allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+            
+            [sortedShowsGroupsKeys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
+                SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemWithTag:key
+                                                                                               items:showsGroups[key]
+                                                                                          properties:properties];
+                [splittedShows addObject:dataItem];
+            }];
+            
+            return [NSArray arrayWithArray:splittedShows];
+        }
+        else {
+            SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemWithTag:tag
+                                                                                           items:items
+                                                                                      properties:properties];
+            return @[dataItem];
+        }
+    }
+    else {
+        if (error) {
+            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"INVALID_DATA_FOR_CATEGORY", nil), tag];
+            
+            *error = [NSError errorWithDomain:SRGILErrorDomain
+                                         code:SRGILErrorCodeInvalidData
+                                     userInfo:@{NSLocalizedDescriptionKey: message}];
+        }
+    }
+    
+    return nil;
+}
+
+- (void)sendUserFacingErrorForTag:(id<NSCopying>)tag
+                    withTechError:(NSError *)error
+                  completionBlock:(SRGILFetchListCompletionBlock)completionBlock
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *reason = [NSString stringWithFormat:NSLocalizedString(@"INVALID_DATA_FOR_CATEGORY", nil), tag];
+        NSError *newError = SRGILCreateUserFacingError(reason, error, SRGILErrorCodeInvalidData);
+        completionBlock(nil, nil, newError);
+    });
+}
+
 
 @end

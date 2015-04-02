@@ -10,6 +10,21 @@
 #import <RTSMediaPlayer/RTSMediaPlayer.h>
 #import <RTSAnalytics/RTSAnalyticsDataSource.h>
 
+@class SRGILList;
+
+typedef NS_ENUM(NSInteger, SRGILModelDataOrganisationType) {
+    SRGILModelDataOrganisationTypeFlat,
+    SRGILModelDataOrganisationTypeAlphabetical,
+};
+
+typedef NS_ENUM(NSInteger, SRGILModelItemType) {
+    SRGILModelItemTypeVideoLiveStreams,
+};
+
+
+typedef void (^SRGILFetchListDownloadProgressBlock)(float fraction);
+typedef void (^SRGILFetchListCompletionBlock)(SRGILList *items, Class itemClass, NSError *error);
+
 @interface SRGILDataProvider : NSObject <RTSMediaPlayerControllerDataSource, RTSAnalyticsDataSource>
 
 + (NSString *)comScoreVirtualSite:(NSString *)businessUnit;
@@ -18,6 +33,9 @@
 - (instancetype)initWithBusinessUnit:(NSString *)businessUnit;
 - (NSString *)businessUnit;
 
-- (BOOL)isHDURL:(NSURL *)URL forIdentifier:(NSString *)identifier;
+- (void)fetchListOfItemType:(enum SRGILModelItemType)itemType
+                  organised:(SRGILModelDataOrganisationType)orgType
+                 onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
+               onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
 
 @end
