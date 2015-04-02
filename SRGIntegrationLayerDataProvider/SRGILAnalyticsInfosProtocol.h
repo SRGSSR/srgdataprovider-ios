@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SRGILMedia.h"
 
-@protocol SRGILAnalyticsIndividualDataSource <NSObject>
+@protocol SRGILAnalyticsInfos <NSObject>
 
-- (instancetype)initWithIdentifier:(NSString *)identifier;
+- (instancetype)initWithMedia:(SRGILMedia *)media;
 
 @end

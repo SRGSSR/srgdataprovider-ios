@@ -24,6 +24,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 1.3.4)
   - CocoaLumberjack (~> 2.0.0)
+  - libextobjc/EXTScope (= 0.4.1)
   - RTSAnalytics (from `git@bitbucket.org:rtsmb/rtsanalytics-ios.git`, branch `develop`)
   - RTSMediaPlayer (from `git@bitbucket.org:rtsmb/rtsmediaplayer-ios.git`, branch `develop`)
   - SGVReachability (~> 1.0.0)

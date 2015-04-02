@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <RTSAnalytics/RTSAnalyticsDataSource.h>
-#import "SRGILAnalyticsIndividualDataSource.h"
+#import "SRGILAnalyticsInfosProtocol.h"
 
-@interface SRGILComScoreAnalyticsIndividualDataSource : NSObject <SRGILAnalyticsIndividualDataSource>
+@interface SRGILComScoreAnalyticsInfos : NSObject <SRGILAnalyticsInfos>
 
 - (RTSAnalyticsMediaMode)mediaMode;
 - (NSDictionary *)statusLabels;

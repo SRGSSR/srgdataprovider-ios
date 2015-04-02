@@ -13,6 +13,9 @@
 #import "SRGILErrors.h"
 #import "SRGILList.h"
 
+//typedef void (^SRGRequestArrayCompletionBlock)(id<NSCopying>tag, SRGILList *items, Class itemClass, NSError *error);
+//typedef void (^SRGRequestDownloadProgressBlock)(float fraction);
+
 @interface SRGILRequestsManager ()
 @property (nonatomic, strong) AFHTTPClient *httpClient;
 @property (nonatomic, strong) NSMutableDictionary *ongoingVideoListRequests;
@@ -87,195 +90,20 @@ static SGVReachability *reachability;
     return operation;
 }
 
-//- (BOOL)requestItemsWithURLPath:(NSString *)path
-//                         forTag:(id<NSCopying>)tag
-//               organisationType:(SRGModelDataOrganisationType)orgType
-//                     onProgress:(SRGRequestDownloadProgressBlock)downloadBlock
-//                   onCompletion:(SRGRequestArrayCompletionBlock)completionBlock
-//{
-//    NSAssert(path, @"An URL path is required, otherwise, what's the point?");
-//    NSAssert(completionBlock, @"A completion block is required, otherwise, what's the point?");
-//
-//    NSLog(@"[Info] Requesting items for tag %@ with path %@", tag, path);
-//
-//    // Fill dictionary with 0 numbers, as we need the count of requests for the total fraction
-//    NSNumber *downloadFraction = [self.ongoingVideoListDownloads objectForKey:path];
-//    if (!downloadFraction) {
-//        [self.ongoingVideoListDownloads setObject:@(0.0) forKey:path];
-//    }
-//
-//    __weak typeof(self) welf = self;
-//    void (^completion)(id rawDictionary, NSError *error) = ^(id rawDictionary, NSError *error) {
-//        BOOL hasBeenCancelled = (![welf.ongoingVideoListRequests objectForKey:path]);
-//
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [welf.ongoingVideoListRequests removeObjectForKey:path];
-//            if ([welf.ongoingVideoListRequests count] == 0) {
-//                [welf.ongoingVideoListDownloads removeAllObjects];
-//            }
-//        });
-//
-//        if (!hasBeenCancelled) {
-//            if (error || !rawDictionary || ![rawDictionary isKindOfClass:[NSDictionary class]]) {
-//                id<NSCopying>tagCopy = tag;
-//                NSError *newError = nil;
-//                if ([error isNetworkError]) {
-//                    newError = error;
-//                }
-//                else {
-//                    NSString *reason = [NSString stringWithFormat:NSLocalizedString(@"INVALID_DATA_FOR_CATEGORY", nil), tag];
-//                    newError = SRGCreateUserFacingError(reason, error, SRGErrorCodeInvalidData);
-//                }
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    completionBlock(tagCopy, nil, nil, newError);
-//                });
-//                return;
-//            }
-//
-//            [welf extractItemsAndClassNameFromRawDictionary:rawDictionary
-//                                                     forTag:tag
-//                                           organisationType:orgType
-//                                        withCompletionBlock:completionBlock];
-//        }
-//    };
-//
-//    void (^progress)(NSUInteger, long long, long long) = ^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-//        if (totalBytesExpectedToRead >= 0) { // Will be -1 when unknown
-//            float fraction = (float)bytesRead/(float)totalBytesRead;
-//            [welf.ongoingVideoListDownloads setObject:@(fraction) forKey:path];
-//        }
-//
-//        if (downloadBlock) {
-//            NSNumber *sumFractions = [[welf.ongoingVideoListDownloads allValues] valueForKeyPath:@"@sum.self"];
-//            downloadBlock([sumFractions floatValue]/[welf.ongoingVideoListDownloads count]);
-//        }
-//    };
-//
-//    AFHTTPRequestOperation *operation = [self requestOperationWithPath:path completion:completion];
-//    [operation setDownloadProgressBlock:progress];
-//    self.ongoingVideoListRequests[path] = operation;
-//
-//    return YES;
-//}
-
 - (void)cancelAllRequests
 {
     if ([self.ongoingVideoListRequests count] == 0 && [self.ongoingAssetRequests count] == 0) {
         return;
     }
-
+    
     DDLogInfo(@"Cancelling all (%lu) requests.", (unsigned long)[self.ongoingVideoListRequests count]+[self.ongoingAssetRequests count]);
-
+    
     [[self.ongoingVideoListRequests allValues] makeObjectsPerformSelector:@selector(cancel)];
     [[self.ongoingAssetRequests allValues] makeObjectsPerformSelector:@selector(cancel)];
     [self.ongoingAssetRequests removeAllObjects];
     [self.ongoingVideoListRequests removeAllObjects];
     [self.ongoingVideoListDownloads removeAllObjects];
 }
-
-//- (void)extractItemsAndClassNameFromRawDictionary:(NSDictionary *)rawDictionary
-//                                           forTag:(id<NSCopying>)tag
-//                                 organisationType:(SRGModelDataOrganisationType)orgType
-//                              withCompletionBlock:(SRGRequestArrayCompletionBlock)completionBlock
-//{
-//    if ([[rawDictionary allKeys] count] != 1) {
-//        // As for now, we will only extract items from a dictionary that has a single key/value pair.
-//        [self sendUserFacingErrorForTag:tag withTechError:nil completionBlock:completionBlock];
-//        return;
-//    }
-//
-//    // The only way to distinguish an array of items with the dictionary of a single item, is to parse the main
-//    // dictionary and see if we can build an _array_ of the following class names. This is made necessary due to the
-//    // change of semantics from XML to JSON.
-//    NSArray *validItemClassKeys = @[@"Video", @"Show", @"AssetSet", @"Audio"];
-//
-//    NSString *mainKey = [[rawDictionary allKeys] lastObject];
-//    NSDictionary *mainValue = [[rawDictionary allValues] lastObject];
-//
-//    __block NSString *className = nil;
-//    __block NSArray *itemsDictionaries = nil;
-//    NSMutableDictionary *globalProperties = [NSMutableDictionary dictionary];
-//
-//    [mainValue enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
-//        if (NSClassFromString([@"SRG" stringByAppendingString:key]) && // We have an Obj-C class to build with
-//            [validItemClassKeys containsObject:key] && // It is among the known class keys
-//            [obj isKindOfClass:[NSArray class]]) // Its value is an array of siblings.
-//        {
-//            className = key;
-//            itemsDictionaries = [mainValue objectForKey:className];
-//        }
-//        else if ([key length] > 1 && [key hasPrefix:@"@"]) {
-//            [globalProperties setObject:obj forKey:[key substringFromIndex:1]];
-//        }
-//    }];
-//
-//
-//    // We haven't found an array of items. The root object is probably what we are looking for.
-//    if (!className && NSClassFromString([@"SRG" stringByAppendingString:mainKey])) {
-//        className = mainKey;
-//        itemsDictionaries = @[mainValue];
-//    }
-//
-//    if (!className) {
-//        [self sendUserFacingErrorForTag:tag withTechError:nil completionBlock:completionBlock];
-//    }
-//    else {
-//        Class itemClass = NSClassFromString([@"SRG" stringByAppendingString:className]);
-//
-//        SRGModelDataOrganiser *organiser = [[SRGModelDataOrganiser alloc] init];
-//
-//        NSError *error = nil;
-//        NSArray *organisedItems = [organiser organiseItemsWithGlobalProperties:globalProperties
-//                                                               rawDictionaries:itemsDictionaries
-//                                                                       forTag:tag
-//                                                              organisationType:orgType
-//                                                                   modelClass:itemClass
-//                                                                        error:&error];
-//
-//        if (error) {
-//            [self sendUserFacingErrorForTag:tag withTechError:error completionBlock:completionBlock];
-//        }
-//        else {
-//            NSLog(@"[Info] Returning %tu organised data item for tag %@", [organisedItems count], tag);
-//
-//            for (SRGOrganisedModelDataItem *dataItem in organisedItems) {
-//                id<NSCopying> newTag = dataItem.tag;
-//                SRGILList *newItems = dataItem.items;
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    completionBlock(newTag, newItems, itemClass, nil);
-//                });
-//            }
-//        }
-//    }
-//}
-
-//- (void)sendUserFacingErrorForTag:(id<NSCopying>)tag
-//                    withTechError:(NSError *)error
-//                  completionBlock:(SRGRequestArrayCompletionBlock)completionBlock
-//{
-//    id<NSCopying>tagCopy = tag;
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        NSString *reason = [NSString stringWithFormat:NSLocalizedString(@"INVALID_DATA_FOR_CATEGORY", nil), tag];
-//        NSError *newError = SRGCreateUserFacingError(reason, error, SRGErrorCodeInvalidData);
-//        completionBlock(tagCopy, nil, nil, newError);
-//    });
-//}
-
-//+ (NSDate *)downloadDateForKey:(NSString *)key
-//{
-//    if ([[NSUserDefaults standardUserDefaults] objectForKey:key]) {
-//        NSInteger seconds = [[NSUserDefaults standardUserDefaults] integerForKey:key];
-//        return [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
-//    }
-//    return referenceDate();
-//}
-//
-//+ (void)refreshDownloadDateForKey:(NSString *)key
-//{
-//    [[NSUserDefaults standardUserDefaults] setInteger:[[NSDate date] timeIntervalSinceReferenceDate] forKey:key];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//}
-
 
 - (BOOL)requestMediaOfType:(enum SRGILMediaType)mediaType withIdentifier:(NSString *)identifier completionBlock:(SRGRequestMediaCompletionBlock)completionBlock
 {
@@ -310,18 +138,6 @@ static SGVReachability *reachability;
                        errorMessage:errorMessage
                     completionBlock:completionBlock];
 }
-//
-//- (BOOL)requestLiveMetaInfosForMediaType:(SRGMediaType)mediaType withAssetId:(NSString *)assetId completionBlock:(SRGRequestMediaCompletionBlock)completionBlock
-//{
-//    NSAssert(mediaType == SRGMediaTypeAudio, @"Unknown for media type other than audio.");
-//    NSString *path = [NSString stringWithFormat:@"channel/%@/nowAndNext.json", assetId];
-//    return [self requestModelObject:[SRGLiveHeaderChannel class]
-//                               path:path
-//                            assetId:path // Trying this
-//                            JSONKey:@"Channel"
-//                       errorMessage:nil
-//                    completionBlock:completionBlock];
-//}
 
 - (BOOL)requestModelObject:(Class)modelClass
                       path:(NSString *)path
@@ -376,17 +192,17 @@ static SGVReachability *reachability;
     return YES;
 }
 
-//- (void)sendViewCountUpdate:(NSString *)assetId forMediaTypeName:(NSString *)mediaType
-//{
-//    NSParameterAssert(assetId);
-//
-//    NSString *path = [NSString stringWithFormat:@"%@/%@/clicked.json", mediaType, assetId];
-//    [self.httpClient postPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"[Debug] View count update success for asset ID: %@", assetId);
-//    }                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"[Error] View count failed for asset ID:%@ with error: %@", assetId, [error localizedDescription]);
-//    }];
-//}
+- (void)sendViewCountUpdate:(NSString *)identifier forMediaTypeName:(NSString *)mediaType
+{
+    NSParameterAssert(identifier);
+
+    NSString *path = [NSString stringWithFormat:@"%@/%@/clicked.json", mediaType, identifier];
+    [self.httpClient postPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        DDLogDebug(@"View count update success for asset ID: %@", identifier);
+    }                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        DDLogError(@"View count failed for asset ID:%@ with error: %@", identifier, [error localizedDescription]);
+    }];
+}
 
 
 #pragma mark - Utilities

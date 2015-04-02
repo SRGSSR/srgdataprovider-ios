@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SRGILAnalyticsIndividualDataSource.h"
+#import "SRGILAnalyticsInfosProtocol.h"
 
-@interface SRGILStreamSenseAnalyticsIndividualDataSource : NSObject <SRGILAnalyticsIndividualDataSource>
+@interface SRGILStreamSenseAnalyticsInfos : NSObject <SRGILAnalyticsInfos>
 
-- (NSDictionary *)playlistMetadata;
+- (NSDictionary *)playlistMetadataForBusinesUnit:(NSString *)businessUnit;
 - (NSDictionary *)fullLengthClipMetadata;
 - (NSDictionary *)segmentClipMetadata;
 

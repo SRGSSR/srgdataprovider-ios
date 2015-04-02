@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <RTSMediaPlayer/RTSMediaPlayer.h>
+#import <RTSAnalytics/RTSAnalyticsDataSource.h>
 
-@interface SRGILMediaPlayerControllerDataSource : NSObject <RTSMediaPlayerControllerDataSource>
+@interface SRGILMediaPlayerControllerDataSource : NSObject <RTSMediaPlayerControllerDataSource, RTSAnalyticsDataSource>
+
++ (NSString *)comScoreVirtualSite:(NSString *)businessUnit;
++ (NSString *)streamSenseVirtualSite:(NSString *)businessUnit;
 
 - (instancetype)initWithBusinessUnit:(NSString *)businessUnit;
 - (NSString *)businessUnit;

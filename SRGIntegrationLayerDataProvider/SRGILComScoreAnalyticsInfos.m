@@ -6,14 +6,15 @@
 //  Copyright (c) 2014 SRG SSR. All rights reserved.
 //
 
-#import "SRGILComScoreAnalyticsIndividualDataSource.h"
+#import "SRGILComScoreAnalyticsInfos.h"
 #import <RTSAnalytics/NSString+RTSAnalyticsUtils.h>
+#import "SRGILModel.h"
 
-@interface SRGILComScoreAnalyticsIndividualDataSource ()
-@property(nonatomic, strong) NSString *identifier;
+@interface SRGILComScoreAnalyticsInfos ()
+@property(nonatomic, strong) SRGILMedia *media;
 @end
 
-@implementation SRGILComScoreAnalyticsIndividualDataSource
+@implementation SRGILComScoreAnalyticsInfos
 
 //+ (NSDictionary *)labelsForViewController:(UIViewController *)controller
 //{
@@ -48,12 +49,12 @@
 //}
 
 
-- (instancetype)initWithIdentifier:(NSString *)identifier
+- (instancetype)initWithMedia:(SRGILMedia *)media
 {
-    NSAssert(identifier, @"Missing identifier");
+    NSAssert(media, @"Missing identifier");
     self = [super init];
     if (self) {
-        self.identifier = identifier;
+        self.media = media;
     }
     return self;
 }

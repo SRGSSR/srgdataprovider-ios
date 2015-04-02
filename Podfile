@@ -10,3 +10,4 @@ pod 'TransitionKit', { :git => 'https://github.com/0xced/TransitionKit.git', :co
 pod 'AFNetworking', '~> 1.3.4'
 pod 'SGVReachability', '~> 1.0.0'
 pod 'CocoaLumberjack', '~> 2.0.0'
+pod 'libextobjc/EXTScope', '0.4.1'
