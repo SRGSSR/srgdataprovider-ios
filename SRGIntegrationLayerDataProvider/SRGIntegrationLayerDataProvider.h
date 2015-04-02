@@ -11,7 +11,7 @@
 
 #import "SRGILModel.h"
 
-#import "SRGILMediaPlayerControllerDataSource.h"
+#import "SRGILDataProvider.h"
 
 #import "SRGILAnalyticsDataSource.h"
 #import "SRGILAnalyticsIndividualDataSource.h"
