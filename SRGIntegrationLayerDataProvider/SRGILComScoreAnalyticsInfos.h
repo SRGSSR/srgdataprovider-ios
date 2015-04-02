@@ -12,6 +12,8 @@
 
 @interface SRGILComScoreAnalyticsInfos : NSObject <SRGILAnalyticsInfos>
 
++ (NSDictionary *)globalLabelsForAppEnteringForeground;
+
 - (RTSAnalyticsMediaMode)mediaMode;
 - (NSDictionary *)statusLabels;
 

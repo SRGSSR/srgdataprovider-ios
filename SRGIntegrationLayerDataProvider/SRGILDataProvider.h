@@ -10,7 +10,7 @@
 #import <RTSMediaPlayer/RTSMediaPlayer.h>
 #import <RTSAnalytics/RTSAnalyticsDataSource.h>
 
-@interface SRGILMediaPlayerControllerDataSource : NSObject <RTSMediaPlayerControllerDataSource, RTSAnalyticsDataSource>
+@interface SRGILDataProvider : NSObject <RTSMediaPlayerControllerDataSource, RTSAnalyticsDataSource>
 
 + (NSString *)comScoreVirtualSite:(NSString *)businessUnit;
 + (NSString *)streamSenseVirtualSite:(NSString *)businessUnit;

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
-#import "SRGILMediaPlayerControllerDataSource.h"
+#import "SRGILDataProvider.h"
 #import "SRGILRequestsManager.h"
 #import "SRGILTokenHandler.h"
 
@@ -22,14 +22,14 @@
 static NSString * const comScoreKeyPathPrefix = @"SRGILComScoreAnalyticsInfos.";
 static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsInfos.";
 
-@interface SRGILMediaPlayerControllerDataSource () {
+@interface SRGILDataProvider () {
     NSMutableDictionary *_identifiedDataSources;
     NSMutableDictionary *_analyticsInfos;
 }
 @property(nonatomic, strong) SRGILRequestsManager *requestManager;
 @end
 
-@implementation SRGILMediaPlayerControllerDataSource
+@implementation SRGILDataProvider
 
 + (NSString *)comScoreVirtualSite:(NSString *)businessUnit
 {
@@ -192,19 +192,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 
 - (NSDictionary *)comScoreLabelsForAppEnteringForeground
 {
-    NSMutableDictionary *labels = [NSMutableDictionary dictionary];
-    
-    NSString *category = @"APP";
-    NSString *srg_n1   = @"event";
-    NSString *title    = @"comingToForeground";
-    
-    [labels setObject:category forKey:@"category"];
-    [labels setObject:srg_n1   forKey:@"srg_n1"];
-    [labels setObject:title    forKey:@"srg_title"];
-    
-    [labels setObject:[NSString stringWithFormat:@"Player.%@.%@", category, title] forKey:@"name"];
-    
-    return [labels copy];
+    return [SRGILComScoreAnalyticsInfos globalLabelsForAppEnteringForeground];
 }
 
 - (NSDictionary *)comScoreReadyToPlayLabelsForIdentifier:(NSString *)identifier

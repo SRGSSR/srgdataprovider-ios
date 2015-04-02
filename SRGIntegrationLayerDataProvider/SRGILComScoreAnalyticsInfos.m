@@ -48,6 +48,22 @@
 //    return [labels copy];
 //}
 
++ (NSDictionary *)globalLabelsForAppEnteringForeground
+{
+    NSMutableDictionary *labels = [NSMutableDictionary dictionary];
+    
+    NSString *category = @"APP";
+    NSString *srg_n1   = @"event";
+    NSString *title    = @"comingToForeground";
+    
+    [labels setObject:category forKey:@"category"];
+    [labels setObject:srg_n1   forKey:@"srg_n1"];
+    [labels setObject:title    forKey:@"srg_title"];
+    
+    [labels setObject:[NSString stringWithFormat:@"Player.%@.%@", category, title] forKey:@"name"];
+    
+    return [labels copy];
+}
 
 - (instancetype)initWithMedia:(SRGILMedia *)media
 {
