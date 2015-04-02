@@ -65,7 +65,7 @@ static NSString * const RTSAnalyticsLoggerDomainAnalyticsComscore = @"Comscore";
                                                    object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(sendMetadataUponVideoPlayerViewStatusChange:)
+                                                 selector:@selector(sendMetadataUponMediaPlayerPlaybackStateChange:)
                                                      name:RTSMediaPlayerPlaybackStateDidChangeNotification
                                                    object:nil];
     }
@@ -83,7 +83,7 @@ static NSString * const RTSAnalyticsLoggerDomainAnalyticsComscore = @"Comscore";
     [CSComScore viewWithLabels:[self.dataSource comScoreLabelsForAppEnteringForeground]];
 }
 
-- (void)sendMetadataUponVideoPlayerViewStatusChange:(NSNotification *)notification
+- (void)sendMetadataUponMediaPlayerPlaybackStateChange:(NSNotification *)notification
 {
     DDLogInfo(@"Sending comScore and streamSense metadata upon player status did change");
     
@@ -93,7 +93,7 @@ static NSString * const RTSAnalyticsLoggerDomainAnalyticsComscore = @"Comscore";
 
 //  *** comScore ***
     
-    if (oldState == RTSMediaPlaybackStatePreparing && player.playbackState == RTSMediaPlaybackStateReady) {
+    if (oldState == RTSMediaPlaybackStatePreparing && newState == RTSMediaPlaybackStateReady) {
         NSDictionary *labels = [self.dataSource comScoreReadyToPlayLabelsForIdentifier:player.identifier];
         [CSComScore viewWithLabels:labels];
     }

@@ -43,7 +43,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   RTSAnalytics:
-    :commit: ab38a436bad6f99e4bf1f4ac1776411b8987252c
+    :commit: 0fe80670bc8eb1dafa47a496e682b9cc6616b13e
     :git: git@bitbucket.org:rtsmb/rtsanalytics-ios.git
   RTSMediaPlayer:
     :commit: aa1f8c1bf787ac0c2ba4af2cf2a82ad459ddf633
