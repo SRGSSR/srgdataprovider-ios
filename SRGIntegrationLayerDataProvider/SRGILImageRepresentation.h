@@ -1,5 +1,5 @@
 //
-//  SRGImageRepresentation.h
+//  SRGILImageRepresentation.h
 //  SRFPlayer
 //
 //  Created by Samuel Défago on 07/02/14.

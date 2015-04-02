@@ -1,5 +1,5 @@
 //
-//  SRGmedia.h
+//  SRGILMedia.h
 //  SRGPlayer
 //  Copyright (c) 2014 SRG SSR. All rights reserved.
 //
@@ -10,7 +10,7 @@
 #import "SRGILAnalyticsExtendedData.h"
 
 /**
- * SRGmedia is the main data-model class of the SRG Player framework.
+ * SRGILMedia is the main data-model class of the SRG Player framework.
  */
 @interface SRGILMedia : SRGILModelObject
 
@@ -116,12 +116,12 @@
  *  For some medias, it is possible to access individual segments. Here is returned the complete 
  *  array of segments, whatever their subtype.
  *
- *  @return An array of SRGmedia instances containing all the information for playing a segment.
+ *  @return An array of SRGILMedia instances containing all the information for playing a segment.
  */
 - (NSArray *)segments;
 
 /**
- *  Comparison of SRGmedia instance according to the time of their markIn time.
+ *  Comparison of SRGILMedia instance according to the time of their markIn time.
  *
  *  @param other Another instance to be compared with.
  *

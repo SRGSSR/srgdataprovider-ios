@@ -1,5 +1,5 @@
 //
-//  SRGVideo.h
+//  SRGILVideo.h
 //  SRFPlayer
 //
 //  Created by Cédric Foellmi on 03/10/2014.

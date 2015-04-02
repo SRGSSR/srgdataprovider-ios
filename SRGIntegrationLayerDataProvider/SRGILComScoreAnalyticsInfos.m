@@ -31,7 +31,7 @@
 //        
 //        if ([config.requestURLPaths count] == 1 &&
 //            [[[config.requestURLPaths allKeys] lastObject] isKindOfClass:[NSNumber class]] &&
-//            [[[config.requestURLPaths allKeys] lastObject] integerValue] == SRGMediaCategoryLiveStreamsVideo)
+//            [[[config.requestURLPaths allKeys] lastObject] integerValue] == SRGILMediaCategoryLiveStreamsVideo)
 //        {
 //            metatitle = @"Live";
 //        }
@@ -70,10 +70,10 @@
 
 //    NSString *srg_n1 = @"(UndefinedMediaType)";
 //    switch ([self mediaMode]) {
-//        case SRGMediaTypeVideo:
+//        case SRGILMediaTypeVideo:
 //            srg_n1 = @"VideoPlayer";
 //            break;
-//        case SRGMediaTypeAudio:
+//        case SRGILMediaTypeAudio:
 //            srg_n1 = @"AudioPlayer";
 //            break;
 //        default:

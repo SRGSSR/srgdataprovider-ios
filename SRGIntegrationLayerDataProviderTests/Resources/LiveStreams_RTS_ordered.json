@@ -1,0 +1,137 @@
+{
+    "Videos" : {
+        "@offset" : 0,
+        "@pageSize" : 1,
+        "@pageNumber" : 1,
+        "@maxPageNumber" : 1,
+        "@total" : 3,
+        "Video" : [
+                   {
+                   "id" : "3608506",
+                   "modifiedDate" : "2014-05-08T17:00:04+02:00",
+                   "createdDate" : "2011-11-25T15:18:41+01:00",
+                   "urn" : "urn:rts:cms:video:3608506",
+                   "assetSetId" : "2107921",
+                   "assetSubSetId" : "LIVESTREAM",
+                   "position" : 1,
+                   "AssetSet" : {
+                   "id" : "2107921",
+                   "modifiedDate" : "2012-12-11T15:31:06+01:00",
+                   "createdDate" : "2011-11-25T15:18:41+01:00",
+                   "publishedDate" : "2011-11-25T15:21:54+01:00",
+                   "title" : "RTS Un en direct",
+                   "assetGroupId" : "4500591",
+                   "Show" : {
+                   "id" : "4500591",
+                   "title" : "RTS Un en direct",
+                   "lead" : "RTS Un en direct",
+                   "description" : " ",
+                   "PrimaryChannel" : {
+                   "modifiedDate" : "2014-05-08T17:00:04+02:00",
+                   "createdDate" : "2011-11-25T15:18:41+01:00",
+                   "id" : "7a7c0623290bffcb5650efe8648176da1a251644",
+                   "distributor" : "TV",
+                   "name" : "RTS Un",
+                   "Image" : {
+                   "id" : "3817034",
+                   "ImageRepresentations" : {
+                   "ImageRepresentation" : [
+                                            {
+                                            "id" : "5805300",
+                                            "url" : "http://www.rts.ch/2014/04/28/10/46/5805300.image/3x1",
+                                            "usage" : "LOGO"
+                                            }
+                                            ]
+                   }
+                   }
+                   }
+                   }
+                   }
+                   },
+                   {
+                   "id" : "3608517",
+                   "modifiedDate" : "2014-05-08T17:00:07+02:00",
+                   "createdDate" : "2011-11-25T15:22:41+01:00",
+                   "urn" : "urn:rts:cms:video:3608517",
+                   "assetSetId" : "4447520",
+                   "assetSubSetId" : "LIVESTREAM",
+                   "position" : 2,
+                   "AssetSet" : {
+                   "id" : "4447520",
+                   "modifiedDate" : "2012-12-11T15:47:18+01:00",
+                   "createdDate" : "2011-11-25T15:22:41+01:00",
+                   "publishedDate" : "2011-11-25T15:22:50+01:00",
+                   "title" : "RTS Deux en direct",
+                   "assetGroupId" : "4500580",
+                   "Show" : {
+                   "id" : "4500580",
+                   "title" : "RTS Deux en direct",
+                   "lead" : "RTS Deux en direct",
+                   "description" : " ",
+                   "PrimaryChannel" : {
+                   "modifiedDate" : "2014-05-08T17:00:07+02:00",
+                   "createdDate" : "2011-11-25T15:22:41+01:00",
+                   "id" : "afc6a9e1caf7c1d347fba2a4dd52edd4335bf2c5",
+                   "distributor" : "TV",
+                   "name" : "RTS Deux",
+                   "Image" : {
+                   "id" : "3817029",
+                   "ImageRepresentations" : {
+                   "ImageRepresentation" : [
+                                            {
+                                            "id" : "5805301",
+                                            "url" : "http://www.rts.ch/2014/04/28/10/48/5805301.image/3x1",
+                                            "usage" : "LOGO"
+                                            }
+                                            ]
+                   }
+                   }
+                   }
+                   }
+                   }
+                   },
+                   {
+                   "id" : "1967124",
+                   "modifiedDate" : "2014-05-08T16:10:15+02:00",
+                   "createdDate" : "2010-05-17T17:08:54+02:00",
+                   "urn" : "urn:rts:cms:video:1967124",
+                   "assetSetId" : "3915287",
+                   "assetSubSetId" : "LIVESTREAM",
+                   "position" : 3,
+                   "AssetSet" : {
+                   "id" : "3915287",
+                   "modifiedDate" : "2013-07-02T15:38:59+02:00",
+                   "createdDate" : "2010-05-17T17:08:54+02:00",
+                   "publishedDate" : "2010-05-17T14:05:36+02:00",
+                   "title" : "RTSinfo",
+                   "assetGroupId" : "3815067",
+                   "Show" : {
+                   "id" : "3815067",
+                   "title" : "RTSinfo",
+                   "lead" : "RTSinfo",
+                   "description" : " ",
+                   "PrimaryChannel" : {
+                   "modifiedDate" : "2014-05-08T16:10:15+02:00",
+                   "createdDate" : "2010-05-17T17:08:54+02:00",
+                   "id" : "2b3747f827f56ef0f9b64d8453864de6130b927e",
+                   "distributor" : "TV",
+                   "name" : "Le Journal en continu",
+                   "Image" : {
+                   "id" : "3817054",
+                   "ImageRepresentations" : {
+                   "ImageRepresentation" : [
+                                            {
+                                            "id" : "5805298",
+                                            "url" : "http://www.rts.ch/2014/04/28/10/43/5805298.image/3x1",
+                                            "usage" : "LOGO"
+                                            }
+                                            ]
+                   }
+                   }
+                   }
+                   }
+                   }
+                   }
+                   ]
+    }
+}

@@ -1,5 +1,5 @@
 //
-//  SRGTokenHandler.h
+//  SRGILTokenHandler.h
 //  SRFPlayer
 //
 //  Created by Frédéric VERGEZ on 07/03/14.

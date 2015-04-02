@@ -1,6 +1,6 @@
 //
 //  SRGILLiveHeaderChannel.h
-//  SRGMediaPlayer
+//  SRGILMediaPlayer
 //
 //  Created by Cédric Foellmi on 03/12/14.
 //  Copyright (c) 2014 onekiloparsec. All rights reserved.

@@ -1,5 +1,5 @@
 //
-//  SRGVideo.m
+//  SRGILVideo.m
 //  SRGPlayer
 //  Copyright (c) 2014 SRG SSR. All rights reserved.
 //
@@ -176,7 +176,7 @@
 
 - (NSComparisonResult)compareMarkInTimes:(SRGILVideo *)other
 {
-    NSAssert(other, @"Missing other instance of SRGVideo");
+    NSAssert(other, @"Missing other instance of SRGILVideo");
     if (other.markIn > self.markIn) {
         return NSOrderedAscending;
     }

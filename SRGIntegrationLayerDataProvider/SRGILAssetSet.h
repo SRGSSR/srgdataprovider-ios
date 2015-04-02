@@ -1,5 +1,5 @@
 //
-//  SRGAssetSet.h
+//  SRGILAssetSet.h
 //  SRFPlayer
 //
 //  Created by Samuel Défago on 12/02/14.

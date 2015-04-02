@@ -1,5 +1,5 @@
 //
-//  SRGImage.m
+//  SRGILImage.h.m
 //  SRFPlayer
 //
 //  Created by Samuel Défago on 07/02/14.

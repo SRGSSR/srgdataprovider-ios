@@ -1,5 +1,5 @@
 //
-//  SRGVideo_Private.h
+//  SRGILVideo_Private.h
 //  SRGPlayer
 //  Copyright (c) 2014 SRG SSR. All rights reserved.
 //
@@ -53,7 +53,7 @@
 
 /**
  * Asset set subtype (episode, trailer or livestream)
- * Optional field: is either filled in SRGVideo or in SRGAsset.
+ * Optional field: is either filled in SRGILVideo or in SRGAsset.
  */
 @property (nonatomic, assign) SRGILAssetSubSetType assetSetSubType;
 

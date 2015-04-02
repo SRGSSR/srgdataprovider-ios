@@ -1,0 +1,44 @@
+{
+    "id": "04baa536-d842-431f-8d74-853fe7a99d67",
+    "modifiedDate": "2013-11-26T14:57:03+01:00",
+    "createdDate": "1999-11-30T00:00:00+01:00",
+    "archive": "false",
+    "autoGeoblock": "false",
+    "Image": {
+        "id": "f1d3ddf3-74cf-40e9-83fb-05492bc70468",
+        "modifiedDate": "2013-11-26T14:57:03+01:00",
+        "createdDate": "1999-11-30T00:00:00+01:00",
+        "ImageRepresentations": [
+                                 {
+                                 "ImageRepresentation": {
+                                 "id": "705823ab-2a38-4abc-849b-0fd286cbece7",
+                                 "modifiedDate": "2013-11-26T14:57:16+01:00",
+                                 "createdDate": "2013-11-26T14:57:16+01:00",
+                                 "height": "160",
+                                 "imageId": "f1d3ddf3-74cf-40e9-83fb-05492bc70468",
+                                 "location": "ais://assets/image/root/2013/4/12/04baa536-d842-431f-8d74-853fe7a99d67_0005.jpg",
+                                 "staticUrl": "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/f1d3ddf3-74cf-40e9-83fb-05492bc70468/HEADER_SRF_PLAYER.jpg",
+                                 "url": "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/f1d3ddf3-74cf-40e9-83fb-05492bc70468/HEADER_SRF_PLAYER/1385474236000.jpg",
+                                 "usage": "HEADER_SRF_PLAYER",
+                                 "width": "484"
+                                 }
+                                 },
+                                 {
+                                 "ImageRepresentation": {
+                                 "id": "c35085a4-7d7c-4358-895d-c4597a4097b8",
+                                 "modifiedDate": "2013-11-26T14:57:03+01:00",
+                                 "createdDate": "2013-11-26T14:57:03+01:00",
+                                 "height": "1080",
+                                 "imageId": "f1d3ddf3-74cf-40e9-83fb-05492bc70468",
+                                 "location": "ais://assets/image/root/2012/12/14/04baa536-d842-431f-8d74-853fe7a99d67.jpg",
+                                 "staticUrl": "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/f1d3ddf3-74cf-40e9-83fb-05492bc70468/WEBVISUAL.jpg",
+                                 "url": "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/f1d3ddf3-74cf-40e9-83fb-05492bc70468/WEBVISUAL/1385474223000.jpg",
+                                 "usage": "WEBVISUAL",
+                                 "width": "1920"
+                                 }
+                                 }
+                                 ],
+        "title": "Programmhinweis"
+    },
+    "title": "Programmhinweis"
+}

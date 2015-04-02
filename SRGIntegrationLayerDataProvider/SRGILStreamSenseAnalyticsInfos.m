@@ -150,7 +150,7 @@
 //    NSMutableDictionary *metadata = [NSMutableDictionary dictionary];
 //    [metadata addEntriesFromDictionary:[self fullLengthClipMetadata]];
 //    
-//    int episodeIndex = [[userInfo valueForKey:SRGMediaPlaybackEventEpisodeIndexKey] intValue];
+//    int episodeIndex = [[userInfo valueForKey:SRGILMediaPlaybackEventEpisodeIndexKey] intValue];
 //    NSInteger ns_st_pn = MAX(1, episodeIndex + 1); // Zero is not allowable...
 //
 //    DDLogDebug(@"Starting segment: %li / %li", (long)ns_st_pn, (long)[self.mediaDataSource countOfSegments]);

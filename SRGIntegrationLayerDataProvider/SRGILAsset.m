@@ -19,7 +19,7 @@
         _title = [dictionary objectForKey:@"title"];
         
         [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            Class itemClass = NSClassFromString([@"SRG" stringByAppendingString:key]);
+            Class itemClass = NSClassFromString([@"SRGIL" stringByAppendingString:key]);
             
             if (itemClass && [obj isKindOfClass:[NSArray class]]) {
                 NSMutableArray *tmpSegments = [NSMutableArray array];

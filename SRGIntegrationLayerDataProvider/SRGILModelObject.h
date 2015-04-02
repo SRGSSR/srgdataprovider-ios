@@ -1,5 +1,5 @@
 //
-//  SRGModelObject.h
+//  SRGILModelObject.h
 //  SRGPlayer
 //  Copyright (c) 2014 SRG SSR. All rights reserved.
 //

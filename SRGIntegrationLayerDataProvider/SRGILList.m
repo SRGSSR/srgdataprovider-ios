@@ -1,5 +1,5 @@
 //
-//  SRGList.m
+//  SRGILList.m
 //  SRFPlayer
 //
 //  Created by Cédric Foellmi on 08/09/2014.

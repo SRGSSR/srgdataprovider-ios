@@ -28,6 +28,33 @@
 		9F1519921ACAD5F200AE051D /* SRGILShow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F15197F1ACAD5F200AE051D /* SRGILShow.m */; };
 		9F1519931ACAD5F200AE051D /* SRGILSocialCounts.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1519811ACAD5F200AE051D /* SRGILSocialCounts.m */; };
 		9F1519941ACAD5F200AE051D /* SRGILVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1519831ACAD5F200AE051D /* SRGILVideo.m */; };
+		9F1A5B2A1ACD690C00C0E528 /* SRGILAudioTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B171ACD68E700C0E528 /* SRGILAudioTest.m */; };
+		9F1A5B2B1ACD690C00C0E528 /* SRGLiveStreamVideoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B181ACD68E700C0E528 /* SRGLiveStreamVideoTest.m */; };
+		9F1A5B2C1ACD690C00C0E528 /* SRGILMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B191ACD68E700C0E528 /* SRGILMediaTest.m */; };
+		9F1A5B2D1ACD690C00C0E528 /* SRGModelObjectTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B1A1ACD68E700C0E528 /* SRGModelObjectTest.m */; };
+		9F1A5B2F1ACD690C00C0E528 /* SRGRequestModelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B1C1ACD68E700C0E528 /* SRGRequestModelTest.m */; };
+		9F1A5B301ACD690C00C0E528 /* SRGTokenHandlerStubsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B1D1ACD68E700C0E528 /* SRGTokenHandlerStubsTest.m */; };
+		9F1A5B311ACD690C00C0E528 /* SRGILVideoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B1E1ACD68E700C0E528 /* SRGILVideoTest.m */; };
+		9F1A5B321ACD690C00C0E528 /* XCTestCase+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B201ACD68E700C0E528 /* XCTestCase+JSON.m */; };
+		9F1A5B331ACD691700C0E528 /* assetmetadata_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B041ACD68E700C0E528 /* assetmetadata_01.json */; };
+		9F1A5B341ACD691700C0E528 /* assetset_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B051ACD68E700C0E528 /* assetset_01.json */; };
+		9F1A5B351ACD691700C0E528 /* image_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B061ACD68E700C0E528 /* image_01.json */; };
+		9F1A5B361ACD691700C0E528 /* imagerepresentation_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B071ACD68E700C0E528 /* imagerepresentation_01.json */; };
+		9F1A5B371ACD691700C0E528 /* last_videos_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B081ACD68E700C0E528 /* last_videos_01.json */; };
+		9F1A5B381ACD691700C0E528 /* LiveStreams_RTS.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B091ACD68E700C0E528 /* LiveStreams_RTS.json */; };
+		9F1A5B391ACD691700C0E528 /* LiveStreams_RTS_ordered.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B0A1ACD68E700C0E528 /* LiveStreams_RTS_ordered.json */; };
+		9F1A5B3A1ACD691700C0E528 /* LiveStreams_RTS_reversed.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B0B1ACD68E700C0E528 /* LiveStreams_RTS_reversed.json */; };
+		9F1A5B3B1ACD691700C0E528 /* livevideo01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B0C1ACD68E700C0E528 /* livevideo01.json */; };
+		9F1A5B3C1ACD691700C0E528 /* most_viewed_videos_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B0D1ACD68E700C0E528 /* most_viewed_videos_01.json */; };
+		9F1A5B3D1ACD691700C0E528 /* resources_test_18022014.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B0E1ACD68E700C0E528 /* resources_test_18022014.json */; };
+		9F1A5B3E1ACD691700C0E528 /* rubric_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B0F1ACD68E700C0E528 /* rubric_01.json */; };
+		9F1A5B3F1ACD691700C0E528 /* sample_video_fragment_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B101ACD68E700C0E528 /* sample_video_fragment_01.json */; };
+		9F1A5B401ACD691700C0E528 /* show_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B111ACD68E700C0E528 /* show_01.json */; };
+		9F1A5B411ACD691700C0E528 /* video_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B121ACD68E700C0E528 /* video_01.json */; };
+		9F1A5B421ACD691700C0E528 /* video_02.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B131ACD68E700C0E528 /* video_02.json */; };
+		9F1A5B431ACD691700C0E528 /* video_03.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B141ACD68E700C0E528 /* video_03.json */; };
+		9F1A5B441ACD691700C0E528 /* video_04.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B151ACD68E700C0E528 /* video_04.json */; };
+		9F1A5B451ACD691700C0E528 /* videoaggregation_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B161ACD68E700C0E528 /* videoaggregation_01.json */; };
 		9FB3157B1ACAE5DA005AEBBC /* SRGILModelConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB3157A1ACAE5DA005AEBBC /* SRGILModelConstants.m */; };
 		9FC7D86A1ACADA6300D1502F /* SRGILMediaPlayerControllerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7D8691ACADA6300D1502F /* SRGILMediaPlayerControllerDataSource.m */; };
 		9FC7D8781ACADCE900D1502F /* SRGILRequestsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7D86D1ACADCE900D1502F /* SRGILRequestsManager.m */; };
@@ -104,6 +131,34 @@
 		9F1519811ACAD5F200AE051D /* SRGILSocialCounts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRGILSocialCounts.m; path = SRGIntegrationLayerDataProvider/SRGILSocialCounts.m; sourceTree = "<group>"; };
 		9F1519821ACAD5F200AE051D /* SRGILVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGILVideo.h; path = SRGIntegrationLayerDataProvider/SRGILVideo.h; sourceTree = "<group>"; };
 		9F1519831ACAD5F200AE051D /* SRGILVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRGILVideo.m; path = SRGIntegrationLayerDataProvider/SRGILVideo.m; sourceTree = "<group>"; };
+		9F1A5B041ACD68E700C0E528 /* assetmetadata_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = assetmetadata_01.json; sourceTree = "<group>"; };
+		9F1A5B051ACD68E700C0E528 /* assetset_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = assetset_01.json; sourceTree = "<group>"; };
+		9F1A5B061ACD68E700C0E528 /* image_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = image_01.json; sourceTree = "<group>"; };
+		9F1A5B071ACD68E700C0E528 /* imagerepresentation_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = imagerepresentation_01.json; sourceTree = "<group>"; };
+		9F1A5B081ACD68E700C0E528 /* last_videos_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = last_videos_01.json; sourceTree = "<group>"; };
+		9F1A5B091ACD68E700C0E528 /* LiveStreams_RTS.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LiveStreams_RTS.json; sourceTree = "<group>"; };
+		9F1A5B0A1ACD68E700C0E528 /* LiveStreams_RTS_ordered.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LiveStreams_RTS_ordered.json; sourceTree = "<group>"; };
+		9F1A5B0B1ACD68E700C0E528 /* LiveStreams_RTS_reversed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LiveStreams_RTS_reversed.json; sourceTree = "<group>"; };
+		9F1A5B0C1ACD68E700C0E528 /* livevideo01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = livevideo01.json; sourceTree = "<group>"; };
+		9F1A5B0D1ACD68E700C0E528 /* most_viewed_videos_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = most_viewed_videos_01.json; sourceTree = "<group>"; };
+		9F1A5B0E1ACD68E700C0E528 /* resources_test_18022014.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = resources_test_18022014.json; sourceTree = "<group>"; };
+		9F1A5B0F1ACD68E700C0E528 /* rubric_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rubric_01.json; sourceTree = "<group>"; };
+		9F1A5B101ACD68E700C0E528 /* sample_video_fragment_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_video_fragment_01.json; sourceTree = "<group>"; };
+		9F1A5B111ACD68E700C0E528 /* show_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = show_01.json; sourceTree = "<group>"; };
+		9F1A5B121ACD68E700C0E528 /* video_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = video_01.json; sourceTree = "<group>"; };
+		9F1A5B131ACD68E700C0E528 /* video_02.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = video_02.json; sourceTree = "<group>"; };
+		9F1A5B141ACD68E700C0E528 /* video_03.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = video_03.json; sourceTree = "<group>"; };
+		9F1A5B151ACD68E700C0E528 /* video_04.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = video_04.json; sourceTree = "<group>"; };
+		9F1A5B161ACD68E700C0E528 /* videoaggregation_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videoaggregation_01.json; sourceTree = "<group>"; };
+		9F1A5B171ACD68E700C0E528 /* SRGILAudioTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILAudioTest.m; sourceTree = "<group>"; };
+		9F1A5B181ACD68E700C0E528 /* SRGLiveStreamVideoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGLiveStreamVideoTest.m; sourceTree = "<group>"; };
+		9F1A5B191ACD68E700C0E528 /* SRGILMediaTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILMediaTest.m; sourceTree = "<group>"; };
+		9F1A5B1A1ACD68E700C0E528 /* SRGModelObjectTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGModelObjectTest.m; sourceTree = "<group>"; };
+		9F1A5B1C1ACD68E700C0E528 /* SRGRequestModelTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGRequestModelTest.m; sourceTree = "<group>"; };
+		9F1A5B1D1ACD68E700C0E528 /* SRGTokenHandlerStubsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGTokenHandlerStubsTest.m; sourceTree = "<group>"; };
+		9F1A5B1E1ACD68E700C0E528 /* SRGILVideoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILVideoTest.m; sourceTree = "<group>"; };
+		9F1A5B1F1ACD68E700C0E528 /* XCTestCase+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+JSON.h"; sourceTree = "<group>"; };
+		9F1A5B201ACD68E700C0E528 /* XCTestCase+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+JSON.m"; sourceTree = "<group>"; };
 		9FB315791ACAE402005AEBBC /* SRGILModelConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SRGILModelConstants.h; path = SRGIntegrationLayerDataProvider/SRGILModelConstants.h; sourceTree = "<group>"; };
 		9FB3157A1ACAE5DA005AEBBC /* SRGILModelConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRGILModelConstants.m; path = SRGIntegrationLayerDataProvider/SRGILModelConstants.m; sourceTree = "<group>"; };
 		9FC7D8681ACADA6300D1502F /* SRGILMediaPlayerControllerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGILMediaPlayerControllerDataSource.h; path = SRGIntegrationLayerDataProvider/SRGILMediaPlayerControllerDataSource.h; sourceTree = "<group>"; };
@@ -190,6 +245,16 @@
 		9F1519441AC5A7F200AE051D /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				9F1A5B171ACD68E700C0E528 /* SRGILAudioTest.m */,
+				9F1A5B1E1ACD68E700C0E528 /* SRGILVideoTest.m */,
+				9F1A5B191ACD68E700C0E528 /* SRGILMediaTest.m */,
+				9F1A5B181ACD68E700C0E528 /* SRGLiveStreamVideoTest.m */,
+				9F1A5B1A1ACD68E700C0E528 /* SRGModelObjectTest.m */,
+				9F1A5B1C1ACD68E700C0E528 /* SRGRequestModelTest.m */,
+				9F1A5B1D1ACD68E700C0E528 /* SRGTokenHandlerStubsTest.m */,
+				9F1A5B1F1ACD68E700C0E528 /* XCTestCase+JSON.h */,
+				9F1A5B201ACD68E700C0E528 /* XCTestCase+JSON.m */,
+				9F1A5B031ACD68E700C0E528 /* Resources */,
 				9F1519451AC5A7F200AE051D /* Supporting Files */,
 			);
 			name = "Unit Tests";
@@ -247,6 +312,32 @@
 				9F1519831ACAD5F200AE051D /* SRGILVideo.m */,
 			);
 			name = "IL Model";
+			sourceTree = "<group>";
+		};
+		9F1A5B031ACD68E700C0E528 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9F1A5B041ACD68E700C0E528 /* assetmetadata_01.json */,
+				9F1A5B051ACD68E700C0E528 /* assetset_01.json */,
+				9F1A5B061ACD68E700C0E528 /* image_01.json */,
+				9F1A5B071ACD68E700C0E528 /* imagerepresentation_01.json */,
+				9F1A5B081ACD68E700C0E528 /* last_videos_01.json */,
+				9F1A5B091ACD68E700C0E528 /* LiveStreams_RTS.json */,
+				9F1A5B0A1ACD68E700C0E528 /* LiveStreams_RTS_ordered.json */,
+				9F1A5B0B1ACD68E700C0E528 /* LiveStreams_RTS_reversed.json */,
+				9F1A5B0C1ACD68E700C0E528 /* livevideo01.json */,
+				9F1A5B0D1ACD68E700C0E528 /* most_viewed_videos_01.json */,
+				9F1A5B0E1ACD68E700C0E528 /* resources_test_18022014.json */,
+				9F1A5B0F1ACD68E700C0E528 /* rubric_01.json */,
+				9F1A5B101ACD68E700C0E528 /* sample_video_fragment_01.json */,
+				9F1A5B111ACD68E700C0E528 /* show_01.json */,
+				9F1A5B121ACD68E700C0E528 /* video_01.json */,
+				9F1A5B131ACD68E700C0E528 /* video_02.json */,
+				9F1A5B141ACD68E700C0E528 /* video_03.json */,
+				9F1A5B151ACD68E700C0E528 /* video_04.json */,
+				9F1A5B161ACD68E700C0E528 /* videoaggregation_01.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		9FC7D8671ACADA0800D1502F /* Media Data Source */ = {
@@ -361,6 +452,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F1A5B391ACD691700C0E528 /* LiveStreams_RTS_ordered.json in Resources */,
+				9F1A5B3D1ACD691700C0E528 /* resources_test_18022014.json in Resources */,
+				9F1A5B371ACD691700C0E528 /* last_videos_01.json in Resources */,
+				9F1A5B431ACD691700C0E528 /* video_03.json in Resources */,
+				9F1A5B3B1ACD691700C0E528 /* livevideo01.json in Resources */,
+				9F1A5B441ACD691700C0E528 /* video_04.json in Resources */,
+				9F1A5B3F1ACD691700C0E528 /* sample_video_fragment_01.json in Resources */,
+				9F1A5B381ACD691700C0E528 /* LiveStreams_RTS.json in Resources */,
+				9F1A5B3E1ACD691700C0E528 /* rubric_01.json in Resources */,
+				9F1A5B401ACD691700C0E528 /* show_01.json in Resources */,
+				9F1A5B411ACD691700C0E528 /* video_01.json in Resources */,
+				9F1A5B3A1ACD691700C0E528 /* LiveStreams_RTS_reversed.json in Resources */,
+				9F1A5B341ACD691700C0E528 /* assetset_01.json in Resources */,
+				9F1A5B361ACD691700C0E528 /* imagerepresentation_01.json in Resources */,
+				9F1A5B3C1ACD691700C0E528 /* most_viewed_videos_01.json in Resources */,
+				9F1A5B421ACD691700C0E528 /* video_02.json in Resources */,
+				9F1A5B331ACD691700C0E528 /* assetmetadata_01.json in Resources */,
+				9F1A5B351ACD691700C0E528 /* image_01.json in Resources */,
+				9F1A5B451ACD691700C0E528 /* videoaggregation_01.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +546,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F1A5B2C1ACD690C00C0E528 /* SRGILMediaTest.m in Sources */,
+				9F1A5B2B1ACD690C00C0E528 /* SRGLiveStreamVideoTest.m in Sources */,
+				9F1A5B301ACD690C00C0E528 /* SRGTokenHandlerStubsTest.m in Sources */,
+				9F1A5B2A1ACD690C00C0E528 /* SRGILAudioTest.m in Sources */,
+				9F1A5B311ACD690C00C0E528 /* SRGILVideoTest.m in Sources */,
+				9F1A5B2F1ACD690C00C0E528 /* SRGRequestModelTest.m in Sources */,
+				9F1A5B2D1ACD690C00C0E528 /* SRGModelObjectTest.m in Sources */,
+				9F1A5B321ACD690C00C0E528 /* XCTestCase+JSON.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

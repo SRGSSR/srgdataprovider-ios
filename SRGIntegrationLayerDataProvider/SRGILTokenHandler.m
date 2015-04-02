@@ -1,5 +1,5 @@
 //
-//  SRGTokenHandler.m
+//  SRGILTokenHandler.m
 //  SRFPlayer
 //
 //  Created by Frédéric VERGEZ on 07/03/14.
@@ -13,7 +13,7 @@
 #import "SRGILErrors.h"
 
 // Keep the trailing slash
-//static NSString * const SRGTokenHandlerBaseURLString = @"http://www.srf.ch/player/token?acl=/";
+//static NSString * const SRGILTokenHandlerBaseURLString = @"http://www.srf.ch/player/token?acl=/";
 static NSString * const SRGILTokenHandlerBaseURLString = @"http://tp.srgssr.ch/token/akahd.json.xml?stream=/";
 
 @implementation SRGILTokenHandler

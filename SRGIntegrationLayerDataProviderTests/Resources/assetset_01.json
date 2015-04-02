@@ -1,0 +1,70 @@
+{
+    "id" : "c86f973c-3a68-469e-9892-7e2a6d409ef0",
+    "modifiedDate" : "2014-02-03T09:58:19+01:00",
+    "createdDate" : "2014-02-03T09:58:19+01:00",
+    "publishedDate" : "2014-02-03T09:38:55+01:00",
+    "assetGroupId" : "c4c4b8f0-4680-0001-31e2-b9c01f401a7a",
+    "Show" : {
+        "id" : "c4c4b8f0-4680-0001-31e2-b9c01f401a7a",
+        "modifiedDate" : "2013-11-26T15:13:07+01:00",
+        "createdDate" : "1999-11-30T00:00:00+01:00",
+        "archive" : "false",
+        "autoGeoblock" : "false",
+        "description" : "Multimedial und lehrplanbezogen: Das ist «mySchool», das Bildungsangebot von Schweizer Radio und Fernsehen. Montags bis freitags von 9 bis 10 Uhr laufen auf SRF 1 bildungsrelevante Sendungen. Auf der Webseite finden Lehrpersonen alle Filme mit massgeschneidertem Unterrichtsmaterial in Form von Zusammenfassungen, Lektionsskizzen und Arbeitsvorschlägen – vertiefend, stufengerecht und kostenlos. Viele Filme lassen sich, falls es die rechtliche Situation erlaubt, nach der TV-Ausstrahlung auf der Webseite oder hier im SRF Player abspielen.",
+        "Image" : {
+            "id" : "6eb886b9-42da-4917-8115-46575aca3a83",
+            "modifiedDate" : "2013-11-26T15:13:07+01:00",
+            "createdDate" : "1999-11-30T00:00:00+01:00",
+            "ImageRepresentations" : [
+                                      {
+                                      "ImageRepresentation" : {
+                                      "id" : "e130768f-899e-48b5-a5ed-17a04d3a9a06",
+                                      "modifiedDate" : "2013-11-26T15:13:37+01:00",
+                                      "createdDate" : "2013-11-26T15:13:37+01:00",
+                                      "height" : "160",
+                                      "imageId" : "6eb886b9-42da-4917-8115-46575aca3a83",
+                                      "location" : "ais://assets/image/root/2013/2/5/c4c4b8f0-4680-0001-31e2-b9c01f401a7a_0005.jpg",
+                                      "staticUrl" : "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/6eb886b9-42da-4917-8115-46575aca3a83/HEADER_SRF_PLAYER.jpg",
+                                      "url" : "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/6eb886b9-42da-4917-8115-46575aca3a83/HEADER_SRF_PLAYER/1385475217000.jpg",
+                                      "usage" : "HEADER_SRF_PLAYER",
+                                      "width" : "484"
+                                      }
+                                      },
+                                      {
+                                      "ImageRepresentation" : {
+                                      "id" : "27f460a6-535e-47e8-8875-1148e45635c2",
+                                      "modifiedDate" : "2013-11-26T15:13:07+01:00",
+                                      "createdDate" : "2013-11-26T15:13:07+01:00",
+                                      "height" : "1400",
+                                      "imageId" : "6eb886b9-42da-4917-8115-46575aca3a83",
+                                      "location" : "ais://assets/image/root/2011/7/19/c4c4b8f0-4680-0001-31e2-b9c01f401a7a_0003.jpg",
+                                      "staticUrl" : "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/6eb886b9-42da-4917-8115-46575aca3a83/PODCAST.jpg",
+                                      "url" : "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/6eb886b9-42da-4917-8115-46575aca3a83/PODCAST/1385475187000.jpg",
+                                      "usage" : "PODCAST",
+                                      "width" : "1400"
+                                      }
+                                      },
+                                      {
+                                      "ImageRepresentation" : {
+                                      "id" : "30e77b91-6496-4dd8-933d-7cbfee660257",
+                                      "modifiedDate" : "2013-11-26T15:13:20+01:00",
+                                      "createdDate" : "2013-11-26T15:13:20+01:00",
+                                      "height" : "1080",
+                                      "imageId" : "6eb886b9-42da-4917-8115-46575aca3a83",
+                                      "location" : "ais://assets/image/root/2012/12/15/c4c4b8f0-4680-0001-31e2-b9c01f401a7a.jpg",
+                                      "staticUrl" : "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/6eb886b9-42da-4917-8115-46575aca3a83/WEBVISUAL.jpg",
+                                      "url" : "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/6eb886b9-42da-4917-8115-46575aca3a83/WEBVISUAL/1385475200000.jpg",
+                                      "usage" : "WEBVISUAL",
+                                      "width" : "1920"
+                                      }
+                                      }
+                                      ],
+            "title" : "SRF mySchool"
+        },
+        "lead" : "Das Programm, das Schule macht",
+        "title" : "SRF mySchool"
+    },
+    "title" : "SRF mySchool vom 03.02.2014",
+    "proteusSeId" : "c1552ecf-91bc-4639-8b1e-04d18c92a9bf",
+    "proteusSlotId" : "0d7cae95-1723-4f11-ba3a-977a672b776e"
+}

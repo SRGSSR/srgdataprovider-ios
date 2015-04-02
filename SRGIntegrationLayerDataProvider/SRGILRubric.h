@@ -1,5 +1,5 @@
 //
-//  SRGRubric.h
+//  SRGILRubric.h
 //  SRFPlayer
 //
 //  Created by Samuel Défago on 12/02/14.

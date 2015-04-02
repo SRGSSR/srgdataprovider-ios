@@ -1,0 +1,46 @@
+{
+    "id" : "77ea500a-3748-480a-83d6-015213b10024",
+    "modifiedDate" : "2014-01-10T10:31:16+01:00",
+    "createdDate" : "1999-11-30T00:00:00+01:00",
+    "archive" : "false",
+    "autoGeoblock" : "false",
+    "description" : "Wie wird das Wetter? In «Meteo» erfahren Sie es. Live vom Freiluft-Wetterpult auf dem Dach des SRF-Hochhauses, aus dem Newsstudio oder aus dem Wetterbüro von SRF sendet das «Meteo»-Team täglich Wetterberichte, Prognosen, fachliche Hintergrundinfos, Vorsichtsmeldungen und Warnungen. Hier finden Sie immer die aktuelle Ausgabe.",
+    "Image" : {
+        "id" : "f6672e62-29cb-4af3-90fd-85f978c548a7",
+        "modifiedDate" : "2013-11-26T15:01:03+01:00",
+        "createdDate" : "1999-11-30T00:00:00+01:00",
+        "ImageRepresentations" : [
+                                  {
+                                  "ImageRepresentation" : {
+                                  "id" : "62ff14ed-c61c-4be3-9364-5b9e196d0754",
+                                  "modifiedDate" : "2013-11-26T15:01:03+01:00",
+                                  "createdDate" : "2013-11-26T15:01:03+01:00",
+                                  "height" : "160",
+                                  "imageId" : "f6672e62-29cb-4af3-90fd-85f978c548a7",
+                                  "location" : "ais://assets/image/root/2013/2/5/77ea500a-3748-480a-83d6-015213b10024_0005.jpg",
+                                  "staticUrl" : "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/f6672e62-29cb-4af3-90fd-85f978c548a7/HEADER_SRF_PLAYER.jpg",
+                                  "url" : "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/f6672e62-29cb-4af3-90fd-85f978c548a7/HEADER_SRF_PLAYER/1385474463000.jpg",
+                                  "usage" : "HEADER_SRF_PLAYER",
+                                  "width" : "484"
+                                  }
+                                  },
+                                  {
+                                  "ImageRepresentation" : {
+                                  "id" : "21fa3bcd-e921-4be0-b5ce-305effa10315",
+                                  "modifiedDate" : "2013-11-26T15:01:07+01:00",
+                                  "createdDate" : "2013-11-26T15:01:07+01:00",
+                                  "height" : "1080",
+                                  "imageId" : "f6672e62-29cb-4af3-90fd-85f978c548a7",
+                                  "location" : "ais://assets/image/root/2012/12/15/77ea500a-3748-480a-83d6-015213b10024.jpg",
+                                  "staticUrl" : "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/f6672e62-29cb-4af3-90fd-85f978c548a7/WEBVISUAL.jpg",
+                                  "url" : "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/f6672e62-29cb-4af3-90fd-85f978c548a7/WEBVISUAL/1385474467000.jpg",
+                                  "usage" : "WEBVISUAL",
+                                  "width" : "1920"
+                                  }
+                                  }
+                                  ],
+        "title" : "SRF Meteo"
+    },
+    "lead" : "Aktuelle Wetterberichte und Prognosen",
+    "title" : "SRF Meteo"
+}

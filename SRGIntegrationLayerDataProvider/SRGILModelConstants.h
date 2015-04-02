@@ -45,7 +45,7 @@ SRGILMediaBlockingReason SRGILMediaBlockingReasonForKey(NSString *key);
 NSString *SRGILMediaBlockingReasonMessageForReason(SRGILMediaBlockingReason reason);
 
 /*
- * Asset sub-types (can be used in SRGVideo or SRGAsset)
+ * Asset sub-types (can be used in SRGILVideo or SRGAsset)
  */
 typedef NS_ENUM(NSInteger, SRGILAssetSubSetType) {
     SRGILAssetSubSetTypeEpisode,

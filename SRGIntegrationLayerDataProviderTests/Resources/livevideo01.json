@@ -1,0 +1,121 @@
+{
+    "Video": {
+        "id": "3608506",
+        "modifiedDate": "2014-07-15T12:25:05+02:00",
+        "createdDate": "2011-11-25T15:18:41+01:00",
+        "urn": "urn:rts:video:3608506",
+        "fullLength": false,
+        "staticGeoBlock": true,
+        "duration": 0,
+        "markIn": 0,
+        "markOut": 0,
+        "Playlists": {
+            "@availability": "LIVE",
+            "Playlist": [
+                         {
+                         "@protocol": "HTTP-HDS",
+                         "url": [
+                                 {
+                                 "@quality": "HD",
+                                 "text": "http://srgssruni9ch-lh.akamaihd.net/z/enc9uni_ch@191320/manifest.f4m"
+                                 }
+                                 ]
+                         },
+                         {
+                         "@protocol": "HTTP-HLS",
+                         "url": [
+                                 {
+                                 "@quality": "HD",
+                                 "text": "https://srgssruni9ch-lh.akamaihd.net/i/enc9uni_ch@191320/master.m3u8"
+                                 }
+                                 ]
+                         }
+                         ]
+        },
+        "AssetMetadatas": {
+            "AssetMetadata": [
+                              {
+                              "id": "3608506",
+                              "assetId": "3608506",
+                              "modifiedDate": "2014-07-15T12:25:05+02:00",
+                              "createdDate": "2011-11-25T15:18:41+01:00",
+                              "title": "RTS Un en direct",
+                              "description": "",
+                              "lead": "",
+                              "usage": "DEFAULT"
+                              }
+                              ]
+        },
+        "Image": {
+            "id": "3817034",
+            "ImageRepresentations": {
+                "ImageRepresentation": [
+                                        {
+                                        "id": "3817034",
+                                        "url": "http://www.rts.ch/2012/02/29/00/35/3817034.image/16x9",
+                                        "usage": "EPISODE_IMAGE"
+                                        }
+                                        ]
+            }
+        },
+        "assetSetId": "2107921",
+        "assetSubSetId": "LIVESTREAM",
+        "position": 0,
+        "AssetSet": {
+            "id": "2107921",
+            "modifiedDate": "2012-12-11T15:31:06+01:00",
+            "createdDate": "2011-11-25T15:18:41+01:00",
+            "publishedDate": "2011-11-25T15:21:54+01:00",
+            "title": "RTS Un en direct",
+            "assetGroupId": "4500591",
+            "Assets": {
+                "Video": [
+                          {
+                          "id": "3608506",
+                          "modifiedDate": "2014-07-15T12:25:05+02:00",
+                          "createdDate": "2011-11-25T15:18:41+01:00",
+                          "urn": "urn:rts:video:3608506",
+                          "position": 0,
+                          "assetSubSetId": "EPISODE",
+                          "fullLength": false,
+                          "staticGeoBlock": true,
+                          "duration": 0,
+                          "markIn": 0,
+                          "markOut": 0,
+                          "AssetMetadatas": {
+                          "AssetMetadata": [
+                                            {
+                                            "id": "3608506",
+                                            "assetId": "3608506",
+                                            "modifiedDate": "2014-07-15T12:25:05+02:00",
+                                            "createdDate": "2011-11-25T15:18:41+01:00",
+                                            "title": "RTS Un en direct",
+                                            "lead": "",
+                                            "usage": "DEFAULT"
+                                            }
+                                            ]
+                          },
+                          "Image": {
+                          "id": "3817034",
+                          "ImageRepresentations": {
+                          "ImageRepresentation": [
+                                                  {
+                                                  "id": "3817034",
+                                                  "url": "http://www.rts.ch/2012/02/29/00/35/3817034.image/16x9",
+                                                  "usage": "EPISODE_IMAGE"
+                                                  }
+                                                  ]
+                          }
+                          }
+                          }
+                          ]
+            },
+            "Show": {
+                "id": "4500591",
+                "title": "RTS Un en direct",
+                "lead": "RTS Un en direct",
+                "description": " "
+            }
+        }
+    }
+}
