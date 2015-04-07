@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
 #import "SRGILDataProvider.h"
 #import "SRGILOrganisedModelDataItem.h"
 
@@ -24,6 +26,7 @@
 
 static NSString * const comScoreKeyPathPrefix = @"SRGILComScoreAnalyticsInfos.";
 static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsInfos.";
+static NSString * const itemClassPrefix = @"SRGIL";
 
 @interface SRGILDataProvider () {
     NSMutableDictionary *_identifiedMedias;
@@ -216,6 +219,15 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 
 #pragma mark - Item Lists
 
+- (void)fetchFlatListOfItemType:(enum SRGILModelItemType)itemType
+                   onCompletion:(SRGILFetchListCompletionBlock)completionBlock
+{
+    [self fetchListOfItemType:itemType
+                    organised:SRGILModelDataOrganisationTypeFlat
+                   onProgress:nil
+                 onCompletion:completionBlock];
+}
+
 - (void)fetchListOfItemType:(enum SRGILModelItemType)itemType
                   organised:(SRGILModelDataOrganisationType)orgType
                  onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
@@ -237,6 +249,8 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     @weakify(self);
     
     if (tag && path) {
+        DDLogWarn(@"Fetch request for item type %d with path %@", itemType, path);
+        
         [self.requestManager requestItemsWithURLPath:path
                                           onProgress:progressBlock
                                         onCompletion:^(NSDictionary *rawDictionary, NSError *error) {
@@ -246,6 +260,9 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                                                            organisationType:orgType
                                                                         withCompletionBlock:completionBlock];
                                         }];
+    }
+    else {
+        DDLogWarn(@"Inconsistent fetch request for item type %d", itemType);
     }
 }
 
@@ -273,7 +290,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     NSMutableDictionary *globalProperties = [NSMutableDictionary dictionary];
     
     [mainValue enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
-        if (NSClassFromString([@"SRGIL" stringByAppendingString:key]) && // We have an Obj-C class to build with
+        if (NSClassFromString([itemClassPrefix stringByAppendingString:key]) && // We have an Obj-C class to build with
             [validItemClassKeys containsObject:key] && // It is among the known class keys
             [obj isKindOfClass:[NSArray class]]) // Its value is an array of siblings.
         {
@@ -287,7 +304,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     
     
         // We haven't found an array of items. The root object is probably what we are looking for.
-    if (!className && NSClassFromString([@"SRGIL" stringByAppendingString:mainKey])) {
+    if (!className && NSClassFromString([itemClassPrefix stringByAppendingString:mainKey])) {
         className = mainKey;
         itemsDictionaries = @[mainValue];
     }
@@ -296,7 +313,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         [self sendUserFacingErrorForTag:tag withTechError:nil completionBlock:completionBlock];
     }
     else {
-        Class itemClass = NSClassFromString([@"SRGIL" stringByAppendingString:className]);
+        Class itemClass = NSClassFromString([itemClassPrefix stringByAppendingString:className]);
         
         NSError *error = nil;
         NSArray *organisedItems = [self organiseItemsWithGlobalProperties:globalProperties
@@ -310,11 +327,10 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
             [self sendUserFacingErrorForTag:tag withTechError:error completionBlock:completionBlock];
         }
         else {
-            NSLog(@"[Info] Returning %tu organised data item for tag %@", [organisedItems count], tag);
+            DDLogInfo(@"[Info] Returning %tu organised data item for tag %@", [organisedItems count], tag);
             
             for (SRGILOrganisedModelDataItem *dataItem in organisedItems) {
                 SRGILList *newItems = dataItem.items;
-#warning Put also itemClass in dataItem and store the whole SRGILOrganisedModelDataItem instance.
                 _taggedItemLists[tag] = newItems;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completionBlock(newItems, itemClass, nil);
@@ -345,16 +361,14 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     }];
     
     if ([dictionaries count] == 1 || modelClass == [SRGILAssetSet class] || modelClass == [SRGILAudio class]) {
-        SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemWithTag:tag
-                                                                                       items:items
-                                                                                  properties:properties];
-        return @[dataItem];
+        return @[[SRGILOrganisedModelDataItem dataItemForTag:tag withItems:items class:modelClass properties:properties]];
     }
     else if (modelClass == [SRGILVideo class]) {
         NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES];
-        SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemWithTag:tag
-                                                                                       items:[items sortedArrayUsingDescriptors:@[desc]]
-                                                                                  properties:properties];
+        SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemForTag:tag
+                                                                                  withItems:[items sortedArrayUsingDescriptors:@[desc]]
+                                                                                      class:modelClass
+                                                                                 properties:properties];
         return @[dataItem];
     }
     else if (modelClass == [SRGILShow class]) {
@@ -393,25 +407,22 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
             NSArray *sortedShowsGroupsKeys = [[showsGroups allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
             
             [sortedShowsGroupsKeys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
-                SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemWithTag:key
-                                                                                               items:showsGroups[key]
-                                                                                          properties:properties];
+                SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemForTag:key
+                                                                                          withItems:showsGroups[key]
+                                                                                              class:modelClass
+                                                                                         properties:properties];
                 [splittedShows addObject:dataItem];
             }];
             
             return [NSArray arrayWithArray:splittedShows];
         }
         else {
-            SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemWithTag:tag
-                                                                                           items:items
-                                                                                      properties:properties];
-            return @[dataItem];
+            return @[[SRGILOrganisedModelDataItem dataItemForTag:tag withItems:items class:modelClass properties:properties]];
         }
     }
     else {
         if (error) {
-            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"INVALID_DATA_FOR_CATEGORY", nil), tag];
-            
+            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"INVALID_DATA", nil)];
             *error = [NSError errorWithDomain:SRGILErrorDomain
                                          code:SRGILErrorCodeInvalidData
                                      userInfo:@{NSLocalizedDescriptionKey: message}];

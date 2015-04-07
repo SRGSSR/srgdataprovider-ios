@@ -11,9 +11,13 @@
 
 @interface SRGILOrganisedModelDataItem : NSObject
 
-@property(nonatomic, strong) id<NSCopying>tag;
+@property(nonatomic, copy) id<NSCopying> tag;
 @property(nonatomic, strong) SRGILList *items;
+@property(nonatomic, strong) Class itemClass;
 
-+ (SRGILOrganisedModelDataItem *)dataItemWithTag:(id<NSCopying>)tag items:(NSArray *)items properties:(NSDictionary *)props;
++ (SRGILOrganisedModelDataItem *)dataItemForTag:(id<NSCopying>)tag
+                                      withItems:(NSArray *)items
+                                          class:(Class)itemClass
+                                     properties:(NSDictionary *)props;
 
 @end

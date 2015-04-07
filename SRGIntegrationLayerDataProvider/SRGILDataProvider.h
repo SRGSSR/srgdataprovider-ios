@@ -33,6 +33,9 @@ typedef void (^SRGILFetchListCompletionBlock)(SRGILList *items, Class itemClass,
 - (instancetype)initWithBusinessUnit:(NSString *)businessUnit;
 - (NSString *)businessUnit;
 
+- (void)fetchFlatListOfItemType:(enum SRGILModelItemType)itemType
+                   onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
+
 - (void)fetchListOfItemType:(enum SRGILModelItemType)itemType
                   organised:(SRGILModelDataOrganisationType)orgType
                  onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock

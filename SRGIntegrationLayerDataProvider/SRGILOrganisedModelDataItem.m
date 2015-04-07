@@ -8,13 +8,12 @@
 
 #import "SRGILOrganisedModelDataItem.h"
 
-@interface SRGILOrganisedModelDataItem ()
-+ (SRGILOrganisedModelDataItem *)dataItemWithTag:(id<NSCopying>)tag items:(NSArray *)items properties:(NSDictionary *)props;
-@end
-
 @implementation SRGILOrganisedModelDataItem
 
-+ (SRGILOrganisedModelDataItem *)dataItemWithTag:(id<NSCopying>)tag items:(NSArray *)items properties:(NSDictionary *)props
++ (SRGILOrganisedModelDataItem *)dataItemForTag:(id<NSCopying>)tag
+                                      withItems:(NSArray *)items
+                                          class:(Class)itemClass
+                                     properties:(NSDictionary *)props
 {
     SRGILOrganisedModelDataItem *dataItem = [[SRGILOrganisedModelDataItem alloc] init];
     dataItem.tag = tag;
