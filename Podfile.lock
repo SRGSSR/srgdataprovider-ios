@@ -15,7 +15,7 @@ PODS:
   - RTSAnalytics (0.0.1):
     - comScore-iOS-SDK (= 3.1502.26)
     - RTSMediaPlayer (~> 0.0.1)
-  - RTSMediaPlayer (0.0.1):
+  - RTSMediaPlayer (0.0.2):
     - libextobjc/EXTScope (~> 0.4.1)
     - TransitionKit (~> 2.1.1)
   - SGVReachability (1.0.0)
@@ -43,10 +43,10 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   RTSAnalytics:
-    :commit: 0fe80670bc8eb1dafa47a496e682b9cc6616b13e
+    :commit: 6d69f0c68b7a1d32bf1b141f8cb9bf286f793824
     :git: git@bitbucket.org:rtsmb/rtsanalytics-ios.git
   RTSMediaPlayer:
-    :commit: aa1f8c1bf787ac0c2ba4af2cf2a82ad459ddf633
+    :commit: 0b031f9c303d7c0555f853bc96365223c7739432
     :git: git@bitbucket.org:rtsmb/rtsmediaplayer-ios.git
   TransitionKit:
     :commit: 6874dea2229bdefb89f6c8f708f1fae467ee5ba2
@@ -58,7 +58,7 @@ SPEC CHECKSUMS:
   comScore-iOS-SDK: 75e852619b2c7353156023d4eb7cae42ef83c670
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   RTSAnalytics: fde7a0a3bd60438e9022daf893ab5aefea821420
-  RTSMediaPlayer: 3e6088559aad02b89a06f9783e8c64da71b63f8d
+  RTSMediaPlayer: dee63f24d51a92f3547df8e50566ef57b5c47b24
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
   TransitionKit: 3a14b6acc7cf2d1dd3e454e24dbad1cfab9a1ef1
 
