@@ -249,7 +249,7 @@ static NSString * const itemClassPrefix = @"SRGIL";
     @weakify(self);
     
     if (tag && path) {
-        DDLogWarn(@"Fetch request for item type %d with path %@", itemType, path);
+        DDLogWarn(@"Fetch request for item type %ld with path %@", itemType, path);
         
         [self.requestManager requestItemsWithURLPath:path
                                           onProgress:progressBlock
@@ -262,7 +262,7 @@ static NSString * const itemClassPrefix = @"SRGIL";
                                         }];
     }
     else {
-        DDLogWarn(@"Inconsistent fetch request for item type %d", itemType);
+        DDLogWarn(@"Inconsistent fetch request for item type %ld", itemType);
     }
 }
 
