@@ -57,21 +57,27 @@ typedef NS_ENUM(NSInteger, SRGILAssetSubSetType) {
 SRGILAssetSubSetType SRGILAssetSubSetTypeForString(NSString *subtypeString);
 
 typedef NS_ENUM(NSInteger, SRGILPlaylistProtocol) {
-    SRGILPlaylistProtocolHLS,
+    SRGILPlaylistProtocolEnumBegin = 0,
+    SRGILPlaylistProtocolHLS = SRGILPlaylistProtocolEnumBegin,
     SRGILPlaylistProtocolHDS,
     SRGILPlaylistProtocolRTMP,
     SRGILPlaylistProtocolHTTP,
-    SRGILPlaylistProtocolUnknown
+    SRGILPlaylistProtocolUnknown,
+    SRGILPlaylistProtocolEnumEnd,
+    SRGILPlaylistProtocolEnumSize = SRGILPlaylistProtocolEnumEnd - SRGILPlaylistProtocolEnumBegin
 };
 
 typedef NS_ENUM(NSInteger, SRGILPlaylistURLQuality) {
-    SRGILPlaylistURLQualitySD,
+    SRGILPlaylistURLQualityEnumBegin = 0,
+    SRGILPlaylistURLQualitySD = SRGILPlaylistURLQualityEnumBegin,
     SRGILPlaylistURLQualityHD,
     SRGILPlaylistURLQualitySQ,
     SRGILPlaylistURLQualityLQ,
     SRGILPlaylistURLQualityMQ,
     SRGILPlaylistURLQualityHQ,
-    SRGILPlaylistURLQualityUnknown
+    SRGILPlaylistURLQualityUnknown,
+    SRGILPlaylistURLQualityEnumEnd,
+    SRGILPlaylistURLQualityEnumsize = SRGILPlaylistURLQualityEnumEnd - SRGILPlaylistURLQualityEnumBegin
 };
 
 typedef NS_ENUM(NSInteger, SRGILPlaylistSegmentation) {

@@ -19,6 +19,10 @@
 
 @interface SRGILMedia () {
     NSMutableDictionary *_cachedSegmentationFlags;
+    NSURL *_cachedHDHLSURL;
+    NSURL *_cachedSDHLSURL;
+    NSURL *_cachedMQHLSURL;
+    NSURL *_cachedMQHTTPURL;
 }
 @end
 
@@ -190,25 +194,38 @@
 
 - (NSURL *)HDHLSURL
 {
-    return [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityHD];
+    if (!_cachedHDHLSURL) {
+        _cachedHDHLSURL = [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityHD];
+    }
+    return _cachedHDHLSURL;
 }
 
 - (NSURL *)SDHLSURL
 {
-    return [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualitySD];
+    if (!_cachedSDHLSURL) {
+        _cachedSDHLSURL = [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualitySD];
+    }
+    return _cachedSDHLSURL;
 }
 
 - (NSURL *)MQHLSURL
 {
-    return [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityMQ];
+    if (!_cachedMQHLSURL) {
+        _cachedMQHLSURL =  [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityMQ];
+    }
+    return _cachedMQHLSURL;
 }
 
 - (NSURL *)MQHTTPURL
 {
-    return [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTP withQuality:SRGILPlaylistURLQualityMQ];
+    if (!_cachedMQHTTPURL) {
+        _cachedMQHTTPURL = [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTP withQuality:SRGILPlaylistURLQualityMQ];
+    }
+    return _cachedMQHTTPURL;
 }
 
-- (NSURL *)URLForPlaylistWithProtocol:(enum SRGILPlaylistProtocol)playlistProtocol withQuality:(SRGILPlaylistURLQuality)quality {
+- (NSURL *)URLForPlaylistWithProtocol:(enum SRGILPlaylistProtocol)playlistProtocol withQuality:(SRGILPlaylistURLQuality)quality
+{
     __block NSURL *result = nil;
 
     [self.playlists enumerateObjectsUsingBlock:^(SRGILPlaylist *pl, NSUInteger idx, BOOL *stop) {
@@ -222,6 +239,40 @@
     }];
 
     return result;
+}
+
+- (SRGILPlaylistProtocol)playlistProtocolForURL:(NSURL *)URL
+{
+    if (!URL) {
+        return SRGILPlaylistProtocolUnknown;
+    }
+    
+    for (SRGILPlaylist *pl in self.playlists) {
+        for (SRGILPlaylistURLQuality quality = SRGILPlaylistURLQualityEnumBegin; quality < SRGILPlaylistURLQualityEnumEnd; quality ++) {
+            if ([URL isEqual:[pl URLForQuality:quality]]) {
+                return pl.protocol;
+            }
+        }
+    }
+    
+    return SRGILPlaylistProtocolUnknown;
+}
+
+- (SRGILPlaylistURLQuality)playlistURLQualityForURL:(NSURL *)URL
+{
+    if (!URL) {
+        return SRGILPlaylistURLQualityUnknown;
+    }
+    
+    for (SRGILPlaylist *pl in self.playlists) {
+        for (SRGILPlaylistURLQuality quality = SRGILPlaylistURLQualityEnumBegin; quality < SRGILPlaylistURLQualityEnumEnd; quality ++) {
+            if ([URL isEqual:[pl URLForQuality:quality]]) {
+                return quality;
+            }
+        }
+    }
+    
+    return SRGILPlaylistURLQualityUnknown;
 }
 
 - (SRGILPlaylistSegmentation)segmentationForURL:(NSURL *)URL

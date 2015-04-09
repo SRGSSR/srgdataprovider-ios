@@ -64,6 +64,9 @@
 - (NSURL *)MQHLSURL;
 - (NSURL *)MQHTTPURL;
 
+- (SRGILPlaylistProtocol)playlistProtocolForURL:(NSURL *)URL;
+- (SRGILPlaylistURLQuality)playlistURLQualityForURL:(NSURL *)URL;
+
 - (SRGILPlaylistSegmentation)segmentationForURL:(NSURL *)URL;
 
 /**
