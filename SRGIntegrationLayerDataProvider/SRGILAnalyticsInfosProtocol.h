@@ -11,6 +11,6 @@
 
 @protocol SRGILAnalyticsInfos <NSObject>
 
-- (instancetype)initWithMedia:(SRGILMedia *)media;
+- (instancetype)initWithMedia:(SRGILMedia *)media usingURL:(NSURL *)playedURL;
 
 @end

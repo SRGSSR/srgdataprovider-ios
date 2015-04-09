@@ -84,11 +84,17 @@ static NSString * const itemClassPrefix = @"SRGIL";
     void (^tokenBlock)(SRGILMedia *) = ^(SRGILMedia *media) {
         @strongify(self)
         NSURL *contentURL = [self contentURLForMedia:media];
-        [[SRGILTokenHandler sharedHandler] requestTokenForURL:contentURL
-                                    appendLogicalSegmentation:nil
-                                              completionBlock:^(NSURL *tokenizedURL, NSError *error) {
-                                                  completionHandler(tokenizedURL, error);
-                                              }];
+        
+        if (contentURL) {
+            [[SRGILTokenHandler sharedHandler] requestTokenForURL:contentURL
+                                        appendLogicalSegmentation:nil
+                                                  completionBlock:^(NSURL *tokenizedURL, NSError *error) {
+                                                      completionHandler(tokenizedURL, error);
+                                                  }];
+        }
+        else {
+            completionHandler(nil, [NSError errorWithDomain:SRGILErrorDomain code:SRGILErrorVideoNoSourceURL userInfo:nil]);
+        }
     };
     
     if ([self contentURLForMedia:existingMedia]) {
@@ -98,8 +104,19 @@ static NSString * const itemClassPrefix = @"SRGIL";
         [_requestManager requestMediaOfType:SRGILMediaTypeVideo
                              withIdentifier:identifier
                             completionBlock:^(SRGILMedia *media, NSError *error) {
-                                _identifiedMedias[identifier] = media;
-                                [self prepareAnalyticsInfosForMedia:media];
+                                @strongify(self)
+
+                                if (media) {
+                                    _identifiedMedias[identifier] = media;
+                                    NSURL *contentURL = [self contentURLForMedia:media];
+                                    if (contentURL) {
+                                        [self prepareAnalyticsInfosForMedia:media withContentURL:contentURL];
+                                    }
+                                }
+                                else {
+                                    [_identifiedMedias removeObjectForKey:identifier];
+                                }
+                                
                                 tokenBlock(media);
                             }];
     }
@@ -162,10 +179,10 @@ static NSString * const itemClassPrefix = @"SRGIL";
 
 #pragma mark - Analytics Infos 
 
-- (void)prepareAnalyticsInfosForMedia:(SRGILMedia *)media
+- (void)prepareAnalyticsInfosForMedia:(SRGILMedia *)media withContentURL:(NSURL *)contentURL
 {
-    SRGILComScoreAnalyticsInfos *comScoreDataSource = [[SRGILComScoreAnalyticsInfos alloc] initWithMedia:media];
-    SRGILStreamSenseAnalyticsInfos *streamSenseDataSource = [[SRGILStreamSenseAnalyticsInfos alloc] initWithMedia:media];
+    SRGILComScoreAnalyticsInfos *comScoreDataSource = [[SRGILComScoreAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
+    SRGILStreamSenseAnalyticsInfos *streamSenseDataSource = [[SRGILStreamSenseAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
     
     NSString *comScoreKeyPath = [comScoreKeyPathPrefix stringByAppendingString:media.identifier];
     NSString *streamSenseKeyPath = [streamSenseKeyPathPrefix stringByAppendingString:media.identifier];
@@ -249,7 +266,7 @@ static NSString * const itemClassPrefix = @"SRGIL";
     @weakify(self);
     
     if (tag && path) {
-        DDLogWarn(@"Fetch request for item type %ld with path %@", itemType, path);
+        DDLogWarn(@"Fetch request for item type %ld with path %@", (long)itemType, path);
         
         [self.requestManager requestItemsWithURLPath:path
                                           onProgress:progressBlock
@@ -262,7 +279,7 @@ static NSString * const itemClassPrefix = @"SRGIL";
                                         }];
     }
     else {
-        DDLogWarn(@"Inconsistent fetch request for item type %ld", itemType);
+        DDLogWarn(@"Inconsistent fetch request for item type %ld", (long)itemType);
     }
 }
 

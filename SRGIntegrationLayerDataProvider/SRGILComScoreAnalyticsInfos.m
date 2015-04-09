@@ -12,6 +12,7 @@
 
 @interface SRGILComScoreAnalyticsInfos ()
 @property(nonatomic, strong) SRGILMedia *media;
+@property(nonatomic, strong) NSURL *playedURL;
 @end
 
 @implementation SRGILComScoreAnalyticsInfos
@@ -65,48 +66,50 @@
     return [labels copy];
 }
 
-- (instancetype)initWithMedia:(SRGILMedia *)media
+- (instancetype)initWithMedia:(SRGILMedia *)media usingURL:(NSURL *)playedURL
 {
-    NSAssert(media, @"Missing identifier");
+    NSAssert(media, @"Missing media");
+    NSAssert(playedURL, @"Missing played URL");
+
     self = [super init];
     if (self) {
         self.media = media;
+        self.playedURL = playedURL;
     }
     return self;
 }
 
 - (RTSAnalyticsMediaMode)mediaMode
 {
-    return RTSAnalyticsMediaModeLiveStream;
+    return ([self.media isLiveStream]) ? RTSAnalyticsMediaModeLiveStream : RTSAnalyticsMediaModeOnDemand;
 }
 
 - (NSDictionary *)statusLabels
 {
     NSMutableDictionary *labels = [NSMutableDictionary dictionary];
 
-//    NSString *srg_n1 = @"(UndefinedMediaType)";
-//    switch ([self mediaMode]) {
-//        case SRGILMediaTypeVideo:
-//            srg_n1 = @"VideoPlayer";
-//            break;
-//        case SRGILMediaTypeAudio:
-//            srg_n1 = @"AudioPlayer";
-//            break;
-//        default:
-//            break;
-//    }
+    NSString *srg_n1 = @"(UndefinedMediaType)";
+    switch ([self.media.class type]) {
+        case SRGILMediaTypeVideo:
+            srg_n1 = @"VideoPlayer";
+            break;
+        case SRGILMediaTypeAudio:
+            srg_n1 = @"AudioPlayer";
+            break;
+        default:
+            break;
+    }
     
-    NSString *srg_n1 = @"VideoPlayer";
     NSString *srg_n2 = nil;
     NSString *title = nil;
 
-    if ([self mediaMode] == RTSAnalyticsMediaModeLiveStream) {
+    if ([self.media isLiveStream]) {
         srg_n2 = @"Live";
-        title = [@"<PUT HERE MEDIA PARENT TITLE>" comScoreFormattedString];
+        title = [self.media.parentTitle comScoreFormattedString];
     }
     else {
-        srg_n2 = [@"<PUT HERE MEDIA PARENT TITLE>" comScoreFormattedString];
-        title = [@"<PUT HERE MEDIA TITLE>" comScoreFormattedString];
+        srg_n2 = [self.media.parentTitle comScoreFormattedString];
+        title = [self.media.title comScoreFormattedString];
     }
 
     NSString *category = srg_n2 ? [NSString stringWithFormat:@"%@.%@", srg_n1, srg_n2] : srg_n1;

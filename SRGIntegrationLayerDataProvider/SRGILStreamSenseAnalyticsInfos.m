@@ -16,20 +16,23 @@
 
 @interface SRGILStreamSenseAnalyticsInfos ()
 @property(nonatomic, strong) SRGILMedia *media;
+@property(nonatomic, strong) NSURL *playedURL;
 @end
 
 @implementation SRGILStreamSenseAnalyticsInfos
 
-- (instancetype)initWithMedia:(SRGILMedia *)media
+- (instancetype)initWithMedia:(SRGILMedia *)media usingURL:(NSURL *)playedURL
 {
-    NSAssert(media, @"Missing identifier");
+    NSAssert(media, @"Missing media");
+    NSAssert(playedURL, @"Missing played URL");
+    
     self = [super init];
     if (self) {
         self.media = media;
+        self.playedURL = playedURL;
     }
     return self;
 }
-
 - (BOOL)isLiveStream
 {
     return self.media.isLiveStream;
@@ -65,8 +68,8 @@
     });
     
     NSString *srg_pr_id  = self.media.assetSet.identifier;
-// TODO: Find a way to provide HD/SD tag
-    NSString *srg_mqual  = (YES) ? @"hd" : @"sd"; // WARNING: FIND A WAY TO CHOOSE BETWEEN HD AND SD
+    BOOL isHD = ([self.media playlistURLQualityForURL:self.playedURL] == SRGILPlaylistURLQualityHD);
+    NSString *srg_mqual  = (isHD) ? @"hd" : @"sd"; // WARNING: FIND A WAY TO CHOOSE BETWEEN HD AND SD
     NSString *srg_mgeobl = self.media.shouldBeGeoblocked || (self.media.isBlocked && self.media.blockingReason == SRGILMediaBlockingReasonGeoblock) ? @"true" : @"false";
     NSString *srg_plid   = self.media.assetSet.assetGroupId;
     
@@ -75,7 +78,7 @@
     [metadata safeSetValue:srg_mgeobl forKey:@"srg_mgeobl"];
     [metadata safeSetValue:srg_plid   forKey:@"srg_plid"];
 
-    NSString *ns_st_ty   = [NSStringFromClass([self class]) stringByReplacingOccurrencesOfString:@"SRGIL" withString:@""];
+    NSString *ns_st_ty   = [NSStringFromClass([self.media class]) stringByReplacingOccurrencesOfString:@"SRGIL" withString:@""];
     NSString *ns_st_ep   = (self.media.isLiveStream) ? @"Livestream" : [self.media.title truncateAndAddEllipsisForStatistics];
     NSString *ns_st_pr   = (self.media.isLiveStream) ? self.media.assetSet.title : [NSString stringWithFormat:@"%@ %@ %@",
                                                                                     self.media.parentTitle,
@@ -109,18 +112,16 @@
 
     // Add 'Encoder' value (live only):
     if (self.media.isLiveStream) {
-// TODO: Find a way to provide HD/SD tag
-        NSURL *URL = self.media.HDHLSURL;
         NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"enc(\\d+)"
                                                                             options:0
                                                                               error:nil];
         
-        NSTextCheckingResult *firstMatch = [re firstMatchInString:[URL path]
+        NSTextCheckingResult *firstMatch = [re firstMatchInString:[self.playedURL path]
                                                           options:0
-                                                            range:NSMakeRange(0, [[URL path] length])];
+                                                            range:NSMakeRange(0, [[self.playedURL path] length])];
         
         if (firstMatch.range.location != NSNotFound) {
-            NSString *encoderValue = [[URL path] substringWithRange:[firstMatch rangeAtIndex:1]];
+            NSString *encoderValue = [[self.playedURL path] substringWithRange:[firstMatch rangeAtIndex:1]];
             [metadata setValue:encoderValue forKey:@"srg_enc"];
         }
     }
