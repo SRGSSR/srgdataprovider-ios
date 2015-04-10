@@ -40,7 +40,12 @@ static NSString * const itemClassPrefix = @"SRGIL";
 
 + (NSString *)comScoreVirtualSite:(NSString *)businessUnit
 {
+#if DEBUG || TEST || NIGHTLY || NIGHT
+// Yes, the tests are not bu-specific, and all fall into the rts bucket.
+    return @"rts-app-test-v";
+#else
     return [NSString stringWithFormat:@"%@-player-ios-v", [businessUnit lowercaseString]];
+#endif
 }
 
 + (NSString *)streamSenseVirtualSite:(NSString *)businessUnit
