@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <RTSMediaPlayer/RTSMediaPlayer.h>
-#import <RTSAnalytics/RTSAnalyticsDataSource.h>
+#import <RTSAnalytics/RTSAnalyticsMediaPlayerDataSource.h>
 
 @class SRGILList;
 
@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, SRGILModelItemType) {
 typedef void (^SRGILFetchListDownloadProgressBlock)(float fraction);
 typedef void (^SRGILFetchListCompletionBlock)(SRGILList *items, Class itemClass, NSError *error);
 
-@interface SRGILDataProvider : NSObject <RTSMediaPlayerControllerDataSource, RTSAnalyticsDataSource>
+@interface SRGILDataProvider : NSObject <RTSMediaPlayerControllerDataSource, RTSAnalyticsMediaPlayerDataSource>
 
 + (NSString *)comScoreVirtualSite:(NSString *)businessUnit;
 + (NSString *)streamSenseVirtualSite:(NSString *)businessUnit;

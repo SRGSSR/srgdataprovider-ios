@@ -208,13 +208,7 @@ static NSString * const itemClassPrefix = @"SRGIL";
     return _analyticsInfos[streamSenseKeyPath];
 }
 
-#pragma mark - RTSAnalyticsDataSource
-
-- (RTSAnalyticsMediaMode)mediaModeForIdentifier:(NSString *)identifier
-{
-    SRGILComScoreAnalyticsInfos *ds = [self comScoreIndividualDataSourceForIdenfifier:identifier];
-    return ds.mediaMode;
-}
+#pragma mark - RTSAnalyticsMediaPlayerDataSource
 
 - (NSDictionary *)comScoreLabelsForAppEnteringForeground
 {
@@ -233,7 +227,7 @@ static NSString * const itemClassPrefix = @"SRGIL";
     return [ds playlistMetadataForBusinesUnit:self.businessUnit];
 }
 
-- (NSDictionary *)streamSenseFullLengthClipMetadataForIdentifier:(NSString *)identifier
+- (NSDictionary *)streamSenseClipMetadataForIdentifier:(NSString *)identifier
 {
     SRGILStreamSenseAnalyticsInfos *ds = [self streamSenseIndividualDataSourceForIdenfifier:identifier];
     return [ds fullLengthClipMetadata];
