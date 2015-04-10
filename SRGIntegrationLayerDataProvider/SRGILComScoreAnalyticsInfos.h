@@ -7,14 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <RTSAnalytics/RTSAnalyticsDataSource.h>
 #import "SRGILAnalyticsInfosProtocol.h"
 
 @interface SRGILComScoreAnalyticsInfos : NSObject <SRGILAnalyticsInfos>
 
 + (NSDictionary *)globalLabelsForAppEnteringForeground;
-
-- (RTSAnalyticsMediaMode)mediaMode;
 - (NSDictionary *)statusLabels;
 
 @end

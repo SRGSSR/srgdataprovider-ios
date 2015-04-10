@@ -79,11 +79,6 @@
     return self;
 }
 
-- (RTSAnalyticsMediaMode)mediaMode
-{
-    return ([self.media isLiveStream]) ? RTSAnalyticsMediaModeLiveStream : RTSAnalyticsMediaModeOnDemand;
-}
-
 - (NSDictionary *)statusLabels
 {
     NSMutableDictionary *labels = [NSMutableDictionary dictionary];
