@@ -56,6 +56,10 @@
 		9F1A5B441ACD691700C0E528 /* video_04.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B151ACD68E700C0E528 /* video_04.json */; };
 		9F1A5B451ACD691700C0E528 /* videoaggregation_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B161ACD68E700C0E528 /* videoaggregation_01.json */; };
 		9F1A5B4F1ACD934D00C0E528 /* SRGILOrganisedModelDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B4E1ACD934D00C0E528 /* SRGILOrganisedModelDataItem.m */; };
+		9F3C1CC01ADC0B02007C54AD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3C1CBF1ADC0B02007C54AD /* SystemConfiguration.framework */; };
+		9F3C1CC21ADC0B26007C54AD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3C1CC11ADC0B26007C54AD /* MobileCoreServices.framework */; };
+		9F3C1CC31ADC0B4A007C54AD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3C1CBF1ADC0B02007C54AD /* SystemConfiguration.framework */; };
+		9F3C1CC41ADC0B50007C54AD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3C1CC11ADC0B26007C54AD /* MobileCoreServices.framework */; };
 		9FB3157B1ACAE5DA005AEBBC /* SRGILModelConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB3157A1ACAE5DA005AEBBC /* SRGILModelConstants.m */; };
 		9FC7D86A1ACADA6300D1502F /* SRGILDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7D8691ACADA6300D1502F /* SRGILDataProvider.m */; };
 		9FC7D8781ACADCE900D1502F /* SRGILRequestsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7D86D1ACADCE900D1502F /* SRGILRequestsManager.m */; };
@@ -162,6 +166,8 @@
 		9F1A5B201ACD68E700C0E528 /* XCTestCase+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+JSON.m"; sourceTree = "<group>"; };
 		9F1A5B4D1ACD934D00C0E528 /* SRGILOrganisedModelDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGILOrganisedModelDataItem.h; path = SRGIntegrationLayerDataProvider/SRGILOrganisedModelDataItem.h; sourceTree = "<group>"; };
 		9F1A5B4E1ACD934D00C0E528 /* SRGILOrganisedModelDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRGILOrganisedModelDataItem.m; path = SRGIntegrationLayerDataProvider/SRGILOrganisedModelDataItem.m; sourceTree = "<group>"; };
+		9F3C1CBF1ADC0B02007C54AD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9F3C1CC11ADC0B26007C54AD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9FB315791ACAE402005AEBBC /* SRGILModelConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SRGILModelConstants.h; path = SRGIntegrationLayerDataProvider/SRGILModelConstants.h; sourceTree = "<group>"; };
 		9FB3157A1ACAE5DA005AEBBC /* SRGILModelConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRGILModelConstants.m; path = SRGIntegrationLayerDataProvider/SRGILModelConstants.m; sourceTree = "<group>"; };
 		9FC7D8681ACADA6300D1502F /* SRGILDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGILDataProvider.h; path = SRGIntegrationLayerDataProvider/SRGILDataProvider.h; sourceTree = "<group>"; };
@@ -184,6 +190,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F3C1CC21ADC0B26007C54AD /* MobileCoreServices.framework in Frameworks */,
+				9F3C1CC01ADC0B02007C54AD /* SystemConfiguration.framework in Frameworks */,
 				550ACD350A8B78B628CF3902 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -192,6 +200,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F3C1CC41ADC0B50007C54AD /* MobileCoreServices.framework in Frameworks */,
+				9F3C1CC31ADC0B4A007C54AD /* SystemConfiguration.framework in Frameworks */,
 				9F1519411AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,6 +382,8 @@
 		C234D6DD835E193A87DED721 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9F3C1CC11ADC0B26007C54AD /* MobileCoreServices.framework */,
+				9F3C1CBF1ADC0B02007C54AD /* SystemConfiguration.framework */,
 				79F6EBD656367387D07A08A6 /* libPods.a */,
 			);
 			name = Frameworks;

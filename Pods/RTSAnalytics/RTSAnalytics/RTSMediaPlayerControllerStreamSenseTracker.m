@@ -20,6 +20,8 @@
 - (void)dispatchHeartbeatEvent;
 @end
 
+static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
+
 @interface RTSMediaPlayerControllerStreamSenseTracker ()
 
 @property (nonatomic, strong) RTSMediaPlayerController *mediaPlayerController;
@@ -49,13 +51,15 @@
 	[self setLabel:@"ns_st_mv" value:[mediaPlayerBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
 	[self setLabel:@"ns_st_it" value:@"c"];
 	
-	NSBundle *mainBundle = [NSBundle mainBundle];
+	NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
 	NSDictionary *analyticsInfoDictionnary = [mainBundle objectForInfoDictionaryKey:@"RTSAnalytics"];
 	NSString *streamSenseVirtualSite = [analyticsInfoDictionnary objectForKey:@"StreamsenseVirtualSite"];
-	NSAssert(streamSenseVirtualSite.length > 0, @"You MUST define `RTSAnalytics>StreamsenseVirtualSite` key in your app plist");
+	NSAssert(streamSenseVirtualSite.length > 0, @"You MUST define `RTSAnalytics>StreamsenseVirtualSite` key in your app Info.plist");
 	
 	[self setLabel:@"ns_vsite" value:streamSenseVirtualSite];
 	[self setLabel:@"srg_ptype" value:@"p_app_ios"];
+	
+	DDLogVerbose(@"%@ : new Streamsense instance with ns_vsite = %@", LoggerDomainAnalyticsStreamSense, streamSenseVirtualSite);
 
 	return self;
 }
@@ -71,7 +75,7 @@
 	[self notify:playerEvent position:[self currentPositionInMilliseconds] labels:nil];
 }
 
-- (void)dispatchHeartbeatEvent
+- (void) dispatchHeartbeatEvent
 {
 	[self updateLabels];
 	[super dispatchHeartbeatEvent];
@@ -79,7 +83,7 @@
 
 #pragma mark - CSStreamSensePluginProtocol
 
-- (long)currentPositionInMilliseconds
+- (long) currentPositionInMilliseconds
 {
 	CMTime currentTime = [self.player.currentItem currentTime];
 	return (long) floor(CMTimeGetSeconds(currentTime) * 1000);
@@ -96,6 +100,7 @@
 	[self setLabel:@"ns_st_sg" value:[self scalingMode]];
 	[self setLabel:@"ns_ap_ot" value:[self orientation]];
 	[self setLabel:@"ns_st_airplay" value:[self airplay]];
+	[self setLabel:@"ns_st_cu" value:[self contentURL]];
 	
 	if ([self.dataSource respondsToSelector:@selector(streamSenseLabelsMetadataForIdentifier:)]) {
 		NSDictionary *dataSourceLabels = [self.dataSource streamSenseLabelsMetadataForIdentifier:self.mediaPlayerController.identifier];
@@ -126,27 +131,29 @@
 
 #pragma mark - Private helper methods
 
-- (NSString *)bitRate
+- (NSString *) bitRate
 {
 	AVPlayerItem *currentItem = self.player.currentItem;
 	if (currentItem)
 	{
 		NSArray *events = currentItem.accessLog.events;
 		if (events.lastObject) {
-			return [[NSNumber numberWithDouble:[events.lastObject observedBitrate]] stringValue];
+			double observedBitrate = [events.lastObject observedBitrate];
+			return [@(observedBitrate) stringValue];
 		}
 	}
 	return nil;
 }
 
-- (NSString *)windowState
+- (NSString *) windowState
 {
+	AVPlayerLayer *playerLayer = [(RTSMediaPlayerView *)self.mediaPlayerController.view playerLayer];
+	CGSize size = playerLayer.videoRect.size;
 	CGRect screenRect = [[UIScreen mainScreen] bounds];
-	CGSize presentationSize = self.player.currentItem.presentationSize;
-	return CGSizeEqualToSize(presentationSize, screenRect.size) ? @"full" : @"norm";
+	return round(size.width) == round(screenRect.size.width) && round(size.height) == round(screenRect.size.height)  ? @"full" : @"norm";
 }
 
-- (NSString *)volume
+- (NSString *) volume
 {
 	if (self.player && self.player.isMuted)
 		return @"0";
@@ -160,7 +167,7 @@
 	return [NSString stringWithFormat:@"%d", (int) (volume * 100)];
 }
 
-- (NSString *)scalingMode
+- (NSString *) scalingMode
 {
 	AVPlayerLayer *playerLayer = [(RTSMediaPlayerView *)self.mediaPlayerController.view playerLayer];
 	
@@ -176,7 +183,7 @@
 	return result;
 }
 
-- (NSString *)orientation {
+- (NSString *) orientation {
 	NSString *result = NULL;
 	UIDeviceOrientation orient = [[UIDevice currentDevice] orientation];
 	switch (orient) {
@@ -214,14 +221,14 @@
 	return (CMTimeCompare(self.player.currentItem.duration, kCMTimeIndefinite) == 0) ? @"1" : @"0";
 }
 
-- (NSString *)dimensions
+- (NSString *) dimensions
 {
 	AVPlayerLayer *playerLayer = [(RTSMediaPlayerView *)self.mediaPlayerController.view playerLayer];
-	CGSize size = playerLayer.frame.size;
-	return CGSizeEqualToSize(size, CGSizeZero) ? NULL : [NSString stringWithFormat:@"%0.0fx%0.0f", size.width, size.height];
+	CGSize size = playerLayer.videoRect.size;
+	return [NSString stringWithFormat:@"%0.0fx%0.0f", size.width, size.height];
 }
 
-- (NSString *)contentURL
+- (NSString *) contentURL
 {
 	AVAsset *asset = self.player.currentItem.asset;
 	if ([asset isKindOfClass:[AVURLAsset class]]) {
