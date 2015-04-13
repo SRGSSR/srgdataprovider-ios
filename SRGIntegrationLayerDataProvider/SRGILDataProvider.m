@@ -88,12 +88,7 @@ static NSString * const itemClassPrefix = @"SRGIL";
         }
     };
     
-    
-    
-    if (existingMedia) {
-        tokenBlock(existingMedia);
-    }
-    else {
+    if (!existingMedia || !existingMedia.contentURL) {
         [_requestManager requestMediaOfType:SRGILMediaTypeVideo
                              withIdentifier:identifier
                             completionBlock:^(SRGILMedia *media, NSError *error) {
@@ -109,6 +104,9 @@ static NSString * const itemClassPrefix = @"SRGIL";
                                     tokenBlock(media);
                                 }
                             }];
+    }
+    else {
+        tokenBlock(existingMedia);
     }
 }
 
