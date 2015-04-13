@@ -7,12 +7,18 @@
 //
 
 #import "SRGILAudio.h"
+#import "SRGILMedia+Private.h"
 
 @implementation SRGILAudio
 
 + (SRGILMediaType)type
 {
     return SRGILMediaTypeAudio;
+}
+
+- (NSURL *)contentURL
+{
+    return self.MQHLSURL ?: self.MQHTTPURL;
 }
 
 @end

@@ -38,21 +38,6 @@ static NSString * const itemClassPrefix = @"SRGIL";
 
 @implementation SRGILDataProvider
 
-+ (NSString *)comScoreVirtualSite:(NSString *)businessUnit
-{
-#if DEBUG || TEST || NIGHTLY || NIGHT
-// Yes, the tests are not bu-specific, and all fall into the rts bucket.
-    return @"rts-app-test-v";
-#else
-    return [NSString stringWithFormat:@"%@-player-ios-v", [businessUnit lowercaseString]];
-#endif
-}
-
-+ (NSString *)streamSenseVirtualSite:(NSString *)businessUnit
-{
-    return [NSString stringWithFormat:@"%@-v", [businessUnit lowercaseString]];
-}
-
 - (instancetype)initWithBusinessUnit:(NSString *)businessUnit
 {
     self = [super init];
@@ -87,22 +72,25 @@ static NSString * const itemClassPrefix = @"SRGIL";
     @weakify(self)
     
     void (^tokenBlock)(SRGILMedia *) = ^(SRGILMedia *media) {
-        @strongify(self)
-        NSURL *contentURL = [self contentURLForMedia:media];
-        
-        if (contentURL) {
-            [[SRGILTokenHandler sharedHandler] requestTokenForURL:contentURL
+        if (media.contentURL) {
+            [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.contentURL
                                         appendLogicalSegmentation:nil
                                                   completionBlock:^(NSURL *tokenizedURL, NSError *error) {
                                                       completionHandler(tokenizedURL, error);
                                                   }];
         }
         else {
-            completionHandler(nil, [NSError errorWithDomain:SRGILErrorDomain code:SRGILErrorVideoNoSourceURL userInfo:nil]);
+            NSError *error = [NSError errorWithDomain:SRGILErrorDomain
+                                                 code:SRGILErrorVideoNoSourceURL
+                                             userInfo:nil];
+            
+            completionHandler(nil, error);
         }
     };
     
-    if ([self contentURLForMedia:existingMedia]) {
+    
+    
+    if (existingMedia) {
         tokenBlock(existingMedia);
     }
     else {
@@ -110,46 +98,18 @@ static NSString * const itemClassPrefix = @"SRGIL";
                              withIdentifier:identifier
                             completionBlock:^(SRGILMedia *media, NSError *error) {
                                 @strongify(self)
-
-                                if (media) {
-                                    _identifiedMedias[identifier] = media;
-                                    NSURL *contentURL = [self contentURLForMedia:media];
-                                    if (contentURL) {
-                                        [self prepareAnalyticsInfosForMedia:media withContentURL:contentURL];
-                                    }
+                                
+                                if (error) {
+                                    [_identifiedMedias removeObjectForKey:identifier];
+                                    completionHandler(nil, error);
                                 }
                                 else {
-                                    [_identifiedMedias removeObjectForKey:identifier];
+                                    _identifiedMedias[identifier] = media;
+                                    [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
+                                    tokenBlock(media);
                                 }
-                                
-                                tokenBlock(media);
                             }];
     }
-}
-
-- (NSURL *)contentURLForMedia:(SRGILMedia *)media
-{
-    if ([media isKindOfClass:[SRGILVideo class]]) {
-        NSURL *contentURL = nil;
-        
-        BOOL takeHDVideo = [[NSUserDefaults standardUserDefaults] boolForKey:SRGILVideoUseHighQualityOverCellularNetworkKey];
-        BOOL usingTrueWIFINetwork = [SRGILRequestsManager isUsingWIFI] && ![SRGILRequestsManager isUsingSwisscomWIFI];
-        
-        if (usingTrueWIFINetwork || takeHDVideo) {
-            // We are on True WIFI (non-Swisscom) or the HD quality switch is ON.
-            contentURL = (media.HDHLSURL) ? [media.HDHLSURL copy] : [media.SDHLSURL copy];
-        }
-        else {
-            // We are not on WIFI and switch is OFF. YES, business decision: we play HD as backup if we don't have SD.
-            contentURL = (media.SDHLSURL) ? [media.SDHLSURL copy] : [media.HDHLSURL copy];
-        }
-        return contentURL;
-    }
-    else if ([media isKindOfClass:[SRGILAudio class]]) {
-        return media.MQHLSURL ? media.MQHLSURL : media.MQHTTPURL;
-    }
-    
-    return nil;
 }
 
 #pragma mark - View Count

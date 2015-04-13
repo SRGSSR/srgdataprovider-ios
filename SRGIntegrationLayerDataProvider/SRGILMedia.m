@@ -293,4 +293,9 @@
     return (self.socialCounts) ? self.socialCounts.srgView : NSNotFound;
 }
 
+- (NSURL *)contentURL
+{
+    return nil; // Must be overriden
+}
+
 @end

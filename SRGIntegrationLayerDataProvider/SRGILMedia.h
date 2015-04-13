@@ -35,6 +35,11 @@
 @property (nonatomic, readonly, strong) NSString *mediaDescription;
 
 /**
+ * The URL of the content, according to current state of network.
+ */
+- (NSURL *)contentURL;
+
+/**
  *  The number of time this media has been 'viewed'.
  */
 - (NSInteger)viewCount;

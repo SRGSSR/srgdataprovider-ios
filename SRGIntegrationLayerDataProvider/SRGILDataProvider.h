@@ -27,9 +27,6 @@ typedef void (^SRGILFetchListCompletionBlock)(SRGILList *items, Class itemClass,
 
 @interface SRGILDataProvider : NSObject <RTSMediaPlayerControllerDataSource, RTSAnalyticsMediaPlayerDataSource>
 
-+ (NSString *)comScoreVirtualSite:(NSString *)businessUnit;
-+ (NSString *)streamSenseVirtualSite:(NSString *)businessUnit;
-
 - (instancetype)initWithBusinessUnit:(NSString *)businessUnit;
 - (NSString *)businessUnit;
 
