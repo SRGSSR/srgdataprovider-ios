@@ -1,1 +1,1 @@
-../../../RTSAnalytics/RTSAnalytics/RTSAnalyticsTracker+Logging.h
+../../../RTSAnalytics/RTSAnalytics/Core/RTSAnalyticsTracker+Logging.h

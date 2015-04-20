@@ -1,1 +1,1 @@
-../../../RTSAnalytics/RTSAnalytics/RTSAnalyticsPageViewDataSource.h
+../../../RTSAnalytics/RTSAnalytics/Core/RTSAnalyticsPageViewDataSource.h

@@ -1,1 +1,1 @@
-../../../RTSAnalytics/RTSAnalytics/RTSAnalyticsMediaPlayerDataSource.h
+../../../RTSAnalytics/RTSAnalytics/MediaPlayer/RTSAnalyticsMediaPlayerDataSource.h
