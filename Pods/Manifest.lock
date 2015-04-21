@@ -30,10 +30,8 @@ DEPENDENCIES:
   - CocoaLumberjack (~> 2.0.0)
   - libextobjc/EXTScope (= 0.4.1)
   - RTSAnalytics (from `git@bitbucket.org:rtsmb/rtsanalytics-ios.git`, branch `develop`)
-  - RTSAnalytics/MediaPlayer (from `git@bitbucket.org:rtsmb/rtsanalytics-ios.git`,
-    branch `develop`)
-  - RTSMediaPlayer (from `git@bitbucket.org:rtsmb/rtsmediaplayer-ios.git`, branch
-    `develop`)
+  - RTSAnalytics/MediaPlayer (from `git@bitbucket.org:rtsmb/rtsanalytics-ios.git`, branch `develop`)
+  - RTSMediaPlayer (from `git@bitbucket.org:rtsmb/rtsmediaplayer-ios.git`, branch `develop`)
   - SGVReachability (~> 1.0.0)
   - TransitionKit (from `https://github.com/0xced/TransitionKit.git`, commit `6874dea2229bdefb89f6c8f708f1fae467ee5ba2`)
 
@@ -50,7 +48,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   RTSAnalytics:
-    :commit: cc3d46f484bce84792824fa293aadb00cba3036e
+    :commit: 02226e4795659e225077e04b0ff8c0b66402edbb
     :git: git@bitbucket.org:rtsmb/rtsanalytics-ios.git
   RTSMediaPlayer:
     :commit: 83465ba7d637ad67fbb8b1a512218e426f9e36d3
@@ -69,4 +67,4 @@ SPEC CHECKSUMS:
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
   TransitionKit: 3a14b6acc7cf2d1dd3e454e24dbad1cfab9a1ef1
 
-COCOAPODS: 0.36.4
+COCOAPODS: 0.36.0
