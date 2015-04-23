@@ -18,8 +18,8 @@ Pod::Spec.new do |s|
   ### Subspecs
 
   s.subspec 'Core' do |co|
-    co.source_files         = "SRGIntegrationLayerDataProvider/SRGIntegrationLayerDataProvider.h", "SRGIntegrationLayerDataProvider/Core/*.{h,m}", "SRGIntegrationLayerDataProvider/Model/*.{h,m}", "SRGIntegrationLayerDataProvider/Network/*.{h,m}"
-    co.private_header_files = "SRGIntegrationLayerDataProvider/**/*+Private.h", "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
+    co.source_files         = "SRGIntegrationLayerDataProvider/SRGIntegrationLayerDataProvider.h", "SRGIntegrationLayerDataProvider/Core/*.{h,m}", "SRGIntegrationLayerDataProvider/Model/*.{h,m}", "SRGIntegrationLayerDataProvider/Network/*.{h,m}", "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
+    co.private_header_files = "SRGIntegrationLayerDataProvider/**/*+Private.h"
     co.frameworks           = "Foundation", "UIKit"
     co.dependency             "CocoaLumberjack",  "~> 2.0.0"
   end
