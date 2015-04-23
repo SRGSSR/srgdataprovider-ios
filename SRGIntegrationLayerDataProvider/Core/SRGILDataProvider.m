@@ -243,6 +243,7 @@ static NSString * const itemClassPrefix = @"SRGIL";
             break;
 
         case SRGILModelItemTypeVideoShowsAZ:
+            orgType = SRGILModelDataOrganisationTypeAlphabetical;
             path = @"tv/assetGroup/editorialPlayerAlphabetical.json";
             break;
 
@@ -278,6 +279,7 @@ static NSString * const itemClassPrefix = @"SRGIL";
 
         case SRGILModelItemTypeAudioShowsAZ: {
             if ([arg isKindOfClass:[NSString class]]) {
+                orgType = SRGILModelDataOrganisationTypeAlphabetical;
                 path = [NSString stringWithFormat:@"radio/assetGroup/editorialPlayerAlphabeticalByChannel/%@.json", arg];
             }
         }
