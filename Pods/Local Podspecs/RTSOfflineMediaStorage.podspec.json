@@ -1,0 +1,45 @@
+{
+  "name": "RTSOfflineMediaStorage",
+  "version": "0.0.1",
+  "summary": "Implementation of the Offline Media Storage for making Favorites in Play SRG",
+  "description": "Implementation of the Offline Media Storage for making Favorites in Play SRG.",
+  "homepage": "http://rts.ch",
+  "license": {
+    "type": "N/A"
+  },
+  "authors": {
+    "Cédric Foellmi": "cedric.foellmi@hortis.ch"
+  },
+  "source": {
+    "git": "git@bitbucket.org:rtsmb/rtsofflinemediastorage-ios.git",
+    "tag": "0.0.1"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "source_files": "RTSOfflineMediaStorage",
+  "public_header_files": "RTSOfflineMediaStorage/*.h",
+  "private_header_files": "RTSOfflineMediaStorage/RTSPrivate*.h",
+  "frameworks": [
+    "Foundation",
+    "UIKit"
+  ],
+  "dependencies": {
+    "AFNetworking": [
+      "~> 1.3.4"
+    ],
+    "SGVReachability": [
+      "~> 1.0.0"
+    ],
+    "CocoaLumberjack": [
+      "~> 2.0.0"
+    ],
+    "libextobjc/EXTScope": [
+      "0.4.1"
+    ],
+    "Realm": [
+      "~> 0.91.3"
+    ]
+  }
+}
