@@ -14,8 +14,6 @@
 #import "SRGILModel.h"
 #import "SRGILDataProvider.h"
 
-#endif
-
 #if __has_include("SRGILOfflineMetadataProvider.h")
 #import "SRGILOfflineMetadataProvider.h"
 #endif
