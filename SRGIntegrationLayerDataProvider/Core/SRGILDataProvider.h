@@ -20,6 +20,9 @@ typedef NS_ENUM(NSInteger, SRGILModelDataOrganisationType) {
 
 typedef NS_ENUM(NSInteger, SRGILModelItemType) {
     SRGILModelItemTypeVideoLiveStreams,
+    SRGILModelItemTypeVideoEditorialPicks,
+    SRGILModelItemTypeVideoMostRecent,
+    SRGILModelItemTypeVideoMostSeen
 };
 
 

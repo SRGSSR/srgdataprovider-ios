@@ -214,22 +214,33 @@ static NSString * const itemClassPrefix = @"SRGIL";
                  onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
                onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
-    id<NSCopying> tag = nil;
+    id<NSCopying> tag = @(itemType);
     NSString *path = nil;
     
     switch (itemType) {
         case SRGILModelItemTypeVideoLiveStreams:
-            tag = @(itemType);
             path = @"video/livestream.json";
             break;
             
+        case SRGILModelItemTypeVideoEditorialPicks:
+            path = @"video/editorialPlayerPicks.json?pageSize=20";
+            break;
+
+        case SRGILModelItemTypeVideoMostRecent:
+            path = @"video/editorialPlayerLatest.json?pageSize=20";
+            break;
+
+        case SRGILModelItemTypeVideoMostSeen:
+            path = @"video/mostClicked.json?pageSize=20&period=24";
+            break;
+
         default:
             break;
     }
     
     @weakify(self);
     
-    if (tag && path) {
+    if (path) {
         DDLogWarn(@"Fetch request for item type %ld with path %@", (long)itemType, path);
         
         [self.requestManager requestItemsWithURLPath:path
@@ -423,6 +434,5 @@ static NSString * const itemClassPrefix = @"SRGIL";
         completionBlock(nil, nil, newError);
     });
 }
-
 
 @end
