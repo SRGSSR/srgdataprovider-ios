@@ -32,6 +32,7 @@ static NSString * const itemClassPrefix = @"SRGIL";
     NSMutableDictionary *_identifiedMedias;
     NSMutableDictionary *_taggedItemLists;
     NSMutableDictionary *_analyticsInfos;
+    NSUInteger _ongoingFetchCount;
 }
 @property(nonatomic, strong) SRGILRequestsManager *requestManager;
 @end
@@ -58,6 +59,11 @@ static NSString * const itemClassPrefix = @"SRGIL";
 - (NSString *)businessUnit
 {
     return _requestManager.businessUnit;
+}
+
+- (NSUInteger)ongoingFetchCount;
+{
+    return _ongoingFetchCount;
 }
 
 #pragma mark - Private
@@ -204,12 +210,14 @@ static NSString * const itemClassPrefix = @"SRGIL";
                    onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
     [self fetchListOfItemType:itemType
+             withPathArgument:nil
                     organised:SRGILModelDataOrganisationTypeFlat
                    onProgress:nil
                  onCompletion:completionBlock];
 }
 
 - (void)fetchListOfItemType:(enum SRGILModelItemType)itemType
+           withPathArgument:(id)arg
                   organised:(SRGILModelDataOrganisationType)orgType
                  onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
                onCompletion:(SRGILFetchListCompletionBlock)completionBlock
@@ -234,6 +242,47 @@ static NSString * const itemClassPrefix = @"SRGIL";
             path = @"video/mostClicked.json?pageSize=20&period=24";
             break;
 
+        case SRGILModelItemTypeVideoShowsAZ:
+            path = @"tv/assetGroup/editorialPlayerAlphabetical.json";
+            break;
+
+        case SRGILModelItemTypeVideoShowsByDate: {
+            NSDate *date = (arg && [arg isKindOfClass:[NSDate class]]) ? (NSDate *)arg : [NSDate date];
+            NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSDateComponents *dateComponents = [gregorianCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
+            path = [NSString stringWithFormat:@"video/episodesByDate.json?day=%4li-%02li-%02li",
+                                    (long)dateComponents.year, (long)dateComponents.month, (long)dateComponents.day];
+        }
+            break;
+
+        case SRGILModelItemTypeAudioLiveStreams: {
+            if ([arg isKindOfClass:[NSString class]]) {
+                path = [NSString stringWithFormat:@"audio/play/%@.json", arg];
+            }
+        }
+            break;
+
+        case SRGILModelItemTypeAudioMostRecent: {
+            if ([arg isKindOfClass:[NSString class]]) {
+                path = [NSString stringWithFormat:@"audio/latestEpisodesByChannel/%@.json?pageSize=20", arg];
+            }
+        }
+            break;
+
+        case SRGILModelItemTypeAudioMostListened: {
+            if ([arg isKindOfClass:[NSString class]]) {
+                path = [NSString stringWithFormat:@"audio/mostClickedByChannel/%@.json?pageSize=20", arg];
+            }
+        }
+            break;
+
+        case SRGILModelItemTypeAudioShowsAZ: {
+            if ([arg isKindOfClass:[NSString class]]) {
+                path = [NSString stringWithFormat:@"radio/assetGroup/editorialPlayerAlphabeticalByChannel/%@.json", arg];
+            }
+        }
+            break;
+            
         default:
             break;
     }
@@ -243,10 +292,12 @@ static NSString * const itemClassPrefix = @"SRGIL";
     if (path) {
         DDLogWarn(@"Fetch request for item type %ld with path %@", (long)itemType, path);
         
+        _ongoingFetchCount ++;
         [self.requestManager requestItemsWithURLPath:path
                                           onProgress:progressBlock
                                         onCompletion:^(NSDictionary *rawDictionary, NSError *error) {
                                             @strongify(self);
+                                            _ongoingFetchCount --;
                                             [self extractItemsAndClassNameFromRawDictionary:rawDictionary
                                                                                      forTag:tag
                                                                            organisationType:orgType

@@ -22,7 +22,13 @@ typedef NS_ENUM(NSInteger, SRGILModelItemType) {
     SRGILModelItemTypeVideoLiveStreams,
     SRGILModelItemTypeVideoEditorialPicks,
     SRGILModelItemTypeVideoMostRecent,
-    SRGILModelItemTypeVideoMostSeen
+    SRGILModelItemTypeVideoMostSeen,
+    SRGILModelItemTypeVideoShowsAZ,
+    SRGILModelItemTypeVideoShowsByDate,
+    SRGILModelItemTypeAudioLiveStreams,
+    SRGILModelItemTypeAudioMostRecent,
+    SRGILModelItemTypeAudioMostListened,
+    SRGILModelItemTypeAudioShowsAZ
 };
 
 
@@ -34,10 +40,13 @@ typedef void (^SRGILFetchListCompletionBlock)(SRGILList *items, Class itemClass,
 - (instancetype)initWithBusinessUnit:(NSString *)businessUnit;
 - (NSString *)businessUnit;
 
+- (NSUInteger)ongoingFetchCount;
+
 - (void)fetchFlatListOfItemType:(enum SRGILModelItemType)itemType
                    onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
 
 - (void)fetchListOfItemType:(enum SRGILModelItemType)itemType
+           withPathArgument:(id)arg
                   organised:(SRGILModelDataOrganisationType)orgType
                  onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
                onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
