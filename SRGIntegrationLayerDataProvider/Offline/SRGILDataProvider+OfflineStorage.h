@@ -11,4 +11,9 @@
 
 @interface SRGILDataProvider (OfflineStorage) <RTSMediaMetadatasProvider>
 
+- (void)saveMediaMetadataWithIdentifier:(NSString *)identifier error:(NSError * __autoreleasing *)error;
+- (void)deleteMediaMetadataWithIdentifier:(NSString *)identifier error:(NSError * __autoreleasing *)error;
+
+- (void)extractLocalItemsOfType:(SRGILModelItemType)itemType onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
+
 @end

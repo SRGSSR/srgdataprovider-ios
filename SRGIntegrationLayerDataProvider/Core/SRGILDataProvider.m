@@ -24,14 +24,20 @@
 
 #import <libextobjc/EXTScope.h>
 
+#if __has_include("SRGILOfflineMetadataProvider.h")
+#import "SRGILOfflineMetadataProvider.h"
+#endif
+
 static NSString * const comScoreKeyPathPrefix = @"SRGILComScoreAnalyticsInfos.";
 static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsInfos.";
 static NSString * const itemClassPrefix = @"SRGIL";
+static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidRequestURLPath";
 
 @interface SRGILDataProvider () {
     NSMutableDictionary *_identifiedMedias;
     NSMutableDictionary *_taggedItemLists;
     NSMutableDictionary *_analyticsInfos;
+    NSMutableDictionary *_typedFetchPaths;
     NSUInteger _ongoingFetchCount;
 }
 @property(nonatomic, strong) SRGILRequestsManager *requestManager;
@@ -46,6 +52,7 @@ static NSString * const itemClassPrefix = @"SRGIL";
         _identifiedMedias = [[NSMutableDictionary alloc] init];
         _taggedItemLists = [[NSMutableDictionary alloc] init];
         _analyticsInfos = [[NSMutableDictionary alloc] init];
+        _typedFetchPaths = [[NSMutableDictionary alloc] init];
         _requestManager = [[SRGILRequestsManager alloc] initWithBusinessUnit:businessUnit];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -206,6 +213,11 @@ static NSString * const itemClassPrefix = @"SRGIL";
 
 #pragma mark - Item Lists
 
+- (BOOL)isFetchPathValidForItemType:(enum SRGILModelItemType)itemType
+{
+    return (_typedFetchPaths[@(itemType)] == SRGConfigNoValidRequestURLPath);
+}
+
 - (void)fetchFlatListOfItemType:(enum SRGILModelItemType)itemType
                    onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
@@ -223,56 +235,94 @@ static NSString * const itemClassPrefix = @"SRGIL";
                onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
     id<NSCopying> tag = @(itemType);
-    NSString *path = nil;
+    NSString *remoteURLPath = SRGConfigNoValidRequestURLPath;
     
     switch (itemType) {
         case SRGILModelItemTypeVideoLiveStreams:
-            path = @"video/livestream.json";
+            remoteURLPath = @"video/livestream.json";
             break;
             
         case SRGILModelItemTypeVideoEditorialPicks:
-            path = @"video/editorialPlayerPicks.json?pageSize=20";
+            remoteURLPath = @"video/editorialPlayerPicks.json?pageSize=20";
             break;
 
         case SRGILModelItemTypeVideoMostRecent:
-            path = @"video/editorialPlayerLatest.json?pageSize=20";
+            remoteURLPath = @"video/editorialPlayerLatest.json?pageSize=20";
             break;
 
         case SRGILModelItemTypeVideoMostSeen:
-            path = @"video/mostClicked.json?pageSize=20&period=24";
+            remoteURLPath = @"video/mostClicked.json?pageSize=20&period=24";
             break;
 
         case SRGILModelItemTypeVideoShowsAZ:
             orgType = SRGILModelDataOrganisationTypeAlphabetical;
-            path = @"tv/assetGroup/editorialPlayerAlphabetical.json";
+            remoteURLPath = @"tv/assetGroup/editorialPlayerAlphabetical.json";
+            break;
+
+        case SRGILModelItemTypeVideoShowsAZDetail: {
+            if ([arg isKindOfClass:[NSString class]]) {
+                remoteURLPath = [NSString stringWithFormat:@"assetSet/listByAssetGroup/%@.json?pageSize=20", arg];
+            }
+            else if ([arg isKindOfClass:[NSDictionary class]]) {
+                remoteURLPath = _typedFetchPaths[@(itemType)];
+                NSRange r = [remoteURLPath rangeOfString:@"?"];
+                NSAssert(r.location != NSNotFound, @"Missing URL arguments list starting character?");
+    
+                if (r.location != NSNotFound) {
+                    remoteURLPath = [remoteURLPath substringToIndex:r.location+1];
+    
+                    NSDictionary *properties = (NSDictionary *)arg;
+                    NSInteger currentPageNumber = [[properties objectForKey:@"pageNumber"] integerValue];
+                    NSInteger currentPageSize = [[properties objectForKey:@"pageSize"] integerValue];
+                    NSInteger totalItemsCount = [[properties objectForKey:@"total"] integerValue];
+    
+                    NSInteger expectedNewMax = (currentPageNumber+1)*currentPageSize;
+                    BOOL hasReachedEnd = (expectedNewMax - totalItemsCount >= currentPageSize);
+    
+                    if (!hasReachedEnd) {
+                        remoteURLPath = [remoteURLPath stringByAppendingFormat:@"pageSize=%ld&pageNumber=%ld",
+                                (long)currentPageSize, (long)currentPageNumber+1];
+                    }
+                }
+            }
+    
+        }
             break;
 
         case SRGILModelItemTypeVideoShowsByDate: {
             NSDate *date = (arg && [arg isKindOfClass:[NSDate class]]) ? (NSDate *)arg : [NSDate date];
             NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
             NSDateComponents *dateComponents = [gregorianCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
-            path = [NSString stringWithFormat:@"video/episodesByDate.json?day=%4li-%02li-%02li",
+            remoteURLPath = [NSString stringWithFormat:@"video/episodesByDate.json?day=%4li-%02li-%02li",
                                     (long)dateComponents.year, (long)dateComponents.month, (long)dateComponents.day];
         }
             break;
 
+        case SRGILModelItemTypeVideoMetadata:
+#if __has_include("SRGILOfflineMetadataProvider.h")
+            [self extractLocalItemsOfType:itemType onCompletion:completionBlock];
+            return;
+#endif
+            break;
+            
+            
         case SRGILModelItemTypeAudioLiveStreams: {
             if ([arg isKindOfClass:[NSString class]]) {
-                path = [NSString stringWithFormat:@"audio/play/%@.json", arg];
+                remoteURLPath = [NSString stringWithFormat:@"audio/play/%@.json", arg];
             }
         }
             break;
 
         case SRGILModelItemTypeAudioMostRecent: {
             if ([arg isKindOfClass:[NSString class]]) {
-                path = [NSString stringWithFormat:@"audio/latestEpisodesByChannel/%@.json?pageSize=20", arg];
+                remoteURLPath = [NSString stringWithFormat:@"audio/latestEpisodesByChannel/%@.json?pageSize=20", arg];
             }
         }
             break;
 
         case SRGILModelItemTypeAudioMostListened: {
             if ([arg isKindOfClass:[NSString class]]) {
-                path = [NSString stringWithFormat:@"audio/mostClickedByChannel/%@.json?pageSize=20", arg];
+                remoteURLPath = [NSString stringWithFormat:@"audio/mostClickedByChannel/%@.json?pageSize=20", arg];
             }
         }
             break;
@@ -280,7 +330,7 @@ static NSString * const itemClassPrefix = @"SRGIL";
         case SRGILModelItemTypeAudioShowsAZ: {
             if ([arg isKindOfClass:[NSString class]]) {
                 orgType = SRGILModelDataOrganisationTypeAlphabetical;
-                path = [NSString stringWithFormat:@"radio/assetGroup/editorialPlayerAlphabeticalByChannel/%@.json", arg];
+                remoteURLPath = [NSString stringWithFormat:@"radio/assetGroup/editorialPlayerAlphabeticalByChannel/%@.json", arg];
             }
         }
             break;
@@ -288,14 +338,15 @@ static NSString * const itemClassPrefix = @"SRGIL";
         default:
             break;
     }
+
+    _typedFetchPaths[@(itemType)] = [remoteURLPath copy];
     
-    @weakify(self);
-    
-    if (path) {
-        DDLogWarn(@"Fetch request for item type %ld with path %@", (long)itemType, path);
+    if (remoteURLPath && remoteURLPath != SRGConfigNoValidRequestURLPath) {
+        DDLogWarn(@"Fetch request for item type %ld with path %@", (long)itemType, remoteURLPath);
         
+        @weakify(self);
         _ongoingFetchCount ++;
-        [self.requestManager requestItemsWithURLPath:path
+        [self.requestManager requestItemsWithURLPath:remoteURLPath
                                           onProgress:progressBlock
                                         onCompletion:^(NSDictionary *rawDictionary, NSError *error) {
                                             @strongify(self);

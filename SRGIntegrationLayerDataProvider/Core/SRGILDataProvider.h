@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import <RTSAnalytics/RTSAnalytics.h>
 #import <RTSMediaPlayer/RTSMediaPlayer.h>
 
@@ -24,11 +23,14 @@ typedef NS_ENUM(NSInteger, SRGILModelItemType) {
     SRGILModelItemTypeVideoMostRecent,
     SRGILModelItemTypeVideoMostSeen,
     SRGILModelItemTypeVideoShowsAZ,
+    SRGILModelItemTypeVideoShowsAZDetail,
     SRGILModelItemTypeVideoShowsByDate,
+    SRGILModelItemTypeVideoMetadata,
     SRGILModelItemTypeAudioLiveStreams,
     SRGILModelItemTypeAudioMostRecent,
     SRGILModelItemTypeAudioMostListened,
-    SRGILModelItemTypeAudioShowsAZ
+    SRGILModelItemTypeAudioShowsAZ,
+    SRGILModelItemTypeAudioShowsAZDetail
 };
 
 
@@ -41,6 +43,7 @@ typedef void (^SRGILFetchListCompletionBlock)(SRGILList *items, Class itemClass,
 - (NSString *)businessUnit;
 
 - (NSUInteger)ongoingFetchCount;
+- (BOOL)isFetchPathValidForItemType:(enum SRGILModelItemType)itemType;
 
 - (void)fetchFlatListOfItemType:(enum SRGILModelItemType)itemType
                    onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
