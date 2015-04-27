@@ -116,8 +116,8 @@
 		9F13D5131AE9270700E4D897 /* SRGILImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILImage.m; sourceTree = "<group>"; };
 		9F13D5141AE9270700E4D897 /* SRGILImageRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILImageRepresentation.h; sourceTree = "<group>"; };
 		9F13D5151AE9270700E4D897 /* SRGILImageRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILImageRepresentation.m; sourceTree = "<group>"; };
-		9F13D5161AE9270700E4D897 /* SRGILList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILList.h; sourceTree = "<group>"; };
-		9F13D5171AE9270700E4D897 /* SRGILList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILList.m; sourceTree = "<group>"; };
+		9F13D5161AE9270700E4D897 /* SRGILList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGILList.h; path = ../Model/SRGILList.h; sourceTree = "<group>"; };
+		9F13D5171AE9270700E4D897 /* SRGILList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRGILList.m; path = ../Model/SRGILList.m; sourceTree = "<group>"; };
 		9F13D5181AE9270700E4D897 /* SRGILLiveHeaderChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILLiveHeaderChannel.h; sourceTree = "<group>"; };
 		9F13D5191AE9270700E4D897 /* SRGILLiveHeaderChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILLiveHeaderChannel.m; sourceTree = "<group>"; };
 		9F13D51A1AE9270700E4D897 /* SRGILLiveHeaderData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILLiveHeaderData.h; sourceTree = "<group>"; };
@@ -271,8 +271,6 @@
 				9F13D5131AE9270700E4D897 /* SRGILImage.m */,
 				9F13D5141AE9270700E4D897 /* SRGILImageRepresentation.h */,
 				9F13D5151AE9270700E4D897 /* SRGILImageRepresentation.m */,
-				9F13D5161AE9270700E4D897 /* SRGILList.h */,
-				9F13D5171AE9270700E4D897 /* SRGILList.m */,
 				9F13D5181AE9270700E4D897 /* SRGILLiveHeaderChannel.h */,
 				9F13D5191AE9270700E4D897 /* SRGILLiveHeaderChannel.m */,
 				9F13D51A1AE9270700E4D897 /* SRGILLiveHeaderData.h */,
@@ -313,6 +311,8 @@
 				9F13D5361AE9270700E4D897 /* SRGILRequestsManager.m */,
 				9F13D5371AE9270700E4D897 /* SRGILTokenHandler.h */,
 				9F13D5381AE9270700E4D897 /* SRGILTokenHandler.m */,
+				9F13D5161AE9270700E4D897 /* SRGILList.h */,
+				9F13D5171AE9270700E4D897 /* SRGILList.m */,
 			);
 			name = Network;
 			path = SRGIntegrationLayerDataProvider/Network;

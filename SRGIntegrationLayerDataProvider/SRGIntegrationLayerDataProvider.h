@@ -12,6 +12,7 @@
 #define kSRGIntegrationLayerDataProvider @"0.0.3"
 
 #import "SRGILModel.h"
+#import "SRGILList.h"
 #import "SRGILDataProvider.h"
 
 #if __has_include("SRGILOfflineMetadataProvider.h")

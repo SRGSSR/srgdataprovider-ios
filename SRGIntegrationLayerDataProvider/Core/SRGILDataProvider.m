@@ -234,6 +234,8 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
                  onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
                onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
+    NSAssert(completionBlock, @"Requiring a completion block");
+    
     id<NSCopying> tag = @(itemType);
     NSString *remoteURLPath = SRGConfigNoValidRequestURLPath;
     
@@ -298,11 +300,15 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
         }
             break;
 
-        case SRGILModelItemTypeVideoMetadata:
+        case SRGILModelItemTypeVideoMetadata: {
 #if __has_include("SRGILOfflineMetadataProvider.h")
+            if (progressBlock) {
+                progressBlock(1.0);
+            }
             [self extractLocalItemsOfType:itemType onCompletion:completionBlock];
             return;
 #endif
+            }
             break;
             
             
