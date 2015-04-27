@@ -218,6 +218,11 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
     return (_typedFetchPaths[@(itemType)] == SRGConfigNoValidRequestURLPath);
 }
 
+- (void)resetFetchPathForItemType:(enum SRGILModelItemType)itemType
+{
+    [_typedFetchPaths removeObjectForKey:@(itemType)];
+}
+
 - (void)fetchFlatListOfItemType:(enum SRGILModelItemType)itemType
                    onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {

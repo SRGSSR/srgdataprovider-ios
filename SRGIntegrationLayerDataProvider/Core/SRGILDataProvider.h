@@ -43,7 +43,9 @@ typedef void (^SRGILFetchListCompletionBlock)(SRGILList *items, Class itemClass,
 - (NSString *)businessUnit;
 
 - (NSUInteger)ongoingFetchCount;
+
 - (BOOL)isFetchPathValidForItemType:(enum SRGILModelItemType)itemType;
+- (void)resetFetchPathForItemType:(enum SRGILModelItemType)itemType;
 
 - (void)fetchFlatListOfItemType:(enum SRGILModelItemType)itemType
                    onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
