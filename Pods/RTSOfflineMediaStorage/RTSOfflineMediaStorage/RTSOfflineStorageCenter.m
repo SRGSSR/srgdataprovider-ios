@@ -122,6 +122,11 @@ static NSString * const RTSOfflineStorageCenterFavoritesStorageKey = @"RTSOfflin
     return [results valueForKey:@"identifier"];
 }
 
+- (id<RTSMediaMetadataContainer>)mediaMetadataForIdentifier:(NSString *)identifier
+{
+    return [RTSMediaMetadata objectInRealm:self.realm forPrimaryKey:identifier];
+}
+
 - (RLMResults *)savedMediaMetadatas
 {
     return [RTSMediaMetadata allObjectsInRealm:self.realm];

@@ -19,7 +19,9 @@
 
 - (void)saveMediaMetadataWithIdentifier:(NSString *)identifier error:(NSError * __autoreleasing *)error;
 - (void)deleteMediaMetadataWithIdentifier:(NSString *)identifier error:(NSError * __autoreleasing *)error;
+
 - (NSSet *)savedMediaMetadataIdentifiers;
+- (id<RTSMediaMetadataContainer>)mediaMetadataForIdentifier:(NSString *)identifier;
 - (RLMResults *)savedMediaMetadatas;
 
 
