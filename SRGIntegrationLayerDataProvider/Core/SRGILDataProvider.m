@@ -142,7 +142,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
         SRGILMedia *media = _identifiedMedias[player.identifier];
         if (media) {
             NSString *typeName = nil;
-            switch ([[media class] type]) {
+            switch ([media type]) {
                 case SRGILMediaTypeAudio:
                     typeName = @"audio";
                     break;
@@ -150,7 +150,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
                     typeName = @"video";
                     break;
                 default:
-                    NSAssert(false, @"Invalid media type: %d", (int)[[media class] type]);
+                    NSAssert(false, @"Invalid media type: %d", (int)[media type]);
             }
             if (typeName) {
                 [_requestManager sendViewCountUpdate:player.identifier forMediaTypeName:typeName];

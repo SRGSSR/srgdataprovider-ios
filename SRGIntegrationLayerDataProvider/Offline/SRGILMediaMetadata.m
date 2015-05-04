@@ -19,7 +19,7 @@
 
 - (NSURL *)thumbnailURL
 {
-    if ([[self class] type] == SRGILMediaTypeAudio) {
+    if ([self type] == SRGILMediaTypeAudio) {
         SRGILAudio *audio = (SRGILAudio *)self;
         NSURL *URL = [audio.image imageRepresentationForUsage:SRGILMediaImageUsageShowEpisode].URL;
         if (!URL) {
@@ -27,7 +27,7 @@
         }
         return URL;
     }
-    else if ([[self class] type] == SRGILMediaTypeVideo) {
+    else if ([self type] == SRGILMediaTypeVideo) {
         SRGILVideo *video = (SRGILVideo *)self;
         SRGILImage *image = nil;
         if (self.isLiveStream) {

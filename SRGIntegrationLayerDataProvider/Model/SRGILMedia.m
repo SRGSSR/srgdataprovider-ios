@@ -28,7 +28,7 @@
 
 @implementation SRGILMedia
 
-+ (SRGILMediaType)type
+- (SRGILMediaType)type
 {
     return SRGILMediaTypeUndefined;
 }

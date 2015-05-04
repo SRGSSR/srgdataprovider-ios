@@ -11,7 +11,7 @@
 
 @implementation SRGILAudio
 
-+ (SRGILMediaType)type
+- (SRGILMediaType)type
 {
     return SRGILMediaTypeAudio;
 }

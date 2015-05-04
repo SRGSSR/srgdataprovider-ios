@@ -84,7 +84,7 @@
     NSMutableDictionary *labels = [NSMutableDictionary dictionary];
 
     NSString *srg_n1 = @"(UndefinedMediaType)";
-    switch ([self.media.class type]) {
+    switch ([self.media type]) {
         case SRGILMediaTypeVideo:
             srg_n1 = @"VideoPlayer";
             break;

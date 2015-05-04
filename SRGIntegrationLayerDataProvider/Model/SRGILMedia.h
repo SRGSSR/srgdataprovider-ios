@@ -17,7 +17,7 @@
 /**
  *  The media type
  */
-+ (SRGILMediaType)type;
+- (SRGILMediaType)type;
 
 /**
  *  The title of the media.

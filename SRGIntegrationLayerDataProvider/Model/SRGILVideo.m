@@ -12,7 +12,7 @@
 
 @implementation SRGILVideo
 
-+ (SRGILMediaType)type
+- (SRGILMediaType)type
 {
     return SRGILMediaTypeVideo;
 }

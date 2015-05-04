@@ -32,7 +32,7 @@
 
 - (void)testCorrectInitMediaTypeFlag
 {
-    XCTAssertTrue([[self.media class] type] == SRGILMediaTypeUndefined, @"Media type should be undefined at this point.");
+    XCTAssertTrue([self.media type] == SRGILMediaTypeUndefined, @"Media type should be undefined at this point.");
 }
 
 - (void)testCorrectInitLiveStreamFlag
