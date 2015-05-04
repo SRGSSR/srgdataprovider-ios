@@ -90,7 +90,28 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 	[self setLabel:@"ns_st_sg" value:[self scalingMode]];
 	[self setLabel:@"ns_ap_ot" value:[self orientation]];
 	[self setLabel:@"ns_st_airplay" value:[self airplay]];
-	[self setLabel:@"ns_st_cu" value:[self contentURL]];
+	
+	NSURL *contentURL = [self contentURL];
+	if (contentURL)
+	 [self setLabel:@"ns_st_cu" value:contentURL.absoluteString];
+	
+	// Clips
+	NSString *dimensions = [self dimensions];
+	if (dimensions)
+		[[self clip] setLabel:@"ns_st_cs" value:dimensions];
+	
+	NSString *duration = [self duration];
+	if (duration)
+		[[self clip] setLabel:@"ns_st_cl" value:duration];
+	
+	NSString *liveStream = [self liveStream];
+	if (liveStream)
+		[[self clip] setLabel:@"ns_st_li" value:liveStream];
+	
+	NSString *srg_enc = [self srg_enc];
+	if (srg_enc)
+		[[self clip] setLabel:@"srg_enc" value:srg_enc];
+	
 	
 	if ([self.dataSource respondsToSelector:@selector(streamSenseLabelsMetadataForIdentifier:)]) {
 		NSDictionary *dataSourceLabels = [self.dataSource streamSenseLabelsMetadataForIdentifier:self.mediaPlayerController.identifier];
@@ -108,18 +129,6 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 	}
 	
 	// Clips
-	NSString *dimensions = [self dimensions];
-	if (dimensions)
-		[[self clip] setLabel:@"ns_st_cs" value:dimensions];
-	
-	NSString *duration = [self duration];
-	if (duration)
-		[[self clip] setLabel:@"ns_st_cl" value:duration];
-	
-	NSString *liveStream = [self liveStream];
-	if (liveStream)
-		[[self clip] setLabel:@"ns_st_li" value:liveStream];
-	
 	if ([self.dataSource respondsToSelector:@selector(streamSenseClipMetadataForIdentifier:)]) {
 		NSDictionary *dataSourceClip = [self.dataSource streamSenseClipMetadataForIdentifier:self.mediaPlayerController.identifier];
 		[dataSourceClip enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -243,14 +252,31 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 	return nil;
 }
 
-- (NSString *) contentURL
+- (NSURL *) contentURL
 {
 	AVAsset *asset = self.mediaPlayerController.player.currentItem.asset;
 	if ([asset isKindOfClass:[AVURLAsset class]]) {
 		NSURL *assetURL = [(AVURLAsset *)asset URL];
-		NSURL *newURL = [[NSURL alloc] initWithScheme:[assetURL scheme] host:[assetURL host] path:[assetURL path]];
-		return newURL.absoluteString;
+		NSURL *newURL = [[NSURL alloc] initWithScheme:assetURL.scheme host:assetURL.host path:assetURL.path.length > 0 ? assetURL.path: @"/" ];
+		return newURL;
 	}
+	return nil;
+}
+
+- (NSString *) srg_enc
+{
+	// Add 'Encoder' value (live only):
+	NSURL *contentURL = [self contentURL];
+	NSString *liveStream = [self liveStream];
+	if (contentURL.path.length > 0 && [liveStream isEqualToString:@"1"])
+	{
+		NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"enc(\\d+)" options:0 error:nil];
+		NSTextCheckingResult *firstMatch = [re firstMatchInString:contentURL.path options:0 range:NSMakeRange(0, contentURL.path.length)];
+		
+		if (firstMatch.range.location != NSNotFound)
+			return [contentURL.path substringWithRange:[firstMatch rangeAtIndex:1]];
+	}
+	
 	return nil;
 }
 

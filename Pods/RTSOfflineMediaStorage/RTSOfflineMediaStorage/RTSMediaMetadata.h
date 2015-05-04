@@ -17,13 +17,16 @@
 @property NSString *parentTitle;
 @property NSString *mediaDescription;
 @property NSString *imageURLString;
+@property NSString *radioShortName;
 
 @property NSDate *publicationDate;
 @property NSDate *expirationDate;
+@property NSDate *favoriteChangeDate;
 
 @property long durationInMs;
 @property int viewCount;
 @property BOOL isDownloadable;
+@property BOOL isFavorite;
 
 + (RTSMediaMetadata *)mediaMetadataForContainer:(id<RTSMediaMetadataContainer>)container;
 - (BOOL)isValueEmptyForKey:(NSString *)key;

@@ -51,13 +51,16 @@
 @property(nonatomic, strong) NSString *parentTitle;
 @property(nonatomic, strong) NSString *mediaDescription;
 @property(nonatomic, strong) NSString *imageURLString;
+@property(nonatomic, strong) NSString *radioShortName;
 
 @property(nonatomic, strong) NSDate *publicationDate;
 @property(nonatomic, strong) NSDate *expirationDate;
+@property(nonatomic, strong) NSDate *favoriteChangeDate;
 
 @property(nonatomic, assign) long durationInMs;
 @property(nonatomic, assign) int viewCount;
 @property(nonatomic, assign) BOOL isDownloadable;
+@property(nonatomic, assign) BOOL isFavorite;
 @end
 
 @implementation SRGILMediaMetadata
@@ -74,7 +77,6 @@
     md.title = [media title];
     md.parentTitle = [media parentTitle];
     md.mediaDescription = [media mediaDescription];
-    
     md.imageURLString = [[media contentURL] path];
     
     md.publicationDate = media.assetSet.publishedDate;
@@ -82,6 +84,7 @@
     md.durationInMs = media.duration * 1000.0;
     md.viewCount = (int)[media viewCount];
     md.isDownloadable = NO;
+    md.isFavorite = NO;
     
     return md;
 }

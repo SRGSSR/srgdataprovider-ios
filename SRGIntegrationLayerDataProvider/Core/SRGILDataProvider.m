@@ -213,31 +213,31 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
 
 #pragma mark - Item Lists
 
-- (BOOL)isFetchPathValidForItemType:(enum SRGILModelItemType)itemType
+- (BOOL)isFetchPathValidForType:(enum SRGILFetchList)itemType
 {
     return (_typedFetchPaths[@(itemType)] == SRGConfigNoValidRequestURLPath);
 }
 
-- (void)resetFetchPathForItemType:(enum SRGILModelItemType)itemType
+- (void)resetFetchPathForType:(enum SRGILFetchList)itemType
 {
     [_typedFetchPaths removeObjectForKey:@(itemType)];
 }
 
-- (void)fetchFlatListOfItemType:(enum SRGILModelItemType)itemType
-                   onCompletion:(SRGILFetchListCompletionBlock)completionBlock
+- (void)fetchFlatListOfType:(enum SRGILFetchList)itemType
+               onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
-    [self fetchListOfItemType:itemType
-             withPathArgument:nil
-                    organised:SRGILModelDataOrganisationTypeFlat
-                   onProgress:nil
-                 onCompletion:completionBlock];
+    [self fetchListOfType:itemType
+         withPathArgument:nil
+                organised:SRGILModelDataOrganisationTypeFlat
+               onProgress:nil
+             onCompletion:completionBlock];
 }
 
-- (void)fetchListOfItemType:(enum SRGILModelItemType)itemType
-           withPathArgument:(id)arg
-                  organised:(SRGILModelDataOrganisationType)orgType
-                 onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
-               onCompletion:(SRGILFetchListCompletionBlock)completionBlock
+- (void)fetchListOfType:(enum SRGILFetchList)itemType
+       withPathArgument:(id)arg
+              organised:(SRGILModelDataOrganisationType)orgType
+             onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
+           onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
     NSAssert(completionBlock, @"Requiring a completion block");
     
@@ -245,28 +245,28 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
     NSString *remoteURLPath = SRGConfigNoValidRequestURLPath;
     
     switch (itemType) {
-        case SRGILModelItemTypeVideoLiveStreams:
+        case SRGILFetchListVideoLiveStreams:
             remoteURLPath = @"video/livestream.json";
             break;
             
-        case SRGILModelItemTypeVideoEditorialPicks:
+        case SRGILFetchListVideoEditorialPicks:
             remoteURLPath = @"video/editorialPlayerPicks.json?pageSize=20";
             break;
 
-        case SRGILModelItemTypeVideoMostRecent:
+        case SRGILFetchListVideoMostRecent:
             remoteURLPath = @"video/editorialPlayerLatest.json?pageSize=20";
             break;
 
-        case SRGILModelItemTypeVideoMostSeen:
+        case SRGILFetchListVideoMostSeen:
             remoteURLPath = @"video/mostClicked.json?pageSize=20&period=24";
             break;
 
-        case SRGILModelItemTypeVideoShowsAZ:
+        case SRGILFetchListVideoShowsAZ:
             orgType = SRGILModelDataOrganisationTypeAlphabetical;
             remoteURLPath = @"tv/assetGroup/editorialPlayerAlphabetical.json";
             break;
 
-        case SRGILModelItemTypeVideoShowsAZDetail: {
+        case SRGILFetchListVideoShowsAZDetail: {
             if ([arg isKindOfClass:[NSString class]]) {
                 remoteURLPath = [NSString stringWithFormat:@"assetSet/listByAssetGroup/%@.json?pageSize=20", arg];
             }
@@ -296,7 +296,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
         }
             break;
 
-        case SRGILModelItemTypeVideoShowsByDate: {
+        case SRGILFetchListVideoShowsByDate: {
             NSDate *date = (arg && [arg isKindOfClass:[NSDate class]]) ? (NSDate *)arg : [NSDate date];
             NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
             NSDateComponents *dateComponents = [gregorianCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
@@ -305,10 +305,10 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
         }
             break;
 
-        case SRGILModelItemTypeVideoMetadata: {
+        case SRGILFetchListMediaFavorite: {
 #if __has_include("SRGILOfflineMetadataProvider.h")
             if (progressBlock) {
-                progressBlock(1.0);
+                progressBlock(DOWNLOAD_PROGRESS_DONE);
             }
             [self extractLocalItemsOfType:itemType onCompletion:completionBlock];
             return;
@@ -317,31 +317,43 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
             break;
             
             
-        case SRGILModelItemTypeAudioLiveStreams: {
+        case SRGILFetchListAudioLiveStreams: {
             if ([arg isKindOfClass:[NSString class]]) {
                 remoteURLPath = [NSString stringWithFormat:@"audio/play/%@.json", arg];
             }
+            else {
+                DDLogWarn(@"Invalid arg for SRGILFetchListAudioLiveStreams: %@", arg);
+            }
         }
             break;
 
-        case SRGILModelItemTypeAudioMostRecent: {
+        case SRGILFetchListAudioMostRecent: {
             if ([arg isKindOfClass:[NSString class]]) {
                 remoteURLPath = [NSString stringWithFormat:@"audio/latestEpisodesByChannel/%@.json?pageSize=20", arg];
             }
-        }
-            break;
-
-        case SRGILModelItemTypeAudioMostListened: {
-            if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"audio/mostClickedByChannel/%@.json?pageSize=20", arg];
+            else {
+                DDLogWarn(@"Invalid arg for SRGILFetchListAudioMostRecent: %@", arg);
             }
         }
             break;
 
-        case SRGILModelItemTypeAudioShowsAZ: {
+        case SRGILFetchListAudioMostListened: {
+            if ([arg isKindOfClass:[NSString class]]) {
+                remoteURLPath = [NSString stringWithFormat:@"audio/mostClickedByChannel/%@.json?pageSize=20", arg];
+            }
+            else {
+                DDLogWarn(@"Invalid arg for SRGILFetchListAudioMostListened: %@", arg);
+            }
+        }
+            break;
+
+        case SRGILFetchListAudioShowsAZ: {
             if ([arg isKindOfClass:[NSString class]]) {
                 orgType = SRGILModelDataOrganisationTypeAlphabetical;
                 remoteURLPath = [NSString stringWithFormat:@"radio/assetGroup/editorialPlayerAlphabeticalByChannel/%@.json", arg];
+            }
+            else {
+                DDLogWarn(@"Invalid arg for SRGILFetchListAudioShowsAZ: %@", arg);
             }
         }
             break;

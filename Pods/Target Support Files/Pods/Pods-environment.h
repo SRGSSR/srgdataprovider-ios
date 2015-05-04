@@ -64,19 +64,19 @@
 #define COCOAPODS_POD_AVAILABLE_RTSOfflineMediaStorage
 #define COCOAPODS_VERSION_MAJOR_RTSOfflineMediaStorage 0
 #define COCOAPODS_VERSION_MINOR_RTSOfflineMediaStorage 0
-#define COCOAPODS_VERSION_PATCH_RTSOfflineMediaStorage 1
+#define COCOAPODS_VERSION_PATCH_RTSOfflineMediaStorage 2
 
 // Realm
 #define COCOAPODS_POD_AVAILABLE_Realm
 #define COCOAPODS_VERSION_MAJOR_Realm 0
 #define COCOAPODS_VERSION_MINOR_Realm 91
-#define COCOAPODS_VERSION_PATCH_Realm 3
+#define COCOAPODS_VERSION_PATCH_Realm 5
 
 // Realm/Headers
 #define COCOAPODS_POD_AVAILABLE_Realm_Headers
 #define COCOAPODS_VERSION_MAJOR_Realm_Headers 0
 #define COCOAPODS_VERSION_MINOR_Realm_Headers 91
-#define COCOAPODS_VERSION_PATCH_Realm_Headers 3
+#define COCOAPODS_VERSION_PATCH_Realm_Headers 5
 
 // SGVReachability
 #define COCOAPODS_POD_AVAILABLE_SGVReachability

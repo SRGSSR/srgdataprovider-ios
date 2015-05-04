@@ -17,22 +17,23 @@ typedef NS_ENUM(NSInteger, SRGILModelDataOrganisationType) {
     SRGILModelDataOrganisationTypeAlphabetical,
 };
 
-typedef NS_ENUM(NSInteger, SRGILModelItemType) {
-    SRGILModelItemTypeVideoLiveStreams,
-    SRGILModelItemTypeVideoEditorialPicks,
-    SRGILModelItemTypeVideoMostRecent,
-    SRGILModelItemTypeVideoMostSeen,
-    SRGILModelItemTypeVideoShowsAZ,
-    SRGILModelItemTypeVideoShowsAZDetail,
-    SRGILModelItemTypeVideoShowsByDate,
-    SRGILModelItemTypeVideoMetadata,
-    SRGILModelItemTypeAudioLiveStreams,
-    SRGILModelItemTypeAudioMostRecent,
-    SRGILModelItemTypeAudioMostListened,
-    SRGILModelItemTypeAudioShowsAZ,
-    SRGILModelItemTypeAudioShowsAZDetail
+typedef NS_ENUM(NSInteger, SRGILFetchList) {
+    SRGILFetchListVideoLiveStreams,
+    SRGILFetchListVideoEditorialPicks,
+    SRGILFetchListVideoMostRecent,
+    SRGILFetchListVideoMostSeen,
+    SRGILFetchListVideoShowsAZ,
+    SRGILFetchListVideoShowsAZDetail,
+    SRGILFetchListVideoShowsByDate,
+    SRGILFetchListMediaFavorite,
+    SRGILFetchListAudioLiveStreams,
+    SRGILFetchListAudioMostRecent,
+    SRGILFetchListAudioMostListened,
+    SRGILFetchListAudioShowsAZ,
+    SRGILFetchListAudioShowsAZDetail
 };
 
+static const float DOWNLOAD_PROGRESS_DONE = 1.0;
 
 typedef void (^SRGILFetchListDownloadProgressBlock)(float fraction);
 typedef void (^SRGILFetchListCompletionBlock)(SRGILList *items, Class itemClass, NSError *error);
@@ -44,16 +45,17 @@ typedef void (^SRGILFetchListCompletionBlock)(SRGILList *items, Class itemClass,
 
 - (NSUInteger)ongoingFetchCount;
 
-- (BOOL)isFetchPathValidForItemType:(enum SRGILModelItemType)itemType;
-- (void)resetFetchPathForItemType:(enum SRGILModelItemType)itemType;
+- (BOOL)isFetchPathValidForType:(enum SRGILFetchList)itemType;
 
-- (void)fetchFlatListOfItemType:(enum SRGILModelItemType)itemType
-                   onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
+- (void)resetFetchPathForType:(enum SRGILFetchList)itemType;
 
-- (void)fetchListOfItemType:(enum SRGILModelItemType)itemType
-           withPathArgument:(id)arg
-                  organised:(SRGILModelDataOrganisationType)orgType
-                 onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
+- (void)fetchFlatListOfType:(enum SRGILFetchList)itemType
                onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
+
+- (void)fetchListOfType:(enum SRGILFetchList)itemType
+       withPathArgument:(id)arg
+              organised:(SRGILModelDataOrganisationType)orgType
+             onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
+        onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
 
 @end

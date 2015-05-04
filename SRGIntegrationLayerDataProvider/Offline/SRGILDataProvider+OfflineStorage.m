@@ -35,7 +35,7 @@
     [[RTSOfflineStorageCenter favoritesSharedCenter] deleteMediaMetadataWithIdentifier:identifier error:error];
 }
 
-- (void)extractLocalItemsOfType:(SRGILModelItemType)itemType onCompletion:(SRGILFetchListCompletionBlock)completionBlock
+- (void)extractLocalItemsOfType:(SRGILFetchList)itemType onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
     NSMutableArray *items = [NSMutableArray array];
     for (NSString *identifier in  [[RTSOfflineStorageCenter favoritesSharedCenter] storedMediaMetadataIdentifiers]) {

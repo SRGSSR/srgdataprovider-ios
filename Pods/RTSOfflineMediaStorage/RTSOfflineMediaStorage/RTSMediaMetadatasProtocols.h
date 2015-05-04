@@ -15,13 +15,16 @@
 - (NSString *)parentTitle;
 - (NSString *)mediaDescription;
 - (NSString *)imageURLString;
+- (NSString *)radioShortName;
 
 - (NSDate *)publicationDate;
 - (NSDate *)expirationDate;
+- (NSDate *)favoriteChangeDate;
 
 - (long)durationInMs;
 - (int)viewCount;
 - (BOOL)isDownloadable;
+- (BOOL)isFavorite;
 
 @end
 

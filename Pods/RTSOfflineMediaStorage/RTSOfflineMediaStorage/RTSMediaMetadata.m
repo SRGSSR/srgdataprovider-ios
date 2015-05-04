@@ -22,11 +22,14 @@
              @"parentTitle": @"",
              @"mediaDescription": @"",
              @"imageURLString": @"",
+             @"radioShortName": @"",
              @"publicationDate": [NSDate dateWithTimeIntervalSince1970:0],
              @"expirationDate": [NSDate dateWithTimeIntervalSince1970:0],
+             @"favoriteChangeDate": [NSDate dateWithTimeIntervalSince1970:0],
              @"durationInMs": @(-1),
              @"viewCount": @(-1),
-             @"isDownloadable": @(0)};
+             @"isDownloadable": @(0),
+             @"isFavorite": @(0)};
 }
 
 + (RTSMediaMetadata *)mediaMetadataForContainer:(id<RTSMediaMetadataContainer>)container
@@ -42,13 +45,16 @@
     md.parentTitle = [container parentTitle];
     md.mediaDescription = [container mediaDescription];
     md.imageURLString = [container imageURLString];
+    md.radioShortName = [container radioShortName];
     
     md.publicationDate = [container publicationDate];
     md.expirationDate = [container expirationDate];
+    md.favoriteChangeDate = [container favoriteChangeDate];
     
     md.durationInMs = [container durationInMs];
     md.viewCount = [container viewCount];
     md.isDownloadable = [container isDownloadable];
+    md.isFavorite = [container isFavorite];
     
     return md;
 
