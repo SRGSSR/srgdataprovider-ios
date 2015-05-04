@@ -25,8 +25,21 @@
     return md;
 }
 
-- (void)extractLocalItemsOfType:(SRGILFetchList)itemType onCompletion:(SRGILFetchListCompletionBlock)completionBlock
+- (void)extractLocalItemsOfType:(SRGILFetchList)fetchList onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
+    switch (fetchList) {
+        case SRGILFetchListMediaFavorite: {
+            NSMutableArray *items = [NSMutableArray array];
+            for (id<RTSMediaMetadataContainer> container in [[RTSOfflineStorageCenter favoritesCenterWithMetadataProvider:self] flaggedAsFavoriteMetadatas]) {
+                [items addObject:[SRGILMediaMetadata mediaMetadataForContainer:container]];
+            }
+            SRGILList *itemsList = [[SRGILList alloc] initWithArray:items];
+            completionBlock(itemsList, [SRGILMediaMetadata class], nil);
+        } break;
+        default:
+            NSAssert(NO, @"Invalid item type for local items: %ld", (long)fetchList);
+    }
+    
     NSMutableArray *items = [NSMutableArray array];
     for (NSString *identifier in  [[RTSOfflineStorageCenter favoritesCenterWithMetadataProvider:self] savedMediaMetadataIdentifiers]) {
         SRGILMediaMetadata *md = [self mediaMetadataContainerForIdentifier:identifier];

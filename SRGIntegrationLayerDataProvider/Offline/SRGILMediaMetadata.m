@@ -89,4 +89,28 @@
     return md;
 }
 
++ (SRGILMediaMetadata *)mediaMetadataForContainer:(id<RTSMediaMetadataContainer>)container
+{
+    if (!container) {
+        return nil;
+    }
+    
+    SRGILMediaMetadata *md = [[SRGILMediaMetadata alloc] init];
+    
+    md.identifier = [container identifier];
+    md.title = [container title];
+    md.parentTitle = [container parentTitle];
+    md.mediaDescription = [container mediaDescription];
+    md.imageURLString = [container imageURLString];
+    
+    md.publicationDate = [container publicationDate];
+    
+    md.durationInMs = [container durationInMs];
+    md.viewCount = [container viewCount];
+    md.isDownloadable = [container isDownloadable];
+    md.isFavorite = [container isFavorite];
+    
+    return md;
+}
+
 @end

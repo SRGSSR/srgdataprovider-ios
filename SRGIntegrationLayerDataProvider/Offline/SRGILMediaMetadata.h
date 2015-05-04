@@ -14,5 +14,6 @@
 @interface SRGILMediaMetadata : NSObject <RTSMediaMetadataContainer>
 
 + (SRGILMediaMetadata *)mediaMetadataForMedia:(SRGILMedia *)media;
++ (SRGILMediaMetadata *)mediaMetadataForContainer:(id<RTSMediaMetadataContainer>)container;
 
 @end
