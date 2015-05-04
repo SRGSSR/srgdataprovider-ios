@@ -8,6 +8,9 @@
 
 #import "RTSMediaMetadata.h"
 
+#define REALM_NONNULL_STRING(value) ((value == nil) ? @"" : (value))
+#define REALM_NONNULL_DATE(value) ((value == nil) ? [NSDate dateWithTimeIntervalSince1970:0] : (value))
+
 @implementation RTSMediaMetadata
 
 + (NSString *)primaryKey
@@ -40,16 +43,16 @@
     
     RTSMediaMetadata *md = [[RTSMediaMetadata alloc] init];
     
-    md.identifier = [container identifier];
-    md.title = [container title];
-    md.parentTitle = [container parentTitle];
-    md.mediaDescription = [container mediaDescription];
-    md.imageURLString = [container imageURLString];
-    md.radioShortName = [container radioShortName];
+    md.identifier = REALM_NONNULL_STRING([container identifier]);
+    md.title = REALM_NONNULL_STRING([container title]);
+    md.parentTitle = REALM_NONNULL_STRING([container parentTitle]);
+    md.mediaDescription = REALM_NONNULL_STRING([container mediaDescription]);
+    md.imageURLString = REALM_NONNULL_STRING([container imageURLString]);
+    md.radioShortName = REALM_NONNULL_STRING([container radioShortName]);
     
-    md.publicationDate = [container publicationDate];
-    md.expirationDate = [container expirationDate];
-    md.favoriteChangeDate = [container favoriteChangeDate];
+    md.publicationDate = REALM_NONNULL_DATE([container publicationDate]);
+    md.expirationDate = REALM_NONNULL_DATE([container expirationDate]);
+    md.favoriteChangeDate = REALM_NONNULL_DATE(nil);
     
     md.durationInMs = [container durationInMs];
     md.viewCount = [container viewCount];

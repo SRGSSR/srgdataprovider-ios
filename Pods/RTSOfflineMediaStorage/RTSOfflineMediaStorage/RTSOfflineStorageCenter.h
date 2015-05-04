@@ -8,21 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import "RTSMediaMetadatasProtocols.h"
+#import <Realm/RLMResults.h>
 
 @interface RTSOfflineStorageCenter : NSObject
 
-@property(nonatomic, strong) id<RTSMediaMetadatasProvider> metadatasProvider;
++ (RTSOfflineStorageCenter *)favoritesCenterWithMetadataProvider:(id<RTSMediaMetadatasProvider>)provider;
 
-+ (RTSOfflineStorageCenter *)favoritesSharedCenter;
+- (RLMResults *)flaggedAsFavoriteMetadatas;
+- (void)flagAsFavorite:(BOOL)favorite mediaWithIdentifier:(NSString *)identifier;
 
 - (void)saveMediaMetadataWithIdentifier:(NSString *)identifier error:(NSError * __autoreleasing *)error;
 - (void)deleteMediaMetadataWithIdentifier:(NSString *)identifier error:(NSError * __autoreleasing *)error;
+- (NSSet *)savedMediaMetadataIdentifiers;
+- (RLMResults *)savedMediaMetadatas;
 
-- (NSSet *)storedMediaMetadataIdentifiers;
-
-/*
- * Returns an array of id<RTSMediaMetadataContainer> instances.
- */
-- (NSArray *)storedMediaMetadatas;
 
 @end

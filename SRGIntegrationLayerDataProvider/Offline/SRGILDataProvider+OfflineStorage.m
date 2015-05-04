@@ -27,18 +27,18 @@
 
 - (void)saveMediaMetadataWithIdentifier:(NSString *)identifier error:(NSError * __autoreleasing *)error
 {
-    [[RTSOfflineStorageCenter favoritesSharedCenter] saveMediaMetadataWithIdentifier:identifier error:error];
+    [[RTSOfflineStorageCenter favoritesCenterWithMetadataProvider:self] saveMediaMetadataWithIdentifier:identifier error:error];
 }
 
 - (void)deleteMediaMetadataWithIdentifier:(NSString *)identifier error:(NSError * __autoreleasing *)error
 {
-    [[RTSOfflineStorageCenter favoritesSharedCenter] deleteMediaMetadataWithIdentifier:identifier error:error];
+    [[RTSOfflineStorageCenter favoritesCenterWithMetadataProvider:self] deleteMediaMetadataWithIdentifier:identifier error:error];
 }
 
 - (void)extractLocalItemsOfType:(SRGILFetchList)itemType onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
     NSMutableArray *items = [NSMutableArray array];
-    for (NSString *identifier in  [[RTSOfflineStorageCenter favoritesSharedCenter] storedMediaMetadataIdentifiers]) {
+    for (NSString *identifier in  [[RTSOfflineStorageCenter favoritesCenterWithMetadataProvider:self] savedMediaMetadataIdentifiers]) {
         SRGILMediaMetadata *md = [self mediaMetadataContainerForIdentifier:identifier];
         [items addObject:md];
     }

@@ -70,7 +70,7 @@ CHECKOUT OPTIONS:
     :commit: 805607f747f7336dd7b3aba3bc3bfb4047efd1fc
     :git: git@bitbucket.org:rtsmb/rtsmediaplayer-ios.git
   RTSOfflineMediaStorage:
-    :commit: 949042a3016b9b4a93fc82120270edab75015273
+    :commit: 6fe0506f301364895e2ede426589d6f4128a7c05
     :git: git@bitbucket.org:rtsmb/rtsofflinemediastorage-ios.git
   TransitionKit:
     :commit: 6874dea2229bdefb89f6c8f708f1fae467ee5ba2
