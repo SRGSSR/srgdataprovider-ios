@@ -9,8 +9,17 @@
 #import "SRGILDataProvider.h"
 #import <RTSOfflineMediaStorage/RTSOfflineMediaStorage.h>
 
-@interface SRGILDataProvider (OfflineStorage) <RTSMediaMetadatasProvider>
+@interface SRGILDataProvider (OfflineStorage) <RTSMetadatasProvider>
 
-- (void)extractLocalItemsOfType:(SRGILFetchList)itemType onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
+- (BOOL)isMediaFlaggedAsFavorite:(NSString *)identifier;
+- (BOOL)isShowFlaggedAsFavorite:(NSString *)identifier;
+
+- (void)flagAsFavorite:(BOOL)favorite mediaWithIdentifier:(NSString *)identifier audioChannelID:(NSString *)audioChannelID;
+- (void)flagAsFavorite:(BOOL)favorite showWithIdentifier:(NSString *)identifier audioChannelID:(NSString *)audioChannelID;
+
+- (NSArray *)flaggedAsFavoriteMediaMetadatas;
+- (NSArray *)flaggedAsFavoriteShowMetadatas;
+
+- (void)extractLocalItemsOfIndex:(SRGILFetchListIndex)index onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
 
 @end

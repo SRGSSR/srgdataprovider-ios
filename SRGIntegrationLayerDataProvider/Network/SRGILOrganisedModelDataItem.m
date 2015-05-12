@@ -16,9 +16,9 @@
                                      properties:(NSDictionary *)props
 {
     SRGILOrganisedModelDataItem *dataItem = [[SRGILOrganisedModelDataItem alloc] init];
-    dataItem.tag = tag;
     dataItem.items = [[SRGILList alloc] initWithArray:items];
     dataItem.items.globalProperties = props;
+    dataItem.items.tag = tag;
     return dataItem;
 }
 

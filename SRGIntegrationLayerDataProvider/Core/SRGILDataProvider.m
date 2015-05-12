@@ -9,6 +9,7 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 #import "SRGILDataProvider.h"
+#import "SRGILDataProvider+Private.h"
 #import "SRGILOrganisedModelDataItem.h"
 
 #import "SRGILErrors.h"
@@ -34,13 +35,11 @@ static NSString * const itemClassPrefix = @"SRGIL";
 static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidRequestURLPath";
 
 @interface SRGILDataProvider () {
-    NSMutableDictionary *_identifiedMedias;
     NSMutableDictionary *_taggedItemLists;
     NSMutableDictionary *_analyticsInfos;
     NSMutableDictionary *_typedFetchPaths;
-    NSUInteger _ongoingFetchCount;
+    NSMutableSet *_ongoingFetchIndices;
 }
-@property(nonatomic, strong) SRGILRequestsManager *requestManager;
 @end
 
 @implementation SRGILDataProvider
@@ -50,10 +49,12 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
     self = [super init];
     if (self) {
         _identifiedMedias = [[NSMutableDictionary alloc] init];
+        _identifiedShows = [[NSMutableDictionary alloc] init];
         _taggedItemLists = [[NSMutableDictionary alloc] init];
         _analyticsInfos = [[NSMutableDictionary alloc] init];
         _typedFetchPaths = [[NSMutableDictionary alloc] init];
         _requestManager = [[SRGILRequestsManager alloc] initWithBusinessUnit:businessUnit];
+        _ongoingFetchIndices = [[NSMutableSet alloc] init];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(sendViewCountMetaDataUponMediaPlayerPlaybackStateChange:)
@@ -70,14 +71,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
 
 - (NSUInteger)ongoingFetchCount;
 {
-    return _ongoingFetchCount;
-}
-
-#pragma mark - Private
-
-- (NSMutableDictionary *)identifiedMedias
-{
-    return _identifiedMedias;
+    return _ongoingFetchIndices.count;
 }
 
 #pragma mark - RTSMediaPlayerControllerDataSource
@@ -113,7 +107,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
                              withIdentifier:identifier
                             completionBlock:^(SRGILMedia *media, NSError *error) {
                                 @strongify(self)
-                                
+
                                 if (error) {
                                     [_identifiedMedias removeObjectForKey:identifier];
                                     completionHandler(nil, error);
@@ -213,38 +207,38 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
 
 #pragma mark - Item Lists
 
-- (BOOL)isFetchPathValidForType:(enum SRGILFetchList)itemType
+- (BOOL)isFetchPathValidForIndex:(enum SRGILFetchListIndex)index
 {
-    return (_typedFetchPaths[@(itemType)] == SRGConfigNoValidRequestURLPath);
+    return (_typedFetchPaths[@(index)] != SRGConfigNoValidRequestURLPath);
 }
 
-- (void)resetFetchPathForType:(enum SRGILFetchList)itemType
+- (void)resetFetchPathForIndex:(enum SRGILFetchListIndex)index
 {
-    [_typedFetchPaths removeObjectForKey:@(itemType)];
+    [_typedFetchPaths removeObjectForKey:@(index)];
 }
 
-- (void)fetchFlatListOfType:(enum SRGILFetchList)itemType
+- (void)fetchFlatListOfType:(enum SRGILFetchListIndex)index
                onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
-    [self fetchListOfType:itemType
-         withPathArgument:nil
-                organised:SRGILModelDataOrganisationTypeFlat
-               onProgress:nil
-             onCompletion:completionBlock];
+    [self fetchListOfIndex:index
+          withPathArgument:nil
+                 organised:SRGILModelDataOrganisationTypeFlat
+                onProgress:nil
+              onCompletion:completionBlock];
 }
 
-- (void)fetchListOfType:(enum SRGILFetchList)itemType
-       withPathArgument:(id)arg
-              organised:(SRGILModelDataOrganisationType)orgType
-             onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
-           onCompletion:(SRGILFetchListCompletionBlock)completionBlock
+- (void)fetchListOfIndex:(enum SRGILFetchListIndex)index
+        withPathArgument:(id)arg
+               organised:(SRGILModelDataOrganisationType)orgType
+              onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
+            onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
     NSAssert(completionBlock, @"Requiring a completion block");
     
-    id<NSCopying> tag = @(itemType);
+    id<NSCopying> tag = @(index);
     NSString *remoteURLPath = SRGConfigNoValidRequestURLPath;
     
-    switch (itemType) {
+    switch (index) {
         case SRGILFetchListVideoLiveStreams:
             remoteURLPath = @"video/livestream.json";
             break;
@@ -262,16 +256,16 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
             break;
 
         case SRGILFetchListVideoShowsAZ:
-            orgType = SRGILModelDataOrganisationTypeAlphabetical;
             remoteURLPath = @"tv/assetGroup/editorialPlayerAlphabetical.json";
             break;
-
-        case SRGILFetchListVideoShowsAZDetail: {
+            
+        case SRGILFetchListVideoShowsAZDetail:
+        case SRGILFetchListAudioShowsAZDetail: {
             if ([arg isKindOfClass:[NSString class]]) {
                 remoteURLPath = [NSString stringWithFormat:@"assetSet/listByAssetGroup/%@.json?pageSize=20", arg];
             }
             else if ([arg isKindOfClass:[NSDictionary class]]) {
-                remoteURLPath = _typedFetchPaths[@(itemType)];
+                remoteURLPath = _typedFetchPaths[@(index)];
                 NSRange r = [remoteURLPath rangeOfString:@"?"];
                 NSAssert(r.location != NSNotFound, @"Missing URL arguments list starting character?");
     
@@ -290,6 +284,9 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
                         remoteURLPath = [remoteURLPath stringByAppendingFormat:@"pageSize=%ld&pageNumber=%ld",
                                 (long)currentPageSize, (long)currentPageNumber+1];
                     }
+                    else {
+                        remoteURLPath = SRGConfigNoValidRequestURLPath;
+                    }
                 }
             }
     
@@ -305,12 +302,17 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
         }
             break;
 
-        case SRGILFetchListMediaFavorite: {
+        case SRGILFetchListMediaFavorite:
+        case SRGILFetchListShowFavorite: {
 #if __has_include("SRGILOfflineMetadataProvider.h")
             if (progressBlock) {
                 progressBlock(DOWNLOAD_PROGRESS_DONE);
             }
-            [self extractLocalItemsOfType:itemType onCompletion:completionBlock];
+            // This little trick is necessary to avoid some troubles updating a collection view too quickly,
+            // in the same run loop. By scheduling it for the next loop, it "looks" more like a network fetch.
+            [[NSOperationQueue currentQueue] addOperationWithBlock:^{
+                [self extractLocalItemsOfIndex:index onCompletion:completionBlock];
+            }];
             return;
 #endif
             }
@@ -349,7 +351,6 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
 
         case SRGILFetchListAudioShowsAZ: {
             if ([arg isKindOfClass:[NSString class]]) {
-                orgType = SRGILModelDataOrganisationTypeAlphabetical;
                 remoteURLPath = [NSString stringWithFormat:@"radio/assetGroup/editorialPlayerAlphabeticalByChannel/%@.json", arg];
             }
             else {
@@ -357,23 +358,23 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
             }
         }
             break;
-            
+
         default:
             break;
     }
 
-    _typedFetchPaths[@(itemType)] = [remoteURLPath copy];
+    _typedFetchPaths[@(index)] = [remoteURLPath copy];
     
     if (remoteURLPath && remoteURLPath != SRGConfigNoValidRequestURLPath) {
-        DDLogWarn(@"Fetch request for item type %ld with path %@", (long)itemType, remoteURLPath);
+        DDLogWarn(@"Fetch request for item type %ld with path %@", (long)index, remoteURLPath);
         
         @weakify(self);
-        _ongoingFetchCount ++;
+        [_ongoingFetchIndices addObject:@(index)];
         [self.requestManager requestItemsWithURLPath:remoteURLPath
                                           onProgress:progressBlock
                                         onCompletion:^(NSDictionary *rawDictionary, NSError *error) {
                                             @strongify(self);
-                                            _ongoingFetchCount --;
+                                            [_ongoingFetchIndices removeObject:@(index)];
                                             [self extractItemsAndClassNameFromRawDictionary:rawDictionary
                                                                                      forTag:tag
                                                                            organisationType:orgType
@@ -381,7 +382,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
                                         }];
     }
     else {
-        DDLogWarn(@"Inconsistent fetch request for item type %ld", (long)itemType);
+        DDLogWarn(@"Inconsistent fetch request for item type %ld", (long)index);
     }
 }
 
@@ -450,7 +451,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
             
             for (SRGILOrganisedModelDataItem *dataItem in organisedItems) {
                 SRGILList *newItems = dataItem.items;
-                _taggedItemLists[tag] = newItems;
+                _taggedItemLists[newItems.tag] = newItems;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completionBlock(newItems, itemClass, nil);
                 });
@@ -475,6 +476,10 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
             if ([modelObject isKindOfClass:[SRGILMedia class]]) {
                 NSString *identifier = [(SRGILMedia *)modelObject identifier];
                 _identifiedMedias[identifier] = modelObject;
+            }
+            if ([modelObject isKindOfClass:[SRGILShow class]]) {
+                NSString *identifier = [(SRGILShow *)modelObject identifier];
+                _identifiedShows[identifier] = modelObject;
             }
         }
     }];
@@ -560,6 +565,21 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
         NSError *newError = SRGILCreateUserFacingError(reason, error, SRGILErrorCodeInvalidData);
         completionBlock(nil, nil, newError);
     });
+}
+
+- (NSDate *)downloadDateForKey:(NSString *)key
+{
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:key]) {
+        NSInteger seconds = [[NSUserDefaults standardUserDefaults] integerForKey:key];
+        return [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
+    }
+    return [NSDate dateWithTimeIntervalSinceReferenceDate:0.0];
+}
+
+- (void)refreshDownloadDateForKey:(NSString *)key
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:[[NSDate date] timeIntervalSinceReferenceDate] forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

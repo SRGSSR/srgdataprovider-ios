@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
+#import <SRGIntegrationLayerDataProvider/SRGILModelConstants.h>
 #import "SRGILMediaMetadata.h"
 
 #import "SRGILModel.h"
@@ -46,21 +47,15 @@
 @end
 
 @interface SRGILMediaMetadata ()
-@property(nonatomic, strong) NSString *identifier;
-@property(nonatomic, strong) NSString *title;
 @property(nonatomic, strong) NSString *parentTitle;
 @property(nonatomic, strong) NSString *mediaDescription;
-@property(nonatomic, strong) NSString *imageURLString;
-@property(nonatomic, strong) NSString *radioShortName;
 
 @property(nonatomic, strong) NSDate *publicationDate;
-@property(nonatomic, strong) NSDate *expirationDate;
-@property(nonatomic, strong) NSDate *favoriteChangeDate;
 
+@property(nonatomic, assign) SRGILMediaType type;
 @property(nonatomic, assign) long durationInMs;
 @property(nonatomic, assign) int viewCount;
 @property(nonatomic, assign) BOOL isDownloadable;
-@property(nonatomic, assign) BOOL isFavorite;
 @end
 
 @implementation SRGILMediaMetadata
@@ -77,40 +72,35 @@
     md.title = [media title];
     md.parentTitle = [media parentTitle];
     md.mediaDescription = [media mediaDescription];
-    md.imageURLString = [[media contentURL] path];
-    
+    md.imageURLString = [media.thumbnailURL description];
+
     md.publicationDate = media.assetSet.publishedDate;
     
     md.durationInMs = media.duration * 1000.0;
     md.viewCount = (int)[media viewCount];
     md.isDownloadable = NO;
     md.isFavorite = NO;
-    
+    md.type = media.type;
+
     return md;
 }
 
-+ (SRGILMediaMetadata *)mediaMetadataForContainer:(id<RTSMediaMetadataContainer>)container
+- (instancetype)initWithContainer:(id<RTSMediaMetadataContainer>)container
 {
-    if (!container) {
-        return nil;
+    self = [super initWithContainer:container];
+    if (self) {
+        self.parentTitle = [container parentTitle];
+        self.mediaDescription = [container mediaDescription];
+
+        self.publicationDate = [container publicationDate];
+        
+        self.durationInMs = [container durationInMs];
+        self.viewCount = [container viewCount];
+        self.isDownloadable = [container isDownloadable];
+        
+        self.type = [container type];
     }
-    
-    SRGILMediaMetadata *md = [[SRGILMediaMetadata alloc] init];
-    
-    md.identifier = [container identifier];
-    md.title = [container title];
-    md.parentTitle = [container parentTitle];
-    md.mediaDescription = [container mediaDescription];
-    md.imageURLString = [container imageURLString];
-    
-    md.publicationDate = [container publicationDate];
-    
-    md.durationInMs = [container durationInMs];
-    md.viewCount = [container viewCount];
-    md.isDownloadable = [container isDownloadable];
-    md.isFavorite = [container isFavorite];
-    
-    return md;
+    return self;
 }
 
 @end

@@ -11,7 +11,6 @@
 
 @interface SRGILOrganisedModelDataItem : NSObject
 
-@property(nonatomic, copy) id<NSCopying> tag;
 @property(nonatomic, strong) SRGILList *items;
 @property(nonatomic, strong) Class itemClass;
 

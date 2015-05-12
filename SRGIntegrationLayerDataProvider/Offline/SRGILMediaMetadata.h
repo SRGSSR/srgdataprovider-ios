@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <RTSOfflineMediaStorage/RTSOfflineMediaStorage.h>
+#import "SRGILBaseMetadata.h"
 
 @class SRGILMedia;
 
-@interface SRGILMediaMetadata : NSObject <RTSMediaMetadataContainer>
+@interface SRGILMediaMetadata : SRGILBaseMetadata <RTSMediaMetadataContainer>
 
 + (SRGILMediaMetadata *)mediaMetadataForMedia:(SRGILMedia *)media;
-+ (SRGILMediaMetadata *)mediaMetadataForContainer:(id<RTSMediaMetadataContainer>)container;
 
 @end

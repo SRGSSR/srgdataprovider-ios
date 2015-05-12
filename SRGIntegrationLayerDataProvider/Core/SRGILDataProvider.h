@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, SRGILModelDataOrganisationType) {
     SRGILModelDataOrganisationTypeAlphabetical,
 };
 
-typedef NS_ENUM(NSInteger, SRGILFetchList) {
+typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
     SRGILFetchListVideoLiveStreams,
     SRGILFetchListVideoEditorialPicks,
     SRGILFetchListVideoMostRecent,
@@ -25,12 +25,13 @@ typedef NS_ENUM(NSInteger, SRGILFetchList) {
     SRGILFetchListVideoShowsAZ,
     SRGILFetchListVideoShowsAZDetail,
     SRGILFetchListVideoShowsByDate,
-    SRGILFetchListMediaFavorite,
     SRGILFetchListAudioLiveStreams,
     SRGILFetchListAudioMostRecent,
     SRGILFetchListAudioMostListened,
     SRGILFetchListAudioShowsAZ,
-    SRGILFetchListAudioShowsAZDetail
+    SRGILFetchListAudioShowsAZDetail,
+    SRGILFetchListMediaFavorite,
+    SRGILFetchListShowFavorite
 };
 
 static const float DOWNLOAD_PROGRESS_DONE = 1.0;
@@ -45,17 +46,19 @@ typedef void (^SRGILFetchListCompletionBlock)(SRGILList *items, Class itemClass,
 
 - (NSUInteger)ongoingFetchCount;
 
-- (BOOL)isFetchPathValidForType:(enum SRGILFetchList)itemType;
+- (BOOL)isFetchPathValidForIndex:(enum SRGILFetchListIndex)index;
+- (void)resetFetchPathForIndex:(enum SRGILFetchListIndex)index;
 
-- (void)resetFetchPathForType:(enum SRGILFetchList)itemType;
+- (void)fetchFlatListOfIndex:(enum SRGILFetchListIndex)index
+                onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
 
-- (void)fetchFlatListOfType:(enum SRGILFetchList)itemType
-               onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
+- (void)fetchListOfIndex:(enum SRGILFetchListIndex)index
+        withPathArgument:(id)arg
+               organised:(SRGILModelDataOrganisationType)orgType
+              onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
+            onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
 
-- (void)fetchListOfType:(enum SRGILFetchList)itemType
-       withPathArgument:(id)arg
-              organised:(SRGILModelDataOrganisationType)orgType
-             onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
-        onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
+- (NSDate *)downloadDateForKey:(NSString *)key;
+- (void)refreshDownloadDateForKey:(NSString *)key;
 
 @end
