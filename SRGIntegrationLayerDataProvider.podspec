@@ -9,6 +9,7 @@ Pod::Spec.new do |s|
   s.source = { :git => "git@bitbucket.org:rtsmb/srgintegrationlayerdataprovider-ios.git", :tag => s.version.to_s }
 
   # Platform setup
+  s.platform = :ios
   s.ios.deployment_target = "7.0"
   s.requires_arc = true
 

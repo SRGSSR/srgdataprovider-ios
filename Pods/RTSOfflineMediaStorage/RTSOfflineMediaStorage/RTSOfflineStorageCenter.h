@@ -12,17 +12,19 @@
 
 @interface RTSOfflineStorageCenter : NSObject
 
-+ (RTSOfflineStorageCenter *)favoritesCenterWithMetadataProvider:(id<RTSMediaMetadatasProvider>)provider;
++ (RTSOfflineStorageCenter *)favoritesCenterWithMetadataProvider:(id<RTSMetadatasProvider>)provider;
 
-- (RLMResults *)flaggedAsFavoriteMetadatas;
-- (void)flagAsFavorite:(BOOL)favorite mediaWithIdentifier:(NSString *)identifier;
+- (RLMResults *)flaggedAsFavoriteMediaMetadatas;
+- (RLMResults *)flaggedAsFavoriteShowMetadatas;
 
-- (void)saveMediaMetadataWithIdentifier:(NSString *)identifier error:(NSError * __autoreleasing *)error;
-- (void)deleteMediaMetadataWithIdentifier:(NSString *)identifier error:(NSError * __autoreleasing *)error;
+- (void)flagAsFavorite:(BOOL)favorite mediaWithIdentifier:(NSString *)identifier audioChannelID:(NSString *)audioChannelID;
+- (void)flagAsFavorite:(BOOL)favorite showWithIdentifier:(NSString *)identifier audioChannelID:(NSString *)audioChannelID;
 
-- (NSSet *)savedMediaMetadataIdentifiers;
 - (id<RTSMediaMetadataContainer>)mediaMetadataForIdentifier:(NSString *)identifier;
-- (RLMResults *)savedMediaMetadatas;
+- (id<RTSShowMetadataContainer>)showMetadataForIdentifier:(NSString *)identifier;
+
+- (RLMResults *)allSavedMediaMetadatas;
+- (RLMResults *)allSavedShowMetadatas;
 
 
 @end

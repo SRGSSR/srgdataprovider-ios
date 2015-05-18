@@ -8,28 +8,41 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol RTSMediaMetadataContainer <NSObject>
+@protocol RTSBaseMetadataContainer <NSObject>
 
 - (NSString *)identifier;
 - (NSString *)title;
-- (NSString *)parentTitle;
-- (NSString *)mediaDescription;
 - (NSString *)imageURLString;
-- (NSString *)radioShortName;
+- (NSString *)audioChannelID;
 
-- (NSDate *)publicationDate;
 - (NSDate *)expirationDate;
 - (NSDate *)favoriteChangeDate;
 
-- (long)durationInMs;
-- (int)viewCount;
-- (BOOL)isDownloadable;
 - (BOOL)isFavorite;
 
 @end
 
-@protocol RTSMediaMetadatasProvider <NSObject>
+
+@protocol RTSMediaMetadataContainer <RTSBaseMetadataContainer>
+
+- (NSString *)parentTitle;
+- (NSString *)mediaDescription;
+
+- (NSDate *)publicationDate;
+
+- (NSInteger)type;
+- (long)durationInMs;
+- (int)viewCount;
+- (BOOL)isDownloadable;
+
+@end
+
+@protocol RTSShowMetadataContainer <RTSBaseMetadataContainer>
+@end
+
+@protocol RTSMetadatasProvider <NSObject>
 
 - (id<RTSMediaMetadataContainer>)mediaMetadataContainerForIdentifier:(NSString *)identifier;
+- (id<RTSShowMetadataContainer>)showMetadataContainerForIdentifier:(NSString *)identifier;
 
 @end

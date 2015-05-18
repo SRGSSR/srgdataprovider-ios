@@ -217,8 +217,8 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
     [_typedFetchPaths removeObjectForKey:@(index)];
 }
 
-- (void)fetchFlatListOfType:(enum SRGILFetchListIndex)index
-               onCompletion:(SRGILFetchListCompletionBlock)completionBlock
+- (void)fetchFlatListOfIndex:(enum SRGILFetchListIndex)index
+                onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
     [self fetchListOfIndex:index
           withPathArgument:nil

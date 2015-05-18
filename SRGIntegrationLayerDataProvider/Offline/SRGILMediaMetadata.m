@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
-#import <SRGIntegrationLayerDataProvider/SRGILModelConstants.h>
+#import "SRGILModelConstants.h"
 #import "SRGILMediaMetadata.h"
 
 #import "SRGILModel.h"

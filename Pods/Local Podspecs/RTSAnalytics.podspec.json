@@ -1,6 +1,6 @@
 {
   "name": "RTSAnalytics",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "summary": "RTS Analytics for the RTS Media Player",
   "description": "RTS Analytics for the RTS Media Player",
   "homepage": "http://rts.ch",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "git@bitbucket.org:rtsmb/rtsanalytics-ios.git",
-    "tag": "0.0.1"
+    "tag": "0.1.0"
   },
   "requires_arc": true,
   "platforms": {
@@ -26,9 +26,9 @@
       "name": "Core",
       "source_files": [
         "RTSAnalytics/RTSAnalytics.h",
-        "RTSAnalytics/Core/**/*.{h,m}"
+        "RTSAnalytics/Core/*.{h,m}"
       ],
-      "private_header_files": "RTSAnalytics/Core/**/*_private.h",
+      "private_header_files": "RTSAnalytics/Core/*_private.h",
       "frameworks": [
         "AVFoundation",
         "CoreMedia",
@@ -37,7 +37,7 @@
         "UIKit"
       ],
       "dependencies": {
-        "comScore-iOS-SDK": [
+        "comScore-iOS-SDK-RTS": [
           "3.1502.26"
         ],
         "CocoaLumberjack": [
@@ -49,12 +49,15 @@
       "name": "MediaPlayer",
       "source_files": [
         "RTSAnalytics/RTSAnalyticsMediaPlayer.h",
-        "RTSAnalytics/MediaPlayer/**/*.{h,m}"
+        "RTSAnalytics/MediaPlayer/*.{h,m}"
       ],
-      "private_header_files": "RTSAnalytics/MediaPlayer/**/*_private.h",
+      "private_header_files": "RTSAnalytics/MediaPlayer/*_private.h",
       "dependencies": {
+        "RTSAnalytics/Core": [
+
+        ],
         "RTSMediaPlayer": [
-          "~> 0.0.2"
+          "~> 0.0.3"
         ]
       }
     }

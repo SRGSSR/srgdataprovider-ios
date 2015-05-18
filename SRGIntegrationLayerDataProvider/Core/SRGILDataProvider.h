@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <RTSAnalytics/RTSAnalytics.h>
 #import <RTSMediaPlayer/RTSMediaPlayer.h>
+#import <RTSAnalytics/RTSAnalytics.h>
 
 @class SRGILList;
 

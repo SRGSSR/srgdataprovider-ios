@@ -7,19 +7,24 @@
 //
 
 #import <Realm/Realm.h>
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
 #import "RTSOfflineStorageCenter.h"
 #import "RTSMediaMetadata.h"
+#import "RTSShowMetadata.h"
+
+#define REALM_NONNULL_STRING(value) ((value == nil) ? @"" : (value))
 
 static NSString * const RTSOfflineStorageCenterFavoritesStorageKey = @"RTSOfflineStorageCenterFavoritesStorage";
 
 @interface RTSOfflineStorageCenter ()
-@property(nonatomic, strong) id<RTSMediaMetadatasProvider> metadatasProvider;
+@property(nonatomic, strong) id<RTSMetadatasProvider> metadatasProvider;
 @property(nonatomic, strong) RLMRealm *realm;
 @end
 
 @implementation RTSOfflineStorageCenter
 
-+ (RTSOfflineStorageCenter *)favoritesCenterWithMetadataProvider:(id <RTSMediaMetadatasProvider>)metadataProvider
++ (RTSOfflineStorageCenter *)favoritesCenterWithMetadataProvider:(id<RTSMetadatasProvider>)metadataProvider
 {
     RTSOfflineStorageCenter *instance = [[RTSOfflineStorageCenter alloc] init_RTSOfflineStorageCenter_withStorageKey:RTSOfflineStorageCenterFavoritesStorageKey];
     instance.metadatasProvider = metadataProvider;
@@ -56,64 +61,70 @@ static NSString * const RTSOfflineStorageCenterFavoritesStorageKey = @"RTSOfflin
 
 #pragma mark - Favorites - specific methods
 
-- (RLMResults *)flaggedAsFavoriteMetadatas
+- (RLMResults *)flaggedAsFavoriteMediaMetadatas
 {
-    return [[RTSMediaMetadata objectsWhere:@"favorite = YES"] sortedResultsUsingProperty:@"favoriteChangeDate" ascending:YES];
+    return [[RTSMediaMetadata objectsInRealm:self.realm where:@"isFavorite = YES"] sortedResultsUsingProperty:@"favoriteChangeDate" ascending:NO];
 }
 
-- (void)flagAsFavorite:(BOOL)favorite mediaWithIdentifier:(NSString *)identifier
+- (RLMResults *)flaggedAsFavoriteShowMetadatas
 {
-    RTSMediaMetadata *metadata = [RTSMediaMetadata objectInRealm:self.realm forPrimaryKey:identifier];
+    return [[RTSShowMetadata objectsInRealm:self.realm where:@"isFavorite = YES"] sortedResultsUsingProperty:@"favoriteChangeDate" ascending:NO];
+}
+
+- (void)flagAsFavorite:(BOOL)favorite mediaWithIdentifier:(NSString *)identifier audioChannelID:(NSString *)audioChannelID
+{
+    [self flagAsFavorite:favorite
+             itemOfClass:[RTSMediaMetadata class]
+          withIdentifier:identifier
+          audioChannelID:audioChannelID
+    withProviderSelector:@selector(mediaMetadataContainerForIdentifier:)];
+}
+
+- (void)flagAsFavorite:(BOOL)favorite showWithIdentifier:(NSString *)identifier audioChannelID:(NSString *)audioChannelID
+{
+    [self flagAsFavorite:favorite
+             itemOfClass:[RTSShowMetadata class]
+          withIdentifier:identifier
+          audioChannelID:audioChannelID
+    withProviderSelector:@selector(showMetadataContainerForIdentifier:)];
+}
+
+- (void)flagAsFavorite:(BOOL)favorite
+           itemOfClass:(Class)objectClass
+        withIdentifier:(NSString *)identifier
+        audioChannelID:(NSString *)audioChannelID
+  withProviderSelector:(SEL)selector
+{
+    RTSBaseMetadata *metadata = [objectClass objectInRealm:self.realm forPrimaryKey:identifier];
     [self.realm beginWriteTransaction];
+    if (metadata != nil && metadata.title.length == 0) {
+        [self.realm deleteObject:metadata];
+        metadata = nil;
+    }
     if (metadata == nil) {
-        id<RTSMediaMetadataContainer> container = [self.metadatasProvider mediaMetadataContainerForIdentifier:identifier];
-        metadata = [RTSMediaMetadata mediaMetadataForContainer:container];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        id<RTSBaseMetadataContainer> container = [self.metadatasProvider performSelector:selector withObject:identifier];
+#pragma clang diagnostic pop
+        if (container == nil) {
+            DDLogWarn(@"No container for identifier: %@", identifier);
+            metadata = [[objectClass alloc] init];
+        }
+        else {
+            metadata = [objectClass metadataForContainer:container];
+        }
         metadata.identifier = identifier;
-        metadata.isFavorite = YES;
-        metadata.favoriteChangeDate = [NSDate date];
         [self.realm addObject:metadata];
     }
-    else {
-        metadata.isFavorite = favorite;
-        metadata.favoriteChangeDate = [NSDate date];
-    }
+    metadata.isFavorite = favorite;
+    metadata.favoriteChangeDate = [NSDate date];
+    metadata.audioChannelID = REALM_NONNULL_STRING(audioChannelID);
+
     [self.realm commitWriteTransaction];
 }
 
 
 #pragma mark - Generic Storage
-
-- (void)saveMediaMetadataWithIdentifier:(NSString *)identifier error:(NSError * __autoreleasing *)error
-{
-    if (!self.metadatasProvider) {
-        @throw [NSException exceptionWithName:@"CustomDomain" reason:@"Missing metadatas provider." userInfo:nil];
-    }
-    
-    id<RTSMediaMetadataContainer> container = [self.metadatasProvider mediaMetadataContainerForIdentifier:identifier];
-    RTSMediaMetadata *md = [RTSMediaMetadata mediaMetadataForContainer:container];
-    if (!md) {
-        if (*error) {
-            *error = [NSError errorWithDomain:@"CustomDomain" code:-9 userInfo:nil];
-        }
-        return;
-    }
-    
-    [self.realm beginWriteTransaction];
-    [self.realm addObject:md];
-    [self.realm commitWriteTransaction];
-}
-
-- (void)deleteMediaMetadataWithIdentifier:(NSString *)identifier error:(NSError * __autoreleasing *)error
-{
-    if (!identifier) {
-        return;
-    }
-    
-    RTSMediaMetadata *md = [RTSMediaMetadata objectForPrimaryKey:@"identifier"];
-    [self.realm beginWriteTransaction];
-    [self.realm deleteObject:md];
-    [self.realm commitWriteTransaction];
-}
 
 - (NSSet *)savedMediaMetadataIdentifiers
 {
@@ -124,13 +135,32 @@ static NSString * const RTSOfflineStorageCenterFavoritesStorageKey = @"RTSOfflin
 
 - (id<RTSMediaMetadataContainer>)mediaMetadataForIdentifier:(NSString *)identifier
 {
-    return [RTSMediaMetadata objectInRealm:self.realm forPrimaryKey:identifier];
+    if (identifier) {
+        return [RTSMediaMetadata objectInRealm:self.realm forPrimaryKey:identifier];
+    }
+    else {
+        return nil;
+    }
 }
 
-- (RLMResults *)savedMediaMetadatas
+- (id<RTSShowMetadataContainer>)showMetadataForIdentifier:(NSString *)identifier
+{
+    if (identifier) {
+        return [RTSShowMetadata objectInRealm:self.realm forPrimaryKey:identifier];
+    }
+    else {
+        return nil;
+    }
+}
+
+- (RLMResults *)allSavedMediaMetadatas
 {
     return [RTSMediaMetadata allObjectsInRealm:self.realm];
 }
 
+- (RLMResults *)allSavedShowMetadatas
+{
+    return [RTSShowMetadata allObjectsInRealm:self.realm];
+}
 
 @end

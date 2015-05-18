@@ -10,7 +10,7 @@
 #import "NSString+RTSAnalytics.h"
 #import "NSDictionary+RTSAnalytics.h"
 
-#import <comScore-iOS-SDK/CSComScore.h>
+#import <comScore-iOS-SDK-RTS/CSComScore.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 #if __has_include("RTSAnalyticsMediaPlayer.h")
@@ -239,7 +239,7 @@
 	{
 		__block NSMutableString *levelsConcatenation = [NSMutableString new];
 		[levels enumerateObjectsUsingBlock:^(id value, NSUInteger idx, BOOL *stop) {
-			NSString *levelKey = [NSString stringWithFormat:@"srg_n%ld", idx+1];
+			NSString *levelKey = [NSString stringWithFormat:@"srg_n%tu", idx+1];
 			NSString *levelValue = [[value description] comScoreFormattedString];
 			
 			if (idx<10) {

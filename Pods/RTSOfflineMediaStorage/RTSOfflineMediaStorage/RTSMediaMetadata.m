@@ -20,67 +20,32 @@
 
 + (NSDictionary *)defaultPropertyValues
 {
-    return @{@"identifier": @"",
-             @"title": @"",
-             @"parentTitle": @"",
-             @"mediaDescription": @"",
-             @"imageURLString": @"",
-             @"radioShortName": @"",
-             @"publicationDate": [NSDate dateWithTimeIntervalSince1970:0],
-             @"expirationDate": [NSDate dateWithTimeIntervalSince1970:0],
-             @"favoriteChangeDate": [NSDate dateWithTimeIntervalSince1970:0],
-             @"durationInMs": @(-1),
-             @"viewCount": @(-1),
-             @"isDownloadable": @(0),
-             @"isFavorite": @(0)};
+    NSMutableDictionary *defaults = [[[self superclass] defaultPropertyValues] mutableCopy];
+    defaults[@"parentTitle"] = @"";
+    defaults[@"mediaDescription"] = @"";
+    defaults[@"audioChannelID"] = @"";
+    defaults[@"publicationDate"] = [NSDate dateWithTimeIntervalSince1970:0];
+    defaults[@"type"] = @(0);
+    defaults[@"durationInMs"] = @(-1);
+    defaults[@"viewCount"] = @(-1);
+    defaults[@"isDownloadable"] = @(0);
+    return [defaults copy];
 }
 
-+ (RTSMediaMetadata *)mediaMetadataForContainer:(id<RTSMediaMetadataContainer>)container
+- (instancetype)initWithContainer:(id<RTSMediaMetadataContainer>)container
 {
-    if (!container) {
-        return nil;
-    }
-    
-    RTSMediaMetadata *md = [[RTSMediaMetadata alloc] init];
-    
-    md.identifier = REALM_NONNULL_STRING([container identifier]);
-    md.title = REALM_NONNULL_STRING([container title]);
-    md.parentTitle = REALM_NONNULL_STRING([container parentTitle]);
-    md.mediaDescription = REALM_NONNULL_STRING([container mediaDescription]);
-    md.imageURLString = REALM_NONNULL_STRING([container imageURLString]);
-    md.radioShortName = REALM_NONNULL_STRING([container radioShortName]);
-    
-    md.publicationDate = REALM_NONNULL_DATE([container publicationDate]);
-    md.expirationDate = REALM_NONNULL_DATE([container expirationDate]);
-    md.favoriteChangeDate = REALM_NONNULL_DATE(nil);
-    
-    md.durationInMs = [container durationInMs];
-    md.viewCount = [container viewCount];
-    md.isDownloadable = [container isDownloadable];
-    md.isFavorite = [container isFavorite];
-    
-    return md;
-
-}
-
-- (instancetype)init
-{
-    self = [super init];
+    self = [super initWithContainer:container];
     if (self) {
-        [[RTSMediaMetadata defaultPropertyValues] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            [self setValue:obj forKey:key];
-        }];
+        self.parentTitle = REALM_NONNULL_STRING([container parentTitle]);
+        self.mediaDescription = REALM_NONNULL_STRING([container mediaDescription]);
+
+        self.publicationDate = REALM_NONNULL_DATE([container publicationDate]);
+        
+        self.durationInMs = [container durationInMs];
+        self.viewCount = [container viewCount];
+        self.isDownloadable = [container isDownloadable];
     }
     return self;
-}
-
-- (BOOL)isValueEmptyForKey:(NSString *)key
-{
-    NSArray *propertyKeys = [[RTSMediaMetadata defaultPropertyValues] allKeys];
-    if (![propertyKeys containsObject:key]) {
-        return NO;
-    }
-    return [[self valueForKey:key] isEqual:[[RTSMediaMetadata defaultPropertyValues] objectForKey:key]];
 }
 
 @end

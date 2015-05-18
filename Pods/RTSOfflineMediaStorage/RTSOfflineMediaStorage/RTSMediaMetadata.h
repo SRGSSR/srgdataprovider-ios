@@ -7,29 +7,20 @@
 //
 
 #import <Realm/Realm.h>
+#import "RTSBaseMetadata.h"
 #import "RTSMediaMetadatasProtocols.h"
 
-@interface RTSMediaMetadata : RLMObject <RTSMediaMetadataContainer>
+@interface RTSMediaMetadata : RTSBaseMetadata <RTSMediaMetadataContainer>
 
-// As Realm doc indicates, do not provide storage keyword (strong, assign...) in properties.
-@property NSString *identifier;
-@property NSString *title;
 @property NSString *parentTitle;
 @property NSString *mediaDescription;
-@property NSString *imageURLString;
-@property NSString *radioShortName;
 
 @property NSDate *publicationDate;
-@property NSDate *expirationDate;
-@property NSDate *favoriteChangeDate;
 
+@property NSInteger type;
 @property long durationInMs;
 @property int viewCount;
 @property BOOL isDownloadable;
-@property BOOL isFavorite;
-
-+ (RTSMediaMetadata *)mediaMetadataForContainer:(id<RTSMediaMetadataContainer>)container;
-- (BOOL)isValueEmptyForKey:(NSString *)key;
 
 @end
 

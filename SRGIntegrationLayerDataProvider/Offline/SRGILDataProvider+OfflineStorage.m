@@ -123,7 +123,7 @@
     RLMResults *results = [self.storageCenter flaggedAsFavoriteShowMetadatas];
     
     for (id<RTSShowMetadataContainer>container in results) {
-        SRGILMediaMetadata *md = [SRGILShowMetadata metadataForContainer:container];
+        SRGILShowMetadata *md = [SRGILShowMetadata metadataForContainer:container];
         if (md) {
             [items addObject:md];
         }
@@ -145,7 +145,11 @@
 
             NSMutableArray *items = [NSMutableArray array];
 
-            for (id<RTSBaseMetadataContainer> container in [self.storageCenter performSelector:providerSelector]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            NSArray *containers = [self.storageCenter performSelector:providerSelector];
+#pragma clang diagnostic pop
+            for (id<RTSBaseMetadataContainer> container in containers) {
                 SRGILBaseMetadata *metadata = [objectClass metadataForContainer:container];
                 if (metadata.title.length > 0) {
                     [items addObject:metadata];
