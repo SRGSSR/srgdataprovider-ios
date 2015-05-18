@@ -23,6 +23,12 @@ Pod::Spec.new do |s|
     co.private_header_files = "SRGIntegrationLayerDataProvider/**/*+Private.h"
     co.frameworks           = "Foundation", "UIKit"
     co.dependency             "CocoaLumberjack",  "~> 2.0.0"
+    co.dependency             "AFNetworking", "~> 1.3.4"
+    co.dependency             "SGVReachability", "~> 1.0.0"
+    co.dependency             "libextobjc/EXTScope", "0.4.1"
+    co.dependency             "RTSAnalytics", "~> 0.1.0"
+    co.dependency             "RTSAnalytics/MediaPlayer", "~> 0.1.0"
+    co.dependency             "RTSMediaPlayer", "~> 0.0.3"
   end
 
   s.subspec 'OfflineStorage' do |os|
