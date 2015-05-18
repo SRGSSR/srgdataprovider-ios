@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <RTSMediaPlayer/RTSMediaPlayer.h>
-#import <RTSAnalytics/RTSAnalytics.h>
 
 @class SRGILList;
 
@@ -39,7 +37,7 @@ static const float DOWNLOAD_PROGRESS_DONE = 1.0;
 typedef void (^SRGILFetchListDownloadProgressBlock)(float fraction);
 typedef void (^SRGILFetchListCompletionBlock)(SRGILList *items, Class itemClass, NSError *error);
 
-@interface SRGILDataProvider : NSObject <RTSMediaPlayerControllerDataSource, RTSAnalyticsMediaPlayerDataSource>
+@interface SRGILDataProvider : NSObject 
 
 - (instancetype)initWithBusinessUnit:(NSString *)businessUnit;
 - (NSString *)businessUnit;

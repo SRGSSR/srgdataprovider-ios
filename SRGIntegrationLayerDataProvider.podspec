@@ -27,8 +27,15 @@ Pod::Spec.new do |s|
     co.dependency             "SGVReachability", "~> 1.0.0"
     co.dependency             "libextobjc/EXTScope", "0.4.1"
     co.dependency             "RTSAnalytics", "~> 0.1.0"
-    co.dependency             "RTSAnalytics/MediaPlayer", "~> 0.1.0"
-    co.dependency             "RTSMediaPlayer", "~> 0.0.3"
+  end
+
+  s.subspec 'MediaPlayer' do |mp|
+    mp.source_files         = "SRGIntegrationLayerDataProvider/SRGIntegrationLayerDataProvider.h", "SRGIntegrationLayerDataProvider/Core/*.{h,m}", "SRGIntegrationLayerDataProvider/Model/*.{h,m}", "SRGIntegrationLayerDataProvider/Network/*.{h,m}", "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
+    mp.private_header_files = "SRGIntegrationLayerDataProvider/**/*+Private.h"
+    mp.frameworks           = "Foundation", "UIKit"
+    mp.dependency             "SRGIntegrationLayerDataProvider/Core"
+    mp.dependency             "RTSAnalytics/MediaPlayer", "~> 0.1.0"
+    mp.dependency             "RTSMediaPlayer", "~> 0.0.3"
   end
 
   s.subspec 'OfflineStorage' do |os|

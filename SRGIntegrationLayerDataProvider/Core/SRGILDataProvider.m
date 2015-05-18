@@ -14,11 +14,6 @@
 
 #import "SRGILErrors.h"
 #import "SRGILRequestsManager.h"
-#import "SRGILTokenHandler.h"
-
-#import "SRGILComScoreAnalyticsInfos.h"
-#import "SRGILStreamSenseAnalyticsInfos.h"
-#import "SRGILAnalyticsInfosProtocol.h"
 
 #import "SRGILModel.h"
 #import "SRGILMedia+Private.h"
@@ -29,14 +24,11 @@
 #import "SRGILOfflineMetadataProvider.h"
 #endif
 
-static NSString * const comScoreKeyPathPrefix = @"SRGILComScoreAnalyticsInfos.";
-static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsInfos.";
 static NSString * const itemClassPrefix = @"SRGIL";
 static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidRequestURLPath";
 
 @interface SRGILDataProvider () {
     NSMutableDictionary *_taggedItemLists;
-    NSMutableDictionary *_analyticsInfos;
     NSMutableDictionary *_typedFetchPaths;
     NSMutableSet *_ongoingFetchIndices;
 }
@@ -72,137 +64,6 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
 - (NSUInteger)ongoingFetchCount;
 {
     return _ongoingFetchIndices.count;
-}
-
-#pragma mark - RTSMediaPlayerControllerDataSource
-
-- (void)mediaPlayerController:(RTSMediaPlayerController *)mediaPlayerController
-      contentURLForIdentifier:(NSString *)identifier
-            completionHandler:(void (^)(NSURL *contentURL, NSError *error))completionHandler
-{
-    NSAssert(identifier, @"Missing identifier to work with.");
-    SRGILMedia *existingMedia = _identifiedMedias[identifier];
-    
-    @weakify(self)
-    
-    void (^tokenBlock)(SRGILMedia *) = ^(SRGILMedia *media) {
-        if (media.contentURL) {
-            [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.contentURL
-                                        appendLogicalSegmentation:nil
-                                                  completionBlock:^(NSURL *tokenizedURL, NSError *error) {
-                                                      completionHandler(tokenizedURL, error);
-                                                  }];
-        }
-        else {
-            NSError *error = [NSError errorWithDomain:SRGILErrorDomain
-                                                 code:SRGILErrorVideoNoSourceURL
-                                             userInfo:nil];
-            
-            completionHandler(nil, error);
-        }
-    };
-    
-    if (!existingMedia || !existingMedia.contentURL) {
-        [_requestManager requestMediaOfType:SRGILMediaTypeVideo
-                             withIdentifier:identifier
-                            completionBlock:^(SRGILMedia *media, NSError *error) {
-                                @strongify(self)
-
-                                if (error) {
-                                    [_identifiedMedias removeObjectForKey:identifier];
-                                    completionHandler(nil, error);
-                                }
-                                else {
-                                    _identifiedMedias[identifier] = media;
-                                    [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
-                                    tokenBlock(media);
-                                }
-                            }];
-    }
-    else {
-        tokenBlock(existingMedia);
-    }
-}
-
-#pragma mark - View Count
-
-- (void)sendViewCountMetaDataUponMediaPlayerPlaybackStateChange:(NSNotification *)notification
-{
-    RTSMediaPlayerController *player = [notification object];
-    RTSMediaPlaybackState oldState = [notification.userInfo[RTSMediaPlayerPreviousPlaybackStateUserInfoKey] integerValue];
-    RTSMediaPlaybackState newState = player.playbackState;
-
-    if (oldState == RTSMediaPlaybackStatePreparing && newState == RTSMediaPlaybackStateReady) {
-        SRGILMedia *media = _identifiedMedias[player.identifier];
-        if (media) {
-            NSString *typeName = nil;
-            switch ([media type]) {
-                case SRGILMediaTypeAudio:
-                    typeName = @"audio";
-                    break;
-                case SRGILMediaTypeVideo:
-                    typeName = @"video";
-                    break;
-                default:
-                    NSAssert(false, @"Invalid media type: %d", (int)[media type]);
-            }
-            if (typeName) {
-                [_requestManager sendViewCountUpdate:player.identifier forMediaTypeName:typeName];
-            }
-        }
-    }
-}
-
-
-#pragma mark - Analytics Infos 
-
-- (void)prepareAnalyticsInfosForMedia:(SRGILMedia *)media withContentURL:(NSURL *)contentURL
-{
-    SRGILComScoreAnalyticsInfos *comScoreDataSource = [[SRGILComScoreAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
-    SRGILStreamSenseAnalyticsInfos *streamSenseDataSource = [[SRGILStreamSenseAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
-    
-    NSString *comScoreKeyPath = [comScoreKeyPathPrefix stringByAppendingString:media.identifier];
-    NSString *streamSenseKeyPath = [streamSenseKeyPathPrefix stringByAppendingString:media.identifier];
-    
-    _analyticsInfos[comScoreKeyPath] = comScoreDataSource;
-    _analyticsInfos[streamSenseKeyPath] = streamSenseDataSource;
-}
-
-- (SRGILComScoreAnalyticsInfos *)comScoreIndividualDataSourceForIdenfifier:(NSString *)identifier
-{
-    NSString *comScoreKeyPath = [comScoreKeyPathPrefix stringByAppendingString:identifier];
-    return _analyticsInfos[comScoreKeyPath];
-}
-
-- (SRGILStreamSenseAnalyticsInfos *)streamSenseIndividualDataSourceForIdenfifier:(NSString *)identifier
-{
-    NSString *streamSenseKeyPath = [streamSenseKeyPathPrefix stringByAppendingString:identifier];
-    return _analyticsInfos[streamSenseKeyPath];
-}
-
-#pragma mark - RTSAnalyticsMediaPlayerDataSource
-
-- (NSDictionary *)comScoreLabelsForAppEnteringForeground
-{
-    return [SRGILComScoreAnalyticsInfos globalLabelsForAppEnteringForeground];
-}
-
-- (NSDictionary *)comScoreReadyToPlayLabelsForIdentifier:(NSString *)identifier
-{
-    SRGILComScoreAnalyticsInfos *ds = [self comScoreIndividualDataSourceForIdenfifier:identifier];
-    return [ds statusLabels];
-}
-
-- (NSDictionary *)streamSensePlaylistMetadataForIdentifier:(NSString *)identifier
-{
-    SRGILStreamSenseAnalyticsInfos *ds = [self streamSenseIndividualDataSourceForIdenfifier:identifier];
-    return [ds playlistMetadataForBusinesUnit:self.businessUnit];
-}
-
-- (NSDictionary *)streamSenseClipMetadataForIdentifier:(NSString *)identifier
-{
-    SRGILStreamSenseAnalyticsInfos *ds = [self streamSenseIndividualDataSourceForIdenfifier:identifier];
-    return [ds fullLengthClipMetadata];
 }
 
 #pragma mark - Item Lists
@@ -246,15 +107,15 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
         case SRGILFetchListVideoEditorialPicks:
             remoteURLPath = @"video/editorialPlayerPicks.json?pageSize=20";
             break;
-
+            
         case SRGILFetchListVideoMostRecent:
             remoteURLPath = @"video/editorialPlayerLatest.json?pageSize=20";
             break;
-
+            
         case SRGILFetchListVideoMostSeen:
             remoteURLPath = @"video/mostClicked.json?pageSize=20&period=24";
             break;
-
+            
         case SRGILFetchListVideoShowsAZ:
             remoteURLPath = @"tv/assetGroup/editorialPlayerAlphabetical.json";
             break;
@@ -268,40 +129,40 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
                 remoteURLPath = _typedFetchPaths[@(index)];
                 NSRange r = [remoteURLPath rangeOfString:@"?"];
                 NSAssert(r.location != NSNotFound, @"Missing URL arguments list starting character?");
-    
+                
                 if (r.location != NSNotFound) {
                     remoteURLPath = [remoteURLPath substringToIndex:r.location+1];
-    
+                    
                     NSDictionary *properties = (NSDictionary *)arg;
                     NSInteger currentPageNumber = [[properties objectForKey:@"pageNumber"] integerValue];
                     NSInteger currentPageSize = [[properties objectForKey:@"pageSize"] integerValue];
                     NSInteger totalItemsCount = [[properties objectForKey:@"total"] integerValue];
-    
+                    
                     NSInteger expectedNewMax = (currentPageNumber+1)*currentPageSize;
                     BOOL hasReachedEnd = (expectedNewMax - totalItemsCount >= currentPageSize);
-    
+                    
                     if (!hasReachedEnd) {
                         remoteURLPath = [remoteURLPath stringByAppendingFormat:@"pageSize=%ld&pageNumber=%ld",
-                                (long)currentPageSize, (long)currentPageNumber+1];
+                                         (long)currentPageSize, (long)currentPageNumber+1];
                     }
                     else {
                         remoteURLPath = SRGConfigNoValidRequestURLPath;
                     }
                 }
             }
-    
+            
         }
             break;
-
+            
         case SRGILFetchListVideoShowsByDate: {
             NSDate *date = (arg && [arg isKindOfClass:[NSDate class]]) ? (NSDate *)arg : [NSDate date];
             NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
             NSDateComponents *dateComponents = [gregorianCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
             remoteURLPath = [NSString stringWithFormat:@"video/episodesByDate.json?day=%4li-%02li-%02li",
-                                    (long)dateComponents.year, (long)dateComponents.month, (long)dateComponents.day];
+                             (long)dateComponents.year, (long)dateComponents.month, (long)dateComponents.day];
         }
             break;
-
+            
         case SRGILFetchListMediaFavorite:
         case SRGILFetchListShowFavorite: {
 #if __has_include("SRGILOfflineMetadataProvider.h")
@@ -315,7 +176,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
             }];
             return;
 #endif
-            }
+        }
             break;
             
             
@@ -328,7 +189,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
             }
         }
             break;
-
+            
         case SRGILFetchListAudioMostRecent: {
             if ([arg isKindOfClass:[NSString class]]) {
                 remoteURLPath = [NSString stringWithFormat:@"audio/latestEpisodesByChannel/%@.json?pageSize=20", arg];
@@ -338,7 +199,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
             }
         }
             break;
-
+            
         case SRGILFetchListAudioMostListened: {
             if ([arg isKindOfClass:[NSString class]]) {
                 remoteURLPath = [NSString stringWithFormat:@"audio/mostClickedByChannel/%@.json?pageSize=20", arg];
@@ -348,7 +209,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
             }
         }
             break;
-
+            
         case SRGILFetchListAudioShowsAZ: {
             if ([arg isKindOfClass:[NSString class]]) {
                 remoteURLPath = [NSString stringWithFormat:@"radio/assetGroup/editorialPlayerAlphabeticalByChannel/%@.json", arg];
@@ -358,11 +219,11 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
             }
         }
             break;
-
+            
         default:
             break;
     }
-
+    
     _typedFetchPaths[@(index)] = [remoteURLPath copy];
     
     if (remoteURLPath && remoteURLPath != SRGConfigNoValidRequestURLPath) {
@@ -392,14 +253,14 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
                               withCompletionBlock:(SRGILFetchListCompletionBlock)completionBlock
 {
     if ([[rawDictionary allKeys] count] != 1) {
-            // As for now, we will only extract items from a dictionary that has a single key/value pair.
+        // As for now, we will only extract items from a dictionary that has a single key/value pair.
         [self sendUserFacingErrorForTag:tag withTechError:nil completionBlock:completionBlock];
         return;
     }
     
-        // The only way to distinguish an array of items with the dictionary of a single item, is to parse the main
-        // dictionary and see if we can build an _array_ of the following class names. This is made necessary due to the
-        // change of semantics from XML to JSON.
+    // The only way to distinguish an array of items with the dictionary of a single item, is to parse the main
+    // dictionary and see if we can build an _array_ of the following class names. This is made necessary due to the
+    // change of semantics from XML to JSON.
     NSArray *validItemClassKeys = @[@"Video", @"Show", @"AssetSet", @"Audio"];
     
     NSString *mainKey = [[rawDictionary allKeys] lastObject];
@@ -423,7 +284,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
     }];
     
     
-        // We haven't found an array of items. The root object is probably what we are looking for.
+    // We haven't found an array of items. The root object is probably what we are looking for.
     if (!className && NSClassFromString([itemClassPrefix stringByAppendingString:mainKey])) {
         className = mainKey;
         itemsDictionaries = @[mainValue];
@@ -497,9 +358,9 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
     }
     else if (modelClass == [SRGILShow class]) {
         if (orgType == SRGILModelDataOrganisationTypeAlphabetical) {
-                // In order to produce sections in the collection view, we split the list of Shows according to their
-                // alphabetical order. Hence numbers and letters become the new section tags that will then be used used
-                // to build the collection view headers.
+            // In order to produce sections in the collection view, we split the list of Shows according to their
+            // alphabetical order. Hence numbers and letters become the new section tags that will then be used used
+            // to build the collection view headers.
             
             NSComparator comparator = ^NSComparisonResult(id obj1, id obj2) {
                 return [(NSString *)obj1 compare:(NSString *)obj2
@@ -566,6 +427,8 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
         completionBlock(nil, nil, newError);
     });
 }
+
+#pragma mark - Download Dates
 
 - (NSDate *)downloadDateForKey:(NSString *)key
 {
