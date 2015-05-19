@@ -1,5 +1,5 @@
 //
-//  SRGIntegrationLayerOfflineMetadataProvider.h
+//  SRGILDataProviderOfflineStorage.h
 //  SRGIntegrationLayerDataProvider
 //
 //  Created by Cédric Foellmi on 23/04/15.
