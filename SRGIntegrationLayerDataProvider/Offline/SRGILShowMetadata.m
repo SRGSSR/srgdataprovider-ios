@@ -8,6 +8,10 @@
 
 #import "SRGILShowMetadata.h"
 
+@interface SRGILShowMetadata ()
+@property(nonatomic, strong) NSString *showDescription;
+@end
+
 @implementation SRGILShowMetadata
 
 + (SRGILShowMetadata *)showMetadataForShow:(SRGILShow *)show
@@ -18,13 +22,23 @@
     
     SRGILShowMetadata *md = [[SRGILShowMetadata alloc] init];
     
-    md.identifier = [show identifier];
-    md.title = [show title];
+    md.identifier = show.identifier;
+    md.title = show.title;
     md.imageURLString = [[[show.image imageRepresentationForUsage:SRGILMediaImageUsageWeb] URL] description];
-
+    md.showDescription = show.showDescription;
+    
     md.isFavorite = NO;
     
     return md;
+}
+
+- (instancetype)initWithContainer:(id<RTSShowMetadataContainer>)container
+{
+    self = [super initWithContainer:container];
+    if (self) {
+        self.showDescription = [container showDescription];
+    }
+    return self;
 }
 
 @end
