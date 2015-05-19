@@ -21,9 +21,18 @@
 #import "SRGILModelConstants.h"
 
 #import <libextobjc/EXTScope.h>
+#import <objc/runtime.h>
+
+static void *kAnalyticsInfosAssociatedObjectKey = &kAnalyticsInfosAssociatedObjectKey;
 
 static NSString * const comScoreKeyPathPrefix = @"SRGILComScoreAnalyticsInfos.";
 static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsInfos.";
+
+@interface SRGILDataProvider (MediaPlayerPrivate)
+
+@property(nonatomic, strong) NSMutableDictionary *analyticsInfos;
+
+@end
 
 @implementation SRGILDataProvider (MediaPlayer)
 
@@ -31,6 +40,11 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 {
     if (!self.analyticsInfos) {
         self.analyticsInfos = [[NSMutableDictionary alloc] init];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(sendViewCountMetaDataUponMediaPlayerPlaybackStateChange:)
+                                                     name:RTSMediaPlayerPlaybackStateDidChangeNotification
+                                                   object:nil];
     }
 }
 
@@ -164,5 +178,18 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     }
 }
 
+@end
+
+@implementation SRGILDataProvider (MediaPlayerPrivate)
+
+- (NSMutableDictionary *)analyticsInfos
+{
+    return objc_getAssociatedObject(self, kAnalyticsInfosAssociatedObjectKey);
+}
+
+- (void)setAnalyticsInfos:(NSMutableDictionary *)analyticsInfos
+{
+    objc_setAssociatedObject(self, kAnalyticsInfosAssociatedObjectKey, analyticsInfos, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
 @end

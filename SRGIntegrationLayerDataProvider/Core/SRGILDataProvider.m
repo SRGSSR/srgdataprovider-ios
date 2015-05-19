@@ -43,15 +43,9 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
         _identifiedMedias = [[NSMutableDictionary alloc] init];
         _identifiedShows = [[NSMutableDictionary alloc] init];
         _taggedItemLists = [[NSMutableDictionary alloc] init];
-        _analyticsInfos = [[NSMutableDictionary alloc] init];
         _typedFetchPaths = [[NSMutableDictionary alloc] init];
         _requestManager = [[SRGILRequestsManager alloc] initWithBusinessUnit:businessUnit];
-        _ongoingFetchIndices = [[NSMutableSet alloc] init];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(sendViewCountMetaDataUponMediaPlayerPlaybackStateChange:)
-                                                     name:RTSMediaPlayerPlaybackStateDidChangeNotification
-                                                   object:nil];
+        _ongoingFetchIndices = [[NSMutableSet alloc] init];        
     }
     return self;
 }

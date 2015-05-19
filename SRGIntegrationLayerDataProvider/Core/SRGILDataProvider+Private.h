@@ -22,7 +22,6 @@
 
 @property(nonatomic, strong) NSMutableDictionary *identifiedMedias;
 @property(nonatomic, strong) NSMutableDictionary *identifiedShows;
-@property(nonatomic, strong) NSMutableDictionary *analyticsInfos;
 
 @property(nonatomic, strong) SRGILRequestsManager *requestManager;
 
