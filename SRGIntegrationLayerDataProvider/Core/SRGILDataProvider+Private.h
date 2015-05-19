@@ -26,8 +26,4 @@
 
 @property(nonatomic, strong) SRGILRequestsManager *requestManager;
 
-#if __has_include("SRGILOfflineMetadataProvider.h")
-@property(nonatomic, strong) RTSOfflineStorageCenter *storageCenter;
-#endif
-
 @end

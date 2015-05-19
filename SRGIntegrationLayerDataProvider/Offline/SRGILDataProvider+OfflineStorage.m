@@ -19,6 +19,15 @@
 #import "SRGILMediaMetadata.h"
 #import "SRGILShowMetadata.h"
 
+#import <objc/runtime.h>
+
+static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObjectKey;
+
+@interface SRGILDataProvider (OfflineStoragePrivate)
+
+@property(nonatomic, strong) RTSOfflineStorageCenter *storageCenter;
+
+@end
 
 @implementation SRGILDataProvider (OfflineStorage)
 
@@ -168,6 +177,20 @@
         default:
             NSAssert(NO, @"Invalid item type for local items fetch list index: %ld", (long)index);
     }
+}
+
+@end
+
+@implementation SRGILDataProvider (OfflineStoragePrivate)
+
+- (RTSOfflineStorageCenter *)storageCenter
+{
+    return objc_getAssociatedObject(self, kStorageCenterAssociatedObjectKey);
+}
+
+- (void)setStorageCenter:(RTSOfflineStorageCenter *)storageCenter
+{
+    objc_setAssociatedObject(self, kStorageCenterAssociatedObjectKey, storageCenter, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
