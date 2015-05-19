@@ -1,5 +1,5 @@
 //
-//  SRGIntegrationLayerDataProvider_h+OfflineStorage.m
+//  SRGILDataProvider+OfflineStorage.m
 //  SRGIntegrationLayerDataProvider
 //
 //  Created by Cédric Foellmi on 23/04/15.

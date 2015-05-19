@@ -1,5 +1,5 @@
 //
-//  SRGILMediaPlayerDataProvider.m
+//  SRGILDataProvider.m
 //  SRGIntegrationLayerDataProvider
 //
 //  Created by Cédric Foellmi on 31/03/15.
@@ -20,8 +20,8 @@
 
 #import <libextobjc/EXTScope.h>
 
-#if __has_include("SRGILOfflineMetadataProvider.h")
-#import "SRGILOfflineMetadataProvider.h"
+#if __has_include("SRGILDataProviderOfflineStorage.h")
+#import "SRGILDataProviderOfflineStorage.h"
 #endif
 
 static NSString * const itemClassPrefix = @"SRGIL";
@@ -159,7 +159,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
             
         case SRGILFetchListMediaFavorite:
         case SRGILFetchListShowFavorite: {
-#if __has_include("SRGILOfflineMetadataProvider.h")
+#if __has_include("SRGILDataProviderOfflineStorage.h")
             if (progressBlock) {
                 progressBlock(DOWNLOAD_PROGRESS_DONE);
             }

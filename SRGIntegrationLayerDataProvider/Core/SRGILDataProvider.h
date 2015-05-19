@@ -1,5 +1,5 @@
 //
-//  SRGILMediaPlayerDataProvider.h
+//  SRGILDataProvider.h
 //  SRGIntegrationLayerDataProvider
 //
 //  Created by Cédric Foellmi on 31/03/15.
