@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SRGIntegrationLayerDataProvider"
-  s.version = "0.1.1"
+  s.version = "0.1.2"
   s.summary = "Implementation of the Data Provider using the Integration Layer for the RTS Media Player"
   s.description = "Implementation of the Data Provider using the Integration Layer for the RTS Media Player"
   s.homepage = "http://rts.ch"
@@ -19,21 +19,21 @@ Pod::Spec.new do |s|
   ### Subspecs
 
   s.subspec 'Core' do |co|
-    co.source_files         = "SRGIntegrationLayerDataProvider/SRGIntegrationLayerDataProvider.h", "SRGIntegrationLayerDataProvider/Core/*.{h,m}", "SRGIntegrationLayerDataProvider/Model/*.{h,m}", "SRGIntegrationLayerDataProvider/Network/*.{h,m}", "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
+    co.source_files         = "SRGIntegrationLayerDataProvider/SRGIntegrationLayerDataProvider.h", "SRGIntegrationLayerDataProvider/Core/*.{h,m}", "SRGIntegrationLayerDataProvider/Model/*.{h,m}", "SRGIntegrationLayerDataProvider/Network/*.{h,m}"
     co.private_header_files = "SRGIntegrationLayerDataProvider/**/*+Private.h"
     co.frameworks           = "Foundation", "UIKit"
     co.dependency             "CocoaLumberjack",  "~> 2.0.0"
     co.dependency             "AFNetworking", "~> 1.3.4"
     co.dependency             "SGVReachability", "~> 1.0.0"
     co.dependency             "libextobjc/EXTScope", "0.4.1"
-    co.dependency             "RTSAnalytics", "~> 0.1.0"
   end
 
   s.subspec 'MediaPlayer' do |mp|
-    mp.source_files         = "SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h", "SRGIntegrationLayerDataProvider/MediaPlayer/*.{h,m}"
+    mp.source_files         = "SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h", "SRGIntegrationLayerDataProvider/MediaPlayer/*.{h,m}", "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
     mp.private_header_files = "SRGIntegrationLayerDataProvider/**/*+Private.h"
     mp.frameworks           = "Foundation", "UIKit"
     mp.dependency             "SRGIntegrationLayerDataProvider/Core"
+    mp.dependency             "RTSAnalytics", "~> 0.1.0"
     mp.dependency             "RTSAnalytics/MediaPlayer", "~> 0.1.0"
     mp.dependency             "RTSMediaPlayer", "~> 0.0.3"
   end
