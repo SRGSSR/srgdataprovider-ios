@@ -15,9 +15,6 @@
 
 @class SRGILRequestsManager;
 
-// Do not put a name in the category -> class extension.
-// https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/CustomizingExistingClasses/CustomizingExistingClasses.html
-
 @interface  SRGILDataProvider ()
 
 @property(nonatomic, strong) NSMutableDictionary *identifiedMedias;
