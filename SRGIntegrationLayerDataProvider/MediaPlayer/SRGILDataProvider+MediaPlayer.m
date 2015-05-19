@@ -36,8 +36,14 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 
 @implementation SRGILDataProvider (MediaPlayer)
 
-- (void)setupForMediaPlayer
+#pragma mark - RTSMediaPlayerControllerDataSource
+
+- (void)mediaPlayerController:(RTSMediaPlayerController *)mediaPlayerController
+      contentURLForIdentifier:(NSString *)identifier
+            completionHandler:(void (^)(NSURL *contentURL, NSError *error))completionHandler
 {
+    NSAssert(identifier, @"Missing identifier to work with.");
+    
     if (!self.analyticsInfos) {
         self.analyticsInfos = [[NSMutableDictionary alloc] init];
         
@@ -46,15 +52,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                                      name:RTSMediaPlayerPlaybackStateDidChangeNotification
                                                    object:nil];
     }
-}
-
-#pragma mark - RTSMediaPlayerControllerDataSource
-
-- (void)mediaPlayerController:(RTSMediaPlayerController *)mediaPlayerController
-      contentURLForIdentifier:(NSString *)identifier
-            completionHandler:(void (^)(NSURL *contentURL, NSError *error))completionHandler
-{
-    NSAssert(identifier, @"Missing identifier to work with.");
+    
     SRGILMedia *existingMedia = self.identifiedMedias[identifier];
     
     @weakify(self)

@@ -12,6 +12,4 @@
 
 @interface SRGILDataProvider (MediaPlayer) <RTSMediaPlayerControllerDataSource, RTSAnalyticsMediaPlayerDataSource>
 
-- (void)setupForMediaPlayer;
-
 @end
