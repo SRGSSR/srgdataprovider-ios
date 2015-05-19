@@ -9,10 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "SRGILDataProvider.h"
 
-#if __has_include("SRGILOfflineMetadataProvider.h")
-#import "SRGILOfflineMetadataProvider.h"
-#endif
-
 @class SRGILRequestsManager;
 
 @interface  SRGILDataProvider ()
