@@ -15,6 +15,7 @@
 #import "SRGILErrors.h"
 #import "SRGILRequestsManager.h"
 
+#import "SRGILDataProvider+Private.h"
 #import "SRGILModel.h"
 #import "SRGILMedia+Private.h"
 
@@ -48,6 +49,13 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
         _ongoingFetchIndices = [[NSMutableSet alloc] init];        
     }
     return self;
+}
+
+- (void)dealloc
+{
+    if ([self respondsToSelector:@selector(cleanup)]) {
+        [self cleanup];
+    }
 }
 
 - (NSString *)businessUnit

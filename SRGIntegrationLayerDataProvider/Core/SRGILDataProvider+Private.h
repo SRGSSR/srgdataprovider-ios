@@ -11,7 +11,16 @@
 
 @class SRGILRequestsManager;
 
-@interface  SRGILDataProvider ()
+@protocol SRGILDataProviderSubclassingHooks <NSObject>
+
+@optional
+
+// An optional method which subclasses may implement to perform cleanup when the data provider is deallocated
+- (void)cleanup;
+
+@end
+
+@interface SRGILDataProvider () <SRGILDataProviderSubclassingHooks>
 
 @property(nonatomic, strong) NSMutableDictionary *identifiedMedias;
 @property(nonatomic, strong) NSMutableDictionary *identifiedShows;
@@ -19,3 +28,4 @@
 @property(nonatomic, strong) SRGILRequestsManager *requestManager;
 
 @end
+
