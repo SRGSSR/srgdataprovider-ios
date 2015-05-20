@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  VideoListViewController.h
 //  SRGIntegrationLayerDataProvider Demo
 //
 //  Created by Samuel Defago on 20.05.15.
@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface VideoListViewController : UITableViewController
 
 @end
 
