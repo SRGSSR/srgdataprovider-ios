@@ -1,0 +1,5 @@
+#import <Foundation/Foundation.h>
+@interface PodsDummy_Pods_SRGIntegrationLayerDataProviderTests_SGVReachability : NSObject
+@end
+@implementation PodsDummy_Pods_SRGIntegrationLayerDataProviderTests_SGVReachability
+@end

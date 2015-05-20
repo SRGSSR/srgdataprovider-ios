@@ -1,0 +1,1 @@
+../../../../SRGIntegrationLayerDataProvider/Analytics/SRGILComScoreAnalyticsInfos.h

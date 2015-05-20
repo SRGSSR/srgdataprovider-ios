@@ -38,6 +38,9 @@
 @end
 
 @protocol RTSShowMetadataContainer <RTSBaseMetadataContainer>
+
+- (NSString *)showDescription;
+
 @end
 
 @protocol RTSMetadatasProvider <NSObject>

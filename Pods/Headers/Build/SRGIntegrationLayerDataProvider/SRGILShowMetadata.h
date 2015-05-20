@@ -1,0 +1,1 @@
+../../../../SRGIntegrationLayerDataProvider/Offline/SRGILShowMetadata.h

@@ -11,6 +11,9 @@
 #import "RTSMediaMetadatasProtocols.h"
 
 @interface RTSShowMetadata : RTSBaseMetadata <RTSShowMetadataContainer>
+
+@property NSString *showDescription;
+
 @end
 
 RLM_ARRAY_TYPE(RTSShowMetadata)

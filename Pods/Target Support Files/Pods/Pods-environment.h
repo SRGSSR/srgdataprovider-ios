@@ -64,7 +64,7 @@
 #define COCOAPODS_POD_AVAILABLE_RTSOfflineMediaStorage
 #define COCOAPODS_VERSION_MAJOR_RTSOfflineMediaStorage 0
 #define COCOAPODS_VERSION_MINOR_RTSOfflineMediaStorage 1
-#define COCOAPODS_VERSION_PATCH_RTSOfflineMediaStorage 0
+#define COCOAPODS_VERSION_PATCH_RTSOfflineMediaStorage 1
 
 // Realm
 #define COCOAPODS_POD_AVAILABLE_Realm

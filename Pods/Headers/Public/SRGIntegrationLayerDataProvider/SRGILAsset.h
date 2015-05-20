@@ -1,0 +1,1 @@
+../../../../SRGIntegrationLayerDataProvider/Model/SRGILAsset.h

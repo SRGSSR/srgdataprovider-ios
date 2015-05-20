@@ -1,0 +1,1 @@
+../../../../SRGIntegrationLayerDataProvider/Model/SRGILRubric.h

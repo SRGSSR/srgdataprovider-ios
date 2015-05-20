@@ -38,6 +38,17 @@ static NSString * const RTSOfflineStorageCenterFavoritesStorageKey = @"RTSOfflin
         NSString *libraryPath = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
         NSString *realmPath = [libraryPath stringByAppendingPathComponent:[storageKey stringByAppendingPathExtension:@"realm"]];
         
+        [RLMRealm setSchemaVersion:1
+                    forRealmAtPath:realmPath
+                withMigrationBlock:^(RLMMigration *migration, NSUInteger oldSchemaVersion) {                    
+                    [migration enumerateObjects:RTSShowMetadata.className
+                                          block:^(RLMObject *oldObject, RLMObject *newObject) {
+                                              if (oldSchemaVersion < 1) {
+                                                  newObject[@"showDescription"] = @"";
+                                              }
+                                          }];
+                }];
+        
         @try {
             self.realm = [RLMRealm realmWithPath:realmPath];
         }

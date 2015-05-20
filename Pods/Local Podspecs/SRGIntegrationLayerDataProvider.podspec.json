@@ -1,0 +1,96 @@
+{
+  "name": "SRGIntegrationLayerDataProvider",
+  "version": "0.1.2",
+  "summary": "Implementation of the Data Provider using the Integration Layer for the RTS Media Player",
+  "description": "Implementation of the Data Provider using the Integration Layer for the RTS Media Player",
+  "homepage": "http://rts.ch",
+  "license": {
+    "type": "N/A"
+  },
+  "authors": {
+    "Cédric Foellmi": "cedric.foellmi@hortis.ch",
+    "Cédric Luthi": "cedric.luthi@rts.ch"
+  },
+  "source": {
+    "git": "git@bitbucket.org:rtsmb/srgintegrationlayerdataprovider-ios.git",
+    "tag": "0.1.2"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "default_subspecs": "Core",
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": [
+        "SRGIntegrationLayerDataProvider/SRGIntegrationLayerDataProvider.h",
+        "SRGIntegrationLayerDataProvider/Core/*.{h,m}",
+        "SRGIntegrationLayerDataProvider/Model/*.{h,m}",
+        "SRGIntegrationLayerDataProvider/Network/*.{h,m}"
+      ],
+      "private_header_files": "SRGIntegrationLayerDataProvider/**/*+Private.h",
+      "frameworks": [
+        "Foundation",
+        "UIKit"
+      ],
+      "dependencies": {
+        "CocoaLumberjack": [
+          "~> 2.0.0"
+        ],
+        "AFNetworking": [
+          "~> 1.3.4"
+        ],
+        "SGVReachability": [
+          "~> 1.0.0"
+        ],
+        "libextobjc/EXTScope": [
+          "0.4.1"
+        ]
+      }
+    },
+    {
+      "name": "MediaPlayer",
+      "source_files": [
+        "SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h",
+        "SRGIntegrationLayerDataProvider/MediaPlayer/*.{h,m}",
+        "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
+      ],
+      "private_header_files": "SRGIntegrationLayerDataProvider/**/*+Private.h",
+      "frameworks": [
+        "Foundation",
+        "UIKit"
+      ],
+      "dependencies": {
+        "SRGIntegrationLayerDataProvider/Core": [
+
+        ],
+        "RTSAnalytics": [
+          "~> 0.1.0"
+        ],
+        "RTSAnalytics/MediaPlayer": [
+          "~> 0.1.0"
+        ],
+        "RTSMediaPlayer": [
+          "~> 0.0.3"
+        ]
+      }
+    },
+    {
+      "name": "OfflineStorage",
+      "source_files": [
+        "SRGIntegrationLayerDataProvider/SRGILDataProviderOfflineStorage.h",
+        "SRGIntegrationLayerDataProvider/Offline/*.{h,m}"
+      ],
+      "private_header_files": "SRGIntegrationLayerDataProvider/Offline/SRGIL*Metadata.{h,m}",
+      "dependencies": {
+        "SRGIntegrationLayerDataProvider/Core": [
+
+        ],
+        "RTSOfflineMediaStorage": [
+          "~> 0.1.0"
+        ]
+      }
+    }
+  ]
+}

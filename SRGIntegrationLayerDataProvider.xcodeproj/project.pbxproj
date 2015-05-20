@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		550ACD350A8B78B628CF3902 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F6EBD656367387D07A08A6 /* libPods.a */; };
 		9F13D5391AE9270700E4D897 /* SRGILComScoreAnalyticsInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5001AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.m */; };
 		9F13D53A1AE9270700E4D897 /* SRGILStreamSenseAnalyticsInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5021AE9270600E4D897 /* SRGILStreamSenseAnalyticsInfos.m */; };
 		9F13D53B1AE9270700E4D897 /* SRGILDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5051AE9270600E4D897 /* SRGILDataProvider.m */; };
@@ -36,7 +35,6 @@
 		9F13D5521AE9270700E4D897 /* SRGILTokenHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5381AE9270700E4D897 /* SRGILTokenHandler.m */; };
 		9F13D5641AE92C4900E4D897 /* SRGILDataProvider+OfflineStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5601AE92C4900E4D897 /* SRGILDataProvider+OfflineStorage.m */; };
 		9F13D5651AE92C4900E4D897 /* SRGILMediaMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5621AE92C4900E4D897 /* SRGILMediaMetadata.m */; };
-		9F1519411AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1519351AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a */; };
 		9F1A5B2A1ACD690C00C0E528 /* SRGILAudioTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B171ACD68E700C0E528 /* SRGILAudioTest.m */; };
 		9F1A5B2B1ACD690C00C0E528 /* SRGLiveStreamVideoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B181ACD68E700C0E528 /* SRGLiveStreamVideoTest.m */; };
 		9F1A5B2C1ACD690C00C0E528 /* SRGILMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B191ACD68E700C0E528 /* SRGILMediaTest.m */; };
@@ -69,17 +67,10 @@
 		9F3C1CC31ADC0B4A007C54AD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3C1CBF1ADC0B02007C54AD /* SystemConfiguration.framework */; };
 		9F3C1CC41ADC0B50007C54AD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3C1CC11ADC0B26007C54AD /* MobileCoreServices.framework */; };
 		9F4421001B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4420FF1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m */; };
+		AC01AA295800C7CDE4E23876 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F6EBD656367387D07A08A6 /* libPods.a */; };
+		C2E8B26471460B332CD298C5 /* libPods-SRGIntegrationLayerDataProviderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */; };
+		F5500DD8538AE86CB5E47111 /* libPods-SRGIntegrationLayerDataProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D020938ACBE926372DE924 /* libPods-SRGIntegrationLayerDataProvider.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		9F1519421AC5A7F200AE051D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F15192D1AC5A7F200AE051D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9F1519341AC5A7F200AE051D;
-			remoteInfo = SRGIntegrationLayerDataProvider;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		9F1519331AC5A7F200AE051D /* CopyFiles */ = {
@@ -94,7 +85,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E4297E73178B4FB64D4063C /* Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProviderTests/Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		79F6EBD656367387D07A08A6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DDF1886B2EADD80301F4912 /* Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProviderTests/Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig"; sourceTree = "<group>"; };
+		97FA86958145D9C09C32F50E /* Pods-SRGIntegrationLayerDataProvider.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider/Pods-SRGIntegrationLayerDataProvider.debug.xcconfig"; sourceTree = "<group>"; };
 		9F13D4FC1AE9238100E4D897 /* SRGIntegrationLayerDataProvider.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SRGIntegrationLayerDataProvider.podspec; sourceTree = "<group>"; };
 		9F13D4FF1AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILComScoreAnalyticsInfos.h; sourceTree = "<group>"; };
 		9F13D5001AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILComScoreAnalyticsInfos.m; sourceTree = "<group>"; };
@@ -194,8 +188,11 @@
 		9F4420FE1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGILDataProvider+MediaPlayer.h"; sourceTree = "<group>"; };
 		9F4420FF1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGILDataProvider+MediaPlayer.m"; sourceTree = "<group>"; };
 		9F4421011B0A116D00AD0613 /* SRGILDataProviderMediaPlayerDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SRGILDataProviderMediaPlayerDataSource.h; path = SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h; sourceTree = SOURCE_ROOT; };
+		A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProviderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B78A0E1C877A3AAFA06CB8E2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CC7117E85185279031EDDD7C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		EE4BB35320A76140DD9FDCBC /* Pods-SRGIntegrationLayerDataProvider.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider.release.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider/Pods-SRGIntegrationLayerDataProvider.release.xcconfig"; sourceTree = "<group>"; };
+		F5D020938ACBE926372DE924 /* libPods-SRGIntegrationLayerDataProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProvider.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,7 +202,8 @@
 			files = (
 				9F3C1CC21ADC0B26007C54AD /* MobileCoreServices.framework in Frameworks */,
 				9F3C1CC01ADC0B02007C54AD /* SystemConfiguration.framework in Frameworks */,
-				550ACD350A8B78B628CF3902 /* libPods.a in Frameworks */,
+				F5500DD8538AE86CB5E47111 /* libPods-SRGIntegrationLayerDataProvider.a in Frameworks */,
+				AC01AA295800C7CDE4E23876 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,7 +213,7 @@
 			files = (
 				9F3C1CC41ADC0B50007C54AD /* MobileCoreServices.framework in Frameworks */,
 				9F3C1CC31ADC0B4A007C54AD /* SystemConfiguration.framework in Frameworks */,
-				9F1519411AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a in Frameworks */,
+				C2E8B26471460B332CD298C5 /* libPods-SRGIntegrationLayerDataProviderTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +225,10 @@
 			children = (
 				B78A0E1C877A3AAFA06CB8E2 /* Pods.debug.xcconfig */,
 				CC7117E85185279031EDDD7C /* Pods.release.xcconfig */,
+				97FA86958145D9C09C32F50E /* Pods-SRGIntegrationLayerDataProvider.debug.xcconfig */,
+				EE4BB35320A76140DD9FDCBC /* Pods-SRGIntegrationLayerDataProvider.release.xcconfig */,
+				3E4297E73178B4FB64D4063C /* Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig */,
+				8DDF1886B2EADD80301F4912 /* Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -429,6 +431,8 @@
 				9F3C1CC11ADC0B26007C54AD /* MobileCoreServices.framework */,
 				9F3C1CBF1ADC0B02007C54AD /* SystemConfiguration.framework */,
 				79F6EBD656367387D07A08A6 /* libPods.a */,
+				F5D020938ACBE926372DE924 /* libPods-SRGIntegrationLayerDataProvider.a */,
+				A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -459,14 +463,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9F15194C1AC5A7F200AE051D /* Build configuration list for PBXNativeTarget "SRGIntegrationLayerDataProviderTests" */;
 			buildPhases = (
+				67C9297B7548F32E3C01D630 /* Check Pods Manifest.lock */,
 				9F15193C1AC5A7F200AE051D /* Sources */,
 				9F15193D1AC5A7F200AE051D /* Frameworks */,
 				9F15193E1AC5A7F200AE051D /* Resources */,
+				14E69FFD86316EEFC3FDC14C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9F1519431AC5A7F200AE051D /* PBXTargetDependency */,
 			);
 			name = SRGIntegrationLayerDataProviderTests;
 			productName = SRGIntegrationLayerDataProviderTests;
@@ -539,6 +544,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		14E69FFD86316EEFC3FDC14C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SRGIntegrationLayerDataProviderTests/Pods-SRGIntegrationLayerDataProviderTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		67C9297B7548F32E3C01D630 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		8C5B864E76EF03A80796708F /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -625,14 +660,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		9F1519431AC5A7F200AE051D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9F1519341AC5A7F200AE051D /* SRGIntegrationLayerDataProvider */;
-			targetProxy = 9F1519421AC5A7F200AE051D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
 		9F1519471AC5A7F200AE051D /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -712,10 +739,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B78A0E1C877A3AAFA06CB8E2 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"$(inherited)",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -725,10 +748,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CC7117E85185279031EDDD7C /* Pods.release.xcconfig */;
 			buildSettings = {
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"$(inherited)",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -736,6 +755,7 @@
 		};
 		9F15194D1AC5A7F200AE051D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E4297E73178B4FB64D4063C /* Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -753,6 +773,7 @@
 		};
 		9F15194E1AC5A7F200AE051D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8DDF1886B2EADD80301F4912 /* Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
