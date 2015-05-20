@@ -479,6 +479,7 @@
 		9F15192D1AC5A7F200AE051D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = SRG;
 				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = SRG;
 				TargetAttributes = {

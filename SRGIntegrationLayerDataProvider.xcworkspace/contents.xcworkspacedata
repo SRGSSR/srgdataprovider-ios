@@ -5,6 +5,9 @@
       location = "group:SRGIntegrationLayerDataProvider.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:SRGIntegrationLayerDataProvider Demo/SRGIntegrationLayerDataProvider Demo.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
