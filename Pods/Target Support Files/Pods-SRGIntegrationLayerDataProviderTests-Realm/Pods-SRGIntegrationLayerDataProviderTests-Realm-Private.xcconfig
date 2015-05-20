@@ -1,8 +1,9 @@
 #include "Pods-SRGIntegrationLayerDataProviderTests-Realm.xcconfig"
 CLANG_CXX_LANGUAGE_STANDARD = ${PODS_SRGINTEGRATIONLAYERDATAPROVIDERTESTS_REALM_CLANG_CXX_LANGUAGE_STANDARD}
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/Realm" "${PODS_ROOT}/Headers/Build/Realm/realm" "${PODS_ROOT}/Headers/Build/Realm/realm/impl" "${PODS_ROOT}/Headers/Build/Realm/realm/util" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/CocoaLumberjack" "${PODS_ROOT}/Headers/Public/RTSAnalytics" "${PODS_ROOT}/Headers/Public/RTSMediaPlayer" "${PODS_ROOT}/Headers/Public/RTSOfflineMediaStorage" "${PODS_ROOT}/Headers/Public/Realm" "${PODS_ROOT}/Headers/Public/Realm/realm" "${PODS_ROOT}/Headers/Public/SGVReachability" "${PODS_ROOT}/Headers/Public/SRGIntegrationLayerDataProvider" "${PODS_ROOT}/Headers/Public/TransitionKit" "${PODS_ROOT}/Headers/Public/comScore-iOS-SDK-RTS" "${PODS_ROOT}/Headers/Public/libextobjc"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/Realm" "${PODS_ROOT}/Headers/Private/Realm/realm" "${PODS_ROOT}/Headers/Private/Realm/realm/impl" "${PODS_ROOT}/Headers/Private/Realm/realm/util" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/CocoaLumberjack" "${PODS_ROOT}/Headers/Public/RTSAnalytics" "${PODS_ROOT}/Headers/Public/RTSMediaPlayer" "${PODS_ROOT}/Headers/Public/RTSOfflineMediaStorage" "${PODS_ROOT}/Headers/Public/Realm" "${PODS_ROOT}/Headers/Public/Realm/realm" "${PODS_ROOT}/Headers/Public/SGVReachability" "${PODS_ROOT}/Headers/Public/SRGIntegrationLayerDataProvider" "${PODS_ROOT}/Headers/Public/TransitionKit" "${PODS_ROOT}/Headers/Public/comScore-iOS-SDK-RTS" "${PODS_ROOT}/Headers/Public/libextobjc"
 LIBRARY_SEARCH_PATHS = ${PODS_SRGINTEGRATIONLAYERDATAPROVIDERTESTS_REALM_LIBRARY_SEARCH_PATHS}
 OTHER_CPLUSPLUSFLAGS = ${PODS_SRGINTEGRATIONLAYERDATAPROVIDERTESTS_REALM_OTHER_CPLUSPLUSFLAGS}
 OTHER_LDFLAGS = ${PODS_SRGINTEGRATIONLAYERDATAPROVIDERTESTS_REALM_OTHER_LDFLAGS} -ObjC
 PODS_ROOT = ${SRCROOT}
+SKIP_INSTALL = YES
