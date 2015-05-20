@@ -27,6 +27,10 @@ typedef void (^SRGILRequestArrayCompletionBlock)(NSDictionary *rawDictionary, NS
                      onProgress:(SRGILFetchListDownloadProgressBlock)downloadBlock
                    onCompletion:(SRGILRequestArrayCompletionBlock)completionBlock;
 
+- (BOOL)requestLiveMetaInfosForMediaType:(enum SRGILMediaType)mediaType
+                             withAssetId:(NSString *)assetId
+                         completionBlock:(SRGRequestMediaCompletionBlock)completionBlock;
+
 - (void)cancelAllRequests;
 
 - (void)sendViewCountUpdate:(NSString *)identifier forMediaTypeName:(NSString *)mediaType;

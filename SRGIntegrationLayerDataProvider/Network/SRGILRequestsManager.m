@@ -122,7 +122,9 @@ static SGVReachability *reachability;
 
 #pragma mark - Requesting Media
 
-- (BOOL)requestMediaOfType:(enum SRGILMediaType)mediaType withIdentifier:(NSString *)identifier completionBlock:(SRGRequestMediaCompletionBlock)completionBlock
+- (BOOL)requestMediaOfType:(enum SRGILMediaType)mediaType
+            withIdentifier:(NSString *)identifier
+           completionBlock:(SRGRequestMediaCompletionBlock)completionBlock
 {
     NSString *path = nil;
     Class objectClass = NULL;
@@ -153,6 +155,20 @@ static SGVReachability *reachability;
                             assetId:identifier
                             JSONKey:JSONKey
                        errorMessage:errorMessage
+                    completionBlock:completionBlock];
+}
+
+- (BOOL)requestLiveMetaInfosForMediaType:(enum SRGILMediaType)mediaType
+                             withAssetId:(NSString *)assetId
+                         completionBlock:(SRGRequestMediaCompletionBlock)completionBlock
+{
+    NSAssert(mediaType == SRGILMediaTypeAudio, @"Unknown for media type other than audio.");
+    NSString *path = [NSString stringWithFormat:@"channel/%@/nowAndNext.json", assetId];
+    return [self requestModelObject:[SRGILLiveHeaderChannel class]
+                               path:path
+                            assetId:path // Trying this
+                            JSONKey:@"Channel"
+                       errorMessage:nil
                     completionBlock:completionBlock];
 }
 
