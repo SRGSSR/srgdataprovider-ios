@@ -739,6 +739,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B78A0E1C877A3AAFA06CB8E2 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -748,6 +749,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CC7117E85185279031EDDD7C /* Pods.release.xcconfig */;
 			buildSettings = {
+				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
