@@ -8,13 +8,19 @@
 
 #import "MediaPlayerViewController.h"
 
+#import "SegmentTableViewCell.h"
+
 #import <RTSMediaPlayer/RTSMediaPlayer.h>
 #import <SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h>
 
 @interface MediaPlayerViewController ()
 
+@property (nonatomic) NSArray *segments;
+
 @property (nonatomic) IBOutlet RTSMediaPlayerController *mediaPlayerController;
 @property (nonatomic) id<RTSMediaPlayerControllerDataSource> dataSource;
+
+@property (nonatomic, weak) IBOutlet UITableView *segmentsTableView;
 
 @end
 
@@ -65,6 +71,25 @@
 	if ([self isMovingFromParentViewController] || [self isBeingDismissed]) {
 		[self.mediaPlayerController reset];
 	}
+}
+
+#pragma mark - UITableViewDataSource protocol
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.segments.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SegmentTableViewCell class])];
+}
+
+#pragma mark - UITableViewDelegate protocol
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
 }
 
 #pragma mark - Actions

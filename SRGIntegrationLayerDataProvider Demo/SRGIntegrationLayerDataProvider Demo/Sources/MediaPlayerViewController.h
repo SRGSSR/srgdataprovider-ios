@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MediaPlayerViewController : UIViewController
+@interface MediaPlayerViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, copy) NSString *videoIdentifier;
 

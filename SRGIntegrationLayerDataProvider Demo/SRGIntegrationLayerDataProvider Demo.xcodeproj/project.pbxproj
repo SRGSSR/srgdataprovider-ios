@@ -16,6 +16,7 @@
 		E6A025401B0C55FF006DE0D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A025391B0C55FF006DE0D0 /* main.m */; };
 		E6A025451B0C56A0006DE0D0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6A025411B0C56A0006DE0D0 /* LaunchScreen.xib */; };
 		E6A025461B0C56A0006DE0D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6A025431B0C56A0006DE0D0 /* Main.storyboard */; };
+		E6E548101B0DB78800CA45A3 /* SegmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E5480F1B0DB78800CA45A3 /* SegmentTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,8 @@
 		E6A025391B0C55FF006DE0D0 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E6A025421B0C56A0006DE0D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E6A025441B0C56A0006DE0D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E6E5480E1B0DB78800CA45A3 /* SegmentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentTableViewCell.h; sourceTree = "<group>"; };
+		E6E5480F1B0DB78800CA45A3 /* SegmentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +154,8 @@
 				E6A025311B0C55FF006DE0D0 /* VideoListViewController.m */,
 				E69E91671B0DAEC60033BD05 /* MediaPlayerViewController.h */,
 				E69E91681B0DAEC60033BD05 /* MediaPlayerViewController.m */,
+				E6E5480E1B0DB78800CA45A3 /* SegmentTableViewCell.h */,
+				E6E5480F1B0DB78800CA45A3 /* SegmentTableViewCell.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 				E6A025401B0C55FF006DE0D0 /* main.m in Sources */,
 				E69E91691B0DAEC60033BD05 /* MediaPlayerViewController.m in Sources */,
 				E6A0253B1B0C55FF006DE0D0 /* AppDelegate.m in Sources */,
+				E6E548101B0DB78800CA45A3 /* SegmentTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
