@@ -8,23 +8,17 @@
 
 #import "VideoListViewController.h"
 
-#import <RTSMediaPlayer/RTSMediaPlayer.h>
-#import <SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h>
+#import "MediaPlayerViewController.h"
 
 @implementation VideoListViewController
 
-#pragma mark UITableViewDataSource protocol
+#pragma mark - Segues
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    // FIXME: Issue with nib loading on the iPad
-    if (indexPath.section == 0 && indexPath.row == 0) {
-        // FIXME: The provider must unregister from the notification center, otherwise crashes will occur on notifications
-        SRGILDataProvider *dataSource = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
-        RTSMediaPlayerViewController *mediaPlayerViewController = [[RTSMediaPlayerViewController alloc] initWithContentIdentifier:@"6795800" dataSource:dataSource];
-        [self presentViewController:mediaPlayerViewController animated:YES completion:nil];
+    if ([segue.destinationViewController isKindOfClass:[MediaPlayerViewController class]]) {
+        MediaPlayerViewController *mediaPlayerViewController = (MediaPlayerViewController *)segue.destinationViewController;
+        mediaPlayerViewController.videoIdentifier = segue.identifier;
     }
 }
 

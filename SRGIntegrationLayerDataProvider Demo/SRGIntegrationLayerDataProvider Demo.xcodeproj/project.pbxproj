@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5B264E0F9EE6DEA658F7A7FC /* libPods-SRGIntegrationLayerDataProvider Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 083D06FB106767F44620E2A4 /* libPods-SRGIntegrationLayerDataProvider Demo.a */; };
+		E69E91691B0DAEC60033BD05 /* MediaPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69E91681B0DAEC60033BD05 /* MediaPlayerViewController.m */; };
 		E6A025221B0C5509006DE0D0 /* SRGIntegrationLayerDataProvider_DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A025211B0C5509006DE0D0 /* SRGIntegrationLayerDataProvider_DemoTests.m */; };
 		E6A0253A1B0C55FF006DE0D0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6A0252C1B0C55FF006DE0D0 /* Images.xcassets */; };
 		E6A0253B1B0C55FF006DE0D0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A0252F1B0C55FF006DE0D0 /* AppDelegate.m */; };
@@ -31,6 +32,8 @@
 		083D06FB106767F44620E2A4 /* libPods-SRGIntegrationLayerDataProvider Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProvider Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A641F8D22E01F4D8006CEFB /* Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider Demo/Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		A633BC1A31AF1F344286918F /* Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider Demo/Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig"; sourceTree = "<group>"; };
+		E69E91671B0DAEC60033BD05 /* MediaPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlayerViewController.h; sourceTree = "<group>"; };
+		E69E91681B0DAEC60033BD05 /* MediaPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaPlayerViewController.m; sourceTree = "<group>"; };
 		E6A025021B0C5509006DE0D0 /* SRGIntegrationLayerDataProvider Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SRGIntegrationLayerDataProvider Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6A0251B1B0C5509006DE0D0 /* SRGIntegrationLayerDataProvider DemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SRGIntegrationLayerDataProvider DemoTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6A025201B0C5509006DE0D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -146,6 +149,8 @@
 				E6A0252F1B0C55FF006DE0D0 /* AppDelegate.m */,
 				E6A025301B0C55FF006DE0D0 /* VideoListViewController.h */,
 				E6A025311B0C55FF006DE0D0 /* VideoListViewController.m */,
+				E69E91671B0DAEC60033BD05 /* MediaPlayerViewController.h */,
+				E69E91681B0DAEC60033BD05 /* MediaPlayerViewController.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 			files = (
 				E6A0253C1B0C55FF006DE0D0 /* VideoListViewController.m in Sources */,
 				E6A025401B0C55FF006DE0D0 /* main.m in Sources */,
+				E69E91691B0DAEC60033BD05 /* MediaPlayerViewController.m in Sources */,
 				E6A0253B1B0C55FF006DE0D0 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
