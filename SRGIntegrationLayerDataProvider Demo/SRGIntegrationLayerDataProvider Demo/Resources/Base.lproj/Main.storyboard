@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="yiG-pt-eVw">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <scenes>
@@ -23,7 +24,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Scooters, scoot un jour, scoot toujours?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IvZ-oY-zwp">
                                                     <rect key="frame" x="19" y="11" width="307" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -143,30 +144,6 @@
                                     <constraint firstAttribute="trailing" secondItem="b7p-6V-WZl" secondAttribute="trailing" id="ycj-SW-qVU"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mWP-F1-4RV" userLabel="Segments Table View">
-                                <rect key="frame" x="0.0" y="434" width="600" height="122"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="122" id="CJI-Mk-gwW"/>
-                                </constraints>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SegmentTableViewCell" id="VV1-Yp-gow">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VV1-Yp-gow" id="XU8-fu-jk3">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;title&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEN-2P-pdm">
-                                                    <rect key="frame" x="8" y="11" width="584" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dqT-q2-hJh" userLabel="Bottom Bar View">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <subviews>
@@ -206,23 +183,33 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jhh-Z6-0Qk" customClass="RTSMediaPlayerSegmentOverlay">
+                                <rect key="frame" x="0.0" y="478" width="600" height="77"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="77" id="9I1-zd-aTo"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="mediaPlayerController" destination="ZRv-6k-ngu" id="3Sl-J9-TsD"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="MHO-Mu-Urw" firstAttribute="leading" secondItem="Ng5-8X-jUe" secondAttribute="leading" id="1x2-BR-gMY"/>
-                            <constraint firstAttribute="trailing" secondItem="mWP-F1-4RV" secondAttribute="trailing" id="CEU-Rd-h6Y"/>
+                            <constraint firstItem="dqT-q2-hJh" firstAttribute="top" secondItem="jhh-Z6-0Qk" secondAttribute="bottom" constant="1" id="63s-Qb-to7"/>
+                            <constraint firstItem="jhh-Z6-0Qk" firstAttribute="leading" secondItem="Ng5-8X-jUe" secondAttribute="leading" id="MAq-SD-xLc"/>
                             <constraint firstAttribute="trailing" secondItem="MHO-Mu-Urw" secondAttribute="trailing" id="ZXP-B3-Cw1"/>
-                            <constraint firstItem="dqT-q2-hJh" firstAttribute="top" secondItem="mWP-F1-4RV" secondAttribute="bottom" id="iga-1k-Wuc"/>
                             <constraint firstAttribute="bottom" secondItem="dqT-q2-hJh" secondAttribute="bottom" id="ky0-H3-FeH"/>
                             <constraint firstAttribute="trailing" secondItem="dqT-q2-hJh" secondAttribute="trailing" id="sIK-Xn-R7U"/>
                             <constraint firstItem="MHO-Mu-Urw" firstAttribute="top" secondItem="Ng5-8X-jUe" secondAttribute="top" id="uAT-gK-xgx"/>
-                            <constraint firstItem="mWP-F1-4RV" firstAttribute="leading" secondItem="Ng5-8X-jUe" secondAttribute="leading" id="zBr-No-NOQ"/>
+                            <constraint firstAttribute="trailing" secondItem="jhh-Z6-0Qk" secondAttribute="trailing" id="uMo-Vi-Rvy"/>
                             <constraint firstItem="dqT-q2-hJh" firstAttribute="leading" secondItem="Ng5-8X-jUe" secondAttribute="leading" id="zxV-WU-jKB"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mediaPlayerController" destination="ZRv-6k-ngu" id="kgH-ok-97y"/>
-                        <outlet property="segmentsTableView" destination="mWP-F1-4RV" id="UXY-0Y-2wm"/>
+                        <outlet property="mediaPlayerSegmentOverlay" destination="jhh-Z6-0Qk" id="JZ2-lc-tz5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ncU-rK-pGA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -231,7 +218,6 @@
                         <outlet property="activityView" destination="Ng5-8X-jUe" id="s16-X6-3TY"/>
                         <outletCollection property="overlayViews" destination="MHO-Mu-Urw" id="lq6-UY-rza"/>
                         <outletCollection property="overlayViews" destination="dqT-q2-hJh" id="9bu-mJ-wiL"/>
-                        <outletCollection property="overlayViews" destination="mWP-F1-4RV" id="iYT-JZ-VDb"/>
                     </connections>
                 </customObject>
             </objects>
