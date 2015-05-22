@@ -8,7 +8,7 @@
 
 #import "MediaPlayerViewController.h"
 
-#import "SegmentTableViewCell.h"
+#import "SegmentCollectionViewCell.h"
 
 #import <RTSMediaPlayer/RTSMediaPlayer.h>
 #import <SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h>
@@ -20,7 +20,7 @@
 @property (nonatomic) IBOutlet RTSMediaPlayerController *mediaPlayerController;
 @property (nonatomic) SRGILDataProvider *dataSource;
 
-@property (nonatomic, weak) IBOutlet RTSMediaPlayerSegmentOverlay *mediaPlayerSegmentOverlay;
+@property (nonatomic, weak) IBOutlet RTSTimelineView *timelineView;
 
 @end
 
@@ -52,7 +52,11 @@
 	[super viewDidLoad];
 	
     self.mediaPlayerController.dataSource = self.dataSource;
-    self.mediaPlayerSegmentOverlay.dataSource = self.dataSource;
+    self.timelineView.dataSource = self.dataSource;
+    
+    NSString *className = NSStringFromClass([SegmentCollectionViewCell class]);
+    UINib *nib = [UINib nibWithNibName:className bundle:nil];
+    [self.timelineView registerNib:nib forCellWithReuseIdentifier:className];
     
 	[self.mediaPlayerController attachPlayerToView:self.view];
 }
@@ -73,6 +77,13 @@
 	if ([self isMovingFromParentViewController] || [self isBeingDismissed]) {
 		[self.mediaPlayerController reset];
 	}
+}
+
+#pragma mark - RTSTimelineViewDelegate protocol
+
+- (UICollectionViewCell *)timelineView:(RTSTimelineView *)timelineView cellForSegment:(RTSMediaPlayerSegment *)segment
+{
+    return [timelineView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([SegmentCollectionViewCell class]) forSegment:segment];
 }
 
 #pragma mark - Actions

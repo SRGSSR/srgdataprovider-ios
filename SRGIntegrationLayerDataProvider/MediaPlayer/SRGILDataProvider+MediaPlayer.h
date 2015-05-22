@@ -10,6 +10,6 @@
 #import <RTSMediaPlayer/RTSMediaPlayer.h>
 #import <RTSAnalytics/RTSAnalytics.h>
 
-@interface SRGILDataProvider (MediaPlayer) <RTSMediaPlayerControllerDataSource, RTSMediaPlayerSegmentOverlayDataSource, RTSAnalyticsMediaPlayerDataSource>
+@interface SRGILDataProvider (MediaPlayer) <RTSMediaPlayerControllerDataSource, RTSMediaPlayerSegmentDataSource, RTSAnalyticsMediaPlayerDataSource>
 
 @end

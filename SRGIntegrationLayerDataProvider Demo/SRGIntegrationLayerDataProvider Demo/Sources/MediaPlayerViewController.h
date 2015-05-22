@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
+#import <RTSMediaPlayer/RTSMediaPlayer.h>
 #import <UIKit/UIKit.h>
 
-@interface MediaPlayerViewController : UIViewController
+@interface MediaPlayerViewController : UIViewController <RTSTimelineViewDelegate>
 
 @property (nonatomic, copy) NSString *videoIdentifier;
 

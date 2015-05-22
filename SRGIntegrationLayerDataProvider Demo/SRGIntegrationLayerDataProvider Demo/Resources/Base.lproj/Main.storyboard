@@ -183,21 +183,27 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jhh-Z6-0Qk" customClass="RTSMediaPlayerSegmentOverlay">
-                                <rect key="frame" x="0.0" y="478" width="600" height="77"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jhh-Z6-0Qk" customClass="RTSTimelineView">
+                                <rect key="frame" x="0.0" y="479" width="600" height="77"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="77" id="9I1-zd-aTo"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="itemWidth">
+                                        <real key="value" value="135"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="mediaPlayerController" destination="ZRv-6k-ngu" id="3Sl-J9-TsD"/>
+                                    <outlet property="delegate" destination="DeR-ns-fWf" id="wfh-rh-obj"/>
+                                    <outlet property="mediaPlayerController" destination="ZRv-6k-ngu" id="KJM-HW-EWn"/>
                                 </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="MHO-Mu-Urw" firstAttribute="leading" secondItem="Ng5-8X-jUe" secondAttribute="leading" id="1x2-BR-gMY"/>
-                            <constraint firstItem="dqT-q2-hJh" firstAttribute="top" secondItem="jhh-Z6-0Qk" secondAttribute="bottom" constant="1" id="63s-Qb-to7"/>
+                            <constraint firstItem="dqT-q2-hJh" firstAttribute="top" secondItem="jhh-Z6-0Qk" secondAttribute="bottom" id="63s-Qb-to7"/>
                             <constraint firstItem="jhh-Z6-0Qk" firstAttribute="leading" secondItem="Ng5-8X-jUe" secondAttribute="leading" id="MAq-SD-xLc"/>
                             <constraint firstAttribute="trailing" secondItem="MHO-Mu-Urw" secondAttribute="trailing" id="ZXP-B3-Cw1"/>
                             <constraint firstAttribute="bottom" secondItem="dqT-q2-hJh" secondAttribute="bottom" id="ky0-H3-FeH"/>
@@ -209,7 +215,7 @@
                     </view>
                     <connections>
                         <outlet property="mediaPlayerController" destination="ZRv-6k-ngu" id="kgH-ok-97y"/>
-                        <outlet property="mediaPlayerSegmentOverlay" destination="jhh-Z6-0Qk" id="JZ2-lc-tz5"/>
+                        <outlet property="timelineView" destination="jhh-Z6-0Qk" id="4Db-rw-5AH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ncU-rK-pGA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -218,6 +224,7 @@
                         <outlet property="activityView" destination="Ng5-8X-jUe" id="s16-X6-3TY"/>
                         <outletCollection property="overlayViews" destination="MHO-Mu-Urw" id="lq6-UY-rza"/>
                         <outletCollection property="overlayViews" destination="dqT-q2-hJh" id="9bu-mJ-wiL"/>
+                        <outletCollection property="overlayViews" destination="jhh-Z6-0Qk" id="sIp-nD-Y6j"/>
                     </connections>
                 </customObject>
             </objects>

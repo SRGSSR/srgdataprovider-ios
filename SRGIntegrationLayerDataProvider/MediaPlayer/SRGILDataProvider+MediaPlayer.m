@@ -96,9 +96,10 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     }
 }
 
-#pragma mark - RTSMediaPlayerSegmentOverlayDataSource
+#pragma mark - RTSMediaPlayerSegmentDataSource
 
-- (void)mediaPlayerSegmentOverlay:(RTSMediaPlayerSegmentOverlay *)mediaPlayerSegmentOverlay segmentsForIdentifier:(NSString *)identifier completionHandler:(void (^)(NSArray *, NSError *))completionHandler
+- (void)mediaPlayerSegmentView:(id<RTSMediaPlayerSegmentView>)mediaPlayerSegmentView
+         segmentsForIdentifier:(NSString *)identifier completionHandler:(void (^)(NSArray *, NSError *))completionHandler
 {
     NSMutableArray *segments = [NSMutableArray array];
     
@@ -106,7 +107,6 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     for (SRGILMedia *segmentMedia in media.segments) {
         RTSMediaPlayerSegment *segment = [[RTSMediaPlayerSegment alloc] initWithStartTime:CMTimeMakeWithSeconds(segmentMedia.markIn, 1.)
                                                                                   endTime:CMTimeMakeWithSeconds(segmentMedia.markOut, 1.)];
-        segment.title = segmentMedia.title;
         [segments addObject:segment];
     }
     

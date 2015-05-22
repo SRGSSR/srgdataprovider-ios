@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5B264E0F9EE6DEA658F7A7FC /* libPods-SRGIntegrationLayerDataProvider Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 083D06FB106767F44620E2A4 /* libPods-SRGIntegrationLayerDataProvider Demo.a */; };
+		E67D9B331B0F887B00FF2334 /* SegmentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67D9B321B0F887B00FF2334 /* SegmentCollectionViewCell.xib */; };
 		E69E91691B0DAEC60033BD05 /* MediaPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69E91681B0DAEC60033BD05 /* MediaPlayerViewController.m */; };
 		E6A025221B0C5509006DE0D0 /* SRGIntegrationLayerDataProvider_DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A025211B0C5509006DE0D0 /* SRGIntegrationLayerDataProvider_DemoTests.m */; };
 		E6A0253A1B0C55FF006DE0D0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6A0252C1B0C55FF006DE0D0 /* Images.xcassets */; };
@@ -16,7 +17,7 @@
 		E6A025401B0C55FF006DE0D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A025391B0C55FF006DE0D0 /* main.m */; };
 		E6A025451B0C56A0006DE0D0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6A025411B0C56A0006DE0D0 /* LaunchScreen.xib */; };
 		E6A025461B0C56A0006DE0D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6A025431B0C56A0006DE0D0 /* Main.storyboard */; };
-		E6E548101B0DB78800CA45A3 /* SegmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E5480F1B0DB78800CA45A3 /* SegmentTableViewCell.m */; };
+		E6E548101B0DB78800CA45A3 /* SegmentCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E5480F1B0DB78800CA45A3 /* SegmentCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 		083D06FB106767F44620E2A4 /* libPods-SRGIntegrationLayerDataProvider Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProvider Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A641F8D22E01F4D8006CEFB /* Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider Demo/Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		A633BC1A31AF1F344286918F /* Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider Demo/Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig"; sourceTree = "<group>"; };
+		E67D9B321B0F887B00FF2334 /* SegmentCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentCollectionViewCell.xib; sourceTree = "<group>"; };
 		E69E91671B0DAEC60033BD05 /* MediaPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlayerViewController.h; sourceTree = "<group>"; };
 		E69E91681B0DAEC60033BD05 /* MediaPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaPlayerViewController.m; sourceTree = "<group>"; };
 		E6A025021B0C5509006DE0D0 /* SRGIntegrationLayerDataProvider Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SRGIntegrationLayerDataProvider Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,8 +50,8 @@
 		E6A025391B0C55FF006DE0D0 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E6A025421B0C56A0006DE0D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E6A025441B0C56A0006DE0D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E6E5480E1B0DB78800CA45A3 /* SegmentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentTableViewCell.h; sourceTree = "<group>"; };
-		E6E5480F1B0DB78800CA45A3 /* SegmentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentTableViewCell.m; sourceTree = "<group>"; };
+		E6E5480E1B0DB78800CA45A3 /* SegmentCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentCollectionViewCell.h; sourceTree = "<group>"; };
+		E6E5480F1B0DB78800CA45A3 /* SegmentCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,8 +156,9 @@
 				E6A025311B0C55FF006DE0D0 /* VideoListViewController.m */,
 				E69E91671B0DAEC60033BD05 /* MediaPlayerViewController.h */,
 				E69E91681B0DAEC60033BD05 /* MediaPlayerViewController.m */,
-				E6E5480E1B0DB78800CA45A3 /* SegmentTableViewCell.h */,
-				E6E5480F1B0DB78800CA45A3 /* SegmentTableViewCell.m */,
+				E6E5480E1B0DB78800CA45A3 /* SegmentCollectionViewCell.h */,
+				E6E5480F1B0DB78800CA45A3 /* SegmentCollectionViewCell.m */,
+				E67D9B321B0F887B00FF2334 /* SegmentCollectionViewCell.xib */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E67D9B331B0F887B00FF2334 /* SegmentCollectionViewCell.xib in Resources */,
 				E6A025461B0C56A0006DE0D0 /* Main.storyboard in Resources */,
 				E6A025451B0C56A0006DE0D0 /* LaunchScreen.xib in Resources */,
 				E6A0253A1B0C55FF006DE0D0 /* Images.xcassets in Resources */,
@@ -308,7 +312,7 @@
 				E6A025401B0C55FF006DE0D0 /* main.m in Sources */,
 				E69E91691B0DAEC60033BD05 /* MediaPlayerViewController.m in Sources */,
 				E6A0253B1B0C55FF006DE0D0 /* AppDelegate.m in Sources */,
-				E6E548101B0DB78800CA45A3 /* SegmentTableViewCell.m in Sources */,
+				E6E548101B0DB78800CA45A3 /* SegmentCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
