@@ -22,6 +22,8 @@
 
 @property (nonatomic, weak) IBOutlet RTSTimelineView *timelineView;
 
+@property (nonatomic, weak) id playbackTimeObserver;
+
 @end
 
 @implementation MediaPlayerViewController
@@ -36,6 +38,12 @@
     return self;
 }
 
+- (void)dealloc
+{
+    // Unregister playback observer
+    self.mediaPlayerController = nil;
+}
+
 #pragma mark - Getters and setters
 
 - (void)setVideoIdentifier:(NSString *)videoIdentifier
@@ -43,6 +51,21 @@
 	_videoIdentifier = videoIdentifier;
 	
 	[self.mediaPlayerController playIdentifier:videoIdentifier];
+}
+
+- (void)setMediaPlayerController:(RTSMediaPlayerController *)mediaPlayerController
+{
+    // TODO: Should later register with the controller managing segments
+    
+    if (_mediaPlayerController) {
+        [_mediaPlayerController removePlaybackTimeObserver:self.playbackTimeObserver];
+    }
+    
+    _mediaPlayerController = mediaPlayerController;
+    
+    self.playbackTimeObserver = [mediaPlayerController addPlaybackTimeObserverForInterval:CMTimeMake(1., 5.) queue:NULL usingBlock:^(CMTime time) {
+        // TODO: Update progress bars
+    }];
 }
 
 #pragma mark - View lifecycle
