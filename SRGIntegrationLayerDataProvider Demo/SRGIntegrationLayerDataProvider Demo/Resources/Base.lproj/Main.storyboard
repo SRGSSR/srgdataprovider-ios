@@ -184,14 +184,17 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jhh-Z6-0Qk" customClass="RTSTimelineView">
-                                <rect key="frame" x="0.0" y="479" width="600" height="77"/>
+                                <rect key="frame" x="0.0" y="436" width="600" height="120"/>
                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="77" id="9I1-zd-aTo"/>
+                                    <constraint firstAttribute="height" constant="120" id="9I1-zd-aTo"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="itemWidth">
-                                        <real key="value" value="135"/>
+                                        <real key="value" value="140"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="itemSpacing">
+                                        <real key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>

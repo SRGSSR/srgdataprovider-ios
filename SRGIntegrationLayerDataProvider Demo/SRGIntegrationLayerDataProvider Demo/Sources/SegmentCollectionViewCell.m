@@ -8,9 +8,21 @@
 
 #import "SegmentCollectionViewCell.h"
 
+static NSString *sexagesimalDurationStringFromValue(NSInteger duration)
+{
+    NSInteger hours = duration / 3600;
+    NSInteger minutes = (duration % 3600) / 60;
+    NSInteger seconds = (duration % 3600) % 60;
+    
+    NSString *minutesAndSeconds = [NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
+    
+    return (hours > 0) ? [[NSString stringWithFormat:@"%01ld:", (long)hours] stringByAppendingString:minutesAndSeconds] : minutesAndSeconds;
+}
+
 @interface SegmentCollectionViewCell ()
 
-@property (nonatomic, weak) IBOutlet UILabel *textLabel;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *durationLabel;
 
 @end
 
@@ -20,7 +32,8 @@
 {
     _segment = segment;
     
-    self.textLabel.text = segment.title;
+    self.titleLabel.text = segment.title;
+    self.durationLabel.text = sexagesimalDurationStringFromValue(segment.duration);
 }
 
 @end
