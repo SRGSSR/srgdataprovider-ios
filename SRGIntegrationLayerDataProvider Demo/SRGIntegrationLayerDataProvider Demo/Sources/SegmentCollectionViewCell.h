@@ -6,8 +6,11 @@
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
+#import "SRGILVideo.h"
 #import <UIKit/UIKit.h>
 
 @interface SegmentCollectionViewCell : UICollectionViewCell
+
+@property (nonatomic, strong) SRGILVideo *segment;
 
 @end

@@ -27,26 +27,26 @@ PODS:
     - CocoaLumberjack (~> 2.0.0)
     - libextobjc/EXTScope (~> 0.4.1)
     - TransitionKit (~> 2.2.0)
-  - RTSOfflineMediaStorage (0.1.1):
+  - RTSOfflineMediaStorage (0.1.2):
     - AFNetworking (~> 1.3.4)
     - CocoaLumberjack (~> 2.0.0)
     - libextobjc/EXTScope (= 0.4.1)
     - Realm (~> 0.91.3)
     - SGVReachability (~> 1.0.0)
   - SGVReachability (1.0.0)
-  - SRGIntegrationLayerDataProvider (0.1.2):
-    - SRGIntegrationLayerDataProvider/Core (= 0.1.2)
-  - SRGIntegrationLayerDataProvider/Core (0.1.2):
+  - SRGIntegrationLayerDataProvider (0.1.3):
+    - SRGIntegrationLayerDataProvider/Core (= 0.1.3)
+  - SRGIntegrationLayerDataProvider/Core (0.1.3):
     - AFNetworking (~> 1.3.4)
     - CocoaLumberjack (~> 2.0.0)
     - libextobjc/EXTScope (= 0.4.1)
     - SGVReachability (~> 1.0.0)
-  - SRGIntegrationLayerDataProvider/MediaPlayer (0.1.2):
+  - SRGIntegrationLayerDataProvider/MediaPlayer (0.1.3):
     - RTSAnalytics (~> 0.1.0)
     - RTSAnalytics/MediaPlayer (~> 0.1.0)
     - RTSMediaPlayer (~> 0.0.3)
     - SRGIntegrationLayerDataProvider/Core
-  - SRGIntegrationLayerDataProvider/OfflineStorage (0.1.2):
+  - SRGIntegrationLayerDataProvider/OfflineStorage (0.1.3):
     - RTSOfflineMediaStorage (~> 0.1.0)
     - SRGIntegrationLayerDataProvider/Core
   - TransitionKit (2.2.0)
@@ -57,7 +57,7 @@ DEPENDENCIES:
   - libextobjc/EXTScope (= 0.4.1)
   - RTSAnalytics (~> 0.1.0)
   - RTSAnalytics/MediaPlayer (~> 0.1.0)
-  - RTSMediaPlayer (~> 0.0.3)
+  - RTSMediaPlayer (from `./../rtsmediaplayer-ios`)
   - RTSOfflineMediaStorage (~> 0.1.1)
   - SGVReachability (~> 1.0.0)
   - SRGIntegrationLayerDataProvider (from `.`)
@@ -65,6 +65,8 @@ DEPENDENCIES:
   - SRGIntegrationLayerDataProvider/OfflineStorage (from `.`)
 
 EXTERNAL SOURCES:
+  RTSMediaPlayer:
+    :path: "./../rtsmediaplayer-ios"
   SRGIntegrationLayerDataProvider:
     :path: "."
 
@@ -75,10 +77,10 @@ SPEC CHECKSUMS:
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Realm: 670059efdb212ab939c1745a60aff27820c0a9c4
   RTSAnalytics: 87b333c02c93f492e8c5c16a277c22262c863a22
-  RTSMediaPlayer: 3581656304c93731de4a5023b33b63117768ff28
-  RTSOfflineMediaStorage: bf8ada4eb64969a4d5509c65f5f34331abbf69ff
+  RTSMediaPlayer: 2528c631df117c99025f57576350e19e4db49131
+  RTSOfflineMediaStorage: 71c344cb7c8b3faeed28a03b0de2921a1c7d8f45
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
-  SRGIntegrationLayerDataProvider: 849515383077755c0a0ad327e61def7a84afa27f
+  SRGIntegrationLayerDataProvider: ac1bdfe96d589179ae29e92ecc9b8624765a5f3f
   TransitionKit: 5c9001a77acc409d71f26a4eba0159cf8619c418
 
 COCOAPODS: 0.37.1

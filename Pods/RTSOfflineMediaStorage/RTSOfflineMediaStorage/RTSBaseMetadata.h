@@ -15,11 +15,10 @@
 @property NSString *identifier;
 @property NSString *title;
 @property NSString *imageURLString;
+@property NSString *audioChannelID;
 
 @property NSDate *expirationDate;
 @property NSDate *favoriteChangeDate;
-
-@property NSString *audioChannelID;
 
 @property BOOL isFavorite;
 

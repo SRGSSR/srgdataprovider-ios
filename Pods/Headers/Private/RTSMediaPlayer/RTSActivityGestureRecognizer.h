@@ -1,1 +1,1 @@
-../../../RTSMediaPlayer/RTSMediaPlayer/RTSActivityGestureRecognizer.h
+../../../../../rtsmediaplayer-ios/RTSMediaPlayer/RTSActivityGestureRecognizer.h

@@ -7,4 +7,5 @@
 //
 
 #import "SRGILDataProvider+MediaPlayer.h"
+#import "SRGILVideo+MediaPlayer.h"
 

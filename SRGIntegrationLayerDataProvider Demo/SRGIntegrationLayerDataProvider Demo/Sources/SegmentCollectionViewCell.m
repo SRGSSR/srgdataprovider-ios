@@ -16,4 +16,11 @@
 
 @implementation SegmentCollectionViewCell
 
+- (void)setSegment:(SRGILVideo *)segment
+{
+    _segment = segment;
+    
+    self.textLabel.text = segment.title;
+}
+
 @end

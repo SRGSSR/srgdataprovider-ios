@@ -10,7 +10,7 @@ xcodeproj 'SRGIntegrationLayerDataProvider'
 
 pod 'RTSAnalytics', '~> 0.1.0'
 pod 'RTSAnalytics/MediaPlayer', '~> 0.1.0'
-pod 'RTSMediaPlayer', '~> 0.0.3'
+pod 'RTSMediaPlayer', :path => './../rtsmediaplayer-ios'
 pod 'RTSOfflineMediaStorage', '~> 0.1.1'
 
 pod 'AFNetworking', '~> 1.3.4'

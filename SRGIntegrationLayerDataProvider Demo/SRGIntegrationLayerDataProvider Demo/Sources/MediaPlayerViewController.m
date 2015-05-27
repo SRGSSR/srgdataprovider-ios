@@ -81,9 +81,11 @@
 
 #pragma mark - RTSTimelineViewDelegate protocol
 
-- (UICollectionViewCell *)timelineView:(RTSTimelineView *)timelineView cellForSegment:(RTSMediaPlayerSegment *)segment
+- (UICollectionViewCell *)timelineView:(RTSTimelineView *)timelineView cellForSegment:(id<RTSMediaPlayerSegment>)segment
 {
-    return [timelineView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([SegmentCollectionViewCell class]) forSegment:segment];
+    SegmentCollectionViewCell *segmentCell = (SegmentCollectionViewCell *)[timelineView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([SegmentCollectionViewCell class]) forSegment:segment];
+    segmentCell.segment = segment;
+    return segmentCell;
 }
 
 #pragma mark - Actions

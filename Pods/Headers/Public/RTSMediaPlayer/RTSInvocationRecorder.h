@@ -1,1 +1,1 @@
-../../../RTSMediaPlayer/RTSMediaPlayer/RTSInvocationRecorder.h
+../../../../../rtsmediaplayer-ios/RTSMediaPlayer/RTSInvocationRecorder.h

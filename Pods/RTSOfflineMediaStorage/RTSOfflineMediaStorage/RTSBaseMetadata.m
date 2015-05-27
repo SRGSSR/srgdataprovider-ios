@@ -23,6 +23,7 @@
     return @{@"identifier": @"",
              @"title": @"",
              @"imageURLString": @"",
+             @"audioChannelID": @"",
              @"expirationDate": [NSDate dateWithTimeIntervalSince1970:0],
              @"favoriteChangeDate": [NSDate dateWithTimeIntervalSince1970:0],
              @"isFavorite": @(0)};
