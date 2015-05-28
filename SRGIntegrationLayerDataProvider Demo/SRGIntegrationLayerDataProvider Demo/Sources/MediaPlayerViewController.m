@@ -126,8 +126,11 @@
 
 - (void)timelineView:(RTSTimelineView *)timelineView didSelectSegment:(id<RTSMediaPlayerSegment>)segment
 {
-    [self.mediaPlayerController.player seekToTime:segment.segmentTimeRange.start];
-    [self.mediaPlayerController play];
+    [self.mediaPlayerController.player seekToTime:segment.segmentTimeRange.start completionHandler:^(BOOL finished) {
+        if (finished) {
+            [self.mediaPlayerController play];
+        }
+    }];
     
     [self.timelineView scrollToSegment:segment animated:YES];
 }
