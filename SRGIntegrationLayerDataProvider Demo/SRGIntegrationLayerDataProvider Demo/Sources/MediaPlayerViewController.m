@@ -120,6 +120,7 @@
 {
     SegmentCollectionViewCell *segmentCell = (SegmentCollectionViewCell *)[timelineView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([SegmentCollectionViewCell class]) forSegment:segment];
     segmentCell.segment = segment;
+    [segmentCell updateProgressWithTime:self.timeSlider.time];
     return segmentCell;
 }
 
