@@ -66,9 +66,9 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   RTSMediaPlayer:
-    :path: "./../rtsmediaplayer-ios"
+    :path: ./../rtsmediaplayer-ios
   SRGIntegrationLayerDataProvider:
-    :path: "."
+    :path: .
 
 SPEC CHECKSUMS:
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
@@ -83,4 +83,4 @@ SPEC CHECKSUMS:
   SRGIntegrationLayerDataProvider: ac1bdfe96d589179ae29e92ecc9b8624765a5f3f
   TransitionKit: 5c9001a77acc409d71f26a4eba0159cf8619c418
 
-COCOAPODS: 0.37.1
+COCOAPODS: 0.37.2

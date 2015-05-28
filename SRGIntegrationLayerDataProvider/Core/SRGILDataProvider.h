@@ -127,6 +127,9 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
                         withIdentifier:(NSString *)identifier
                        completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
 
+
+// ********* Network checks **********
+
 /**
  *  As a central network-based request, the request manager also provide some utilities.
  *
