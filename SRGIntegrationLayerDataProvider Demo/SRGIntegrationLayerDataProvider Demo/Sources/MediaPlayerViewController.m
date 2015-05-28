@@ -42,7 +42,7 @@
 
 - (void)dealloc
 {
-    // Cleanup registrations
+    // Remove time observers
     self.mediaPlayerController = nil;
 }
 
@@ -59,16 +59,11 @@
 {
     if (_mediaPlayerController) {
         [_mediaPlayerController removePlaybackTimeObserver:self.playbackTimeObserver];
-        
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:RTSMediaPlayerPlaybackStateDidChangeNotification object:_mediaPlayerController];
     }
     
     _mediaPlayerController = mediaPlayerController;
     
-    
     if (mediaPlayerController) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackStateDidChange:) name:RTSMediaPlayerPlaybackStateDidChangeNotification object:_mediaPlayerController];
-        
         self.playbackTimeObserver = [mediaPlayerController addPlaybackTimeObserverForInterval:CMTimeMake(1., 5.) queue:NULL usingBlock:^(CMTime time) {
             [self updateProgressWithTime:time];
         }];
@@ -97,6 +92,7 @@
     
 	if ([self isMovingToParentViewController] || [self isBeingPresented]) {
 		[self.mediaPlayerController playIdentifier:self.videoIdentifier];
+        [self.timelineView reloadSegmentsForIdentifier:self.videoIdentifier];
 	}
 }
 
@@ -144,21 +140,6 @@
 {
     [self updateProgressWithTime:self.timeSlider.time];
     [self.timelineView scrollToSegmentAtTime:self.timeSlider.time animated:YES];
-}
-
-#pragma mark - Notifications
-
-- (void)playbackStateDidChange:(NSNotification *)notification
-{
-    NSAssert([notification.object isKindOfClass:[RTSMediaPlayerController class]], @"Expect a media player controller");
-    
-    // TODO: Currently we here use the knowledge that segment information is only available after the player is ready (since
-    //       segments are retrieved when the player loads the media information). This knowledge should be the sole responsibility
-    //       of the data source, though
-    RTSMediaPlayerController *mediaPlayerController = (RTSMediaPlayerController *)notification.object;
-    if (mediaPlayerController.playbackState == RTSMediaPlaybackStateReady) {
-        [self.timelineView reloadSegmentsForIdentifier:self.videoIdentifier];
-    }
 }
 
 @end

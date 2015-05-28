@@ -9,6 +9,7 @@
 #import <libextobjc/EXTScope.h>
 
 #import "SRGILDataProvider.h"
+#import "SRGILOngoingRequest+Private.h"
 #import "SRGILRequestsManager.h"
 #import "SRGILOrganisedModelDataItem.h"
 
@@ -34,7 +35,6 @@
                                      @(NSURLErrorDNSLookupFailed),
                                      @(NSURLErrorNotConnectedToInternet),
                                      @(NSURLErrorCannotLoadFromNetwork),
-                                     
                                      @(NSURLErrorInternationalRoamingOff),
                                      @(NSURLErrorCallIsActive),
                                      @(NSURLErrorDataNotAllowed),
@@ -185,43 +185,49 @@ static SGVReachability *reachability;
     NSAssert(JSONKey, @"Missing JSON key");
     NSAssert(completionBlock, @"Missing completion block");
 
-    if ([self.ongoingAssetRequests objectForKey:identifier]) {
-        return NO;
+    __block SRGILOngoingRequest *ongoingRequest = self.ongoingAssetRequests[identifier];
+    if (!ongoingRequest) {
+        __weak typeof(self) welf = self;
+        void (^completion)(id JSON, NSError *error) = ^(id JSON, NSError *error) {
+            void (^callCompletionBlocks)(SRGILMedia *, NSError *) = ^(SRGILMedia *media, NSError *error) {
+                for (SRGILRequestMediaCompletionBlock completionBlock in ongoingRequest.completionBlocks) {
+                    completionBlock(media, error);
+                }
+            };
+            [welf.ongoingAssetRequests removeObjectForKey:identifier];
+            
+            if (error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSError *newError = nil;
+                    if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == -1009) {
+                        newError = error;
+                    }
+                    else {
+                        newError = SRGILCreateUserFacingError(error.localizedDescription, error, SRGILErrorCodeInvalidData);
+                    }
+                    return callCompletionBlocks(nil, newError);
+                });
+            }
+            else {
+                id media = [[modelClass alloc] initWithDictionary:[JSON valueForKey:JSONKey]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (media) {
+                        return callCompletionBlocks(media, nil);
+                    }
+                    else {
+                        NSError *newError = SRGILCreateUserFacingError(errorMessage, nil, SRGILErrorCodeInvalidData);
+                        return callCompletionBlocks(nil, newError);
+                    }
+                });
+            }
+        };
+        
+        NSOperation *operation = [self requestOperationWithPath:path completion:completion];
+        ongoingRequest = [[SRGILOngoingRequest alloc] initWithOperation:operation];
+        self.ongoingAssetRequests[identifier] = ongoingRequest;
     }
-
-    __weak typeof(self) welf = self;
-    void (^completion)(id JSON, NSError *error) = ^(id JSON, NSError *error) {
-        [welf.ongoingAssetRequests removeObjectForKey:identifier];
-
-        if (error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSError *newError = nil;
-                if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == -1009) {
-                    newError = error;
-                }
-                else {
-                    newError = SRGILCreateUserFacingError(error.localizedDescription, error, SRGILErrorCodeInvalidData);
-                }
-                return completionBlock(nil, newError);
-            });
-        }
-        else {
-            id media = [[modelClass alloc] initWithDictionary:[JSON valueForKey:JSONKey]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (media) {
-                    return completionBlock(media, nil);
-                }
-                else {
-                    NSError *newError = SRGILCreateUserFacingError(errorMessage, nil, SRGILErrorCodeInvalidData);
-                    return completionBlock(nil, newError);
-                }
-            });
-        }
-    };
-
-    AFHTTPRequestOperation *operation = [self requestOperationWithPath:path completion:completion];
-    self.ongoingAssetRequests[identifier] = operation;
-
+    [ongoingRequest addCompletionBlock:completionBlock];
+    
     return YES;
 }
 

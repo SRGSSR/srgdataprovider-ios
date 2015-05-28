@@ -101,7 +101,14 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     // SRGILMedia has been been made conformant to the RTSMediaPlayerSegment protocol (see SRGILVideo+MediaPlayer.h), segments
     // can therefore be displayed as is by the player
     SRGILMedia *media = self.identifiedMedias[identifier];
-    completionHandler(media.segments, nil);
+    if (media) {
+        completionHandler(media.segments, nil);
+    }
+    else {
+        [self.requestManager requestMediaOfType:SRGILMediaTypeVideo withIdentifier:identifier completionBlock:^(SRGILMedia *media, NSError *error) {
+            completionHandler(media.segments, error);
+        }];
+    }
 }
 
 #pragma mark - Subclassing hooks

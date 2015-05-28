@@ -69,6 +69,7 @@
 		9F4421001B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4420FF1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m */; };
 		AC01AA295800C7CDE4E23876 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F6EBD656367387D07A08A6 /* libPods.a */; };
 		C2E8B26471460B332CD298C5 /* libPods-SRGIntegrationLayerDataProviderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */; };
+		E604EAFC1B174254004A627D /* SRGILOngoingRequest+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */; };
 		E68E95E31B15A21E00EBEA81 /* SRGILVideo+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E68E95E21B15A21E00EBEA81 /* SRGILVideo+MediaPlayer.m */; };
 		F5500DD8538AE86CB5E47111 /* libPods-SRGIntegrationLayerDataProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D020938ACBE926372DE924 /* libPods-SRGIntegrationLayerDataProvider.a */; };
 /* End PBXBuildFile section */
@@ -192,6 +193,8 @@
 		A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProviderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B78A0E1C877A3AAFA06CB8E2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CC7117E85185279031EDDD7C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E604EAFA1B174254004A627D /* SRGILOngoingRequest+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGILOngoingRequest+Private.h"; sourceTree = "<group>"; };
+		E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGILOngoingRequest+Private.m"; sourceTree = "<group>"; };
 		E68E95E11B15A21E00EBEA81 /* SRGILVideo+MediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGILVideo+MediaPlayer.h"; sourceTree = "<group>"; };
 		E68E95E21B15A21E00EBEA81 /* SRGILVideo+MediaPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGILVideo+MediaPlayer.m"; sourceTree = "<group>"; };
 		EE4BB35320A76140DD9FDCBC /* Pods-SRGIntegrationLayerDataProvider.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider.release.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider/Pods-SRGIntegrationLayerDataProvider.release.xcconfig"; sourceTree = "<group>"; };
@@ -303,14 +306,16 @@
 			children = (
 				9F13D5311AE9270700E4D897 /* SRGILErrors.h */,
 				9F13D5321AE9270700E4D897 /* SRGILErrors.m */,
+				9F13D5161AE9270700E4D897 /* SRGILList.h */,
+				9F13D5171AE9270700E4D897 /* SRGILList.m */,
+				E604EAFA1B174254004A627D /* SRGILOngoingRequest+Private.h */,
+				E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */,
 				9F13D5331AE9270700E4D897 /* SRGILOrganisedModelDataItem.h */,
 				9F13D5341AE9270700E4D897 /* SRGILOrganisedModelDataItem.m */,
 				9F13D5351AE9270700E4D897 /* SRGILRequestsManager.h */,
 				9F13D5361AE9270700E4D897 /* SRGILRequestsManager.m */,
 				9F13D5371AE9270700E4D897 /* SRGILTokenHandler.h */,
 				9F13D5381AE9270700E4D897 /* SRGILTokenHandler.m */,
-				9F13D5161AE9270700E4D897 /* SRGILList.h */,
-				9F13D5171AE9270700E4D897 /* SRGILList.m */,
 			);
 			name = Network;
 			path = SRGIntegrationLayerDataProvider/Network;
@@ -627,6 +632,7 @@
 				9F13D5471AE9270700E4D897 /* SRGILModelConstants.m in Sources */,
 				9F4421001B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m in Sources */,
 				9F13D5521AE9270700E4D897 /* SRGILTokenHandler.m in Sources */,
+				E604EAFC1B174254004A627D /* SRGILOngoingRequest+Private.m in Sources */,
 				9F13D54D1AE9270700E4D897 /* SRGILSocialCounts.m in Sources */,
 				9F13D54E1AE9270700E4D897 /* SRGILVideo.m in Sources */,
 				9F13D53A1AE9270700E4D897 /* SRGILStreamSenseAnalyticsInfos.m in Sources */,
