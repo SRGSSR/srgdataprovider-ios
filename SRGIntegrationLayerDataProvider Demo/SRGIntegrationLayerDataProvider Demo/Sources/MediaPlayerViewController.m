@@ -127,6 +127,11 @@
     return segmentCell;
 }
 
+- (void)timelineView:(RTSTimelineView *)timelineView didSelectSegment:(id<RTSMediaPlayerSegment>)segment
+{
+    [self.mediaPlayerController.player seekToTime:segment.segmentStartTime];
+}
+
 #pragma mark - Actions
 
 - (IBAction)dismiss:(id)sender
