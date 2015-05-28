@@ -124,7 +124,7 @@ static SGVReachability *reachability;
 
 - (BOOL)requestMediaOfType:(enum SRGILMediaType)mediaType
             withIdentifier:(NSString *)identifier
-           completionBlock:(SRGRequestMediaCompletionBlock)completionBlock
+           completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
 {
     NSString *path = nil;
     Class objectClass = NULL;
@@ -160,7 +160,7 @@ static SGVReachability *reachability;
 
 - (BOOL)requestLiveMetaInfosForMediaType:(enum SRGILMediaType)mediaType
                              withAssetId:(NSString *)assetId
-                         completionBlock:(SRGRequestMediaCompletionBlock)completionBlock
+                         completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
 {
     NSAssert(mediaType == SRGILMediaTypeAudio, @"Unknown for media type other than audio.");
     NSString *path = [NSString stringWithFormat:@"channel/%@/nowAndNext.json", assetId];
@@ -177,7 +177,7 @@ static SGVReachability *reachability;
                    assetId:(NSString *)identifier
                    JSONKey:(NSString *)JSONKey
               errorMessage:(NSString *)errorMessage
-           completionBlock:(SRGRequestMediaCompletionBlock)completionBlock
+           completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
 {
     NSAssert(modelClass, @"Missing model class");
     NSAssert(path, @"Missing model request URL path");

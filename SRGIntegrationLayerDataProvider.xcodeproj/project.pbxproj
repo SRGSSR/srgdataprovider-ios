@@ -91,10 +91,10 @@
 		8DDF1886B2EADD80301F4912 /* Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProviderTests/Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig"; sourceTree = "<group>"; };
 		97FA86958145D9C09C32F50E /* Pods-SRGIntegrationLayerDataProvider.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider/Pods-SRGIntegrationLayerDataProvider.debug.xcconfig"; sourceTree = "<group>"; };
 		9F13D4FC1AE9238100E4D897 /* SRGIntegrationLayerDataProvider.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SRGIntegrationLayerDataProvider.podspec; sourceTree = "<group>"; };
-		9F13D4FF1AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILComScoreAnalyticsInfos.h; sourceTree = "<group>"; };
-		9F13D5001AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILComScoreAnalyticsInfos.m; sourceTree = "<group>"; };
-		9F13D5011AE9270600E4D897 /* SRGILStreamSenseAnalyticsInfos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILStreamSenseAnalyticsInfos.h; sourceTree = "<group>"; };
-		9F13D5021AE9270600E4D897 /* SRGILStreamSenseAnalyticsInfos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILStreamSenseAnalyticsInfos.m; sourceTree = "<group>"; };
+		9F13D4FF1AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGILComScoreAnalyticsInfos.h; path = ../Analytics/SRGILComScoreAnalyticsInfos.h; sourceTree = "<group>"; };
+		9F13D5001AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRGILComScoreAnalyticsInfos.m; path = ../Analytics/SRGILComScoreAnalyticsInfos.m; sourceTree = "<group>"; };
+		9F13D5011AE9270600E4D897 /* SRGILStreamSenseAnalyticsInfos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGILStreamSenseAnalyticsInfos.h; path = ../Analytics/SRGILStreamSenseAnalyticsInfos.h; sourceTree = "<group>"; };
+		9F13D5021AE9270600E4D897 /* SRGILStreamSenseAnalyticsInfos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRGILStreamSenseAnalyticsInfos.m; path = ../Analytics/SRGILStreamSenseAnalyticsInfos.m; sourceTree = "<group>"; };
 		9F13D5041AE9270600E4D897 /* SRGILDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILDataProvider.h; sourceTree = "<group>"; };
 		9F13D5051AE9270600E4D897 /* SRGILDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProvider.m; sourceTree = "<group>"; };
 		9F13D5071AE9270600E4D897 /* SRGILAnalyticsExtendedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILAnalyticsExtendedData.h; sourceTree = "<group>"; };
@@ -155,7 +155,7 @@
 		9F1519351AC5A7F200AE051D /* libSRGIntegrationLayerDataProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSRGIntegrationLayerDataProvider.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F1519401AC5A7F200AE051D /* SRGIntegrationLayerDataProviderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SRGIntegrationLayerDataProviderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F1519461AC5A7F200AE051D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9F1519581ACAA85A00AE051D /* SRGIntegrationLayerDataProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SRGIntegrationLayerDataProvider.h; path = ../SRGIntegrationLayerDataProvider.h; sourceTree = "<group>"; };
+		9F1519581ACAA85A00AE051D /* SRGIntegrationLayerDataProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SRGIntegrationLayerDataProvider.h; path = SRGIntegrationLayerDataProvider/SRGIntegrationLayerDataProvider.h; sourceTree = "<group>"; };
 		9F1A5B041ACD68E700C0E528 /* assetmetadata_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = assetmetadata_01.json; sourceTree = "<group>"; };
 		9F1A5B051ACD68E700C0E528 /* assetset_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = assetset_01.json; sourceTree = "<group>"; };
 		9F1A5B061ACD68E700C0E528 /* image_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = image_01.json; sourceTree = "<group>"; };
@@ -236,28 +236,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		9F13D4FE1AE9270600E4D897 /* Analytics */ = {
-			isa = PBXGroup;
-			children = (
-				9F13D4FF1AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.h */,
-				9F13D5001AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.m */,
-				9F13D5011AE9270600E4D897 /* SRGILStreamSenseAnalyticsInfos.h */,
-				9F13D5021AE9270600E4D897 /* SRGILStreamSenseAnalyticsInfos.m */,
-			);
-			name = Analytics;
-			path = SRGIntegrationLayerDataProvider/Analytics;
-			sourceTree = "<group>";
-		};
 		9F13D5031AE9270600E4D897 /* SRGIntegrationLayerDataProvider */ = {
 			isa = PBXGroup;
 			children = (
-				9F1519581ACAA85A00AE051D /* SRGIntegrationLayerDataProvider.h */,
 				9F13D5041AE9270600E4D897 /* SRGILDataProvider.h */,
 				9F13D5591AE92B1800E4D897 /* SRGILDataProvider+Private.h */,
 				9F13D5051AE9270600E4D897 /* SRGILDataProvider.m */,
 				9F4421011B0A116D00AD0613 /* SRGILDataProviderMediaPlayerDataSource.h */,
 				9F13D5631AE92C4900E4D897 /* SRGILDataProviderOfflineStorage.h */,
-				9F4420FD1B0A107900AD0613 /* MediaPlayer */,
+				9F4420FD1B0A107900AD0613 /* MediaPlayer & Analytics */,
 				9F13D55E1AE92C4900E4D897 /* Offline */,
 			);
 			name = SRGIntegrationLayerDataProvider;
@@ -345,10 +332,10 @@
 			isa = PBXGroup;
 			children = (
 				9F13D4FC1AE9238100E4D897 /* SRGIntegrationLayerDataProvider.podspec */,
+				9F1519581ACAA85A00AE051D /* SRGIntegrationLayerDataProvider.h */,
 				9F13D5031AE9270600E4D897 /* SRGIntegrationLayerDataProvider */,
 				9F13D5061AE9270600E4D897 /* Model */,
 				9F13D5301AE9270700E4D897 /* Network */,
-				9F13D4FE1AE9270600E4D897 /* Analytics */,
 				9F1519441AC5A7F200AE051D /* Unit Tests */,
 				9F1519361AC5A7F200AE051D /* Products */,
 				77070573698EDF5E66AA0B19 /* Pods */,
@@ -418,15 +405,19 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		9F4420FD1B0A107900AD0613 /* MediaPlayer */ = {
+		9F4420FD1B0A107900AD0613 /* MediaPlayer & Analytics */ = {
 			isa = PBXGroup;
 			children = (
 				9F4420FE1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.h */,
 				9F4420FF1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m */,
 				E68E95E11B15A21E00EBEA81 /* SRGILVideo+MediaPlayer.h */,
 				E68E95E21B15A21E00EBEA81 /* SRGILVideo+MediaPlayer.m */,
+				9F13D4FF1AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.h */,
+				9F13D5001AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.m */,
+				9F13D5011AE9270600E4D897 /* SRGILStreamSenseAnalyticsInfos.h */,
+				9F13D5021AE9270600E4D897 /* SRGILStreamSenseAnalyticsInfos.m */,
 			);
-			name = MediaPlayer;
+			name = "MediaPlayer & Analytics";
 			path = SRGIntegrationLayerDataProvider/MediaPlayer;
 			sourceTree = SOURCE_ROOT;
 		};

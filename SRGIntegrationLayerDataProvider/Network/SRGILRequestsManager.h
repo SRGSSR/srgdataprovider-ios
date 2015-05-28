@@ -9,7 +9,6 @@
 @class SRGILMedia;
 @class SRGILList;
 
-typedef void (^SRGRequestMediaCompletionBlock)(SRGILMedia *media, NSError *error);
 typedef void (^SRGILRequestArrayCompletionBlock)(NSDictionary *rawDictionary, NSError *error);
 
 @interface SRGILRequestsManager : NSObject
@@ -21,15 +20,15 @@ typedef void (^SRGILRequestArrayCompletionBlock)(NSDictionary *rawDictionary, NS
 
 - (BOOL)requestMediaOfType:(enum SRGILMediaType)mediaType
             withIdentifier:(NSString *)assetIdentifier
-           completionBlock:(SRGRequestMediaCompletionBlock)completionBlock;
+           completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
+
+- (BOOL)requestLiveMetaInfosForMediaType:(enum SRGILMediaType)mediaType
+                             withAssetId:(NSString *)assetId
+                         completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
 
 - (BOOL)requestItemsWithURLPath:(NSString *)path
                      onProgress:(SRGILFetchListDownloadProgressBlock)downloadBlock
                    onCompletion:(SRGILRequestArrayCompletionBlock)completionBlock;
-
-- (BOOL)requestLiveMetaInfosForMediaType:(enum SRGILMediaType)mediaType
-                             withAssetId:(NSString *)assetId
-                         completionBlock:(SRGRequestMediaCompletionBlock)completionBlock;
 
 - (void)cancelAllRequests;
 

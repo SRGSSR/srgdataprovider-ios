@@ -32,6 +32,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
     NSMutableDictionary *_taggedItemLists;
     NSMutableDictionary *_typedFetchPaths;
     NSMutableSet *_ongoingFetchIndices;
+    NSString *_UUID;
 }
 @end
 
@@ -41,6 +42,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
 {
     self = [super init];
     if (self) {
+        _UUID = [[NSUUID UUID] UUIDString];
         _identifiedMedias = [[NSMutableDictionary alloc] init];
         _identifiedShows = [[NSMutableDictionary alloc] init];
         _taggedItemLists = [[NSMutableDictionary alloc] init];
@@ -70,27 +72,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
 
 #pragma mark - Item Lists
 
-- (BOOL)isFetchPathValidForIndex:(enum SRGILFetchListIndex)index
-{
-    return (_typedFetchPaths[@(index)] != SRGConfigNoValidRequestURLPath);
-}
-
-- (void)resetFetchPathForIndex:(enum SRGILFetchListIndex)index
-{
-    [_typedFetchPaths removeObjectForKey:@(index)];
-}
-
-- (void)fetchFlatListOfIndex:(enum SRGILFetchListIndex)index
-                onCompletion:(SRGILFetchListCompletionBlock)completionBlock
-{
-    [self fetchListOfIndex:index
-          withPathArgument:nil
-                 organised:SRGILModelDataOrganisationTypeFlat
-                onProgress:nil
-              onCompletion:completionBlock];
-}
-
-- (void)fetchListOfIndex:(enum SRGILFetchListIndex)index
+- (BOOL)fetchListOfIndex:(enum SRGILFetchListIndex)index
         withPathArgument:(id)arg
                organised:(SRGILModelDataOrganisationType)orgType
               onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
@@ -176,7 +158,7 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
             [[NSOperationQueue currentQueue] addOperationWithBlock:^{
                 [self extractLocalItemsOfIndex:index onCompletion:completionBlock];
             }];
-            return;
+            return YES;
 #endif
         }
             break;
@@ -238,15 +220,18 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
                                         onCompletion:^(NSDictionary *rawDictionary, NSError *error) {
                                             @strongify(self);
                                             [_ongoingFetchIndices removeObject:@(index)];
+                                            [self recordFetchDateForIndex:index];
                                             [self extractItemsAndClassNameFromRawDictionary:rawDictionary
                                                                                      forTag:tag
                                                                            organisationType:orgType
                                                                         withCompletionBlock:completionBlock];
-                                        }];
+                                        }];        
     }
     else {
-        DDLogWarn(@"Inconsistent fetch request for item type %ld", (long)index);
+        DDLogWarn(@"Invalid fetch request for item type %ld", (long)index);
     }
+    
+    return [self isFetchPathValidForIndex:index];
 }
 
 - (void)extractItemsAndClassNameFromRawDictionary:(NSDictionary *)rawDictionary
@@ -430,21 +415,74 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
     });
 }
 
-#pragma mark - Download Dates
-
-- (NSDate *)downloadDateForKey:(NSString *)key
+- (BOOL)isFetchPathValidForIndex:(enum SRGILFetchListIndex)index
 {
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:key]) {
-        NSInteger seconds = [[NSUserDefaults standardUserDefaults] integerForKey:key];
+    return (_typedFetchPaths[@(index)] && _typedFetchPaths[@(index)] != SRGConfigNoValidRequestURLPath);
+}
+
+- (void)resetFetchPathForIndex:(enum SRGILFetchListIndex)index
+{
+    [_typedFetchPaths removeObjectForKey:@(index)];
+}
+
+#pragma mark - Fetch Dates
+
+- (NSString *)fetchKeyForIndex:(enum SRGILFetchListIndex)index
+{
+    return [_UUID stringByAppendingFormat:@"-%@-FetchListIndex-%ld", self.businessUnit, index];
+}
+
+- (NSDate *)fetchDateForIndex:(enum SRGILFetchListIndex)index
+{
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:[self fetchKeyForIndex:index]]) {
+        NSInteger seconds = [[NSUserDefaults standardUserDefaults] integerForKey:[self fetchKeyForIndex:index]];
         return [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
     }
     return [NSDate dateWithTimeIntervalSinceReferenceDate:0.0];
 }
 
-- (void)refreshDownloadDateForKey:(NSString *)key
+- (void)recordFetchDateForIndex:(enum SRGILFetchListIndex)index
 {
-    [[NSUserDefaults standardUserDefaults] setInteger:[[NSDate date] timeIntervalSinceReferenceDate] forKey:key];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSUserDefaults standardUserDefaults] setInteger:[[NSDate date] timeIntervalSinceReferenceDate]
+                                               forKey:[self fetchKeyForIndex:index]];
+}
+
+
+#pragma mark - Fetch Medias
+
+- (BOOL)fetchMediaOfType:(enum SRGILMediaType)mediaType
+          withIdentifier:(NSString *)identifier
+         completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
+{
+    return [self.requestManager requestMediaOfType:mediaType
+                                    withIdentifier:identifier
+                                   completionBlock:completionBlock];
+}
+
+- (BOOL)fetchLiveMetaInfosForMediaType:(enum SRGILMediaType)mediaType
+                        withIdentifier:(NSString *)identifier
+                       completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
+{
+    return [self.requestManager requestLiveMetaInfosForMediaType:mediaType
+                                                     withAssetId:identifier
+                                                 completionBlock:completionBlock];
+}
+
+#pragma mark - Network
+
++ (BOOL)isUsingWIFI
+{
+    return [SRGILRequestsManager isUsingWIFI];
+}
+
++ (NSString *)WIFISSID
+{
+    return [SRGILRequestsManager WIFISSID];
+}
+
++ (BOOL)isUsingSwisscomWIFI
+{
+    return [SRGILRequestsManager isUsingSwisscomWIFI];
 }
 
 @end

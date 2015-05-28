@@ -29,9 +29,7 @@ static NSString * const comScoreKeyPathPrefix = @"SRGILComScoreAnalyticsInfos.";
 static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsInfos.";
 
 @interface SRGILDataProvider (MediaPlayerPrivate)
-
 @property(nonatomic, strong) NSMutableDictionary *analyticsInfos;
-
 @end
 
 @implementation SRGILDataProvider (MediaPlayer)
