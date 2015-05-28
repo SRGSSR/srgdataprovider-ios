@@ -8,6 +8,8 @@
 
 #import "SegmentCollectionViewCell.h"
 
+#pragma mark - Functions
+
 static NSString *sexagesimalDurationStringFromValue(NSInteger duration)
 {
     NSInteger hours = duration / 3600;
@@ -23,10 +25,13 @@ static NSString *sexagesimalDurationStringFromValue(NSInteger duration)
 
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UILabel *durationLabel;
+@property (nonatomic, weak) IBOutlet UIProgressView *progressView;
 
 @end
 
 @implementation SegmentCollectionViewCell
+
+#pragma mark - Getters and setters
 
 - (void)setSegment:(SRGILVideo *)segment
 {
@@ -34,6 +39,23 @@ static NSString *sexagesimalDurationStringFromValue(NSInteger duration)
     
     self.titleLabel.text = segment.title;
     self.durationLabel.text = sexagesimalDurationStringFromValue(segment.duration);
+}
+
+#pragma mark - Overrides
+
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    
+    self.progressView.progress = 0.f;
+}
+
+#pragma mark - UI
+
+- (void)updateProgressWithTime:(CMTime)time
+{
+    float progress = (CMTimeGetSeconds(time) - self.segment.markIn) / (self.segment.markOut - self.segment.markIn);
+    self.progressView.progress = fminf(1.f, fmaxf(0.f, progress));
 }
 
 @end

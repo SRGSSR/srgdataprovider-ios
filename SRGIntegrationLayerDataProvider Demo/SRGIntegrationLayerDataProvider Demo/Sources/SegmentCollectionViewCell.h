@@ -7,10 +7,13 @@
 //
 
 #import "SRGILVideo.h"
+#import <CoreMedia/CoreMedia.h>
 #import <UIKit/UIKit.h>
 
 @interface SegmentCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, strong) SRGILVideo *segment;
+
+- (void)updateProgressWithTime:(CMTime)time;
 
 @end

@@ -55,8 +55,6 @@
 
 - (void)setMediaPlayerController:(RTSMediaPlayerController *)mediaPlayerController
 {
-    // TODO: Should later register with the controller managing segments
-    
     if (_mediaPlayerController) {
         [_mediaPlayerController removePlaybackTimeObserver:self.playbackTimeObserver];
     }
@@ -64,7 +62,7 @@
     _mediaPlayerController = mediaPlayerController;
     
     self.playbackTimeObserver = [mediaPlayerController addPlaybackTimeObserverForInterval:CMTimeMake(1., 5.) queue:NULL usingBlock:^(CMTime time) {
-        // TODO: Update progress bars
+        [self updateProgressWithTime:time];
     }];
 }
 
@@ -100,6 +98,15 @@
 	if ([self isMovingFromParentViewController] || [self isBeingDismissed]) {
 		[self.mediaPlayerController reset];
 	}
+}
+
+#pragma mark - UI
+
+- (void)updateProgressWithTime:(CMTime)time
+{
+    for (SegmentCollectionViewCell *segmentCell in [self.timelineView visibleCells]) {
+        [segmentCell updateProgressWithTime:time];
+    }
 }
 
 #pragma mark - RTSTimelineViewDelegate protocol
