@@ -24,7 +24,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="140" height="79"/>
                                         <color key="backgroundColor" white="0.27554744530000003" alpha="1" colorSpace="calibratedWhite"/>
                                     </imageView>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uZ1-IA-bsM">
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uZ1-IA-bsM">
                                         <rect key="frame" x="0.0" y="79" width="139" height="2"/>
                                         <color key="progressTintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="trackTintColor" red="0.67921813222631566" green="0.180392161" blue="0.1960784495" alpha="1" colorSpace="deviceRGB"/>

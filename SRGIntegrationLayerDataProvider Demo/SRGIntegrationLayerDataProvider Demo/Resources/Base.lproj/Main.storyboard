@@ -200,7 +200,6 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="DeR-ns-fWf" id="wfh-rh-obj"/>
-                                    <outlet property="mediaPlayerController" destination="ZRv-6k-ngu" id="KJM-HW-EWn"/>
                                 </connections>
                             </view>
                         </subviews>

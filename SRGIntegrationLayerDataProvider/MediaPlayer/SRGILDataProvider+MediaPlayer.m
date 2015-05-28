@@ -98,8 +98,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 
 #pragma mark - RTSMediaPlayerSegmentDataSource
 
-- (void)mediaPlayerSegmentView:(id<RTSMediaPlayerSegmentView>)mediaPlayerSegmentView
-         segmentsForIdentifier:(NSString *)identifier completionHandler:(void (^)(NSArray *, NSError *))completionHandler
+- (void)view:(UIView *)view segmentsForIdentifier:(NSString *)identifier completionHandler:(void (^)(NSArray *, NSError *))completionHandler
 {
     // SRGILMedia has been been made conformant to the RTSMediaPlayerSegment protocol (see SRGILVideo+MediaPlayer.h), segments
     // can therefore be displayed as is by the player
