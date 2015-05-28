@@ -89,6 +89,7 @@
                                                         <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <color key="thumbTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <connections>
+                                                            <action selector="dragTimeline:" destination="DeR-ns-fWf" eventType="valueChanged" id="wch-xw-mx9"/>
                                                             <outlet property="mediaPlayerController" destination="ZRv-6k-ngu" id="JNq-x8-FTR"/>
                                                             <outlet property="timeLeftValueLabel" destination="Fxb-vn-IO0" id="8Jt-rw-yxk"/>
                                                             <outlet property="valueLabel" destination="ZGu-pt-i5E" id="T4N-8U-iJp"/>
@@ -218,6 +219,7 @@
                     </view>
                     <connections>
                         <outlet property="mediaPlayerController" destination="ZRv-6k-ngu" id="kgH-ok-97y"/>
+                        <outlet property="timeSlider" destination="ggg-8a-0uV" id="5Go-3v-eyl"/>
                         <outlet property="timelineView" destination="jhh-Z6-0Qk" id="4Db-rw-5AH"/>
                     </connections>
                 </viewController>

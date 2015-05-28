@@ -21,6 +21,7 @@
 @property (nonatomic) SRGILDataProvider *dataSource;
 
 @property (nonatomic, weak) IBOutlet RTSTimelineView *timelineView;
+@property (nonatomic, weak) IBOutlet RTSTimeSlider *timeSlider;
 
 @property (nonatomic, weak) id playbackTimeObserver;
 
@@ -123,6 +124,11 @@
 - (IBAction)dismiss:(id)sender
 {
 	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)dragTimeline:(id)sender
+{
+    [self updateProgressWithTime:self.timeSlider.time];
 }
 
 @end
