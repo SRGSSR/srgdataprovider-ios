@@ -12,14 +12,9 @@
 
 #pragma mark - RTSMediaPlayerSegment protocol
 
-- (CMTime)segmentStartTime
+- (CMTimeRange)segmentTimeRange
 {
-    return CMTimeMakeWithSeconds(self.markIn, 1.);
-}
-
-- (CMTime)segmentEndTime
-{
-    return CMTimeMakeWithSeconds(self.markOut, 1.);
+    return CMTimeRangeFromTimeToTime(CMTimeMakeWithSeconds(self.markIn, 1.), CMTimeMakeWithSeconds(self.markOut, 1.));
 }
 
 - (UIImage *)segmentIconImage
