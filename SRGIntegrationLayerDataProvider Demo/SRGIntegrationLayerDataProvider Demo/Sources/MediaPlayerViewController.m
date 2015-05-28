@@ -82,9 +82,9 @@
 	[self.mediaPlayerController attachPlayerToView:self.view];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     
 	if ([self isMovingToParentViewController] || [self isBeingPresented]) {
 		[self.mediaPlayerController playIdentifier:self.videoIdentifier];
