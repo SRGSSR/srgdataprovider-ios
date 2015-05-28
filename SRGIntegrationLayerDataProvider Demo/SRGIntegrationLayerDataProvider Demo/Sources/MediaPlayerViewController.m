@@ -65,7 +65,7 @@
     
     if (mediaPlayerController) {
         self.playbackTimeObserver = [mediaPlayerController addPlaybackTimeObserverForInterval:CMTimeMake(1., 5.) queue:NULL usingBlock:^(CMTime time) {
-            [self updateProgressWithTime:time];
+            [self updateAppearanceWithTime:time];
         }];
     }
 }
@@ -107,10 +107,10 @@
 
 #pragma mark - UI
 
-- (void)updateProgressWithTime:(CMTime)time
+- (void)updateAppearanceWithTime:(CMTime)time
 {
     for (SegmentCollectionViewCell *segmentCell in [self.timelineView visibleCells]) {
-        [segmentCell updateProgressWithTime:time];
+        [segmentCell updateAppearanceWithTime:time];
     }
 }
 
@@ -120,7 +120,7 @@
 {
     SegmentCollectionViewCell *segmentCell = (SegmentCollectionViewCell *)[timelineView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([SegmentCollectionViewCell class]) forSegment:segment];
     segmentCell.segment = segment;
-    [segmentCell updateProgressWithTime:self.timeSlider.time];
+    [segmentCell updateAppearanceWithTime:self.timeSlider.time];
     return segmentCell;
 }
 
@@ -144,7 +144,7 @@
 
 - (IBAction)dragTimeline:(id)sender
 {
-    [self updateProgressWithTime:self.timeSlider.time];
+    [self updateAppearanceWithTime:self.timeSlider.time];
     [self.timelineView scrollToSegmentAtTime:self.timeSlider.time animated:YES];
 }
 

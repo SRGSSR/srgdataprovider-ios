@@ -14,6 +14,6 @@
 
 @property (nonatomic, strong) SRGILVideo *segment;
 
-- (void)updateProgressWithTime:(CMTime)time;
+- (void)updateAppearanceWithTime:(CMTime)time;
 
 @end

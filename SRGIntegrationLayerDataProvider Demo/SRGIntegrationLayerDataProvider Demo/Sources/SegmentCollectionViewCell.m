@@ -52,10 +52,13 @@ static NSString *sexagesimalDurationStringFromValue(NSInteger duration)
 
 #pragma mark - UI
 
-- (void)updateProgressWithTime:(CMTime)time
+- (void)updateAppearanceWithTime:(CMTime)time
 {
     float progress = (CMTimeGetSeconds(time) - self.segment.markIn) / (self.segment.markOut - self.segment.markIn);
-    self.progressView.progress = fminf(1.f, fmaxf(0.f, progress));
+    progress = fminf(1.f, fmaxf(0.f, progress));
+    
+    self.progressView.progress = progress;
+    self.backgroundColor = (progress != 0.f && progress != 1.f) ? [UIColor colorWithRed:128.0 / 256.0 green:0.0 / 256.0 blue:0.0 / 256.0 alpha:1.0] : [UIColor blackColor];
 }
 
 @end
