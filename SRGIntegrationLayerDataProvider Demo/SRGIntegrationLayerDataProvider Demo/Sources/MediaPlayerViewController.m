@@ -130,6 +130,7 @@
 - (void)timelineView:(RTSTimelineView *)timelineView didSelectSegment:(id<RTSMediaPlayerSegment>)segment
 {
     [self.mediaPlayerController.player seekToTime:segment.segmentTimeRange.start];
+    [self.timelineView scrollToSegment:segment animated:YES];
 }
 
 #pragma mark - Actions
@@ -142,6 +143,7 @@
 - (IBAction)dragTimeline:(id)sender
 {
     [self updateProgressWithTime:self.timeSlider.time];
+    [self.timelineView scrollToSegmentAtTime:self.timeSlider.time animated:YES];
 }
 
 #pragma mark - Notifications
