@@ -19,6 +19,8 @@
 @property (nonatomic) NSArray *segments;
 
 @property (nonatomic) IBOutlet RTSMediaPlayerController *mediaPlayerController;
+@property (nonatomic) IBOutlet RTSMediaSegmentsController *mediaSegmentsController;
+
 @property (nonatomic) SRGILDataProvider *dataSource;
 
 @property (nonatomic, weak) IBOutlet RTSTimelineView *timelineView;
@@ -77,7 +79,7 @@
 	[super viewDidLoad];
 	
     self.mediaPlayerController.dataSource = self.dataSource;
-    self.timelineView.dataSource = self.dataSource;
+    self.mediaSegmentsController.dataSource = self.dataSource;
     
     NSString *className = NSStringFromClass([SegmentCollectionViewCell class]);
     UINib *nib = [UINib nibWithNibName:className bundle:nil];

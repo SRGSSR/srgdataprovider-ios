@@ -200,6 +200,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="DeR-ns-fWf" id="wfh-rh-obj"/>
+                                    <outlet property="segmentsController" destination="bo9-ep-aPe" id="10Z-r2-pNg"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -218,6 +219,7 @@
                     </view>
                     <connections>
                         <outlet property="mediaPlayerController" destination="ZRv-6k-ngu" id="kgH-ok-97y"/>
+                        <outlet property="mediaSegmentsController" destination="bo9-ep-aPe" id="Odo-D1-UEt"/>
                         <outlet property="timeSlider" destination="ggg-8a-0uV" id="5Go-3v-eyl"/>
                         <outlet property="timelineView" destination="jhh-Z6-0Qk" id="4Db-rw-5AH"/>
                     </connections>
@@ -231,6 +233,7 @@
                         <outletCollection property="overlayViews" destination="jhh-Z6-0Qk" id="sIp-nD-Y6j"/>
                     </connections>
                 </customObject>
+                <customObject id="bo9-ep-aPe" customClass="RTSMediaSegmentsController"/>
             </objects>
             <point key="canvasLocation" x="851" y="1434"/>
         </scene>

@@ -17,9 +17,9 @@
     return CMTimeRangeFromTimeToTime(CMTimeMakeWithSeconds(self.markIn, 1.), CMTimeMakeWithSeconds(self.markOut, 1.));
 }
 
-- (UIImage *)segmentIconImage
+- (BOOL)isVisible
 {
-    return nil;
+    return self.displayable;
 }
 
 @end
