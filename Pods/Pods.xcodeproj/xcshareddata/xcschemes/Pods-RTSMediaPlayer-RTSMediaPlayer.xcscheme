@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F3510E6933ED38C010237FA6"
+               BlueprintIdentifier = "4BE76EE770DEA4BB05FF81DC"
                BuildableName = "RTSMediaPlayer.bundle"
                BlueprintName = "Pods-RTSMediaPlayer-RTSMediaPlayer"
                ReferencedContainer = "container:Pods.xcodeproj">

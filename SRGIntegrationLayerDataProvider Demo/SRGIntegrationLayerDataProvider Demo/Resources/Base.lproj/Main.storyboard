@@ -318,7 +318,11 @@
                         <outletCollection property="overlayViews" destination="jhh-Z6-0Qk" id="sIp-nD-Y6j"/>
                     </connections>
                 </customObject>
-                <customObject id="bo9-ep-aPe" customClass="RTSMediaSegmentsController"/>
+                <customObject id="bo9-ep-aPe" customClass="RTSMediaSegmentsController">
+                    <connections>
+                        <outlet property="playerController" destination="ZRv-6k-ngu" id="caR-76-OcH"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="851" y="1434"/>
         </scene>
