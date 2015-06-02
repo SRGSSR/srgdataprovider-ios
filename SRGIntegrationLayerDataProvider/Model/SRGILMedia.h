@@ -9,6 +9,10 @@
 #import "SRGILModelConstants.h"
 #import "SRGILAnalyticsExtendedData.h"
 
+// TODO: Will hopefully not be needed anymore when the TODO at the end of this file has been addressed
+@class SRGILAssetSet;
+@class SRGILImage;
+
 /**
  * SRGILMedia is the main data-model class of the SRG Player framework.
  */
@@ -133,6 +137,40 @@
  *  @return NSOrderedSame if other.markIn > self.markIn, etc.
  */
 - (NSComparisonResult)compareMarkInTimes:(SRGILMedia *)other;
+
+// --- Begin
+
+// TODO: This was previously in SRGILMedia+Private.h, but was moved to the public header to solve issues with
+//       Play SRG compilation issues during refactoring. Move back to the private file if possible
+
+- (NSURL *)HDHLSURL;
+- (NSURL *)SDHLSURL;
+- (NSURL *)MQHLSURL;
+- (NSURL *)MQHTTPURL;
+
+- (SRGILPlaylistSegmentation)segmentationForURL:(NSURL *)URL;
+
+/**
+ * The timestamp at which the video begins, in seconds.
+ */
+@property (nonatomic, strong) NSNumber *markInNumber;
+
+/**
+ * The timestamp at which the video ends, in seconds.
+ */
+@property (nonatomic, strong) NSNumber *markOutNumber;
+
+/**
+ * Related asset (e.g. broadcast information)
+ */
+@property (nonatomic, strong) SRGILAssetSet *assetSet;
+
+/**
+ * Related image
+ */
+@property (nonatomic, strong) SRGILImage *image;
+
+// --- End
 
 @end
 

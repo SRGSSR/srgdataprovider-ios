@@ -22,16 +22,6 @@
 @property (nonatomic, strong) NSNumber *fullLengthNumber;
 
 /**
- * The timestamp at which the video begins, in seconds.
- */
-@property (nonatomic, strong) NSNumber *markInNumber;
-
-/**
- * The timestamp at which the video ends, in seconds.
- */
-@property (nonatomic, strong) NSNumber *markOutNumber;
-
-/**
 * The duration of the media, in seconds. Used for audio.
 */
 @property (nonatomic, strong) NSNumber *assetDuration;
@@ -42,16 +32,6 @@
 @property (nonatomic, strong) NSArray *assetMetadatas;
 
 /**
- * Related asset (e.g. broadcast information)
- */
-@property (nonatomic, strong) SRGILAssetSet *assetSet;
-
-/**
- * Related image
- */
-@property (nonatomic, strong) SRGILImage *image;
-
-/**
  * Asset set subtype (episode, trailer or livestream)
  * Optional field: is either filled in SRGILVideo or in SRGAsset.
  */
@@ -59,15 +39,8 @@
 
 @property (nonatomic) BOOL isLivestreamPlaylist;
 
-- (NSURL *)HDHLSURL;
-- (NSURL *)SDHLSURL;
-- (NSURL *)MQHLSURL;
-- (NSURL *)MQHTTPURL;
-
 - (SRGILPlaylistProtocol)playlistProtocolForURL:(NSURL *)URL;
 - (SRGILPlaylistURLQuality)playlistURLQualityForURL:(NSURL *)URL;
-
-- (SRGILPlaylistSegmentation)segmentationForURL:(NSURL *)URL;
 
 /**
  * List of the playlist (i.e. URLs) of the video
