@@ -1,1 +1,1 @@
-../../../RTSAnalytics/RTSAnalytics/Core/RTSAnalyticsNetmetrixTracker_private.h
+../../../../../srganalytics-ios/RTSAnalytics/Core/RTSAnalyticsNetmetrixTracker_private.h

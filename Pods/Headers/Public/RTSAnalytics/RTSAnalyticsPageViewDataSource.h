@@ -1,1 +1,1 @@
-../../../RTSAnalytics/RTSAnalytics/Core/RTSAnalyticsPageViewDataSource.h
+../../../../../srganalytics-ios/RTSAnalytics/Core/RTSAnalyticsPageViewDataSource.h

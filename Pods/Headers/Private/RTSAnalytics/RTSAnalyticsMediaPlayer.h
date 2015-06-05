@@ -1,1 +1,1 @@
-../../../RTSAnalytics/RTSAnalytics/RTSAnalyticsMediaPlayer.h
+../../../../../srganalytics-ios/RTSAnalytics/RTSAnalyticsMediaPlayer.h

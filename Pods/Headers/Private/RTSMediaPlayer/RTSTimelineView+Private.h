@@ -1,1 +1,1 @@
-../../../../../rtsmediaplayer-ios/RTSMediaPlayer/RTSTimelineView+Private.h
+../../../../../srgmediaplayer-ios/RTSMediaPlayer/RTSTimelineView+Private.h

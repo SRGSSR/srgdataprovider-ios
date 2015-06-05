@@ -1,1 +1,1 @@
-../../../../../rtsmediaplayer-ios/RTSMediaPlayer/RTSMediaSegmentsDataSource.h
+../../../../../srgmediaplayer-ios/RTSMediaPlayer/RTSMediaSegmentsDataSource.h

@@ -1,1 +1,1 @@
-../../../RTSAnalytics/RTSAnalytics/Core/UIViewController+RTSAnalytics.h
+../../../../../srganalytics-ios/RTSAnalytics/Core/UIViewController+RTSAnalytics.h

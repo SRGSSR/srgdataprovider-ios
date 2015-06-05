@@ -122,19 +122,25 @@
 {
     SegmentCollectionViewCell *segmentCell = (SegmentCollectionViewCell *)[timelineView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([SegmentCollectionViewCell class]) forSegment:segment];
     segmentCell.segment = segment;
-    [segmentCell updateAppearanceWithTime:self.timeSlider.time];
     return segmentCell;
 }
 
 - (void)timelineView:(RTSTimelineView *)timelineView didSelectSegment:(id<RTSMediaPlayerSegment>)segment
 {
-    [self.mediaPlayerController.player seekToTime:segment.segmentTimeRange.start completionHandler:^(BOOL finished) {
-        if (finished) {
-            [self.mediaPlayerController play];
-        }
-    }];
+    [self.mediaPlayerController seekToTime:segment.timeRange.start completionHandler:nil];
+}
+
+#pragma ark - RTSTimeSliderSeekingDelegate protocol
+
+- (void)timeSlider:(RTSTimeSlider *)slider isSeekingAtTime:(CMTime)time withValue:(CGFloat)value
+{
+    [self updateAppearanceWithTime:time];
     
-    [self.timelineView scrollToSegment:segment animated:YES];
+    NSUInteger visibleSegmentIndex = [self.timelineView.segmentsController indexOfVisibleSegmentForTime:time];
+    if (visibleSegmentIndex != NSNotFound) {
+        id<RTSMediaPlayerSegment> segment = [[self.timelineView.segmentsController visibleSegments] objectAtIndex:visibleSegmentIndex];
+        [self.timelineView scrollToSegment:segment animated:YES];
+    }
 }
 
 #pragma mark - Actions
@@ -142,12 +148,6 @@
 - (IBAction)dismiss:(id)sender
 {
 	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)dragTimeline:(id)sender
-{
-    [self updateAppearanceWithTime:self.timeSlider.time];
-    [self.timelineView scrollToSegmentAtTime:self.timeSlider.time animated:YES];
 }
 
 @end

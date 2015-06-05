@@ -12,7 +12,7 @@
 
 #pragma mark - RTSMediaPlayerSegment protocol
 
-- (CMTimeRange)segmentTimeRange
+- (CMTimeRange)timeRange
 {
     return CMTimeRangeFromTimeToTime(CMTimeMakeWithSeconds(self.markIn, 1.), CMTimeMakeWithSeconds(self.markOut, 1.));
 }

@@ -1,1 +1,1 @@
-../../../RTSAnalytics/RTSAnalytics/MediaPlayer/RTSMediaPlayerControllerStreamSenseTracker_private.h
+../../../../../srganalytics-ios/RTSAnalytics/MediaPlayer/RTSMediaPlayerControllerStreamSenseTracker_private.h
