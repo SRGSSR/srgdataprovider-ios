@@ -9,7 +9,7 @@
 #import <RTSMediaPlayer/RTSMediaPlayer.h>
 #import <UIKit/UIKit.h>
 
-@interface MediaPlayerViewController : UIViewController <RTSTimelineViewDelegate, RTSTimeSliderSeekingDelegate>
+@interface MediaPlayerViewController : UIViewController <RTSSegmentedTimelineViewDelegate, RTSTimeSliderSeekingDelegate>
 
 @property (nonatomic, copy) NSString *videoIdentifier;
 

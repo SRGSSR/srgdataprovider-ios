@@ -23,7 +23,7 @@
 
 @property (nonatomic) SRGILDataProvider *dataSource;
 
-@property (nonatomic, weak) IBOutlet RTSTimelineView *timelineView;
+@property (nonatomic, weak) IBOutlet RTSSegmentedTimelineView *timelineView;
 @property (nonatomic, weak) IBOutlet RTSTimeSlider *timeSlider;
 
 @property (nonatomic, weak) id playbackTimeObserver;
@@ -118,16 +118,11 @@
 
 #pragma mark - RTSTimelineViewDelegate protocol
 
-- (UICollectionViewCell *)timelineView:(RTSTimelineView *)timelineView cellForSegment:(id<RTSMediaPlayerSegment>)segment
+- (UICollectionViewCell *)timelineView:(RTSSegmentedTimelineView *)timelineView cellForSegment:(id<RTSMediaSegment>)segment
 {
     SegmentCollectionViewCell *segmentCell = (SegmentCollectionViewCell *)[timelineView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([SegmentCollectionViewCell class]) forSegment:segment];
     segmentCell.segment = segment;
     return segmentCell;
-}
-
-- (void)timelineView:(RTSTimelineView *)timelineView didSelectSegment:(id<RTSMediaPlayerSegment>)segment
-{
-    [self.mediaPlayerController seekToTime:segment.timeRange.start completionHandler:nil];
 }
 
 #pragma ark - RTSTimeSliderSeekingDelegate protocol
@@ -138,7 +133,7 @@
     
     NSUInteger visibleSegmentIndex = [self.timelineView.segmentsController indexOfVisibleSegmentForTime:time];
     if (visibleSegmentIndex != NSNotFound) {
-        id<RTSMediaPlayerSegment> segment = [[self.timelineView.segmentsController visibleSegments] objectAtIndex:visibleSegmentIndex];
+        id<RTSMediaSegment> segment = [[self.timelineView.segmentsController visibleSegments] objectAtIndex:visibleSegmentIndex];
         [self.timelineView scrollToSegment:segment animated:YES];
     }
 }

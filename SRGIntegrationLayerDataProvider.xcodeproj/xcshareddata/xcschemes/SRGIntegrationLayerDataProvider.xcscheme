@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0640"
+   LastUpgradeVersion = "0630"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DB21F4AFB1807C3687894D91"
-               BuildableName = "libPods-SRGIntegrationLayerDataProvider Demo-SRGIntegrationLayerDataProvider.a"
-               BlueprintName = "Pods-SRGIntegrationLayerDataProvider Demo-SRGIntegrationLayerDataProvider"
-               ReferencedContainer = "container:Pods.xcodeproj">
+               BlueprintIdentifier = "9F1519341AC5A7F200AE051D"
+               BuildableName = "libSRGIntegrationLayerDataProvider.a"
+               BlueprintName = "SRGIntegrationLayerDataProvider"
+               ReferencedContainer = "container:SRGIntegrationLayerDataProvider.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -39,6 +39,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "9F1519341AC5A7F200AE051D"
+            BuildableName = "libSRGIntegrationLayerDataProvider.a"
+            BlueprintName = "SRGIntegrationLayerDataProvider"
+            ReferencedContainer = "container:SRGIntegrationLayerDataProvider.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -48,6 +57,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "9F1519341AC5A7F200AE051D"
+            BuildableName = "libSRGIntegrationLayerDataProvider.a"
+            BlueprintName = "SRGIntegrationLayerDataProvider"
+            ReferencedContainer = "container:SRGIntegrationLayerDataProvider.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

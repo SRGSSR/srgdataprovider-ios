@@ -269,7 +269,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jhh-Z6-0Qk" customClass="RTSTimelineView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jhh-Z6-0Qk" customClass="RTSSegmentedTimelineView">
                                 <rect key="frame" x="0.0" y="436" width="600" height="120"/>
                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                                 <constraints>
