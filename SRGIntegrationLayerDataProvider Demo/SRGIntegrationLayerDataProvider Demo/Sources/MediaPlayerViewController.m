@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
-#import "MediaPlayerViewController.h"
-
-#import "SegmentCollectionViewCell.h"
-
 #import <libextobjc/EXTScope.h>
 #import <RTSMediaPlayer/RTSMediaPlayer.h>
 #import <SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h>
+
+#import "MediaPlayerViewController.h"
+#import "SegmentCollectionViewCell.h"
+#import "AppDelegate.h"
 
 @interface MediaPlayerViewController ()
 
@@ -37,7 +37,8 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if (self = [super initWithCoder:aDecoder]) {
-        self.dataSource = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        self.dataSource = appDelegate.dataSource;
     }
     return self;
 }
@@ -49,13 +50,6 @@
 }
 
 #pragma mark - Getters and setters
-
-- (void)setVideoIdentifier:(NSString *)videoIdentifier
-{
-	_videoIdentifier = videoIdentifier;
-	
-	[self.mediaPlayerController playIdentifier:videoIdentifier];
-}
 
 - (void)setMediaPlayerController:(RTSMediaPlayerController *)mediaPlayerController
 {
@@ -77,10 +71,10 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	
+
     self.mediaPlayerController.dataSource = self.dataSource;
     self.mediaSegmentsController.dataSource = self.dataSource;
-    
+
     NSString *className = NSStringFromClass([SegmentCollectionViewCell class]);
     UINib *nib = [UINib nibWithNibName:className bundle:nil];
     [self.timelineView registerNib:nib forCellWithReuseIdentifier:className];
@@ -92,6 +86,8 @@
 {
     [super viewDidAppear:animated];
     
+    [self.mediaPlayerController playIdentifier:self.videoIdentifier];
+
 	if ([self isMovingToParentViewController] || [self isBeingPresented]) {
 		[self.mediaPlayerController playIdentifier:self.videoIdentifier];
         [self.timelineView reloadSegmentsForIdentifier:self.videoIdentifier];

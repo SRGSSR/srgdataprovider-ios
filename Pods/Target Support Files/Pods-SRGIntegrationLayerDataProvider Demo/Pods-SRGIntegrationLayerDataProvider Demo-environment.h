@@ -40,25 +40,25 @@
 #define COCOAPODS_POD_AVAILABLE_RTSAnalytics
 #define COCOAPODS_VERSION_MAJOR_RTSAnalytics 0
 #define COCOAPODS_VERSION_MINOR_RTSAnalytics 3
-#define COCOAPODS_VERSION_PATCH_RTSAnalytics 1
+#define COCOAPODS_VERSION_PATCH_RTSAnalytics 3
 
 // RTSAnalytics/Core
 #define COCOAPODS_POD_AVAILABLE_RTSAnalytics_Core
 #define COCOAPODS_VERSION_MAJOR_RTSAnalytics_Core 0
 #define COCOAPODS_VERSION_MINOR_RTSAnalytics_Core 3
-#define COCOAPODS_VERSION_PATCH_RTSAnalytics_Core 1
+#define COCOAPODS_VERSION_PATCH_RTSAnalytics_Core 3
 
 // RTSAnalytics/MediaPlayer
 #define COCOAPODS_POD_AVAILABLE_RTSAnalytics_MediaPlayer
 #define COCOAPODS_VERSION_MAJOR_RTSAnalytics_MediaPlayer 0
 #define COCOAPODS_VERSION_MINOR_RTSAnalytics_MediaPlayer 3
-#define COCOAPODS_VERSION_PATCH_RTSAnalytics_MediaPlayer 1
+#define COCOAPODS_VERSION_PATCH_RTSAnalytics_MediaPlayer 3
 
 // RTSMediaPlayer
 #define COCOAPODS_POD_AVAILABLE_RTSMediaPlayer
 #define COCOAPODS_VERSION_MAJOR_RTSMediaPlayer 0
 #define COCOAPODS_VERSION_MINOR_RTSMediaPlayer 2
-#define COCOAPODS_VERSION_PATCH_RTSMediaPlayer 6
+#define COCOAPODS_VERSION_PATCH_RTSMediaPlayer 8
 
 // SGVReachability
 #define COCOAPODS_POD_AVAILABLE_SGVReachability

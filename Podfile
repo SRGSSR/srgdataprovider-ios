@@ -8,9 +8,9 @@ workspace 'SRGIntegrationLayerDataProvider.xcworkspace'
 
 xcodeproj 'SRGIntegrationLayerDataProvider'
 
-pod 'RTSAnalytics', '0.3.1'
-pod 'RTSAnalytics/MediaPlayer', '0.3.1'
-pod 'RTSMediaPlayer', '0.2.6'
+pod 'RTSAnalytics', '0.3.3'
+pod 'RTSAnalytics/MediaPlayer', '0.3.3'
+pod 'RTSMediaPlayer', '0.2.8'
 pod 'RTSOfflineMediaStorage', '~> 0.1.1'
 
 pod 'AFNetworking', '~> 1.3.4'
@@ -28,7 +28,6 @@ end
 
 target 'SRGIntegrationLayerDataProvider Demo', :exclusive => true do
 	xcodeproj 'SRGIntegrationLayerDataProvider Demo/SRGIntegrationLayerDataProvider Demo'
-
 	pod 'SRGIntegrationLayerDataProvider', :path => '.'
 	pod 'SRGIntegrationLayerDataProvider/MediaPlayer', :path => '.'
 end
