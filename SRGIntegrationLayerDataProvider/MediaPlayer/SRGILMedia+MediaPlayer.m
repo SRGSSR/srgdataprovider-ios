@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
-#import "SRGILVideo+MediaPlayer.h"
+#import "SRGILMedia+MediaPlayer.h"
 
-@implementation SRGILVideo (MediaPlayer)
+@implementation SRGILMedia (MediaPlayer)
 
 #pragma mark - RTSMediaPlayerSegment protocol
 

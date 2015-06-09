@@ -93,14 +93,14 @@
     NSString *ns_st_pn   = @"1"; // [self.mediaDataSource itemOrderPosition] > 0 ? [NSString stringWithFormat:@"%li", (long)[self.mediaDataSource itemOrderPosition]] : @"1";
     NSString *ns_st_tp   = @"1";
     
-    [metadata safeSetValue:ns_st_ty   forKey:@"ns_st_ty"];
-    [metadata safeSetValue:ns_st_ep   forKey:@"ns_st_ep"];
-    [metadata safeSetValue:ns_st_el   forKey:@"ns_st_el"];
-    [metadata safeSetValue:ns_st_dt   forKey:@"ns_st_dt"];
-    [metadata safeSetValue:ns_st_li   forKey:@"ns_st_li"];
-    [metadata safeSetValue:ns_st_pr   forKey:@"ns_st_pr"];
-    [metadata safeSetValue:ns_st_pn   forKey:@"ns_st_pn"];
-    [metadata safeSetValue:ns_st_tp   forKey:@"ns_st_tp"];
+    [metadata safeSetValue:ns_st_ty forKey:@"ns_st_ty"];
+    [metadata safeSetValue:ns_st_ep forKey:@"ns_st_ep"];
+    [metadata safeSetValue:ns_st_el forKey:@"ns_st_el"];
+    [metadata safeSetValue:ns_st_dt forKey:@"ns_st_dt"];
+    [metadata safeSetValue:ns_st_li forKey:@"ns_st_li"];
+    [metadata safeSetValue:ns_st_pr forKey:@"ns_st_pr"];
+    [metadata safeSetValue:ns_st_pn forKey:@"ns_st_pn"];
+    [metadata safeSetValue:ns_st_tp forKey:@"ns_st_tp"];
     
     // Placeholder for values of SMAC-4163:
     [metadata safeSetValue:self.media.analyticsData.srgC1 forKey:@"srg_c1"];
@@ -108,7 +108,7 @@
     [metadata safeSetValue:self.media.analyticsData.srgC3 forKey:@"srg_c3"];
 
     // Add common part of the clip (that changes on segment update):
-    [metadata addEntriesFromDictionary:[self segmentClipMetadata]];
+    [metadata addEntriesFromDictionary:[self segmentClipMetadataForMedia:self.media]];
 
     // Add 'Encoder' value (live only):
     if (self.media.isLiveStream) {
@@ -129,13 +129,13 @@
     return [metadata copy];
 }
 
-- (NSDictionary *)segmentClipMetadata
+- (NSDictionary *)segmentClipMetadataForMedia:(SRGILMedia *)mediaFullLengthOrSegment
 {
     NSMutableDictionary *metadata = [NSMutableDictionary dictionary];
     
-    NSString *ns_st_ep = (self.media.isLiveStream) ? @"Livestream" : [self.media.title truncateAndAddEllipsisForStatistics] ?: @"";
-    NSString *ns_st_ci = self.media.identifier;
-    NSString *ns_st_cl = (self.media.isLiveStream) ? @"0" : [NSString stringWithFormat:@"%d", (int)(self.media.duration * 1000.f)];
+    NSString *ns_st_ep = (mediaFullLengthOrSegment.isLiveStream) ? @"Livestream" : [mediaFullLengthOrSegment.title truncateAndAddEllipsisForStatistics] ?: @"";
+    NSString *ns_st_ci = mediaFullLengthOrSegment.identifier;
+    NSString *ns_st_cl = (mediaFullLengthOrSegment.isLiveStream) ? @"0" : [NSString stringWithFormat:@"%d", (int)(mediaFullLengthOrSegment.duration * 1000.f)];
     NSString *ns_st_cn = @"1";
 
     [metadata safeSetValue:ns_st_ep forKey:@"ns_st_ep"];
@@ -145,27 +145,5 @@
 
     return [metadata copy];
 }
-
-//- (NSDictionary *)segmentMetadataWithPlaybackEventUserInfo:(NSDictionary *)userInfo wasSegmentSelected:(BOOL)segmentSelected
-//{
-//    NSMutableDictionary *metadata = [NSMutableDictionary dictionary];
-//    [metadata addEntriesFromDictionary:[self fullLengthClipMetadata]];
-//    
-//    int episodeIndex = [[userInfo valueForKey:SRGILMediaPlaybackEventEpisodeIndexKey] intValue];
-//    NSInteger ns_st_pn = MAX(1, episodeIndex + 1); // Zero is not allowable...
-//
-//    DDLogDebug(@"Starting segment: %li / %li", (long)ns_st_pn, (long)[self.mediaDataSource countOfSegments]);
-//
-//    NSArray *episodeDataSources = [self.mediaDataSource episodesDataSources];
-//
-//    if (segmentSelected && ns_st_pn < [episodeDataSources count] + 1) {
-//        // Change to segment dataSource:
-//        SRGILMediaPlayerDataSource *segmentDataSource = episodeDataSources[episodeIndex];
-//        SRGILStreamSenseAnalyticsIndividualDataSource *segmentStreamsenseDataSource = [SRGILStreamSenseAnalyticsIndividualDataSource dataSource:segmentDataSource];
-//        [metadata addEntriesFromDictionary:[segmentStreamsenseDataSource segmentClipMetadata]];
-//    }
-//    
-//    return [metadata copy];
-//}
 
 @end

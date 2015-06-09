@@ -96,18 +96,30 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 
 #pragma mark - RTSMediaSegmentsDataSource
 
-- (void)segmentsController:(RTSMediaSegmentsController *)controller segmentsForIdentifier:(NSString *)identifier withCompletionHandler:(RTSMediaSegmentsCompletionHandler)completionHandler;
+- (void)segmentsController:(RTSMediaSegmentsController *)controller
+     segmentsForIdentifier:(NSString *)identifier
+     withCompletionHandler:(RTSMediaSegmentsCompletionHandler)completionHandler;
 {
     // SRGILMedia has been been made conformant to the RTSMediaPlayerSegment protocol (see SRGILVideo+MediaPlayer.h), segments
     // can therefore be displayed as is by the player
     SRGILMedia *media = self.identifiedMedias[identifier];
     if (media) {
-        completionHandler(nil, media.segments, nil);
+        completionHandler(id<RTSMediaSegment>media, media.segments, nil);
     }
     else {
-        [self.requestManager requestMediaOfType:SRGILMediaTypeVideo withIdentifier:identifier completionBlock:^(SRGILMedia *media, NSError *error) {
-            completionHandler(nil, media.segments, error);
-        }];
+        [self.requestManager requestMediaOfType:SRGILMediaTypeVideo
+                                 withIdentifier:identifier
+                                completionBlock:^(SRGILMedia *media, NSError *error) {
+                                    if (error) {
+                                        [self.identifiedMedias removeObjectForKey:identifier];
+                                        completionHandler(nil, nil, error);
+                                    }
+                                    else {
+                                        self.identifiedMedias[identifier] = media;
+                                        [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
+                                        completionHandler(id<RTSMediaSegment>media, media.segments, error);
+                                    }
+                                }];
     }
 }
 
@@ -163,10 +175,14 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     return [ds playlistMetadataForBusinesUnit:self.businessUnit];
 }
 
-- (NSDictionary *)streamSenseClipMetadataForIdentifier:(NSString *)identifier
+- (NSDictionary *)streamSenseClipMetadataForIdentifier:(NSString *)identifier withSegment:(id<RTSMediaSegment>)segment
 {
     SRGILStreamSenseAnalyticsInfos *ds = [self streamSenseIndividualDataSourceForIdenfifier:identifier];
-    return [ds fullLengthClipMetadata];
+    NSMutableDictionary *medataData = [[ds fullLengthClipMetadata] mutableCopy];
+    if (segment) {
+        [medataData addEntriesFromDictionary:[ds segmentClipMetadataForMedia:segment]];
+    }
+    return [medataData copy];
 }
 
 #pragma mark - View Count
