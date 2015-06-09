@@ -30,4 +30,5 @@ target 'SRGIntegrationLayerDataProvider Demo', :exclusive => true do
 	xcodeproj 'SRGIntegrationLayerDataProvider Demo/SRGIntegrationLayerDataProvider Demo'
 	pod 'SRGIntegrationLayerDataProvider', :path => '.'
 	pod 'SRGIntegrationLayerDataProvider/MediaPlayer', :path => '.'
+    pod 'SDWebImage', '3.7.0'
 end

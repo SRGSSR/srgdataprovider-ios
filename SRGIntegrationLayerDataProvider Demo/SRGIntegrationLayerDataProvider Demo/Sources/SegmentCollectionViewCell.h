@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
-#import "SRGILVideo.h"
 #import <CoreMedia/CoreMedia.h>
 #import <UIKit/UIKit.h>
+#import "SRGILVideo.h"
 
 @interface SegmentCollectionViewCell : UICollectionViewCell
 

@@ -6,7 +6,9 @@
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "SegmentCollectionViewCell.h"
+#import "SRGILModel.h"
 
 #pragma mark - Functions
 
@@ -26,6 +28,7 @@ static NSString *sexagesimalDurationStringFromValue(NSInteger duration)
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UILabel *durationLabel;
 @property (nonatomic, weak) IBOutlet UIProgressView *progressView;
+@property (nonatomic, weak) IBOutlet UIImageView *imageView;
 
 @end
 
@@ -39,6 +42,14 @@ static NSString *sexagesimalDurationStringFromValue(NSInteger duration)
     
     self.titleLabel.text = segment.title;
     self.durationLabel.text = sexagesimalDurationStringFromValue(segment.duration);
+    
+    SRGILImage *image = ([segment isFullLength] && segment.assetSet.show.image) ? segment.assetSet.show.image : segment.image;
+    NSURL *imageURL = [[image imageRepresentationForVideoCell] URL];
+    
+    CGFloat w = CGRectGetWidth(self.imageView.frame) * [[UIScreen mainScreen] scale];
+    NSURL *completeURL = [imageURL URLByAppendingPathComponent:[NSString stringWithFormat:@"/scale/width/%.0f", w]];
+    
+    [self.imageView sd_setImageWithURL:completeURL];
 }
 
 #pragma mark - Overrides
