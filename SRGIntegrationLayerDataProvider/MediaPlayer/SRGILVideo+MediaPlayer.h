@@ -8,8 +8,8 @@
 
 #import "SRGILVideo.h"
 
-#import <RTSMediaPlayer/RTSMediaPlayerSegment.h>
+#import <RTSMediaPlayer/RTSMediaSegment.h>
 
-@interface SRGILVideo (MediaPlayer) <RTSMediaPlayerSegment>
+@interface SRGILVideo (MediaPlayer) <RTSMediaSegment>
 
 @end
