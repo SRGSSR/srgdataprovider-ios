@@ -8,9 +8,9 @@ workspace 'SRGIntegrationLayerDataProvider.xcworkspace'
 
 xcodeproj 'SRGIntegrationLayerDataProvider'
 
-pod 'RTSAnalytics', '0.3.0'
-pod 'RTSAnalytics/MediaPlayer', '0.3.0'
-pod 'RTSMediaPlayer', '0.2.5'
+pod 'RTSAnalytics', '0.3.1'
+pod 'RTSAnalytics/MediaPlayer', '0.3.1'
+pod 'RTSMediaPlayer', '0.2.6'
 pod 'RTSOfflineMediaStorage', '~> 0.1.1'
 
 pod 'AFNetworking', '~> 1.3.4'

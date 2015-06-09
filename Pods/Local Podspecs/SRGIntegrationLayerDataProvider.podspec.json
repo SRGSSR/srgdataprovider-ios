@@ -66,13 +66,13 @@
 
         ],
         "RTSAnalytics": [
-          "~> 0.3.0"
+          "~> 0.3.1"
         ],
         "RTSAnalytics/MediaPlayer": [
-          "~> 0.3.0"
+          "~> 0.3.1"
         ],
         "RTSMediaPlayer": [
-          "~> 0.2.5"
+          "~> 0.2.6"
         ]
       }
     },
