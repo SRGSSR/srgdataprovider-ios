@@ -1,1 +1,1 @@
-../../../../../srganalytics-ios/RTSAnalytics/Core/CSRequest+RTSAnalytics_private.h
+../../../RTSAnalytics/RTSAnalytics/Core/CSRequest+RTSAnalytics_private.h

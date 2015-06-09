@@ -1,1 +1,1 @@
-../../../../../srgmediaplayer-ios/RTSMediaPlayer/RTSMediaFailureOverlayView.h
+../../../RTSMediaPlayer/RTSMediaPlayer/RTSMediaFailureOverlayView.h

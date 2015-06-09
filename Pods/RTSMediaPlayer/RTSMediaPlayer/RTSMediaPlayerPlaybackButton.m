@@ -1,11 +1,12 @@
 //
-//  Created by Frédéric Humbert-Droz on 05/03/15.
-//  Copyright (c) 2015 RTS. All rights reserved.
+//  Copyright (c) RTS. All rights reserved.
+//
+//  Licence information is available from the LICENCE file.
 //
 
 #import "RTSMediaPlayerPlaybackButton.h"
-#import <RTSMediaPlayer/RTSMediaPlayerController.h>
 
+#import "RTSMediaPlayerController.h"
 #import "RTSMediaPlayerIconTemplate.h"
 
 @implementation RTSMediaPlayerPlaybackButton
@@ -44,9 +45,9 @@
 	[self updateButton];
 }
 
-- (void) updateButton
+- (void)updateButton
 {
-	BOOL isPlaying = self.mediaPlayerController.player.rate != 0;
+	BOOL isPlaying = self.mediaPlayerController.playbackState == RTSMediaPlaybackStatePlaying;
 	SEL action = isPlaying ? @selector(pause) : @selector(play);
 
 	[self removeTarget:self action:NULL forControlEvents:UIControlEventTouchUpInside];

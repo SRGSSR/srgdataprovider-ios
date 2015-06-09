@@ -1,1 +1,1 @@
-../../../../../srgmediaplayer-ios/RTSMediaPlayer/RTSTimeSlider.h
+../../../RTSMediaPlayer/RTSMediaPlayer/RTSTimeSlider.h

@@ -1,1 +1,1 @@
-../../../../../srganalytics-ios/RTSAnalytics/Core/RTSAnalyticsTracker.h
+../../../RTSAnalytics/RTSAnalytics/Core/RTSAnalyticsTracker.h

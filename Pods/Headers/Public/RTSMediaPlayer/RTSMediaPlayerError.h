@@ -1,1 +1,1 @@
-../../../../../srgmediaplayer-ios/RTSMediaPlayer/RTSMediaPlayerError.h
+../../../RTSMediaPlayer/RTSMediaPlayer/RTSMediaPlayerError.h

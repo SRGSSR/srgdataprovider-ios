@@ -1,13 +1,16 @@
 //
-//  Created by Frédéric Humbert-Droz on 03/03/15.
-//  Copyright (c) 2015 RTS. All rights reserved.
+//  Copyright (c) RTS. All rights reserved.
+//
+//  Licence information is available from the LICENCE file.
 //
 
 #import "RTSMediaPlayerViewController.h"
 
-#import <RTSMediaPlayer/NSBundle+RTSMediaPlayer.h>
-#import <RTSMediaPlayer/RTSMediaPlayerControllerDataSource.h>
-#import <RTSMediaPlayer/RTSMediaPlayerController.h>
+#import "NSBundle+RTSMediaPlayer.h"
+#import "RTSMediaPlayerController.h"
+#import "RTSMediaPlayerPlaybackButton.h"
+#import "RTSTimeSlider.h"
+#import "RTSVolumeView.h"
 
 @interface RTSMediaPlayerViewController () <RTSMediaPlayerControllerDataSource>
 

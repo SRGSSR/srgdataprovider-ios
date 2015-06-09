@@ -1,1 +1,1 @@
-../../../../../srganalytics-ios/RTSAnalytics/MediaPlayer/RTSAnalyticsStreamTracker_private.h
+../../../RTSAnalytics/RTSAnalytics/MediaPlayer/RTSAnalyticsStreamTracker_private.h

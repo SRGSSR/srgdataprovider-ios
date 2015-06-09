@@ -1,1 +1,1 @@
-../../../../../srganalytics-ios/RTSAnalytics/Core/NSDictionary+RTSAnalytics.h
+../../../RTSAnalytics/RTSAnalytics/Core/NSDictionary+RTSAnalytics.h

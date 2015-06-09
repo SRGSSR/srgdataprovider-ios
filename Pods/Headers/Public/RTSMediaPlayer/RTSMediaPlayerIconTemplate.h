@@ -1,1 +1,1 @@
-../../../../../srgmediaplayer-ios/RTSMediaPlayer/RTSMediaPlayerIconTemplate.h
+../../../RTSMediaPlayer/RTSMediaPlayer/RTSMediaPlayerIconTemplate.h
