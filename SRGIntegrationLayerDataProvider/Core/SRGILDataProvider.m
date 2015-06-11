@@ -27,6 +27,7 @@
 
 static NSString * const itemClassPrefix = @"SRGIL";
 static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidRequestURLPath";
+static NSArray *validBusinessUnits = nil;
 
 @interface SRGILDataProvider () {
     NSMutableDictionary *_taggedItemLists;
@@ -38,8 +39,36 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
 
 @implementation SRGILDataProvider
 
++ (void)initialize
+{
+    if (self == [SRGILDataProvider class]) {
+        validBusinessUnits = @[@"srf", @"rts", @"rsi", @"rtr", @"swi"];
+    }
+}
+
+- (instancetype)init
+{
+    return [self initWithBusinessUnit:nil];
+}
+
 - (instancetype)initWithBusinessUnit:(NSString *)businessUnit
 {
+    if (!businessUnit) {
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                       reason:@"You must provide a business unit value."
+                                     userInfo:nil];
+    }
+    
+    if (![validBusinessUnits containsObject:businessUnit]) {
+        NSString *msg = [NSString stringWithFormat:
+                         @"The provided business unit value is invalid. Must be one of %@",
+                         validBusinessUnits];
+        
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                       reason:msg
+                                     userInfo:nil];
+    }
+
     self = [super init];
     if (self) {
         _UUID = [[NSUUID UUID] UUIDString];

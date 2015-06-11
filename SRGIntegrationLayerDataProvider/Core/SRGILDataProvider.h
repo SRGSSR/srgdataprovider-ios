@@ -18,7 +18,8 @@ typedef NS_ENUM(NSInteger, SRGILModelDataOrganisationType) {
 };
 
 typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
-    SRGILFetchListVideoLiveStreams,
+    SRGILFetchListEnumBegin,
+    SRGILFetchListVideoLiveStreams = SRGILFetchListEnumBegin,
     SRGILFetchListVideoEditorialPicks,
     SRGILFetchListVideoMostRecent,
     SRGILFetchListVideoMostSeen,
@@ -31,7 +32,9 @@ typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
     SRGILFetchListAudioShowsAZ,
     SRGILFetchListAudioShowsAZDetail,
     SRGILFetchListMediaFavorite,  // local storage fetch
-    SRGILFetchListShowFavorite // local storage fetch
+    SRGILFetchListShowFavorite, // local storage fetch
+    SRGILFetchListEnumEnd,
+    SRGILFetchListEnumSize = SRGILFetchListEnumEnd - SRGILFetchListEnumBegin
 };
 
 static const float DOWNLOAD_PROGRESS_DONE = 1.0;
@@ -49,7 +52,7 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  *
  *  @return A new instance of the IL data provider.
  */
-- (instancetype)initWithBusinessUnit:(NSString *)businessUnit;
+- (instancetype)initWithBusinessUnit:(NSString *)businessUnit NS_DESIGNATED_INITIALIZER;
 - (NSString *)businessUnit;
 
 // ********* Fetch lists of IL model objects **********
