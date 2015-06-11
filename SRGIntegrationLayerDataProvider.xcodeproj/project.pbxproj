@@ -68,6 +68,7 @@
 		9F3C1CC41ADC0B50007C54AD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3C1CC11ADC0B26007C54AD /* MobileCoreServices.framework */; };
 		9F4421001B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4420FF1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m */; };
 		9F83AB161B29C0C800D7D8BE /* SRGILDataProviderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F83AB151B29C0C800D7D8BE /* SRGILDataProviderTest.m */; };
+		9F83AB191B29C9F400D7D8BE /* SRGILDataProviderConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F83AB181B29C9F400D7D8BE /* SRGILDataProviderConstants.m */; };
 		AC01AA295800C7CDE4E23876 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F6EBD656367387D07A08A6 /* libPods.a */; };
 		C2E8B26471460B332CD298C5 /* libPods-SRGIntegrationLayerDataProviderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */; };
 		E604EAFC1B174254004A627D /* SRGILOngoingRequest+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */; };
@@ -191,6 +192,8 @@
 		9F4420FF1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGILDataProvider+MediaPlayer.m"; sourceTree = "<group>"; };
 		9F4421011B0A116D00AD0613 /* SRGILDataProviderMediaPlayerDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SRGILDataProviderMediaPlayerDataSource.h; path = SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h; sourceTree = SOURCE_ROOT; };
 		9F83AB151B29C0C800D7D8BE /* SRGILDataProviderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderTest.m; sourceTree = "<group>"; };
+		9F83AB171B29C9F400D7D8BE /* SRGILDataProviderConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILDataProviderConstants.h; sourceTree = "<group>"; };
+		9F83AB181B29C9F400D7D8BE /* SRGILDataProviderConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderConstants.m; sourceTree = "<group>"; };
 		A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProviderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B78A0E1C877A3AAFA06CB8E2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CC7117E85185279031EDDD7C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -245,6 +248,8 @@
 				9F13D5051AE9270600E4D897 /* SRGILDataProvider.m */,
 				9F4421011B0A116D00AD0613 /* SRGILDataProviderMediaPlayerDataSource.h */,
 				9F13D5631AE92C4900E4D897 /* SRGILDataProviderOfflineStorage.h */,
+				9F83AB171B29C9F400D7D8BE /* SRGILDataProviderConstants.h */,
+				9F83AB181B29C9F400D7D8BE /* SRGILDataProviderConstants.m */,
 				9F4420FD1B0A107900AD0613 /* MediaPlayer & Analytics */,
 				9F13D55E1AE92C4900E4D897 /* Offline */,
 			);
@@ -653,6 +658,7 @@
 				9F13D53A1AE9270700E4D897 /* SRGILStreamSenseAnalyticsInfos.m in Sources */,
 				9F13D53D1AE9270700E4D897 /* SRGILAsset.m in Sources */,
 				9F13D5641AE92C4900E4D897 /* SRGILDataProvider+OfflineStorage.m in Sources */,
+				9F83AB191B29C9F400D7D8BE /* SRGILDataProviderConstants.m in Sources */,
 				9F13D5391AE9270700E4D897 /* SRGILComScoreAnalyticsInfos.m in Sources */,
 				9F13D5411AE9270700E4D897 /* SRGILImage.m in Sources */,
 				9F13D5441AE9270700E4D897 /* SRGILLiveHeaderChannel.m in Sources */,

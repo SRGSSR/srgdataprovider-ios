@@ -11,6 +11,7 @@
 #import "SRGILDataProvider.h"
 #import "SRGILDataProvider+Private.h"
 #import "SRGILOrganisedModelDataItem.h"
+#import "SRGILDataProviderConstants.h"
 
 #import "SRGILErrors.h"
 #import "SRGILRequestsManager.h"
@@ -107,7 +108,16 @@ static NSArray *validBusinessUnits = nil;
               onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
             onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
-    NSAssert(completionBlock, @"Requiring a completion block");
+    if (index < SRGILFetchListEnumBegin || index >= SRGILFetchListEnumEnd) {
+        if (completionBlock) {
+            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                 code:SRGILDataProviderErrorCodeInvalidFetchIndex
+                                             userInfo:@{NSLocalizedDescriptionKey:
+                                                            NSLocalizedString(@"Invalid fetch index", nil)}];
+            completionBlock(nil, nil, error);
+        }
+        return NO;
+    }
     
     id<NSCopying> tag = @(index);
     NSString *remoteURLPath = SRGConfigNoValidRequestURLPath;
