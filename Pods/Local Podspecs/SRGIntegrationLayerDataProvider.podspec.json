@@ -1,6 +1,6 @@
 {
   "name": "SRGIntegrationLayerDataProvider",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "summary": "Implementation of the Data Provider using the Integration Layer for the RTS Media Player",
   "description": "Implementation of the Data Provider using the Integration Layer for the RTS Media Player",
   "homepage": "http://rts.ch",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "git@bitbucket.org:rtsmb/srgintegrationlayerdataprovider-ios.git",
-    "tag": "0.1.3"
+    "tag": "0.2.0"
   },
   "platforms": {
     "ios": "7.0"

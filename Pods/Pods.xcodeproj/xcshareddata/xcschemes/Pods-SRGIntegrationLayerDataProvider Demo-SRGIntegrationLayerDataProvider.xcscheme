@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BB82E50CF635E6872364A9EC"
+               BlueprintIdentifier = "7C1FB7BD07192E491CE58037"
                BuildableName = "libPods-SRGIntegrationLayerDataProvider Demo-SRGIntegrationLayerDataProvider.a"
                BlueprintName = "Pods-SRGIntegrationLayerDataProvider Demo-SRGIntegrationLayerDataProvider"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -19,6 +19,7 @@ pod 'CocoaLumberjack', '~> 2.0.0'
 pod 'libextobjc/EXTScope', '0.4.1'
 
 target 'SRGIntegrationLayerDataProviderTests', :exclusive => true do
+    pod 'OCMock', '~> 3.0.0'
 	pod 'SRGIntegrationLayerDataProvider', :path => '.'
 	pod 'SRGIntegrationLayerDataProvider/MediaPlayer', :path => '.'
 	pod 'SRGIntegrationLayerDataProvider/OfflineStorage', :path => '.'
