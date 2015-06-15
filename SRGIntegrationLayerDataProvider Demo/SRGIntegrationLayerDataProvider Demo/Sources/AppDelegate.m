@@ -18,8 +18,9 @@
 
     self.dataSource = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
 
-    [[RTSAnalyticsTracker sharedTracker] setComscoreVSite:@"demo"];
-    [[RTSAnalyticsTracker sharedTracker] setNetmetrixAppId:@"demo"];
+    [[RTSAnalyticsTracker sharedTracker] setComscoreVSite:@"rts-app-test-v"];
+    [[RTSAnalyticsTracker sharedTracker] setNetmetrixAppId:@"test"];
+    [[RTSAnalyticsTracker sharedTracker] setProduction:NO];
 
     [[RTSAnalyticsTracker sharedTracker] startTrackingForBusinessUnit:SSRBusinessUnitRTS
                                                         launchOptions:launchOptions

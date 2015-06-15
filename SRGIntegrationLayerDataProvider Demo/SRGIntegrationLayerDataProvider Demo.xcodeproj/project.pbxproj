@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		5B264E0F9EE6DEA658F7A7FC /* libPods-SRGIntegrationLayerDataProvider Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 083D06FB106767F44620E2A4 /* libPods-SRGIntegrationLayerDataProvider Demo.a */; };
+		822CC46B366E09CD4953B2D9 /* libPods-SRGIntegrationLayerDataProvider DemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE2A07BB6A2D28DC0DFD165E /* libPods-SRGIntegrationLayerDataProvider DemoTests.a */; };
 		9F8B38981B2EC99300F67FA5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8B38971B2EC99300F67FA5 /* SystemConfiguration.framework */; };
 		9F8B389A1B2EC99900F67FA5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8B38991B2EC99900F67FA5 /* MobileCoreServices.framework */; };
+		9F8B389F1B2ED99700F67FA5 /* RTSVideosAnalyticsLabels.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F8B389E1B2ED99700F67FA5 /* RTSVideosAnalyticsLabels.plist */; };
 		E67D9B331B0F887B00FF2334 /* SegmentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67D9B321B0F887B00FF2334 /* SegmentCollectionViewCell.xib */; };
 		E69E91691B0DAEC60033BD05 /* MediaPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69E91681B0DAEC60033BD05 /* MediaPlayerViewController.m */; };
 		E6A025221B0C5509006DE0D0 /* SRGIntegrationLayerDataProvider_DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A025211B0C5509006DE0D0 /* SRGIntegrationLayerDataProvider_DemoTests.m */; };
@@ -34,11 +36,14 @@
 
 /* Begin PBXFileReference section */
 		083D06FB106767F44620E2A4 /* libPods-SRGIntegrationLayerDataProvider Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProvider Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		27D245EB01F0134C89899DEF /* Pods-SRGIntegrationLayerDataProvider DemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider DemoTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider DemoTests/Pods-SRGIntegrationLayerDataProvider DemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7A641F8D22E01F4D8006CEFB /* Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider Demo/Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		9F8B38971B2EC99300F67FA5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9F8B38991B2EC99900F67FA5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9F8B389B1B2ECA8A00F67FA5 /* SRGILDataProviderDemo.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGILDataProviderDemo.pch; sourceTree = "<group>"; };
+		9F8B389E1B2ED99700F67FA5 /* RTSVideosAnalyticsLabels.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RTSVideosAnalyticsLabels.plist; sourceTree = "<group>"; };
 		A633BC1A31AF1F344286918F /* Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider Demo/Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig"; sourceTree = "<group>"; };
+		DE2A07BB6A2D28DC0DFD165E /* libPods-SRGIntegrationLayerDataProvider DemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProvider DemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E67D9B321B0F887B00FF2334 /* SegmentCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentCollectionViewCell.xib; sourceTree = "<group>"; };
 		E69E91671B0DAEC60033BD05 /* MediaPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlayerViewController.h; sourceTree = "<group>"; };
 		E69E91681B0DAEC60033BD05 /* MediaPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaPlayerViewController.m; sourceTree = "<group>"; };
@@ -57,6 +62,7 @@
 		E6A025441B0C56A0006DE0D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E6E5480E1B0DB78800CA45A3 /* SegmentCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentCollectionViewCell.h; sourceTree = "<group>"; };
 		E6E5480F1B0DB78800CA45A3 /* SegmentCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentCollectionViewCell.m; sourceTree = "<group>"; };
+		EF20F53DBE9C69A030CFBB2F /* Pods-SRGIntegrationLayerDataProvider DemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider DemoTests.release.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider DemoTests/Pods-SRGIntegrationLayerDataProvider DemoTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				822CC46B366E09CD4953B2D9 /* libPods-SRGIntegrationLayerDataProvider DemoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +93,7 @@
 				9F8B38991B2EC99900F67FA5 /* MobileCoreServices.framework */,
 				9F8B38971B2EC99300F67FA5 /* SystemConfiguration.framework */,
 				083D06FB106767F44620E2A4 /* libPods-SRGIntegrationLayerDataProvider Demo.a */,
+				DE2A07BB6A2D28DC0DFD165E /* libPods-SRGIntegrationLayerDataProvider DemoTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -95,6 +103,8 @@
 			children = (
 				7A641F8D22E01F4D8006CEFB /* Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig */,
 				A633BC1A31AF1F344286918F /* Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig */,
+				27D245EB01F0134C89899DEF /* Pods-SRGIntegrationLayerDataProvider DemoTests.debug.xcconfig */,
+				EF20F53DBE9C69A030CFBB2F /* Pods-SRGIntegrationLayerDataProvider DemoTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -142,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				E6A025201B0C5509006DE0D0 /* Info.plist */,
+				9F8B389E1B2ED99700F67FA5 /* RTSVideosAnalyticsLabels.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -208,9 +219,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E6A025281B0C5509006DE0D0 /* Build configuration list for PBXNativeTarget "SRGIntegrationLayerDataProvider DemoTests" */;
 			buildPhases = (
+				A26740A3CDC1DA21D7AAC473 /* Check Pods Manifest.lock */,
 				E6A025171B0C5509006DE0D0 /* Sources */,
 				E6A025181B0C5509006DE0D0 /* Frameworks */,
 				E6A025191B0C5509006DE0D0 /* Resources */,
+				75405F1E6783923DB5E965AC /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -275,6 +288,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F8B389F1B2ED99700F67FA5 /* RTSVideosAnalyticsLabels.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +323,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider Demo/Pods-SRGIntegrationLayerDataProvider Demo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		75405F1E6783923DB5E965AC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider DemoTests/Pods-SRGIntegrationLayerDataProvider DemoTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A26740A3CDC1DA21D7AAC473 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -472,6 +516,7 @@
 		};
 		E6A025291B0C5509006DE0D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27D245EB01F0134C89899DEF /* Pods-SRGIntegrationLayerDataProvider DemoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -492,6 +537,7 @@
 		};
 		E6A0252A1B0C5509006DE0D0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF20F53DBE9C69A030CFBB2F /* Pods-SRGIntegrationLayerDataProvider DemoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (

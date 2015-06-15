@@ -7,7 +7,6 @@
 //
 
 #import "VideoListViewController.h"
-
 #import "MediaPlayerViewController.h"
 
 @implementation VideoListViewController

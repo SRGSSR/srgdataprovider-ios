@@ -34,6 +34,11 @@ target 'SRGIntegrationLayerDataProvider Demo', :exclusive => true do
     pod 'SDWebImage', '3.7.0'
 end
 
+target 'SRGIntegrationLayerDataProvider DemoTests', :exclusive => true do
+    xcodeproj 'SRGIntegrationLayerDataProvider Demo/SRGIntegrationLayerDataProvider Demo'
+    pod 'KIF', '3.2.1'
+end
+
 
 # See https://github.com/CocoaPods/CocoaPods/issues/2704
 # where the 'stdc++' has been stripped to 'c++'

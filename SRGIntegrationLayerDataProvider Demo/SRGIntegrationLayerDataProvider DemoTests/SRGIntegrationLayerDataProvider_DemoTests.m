@@ -8,17 +8,52 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import <KIF/KIF.h>
 
-@interface SRGIntegrationLayerDataProvider_DemoTests : XCTestCase
+static NSArray *dynamicValueKeys = nil;
+
+@interface SRGIntegrationLayerDataProvider_DemoTests : KIFTestCase
 
 @end
 
 @implementation SRGIntegrationLayerDataProvider_DemoTests
 
-- (void)testExample
+- (void)setUp
 {
-    // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
+    [super setUp];
+    
+    if (!dynamicValueKeys) {
+        dynamicValueKeys = @[@"ns_ap_cs", @"ns_st_bp", @"ns_ap_id", @"ns_st_po", @"ns_st_br", @"ns_ts", @"ns_st_bt", @"ns_st_id"];
+    }
+}
+
+
+- (void)testComScoreMeasurementsOnValidVideoAtRow5
+{
+    // Row 5: Geopolitis du 23 mai 2015.
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:5 inSection:0];
+    NSString *indexPathKey = @"indexPath-row-5-section-0";
+    
+    NSString *refLabelsPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"RTSVideosAnalyticsLabels" ofType:@"plist"];
+    NSDictionary *refLabelsDict = [NSDictionary dictionaryWithContentsOfFile:refLabelsPath];
+    
+    if (refLabelsDict[indexPathKey]) {
+    
+        [tester tapRowAtIndexPath:indexPath inTableViewWithAccessibilityIdentifier:@"tableView"];
+    
+        NSNotification *notification = [system waitForNotificationName:@"RTSAnalyticsComScoreRequestDidFinish" object:nil];
+        NSDictionary *labels = notification.userInfo[@"RTSAnalyticsLabels"];
+    
+        NSDictionary *refLabels = refLabelsDict[indexPathKey];
+        [refLabels enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
+            if ([dynamicValueKeys containsObject:key]) {
+                XCTAssertNotNil(labels[key], @"Missing value for key '%@'.", key);
+            }
+            else {
+                XCTAssertEqualObjects(labels[key], value, @"Wrong value --%@-- expected --%@-- for key '%@'.", labels[key], value, key);
+            }
+        }];
+    }
 }
 
 @end

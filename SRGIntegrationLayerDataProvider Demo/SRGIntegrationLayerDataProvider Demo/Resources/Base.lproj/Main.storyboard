@@ -121,6 +121,9 @@
                                 </cells>
                             </tableViewSection>
                         </sections>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="tableView"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="mfG-CS-mru" id="Q9X-7H-pzV"/>
                             <outlet property="delegate" destination="mfG-CS-mru" id="7X3-vj-9JA"/>
