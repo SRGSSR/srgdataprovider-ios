@@ -477,7 +477,7 @@ static NSArray *validBusinessUnits = nil;
         NSInteger seconds = [[NSUserDefaults standardUserDefaults] integerForKey:[self fetchKeyForIndex:index]];
         return [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
     }
-    return [NSDate dateWithTimeIntervalSinceReferenceDate:0.0];
+    return nil;
 }
 
 - (void)recordFetchDateForIndex:(enum SRGILFetchListIndex)index

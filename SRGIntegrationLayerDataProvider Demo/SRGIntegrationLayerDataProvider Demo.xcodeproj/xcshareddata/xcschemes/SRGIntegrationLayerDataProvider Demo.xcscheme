@@ -46,6 +46,16 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9F15193F1AC5A7F200AE051D"
+               BuildableName = "SRGIntegrationLayerDataProviderTests.xctest"
+               BlueprintName = "SRGIntegrationLayerDataProviderTests"
+               ReferencedContainer = "container:../SRGIntegrationLayerDataProvider.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "E6A0251A1B0C5509006DE0D0"
                BuildableName = "SRGIntegrationLayerDataProvider DemoTests.xctest"
                BlueprintName = "SRGIntegrationLayerDataProvider DemoTests"

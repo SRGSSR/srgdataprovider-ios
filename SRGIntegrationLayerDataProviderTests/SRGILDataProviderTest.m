@@ -53,15 +53,8 @@
 {
     SRGILDataProvider *p = ([[SRGILDataProvider alloc] initWithBusinessUnit:@"srf"]);
     for (NSInteger i = SRGILFetchListEnumBegin; i < SRGILFetchListEnumEnd; i ++) {
-        XCTAssertTrue([p isFetchPathValidForIndex:i], @"Fetch path must be valid if no data were fetched.");
+        XCTAssertFalse([p isFetchPathValidForIndex:i], @"Fetch path must be valid if no data were fetched.");
     }
-}
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
 }
 
 @end

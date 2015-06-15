@@ -122,8 +122,8 @@
 		E6A025041B0C5509006DE0D0 /* SRGIntegrationLayerDataProvider Demo */ = {
 			isa = PBXGroup;
 			children = (
-				E6A0252B1B0C55FF006DE0D0 /* Resources */,
 				E6A0252D1B0C55FF006DE0D0 /* Sources */,
+				E6A0252B1B0C55FF006DE0D0 /* Resources */,
 				E6A025371B0C55FF006DE0D0 /* Supporting Files */,
 			);
 			path = "SRGIntegrationLayerDataProvider Demo";
