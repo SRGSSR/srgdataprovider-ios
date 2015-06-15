@@ -31,8 +31,8 @@ static NSArray *dynamicValueKeys = nil;
 - (void)testComScoreMeasurementsOnValidVideoAtRow5
 {
     // Row 5: Geopolitis du 23 mai 2015.
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:5 inSection:0];
-    NSString *indexPathKey = @"indexPath-row-5-section-0";
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+    NSString *indexPathKey = @"indexPath-row-0-section-1";
     
     NSString *refLabelsPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"RTSVideosAnalyticsLabels" ofType:@"plist"];
     NSDictionary *refLabelsDict = [NSDictionary dictionaryWithContentsOfFile:refLabelsPath];
