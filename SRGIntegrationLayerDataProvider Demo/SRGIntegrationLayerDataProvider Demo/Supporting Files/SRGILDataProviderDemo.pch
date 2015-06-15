@@ -1,0 +1,14 @@
+//
+//  SRGILDataProviderDemo.pch
+//  SRGIntegrationLayerDataProvider Demo
+//
+//  Created by Cédric Foellmi on 15/06/15.
+//  Copyright (c) 2015 SRG. All rights reserved.
+//
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#endif
+

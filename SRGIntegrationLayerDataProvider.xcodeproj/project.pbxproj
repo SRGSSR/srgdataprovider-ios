@@ -240,7 +240,7 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		9F13D5031AE9270600E4D897 /* SRGIntegrationLayerDataProvider */ = {
+		9F13D5031AE9270600E4D897 /* SRGILProvider */ = {
 			isa = PBXGroup;
 			children = (
 				9F13D5041AE9270600E4D897 /* SRGILDataProvider.h */,
@@ -253,7 +253,7 @@
 				9F4420FD1B0A107900AD0613 /* MediaPlayer & Analytics */,
 				9F13D55E1AE92C4900E4D897 /* Offline */,
 			);
-			name = SRGIntegrationLayerDataProvider;
+			name = SRGILProvider;
 			path = SRGIntegrationLayerDataProvider/Core;
 			sourceTree = "<group>";
 		};
@@ -341,7 +341,7 @@
 			children = (
 				9F13D4FC1AE9238100E4D897 /* SRGIntegrationLayerDataProvider.podspec */,
 				9F1519581ACAA85A00AE051D /* SRGIntegrationLayerDataProvider.h */,
-				9F13D5031AE9270600E4D897 /* SRGIntegrationLayerDataProvider */,
+				9F13D5031AE9270600E4D897 /* SRGILProvider */,
 				9F13D5061AE9270600E4D897 /* Model */,
 				9F13D5301AE9270700E4D897 /* Network */,
 				9F1519441AC5A7F200AE051D /* Unit Tests */,

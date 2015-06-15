@@ -28,7 +28,26 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9F15193F1AC5A7F200AE051D"
+               BuildableName = "SRGIntegrationLayerDataProviderTests.xctest"
+               BlueprintName = "SRGIntegrationLayerDataProviderTests"
+               ReferencedContainer = "container:SRGIntegrationLayerDataProvider.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "9F1519341AC5A7F200AE051D"
+            BuildableName = "libSRGIntegrationLayerDataProvider.a"
+            BlueprintName = "SRGIntegrationLayerDataProvider"
+            ReferencedContainer = "container:SRGIntegrationLayerDataProvider.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"

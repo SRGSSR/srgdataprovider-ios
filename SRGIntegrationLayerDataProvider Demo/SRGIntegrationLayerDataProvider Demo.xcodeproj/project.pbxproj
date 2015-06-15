@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5B264E0F9EE6DEA658F7A7FC /* libPods-SRGIntegrationLayerDataProvider Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 083D06FB106767F44620E2A4 /* libPods-SRGIntegrationLayerDataProvider Demo.a */; };
+		9F8B38981B2EC99300F67FA5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8B38971B2EC99300F67FA5 /* SystemConfiguration.framework */; };
+		9F8B389A1B2EC99900F67FA5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8B38991B2EC99900F67FA5 /* MobileCoreServices.framework */; };
 		E67D9B331B0F887B00FF2334 /* SegmentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67D9B321B0F887B00FF2334 /* SegmentCollectionViewCell.xib */; };
 		E69E91691B0DAEC60033BD05 /* MediaPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E69E91681B0DAEC60033BD05 /* MediaPlayerViewController.m */; };
 		E6A025221B0C5509006DE0D0 /* SRGIntegrationLayerDataProvider_DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A025211B0C5509006DE0D0 /* SRGIntegrationLayerDataProvider_DemoTests.m */; };
@@ -33,6 +35,9 @@
 /* Begin PBXFileReference section */
 		083D06FB106767F44620E2A4 /* libPods-SRGIntegrationLayerDataProvider Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProvider Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A641F8D22E01F4D8006CEFB /* Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider Demo/Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		9F8B38971B2EC99300F67FA5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9F8B38991B2EC99900F67FA5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		9F8B389B1B2ECA8A00F67FA5 /* SRGILDataProviderDemo.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGILDataProviderDemo.pch; sourceTree = "<group>"; };
 		A633BC1A31AF1F344286918F /* Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider Demo/Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig"; sourceTree = "<group>"; };
 		E67D9B321B0F887B00FF2334 /* SegmentCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentCollectionViewCell.xib; sourceTree = "<group>"; };
 		E69E91671B0DAEC60033BD05 /* MediaPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlayerViewController.h; sourceTree = "<group>"; };
@@ -59,6 +64,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F8B389A1B2EC99900F67FA5 /* MobileCoreServices.framework in Frameworks */,
+				9F8B38981B2EC99300F67FA5 /* SystemConfiguration.framework in Frameworks */,
 				5B264E0F9EE6DEA658F7A7FC /* libPods-SRGIntegrationLayerDataProvider Demo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,6 +83,8 @@
 		5BEEA878A8EE8227A7037013 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9F8B38991B2EC99900F67FA5 /* MobileCoreServices.framework */,
+				9F8B38971B2EC99300F67FA5 /* SystemConfiguration.framework */,
 				083D06FB106767F44620E2A4 /* libPods-SRGIntegrationLayerDataProvider Demo.a */,
 			);
 			name = Frameworks;
@@ -168,6 +177,7 @@
 			children = (
 				E6A025381B0C55FF006DE0D0 /* Info.plist */,
 				E6A025391B0C55FF006DE0D0 /* main.m */,
+				9F8B389B1B2ECA8A00F67FA5 /* SRGILDataProviderDemo.pch */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
