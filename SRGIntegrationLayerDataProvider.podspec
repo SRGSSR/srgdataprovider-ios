@@ -35,7 +35,7 @@ Pod::Spec.new do |s|
     mp.dependency             "SRGIntegrationLayerDataProvider/Core"
     mp.dependency             "RTSAnalytics", "~> 0.3.4"
     mp.dependency             "RTSAnalytics/MediaPlayer", "~> 0.3.4"
-    mp.dependency             "RTSMediaPlayer", "~> 0.2.9"
+    mp.dependency             "RTSMediaPlayer", "~> 0.3.2"
   end
 
   s.subspec 'OfflineStorage' do |os|
