@@ -1,5 +1,5 @@
 //
-//  RTSOfflineStorageCenter.m
+//  SRGOfflineStorageCenter.m
 //  RTSOfflineMediaStorage
 //
 //  Created by Cédric Foellmi on 21/04/15.
@@ -15,7 +15,7 @@
 
 #define REALM_NONNULL_STRING(value) ((value == nil) ? @"" : (value))
 
-static NSString * const RTSOfflineStorageCenterFavoritesStorageKey = @"RTSOfflineStorageCenterFavoritesStorage";
+static NSString * const SRGOfflineStorageCenterFavoritesStorageKey = @"SRGOfflineStorageCenterFavoritesStorage";
 
 @interface RTSOfflineStorageCenter ()
 @property(nonatomic, strong) id<RTSMetadatasProvider> metadatasProvider;
@@ -26,28 +26,40 @@ static NSString * const RTSOfflineStorageCenterFavoritesStorageKey = @"RTSOfflin
 
 + (RTSOfflineStorageCenter *)favoritesCenterWithMetadataProvider:(id<RTSMetadatasProvider>)metadataProvider
 {
-    RTSOfflineStorageCenter *instance = [[RTSOfflineStorageCenter alloc] init_RTSOfflineStorageCenter_withStorageKey:RTSOfflineStorageCenterFavoritesStorageKey];
+    RTSOfflineStorageCenter *instance = [[RTSOfflineStorageCenter alloc] init_SRGOfflineStorageCenter_withStorageKey:SRGOfflineStorageCenterFavoritesStorageKey];
     instance.metadatasProvider = metadataProvider;
     return instance;
 }
 
-- (instancetype)init_RTSOfflineStorageCenter_withStorageKey:(NSString *)storageKey
+- (instancetype)init_SRGOfflineStorageCenter_withStorageKey:(NSString *)storageKey
 {
     self = [super init];
     if (self) {
         NSString *libraryPath = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
         NSString *realmPath = [libraryPath stringByAppendingPathComponent:[storageKey stringByAppendingPathExtension:@"realm"]];
         
-        [RLMRealm setSchemaVersion:1
-                    forRealmAtPath:realmPath
-                withMigrationBlock:^(RLMMigration *migration, NSUInteger oldSchemaVersion) {                    
-                    [migration enumerateObjects:RTSShowMetadata.className
-                                          block:^(RLMObject *oldObject, RLMObject *newObject) {
-                                              if (oldSchemaVersion < 1) {
-                                                  newObject[@"showDescription"] = @"";
-                                              }
-                                          }];
-                }];
+        NSError *error;
+        NSUInteger currentSchemaVersion = [RLMRealm schemaVersionAtPath:realmPath error:&error];
+        if (error) {
+            DDLogWarn(@"Error getting schema version for realm at path %@", realmPath);
+            DDLogWarn(@"%@", error);
+        }
+        
+        // Avoid running the setSchemaVersion:... on realm that have already migrated (for having been opened already
+        // for instance, like in unit tests).
+        NSUInteger newSchemaVersion = 1;
+        if (!error && currentSchemaVersion < newSchemaVersion) {
+            [RLMRealm setSchemaVersion:newSchemaVersion
+                        forRealmAtPath:realmPath
+                    withMigrationBlock:^(RLMMigration *migration, NSUInteger oldSchemaVersion) {                    
+                        [migration enumerateObjects:RTSShowMetadata.className
+                                              block:^(RLMObject *oldObject, RLMObject *newObject) {
+                                                  if (oldSchemaVersion < 1) {
+                                                      newObject[@"showDescription"] = @"";
+                                                  }
+                                              }];
+                    }];
+        }
         
         @try {
             self.realm = [RLMRealm realmWithPath:realmPath];
@@ -56,7 +68,7 @@ static NSString * const RTSOfflineStorageCenterFavoritesStorageKey = @"RTSOfflin
             NSLog(@"Caught exception while opening Realm: %@", exception);
             
             if([exception.name isEqualToString:RLMExceptionName]) {
-                NSFileManager* fileManager = [NSFileManager defaultManager];
+                NSFileManager *fileManager = [NSFileManager defaultManager];
                 [fileManager removeItemAtPath:realmPath error:nil];
                 
                 self.realm = [RLMRealm realmWithPath:realmPath];

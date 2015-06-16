@@ -67,6 +67,7 @@
 		9F3C1CC31ADC0B4A007C54AD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3C1CBF1ADC0B02007C54AD /* SystemConfiguration.framework */; };
 		9F3C1CC41ADC0B50007C54AD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3C1CC11ADC0B26007C54AD /* MobileCoreServices.framework */; };
 		9F4421001B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4420FF1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m */; };
+		9F598B001B301E9B00201366 /* SRGILDataProviderOfflineStorageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F598AFF1B301E9B00201366 /* SRGILDataProviderOfflineStorageTest.m */; };
 		9F83AB161B29C0C800D7D8BE /* SRGILDataProviderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F83AB151B29C0C800D7D8BE /* SRGILDataProviderTest.m */; };
 		9F83AB191B29C9F400D7D8BE /* SRGILDataProviderConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F83AB181B29C9F400D7D8BE /* SRGILDataProviderConstants.m */; };
 		9F8B389D1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B389C1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m */; };
@@ -192,6 +193,7 @@
 		9F4420FE1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGILDataProvider+MediaPlayer.h"; sourceTree = "<group>"; };
 		9F4420FF1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGILDataProvider+MediaPlayer.m"; sourceTree = "<group>"; };
 		9F4421011B0A116D00AD0613 /* SRGILDataProviderMediaPlayerDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SRGILDataProviderMediaPlayerDataSource.h; path = SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h; sourceTree = SOURCE_ROOT; };
+		9F598AFF1B301E9B00201366 /* SRGILDataProviderOfflineStorageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderOfflineStorageTest.m; sourceTree = "<group>"; };
 		9F83AB151B29C0C800D7D8BE /* SRGILDataProviderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderTest.m; sourceTree = "<group>"; };
 		9F83AB171B29C9F400D7D8BE /* SRGILDataProviderConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILDataProviderConstants.h; sourceTree = "<group>"; };
 		9F83AB181B29C9F400D7D8BE /* SRGILDataProviderConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderConstants.m; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 			children = (
 				9F83AB151B29C0C800D7D8BE /* SRGILDataProviderTest.m */,
 				9F8B389C1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m */,
+				9F598AFF1B301E9B00201366 /* SRGILDataProviderOfflineStorageTest.m */,
 				9F83AB131B29BFB500D7D8BE /* Model Tests */,
 				9F83AB141B29C09900D7D8BE /* Network Tests */,
 				9F1A5B031ACD68E700C0E528 /* Resources */,
@@ -681,6 +684,7 @@
 				9F1A5B2A1ACD690C00C0E528 /* SRGILAudioTest.m in Sources */,
 				9F83AB161B29C0C800D7D8BE /* SRGILDataProviderTest.m in Sources */,
 				9F1A5B311ACD690C00C0E528 /* SRGILVideoTest.m in Sources */,
+				9F598B001B301E9B00201366 /* SRGILDataProviderOfflineStorageTest.m in Sources */,
 				9F1A5B2F1ACD690C00C0E528 /* SRGRequestModelTest.m in Sources */,
 				9F1A5B2D1ACD690C00C0E528 /* SRGModelObjectTest.m in Sources */,
 				9F1A5B321ACD690C00C0E528 /* XCTestCase+JSON.m in Sources */,

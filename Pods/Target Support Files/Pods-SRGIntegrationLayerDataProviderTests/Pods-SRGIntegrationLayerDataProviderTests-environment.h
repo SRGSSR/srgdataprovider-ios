@@ -66,12 +66,6 @@
 #define COCOAPODS_VERSION_MINOR_RTSMediaPlayer 2
 #define COCOAPODS_VERSION_PATCH_RTSMediaPlayer 9
 
-// RTSOfflineMediaStorage
-#define COCOAPODS_POD_AVAILABLE_RTSOfflineMediaStorage
-#define COCOAPODS_VERSION_MAJOR_RTSOfflineMediaStorage 0
-#define COCOAPODS_VERSION_MINOR_RTSOfflineMediaStorage 1
-#define COCOAPODS_VERSION_PATCH_RTSOfflineMediaStorage 2
-
 // Realm
 #define COCOAPODS_POD_AVAILABLE_Realm
 #define COCOAPODS_VERSION_MAJOR_Realm 0
@@ -113,6 +107,12 @@
 #define COCOAPODS_VERSION_MAJOR_SRGIntegrationLayerDataProvider_OfflineStorage 0
 #define COCOAPODS_VERSION_MINOR_SRGIntegrationLayerDataProvider_OfflineStorage 2
 #define COCOAPODS_VERSION_PATCH_SRGIntegrationLayerDataProvider_OfflineStorage 0
+
+// SRGOfflineStorage
+#define COCOAPODS_POD_AVAILABLE_SRGOfflineStorage
+#define COCOAPODS_VERSION_MAJOR_SRGOfflineStorage 0
+#define COCOAPODS_VERSION_MINOR_SRGOfflineStorage 2
+#define COCOAPODS_VERSION_PATCH_SRGOfflineStorage 0
 
 // TransitionKit
 #define COCOAPODS_POD_AVAILABLE_TransitionKit

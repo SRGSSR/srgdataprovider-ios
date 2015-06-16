@@ -42,7 +42,7 @@ Pod::Spec.new do |s|
     os.source_files         = "SRGIntegrationLayerDataProvider/SRGILDataProviderOfflineStorage.h", "SRGIntegrationLayerDataProvider/Offline/*.{h,m}"
     os.private_header_files = "SRGIntegrationLayerDataProvider/Offline/SRGIL*Metadata.{h,m}"
     os.dependency             "SRGIntegrationLayerDataProvider/Core"
-    os.dependency             "RTSOfflineMediaStorage", "~> 0.1.0"
+    os.dependency             "SRGOfflineStorage", "~> 0.2.0"
   end
 
 end

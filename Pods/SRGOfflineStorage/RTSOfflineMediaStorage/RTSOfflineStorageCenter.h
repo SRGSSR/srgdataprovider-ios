@@ -1,5 +1,5 @@
 //
-//  RTSOfflineStorageCenter.h
+//  SRGOfflineStorageCenter.h
 //  RTSOfflineMediaStorage
 //
 //  Created by Cédric Foellmi on 21/04/15.
@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RTSMediaMetadatasProtocols.h"
 #import <Realm/RLMResults.h>
+#import "RTSMetadatasProtocols.h"
 
 @interface RTSOfflineStorageCenter : NSObject
 

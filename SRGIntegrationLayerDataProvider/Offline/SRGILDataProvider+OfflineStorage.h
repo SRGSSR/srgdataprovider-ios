@@ -7,7 +7,7 @@
 //
 
 #import "SRGILDataProvider.h"
-#import <RTSOfflineMediaStorage/RTSOfflineMediaStorage.h>
+#import <SRGOfflineStorage/SRGOfflineStorage.h>
 
 @interface SRGILDataProvider (OfflineStorage) <RTSMetadatasProvider>
 

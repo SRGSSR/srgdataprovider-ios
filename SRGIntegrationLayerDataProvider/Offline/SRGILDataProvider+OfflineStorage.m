@@ -8,7 +8,7 @@
 
 #import <libextobjc/EXTScope.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
-#import <RTSOfflineMediaStorage/RTSOfflineMediaStorage.h>
+#import <SRGOfflineStorage/SRGOfflineStorage.h>
 
 #import "SRGILDataProvider+OfflineStorage.h"
 #import "SRGILDataProvider+Private.h"

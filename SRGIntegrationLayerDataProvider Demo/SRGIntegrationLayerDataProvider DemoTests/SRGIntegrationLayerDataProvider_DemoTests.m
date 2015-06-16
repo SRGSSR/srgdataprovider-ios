@@ -23,36 +23,57 @@ static NSArray *dynamicValueKeys = nil;
     [super setUp];
     
     if (!dynamicValueKeys) {
-        dynamicValueKeys = @[@"ns_ap_cs", @"ns_st_bp", @"ns_ap_id", @"ns_st_po", @"ns_st_br", @"ns_ts", @"ns_st_bt", @"ns_st_id"];
+        dynamicValueKeys = @[@"ns_ap_cs", @"ns_st_bp", @"ns_ap_id", @"ns_st_po", @"ns_st_br", @"ns_ts", @"ns_st_bt", @"ns_st_id", @"ns_ap_ec"];
     }
 }
 
 
-- (void)testComScoreMeasurementsOnValidVideoAtRow5
+- (void)testComScoreMeasurementsOnValidVideos
 {
-    // Row 5: Geopolitis du 23 mai 2015.
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-    NSString *indexPathKey = @"indexPath-row-0-section-1";
+    [KIFUITestActor setDefaultTimeout:60];
+
+    for (NSInteger i = 0; i <= 21; i++) {
     
-    NSString *refLabelsPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"RTSVideosAnalyticsLabels" ofType:@"plist"];
-    NSDictionary *refLabelsDict = [NSDictionary dictionaryWithContentsOfFile:refLabelsPath];
-    
-    if (refLabelsDict[indexPathKey]) {
-    
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:1];
+        NSString *indexPathKey = [NSString stringWithFormat:@"indexPath-row-%@-section-1", @(i)];
+        
+        NSString *refLabelsPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"RTSVideosAnalyticsLabels" ofType:@"plist"];
+        NSDictionary *refLabelsDict = [NSDictionary dictionaryWithContentsOfFile:refLabelsPath];
+
         [tester tapRowAtIndexPath:indexPath inTableViewWithAccessibilityIdentifier:@"tableView"];
-    
+        
         NSNotification *notification = [system waitForNotificationName:@"RTSAnalyticsComScoreRequestDidFinish" object:nil];
         NSDictionary *labels = notification.userInfo[@"RTSAnalyticsLabels"];
-    
-        NSDictionary *refLabels = refLabelsDict[indexPathKey];
-        [refLabels enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
-            if ([dynamicValueKeys containsObject:key]) {
-                XCTAssertNotNil(labels[key], @"Missing value for key '%@'.", key);
+
+        if (refLabelsDict[indexPathKey]) {
+            
+            NSDictionary *refLabels = refLabelsDict[indexPathKey];
+            [refLabels enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
+                if ([dynamicValueKeys containsObject:key]) {
+                    XCTAssertNotNil(labels[key], @"Missing value for key '%@'.", key);
+                }
+                else {
+                    XCTAssertEqualObjects(labels[key], value, @"Wrong value --%@-- expected --%@-- for key '%@'.", labels[key], value, key);
+                }
+            }];
+            
+        }
+        else {
+            // Prepare the content to be inserted inside the .plist.
+            NSMutableString *s = [[NSMutableString alloc] init];
+            [s appendFormat:@"\t<key>%@</key>\n\t<dict>\n", indexPathKey];
+            
+            NSArray *sortedKeys = [[labels allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+            for (NSString *key in sortedKeys) {
+                [s appendFormat:@"\t\t<key>%@</key>\n", key];
+                [s appendFormat:@"\t\t<string>%@</string>\n", labels[key]];
             }
-            else {
-                XCTAssertEqualObjects(labels[key], value, @"Wrong value --%@-- expected --%@-- for key '%@'.", labels[key], value, key);
-            }
-        }];
+            
+            [s appendString:@"\t</dict>"];
+            NSLog(@"\n\n\n%@\n\n\n", s);
+        }
+        
+        [tester tapViewWithAccessibilityLabel:@"Done"];
     }
 }
 

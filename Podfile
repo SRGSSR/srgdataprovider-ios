@@ -11,7 +11,7 @@ xcodeproj 'SRGIntegrationLayerDataProvider'
 pod 'RTSAnalytics', '0.3.4'
 pod 'RTSAnalytics/MediaPlayer', '0.3.4'
 pod 'RTSMediaPlayer', '0.2.9'
-pod 'RTSOfflineMediaStorage', '~> 0.1.1'
+pod 'SRGOfflineStorage', '~> 0.2.0'
 
 pod 'AFNetworking', '~> 1.3.4'
 pod 'SGVReachability', '~> 1.0.0'

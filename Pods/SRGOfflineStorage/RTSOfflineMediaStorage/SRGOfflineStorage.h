@@ -11,6 +11,6 @@
  */
 #define kRTSOfflineMediaStorageVersion @"0.0.1"
 
-#import "RTSMediaMetadatasProtocols.h"
+#import "RTSMetadatasProtocols.h"
 #import "RTSOfflineStorageCenter.h"
 

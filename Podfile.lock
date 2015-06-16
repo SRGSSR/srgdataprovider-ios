@@ -31,12 +31,6 @@ PODS:
     - CocoaLumberjack (~> 2.0.0)
     - libextobjc/EXTScope (~> 0.4.1)
     - TransitionKit (~> 2.2.0)
-  - RTSOfflineMediaStorage (0.1.2):
-    - AFNetworking (~> 1.3.4)
-    - CocoaLumberjack (~> 2.0.0)
-    - libextobjc/EXTScope (= 0.4.1)
-    - Realm (~> 0.91.3)
-    - SGVReachability (~> 1.0.0)
   - SDWebImage (3.7.0):
     - SDWebImage/Core (= 3.7.0)
   - SDWebImage/Core (3.7.0)
@@ -54,8 +48,14 @@ PODS:
     - RTSMediaPlayer (~> 0.2.9)
     - SRGIntegrationLayerDataProvider/Core
   - SRGIntegrationLayerDataProvider/OfflineStorage (0.2.0):
-    - RTSOfflineMediaStorage (~> 0.1.0)
     - SRGIntegrationLayerDataProvider/Core
+    - SRGOfflineStorage (~> 0.2.0)
+  - SRGOfflineStorage (0.2.0):
+    - AFNetworking (~> 1.3.4)
+    - CocoaLumberjack (~> 2.0.0)
+    - libextobjc/EXTScope (= 0.4.1)
+    - Realm (~> 0.91.3)
+    - SGVReachability (~> 1.0.0)
   - TransitionKit (2.2.0)
 
 DEPENDENCIES:
@@ -67,12 +67,12 @@ DEPENDENCIES:
   - RTSAnalytics (= 0.3.4)
   - RTSAnalytics/MediaPlayer (= 0.3.4)
   - RTSMediaPlayer (= 0.2.9)
-  - RTSOfflineMediaStorage (~> 0.1.1)
   - SDWebImage (= 3.7.0)
   - SGVReachability (~> 1.0.0)
   - SRGIntegrationLayerDataProvider (from `.`)
   - SRGIntegrationLayerDataProvider/MediaPlayer (from `.`)
   - SRGIntegrationLayerDataProvider/OfflineStorage (from `.`)
+  - SRGOfflineStorage (~> 0.2.0)
 
 EXTERNAL SOURCES:
   SRGIntegrationLayerDataProvider:
@@ -88,10 +88,10 @@ SPEC CHECKSUMS:
   Realm: 670059efdb212ab939c1745a60aff27820c0a9c4
   RTSAnalytics: 8ebaf8ecd7a710a65094efa81a0ae6e0298dfa7f
   RTSMediaPlayer: 988934d0289c8fe3b7d7d1dfc97c30921a7f1aa8
-  RTSOfflineMediaStorage: 71c344cb7c8b3faeed28a03b0de2921a1c7d8f45
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
-  SRGIntegrationLayerDataProvider: c212d0ba92562099be99985f71442c79cf4f6f5d
+  SRGIntegrationLayerDataProvider: 1b5de06689b2a51657f6fe2e079313609a98267b
+  SRGOfflineStorage: 4d1aa1810fcbaa9e2450b6bab9ac5acde601a3ff
   TransitionKit: 5c9001a77acc409d71f26a4eba0159cf8619c418
 
 COCOAPODS: 0.37.2

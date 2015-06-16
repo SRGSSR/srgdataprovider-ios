@@ -61,7 +61,7 @@
                           }
                       }];
     
-    [self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {
+    [self waitForExpectationsWithTimeout:30.0 handler:^(NSError *error) {
         if (error) {
             NSLog(@"Timeout Error: %@", error);
         }
@@ -90,11 +90,77 @@
                           }
                       }];
     
-    [self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {
+    [self waitForExpectationsWithTimeout:30.0 handler:^(NSError *error) {
         if (error) {
             NSLog(@"Timeout Error: %@", error);
         }
     }];
 }
+
+- (void)testDataProviderMediaSegmentsDataSourceWithValidIdentifier
+{
+    // 19h30
+    NSString *identifier = @"6414099";
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:
+                                      [NSString stringWithFormat:@"Expected a valid content URL for the identifier %@",
+                                       identifier]];
+    
+    SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
+    [dataProvider segmentsController:nil
+               segmentsForIdentifier:identifier
+               withCompletionHandler:^(id<RTSMediaSegment> fullLength, NSArray *segments, NSError *error) {
+                   XCTAssertNotNil(fullLength, @"Missing full-length video");
+                   XCTAssertNotNil(segments, @"Missing segments");
+                   XCTAssertTrue(segments.count > 0, @"Missing segments");
+                   XCTAssertNil(error, @"Error must be nil");
+                   
+                   if (fullLength && segments && !error) {
+                       [expectation fulfill];
+                   }
+               }];
+    
+    [self waitForExpectationsWithTimeout:30.0 handler:^(NSError *error) {
+        if (error) {
+            NSLog(@"Timeout Error: %@", error);
+        }
+    }];
+}
+
+- (void)testDataProviderAnalyticsMediaPlayerDataSourceWithValidIdentifier
+{
+    // http://www.rts.ch/play/tv/infrarouge/video/fifa-un-hôte-trop-encombrant-?id=6853450
+    NSString *identifier = @"6853450";
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:
+                                      [NSString stringWithFormat:@"Expected a valid content URL for the identifier %@",
+                                       identifier]];
+    
+    SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
+    [dataProvider mediaPlayerController:nil
+                contentURLForIdentifier:identifier
+                      completionHandler:^(NSURL *contentURL, NSError *error) {
+                          XCTAssertNotNil(contentURL, @"Content URL must be present.");
+                          XCTAssertNil(error, @"Error must be nil.");
+                          
+                          NSLog(@"%@", [dataProvider streamSensePlaylistMetadataForIdentifier:identifier]);
+                          NSLog(@"%@", [dataProvider streamSenseClipMetadataForIdentifier:identifier withSegment:nil]);
+                          
+                          XCTAssertNotNil([dataProvider streamSensePlaylistMetadataForIdentifier:identifier]);
+                          XCTAssertNotNil([dataProvider streamSenseClipMetadataForIdentifier:identifier withSegment:nil]);
+                          
+                          if (!error && contentURL) {
+                              NSLog(@"The contentURL is: %@", contentURL);
+                              [expectation fulfill];
+                          }
+                      }];
+    
+    [self waitForExpectationsWithTimeout:30.0 handler:^(NSError *error) {
+        if (error) {
+            NSLog(@"Timeout Error: %@", error);
+        }
+    }];
+}
+
 
 @end

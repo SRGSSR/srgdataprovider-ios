@@ -1,5 +1,0 @@
-#import <Foundation/Foundation.h>
-@interface PodsDummy_Pods_SRGIntegrationLayerDataProviderTests_RTSOfflineMediaStorage : NSObject
-@end
-@implementation PodsDummy_Pods_SRGIntegrationLayerDataProviderTests_RTSOfflineMediaStorage
-@end

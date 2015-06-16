@@ -8,7 +8,7 @@
 
 #import <Realm/Realm.h>
 #import "RTSBaseMetadata.h"
-#import "RTSMediaMetadatasProtocols.h"
+#import "RTSMetadatasProtocols.h"
 
 @interface RTSShowMetadata : RTSBaseMetadata <RTSShowMetadataContainer>
 

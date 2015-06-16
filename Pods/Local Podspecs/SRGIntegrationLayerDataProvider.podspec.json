@@ -87,8 +87,8 @@
         "SRGIntegrationLayerDataProvider/Core": [
 
         ],
-        "RTSOfflineMediaStorage": [
-          "~> 0.1.0"
+        "SRGOfflineStorage": [
+          "~> 0.2.0"
         ]
       }
     }

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <RTSOfflineMediaStorage/RTSOfflineMediaStorage.h>
+#import <SRGOfflineStorage/SRGOfflineStorage.h>
 #import "SRGILBaseMetadata.h"
 
 @class SRGILMedia;

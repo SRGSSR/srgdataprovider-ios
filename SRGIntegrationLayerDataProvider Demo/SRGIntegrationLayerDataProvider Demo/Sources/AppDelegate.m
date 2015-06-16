@@ -26,7 +26,7 @@
                                                         launchOptions:launchOptions
                                                       mediaDataSource:self.dataSource];
     
-    [[RTSAnalyticsTracker sharedTracker] setLogEnabled:YES];
+    [[RTSAnalyticsTracker sharedTracker] setLogEnabled:NO];
     
     return YES;
 }
