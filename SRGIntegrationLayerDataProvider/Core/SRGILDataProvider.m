@@ -464,6 +464,11 @@ static NSArray *validBusinessUnits = nil;
     [_typedFetchPaths removeObjectForKey:@(index)];
 }
 
+- (SRGILList *)itemsListForIndex:(enum SRGILFetchListIndex)index
+{
+    return _taggedItemLists[@(index)];
+}
+
 #pragma mark - Fetch Dates
 
 - (NSString *)fetchKeyForIndex:(enum SRGILFetchListIndex)index

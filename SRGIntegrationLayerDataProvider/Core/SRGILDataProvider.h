@@ -102,6 +102,8 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  */
 - (void)resetFetchPathForIndex:(enum SRGILFetchListIndex)index;
 
+- (SRGILList *)itemsListForIndex:(enum SRGILFetchListIndex)index;
+
 // ********* Fetch individual media of IL model objects **********
 
 /**
