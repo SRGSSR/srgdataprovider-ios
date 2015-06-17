@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 SRG SSR. All rights reserved.
 //
 
-#import <AFNetworking/AFNetworking.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 #import "SRGILTokenHandler.h"

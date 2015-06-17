@@ -25,9 +25,7 @@
     [[RTSAnalyticsTracker sharedTracker] startTrackingForBusinessUnit:SSRBusinessUnitRTS
                                                         launchOptions:launchOptions
                                                       mediaDataSource:self.dataSource];
-    
-    [[RTSAnalyticsTracker sharedTracker] setLogEnabled:NO];
-    
+        
     return YES;
 }
 

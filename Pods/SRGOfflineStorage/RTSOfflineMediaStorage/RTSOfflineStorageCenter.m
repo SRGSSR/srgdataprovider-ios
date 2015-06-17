@@ -7,7 +7,6 @@
 //
 
 #import <Realm/Realm.h>
-#import <CocoaLumberjack/CocoaLumberjack.h>
 
 #import "RTSOfflineStorageCenter.h"
 #import "RTSMediaMetadata.h"
@@ -38,28 +37,16 @@ static NSString * const SRGOfflineStorageCenterFavoritesStorageKey = @"SRGOfflin
         NSString *libraryPath = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
         NSString *realmPath = [libraryPath stringByAppendingPathComponent:[storageKey stringByAppendingPathExtension:@"realm"]];
         
-        NSError *error;
-        NSUInteger currentSchemaVersion = [RLMRealm schemaVersionAtPath:realmPath error:&error];
-        if (error) {
-            DDLogWarn(@"Error getting schema version for realm at path %@", realmPath);
-            DDLogWarn(@"%@", error);
-        }
-        
-        // Avoid running the setSchemaVersion:... on realm that have already migrated (for having been opened already
-        // for instance, like in unit tests).
-        NSUInteger newSchemaVersion = 1;
-        if (!error && currentSchemaVersion < newSchemaVersion) {
-            [RLMRealm setSchemaVersion:newSchemaVersion
-                        forRealmAtPath:realmPath
-                    withMigrationBlock:^(RLMMigration *migration, NSUInteger oldSchemaVersion) {                    
-                        [migration enumerateObjects:RTSShowMetadata.className
-                                              block:^(RLMObject *oldObject, RLMObject *newObject) {
-                                                  if (oldSchemaVersion < 1) {
-                                                      newObject[@"showDescription"] = @"";
-                                                  }
-                                              }];
-                    }];
-        }
+        [RLMRealm setSchemaVersion:1
+                    forRealmAtPath:realmPath
+                withMigrationBlock:^(RLMMigration *migration, NSUInteger oldSchemaVersion) {                    
+                    [migration enumerateObjects:RTSShowMetadata.className
+                                          block:^(RLMObject *oldObject, RLMObject *newObject) {
+                                              if (oldSchemaVersion < 1) {
+                                                  newObject[@"showDescription"] = @"";
+                                              }
+                                          }];
+                }];
         
         @try {
             self.realm = [RLMRealm realmWithPath:realmPath];
@@ -130,7 +117,9 @@ static NSString * const SRGOfflineStorageCenterFavoritesStorageKey = @"SRGOfflin
         id<RTSBaseMetadataContainer> container = [self.metadatasProvider performSelector:selector withObject:identifier];
 #pragma clang diagnostic pop
         if (container == nil) {
-            DDLogWarn(@"No container for identifier: %@", identifier);
+#ifdef DEBUG
+            NSLog(@"No container for identifier: %@", identifier);
+#endif
             metadata = [[objectClass alloc] init];
         }
         else {

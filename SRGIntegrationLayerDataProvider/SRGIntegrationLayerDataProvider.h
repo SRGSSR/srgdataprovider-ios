@@ -9,7 +9,7 @@
 /**
  *  `kSRGIntegrationLayerDataProvider` MUST match the Pod tag version!
  */
-#define kSRGIntegrationLayerDataProvider @"0.1.1"
+#define kSRGIntegrationLayerDataProvider @"0.3.0"
 
 #import "SRGILModel.h"
 #import "SRGILList.h"

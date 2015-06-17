@@ -8,12 +8,11 @@ workspace 'SRGIntegrationLayerDataProvider.xcworkspace'
 
 xcodeproj 'SRGIntegrationLayerDataProvider'
 
-pod 'RTSAnalytics', '0.3.4'
-pod 'RTSAnalytics/MediaPlayer', '0.3.4'
-pod 'RTSMediaPlayer', '0.2.9'
-pod 'SRGOfflineStorage', '~> 0.2.0'
+pod 'RTSAnalytics', '~> 0.3.4'
+pod 'RTSAnalytics/MediaPlayer', '~> 0.3.4'
+pod 'RTSMediaPlayer', '~> 0.3.2'
+pod 'SRGOfflineStorage', '~> 0.3.0'
 
-pod 'AFNetworking', '~> 1.3.4'
 pod 'SGVReachability', '~> 1.0.0'
 pod 'CocoaLumberjack', '~> 2.0.0'
 pod 'libextobjc/EXTScope', '0.4.1'

@@ -9,7 +9,7 @@
 /**
  *  `kRTSOfflineMediaStorageVersion` MUST match the Pod tag version!
  */
-#define kRTSOfflineMediaStorageVersion @"0.0.1"
+#define kRTSOfflineMediaStorageVersion @"0.3.0"
 
 #import "RTSMetadatasProtocols.h"
 #import "RTSOfflineStorageCenter.h"

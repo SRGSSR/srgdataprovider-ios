@@ -4,7 +4,6 @@
 
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import <SGVReachability/SGVReachability.h>
-#import <AFNetworking/AFNetworking.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <libextobjc/EXTScope.h>
 
@@ -45,11 +44,11 @@
 
 @end
 
-@interface SRGILRequestsManager ()
-@property (nonatomic, strong) AFHTTPClient *httpClient;
-@property (nonatomic, strong) NSMutableDictionary *ongoingVideoListRequests;
+@interface SRGILRequestsManager () <NSURLSessionDelegate>
+@property (nonatomic, strong) NSURL *baseURL;
+@property (nonatomic, strong) NSURLSession *URLSession;
+@property (nonatomic, strong) NSMutableDictionary *ongoingRequests;
 @property (nonatomic, strong) NSMutableDictionary *ongoingVideoListDownloads;
-@property (nonatomic, strong) NSMutableDictionary *ongoingAssetRequests;
 @end
 
 @implementation SRGILRequestsManager
@@ -73,52 +72,17 @@ static SGVReachability *reachability;
     NSAssert(businessUnit != nil, @"Expecting 3-letters business identifier string for request manager");
     self = [super init];
     if (self) {
-        NSURL *baseURL = [[NSURL URLWithString:@"http://il.srgssr.ch/integrationlayer/1.0/ue/"] URLByAppendingPathComponent:businessUnit];
-        self.httpClient = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
-        [self.httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
-        [self.httpClient setDefaultHeader:@"Accept" value:@"application/json"];
-
-        self.ongoingVideoListRequests = [NSMutableDictionary dictionary];
+        self.baseURL = [[NSURL URLWithString:@"http://il.srgssr.ch/integrationlayer/1.0/ue/"] URLByAppendingPathComponent:businessUnit];
+        self.ongoingRequests = [NSMutableDictionary dictionary];
         self.ongoingVideoListDownloads = [NSMutableDictionary dictionary];
-        self.ongoingAssetRequests = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
 - (NSString *)businessUnit
 {
-    return [self.httpClient.baseURL lastPathComponent];
+    return [self.baseURL lastPathComponent];
 }
-
-- (NSURL *)baseURL
-{
-    return self.httpClient.baseURL;
-}
-
-
-- (NSArray *)ongoingRequestPaths
-{
-    return [self.ongoingVideoListRequests allKeys];
-}
-
-- (AFHTTPRequestOperation *)requestOperationWithPath:(NSString *)path completion:(void (^)(id JSON, NSError *error))completion
-{
-    NSURLRequest *request = [self.httpClient requestWithMethod:@"GET" path:path parameters:nil];
-    AFHTTPRequestOperation *operation = [self.httpClient HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        completion(responseObject, nil);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        completion(nil, error);
-    }];
-    [operation setCacheResponseBlock:^NSCachedURLResponse *(NSURLConnection *connection, NSCachedURLResponse *cachedResponse) {
-        return nil; // Avoid caching response.
-    }];
-    [self.httpClient enqueueHTTPRequestOperation:operation];
-    
-    DDLogDebug(@"<%p> Requesting URL: %@", self, request.URL);
-
-    return operation;
-}
-
 
 #pragma mark - Requesting Media
 
@@ -185,31 +149,52 @@ static SGVReachability *reachability;
     NSAssert(JSONKey, @"Missing JSON key");
     NSAssert(completionBlock, @"Missing completion block");
 
-    __block SRGILOngoingRequest *ongoingRequest = self.ongoingAssetRequests[identifier];
-    if (!ongoingRequest) {
-        __weak typeof(self) welf = self;
-        void (^completion)(id JSON, NSError *error) = ^(id JSON, NSError *error) {
-            void (^callCompletionBlocks)(SRGILMedia *, NSError *) = ^(SRGILMedia *media, NSError *error) {
-                for (SRGILRequestMediaCompletionBlock completionBlock in ongoingRequest.completionBlocks) {
-                    completionBlock(media, error);
+    __block SRGILOngoingRequest *ongoingRequest = self.ongoingRequests[identifier];
+    if (ongoingRequest) {
+        [ongoingRequest addCompletionBlock:completionBlock];
+        return YES;
+    }
+    
+    @weakify(self)
+    void (^completion)(NSData *data, NSURLResponse *response, NSError *error) = ^(NSData *data, NSURLResponse *response, NSError *error) {
+        @strongify(self)
+
+        [self.ongoingRequests removeObjectForKey:identifier];
+        if (self.ongoingRequests.count == 0) {
+            [self.URLSession invalidateAndCancel];
+            self.URLSession = nil;
+        }
+        
+        void (^callCompletionBlocks)(SRGILMedia *, NSError *) = ^(SRGILMedia *media, NSError *error) {
+            for (SRGILRequestMediaCompletionBlock completionBlock in ongoingRequest.completionBlocks) {
+                completionBlock(media, error);
+            }
+        };
+        
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSError *newError = nil;
+                if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == -1009) {
+                    newError = error;
                 }
-            };
-            [welf.ongoingAssetRequests removeObjectForKey:identifier];
-            
-            if (error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSError *newError = nil;
-                    if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == -1009) {
-                        newError = error;
-                    }
-                    else {
-                        newError = SRGILCreateUserFacingError(error.localizedDescription, error, SRGILErrorCodeInvalidData);
-                    }
-                    return callCompletionBlocks(nil, newError);
-                });
+                else {
+                    newError = SRGILCreateUserFacingError(error.localizedDescription, error, SRGILErrorCodeInvalidData);
+                }
+                return callCompletionBlocks(nil, newError);
+            });
+        }
+        else {
+            NSError *JSONError = nil;
+            id JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&JSONError];
+            if (JSONError) {
+                return callCompletionBlocks(nil, JSONError);
+            }
+            else if (![JSON isKindOfClass:[NSDictionary class]]) {
+                JSONError = SRGILCreateUserFacingError(@"Invalid JSON", nil, SRGILErrorCodeInvalidData);
+                return callCompletionBlocks(nil, JSONError);
             }
             else {
-                id media = [[modelClass alloc] initWithDictionary:[JSON valueForKey:JSONKey]];
+                id media = [[modelClass alloc] initWithDictionary:[(NSDictionary *)JSON valueForKey:JSONKey]];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (media) {
                         return callCompletionBlocks(media, nil);
@@ -220,13 +205,23 @@ static SGVReachability *reachability;
                     }
                 });
             }
-        };
-        
-        NSOperation *operation = [self requestOperationWithPath:path completion:completion];
-        ongoingRequest = [[SRGILOngoingRequest alloc] initWithOperation:operation];
-        self.ongoingAssetRequests[identifier] = ongoingRequest;
+        }
+    };
+    
+    if (!self.URLSession) {
+        self.URLSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
+                                                        delegate:self
+                                                   delegateQueue:nil];
     }
+    
+    NSURL *completeURL = [self.baseURL URLByAppendingPathComponent:path];
+    NSURLSessionTask *task = [self.URLSession dataTaskWithURL:completeURL completionHandler:completion];
+    
+    ongoingRequest = [[SRGILOngoingRequest alloc] initWithTask:task];
     [ongoingRequest addCompletionBlock:completionBlock];
+
+    self.ongoingRequests[identifier] = ongoingRequest;
+    [task resume];
     
     return YES;
 }
@@ -246,25 +241,34 @@ static SGVReachability *reachability;
         [self.ongoingVideoListDownloads setObject:@(0.0) forKey:path];
     }
     
+    NSURL *completeURL = [self.baseURL URLByAppendingPathComponent:path];
+
     @weakify(self)
-    
-    void (^completion)(id rawDictionary, NSError *error) = ^(id rawDictionary, NSError *error) {
+    void (^completion)(NSData *data, NSURLResponse *response, NSError *error) = ^(NSData *data, NSURLResponse *response, NSError *error) {
         @strongify(self)
         
-        BOOL hasBeenCancelled = (![self.ongoingVideoListRequests objectForKey:path]);
+        BOOL hasBeenCancelled = (![self.ongoingRequests objectForKey:completeURL]);
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.ongoingVideoListRequests removeObjectForKey:path];
-            if ([self.ongoingVideoListRequests count] == 0) {
+            [self.ongoingRequests removeObjectForKey:completeURL];
+            if (self.ongoingRequests.count == 0) {
                 [self.ongoingVideoListDownloads removeAllObjects];
+                [self.URLSession invalidateAndCancel];
+                self.URLSession = nil;
             }
         });
         
         if (!hasBeenCancelled) {
-            if (error || !rawDictionary || ![rawDictionary isKindOfClass:[NSDictionary class]]) {
+            NSError *JSONError = nil;
+            id rawDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&JSONError];
+            
+            if (error || JSONError || !rawDictionary || ![rawDictionary isKindOfClass:[NSDictionary class]]) {
                 NSError *newError = nil;
                 if ([error isNetworkError]) {
                     newError = error;
+                }
+                else if (JSONError) {
+                    newError = JSONError;
                 }
                 else {
                     newError = SRGILCreateUserFacingError(NSLocalizedString(@"INVALID_DATA_FOR_CATEGORY", nil), error, SRGILErrorCodeInvalidData);
@@ -272,17 +276,26 @@ static SGVReachability *reachability;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completionBlock(nil, newError);
                 });
-                return;
             }
-            
-            completionBlock(rawDictionary, nil);
+            else {
+                completionBlock(rawDictionary, nil);
+            }
         }
     };
     
-    void (^progress)(NSUInteger, long long, long long) = ^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+    if (!self.URLSession) {
+        self.URLSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
+                                                        delegate:self
+                                                   delegateQueue:nil];
+    }
+
+    NSURLSessionTask *task = [self.URLSession dataTaskWithURL:completeURL completionHandler:completion];
+    
+    SRGILOngoingRequest *ongoingRequest = [[SRGILOngoingRequest alloc] initWithTask:task];
+    ongoingRequest.progressBlock = ^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
         if (totalBytesExpectedToRead >= 0) { // Will be -1 when unknown
             float fraction = (float)bytesRead/(float)totalBytesRead;
-            [self.ongoingVideoListDownloads setObject:@(fraction) forKey:path];
+            [self.ongoingVideoListDownloads setObject:@(fraction) forKey:completeURL];
         }
         
         if (downloadBlock) {
@@ -291,11 +304,25 @@ static SGVReachability *reachability;
         }
     };
     
-    AFHTTPRequestOperation *operation = [self requestOperationWithPath:path completion:completion];
-    [operation setDownloadProgressBlock:progress];
-    self.ongoingVideoListRequests[path] = operation;
+    self.ongoingRequests[completeURL] = ongoingRequest;
+    [task resume];
     
     return YES;
+}
+
+- (void)URLSession:(NSURLSession *)session
+          dataTask:(NSURLSessionDataTask *)dataTask
+    didReceiveData:(NSData *)data
+{
+    NSURL *URL = dataTask.originalRequest.URL;
+    SRGILOngoingRequest *ongoingRequest = self.ongoingRequests[URL];
+    
+    if (ongoingRequest.progressBlock) {
+        NSUInteger bytesRead = data.length;
+        int64_t totalBytesRead = dataTask.countOfBytesReceived;
+        int64_t totalBytesExpectedToRead = dataTask.countOfBytesExpectedToReceive;
+        ongoingRequest.progressBlock(bytesRead, (long long)totalBytesRead, (long long)totalBytesExpectedToRead);
+    }
 }
 
 #pragma mark - View Count
@@ -303,29 +330,49 @@ static SGVReachability *reachability;
 - (void)sendViewCountUpdate:(NSString *)identifier forMediaTypeName:(NSString *)mediaType
 {
     NSParameterAssert(identifier);
+    
+    // Mimicking AFNetworking JSON POST request
 
+    NSDictionary *parameters = nil;
     NSString *path = [NSString stringWithFormat:@"%@/%@/clicked.json", mediaType, identifier];
-    [self.httpClient postPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        DDLogDebug(@"View count update success for asset ID: %@", identifier);
-    }                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DDLogError(@"View count failed for asset ID:%@ with error: %@", identifier, [error localizedDescription]);
+    NSURL *URL = [self.baseURL URLByAppendingPathComponent:path];
+    NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL];
+    
+    NSString *charset = (__bridge NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    NSError *error = nil;
+    
+    [URLRequest setValue:[NSString stringWithFormat:@"application/json; charset=%@", charset] forHTTPHeaderField:@"Content-Type"];
+    [URLRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+
+    if (parameters) {
+        [URLRequest setHTTPBody:[NSJSONSerialization dataWithJSONObject:parameters options:(NSJSONWritingOptions)0 error:&error]];
+    }
+    
+    NSURLSession *tmpSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSURLSessionDataTask *postDataTask = [tmpSession dataTaskWithRequest:URLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            DDLogError(@"View count failed for asset ID:%@ with error: %@", identifier, [error localizedDescription]);
+        }
+        else {
+            DDLogDebug(@"View count update success for asset ID: %@", identifier);
+        }
     }];
+    
+    [postDataTask resume];
 }
 
 #pragma mark - Operations
 
 - (void)cancelAllRequests
 {
-    if ([self.ongoingVideoListRequests count] == 0 && [self.ongoingAssetRequests count] == 0) {
+    if ([self.ongoingRequests count] == 0) {
         return;
     }
     
-    DDLogInfo(@"Cancelling all (%lu) requests.", (unsigned long)[self.ongoingVideoListRequests count]+[self.ongoingAssetRequests count]);
+    DDLogInfo(@"Cancelling all (%lu) requests.", (unsigned long)[self.ongoingRequests count]);
     
-    [[self.ongoingVideoListRequests allValues] makeObjectsPerformSelector:@selector(cancel)];
-    [[self.ongoingAssetRequests allValues] makeObjectsPerformSelector:@selector(cancel)];
-    [self.ongoingAssetRequests removeAllObjects];
-    [self.ongoingVideoListRequests removeAllObjects];
+    [self.URLSession invalidateAndCancel];
+    [self.ongoingRequests removeAllObjects];
     [self.ongoingVideoListDownloads removeAllObjects];
 }
 

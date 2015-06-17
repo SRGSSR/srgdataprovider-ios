@@ -10,17 +10,17 @@
 
 @interface SRGILOngoingRequest ()
 
-@property (nonatomic) NSOperation *operation;
+@property (nonatomic) NSURLSessionTask *task;
 @property (nonatomic) NSMutableArray *mutableCompletionBlocks;
 
 @end
 
 @implementation SRGILOngoingRequest
 
-- (instancetype)initWithOperation:(NSOperation *)operation
+- (instancetype)initWithTask:(NSURLSessionTask *)task
 {
     if (self = [super init]) {
-        self.operation = operation;
+        self.task = task;
         self.mutableCompletionBlocks = [NSMutableArray array];
     }
     return self;

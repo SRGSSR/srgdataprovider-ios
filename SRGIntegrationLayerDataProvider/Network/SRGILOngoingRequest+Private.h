@@ -10,13 +10,15 @@
 
 @class SRGILMedia;
 
+typedef void(^SRGILOngoingRequestProgressBlock)(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead);
+
 @interface SRGILOngoingRequest : NSObject
 
-- (instancetype)initWithOperation:(NSOperation *)operation;
-
-@property (nonatomic, readonly) NSOperation *operation;
+@property (nonatomic, readonly) NSURLSessionTask *task;
 @property (nonatomic, readonly) NSArray *completionBlocks;
+@property (nonatomic, copy) SRGILOngoingRequestProgressBlock progressBlock;
 
+- (instancetype)initWithTask:(NSURLSessionTask *)task;
 - (void)addCompletionBlock:(void (^)(SRGILMedia *, NSError *))completionBlock;
 
 @end

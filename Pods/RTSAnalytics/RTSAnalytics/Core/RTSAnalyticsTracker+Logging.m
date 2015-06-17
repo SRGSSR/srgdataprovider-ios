@@ -3,31 +3,16 @@
 //  Copyright (c) 2015 RTS. All rights reserved.
 //
 
-#import "RTSAnalyticsTracker+Logging.h"
+#import "RTSAnalyticsTracker+Logging_private.h"
 
 #import <comScore-iOS-SDK-RTS/CSCore.h>
 #import <comScore-iOS-SDK-RTS/CSComScore.h>
 #import <comScore-iOS-SDK-RTS/CSTaskExecutor.h>
 
 #import "CSRequest+RTSAnalytics_private.h"
-
-#import <CocoaLumberjack/CocoaLumberjack.h>
-
-static BOOL isLogEnabled = NO;
+#import "RTSAnalyticsLogger.h"
 
 @implementation RTSAnalyticsTracker (Logging)
-
-- (void)setLogEnabled:(BOOL)enabled
-{
-	isLogEnabled = enabled;
-	
-	if (isLogEnabled) {
-		[self startLoggingInternalComScoreTasks];
-	}
-    else {
-		[self stopLoggingInternalComScoreTasks];
-	}
-}
 
 - (void)startLoggingInternalComScoreTasks
 {
@@ -55,14 +40,9 @@ static BOOL isLogEnabled = NO;
 			 [message appendFormat:@"%@: %@\n", NSStringFromSelector(selector), [CSComScore performSelector:selector]];
 		 }
 		 [message deleteCharactersInRange:NSMakeRange(message.length - 1, 1)];
-		 DDLogDebug(@"%@", message);
+		 RTSAnalyticsLogDebug(@"%@", message);
 		 
 	 } background:YES];
-}
-
-- (void)stopLoggingInternalComScoreTasks
-{
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:RTSAnalyticsComScoreRequestDidFinishNotification object:nil];
 }
 
 #pragma mark - Notifications
@@ -98,13 +78,13 @@ static BOOL isLogEnabled = NO;
 	
 	BOOL success = [notification.userInfo[RTSAnalyticsComScoreRequestSuccessUserInfoKey] boolValue];
 	if (success) {
-		DDLogInfo(@"%@ > %@", event, name);
+		RTSAnalyticsLogInfo(@"%@ > %@", event, name);
 	}
 	else {
-		DDLogError(@"ERROR sending %@ > %@", event, name);
+		RTSAnalyticsLogError(@"ERROR sending %@ > %@", event, name);
 	}
 	
-	DDLogDebug(@"Comscore view event sent:\n%@", dictionaryRepresentation);
+	RTSAnalyticsLogDebug(@"Comscore view event sent:\n%@", dictionaryRepresentation);
 }
 
 @end

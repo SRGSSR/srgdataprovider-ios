@@ -6,12 +6,6 @@
 // project.
 
 
-// AFNetworking
-#define COCOAPODS_POD_AVAILABLE_AFNetworking
-#define COCOAPODS_VERSION_MAJOR_AFNetworking 1
-#define COCOAPODS_VERSION_MINOR_AFNetworking 3
-#define COCOAPODS_VERSION_PATCH_AFNetworking 4
-
 // CocoaLumberjack
 #define COCOAPODS_POD_AVAILABLE_CocoaLumberjack
 #define COCOAPODS_VERSION_MAJOR_CocoaLumberjack 2
@@ -46,25 +40,25 @@
 #define COCOAPODS_POD_AVAILABLE_RTSAnalytics
 #define COCOAPODS_VERSION_MAJOR_RTSAnalytics 0
 #define COCOAPODS_VERSION_MINOR_RTSAnalytics 3
-#define COCOAPODS_VERSION_PATCH_RTSAnalytics 4
+#define COCOAPODS_VERSION_PATCH_RTSAnalytics 7
 
 // RTSAnalytics/Core
 #define COCOAPODS_POD_AVAILABLE_RTSAnalytics_Core
 #define COCOAPODS_VERSION_MAJOR_RTSAnalytics_Core 0
 #define COCOAPODS_VERSION_MINOR_RTSAnalytics_Core 3
-#define COCOAPODS_VERSION_PATCH_RTSAnalytics_Core 4
+#define COCOAPODS_VERSION_PATCH_RTSAnalytics_Core 7
 
 // RTSAnalytics/MediaPlayer
 #define COCOAPODS_POD_AVAILABLE_RTSAnalytics_MediaPlayer
 #define COCOAPODS_VERSION_MAJOR_RTSAnalytics_MediaPlayer 0
 #define COCOAPODS_VERSION_MINOR_RTSAnalytics_MediaPlayer 3
-#define COCOAPODS_VERSION_PATCH_RTSAnalytics_MediaPlayer 4
+#define COCOAPODS_VERSION_PATCH_RTSAnalytics_MediaPlayer 7
 
 // RTSMediaPlayer
 #define COCOAPODS_POD_AVAILABLE_RTSMediaPlayer
 #define COCOAPODS_VERSION_MAJOR_RTSMediaPlayer 0
-#define COCOAPODS_VERSION_MINOR_RTSMediaPlayer 2
-#define COCOAPODS_VERSION_PATCH_RTSMediaPlayer 9
+#define COCOAPODS_VERSION_MINOR_RTSMediaPlayer 3
+#define COCOAPODS_VERSION_PATCH_RTSMediaPlayer 2
 
 // Realm
 #define COCOAPODS_POD_AVAILABLE_Realm
@@ -87,31 +81,31 @@
 // SRGIntegrationLayerDataProvider
 #define COCOAPODS_POD_AVAILABLE_SRGIntegrationLayerDataProvider
 #define COCOAPODS_VERSION_MAJOR_SRGIntegrationLayerDataProvider 0
-#define COCOAPODS_VERSION_MINOR_SRGIntegrationLayerDataProvider 2
+#define COCOAPODS_VERSION_MINOR_SRGIntegrationLayerDataProvider 3
 #define COCOAPODS_VERSION_PATCH_SRGIntegrationLayerDataProvider 0
 
 // SRGIntegrationLayerDataProvider/Core
 #define COCOAPODS_POD_AVAILABLE_SRGIntegrationLayerDataProvider_Core
 #define COCOAPODS_VERSION_MAJOR_SRGIntegrationLayerDataProvider_Core 0
-#define COCOAPODS_VERSION_MINOR_SRGIntegrationLayerDataProvider_Core 2
+#define COCOAPODS_VERSION_MINOR_SRGIntegrationLayerDataProvider_Core 3
 #define COCOAPODS_VERSION_PATCH_SRGIntegrationLayerDataProvider_Core 0
 
 // SRGIntegrationLayerDataProvider/MediaPlayer
 #define COCOAPODS_POD_AVAILABLE_SRGIntegrationLayerDataProvider_MediaPlayer
 #define COCOAPODS_VERSION_MAJOR_SRGIntegrationLayerDataProvider_MediaPlayer 0
-#define COCOAPODS_VERSION_MINOR_SRGIntegrationLayerDataProvider_MediaPlayer 2
+#define COCOAPODS_VERSION_MINOR_SRGIntegrationLayerDataProvider_MediaPlayer 3
 #define COCOAPODS_VERSION_PATCH_SRGIntegrationLayerDataProvider_MediaPlayer 0
 
 // SRGIntegrationLayerDataProvider/OfflineStorage
 #define COCOAPODS_POD_AVAILABLE_SRGIntegrationLayerDataProvider_OfflineStorage
 #define COCOAPODS_VERSION_MAJOR_SRGIntegrationLayerDataProvider_OfflineStorage 0
-#define COCOAPODS_VERSION_MINOR_SRGIntegrationLayerDataProvider_OfflineStorage 2
+#define COCOAPODS_VERSION_MINOR_SRGIntegrationLayerDataProvider_OfflineStorage 3
 #define COCOAPODS_VERSION_PATCH_SRGIntegrationLayerDataProvider_OfflineStorage 0
 
 // SRGOfflineStorage
 #define COCOAPODS_POD_AVAILABLE_SRGOfflineStorage
 #define COCOAPODS_VERSION_MAJOR_SRGOfflineStorage 0
-#define COCOAPODS_VERSION_MINOR_SRGOfflineStorage 2
+#define COCOAPODS_VERSION_MINOR_SRGOfflineStorage 3
 #define COCOAPODS_VERSION_PATCH_SRGOfflineStorage 0
 
 // TransitionKit

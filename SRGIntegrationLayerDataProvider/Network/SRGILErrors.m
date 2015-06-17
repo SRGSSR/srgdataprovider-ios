@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 SRG SSR. All rights reserved.
 //
 
-#import <AFNetworking/AFNetworking.h>
 #import "SRGILErrors.h"
 
 NSString *const SRGILErrorDomain = @"ch.srgssr.integrationlayer";
@@ -22,10 +21,6 @@ NSError *SRGILCreateUserFacingError(NSString *failureReason, NSError *underlying
     
     if (underlyingError) {
         [errorInfo setObject:underlyingError forKey:NSUnderlyingErrorKey];
-        if (errorCode == SRGILErrorCodeInvalidData && [[underlyingError domain] isEqualToString:AFNetworkingErrorDomain])
-        {
-            errorCode = [(NSHTTPURLResponse*)([underlyingError userInfo][@"AFNetworkingOperationFailingURLResponseErrorKey"]) statusCode];
-        }
     }
     
     NSError *newError = [NSError errorWithDomain:SRGILErrorDomain code:errorCode userInfo:errorInfo];

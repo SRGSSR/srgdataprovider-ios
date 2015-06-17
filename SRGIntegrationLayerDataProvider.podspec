@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SRGIntegrationLayerDataProvider"
-  s.version = "0.2.0"
+  s.version = "0.3.0"
   s.summary = "Implementation of the Data Provider using the Integration Layer for the RTS Media Player"
   s.description = "Implementation of the Data Provider using the Integration Layer for the RTS Media Player"
   s.homepage = "http://rts.ch"
@@ -23,7 +23,6 @@ Pod::Spec.new do |s|
     co.private_header_files = "SRGIntegrationLayerDataProvider/**/*+Private.h"
     co.frameworks           = "Foundation", "UIKit"
     co.dependency             "CocoaLumberjack",  "~> 2.0.0"
-    co.dependency             "AFNetworking", "~> 1.3.4"
     co.dependency             "SGVReachability", "~> 1.0.0"
     co.dependency             "libextobjc/EXTScope", "0.4.1"
   end
@@ -42,7 +41,7 @@ Pod::Spec.new do |s|
     os.source_files         = "SRGIntegrationLayerDataProvider/SRGILDataProviderOfflineStorage.h", "SRGIntegrationLayerDataProvider/Offline/*.{h,m}"
     os.private_header_files = "SRGIntegrationLayerDataProvider/Offline/SRGIL*Metadata.{h,m}"
     os.dependency             "SRGIntegrationLayerDataProvider/Core"
-    os.dependency             "SRGOfflineStorage", "~> 0.2.0"
+    os.dependency             "SRGOfflineStorage", "~> 0.3.0"
   end
 
 end
