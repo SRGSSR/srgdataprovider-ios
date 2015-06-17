@@ -341,6 +341,7 @@ static SGVReachability *reachability;
     NSString *charset = (__bridge NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
     NSError *error = nil;
     
+    [URLRequest setHTTPMethod:@"POST"];
     [URLRequest setValue:[NSString stringWithFormat:@"application/json; charset=%@", charset] forHTTPHeaderField:@"Content-Type"];
     [URLRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 
