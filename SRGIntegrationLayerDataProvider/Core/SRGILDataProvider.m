@@ -485,6 +485,21 @@ static NSArray *validBusinessUnits = nil;
     return nil;
 }
 
+- (NSDate *)lastFetchDateForIndexes:(NSArray *)indexes
+{
+    __block NSInteger seconds = 0;
+    [indexes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSInteger index = [obj integerValue];
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:[self fetchKeyForIndex:index]]) {
+            NSInteger newSeconds = [[NSUserDefaults standardUserDefaults] integerForKey:[self fetchKeyForIndex:index]];
+            if (newSeconds > seconds) {
+                seconds = newSeconds;
+            }
+        }
+    }];
+    return [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
+}
+
 - (void)recordFetchDateForIndex:(enum SRGILFetchListIndex)index
 {
     [[NSUserDefaults standardUserDefaults] setInteger:[[NSDate date] timeIntervalSinceReferenceDate]

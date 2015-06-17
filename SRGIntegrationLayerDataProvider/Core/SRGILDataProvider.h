@@ -84,6 +84,7 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
 - (NSUInteger)ongoingFetchCount;
 
 - (NSDate *)fetchDateForIndex:(enum SRGILFetchListIndex)index;
+- (NSDate *)lastFetchDateForIndexes:(NSArray *)indexes;
 
 /**
  *  Indicates whether the current fetch path is valid for the given index or not. Corresponds to the last 
