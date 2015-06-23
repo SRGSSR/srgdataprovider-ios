@@ -8,10 +8,10 @@ workspace 'SRGIntegrationLayerDataProvider.xcworkspace'
 
 xcodeproj 'SRGIntegrationLayerDataProvider'
 
-pod 'RTSAnalytics', '~> 0.3.4'
-pod 'RTSAnalytics/MediaPlayer', '~> 0.3.4'
-pod 'RTSMediaPlayer', '~> 0.3.2'
-pod 'SRGOfflineStorage', '~> 0.3.0'
+pod 'RTSAnalytics', '~> 0.4.1'
+pod 'RTSAnalytics/MediaPlayer', '~> 0.4.1'
+pod 'SRGMediaPlayer', '~> 0.5.0'
+pod 'SRGOfflineStorage', '~> 0.4.0'
 
 pod 'SGVReachability', '~> 1.0.0'
 pod 'CocoaLumberjack', '~> 2.0.0'
@@ -48,7 +48,6 @@ post_install do |installer|
     source_tree = File.join(installer.sandbox_root, support_files_group.path)
     
     support_files_group.files.each do |file|
-        
         next unless file.path.end_with?('.xcconfig')
         xcconfig_path = File.join(source_tree, file.path)
         xcconfig = File.read(xcconfig_path)
@@ -57,4 +56,11 @@ post_install do |installer|
         
     end
     
+   installer.project.targets.each do |target|
+       target.build_configurations.each do |config|
+           config.build_settings['TARGETED_DEVICE_FAMILY'] = '1,2' # iPhone, iPad
+#            config.build_settings['TARGETED_DEVICE_FAMILY'] = '2'
+       end
+   end
+   
 end

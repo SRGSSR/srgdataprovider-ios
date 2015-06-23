@@ -7,7 +7,7 @@
 //
 
 #import "SRGILDataProvider.h"
-#import <RTSMediaPlayer/RTSMediaPlayer.h>
+#import <SRGMediaPlayer/SRGMediaPlayer.h>
 #import <RTSAnalytics/RTSAnalytics.h>
 
 @interface SRGILDataProvider (MediaPlayer) <RTSMediaPlayerControllerDataSource, RTSMediaSegmentsDataSource, RTSAnalyticsMediaPlayerDataSource>

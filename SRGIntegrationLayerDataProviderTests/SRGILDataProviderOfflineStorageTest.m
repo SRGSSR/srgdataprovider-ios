@@ -10,8 +10,9 @@
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
-#import <RTSMediaPlayer/RTSMediaPlayer.h>
+#import <SRGMediaPlayer/SRGMediaPlayer.h>
 #import <RTSAnalytics/RTSAnalytics.h>
+
 #import "SRGILDataProvider.h"
 #import "SRGILDataProvider+MediaPlayer.h"
 #import "SRGILDataProvider+OfflineStorage.h"
@@ -35,6 +36,7 @@
 - (void)tearDown
 {
     [super tearDown];
+    self.dataProvider = nil;
 }
 
 - (void)testDataProviderOfflineStorageWithNilIdentifier

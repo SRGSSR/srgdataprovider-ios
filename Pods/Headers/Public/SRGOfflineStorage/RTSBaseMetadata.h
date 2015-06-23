@@ -1,1 +1,1 @@
-../../../SRGOfflineStorage/RTSOfflineMediaStorage/RTSBaseMetadata.h
+../../../SRGOfflineStorage/SRGOfflineStorage/RTSBaseMetadata.h

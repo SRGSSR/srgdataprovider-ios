@@ -18,35 +18,38 @@ PODS:
   - Realm (0.91.5):
     - Realm/Headers (= 0.91.5)
   - Realm/Headers (0.91.5)
-  - RTSAnalytics (0.3.7):
-    - RTSAnalytics/Core (= 0.3.7)
-  - RTSAnalytics/Core (0.3.7):
+  - RTSAnalytics (0.4.1):
+    - RTSAnalytics/Core (= 0.4.1)
+  - RTSAnalytics/Core (0.4.1):
     - comScore-iOS-SDK-RTS (= 3.1502.26)
-  - RTSAnalytics/MediaPlayer (0.3.7):
+    - RTSAnalytics/Core/Version (= 0.4.1)
+  - RTSAnalytics/Core/Version (0.4.1):
+    - comScore-iOS-SDK-RTS (= 3.1502.26)
+  - RTSAnalytics/MediaPlayer (0.4.1):
     - RTSAnalytics/Core
-    - RTSMediaPlayer
-  - RTSMediaPlayer (0.3.2):
-    - libextobjc/EXTScope (~> 0.4.1)
-    - TransitionKit (~> 2.2.0)
+    - SRGMediaPlayer (~> 0.5.0)
   - SDWebImage (3.7.0):
     - SDWebImage/Core (= 3.7.0)
   - SDWebImage/Core (3.7.0)
   - SGVReachability (1.0.0)
-  - SRGIntegrationLayerDataProvider (0.3.0):
-    - SRGIntegrationLayerDataProvider/Core (= 0.3.0)
-  - SRGIntegrationLayerDataProvider/Core (0.3.0):
+  - SRGIntegrationLayerDataProvider (0.5.0):
+    - SRGIntegrationLayerDataProvider/Core (= 0.5.0)
+  - SRGIntegrationLayerDataProvider/Core (0.5.0):
     - CocoaLumberjack (~> 2.0.0)
     - libextobjc/EXTScope (= 0.4.1)
     - SGVReachability (~> 1.0.0)
-  - SRGIntegrationLayerDataProvider/MediaPlayer (0.3.0):
-    - RTSAnalytics (~> 0.3.4)
-    - RTSAnalytics/MediaPlayer (~> 0.3.4)
-    - RTSMediaPlayer (~> 0.3.2)
+  - SRGIntegrationLayerDataProvider/MediaPlayer (0.5.0):
+    - RTSAnalytics (~> 0.4.1)
+    - RTSAnalytics/MediaPlayer (~> 0.4.1)
     - SRGIntegrationLayerDataProvider/Core
-  - SRGIntegrationLayerDataProvider/OfflineStorage (0.3.0):
+    - SRGMediaPlayer (~> 0.5.0)
+  - SRGIntegrationLayerDataProvider/OfflineStorage (0.5.0):
     - SRGIntegrationLayerDataProvider/Core
-    - SRGOfflineStorage (~> 0.3.0)
-  - SRGOfflineStorage (0.3.0):
+    - SRGOfflineStorage (~> 0.4.0)
+  - SRGMediaPlayer (0.5.0):
+    - libextobjc/EXTScope (~> 0.4.1)
+    - TransitionKit (~> 2.2.0)
+  - SRGOfflineStorage (0.4.1):
     - Realm (~> 0.91.3)
   - TransitionKit (2.2.0)
 
@@ -55,15 +58,15 @@ DEPENDENCIES:
   - KIF (= 3.2.1)
   - libextobjc/EXTScope (= 0.4.1)
   - OCMock (~> 3.0.0)
-  - RTSAnalytics (~> 0.3.4)
-  - RTSAnalytics/MediaPlayer (~> 0.3.4)
-  - RTSMediaPlayer (~> 0.3.2)
+  - RTSAnalytics (~> 0.4.1)
+  - RTSAnalytics/MediaPlayer (~> 0.4.1)
   - SDWebImage (= 3.7.0)
   - SGVReachability (~> 1.0.0)
   - SRGIntegrationLayerDataProvider (from `.`)
   - SRGIntegrationLayerDataProvider/MediaPlayer (from `.`)
   - SRGIntegrationLayerDataProvider/OfflineStorage (from `.`)
-  - SRGOfflineStorage (~> 0.3.0)
+  - SRGMediaPlayer (~> 0.5.0)
+  - SRGOfflineStorage (~> 0.4.0)
 
 EXTERNAL SOURCES:
   SRGIntegrationLayerDataProvider:
@@ -76,12 +79,12 @@ SPEC CHECKSUMS:
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   OCMock: 1f0871af0f397183f33e7552cca088bd2b485c25
   Realm: 670059efdb212ab939c1745a60aff27820c0a9c4
-  RTSAnalytics: 9b380254e69cb95cb1241cd2c1c4c1b70f3c9340
-  RTSMediaPlayer: 5a264c0f27bf7c215bfaeab0e948cca80b3a0ed3
+  RTSAnalytics: 3215363ada081daa5f0bcc92f002a3ee7df8045a
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
-  SRGIntegrationLayerDataProvider: e5b481c4ec5506e9238e6f6d7e5ee7b5fe45bb37
-  SRGOfflineStorage: eabff7f2b27928275eebcbbca5988f26424f5be8
+  SRGIntegrationLayerDataProvider: 530834b286a4ee417fa8e7076cf4fc4a6cf66906
+  SRGMediaPlayer: 05894983a2ca38bdb521382d98e08830d0faebb0
+  SRGOfflineStorage: 4de7dac12050e13e6d768ca61d40ec7070e6c627
   TransitionKit: 5c9001a77acc409d71f26a4eba0159cf8619c418
 
 COCOAPODS: 0.37.2

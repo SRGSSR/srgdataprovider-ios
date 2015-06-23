@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
-#import <RTSMediaPlayer/RTSMediaPlayer.h>
+#import <SRGMediaPlayer/SRGMediaPlayer.h>
 #import <UIKit/UIKit.h>
 
 @interface MediaPlayerViewController : UIViewController <RTSSegmentedTimelineViewDelegate, RTSTimeSliderDelegate>

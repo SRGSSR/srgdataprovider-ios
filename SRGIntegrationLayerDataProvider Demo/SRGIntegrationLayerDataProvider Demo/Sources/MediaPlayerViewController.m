@@ -7,7 +7,7 @@
 //
 
 #import <libextobjc/EXTScope.h>
-#import <RTSMediaPlayer/RTSMediaPlayer.h>
+#import <SRGMediaPlayer/SRGMediaPlayer.h>
 #import <SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h>
 
 #import "MediaPlayerViewController.h"
@@ -90,7 +90,7 @@
 
 	if ([self isMovingToParentViewController] || [self isBeingPresented]) {
 		[self.mediaPlayerController playIdentifier:self.videoIdentifier];
-        [self.timelineView reloadSegmentsForIdentifier:self.videoIdentifier];
+        [self.timelineView reloadSegmentsForIdentifier:self.videoIdentifier completionHandler:nil];
 	}
 }
 

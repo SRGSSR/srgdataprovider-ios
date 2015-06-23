@@ -210,13 +210,6 @@ Copyright (c) RTS. All rights reserved.
 <insert licence terms here>
 
 
-## RTSMediaPlayer
-
-Copyright (c) RTS. All rights reserved.
-
-<insert licence terms here>
-
-
 ## Realm
 
 TABLE OF CONTENTS
@@ -513,6 +506,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## SRGMediaPlayer
+
+Copyright (c) RTS. All rights reserved.
+
+<insert licence terms here>
+
 
 ## TransitionKit
 

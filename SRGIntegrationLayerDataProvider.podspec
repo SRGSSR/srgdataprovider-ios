@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SRGIntegrationLayerDataProvider"
-  s.version = "0.3.1"
+  s.version = "0.5.0"
   s.summary = "Implementation of the Data Provider using the Integration Layer for the RTS Media Player"
   s.description = "Implementation of the Data Provider using the Integration Layer for the RTS Media Player"
   s.homepage = "http://rts.ch"
@@ -32,16 +32,16 @@ Pod::Spec.new do |s|
     mp.private_header_files = "SRGIntegrationLayerDataProvider/**/*+Private.h"
     mp.frameworks           = "Foundation", "UIKit"
     mp.dependency             "SRGIntegrationLayerDataProvider/Core"
-    mp.dependency             "RTSAnalytics", "~> 0.3.4"
-    mp.dependency             "RTSAnalytics/MediaPlayer", "~> 0.3.4"
-    mp.dependency             "RTSMediaPlayer", "~> 0.3.2"
+    mp.dependency             "RTSAnalytics", "~> 0.4.1"
+    mp.dependency             "RTSAnalytics/MediaPlayer", "~> 0.4.1"
+    mp.dependency             "SRGMediaPlayer", "~> 0.5.0"
   end
 
   s.subspec 'OfflineStorage' do |os|
     os.source_files         = "SRGIntegrationLayerDataProvider/SRGILDataProviderOfflineStorage.h", "SRGIntegrationLayerDataProvider/Offline/*.{h,m}"
     os.private_header_files = "SRGIntegrationLayerDataProvider/Offline/SRGIL*Metadata.{h,m}"
     os.dependency             "SRGIntegrationLayerDataProvider/Core"
-    os.dependency             "SRGOfflineStorage", "~> 0.3.0"
+    os.dependency             "SRGOfflineStorage", "~> 0.4.0"
   end
 
 end

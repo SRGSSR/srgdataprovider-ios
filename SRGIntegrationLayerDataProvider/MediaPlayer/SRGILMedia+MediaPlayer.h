@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
-#import <RTSMediaPlayer/RTSMediaSegment.h>
+#import <SRGMediaPlayer/RTSMediaSegment.h>
 #import "SRGILMedia.h"
 
 @interface SRGILMedia (MediaPlayer) <RTSMediaSegment>

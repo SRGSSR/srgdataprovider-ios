@@ -6,13 +6,14 @@
 #import "RTSAnalytics.h"
 #import "RTSMediaPlayerControllerStreamSenseTracker_private.h"
 #import "RTSAnalyticsLogger.h"
+#import "RTSAnalyticsVersion_private.h"
 
 #import <comScore-iOS-SDK-RTS/CSStreamSense.h>
 #import <comScore-iOS-SDK-RTS/CSStreamSensePlaylist.h>
 #import <comScore-iOS-SDK-RTS/CSStreamSenseClip.h>
 
-#import <RTSMediaPlayer/RTSMediaPlayerView.h>
-#import <RTSMediaPlayer/NSBundle+RTSMediaPlayer.h>
+#import <SRGMediaPlayer/RTSMediaPlayerView.h>
+#import <SRGMediaPlayer/NSBundle+RTSMediaPlayer.h>
 
 static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 
@@ -41,7 +42,7 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 	NSBundle *mediaPlayerBundle = [NSBundle RTSMediaPlayerBundle];
 	
 	[self setLabel:@"ns_st_mp" value:[mediaPlayerBundle objectForInfoDictionaryKey:@"CFBundleName"]];
-	[self setLabel:@"ns_st_pv" value:kRTSAnalyticsVersion];
+	[self setLabel:@"ns_st_pv" value:RTSAnalyticsVersion()];
 	[self setLabel:@"ns_st_mv" value:[mediaPlayerBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
 	[self setLabel:@"ns_st_it" value:@"c"];
 	
@@ -55,14 +56,14 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 
 - (void)notify:(CSStreamSenseEventType)playerEvent withSegment:(id<RTSMediaSegment>)segment
 {
-    [self updateLabels:segment];
+    [self updateLabelsWithSegment:segment];
 	[self notify:playerEvent position:[self currentPositionInMilliseconds] labels:nil];
 }
 
 - (NSMutableDictionary *) createMeasurementLabels:(CSStreamSenseEventType)eventType initialLabels:(NSDictionary *)initialLabels
 {
 	NSMutableDictionary *measurementLabels = [super createMeasurementLabels:eventType initialLabels:initialLabels];
-    [self updateLabels:nil];
+    [self updateLabelsWithSegment:nil];
 	return measurementLabels;
 }
 
@@ -76,7 +77,7 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 
 #pragma mark - Private Labels methods
 
-- (void)updateLabels:(id<RTSMediaSegment>)segment
+- (void)updateLabelsWithSegment:(id<RTSMediaSegment>)segment
 {
 	// Labels
 	[self setLabel:@"ns_st_br" value:[self bitRate]];
@@ -106,14 +107,6 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 	NSString *srg_enc = [self srg_enc];
 	if (srg_enc)
 		[[self clip] setLabel:@"srg_enc" value:srg_enc];
-	
-	
-	if ([self.dataSource respondsToSelector:@selector(streamSenseLabelsMetadataForIdentifier:)]) {
-		NSDictionary *dataSourceLabels = [self.dataSource streamSenseLabelsMetadataForIdentifier:self.mediaPlayerController.identifier];
-		[dataSourceLabels enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-			[self setLabel:key value:obj];
-		}];
-	}
 	
 	// Playlist
 	if ([self.dataSource respondsToSelector:@selector(streamSensePlaylistMetadataForIdentifier:)]) {

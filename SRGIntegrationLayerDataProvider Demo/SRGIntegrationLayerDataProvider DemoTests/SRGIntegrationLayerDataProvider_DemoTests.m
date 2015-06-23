@@ -23,7 +23,8 @@ static NSArray *dynamicValueKeys = nil;
     [super setUp];
     
     if (!dynamicValueKeys) {
-        dynamicValueKeys = @[@"ns_ap_cs", @"ns_st_bp", @"ns_ap_id", @"ns_st_po", @"ns_st_br", @"ns_ts", @"ns_st_bt", @"ns_st_id", @"ns_ap_ec"];
+        dynamicValueKeys = @[@"ns_ap_cs", @"ns_st_bp", @"ns_st_pv", @"ns_ap_id", @"ns_st_po", @"ns_st_br", @"ns_ts",
+                             @"ns_st_bt", @"ns_st_id", @"ns_ap_ec", @"ns_st_cu", @"c12"];
     }
 }
 
@@ -53,7 +54,7 @@ static NSArray *dynamicValueKeys = nil;
                     XCTAssertNotNil(labels[key], @"Missing value for key '%@'.", key);
                 }
                 else {
-                    XCTAssertEqualObjects(labels[key], value, @"Wrong value --%@-- expected --%@-- for key '%@'.", labels[key], value, key);
+                    XCTAssertEqualObjects(labels[key], value, @"Wrong value: --%@-- Expected: --%@-- for key '%@'.", labels[key], value, key);
                 }
             }];
             
