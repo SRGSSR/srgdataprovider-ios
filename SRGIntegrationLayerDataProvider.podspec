@@ -32,9 +32,9 @@ Pod::Spec.new do |s|
     mp.private_header_files = "SRGIntegrationLayerDataProvider/**/*+Private.h"
     mp.frameworks           = "Foundation", "UIKit"
     mp.dependency             "SRGIntegrationLayerDataProvider/Core"
+    mp.dependency             "SRGMediaPlayer", "~> 0.5.0"
     mp.dependency             "RTSAnalytics", "~> 0.4.1"
     mp.dependency             "RTSAnalytics/MediaPlayer", "~> 0.4.1"
-    mp.dependency             "SRGMediaPlayer", "~> 0.5.0"
   end
 
   s.subspec 'OfflineStorage' do |os|
