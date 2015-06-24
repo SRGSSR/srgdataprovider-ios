@@ -1,5 +1,0 @@
-#import <Foundation/Foundation.h>
-@interface PodsDummy_Pods_SRGIntegrationLayerDataProviderTests_RTSAnalytics : NSObject
-@end
-@implementation PodsDummy_Pods_SRGIntegrationLayerDataProviderTests_RTSAnalytics
-@end

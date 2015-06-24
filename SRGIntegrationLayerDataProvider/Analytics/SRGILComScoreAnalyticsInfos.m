@@ -7,7 +7,7 @@
 //
 
 #import "SRGILComScoreAnalyticsInfos.h"
-#import <RTSAnalytics/NSString+RTSAnalytics.h>
+#import <SRGAnalytics/NSString+RTSAnalytics.h>
 #import "SRGILModel.h"
 
 @interface SRGILComScoreAnalyticsInfos ()

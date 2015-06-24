@@ -7,8 +7,8 @@
 //
 
 #import "SRGILStreamSenseAnalyticsInfos.h"
-#import <RTSAnalytics/NSDictionary+RTSAnalytics.h>
-#import <RTSAnalytics/NSString+RTSAnalytics.h>
+#import <SRGAnalytics/NSDictionary+RTSAnalytics.h>
+#import <SRGAnalytics/NSString+RTSAnalytics.h>
 
 #import "SRGILModel.h"
 #import "SRGILMedia+Private.h"

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SRGIntegrationLayerDataProvider"
-  s.version = "0.4.1"
+  s.version = "0.5.0"
   s.summary = "Implementation of the Data Provider using the Integration Layer for the RTS Media Player"
   s.description = "Implementation of the Data Provider using the Integration Layer for the RTS Media Player"
   s.homepage = "http://rts.ch"
@@ -33,8 +33,8 @@ Pod::Spec.new do |s|
     mp.frameworks           = "Foundation", "UIKit"
     mp.dependency             "SRGIntegrationLayerDataProvider/Core"
     mp.dependency             "SRGMediaPlayer", "~> 0.5.0"
-    mp.dependency             "RTSAnalytics", "~> 0.4.1"
-    mp.dependency             "RTSAnalytics/MediaPlayer", "~> 0.4.1"
+    mp.dependency             "SRGAnalytics", "~> 0.5.0"
+    mp.dependency             "SRGAnalytics/MediaPlayer", "~> 0.5.0"
   end
 
   s.subspec 'OfflineStorage' do |os|

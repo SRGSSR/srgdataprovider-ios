@@ -11,7 +11,7 @@
 #import <OCMock/OCMock.h>
 
 #import <SRGMediaPlayer/SRGMediaPlayer.h>
-#import <RTSAnalytics/RTSAnalytics.h>
+#import <SRGAnalytics/SRGAnalytics.h>
 
 #import "SRGILDataProvider.h"
 #import "SRGILDataProvider+MediaPlayer.h"

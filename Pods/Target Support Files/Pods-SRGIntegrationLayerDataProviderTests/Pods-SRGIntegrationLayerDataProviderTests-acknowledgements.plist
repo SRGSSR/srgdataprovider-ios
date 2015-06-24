@@ -224,17 +224,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright (c) RTS. All rights reserved.
-
-&lt;insert licence terms here&gt;
-</string>
-			<key>Title</key>
-			<string>RTSAnalytics</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
 			<string>TABLE OF CONTENTS
 
 1. Apache License version 2.0
@@ -535,6 +524,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</string>
 			<key>Title</key>
 			<string>SGVReachability</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
+			<string>Copyright (c) RTS. All rights reserved.
+
+&lt;insert licence terms here&gt;
+</string>
+			<key>Title</key>
+			<string>SRGAnalytics</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

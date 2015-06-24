@@ -7,7 +7,7 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.0.0):
     - CocoaLumberjack/Default
-  - comScore-iOS-SDK-RTS (3.1502.26)
+  - comScore-iOS-SDK-RTS (3.1504.30)
   - KIF (3.2.1):
     - KIF/XCTest (= 3.2.1)
   - KIF/XCTest (3.2.1)
@@ -18,35 +18,35 @@ PODS:
   - Realm (0.91.5):
     - Realm/Headers (= 0.91.5)
   - Realm/Headers (0.91.5)
-  - RTSAnalytics (0.4.1):
-    - RTSAnalytics/Core (= 0.4.1)
-  - RTSAnalytics/Core (0.4.1):
-    - comScore-iOS-SDK-RTS (= 3.1502.26)
-    - RTSAnalytics/Core/Version (= 0.4.1)
-  - RTSAnalytics/Core/Version (0.4.1):
-    - comScore-iOS-SDK-RTS (= 3.1502.26)
-  - RTSAnalytics/MediaPlayer (0.4.1):
-    - RTSAnalytics/Core
-    - SRGMediaPlayer (~> 0.5.0)
   - SDWebImage (3.7.0):
     - SDWebImage/Core (= 3.7.0)
   - SDWebImage/Core (3.7.0)
   - SGVReachability (1.0.0)
-  - SRGIntegrationLayerDataProvider (0.4.0):
-    - SRGIntegrationLayerDataProvider/Core (= 0.4.0)
-  - SRGIntegrationLayerDataProvider/Core (0.4.0):
+  - SRGAnalytics (0.5.0):
+    - SRGAnalytics/Core (= 0.5.0)
+  - SRGAnalytics/Core (0.5.0):
+    - comScore-iOS-SDK-RTS (= 3.1504.30)
+    - SRGAnalytics/Core/Version (= 0.5.0)
+  - SRGAnalytics/Core/Version (0.5.0):
+    - comScore-iOS-SDK-RTS (= 3.1504.30)
+  - SRGAnalytics/MediaPlayer (0.5.0):
+    - SRGAnalytics/Core
+    - SRGMediaPlayer (~> 0.5.0)
+  - SRGIntegrationLayerDataProvider (0.5.0):
+    - SRGIntegrationLayerDataProvider/Core (= 0.5.0)
+  - SRGIntegrationLayerDataProvider/Core (0.5.0):
     - CocoaLumberjack (~> 2.0.0)
     - libextobjc/EXTScope (= 0.4.1)
     - SGVReachability (~> 1.0.0)
-  - SRGIntegrationLayerDataProvider/MediaPlayer (0.4.0):
-    - RTSAnalytics (~> 0.4.1)
-    - RTSAnalytics/MediaPlayer (~> 0.4.1)
+  - SRGIntegrationLayerDataProvider/MediaPlayer (0.5.0):
+    - SRGAnalytics (~> 0.5.0)
+    - SRGAnalytics/MediaPlayer (~> 0.5.0)
     - SRGIntegrationLayerDataProvider/Core
     - SRGMediaPlayer (~> 0.5.0)
-  - SRGIntegrationLayerDataProvider/OfflineStorage (0.4.0):
+  - SRGIntegrationLayerDataProvider/OfflineStorage (0.5.0):
     - SRGIntegrationLayerDataProvider/Core
     - SRGOfflineStorage (~> 0.4.0)
-  - SRGMediaPlayer (0.5.1):
+  - SRGMediaPlayer (0.5.2):
     - libextobjc/EXTScope (~> 0.4.1)
     - TransitionKit (~> 2.2.0)
   - SRGOfflineStorage (0.4.2):
@@ -58,10 +58,10 @@ DEPENDENCIES:
   - KIF (= 3.2.1)
   - libextobjc/EXTScope (= 0.4.1)
   - OCMock (~> 3.0.0)
-  - RTSAnalytics (~> 0.4.1)
-  - RTSAnalytics/MediaPlayer (~> 0.4.1)
   - SDWebImage (= 3.7.0)
   - SGVReachability (~> 1.0.0)
+  - SRGAnalytics (~> 0.5.0)
+  - SRGAnalytics/MediaPlayer (~> 0.5.0)
   - SRGIntegrationLayerDataProvider (from `.`)
   - SRGIntegrationLayerDataProvider/MediaPlayer (from `.`)
   - SRGIntegrationLayerDataProvider/OfflineStorage (from `.`)
@@ -74,16 +74,16 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
-  comScore-iOS-SDK-RTS: ebab82ac061523f057f7e2c4cb3ecc4b0af10ecf
+  comScore-iOS-SDK-RTS: fba80241be3d1770a28304d7ff5a131ecd8c4ad6
   KIF: ef1691e54e1d969c3b4fd0b5b56a3d7ddf37f216
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   OCMock: 1f0871af0f397183f33e7552cca088bd2b485c25
   Realm: 670059efdb212ab939c1745a60aff27820c0a9c4
-  RTSAnalytics: 3215363ada081daa5f0bcc92f002a3ee7df8045a
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
-  SRGIntegrationLayerDataProvider: c4c698b3b953ff528b9c0ad08e1a5832753dfa09
-  SRGMediaPlayer: 3bef76e7a1926564035ffd45c7f3dcdb6a0a0b31
+  SRGAnalytics: ad656b07315e5a5ae74470becb74b61ffe2dd028
+  SRGIntegrationLayerDataProvider: 726f1842814c86c088df9643635cc81cbc2d96e1
+  SRGMediaPlayer: a79f88839f902153083800f396a3be038f0bc5a1
   SRGOfflineStorage: 30fdc04cb88516ea0c08020d0137c39299083e60
   TransitionKit: 5c9001a77acc409d71f26a4eba0159cf8619c418
 

@@ -24,7 +24,7 @@ static NSArray *dynamicValueKeys = nil;
     
     if (!dynamicValueKeys) {
         dynamicValueKeys = @[@"ns_ap_cs", @"ns_st_bp", @"ns_st_pv", @"ns_ap_id", @"ns_st_po", @"ns_st_br", @"ns_ts",
-                             @"ns_st_bt", @"ns_st_id", @"ns_ap_ec", @"ns_st_cu", @"c12"];
+                             @"ns_st_bt", @"ns_st_id", @"ns_ap_ec", @"ns_st_cu", @"ns_st_mv", @"c12"];
     }
 }
 

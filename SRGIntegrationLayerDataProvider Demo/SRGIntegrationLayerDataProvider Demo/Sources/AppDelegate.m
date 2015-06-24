@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
-#import <RTSAnalytics/RTSAnalytics.h>
+#import <SRGAnalytics/SRGAnalytics.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import "AppDelegate.h"
 
