@@ -15,7 +15,6 @@
 #import "SRGILAssetSet.h"
 #import "SRGILShow.h"
 #import "SRGILPlaylist.h"
-#import "SRGILMedia+Private.h"
 
 /**
  * Unit tests for Integration Layer Communication model classes.

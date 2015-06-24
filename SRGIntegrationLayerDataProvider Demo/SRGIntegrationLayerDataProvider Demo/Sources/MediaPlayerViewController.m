@@ -123,7 +123,7 @@
 
 #pragma ark - RTSTimeSliderSeekingDelegate protocol
 
-- (void)timeSlider:(RTSTimeSlider *)slider isSeekingAtTime:(CMTime)time withValue:(CGFloat)value
+- (void)timeSlider:(RTSTimeSlider *)slider isSlidingAtPlaybackTime:(CMTime)time withValue:(CGFloat)value
 {
     [self updateAppearanceWithTime:time];
     

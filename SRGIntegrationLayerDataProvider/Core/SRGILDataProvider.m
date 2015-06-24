@@ -18,7 +18,6 @@
 
 #import "SRGILDataProvider+Private.h"
 #import "SRGILModel.h"
-#import "SRGILMedia+Private.h"
 
 #import <libextobjc/EXTScope.h>
 

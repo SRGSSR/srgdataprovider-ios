@@ -10,7 +10,6 @@
 #import "SRGILMediaMetadata.h"
 
 #import "SRGILModel.h"
-#import "SRGILMedia+Private.h"
 
 @interface SRGILMedia (Utils)
 - (NSURL *)thumbnailURL;

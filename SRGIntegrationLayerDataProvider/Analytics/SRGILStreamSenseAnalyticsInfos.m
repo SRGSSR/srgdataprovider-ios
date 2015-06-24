@@ -11,7 +11,6 @@
 #import <SRGAnalytics/NSString+RTSAnalytics.h>
 
 #import "SRGILModel.h"
-#import "SRGILMedia+Private.h"
 
 
 @interface SRGILStreamSenseAnalyticsInfos ()

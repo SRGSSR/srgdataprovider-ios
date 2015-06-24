@@ -12,6 +12,8 @@
 // TODO: Will hopefully not be needed anymore when the TODO at the end of this file has been addressed
 @class SRGILAssetSet;
 @class SRGILImage;
+@class SRGILPlaylist;
+@class SRGILSocialCounts;
 
 /**
  * SRGILMedia is the main data-model class of the SRG Player framework.
@@ -37,6 +39,11 @@
  *  The complete description text of the media.
  */
 @property (nonatomic, readonly, strong) NSString *mediaDescription;
+
+/**
+ * Metadata information about the video
+ */
+@property (nonatomic, strong) NSArray *assetMetadatas;
 
 /**
  * The URL of the content, according to current state of network.
@@ -169,6 +176,39 @@
  * Related image
  */
 @property (nonatomic, strong) SRGILImage *image;
+
+@property (nonatomic, strong) SRGILSocialCounts *socialCounts;
+
+/**
+ * Whether the video is a full length sequence
+ */
+@property (nonatomic, strong) NSNumber *fullLengthNumber;
+
+/**
+ * The duration of the media, in seconds. Used for audio.
+ */
+@property (nonatomic, strong) NSNumber *assetDuration;
+
+/**
+ * Asset set subtype (episode, trailer or livestream)
+ * Optional field: is either filled in SRGILVideo or in SRGAsset.
+ */
+@property (nonatomic, assign) SRGILAssetSubSetType assetSetSubType;
+
+@property (nonatomic) BOOL isLivestreamPlaylist;
+
+- (SRGILPlaylistProtocol)playlistProtocolForURL:(NSURL *)URL;
+- (SRGILPlaylistURLQuality)playlistURLQualityForURL:(NSURL *)URL;
+
+/**
+ * List of the playlist (i.e. URLs) of the video
+ */
+@property (nonatomic, strong) NSArray *playlists;
+
+/**
+ * Override of read-only public property position
+ */
+@property (nonatomic) NSUInteger position;
 
 // --- End
 

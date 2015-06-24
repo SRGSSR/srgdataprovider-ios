@@ -121,7 +121,6 @@
 		9F13D5191AE9270700E4D897 /* SRGILLiveHeaderChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILLiveHeaderChannel.m; sourceTree = "<group>"; };
 		9F13D51A1AE9270700E4D897 /* SRGILLiveHeaderData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILLiveHeaderData.h; sourceTree = "<group>"; };
 		9F13D51B1AE9270700E4D897 /* SRGILLiveHeaderData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILLiveHeaderData.m; sourceTree = "<group>"; };
-		9F13D51C1AE9270700E4D897 /* SRGILMedia+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGILMedia+Private.h"; sourceTree = "<group>"; };
 		9F13D51D1AE9270700E4D897 /* SRGILMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILMedia.h; sourceTree = "<group>"; };
 		9F13D51E1AE9270700E4D897 /* SRGILMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILMedia.m; sourceTree = "<group>"; };
 		9F13D51F1AE9270700E4D897 /* SRGILModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILModel.h; sourceTree = "<group>"; };
@@ -281,7 +280,6 @@
 				9F13D5191AE9270700E4D897 /* SRGILLiveHeaderChannel.m */,
 				9F13D51A1AE9270700E4D897 /* SRGILLiveHeaderData.h */,
 				9F13D51B1AE9270700E4D897 /* SRGILLiveHeaderData.m */,
-				9F13D51C1AE9270700E4D897 /* SRGILMedia+Private.h */,
 				9F13D51D1AE9270700E4D897 /* SRGILMedia.h */,
 				9F13D51E1AE9270700E4D897 /* SRGILMedia.m */,
 				9F13D51F1AE9270700E4D897 /* SRGILModel.h */,

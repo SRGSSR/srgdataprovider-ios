@@ -7,7 +7,6 @@
 //
 
 #import "SRGILAudio.h"
-#import "SRGILMedia+Private.h"
 
 @implementation SRGILAudio
 

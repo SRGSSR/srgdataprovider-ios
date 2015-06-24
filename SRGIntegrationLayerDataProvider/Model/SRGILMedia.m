@@ -7,7 +7,6 @@
 #import "SRGILModelConstants.h"
 
 #import "SRGILMedia.h"
-#import "SRGILMedia+Private.h"
 
 #import "SRGILPlaylist.h"
 #import "SRGILImage.h"

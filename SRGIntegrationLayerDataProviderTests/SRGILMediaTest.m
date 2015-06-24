@@ -10,7 +10,7 @@
 #import "XCTestCase+JSON.h"
 
 #import "SRGILMedia.h"
-#import "SRGILMedia+Private.h"
+#import "SRGILVideo.h"
 
 @interface SRGILMediaTest : XCTestCase
 @property(nonatomic, strong) SRGILMedia *media;

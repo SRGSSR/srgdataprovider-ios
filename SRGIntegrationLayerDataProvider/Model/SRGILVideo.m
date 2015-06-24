@@ -7,7 +7,6 @@
 //
 
 #import "SRGILVideo.h"
-#import "SRGILMedia+Private.h"
 #import "SRGILRequestsManager.h"
 
 @implementation SRGILVideo
