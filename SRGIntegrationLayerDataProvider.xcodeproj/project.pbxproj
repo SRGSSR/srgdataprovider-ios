@@ -75,7 +75,6 @@
 		C2E8B26471460B332CD298C5 /* libPods-SRGIntegrationLayerDataProviderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */; };
 		E604EAFC1B174254004A627D /* SRGILOngoingRequest+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */; };
 		E68E95E31B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E68E95E21B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m */; };
-		F5500DD8538AE86CB5E47111 /* libPods-SRGIntegrationLayerDataProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D020938ACBE926372DE924 /* libPods-SRGIntegrationLayerDataProvider.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -215,7 +214,6 @@
 			files = (
 				9F3C1CC21ADC0B26007C54AD /* MobileCoreServices.framework in Frameworks */,
 				9F3C1CC01ADC0B02007C54AD /* SystemConfiguration.framework in Frameworks */,
-				F5500DD8538AE86CB5E47111 /* libPods-SRGIntegrationLayerDataProvider.a in Frameworks */,
 				AC01AA295800C7CDE4E23876 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,6 +10,8 @@
 #import <Realm/RLMResults.h>
 #import "RTSMetadatasProtocols.h"
 
+extern NSString * const RTSOfflineStorageErrorDomain;
+
 @interface RTSOfflineStorageCenter : NSObject
 
 + (RTSOfflineStorageCenter *)favoritesCenterWithMetadataProvider:(id<RTSMetadatasProvider>)provider;

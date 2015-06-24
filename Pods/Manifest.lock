@@ -46,10 +46,10 @@ PODS:
   - SRGIntegrationLayerDataProvider/OfflineStorage (0.4.0):
     - SRGIntegrationLayerDataProvider/Core
     - SRGOfflineStorage (~> 0.4.0)
-  - SRGMediaPlayer (0.5.0):
+  - SRGMediaPlayer (0.5.1):
     - libextobjc/EXTScope (~> 0.4.1)
     - TransitionKit (~> 2.2.0)
-  - SRGOfflineStorage (0.4.1):
+  - SRGOfflineStorage (0.4.2):
     - Realm (~> 0.91.3)
   - TransitionKit (2.2.0)
 
@@ -65,8 +65,8 @@ DEPENDENCIES:
   - SRGIntegrationLayerDataProvider (from `.`)
   - SRGIntegrationLayerDataProvider/MediaPlayer (from `.`)
   - SRGIntegrationLayerDataProvider/OfflineStorage (from `.`)
-  - SRGMediaPlayer (~> 0.5.0)
-  - SRGOfflineStorage (~> 0.4.0)
+  - SRGMediaPlayer (~> 0.5.1)
+  - SRGOfflineStorage (~> 0.4.2)
 
 EXTERNAL SOURCES:
   SRGIntegrationLayerDataProvider:
@@ -83,8 +83,8 @@ SPEC CHECKSUMS:
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
   SRGIntegrationLayerDataProvider: c4c698b3b953ff528b9c0ad08e1a5832753dfa09
-  SRGMediaPlayer: 05894983a2ca38bdb521382d98e08830d0faebb0
-  SRGOfflineStorage: 4de7dac12050e13e6d768ca61d40ec7070e6c627
+  SRGMediaPlayer: 3bef76e7a1926564035ffd45c7f3dcdb6a0a0b31
+  SRGOfflineStorage: 30fdc04cb88516ea0c08020d0137c39299083e60
   TransitionKit: 5c9001a77acc409d71f26a4eba0159cf8619c418
 
 COCOAPODS: 0.37.2
