@@ -6,11 +6,6 @@
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
-/**
- *  `kSRGIntegrationLayerDataProvider` MUST match the Pod tag version!
- */
-#define kSRGIntegrationLayerDataProvider @"0.4.0"
-
 #import "SRGILModel.h"
 #import "SRGILList.h"
 #import "SRGILDataProvider.h"
