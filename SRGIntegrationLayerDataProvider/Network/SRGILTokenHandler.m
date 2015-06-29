@@ -11,6 +11,12 @@
 #import "SRGILTokenHandler.h"
 #import "SRGILErrors.h"
 
+#ifdef DEBUG
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+#endif
+
 // Keep the trailing slash
 //static NSString * const SRGILTokenHandlerBaseURLString = @"http://www.srf.ch/player/token?acl=/";
 static NSString * const SRGILTokenHandlerBaseURLString = @"http://tp.srgssr.ch/token/akahd.json.xml?stream=/";

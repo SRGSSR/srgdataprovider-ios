@@ -18,3 +18,9 @@
 #if __has_include("SRGILDataProviderOfflineStorage.h")
 #import "SRGILDataProviderOfflineStorage.h"
 #endif
+
+#ifdef DEBUG
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+#endif

@@ -28,7 +28,7 @@
 - (void)setUp
 {
     [super setUp];
-    self.validMediaIdentifier = @"6853450"; // One Infrarouge emission
+    self.validMediaIdentifier = @"urn:rts:video:6853450"; // One Infrarouge emission
     self.validShowIdentifier = @"404386";
     self.dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
 }

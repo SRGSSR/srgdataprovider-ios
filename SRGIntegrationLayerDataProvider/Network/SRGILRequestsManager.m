@@ -16,6 +16,11 @@
 #import "SRGILErrors.h"
 #import "SRGILList.h"
 
+#ifdef DEBUG
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+#endif
 
 @interface NSError (SRGNetwork)
 - (BOOL)isNetworkError;

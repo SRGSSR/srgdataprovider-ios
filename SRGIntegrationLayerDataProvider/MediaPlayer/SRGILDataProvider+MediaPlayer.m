@@ -37,10 +37,14 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 #pragma mark - RTSMediaPlayerControllerDataSource
 
 - (void)mediaPlayerController:(RTSMediaPlayerController *)mediaPlayerController
-      contentURLForIdentifier:(NSString *)identifier
+      contentURLForIdentifier:(NSString *)urnString
             completionHandler:(void (^)(NSURL *contentURL, NSError *error))completionHandler
 {
-    NSAssert(identifier, @"Missing identifier to work with.");
+    NSAssert(urnString, @"Missing identifier to work with.");
+    
+    SRGILURN *urn = [SRGILURN URNWithString:urnString];
+    NSAssert(urn, @"Unable to create URN from identifier, which is needed to proceed.");
+    NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined mediaType inferred from URN.");
     
     if (!self.analyticsInfos) {
         self.analyticsInfos = [[NSMutableDictionary alloc] init];
@@ -51,7 +55,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                                    object:nil];
     }
     
-    SRGILMedia *existingMedia = self.identifiedMedias[identifier];
+    SRGILMedia *existingMedia = self.identifiedMedias[urn.identifier];
     
     @weakify(self)
     
@@ -73,17 +77,17 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     };
     
     if (!existingMedia || !existingMedia.contentURL) {
-        [self.requestManager requestMediaOfType:SRGILMediaTypeVideo
-                                 withIdentifier:identifier
+        [self.requestManager requestMediaOfType:urn.mediaType
+                                 withIdentifier:urn.identifier
                                 completionBlock:^(SRGILMedia *media, NSError *error) {
                                     @strongify(self)
                                 
                                     if (error) {
-                                        [self.identifiedMedias removeObjectForKey:identifier];
+                                        [self.identifiedMedias removeObjectForKey:urn.identifier];
                                         completionHandler(nil, error);
                                     }
                                     else {
-                                        self.identifiedMedias[identifier] = media;
+                                        self.identifiedMedias[urn.identifier] = media;
                                         [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
                                         tokenBlock(media);
                                     }
@@ -97,28 +101,32 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 #pragma mark - RTSMediaSegmentsDataSource
 
 - (void)segmentsController:(RTSMediaSegmentsController *)controller
-     segmentsForIdentifier:(NSString *)identifier
+     segmentsForIdentifier:(NSString *)urnString
      withCompletionHandler:(RTSMediaSegmentsCompletionHandler)completionHandler;
 {
+    SRGILURN *urn = [SRGILURN URNWithString:urnString];
+    NSAssert(urn, @"Unable to create URN from identifier, which is needed to proceed.");
+    NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined mediaType inferred from URN.");
+
     // SRGILMedia has been been made conformant to the RTSMediaPlayerSegment protocol (see SRGILVideo+MediaPlayer.h), segments
     // can therefore be displayed as is by the player
-    SRGILMedia *media = self.identifiedMedias[identifier];
+    SRGILMedia *media = self.identifiedMedias[urn.identifier];
     if (media) {
         completionHandler((id<RTSMediaSegment>)media, media.segments, nil);
     }
     else {
         @weakify(self)
         [self.requestManager requestMediaOfType:SRGILMediaTypeVideo
-                                 withIdentifier:identifier
+                                 withIdentifier:urn.identifier
                                 completionBlock:^(SRGILMedia *media, NSError *error) {
                                     @strongify(self)
                                     
                                     if (error) {
-                                        [self.identifiedMedias removeObjectForKey:identifier];
+                                        [self.identifiedMedias removeObjectForKey:urn.identifier];
                                         completionHandler(nil, nil, error);
                                     }
                                     else {
-                                        self.identifiedMedias[identifier] = media;
+                                        self.identifiedMedias[urn.identifier] = media;
                                         [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
                                         completionHandler((id<RTSMediaSegment>)media, media.segments, error);
                                     }

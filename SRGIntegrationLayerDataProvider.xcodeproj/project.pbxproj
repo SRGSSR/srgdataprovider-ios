@@ -71,6 +71,7 @@
 		9F83AB161B29C0C800D7D8BE /* SRGILDataProviderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F83AB151B29C0C800D7D8BE /* SRGILDataProviderTest.m */; };
 		9F83AB191B29C9F400D7D8BE /* SRGILDataProviderConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F83AB181B29C9F400D7D8BE /* SRGILDataProviderConstants.m */; };
 		9F8B389D1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B389C1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m */; };
+		9FCA04921B414935009937E2 /* SRGILURN.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCA04911B414935009937E2 /* SRGILURN.m */; };
 		AC01AA295800C7CDE4E23876 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F6EBD656367387D07A08A6 /* libPods.a */; };
 		C2E8B26471460B332CD298C5 /* libPods-SRGIntegrationLayerDataProviderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */; };
 		E604EAFC1B174254004A627D /* SRGILOngoingRequest+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */; };
@@ -196,6 +197,8 @@
 		9F83AB171B29C9F400D7D8BE /* SRGILDataProviderConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILDataProviderConstants.h; sourceTree = "<group>"; };
 		9F83AB181B29C9F400D7D8BE /* SRGILDataProviderConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderConstants.m; sourceTree = "<group>"; };
 		9F8B389C1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderMediaPlayerTest.m; sourceTree = "<group>"; };
+		9FCA04901B414935009937E2 /* SRGILURN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILURN.h; sourceTree = "<group>"; };
+		9FCA04911B414935009937E2 /* SRGILURN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILURN.m; sourceTree = "<group>"; };
 		A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProviderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B78A0E1C877A3AAFA06CB8E2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CC7117E85185279031EDDD7C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -297,6 +300,8 @@
 				9F13D52B1AE9270700E4D897 /* SRGILShow.m */,
 				9F13D52C1AE9270700E4D897 /* SRGILSocialCounts.h */,
 				9F13D52D1AE9270700E4D897 /* SRGILSocialCounts.m */,
+				9FCA04901B414935009937E2 /* SRGILURN.h */,
+				9FCA04911B414935009937E2 /* SRGILURN.m */,
 				9F13D52E1AE9270700E4D897 /* SRGILVideo.h */,
 				9F13D52F1AE9270700E4D897 /* SRGILVideo.m */,
 			);
@@ -647,6 +652,7 @@
 				9F13D53B1AE9270700E4D897 /* SRGILDataProvider.m in Sources */,
 				9F13D5481AE9270700E4D897 /* SRGILModelObject.m in Sources */,
 				9F13D5401AE9270700E4D897 /* SRGILAudio.m in Sources */,
+				9FCA04921B414935009937E2 /* SRGILURN.m in Sources */,
 				9F13D5511AE9270700E4D897 /* SRGILRequestsManager.m in Sources */,
 				9F13D53E1AE9270700E4D897 /* SRGILAssetMetadata.m in Sources */,
 				9F13D54A1AE9270700E4D897 /* SRGILPrimaryChannel.m in Sources */,

@@ -44,14 +44,15 @@
 {
     // http://www.rts.ch/play/tv/infrarouge/video/fifa-un-hôte-trop-encombrant-?id=6853450
     NSString *identifier = @"6853450";
-    
+    NSString *urnString = [@"urn:rts:video:" stringByAppendingString:identifier];
+
     XCTestExpectation *expectation = [self expectationWithDescription:
                                       [NSString stringWithFormat:@"Expected a valid content URL for the identifier %@",
                                        identifier]];
     
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
     [dataProvider mediaPlayerController:nil
-                contentURLForIdentifier:identifier
+                contentURLForIdentifier:urnString
                       completionHandler:^(NSURL *contentURL, NSError *error) {
                           XCTAssertNotNil(contentURL, @"Content URL must be present.");
                           XCTAssertNil(error, @"Error must be nil.");
@@ -73,14 +74,15 @@
 {
     // Invalid identifier
     NSString *identifier = @"685345028262-9320282";
-    
+    NSString *urnString = [@"urn:rts:video:" stringByAppendingString:identifier];
+
     XCTestExpectation *expectation = [self expectationWithDescription:
                                       [NSString stringWithFormat:@"Expected a valid content URL for the identifier %@",
                                        identifier]];
     
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
     [dataProvider mediaPlayerController:nil
-                contentURLForIdentifier:identifier
+                contentURLForIdentifier:urnString
                       completionHandler:^(NSURL *contentURL, NSError *error) {
                           XCTAssertNil(contentURL, @"Content URL must be nil.");
                           XCTAssertNotNil(error, @"Error must be present.");
@@ -102,14 +104,15 @@
 {
     // 19h30
     NSString *identifier = @"6414099";
-    
+    NSString *urnString = [@"urn:rts:video:" stringByAppendingString:identifier];
+
     XCTestExpectation *expectation = [self expectationWithDescription:
                                       [NSString stringWithFormat:@"Expected a valid content URL for the identifier %@",
                                        identifier]];
     
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
     [dataProvider segmentsController:nil
-               segmentsForIdentifier:identifier
+               segmentsForIdentifier:urnString
                withCompletionHandler:^(id<RTSMediaSegment> fullLength, NSArray *segments, NSError *error) {
                    XCTAssertNotNil(fullLength, @"Missing full-length video");
                    XCTAssertNotNil(segments, @"Missing segments");
@@ -132,6 +135,7 @@
 {
     // http://www.rts.ch/play/tv/infrarouge/video/fifa-un-hôte-trop-encombrant-?id=6853450
     NSString *identifier = @"6853450";
+    NSString *urnString = [@"urn:rts:video:" stringByAppendingString:identifier];
     
     XCTestExpectation *expectation = [self expectationWithDescription:
                                       [NSString stringWithFormat:@"Expected a valid content URL for the identifier %@",
@@ -139,7 +143,7 @@
     
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
     [dataProvider mediaPlayerController:nil
-                contentURLForIdentifier:identifier
+                contentURLForIdentifier:urnString
                       completionHandler:^(NSURL *contentURL, NSError *error) {
                           XCTAssertNotNil(contentURL, @"Content URL must be present.");
                           XCTAssertNil(error, @"Error must be nil.");

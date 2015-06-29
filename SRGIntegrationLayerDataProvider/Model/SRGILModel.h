@@ -27,6 +27,7 @@
 #import "SRGILRubric.h"
 #import "SRGILShow.h"
 #import "SRGILSocialCounts.h"
+#import "SRGILURN.h"
 #import "SRGILVideo.h"
 
 #endif

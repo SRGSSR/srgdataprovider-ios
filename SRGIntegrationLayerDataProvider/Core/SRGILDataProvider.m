@@ -25,6 +25,12 @@
 #import "SRGILDataProviderOfflineStorage.h"
 #endif
 
+#ifdef DEBUG
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+#endif
+
 static NSString * const itemClassPrefix = @"SRGIL";
 static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidRequestURLPath";
 static NSArray *validBusinessUnits = nil;
