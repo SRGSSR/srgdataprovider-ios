@@ -90,9 +90,7 @@ static NSArray *validBusinessUnits = nil;
 
 - (void)dealloc
 {
-    if ([self respondsToSelector:@selector(cleanup)]) {
-        [self cleanup];
-    }
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (NSString *)businessUnit
@@ -469,11 +467,6 @@ static NSArray *validBusinessUnits = nil;
     [_typedFetchPaths removeObjectForKey:@(index)];
 }
 
-- (SRGILList *)itemsListForIndex:(enum SRGILFetchListIndex)index
-{
-    return _taggedItemLists[@(index)];
-}
-
 #pragma mark - Fetch Dates
 
 - (NSString *)fetchKeyForIndex:(enum SRGILFetchListIndex)index
@@ -530,6 +523,22 @@ static NSArray *validBusinessUnits = nil;
     return [self.requestManager requestLiveMetaInfosForMediaType:mediaType
                                                      withAssetId:identifier
                                                  completionBlock:completionBlock];
+}
+
+#pragma mark - Data Accessors
+
+- (SRGILList *)itemsListForIndex:(enum SRGILFetchListIndex)index
+{
+    return _taggedItemLists[@(index)];
+}
+
+- (SRGILMedia *)mediaForIdentifier:(NSString *)identifier
+{
+    NSParameterAssert(identifier);
+    if (!identifier) {
+        return nil;
+    }
+    return _identifiedMedias[identifier];
 }
 
 #pragma mark - Network

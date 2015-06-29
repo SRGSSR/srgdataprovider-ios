@@ -53,6 +53,12 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  *  @return A new instance of the IL data provider.
  */
 - (instancetype)initWithBusinessUnit:(NSString *)businessUnit NS_DESIGNATED_INITIALIZER;
+
+/**
+ *  The business unit the data provider is hooked into.
+ *
+ *  @return The 3-letter string passed as parameter during the init.
+ */
 - (NSString *)businessUnit;
 
 // ********* Fetch lists of IL model objects **********
@@ -61,12 +67,12 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  *  Fetch items of a specific 'index' from the IL, or from a local storage (Favorites). If no request path can be 
  *  constructed from the index and its potential argument, returns NO and no request is made, and the completion block
  *  is NOT called either.
- *
- *  @param index           <#index description#>
- *  @param arg             <#arg description#>
- *  @param orgType         <#orgType description#>
- *  @param progressBlock   <#progressBlock description#>
- *  @param completionBlock <#completionBlock description#>
+ * 
+ *  @param index           The list "index". See enum SRGILFetchListIndex.
+ *  @param arg             The argument to be used to build the URL path for fetching data. Highly
+ *  @param orgType         The organisation type: flat of alphabetical.
+ *  @param progressBlock   The block to be used to be informed of the progress of the fetch.
+ *  @param completionBlock The block to be used upon fetch completion.
  *
  *  @return A boolean value indicating whether the fetch is valid or not (it may not, depending on the argument).
  */
@@ -83,7 +89,23 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  */
 - (NSUInteger)ongoingFetchCount;
 
+/**
+ *  Return the fetch date for a given list index.
+ *
+ *  @param index The index of the list
+ *
+ *  @return The date associated with the last successful retrieval of the list.
+ */
 - (NSDate *)fetchDateForIndex:(enum SRGILFetchListIndex)index;
+
+/**
+ *  Return the last date of fetch for a given set of indexes. Useful for indicating the last refresh date of a 
+ *  screen containing multiple lists of items.
+ *
+ *  @param indexes The indexes of lists.
+ *
+ *  @return The last of the fetch dates associated with the indexes.
+ */
 - (NSDate *)lastFetchDateForIndexes:(NSArray *)indexes;
 
 /**
@@ -103,7 +125,6 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  */
 - (void)resetFetchPathForIndex:(enum SRGILFetchListIndex)index;
 
-- (SRGILList *)itemsListForIndex:(enum SRGILFetchListIndex)index;
 
 // ********* Fetch individual media of IL model objects **********
 
@@ -132,6 +153,27 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
 - (BOOL)fetchLiveMetaInfosForMediaType:(enum SRGILMediaType)mediaType
                         withIdentifier:(NSString *)identifier
                        completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
+
+
+// ********* Data Accessors **********
+
+/**
+ *  Returns the list associated with a given index. Does NOT work for lists with organisation type = Alphabetical (yet).
+ *
+ *  @param index The index of the list
+ *
+ *  @return An instance of the list of items associated with that index.
+ */
+- (SRGILList *)itemsListForIndex:(enum SRGILFetchListIndex)index;
+
+/**
+ *  Access an already-fetch media, if any. If it is not yet fetched, returns nil.
+ *
+ *  @param identifier The identifier of the media (not its URN).
+ *
+ *  @return An instance of the media with that identifier.
+ */
+- (SRGILMedia *)mediaForIdentifier:(NSString *)identifier;
 
 
 // ********* Network checks **********
