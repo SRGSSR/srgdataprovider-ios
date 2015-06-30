@@ -1,8 +1,13 @@
 Pod::Spec.new do |s|
   s.name = "SRGIntegrationLayerDataProvider"
   s.version = "0.9.0"
-  s.summary = "Implementation of the Data Provider using the Integration Layer for the RTS Media Player"
-  s.description = "Implementation of the Data Provider using the Integration Layer for the RTS Media Player"
+  s.summary = "Data Provider using the Integration Layer for the SRG Media Player"
+  s.description = <<-DESC
+    This is the implementation of the Data Provider using the Integration Layer. It is a generic data provider and it
+    is not mandatory to use or have the media player to use the data provider. When used with the media player, it is
+    an easy drop in your project. Moreover, an optional module allow you to also use that provider for storing offline
+    metadatas from Medias and Shows. It can be used to implement a 'favorites' feature in an app.
+DESC
   s.homepage = "http://rts.ch"
   s.license = { :type => "N/A" }
   s.authors = { "Cédric Foellmi" => "cedric.foellmi@hortis.ch", "Cédric Luthi" => "cedric.luthi@rts.ch" }
