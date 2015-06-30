@@ -18,6 +18,10 @@
 #import "SRGILDataProvider+MediaPlayer.h"
 #import "SRGILDataProvider+OfflineStorage.h"
 
+@interface RTSOfflineStorageCenter (Private)
+- (void)__resetCenter__;
+@end
+
 @interface SRGILDataProvider (Private)
 @property(nonatomic, strong) RTSOfflineStorageCenter *storageCenter;
 @end
@@ -41,6 +45,7 @@
 - (void)tearDown
 {
     [super tearDown];
+    [self.dataProvider.storageCenter __resetCenter__];
     self.dataProvider = nil;
 }
 
@@ -114,25 +119,14 @@
                            mediaWithIdentifier:[SRGILURN identifierForURNString:self.validMediaURNString]
                                 audioChannelID:nil];
     
-    XCTAssertNotNil([dataProvider mediaMetadataContainerForIdentifier:[SRGILURN identifierForURNString:self.validMediaURNString]],
-                    @"One must still be able to access the media metata with the identifier only.");
-
-    XCTAssertNotNil([dataProvider mediaMetadataContainerForIdentifier:self.validMediaURNString],
-                    @"One must still be able to access the media metata with the URN string.");
-    
     XCTAssertTrue([self.dataProvider isMediaFlaggedAsFavorite:[SRGILURN identifierForURNString:self.validMediaURNString]]);
     XCTAssertTrue([self.dataProvider isMediaFlaggedAsFavorite:self.validMediaURNString]);
     
     // When flagging again, the metadata with the identifier must disappear, even when flagging with the same value.
     [dataProvider flagAsFavorite:YES mediaWithURNString:self.validMediaURNString audioChannelID:nil];
-    
-    XCTAssertNil([dataProvider mediaMetadataContainerForIdentifier:[SRGILURN identifierForURNString:self.validMediaURNString]],
-                    @"One must not be able to access again the media metata with the identifier only.");
-    
-    XCTAssertNotNil([dataProvider mediaMetadataContainerForIdentifier:self.validMediaURNString],
-                    @"One must still be able to access the media metata with the URN string.");
-    
+        
     XCTAssertTrue([self.dataProvider isMediaFlaggedAsFavorite:self.validMediaURNString]);
+    XCTAssertFalse([self.dataProvider isMediaFlaggedAsFavorite:[SRGILURN identifierForURNString:self.validMediaURNString]]);
 }
 
 @end
