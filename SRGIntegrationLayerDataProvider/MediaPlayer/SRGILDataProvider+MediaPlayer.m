@@ -42,10 +42,6 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 {
     NSAssert(urnString, @"Missing identifier to work with.");
     
-    SRGILURN *urn = [SRGILURN URNWithString:urnString];
-    NSAssert(urn, @"Unable to create URN from identifier, which is needed to proceed.");
-    NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined mediaType inferred from URN.");
-    
     if (!self.analyticsInfos) {
         self.analyticsInfos = [[NSMutableDictionary alloc] init];
         
@@ -55,7 +51,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                                    object:nil];
     }
     
-    SRGILMedia *existingMedia = self.identifiedMedias[urn.identifier];
+    SRGILMedia *existingMedia = self.identifiedMedias[urnString];
     
     @weakify(self)
     
@@ -77,17 +73,21 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     };
     
     if (!existingMedia || !existingMedia.contentURL) {
+        SRGILURN *urn = [SRGILURN URNWithString:urnString];
+        NSAssert(urn, @"Unable to create URN from string '%@', which is needed to proceed.", urnString);
+        NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined mediaType inferred from URN.");
+
         [self.requestManager requestMediaOfType:urn.mediaType
                                  withIdentifier:urn.identifier
                                 completionBlock:^(SRGILMedia *media, NSError *error) {
                                     @strongify(self)
                                 
                                     if (error) {
-                                        [self.identifiedMedias removeObjectForKey:urn.identifier];
+                                        [self.identifiedMedias removeObjectForKey:urnString];
                                         completionHandler(nil, error);
                                     }
                                     else {
-                                        self.identifiedMedias[urn.identifier] = media;
+                                        self.identifiedMedias[urnString] = media;
                                         [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
                                         tokenBlock(media);
                                     }
@@ -104,29 +104,29 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
      segmentsForIdentifier:(NSString *)urnString
      withCompletionHandler:(RTSMediaSegmentsCompletionHandler)completionHandler;
 {
-    SRGILURN *urn = [SRGILURN URNWithString:urnString];
-    NSAssert(urn, @"Unable to create URN from identifier, which is needed to proceed.");
-    NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined mediaType inferred from URN.");
-
     // SRGILMedia has been been made conformant to the RTSMediaPlayerSegment protocol (see SRGILVideo+MediaPlayer.h), segments
     // can therefore be displayed as is by the player
-    SRGILMedia *media = self.identifiedMedias[urn.identifier];
+    SRGILMedia *media = self.identifiedMedias[urnString];
     if (media) {
         completionHandler((id<RTSMediaSegment>)media, media.segments, nil);
     }
     else {
+        SRGILURN *urn = [SRGILURN URNWithString:urnString];
+        NSAssert(urn, @"Unable to create URN from identifier, which is needed to proceed.");
+        NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined mediaType inferred from URN.");
+
         @weakify(self)
-        [self.requestManager requestMediaOfType:SRGILMediaTypeVideo
+        [self.requestManager requestMediaOfType:urn.mediaType
                                  withIdentifier:urn.identifier
                                 completionBlock:^(SRGILMedia *media, NSError *error) {
                                     @strongify(self)
                                     
                                     if (error) {
-                                        [self.identifiedMedias removeObjectForKey:urn.identifier];
+                                        [self.identifiedMedias removeObjectForKey:urnString];
                                         completionHandler(nil, nil, error);
                                     }
                                     else {
-                                        self.identifiedMedias[urn.identifier] = media;
+                                        self.identifiedMedias[urnString] = media;
                                         [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
                                         completionHandler((id<RTSMediaSegment>)media, media.segments, error);
                                     }
@@ -141,8 +141,8 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     SRGILComScoreAnalyticsInfos *comScoreDataSource = [[SRGILComScoreAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
     SRGILStreamSenseAnalyticsInfos *streamSenseDataSource = [[SRGILStreamSenseAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
     
-    NSString *comScoreKeyPath = [comScoreKeyPathPrefix stringByAppendingString:media.identifier];
-    NSString *streamSenseKeyPath = [streamSenseKeyPathPrefix stringByAppendingString:media.identifier];
+    NSString *comScoreKeyPath = [comScoreKeyPathPrefix stringByAppendingString:media.urnString];
+    NSString *streamSenseKeyPath = [streamSenseKeyPathPrefix stringByAppendingString:media.urnString];
     
     self.analyticsInfos[comScoreKeyPath] = comScoreDataSource;
     self.analyticsInfos[streamSenseKeyPath] = streamSenseDataSource;
@@ -198,22 +198,25 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     RTSMediaPlaybackState newState = player.playbackState;
     
     if (oldState == RTSMediaPlaybackStatePreparing && newState == RTSMediaPlaybackStateReady) {
-        SRGILMedia *media = self.identifiedMedias[player.identifier];
-        if (media) {
-            NSString *typeName = nil;
-            switch ([media type]) {
-                case SRGILMediaTypeAudio:
-                    typeName = @"audio";
-                    break;
-                case SRGILMediaTypeVideo:
-                    typeName = @"video";
-                    break;
-                default:
-                    NSAssert(false, @"Invalid media type: %d", (int)[media type]);
-            }
-            if (typeName) {
-                [self.requestManager sendViewCountUpdate:player.identifier forMediaTypeName:typeName];
-            }
+        SRGILURN *urn = [SRGILURN URNWithString:player.identifier];
+        NSAssert(urn, @"Unable to create URN from identifier, which is needed to proceed.");
+        NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined mediaType inferred from URN.");
+
+        NSString *typeName = nil;
+        switch (urn.mediaType) {
+            case SRGILMediaTypeAudio:
+                typeName = @"audio";
+                break;
+            case SRGILMediaTypeVideo:
+                typeName = @"video";
+                break;
+            default:
+                NSAssert(false, @"Invalid media type: %d", (int)urn.mediaType);
+                break;
+        }
+        
+        if (typeName) {
+            [self.requestManager sendViewCountUpdate:urn.identifier forMediaTypeName:typeName];
         }
     }
 }

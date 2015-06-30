@@ -148,11 +148,8 @@
                           XCTAssertNotNil(contentURL, @"Content URL must be present.");
                           XCTAssertNil(error, @"Error must be nil.");
                           
-                          NSLog(@"%@", [dataProvider streamSensePlaylistMetadataForIdentifier:identifier]);
-                          NSLog(@"%@", [dataProvider streamSenseClipMetadataForIdentifier:identifier withSegment:nil]);
-                          
-                          XCTAssertNotNil([dataProvider streamSensePlaylistMetadataForIdentifier:identifier]);
-                          XCTAssertNotNil([dataProvider streamSenseClipMetadataForIdentifier:identifier withSegment:nil]);
+                          XCTAssertNotNil([dataProvider streamSensePlaylistMetadataForIdentifier:urnString]);
+                          XCTAssertNotNil([dataProvider streamSenseClipMetadataForIdentifier:urnString withSegment:nil]);
                           
                           if (!error && contentURL) {
                               NSLog(@"The contentURL is: %@", contentURL);

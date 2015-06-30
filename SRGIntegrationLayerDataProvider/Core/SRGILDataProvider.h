@@ -137,9 +137,8 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  *
  *  @return A boolean indicating if the fetch is started or not.
  */
-- (BOOL)fetchMediaOfType:(enum SRGILMediaType)mediaType
-          withIdentifier:(NSString *)identifier
-         completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)fetchMediaWithURNString:(NSString *)urnString
+                completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
 
 /**
  *  Fet the meta infos for the live streams.
@@ -150,9 +149,8 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  *
  *  @return A boolean indicating if the fetch is started or not.
  */
-- (BOOL)fetchLiveMetaInfosForMediaType:(enum SRGILMediaType)mediaType
-                        withIdentifier:(NSString *)identifier
-                       completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)fetchLiveMetaInfosWithURNString:(NSString *)urnString
+                        completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
 
 
 // ********* Data Accessors **********
@@ -173,7 +171,7 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  *
  *  @return An instance of the media with that identifier.
  */
-- (SRGILMedia *)mediaForIdentifier:(NSString *)identifier;
+- (SRGILMedia *)mediaForURNString:(NSString *)urnString;
 
 
 // ********* Network checks **********

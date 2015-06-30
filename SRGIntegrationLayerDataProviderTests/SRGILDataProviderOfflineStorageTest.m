@@ -72,11 +72,11 @@
         }
     }];
     
-    [self.dataProvider flagAsFavorite:YES mediaWithIdentifier:self.validMediaIdentifier audioChannelID:nil];
+    [self.dataProvider flagAsFavorite:YES mediaWithURNString:self.validMediaIdentifier audioChannelID:nil];
     XCTAssertTrue([self.dataProvider isMediaFlaggedAsFavorite:self.validMediaIdentifier]);
     XCTAssertTrue([[self.dataProvider flaggedAsFavoriteMediaMetadatas] count] == 1);
     
-    [self.dataProvider flagAsFavorite:NO mediaWithIdentifier:self.validMediaIdentifier audioChannelID:nil];
+    [self.dataProvider flagAsFavorite:NO mediaWithURNString:self.validMediaIdentifier audioChannelID:nil];
     XCTAssertFalse([self.dataProvider isMediaFlaggedAsFavorite:self.validMediaIdentifier]);
     XCTAssertTrue([[self.dataProvider flaggedAsFavoriteMediaMetadatas] count] == 0);
 }

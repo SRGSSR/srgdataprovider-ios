@@ -364,8 +364,8 @@ static NSArray *validBusinessUnits = nil;
             [items addObject:modelObject];
             
             if ([modelObject isKindOfClass:[SRGILMedia class]]) {
-                NSString *identifier = [(SRGILMedia *)modelObject identifier];
-                _identifiedMedias[identifier] = modelObject;
+                NSString *urnString = [(SRGILMedia *)modelObject urnString];
+                _identifiedMedias[urnString] = modelObject;
             }
             if ([modelObject isKindOfClass:[SRGILShow class]]) {
                 NSString *identifier = [(SRGILShow *)modelObject identifier];
@@ -507,21 +507,29 @@ static NSArray *validBusinessUnits = nil;
 
 #pragma mark - Fetch Medias
 
-- (BOOL)fetchMediaOfType:(enum SRGILMediaType)mediaType
-          withIdentifier:(NSString *)identifier
-         completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
+- (BOOL)fetchMediaWithURNString:(NSString *)urnString completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
 {
-    return [self.requestManager requestMediaOfType:mediaType
-                                    withIdentifier:identifier
+    NSParameterAssert(urnString);
+    
+    SRGILURN *urn = [SRGILURN URNWithString:urnString];
+    NSAssert(urn, @"Unable to create URN from identifier, which is needed to proceed.");
+    NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined mediaType inferred from URN.");
+
+    return [self.requestManager requestMediaOfType:urn.mediaType
+                                    withIdentifier:urn.identifier
                                    completionBlock:completionBlock];
 }
 
-- (BOOL)fetchLiveMetaInfosForMediaType:(enum SRGILMediaType)mediaType
-                        withIdentifier:(NSString *)identifier
-                       completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
+- (BOOL)fetchLiveMetaInfosWithURNString:(NSString *)urnString completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
 {
-    return [self.requestManager requestLiveMetaInfosForMediaType:mediaType
-                                                     withAssetId:identifier
+    NSParameterAssert(urnString);
+    
+    SRGILURN *urn = [SRGILURN URNWithString:urnString];
+    NSAssert(urn, @"Unable to create URN from identifier, which is needed to proceed.");
+    NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined mediaType inferred from URN.");
+
+    return [self.requestManager requestLiveMetaInfosForMediaType:urn.mediaType
+                                                     withAssetId:urn.identifier
                                                  completionBlock:completionBlock];
 }
 
@@ -532,13 +540,13 @@ static NSArray *validBusinessUnits = nil;
     return _taggedItemLists[@(index)];
 }
 
-- (SRGILMedia *)mediaForIdentifier:(NSString *)identifier
+- (SRGILMedia *)mediaForURNString:(NSString *)urnString
 {
-    NSParameterAssert(identifier);
-    if (!identifier) {
+    NSParameterAssert(urnString);
+    if (!urnString) {
         return nil;
     }
-    return _identifiedMedias[identifier];
+    return _identifiedMedias[urnString];
 }
 
 #pragma mark - Network

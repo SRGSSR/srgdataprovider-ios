@@ -30,7 +30,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6795800" id="nZP-m6-ECG"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6795800" id="nZP-m6-ECG"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="lEx-MN-GrP">
@@ -47,7 +47,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6817297" id="fDy-XE-ZyP"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6817297" id="fDy-XE-ZyP"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="haC-Nr-00N">
@@ -64,7 +64,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6807006" id="hU1-Xr-KW2"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6807006" id="hU1-Xr-KW2"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="0Ue-Qj-4mk">
@@ -81,7 +81,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6820615" id="PXO-qM-pSk"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6820615" id="PXO-qM-pSk"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="YFV-TR-GhD">
@@ -98,24 +98,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6694310" id="Bqe-XV-82m"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="hpO-y4-TPV">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hpO-y4-TPV" id="ro1-5a-LsC">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Géopolitis du 23 mai 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EYz-8U-XjD">
-                                                    <rect key="frame" x="19" y="11" width="202" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6776383" id="L33-Fp-MID"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6694310" id="Bqe-XV-82m"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -136,7 +119,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6776383" id="oK8-Od-evJ"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6776383" id="oK8-Od-evJ"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="RcO-OQ-96k">
@@ -153,7 +136,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="5944738" id="QzA-hh-S8O"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:5944738" id="QzA-hh-S8O"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="yjJ-iO-t7s">
@@ -170,7 +153,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="5944792" id="q2i-VF-07W"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:5944792" id="q2i-VF-07W"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="4va-Y0-EY5">
@@ -187,7 +170,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6415088" id="HXq-LY-6TI"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6415088" id="HXq-LY-6TI"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Kj5-BB-qzq">
@@ -204,7 +187,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6423912" id="jZ2-7B-Puy"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6423912" id="jZ2-7B-Puy"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="gsa-SS-Rwp">
@@ -221,7 +204,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6414099" id="zgA-Kf-0Zv"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6414099" id="zgA-Kf-0Zv"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Gxx-bQ-47v">
@@ -238,7 +221,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6412186" id="SbY-mO-m1L"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6412186" id="SbY-mO-m1L"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="jdv-7C-LPQ">
@@ -255,7 +238,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6412190" id="9cV-9N-w0p"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6412190" id="9cV-9N-w0p"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ZXj-03-rs0">
@@ -272,7 +255,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6412188" id="bDS-e5-ukW"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6412188" id="bDS-e5-ukW"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="I62-Rx-cpX">
@@ -289,7 +272,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6604106" id="MdE-4i-lho"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6604106" id="MdE-4i-lho"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ucy-62-0MO">
@@ -306,7 +289,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6843761" id="x80-jy-1ro"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6843761" id="x80-jy-1ro"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="SPf-tL-Ytf">
@@ -323,7 +306,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6469353" id="42M-4N-XcT"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6469353" id="42M-4N-XcT"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2et-za-boe">
@@ -340,7 +323,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6798461" id="7p3-Hs-SRk"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6798461" id="7p3-Hs-SRk"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="M47-dL-Jn0">
@@ -357,7 +340,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6840128" id="0eI-hL-Rn7"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6840128" id="0eI-hL-Rn7"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="pam-GU-Cfn">
@@ -374,7 +357,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="5918104" id="8uO-7c-vQD"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:5918104" id="8uO-7c-vQD"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="aKH-fC-Xlq">
@@ -391,7 +374,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="5581119" id="9Sp-It-zVo"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:5581119" id="9Sp-It-zVo"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Q1N-HF-m5j">
@@ -408,7 +391,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6077215" id="XRt-F3-sXM"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6077215" id="XRt-F3-sXM"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="mIh-lq-KC7">
@@ -425,7 +408,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6787923" id="V1x-Zq-Go4"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6787923" id="V1x-Zq-Go4"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="gXh-XE-a2b">
@@ -442,7 +425,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6855731" id="sRw-6A-W89"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6855731" id="sRw-6A-W89"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="fvz-e2-SB9">
@@ -459,7 +442,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6425909" id="Xiy-bo-IF2"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6425909" id="Xiy-bo-IF2"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="5fe-Cd-5tg">
@@ -476,7 +459,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6552552" id="Ibx-UO-EkW"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6552552" id="Ibx-UO-EkW"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="0C6-7Y-gpm">
@@ -493,7 +476,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="6863680" id="3kJ-vy-jn0"/>
+                                            <segue destination="DeR-ns-fWf" kind="presentation" identifier="urn:rts:video:6863680" id="3kJ-vy-jn0"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -726,6 +709,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="oK8-Od-evJ"/>
+        <segue reference="3kJ-vy-jn0"/>
     </inferredMetricsTieBreakers>
 </document>

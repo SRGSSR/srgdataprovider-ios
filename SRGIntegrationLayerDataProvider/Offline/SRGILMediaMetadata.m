@@ -67,7 +67,7 @@
     
     SRGILMediaMetadata *md = [[SRGILMediaMetadata alloc] init];
     
-    md.identifier = [media identifier];
+    md.identifier = [media urnString];
     md.title = [media title];
     md.parentTitle = [media parentTitle];
     md.mediaDescription = [media mediaDescription];

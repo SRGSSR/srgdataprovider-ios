@@ -37,26 +37,12 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
 
 @implementation SRGILDataProvider (OfflineStorage)
 
-- (id<RTSMediaMetadataContainer>)mediaMetadataContainerForIdentifier:(NSString *)identifier
-{
-    SRGILMedia *existingMedia = [self.identifiedMedias objectForKey:identifier];
-    SRGILMediaMetadata *md = [SRGILMediaMetadata mediaMetadataForMedia:existingMedia];
-    return md;
-}
-
-- (id<RTSShowMetadataContainer>)showMetadataContainerForIdentifier:(NSString *)identifier
-{
-    SRGILShow *existingShow = [self.identifiedShows objectForKey:identifier];
-    SRGILShowMetadata *md = [SRGILShowMetadata showMetadataForShow:existingShow];
-    return md;
-}
-
-- (BOOL)isMediaFlaggedAsFavorite:(NSString *)identifier
+- (BOOL)isMediaFlaggedAsFavorite:(NSString *)urnString
 {
     if (!self.storageCenter) {
         self.storageCenter = [RTSOfflineStorageCenter favoritesCenterWithMetadataProvider:self];
     }
-    id<RTSMediaMetadataContainer> md = [self.storageCenter mediaMetadataForIdentifier:identifier];
+    id<RTSMediaMetadataContainer> md = [self.storageCenter mediaMetadataForIdentifier:urnString];
     return [md isFavorite];
 }
 
@@ -69,10 +55,10 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
     return [md isFavorite];
 }
 
-- (void)flagAsFavorite:(BOOL)favorite mediaWithIdentifier:(NSString *)identifier audioChannelID:(NSString *)audioChannelID
+- (void)flagAsFavorite:(BOOL)favorite mediaWithURNString:(NSString *)urnString audioChannelID:(NSString *)audioChannelID
 {
-    if (!identifier) {
-        DDLogError(@"No media identifier for flagAsFavorite %@", identifier);
+    if (!urnString) {
+        DDLogError(@"No media URN string for flagAsFavorite %@", urnString);
         return;
     }
 
@@ -80,17 +66,23 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
         self.storageCenter = [RTSOfflineStorageCenter favoritesCenterWithMetadataProvider:self];
     }
 
-    [self.storageCenter flagAsFavorite:favorite mediaWithIdentifier:identifier audioChannelID:audioChannelID];
+    [self.storageCenter flagAsFavorite:favorite mediaWithIdentifier:urnString audioChannelID:audioChannelID];
     
-    if (!self.identifiedMedias[identifier]) {
+    if (!self.identifiedMedias[urnString]) {
+        SRGILURN *urn = [SRGILURN URNWithString:urnString];
+        NSAssert(urn.identifier, @"Unable build urn with identifier from string '%@'.", urnString);
+        NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined media type from urn string '%@'.", urnString);
+        
         @weakify(self);
-        [self.requestManager requestMediaOfType:SRGILMediaTypeVideo
-                                 withIdentifier:identifier
+        [self.requestManager requestMediaOfType:urn.mediaType
+                                 withIdentifier:urn.identifier
                                 completionBlock:^(SRGILMedia *media, NSError *error) {
                                     @strongify(self);
                                     if (!error) {
-                                        self.identifiedMedias[identifier] = media;
-                                        [self.storageCenter flagAsFavorite:favorite mediaWithIdentifier:identifier audioChannelID:audioChannelID];
+                                        self.identifiedMedias[urnString] = media;
+                                        [self.storageCenter flagAsFavorite:favorite
+                                                       mediaWithIdentifier:urnString
+                                                            audioChannelID:audioChannelID];
                                     }
                                 }];
     }
@@ -184,6 +176,25 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
             NSAssert(NO, @"Invalid item type for local items fetch list index: %ld", (long)index);
     }
 }
+
+
+#pragma mark - RTSMetadatasProvider
+
+- (id<RTSMediaMetadataContainer>)mediaMetadataContainerForIdentifier:(NSString *)identifier
+{
+    // For medias, the identifier must be the URN string
+    SRGILMedia *existingMedia = [self.identifiedMedias objectForKey:identifier];
+    SRGILMediaMetadata *md = [SRGILMediaMetadata mediaMetadataForMedia:existingMedia];
+    return md;
+}
+
+- (id<RTSShowMetadataContainer>)showMetadataContainerForIdentifier:(NSString *)identifier
+{
+    SRGILShow *existingShow = [self.identifiedShows objectForKey:identifier];
+    SRGILShowMetadata *md = [SRGILShowMetadata showMetadataForShow:existingShow];
+    return md;
+}
+
 
 @end
 

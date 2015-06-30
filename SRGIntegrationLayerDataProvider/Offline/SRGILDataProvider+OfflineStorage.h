@@ -11,10 +11,10 @@
 
 @interface SRGILDataProvider (OfflineStorage) <RTSMetadatasProvider>
 
-- (BOOL)isMediaFlaggedAsFavorite:(NSString *)identifier;
+- (BOOL)isMediaFlaggedAsFavorite:(NSString *)urnString;
 - (BOOL)isShowFlaggedAsFavorite:(NSString *)identifier;
 
-- (void)flagAsFavorite:(BOOL)favorite mediaWithIdentifier:(NSString *)identifier audioChannelID:(NSString *)audioChannelID;
+- (void)flagAsFavorite:(BOOL)favorite mediaWithURNString:(NSString *)urnString audioChannelID:(NSString *)audioChannelID;
 - (void)flagAsFavorite:(BOOL)favorite showWithIdentifier:(NSString *)identifier audioChannelID:(NSString *)audioChannelID;
 
 - (NSArray *)flaggedAsFavoriteMediaMetadatas;

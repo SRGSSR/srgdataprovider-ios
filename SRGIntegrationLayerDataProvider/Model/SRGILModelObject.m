@@ -32,7 +32,7 @@
     self = [super init];
     if (self) {
         _identifier = [dictionary objectForKey:@"id"];
-        _urn = [dictionary objectForKey:@"urn"];
+        _urnString = [dictionary objectForKey:@"urn"];
         _downloadDate = [NSDate date];
     }
     return self;

@@ -78,7 +78,7 @@
 - (void)testPresenceOfSingleDuplicateSegment
 {
     XCTAssertEqual(self.video.segments.count, 1, @"With correct input, segments must not be nil.");
-    XCTAssertEqualObjects(self.video.identifier, [(SRGILVideo *)self.video.segments.firstObject identifier], @"Wrong segment");
+    XCTAssertEqualObjects(self.video.urnString, [(SRGILVideo *)self.video.segments.firstObject urnString], @"Wrong segment");
 }
 
 - (void)testSegmentsClass

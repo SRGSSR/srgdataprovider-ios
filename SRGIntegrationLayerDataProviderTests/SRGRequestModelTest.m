@@ -63,7 +63,7 @@
     XCTAssertNotNil(video, @"Could not format/create object");
     
     XCTAssertNotNil(video.assetSet, @"No asset set found");
-    XCTAssertTrue([video.identifier isEqualToString:@"acb62d54-4bb2-480d-a88e-c05a424ff34e"], @"Bad video uid: %@", video.identifier);
+    XCTAssertTrue([video.urnString isEqualToString:@"urn:srf:ais:video:acb62d54-4bb2-480d-a88e-c05a424ff34e"], @"Bad video uid: %@", video.urnString);
     XCTAssertTrue(video.fullLength, @"Bad full length value");
     XCTAssertTrue([video.assetMetadatas count] == 1, @"Bad asset metadata size");
     XCTAssertTrue([video.title isEqualToString:@"Reporter vom 02.02.2014"], @"Bad video title");
