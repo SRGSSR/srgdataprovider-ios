@@ -44,4 +44,9 @@
     return urn;
 }
 
++ (NSString *)identifierForURNString:(NSString *)urnString
+{
+    return [[urnString componentsSeparatedByString:@":"] lastObject];
+}
+
 @end

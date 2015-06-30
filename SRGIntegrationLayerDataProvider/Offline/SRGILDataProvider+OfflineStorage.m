@@ -43,6 +43,9 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
         self.storageCenter = [RTSOfflineStorageCenter favoritesCenterWithMetadataProvider:self];
     }
     id<RTSMediaMetadataContainer> md = [self.storageCenter mediaMetadataForIdentifier:urnString];
+    if (!md) { // if none is found with URN string. Try with identifier, for backward compatibility.
+        md = [self.storageCenter mediaMetadataForIdentifier:[SRGILURN identifierForURNString:urnString]];
+    }
     return [md isFavorite];
 }
 
@@ -65,10 +68,17 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
     if (!self.storageCenter) {
         self.storageCenter = [RTSOfflineStorageCenter favoritesCenterWithMetadataProvider:self];
     }
+    
+    id<RTSMediaMetadataContainer> md = [self.storageCenter mediaMetadataForIdentifier:[SRGILURN identifierForURNString:urnString]];
+    if (md) { // If a media is stored the old fashion, delete it first.
+        [self.storageCenter deleteMediaMetadatasWithIdentifier:[SRGILURN identifierForURNString:urnString]];
+    }
 
     [self.storageCenter flagAsFavorite:favorite mediaWithIdentifier:urnString audioChannelID:audioChannelID];
     
     if (!self.identifiedMedias[urnString]) {
+        // We don't have the complete associated media. hence, fetch it, and complete its metadatas.
+        
         SRGILURN *urn = [SRGILURN URNWithString:urnString];
         NSAssert(urn.identifier, @"Unable build urn with identifier from string '%@'.", urnString);
         NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined media type from urn string '%@'.", urnString);
@@ -182,16 +192,30 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
 
 - (id<RTSMediaMetadataContainer>)mediaMetadataContainerForIdentifier:(NSString *)identifier
 {
+    SRGILMediaMetadata *md = nil;
     // For medias, the identifier must be the URN string
     SRGILMedia *existingMedia = [self.identifiedMedias objectForKey:identifier];
-    SRGILMediaMetadata *md = [SRGILMediaMetadata mediaMetadataForMedia:existingMedia];
+    if (existingMedia) {
+        md = [SRGILMediaMetadata mediaMetadataForMedia:existingMedia];
+    }
+    else {
+        id<RTSMediaMetadataContainer> container = [self.storageCenter mediaMetadataForIdentifier:identifier];
+        md = [SRGILMediaMetadata metadataForContainer:container];
+    }
     return md;
 }
 
 - (id<RTSShowMetadataContainer>)showMetadataContainerForIdentifier:(NSString *)identifier
 {
+    SRGILShowMetadata *md = nil;
     SRGILShow *existingShow = [self.identifiedShows objectForKey:identifier];
-    SRGILShowMetadata *md = [SRGILShowMetadata showMetadataForShow:existingShow];
+    if (existingShow) {
+        md = [SRGILShowMetadata showMetadataForShow:existingShow];
+    }
+    else {
+        id<RTSShowMetadataContainer> container = [self.storageCenter showMetadataForIdentifier:identifier];
+        md = [SRGILShowMetadata metadataForContainer:container];
+    }
     return md;
 }
 

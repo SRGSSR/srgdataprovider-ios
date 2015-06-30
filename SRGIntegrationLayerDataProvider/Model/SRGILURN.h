@@ -17,5 +17,6 @@
 @property(nonatomic, strong, readonly) NSString *identifier;
 
 + (SRGILURN *)URNWithString:(NSString *)urnString;
++ (NSString *)identifierForURNString:(NSString *)urnString;
 
 @end

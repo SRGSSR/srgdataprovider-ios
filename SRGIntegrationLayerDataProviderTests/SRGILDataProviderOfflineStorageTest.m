@@ -13,12 +13,17 @@
 #import <SRGMediaPlayer/SRGMediaPlayer.h>
 #import <SRGAnalytics/SRGAnalytics.h>
 
+#import "SRGILURN.h"
 #import "SRGILDataProvider.h"
 #import "SRGILDataProvider+MediaPlayer.h"
 #import "SRGILDataProvider+OfflineStorage.h"
 
+@interface SRGILDataProvider (Private)
+@property(nonatomic, strong) RTSOfflineStorageCenter *storageCenter;
+@end
+
 @interface SRGILDataProviderOfflineStorageTest : XCTestCase
-@property(nonatomic, strong) NSString *validMediaIdentifier;
+@property(nonatomic, strong) NSString *validMediaURNString;
 @property(nonatomic, strong) NSString *validShowIdentifier;
 @property(nonatomic, strong) SRGILDataProvider *dataProvider;
 @end
@@ -28,7 +33,7 @@
 - (void)setUp
 {
     [super setUp];
-    self.validMediaIdentifier = @"urn:rts:video:6853450"; // One Infrarouge emission
+    self.validMediaURNString = @"urn:rts:video:6853450"; // One Infrarouge emission
     self.validShowIdentifier = @"404386";
     self.dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
 }
@@ -50,7 +55,7 @@
 - (void)testDataProviderOfflineStorageWithUnknownIdentifier
 {
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
-    XCTAssertFalse([dataProvider isMediaFlaggedAsFavorite:self.validMediaIdentifier]);
+    XCTAssertFalse([dataProvider isMediaFlaggedAsFavorite:self.validMediaURNString]);
     XCTAssertFalse([dataProvider isShowFlaggedAsFavorite:self.validShowIdentifier]);
 }
 
@@ -58,10 +63,10 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:
                                       [NSString stringWithFormat:@"Expected a valid content URL for the identifier %@",
-                                       self.validMediaIdentifier]];
+                                       self.validMediaURNString]];
     
     [self.dataProvider mediaPlayerController:nil
-                        contentURLForIdentifier:self.validMediaIdentifier
+                        contentURLForIdentifier:self.validMediaURNString
                             completionHandler:^(NSURL *contentURL, NSError *error) {
                               [expectation fulfill];
                             }];
@@ -72,12 +77,12 @@
         }
     }];
     
-    [self.dataProvider flagAsFavorite:YES mediaWithURNString:self.validMediaIdentifier audioChannelID:nil];
-    XCTAssertTrue([self.dataProvider isMediaFlaggedAsFavorite:self.validMediaIdentifier]);
+    [self.dataProvider flagAsFavorite:YES mediaWithURNString:self.validMediaURNString audioChannelID:nil];
+    XCTAssertTrue([self.dataProvider isMediaFlaggedAsFavorite:self.validMediaURNString]);
     XCTAssertTrue([[self.dataProvider flaggedAsFavoriteMediaMetadatas] count] == 1);
     
-    [self.dataProvider flagAsFavorite:NO mediaWithURNString:self.validMediaIdentifier audioChannelID:nil];
-    XCTAssertFalse([self.dataProvider isMediaFlaggedAsFavorite:self.validMediaIdentifier]);
+    [self.dataProvider flagAsFavorite:NO mediaWithURNString:self.validMediaURNString audioChannelID:nil];
+    XCTAssertFalse([self.dataProvider isMediaFlaggedAsFavorite:self.validMediaURNString]);
     XCTAssertTrue([[self.dataProvider flaggedAsFavoriteMediaMetadatas] count] == 0);
 }
 
@@ -97,6 +102,37 @@
                                XCTAssertTrue([[self.dataProvider flaggedAsFavoriteShowMetadatas] count] == 0);
                            }];
     
+}
+
+- (void)testDataProviderOfflineStorageMigrationFromIdentifierToURNString
+{
+    SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
+    
+    // Use private method to insert old-style metadata into DB.
+    dataProvider.storageCenter = [RTSOfflineStorageCenter favoritesCenterWithMetadataProvider:dataProvider];
+    [dataProvider.storageCenter flagAsFavorite:YES
+                           mediaWithIdentifier:[SRGILURN identifierForURNString:self.validMediaURNString]
+                                audioChannelID:nil];
+    
+    XCTAssertNotNil([dataProvider mediaMetadataContainerForIdentifier:[SRGILURN identifierForURNString:self.validMediaURNString]],
+                    @"One must still be able to access the media metata with the identifier only.");
+
+    XCTAssertNotNil([dataProvider mediaMetadataContainerForIdentifier:self.validMediaURNString],
+                    @"One must still be able to access the media metata with the URN string.");
+    
+    XCTAssertTrue([self.dataProvider isMediaFlaggedAsFavorite:[SRGILURN identifierForURNString:self.validMediaURNString]]);
+    XCTAssertTrue([self.dataProvider isMediaFlaggedAsFavorite:self.validMediaURNString]);
+    
+    // When flagging again, the metadata with the identifier must disappear, even when flagging with the same value.
+    [dataProvider flagAsFavorite:YES mediaWithURNString:self.validMediaURNString audioChannelID:nil];
+    
+    XCTAssertNil([dataProvider mediaMetadataContainerForIdentifier:[SRGILURN identifierForURNString:self.validMediaURNString]],
+                    @"One must not be able to access again the media metata with the identifier only.");
+    
+    XCTAssertNotNil([dataProvider mediaMetadataContainerForIdentifier:self.validMediaURNString],
+                    @"One must still be able to access the media metata with the URN string.");
+    
+    XCTAssertTrue([self.dataProvider isMediaFlaggedAsFavorite:self.validMediaURNString]);
 }
 
 @end
