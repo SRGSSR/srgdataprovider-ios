@@ -19,7 +19,7 @@ static NSString * const SRGOfflineStorageCenterFavoritesStorageKey = @"SRGOfflin
 static NSMutableDictionary *keyedCenters = nil;
 
 @interface RTSOfflineStorageCenter ()
-@property(nonatomic, strong) id<RTSMetadatasProvider> metadatasProvider;
+@property(nonatomic, weak) id<RTSMetadatasProvider> metadatasProvider;
 @property(nonatomic, strong) RLMRealm *realm;
 @property(nonatomic, strong) NSString *storageKey;
 @end
@@ -219,6 +219,26 @@ static NSMutableDictionary *keyedCenters = nil;
 - (RLMResults *)allSavedShowMetadatas
 {
     return [RTSShowMetadata allObjectsInRealm:self.realm];
+}
+
+- (void)deleteMediaMetadatasWithIdentifier:(NSString *)identifier
+{
+    RTSMediaMetadata *object = [RTSMediaMetadata objectInRealm:self.realm forPrimaryKey:identifier];
+    if (object) {
+        [self.realm beginWriteTransaction];
+        [self.realm deleteObject:object];
+        [self.realm commitWriteTransaction];
+    }
+}
+
+- (void)deleteShowMetadatasWithIdentifier:(NSString *)identifier
+{
+    RTSShowMetadata *object = [RTSShowMetadata objectInRealm:self.realm forPrimaryKey:identifier];
+    if (object) {
+        [self.realm beginWriteTransaction];
+        [self.realm deleteObject:object];
+        [self.realm commitWriteTransaction];
+    }
 }
 
 @end

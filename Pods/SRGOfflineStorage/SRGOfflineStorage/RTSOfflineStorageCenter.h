@@ -28,5 +28,7 @@ extern NSString * const RTSOfflineStorageErrorDomain;
 - (RLMResults *)allSavedMediaMetadatas;
 - (RLMResults *)allSavedShowMetadatas;
 
+- (void)deleteMediaMetadatasWithIdentifier:(NSString *)identifier;
+- (void)deleteShowMetadatasWithIdentifier:(NSString *)identifier;
 
 @end

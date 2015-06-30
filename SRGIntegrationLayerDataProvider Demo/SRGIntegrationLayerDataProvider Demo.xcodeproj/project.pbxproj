@@ -36,13 +36,16 @@
 
 /* Begin PBXFileReference section */
 		083D06FB106767F44620E2A4 /* libPods-SRGIntegrationLayerDataProvider Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProvider Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		27D245EB01F0134C89899DEF /* Pods-SRGIntegrationLayerDataProvider DemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider DemoTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider DemoTests/Pods-SRGIntegrationLayerDataProvider DemoTests.debug.xcconfig"; sourceTree = "<group>"; };
-		7A641F8D22E01F4D8006CEFB /* Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider Demo/Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		7E13F19B934EC94FAB36C2B7 /* Pods-SRGIntegrationLayerDataProvider DemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider DemoTests.release.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider DemoTests/Pods-SRGIntegrationLayerDataProvider DemoTests.release.xcconfig"; sourceTree = "<group>"; };
+		8BA9B2201BAD01049883887A /* Pods-SRGIntegrationLayerDataProvider Demo.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider Demo.test.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider Demo/Pods-SRGIntegrationLayerDataProvider Demo.test.xcconfig"; sourceTree = "<group>"; };
+		903567A63E7A81854045DC7B /* Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider Demo/Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig"; sourceTree = "<group>"; };
 		9F8B38971B2EC99300F67FA5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9F8B38991B2EC99900F67FA5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9F8B389B1B2ECA8A00F67FA5 /* SRGILDataProviderDemo.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGILDataProviderDemo.pch; sourceTree = "<group>"; };
 		9F8B389E1B2ED99700F67FA5 /* RTSVideosAnalyticsLabels.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RTSVideosAnalyticsLabels.plist; sourceTree = "<group>"; };
-		A633BC1A31AF1F344286918F /* Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider Demo/Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig"; sourceTree = "<group>"; };
+		A8FDEE8E883AEF84BD354049 /* Pods-SRGIntegrationLayerDataProvider DemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider DemoTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider DemoTests/Pods-SRGIntegrationLayerDataProvider DemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C264CC852E8444104776D5F4 /* Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider Demo/Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		CE0018E7E7D956F88E4566D1 /* Pods-SRGIntegrationLayerDataProvider DemoTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider DemoTests.test.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider DemoTests/Pods-SRGIntegrationLayerDataProvider DemoTests.test.xcconfig"; sourceTree = "<group>"; };
 		DE2A07BB6A2D28DC0DFD165E /* libPods-SRGIntegrationLayerDataProvider DemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProvider DemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E67D9B321B0F887B00FF2334 /* SegmentCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentCollectionViewCell.xib; sourceTree = "<group>"; };
 		E69E91671B0DAEC60033BD05 /* MediaPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlayerViewController.h; sourceTree = "<group>"; };
@@ -62,7 +65,6 @@
 		E6A025441B0C56A0006DE0D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E6E5480E1B0DB78800CA45A3 /* SegmentCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentCollectionViewCell.h; sourceTree = "<group>"; };
 		E6E5480F1B0DB78800CA45A3 /* SegmentCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentCollectionViewCell.m; sourceTree = "<group>"; };
-		EF20F53DBE9C69A030CFBB2F /* Pods-SRGIntegrationLayerDataProvider DemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider DemoTests.release.xcconfig"; path = "../Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider DemoTests/Pods-SRGIntegrationLayerDataProvider DemoTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +103,12 @@
 		8909C082B102EA9F1B15E6FC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7A641F8D22E01F4D8006CEFB /* Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig */,
-				A633BC1A31AF1F344286918F /* Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig */,
-				27D245EB01F0134C89899DEF /* Pods-SRGIntegrationLayerDataProvider DemoTests.debug.xcconfig */,
-				EF20F53DBE9C69A030CFBB2F /* Pods-SRGIntegrationLayerDataProvider DemoTests.release.xcconfig */,
+				C264CC852E8444104776D5F4 /* Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig */,
+				8BA9B2201BAD01049883887A /* Pods-SRGIntegrationLayerDataProvider Demo.test.xcconfig */,
+				903567A63E7A81854045DC7B /* Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig */,
+				A8FDEE8E883AEF84BD354049 /* Pods-SRGIntegrationLayerDataProvider DemoTests.debug.xcconfig */,
+				CE0018E7E7D956F88E4566D1 /* Pods-SRGIntegrationLayerDataProvider DemoTests.test.xcconfig */,
+				7E13F19B934EC94FAB36C2B7 /* Pods-SRGIntegrationLayerDataProvider DemoTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -492,7 +496,7 @@
 		};
 		E6A025261B0C5509006DE0D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7A641F8D22E01F4D8006CEFB /* Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig */;
+			baseConfigurationReference = C264CC852E8444104776D5F4 /* Pods-SRGIntegrationLayerDataProvider Demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -505,7 +509,7 @@
 		};
 		E6A025271B0C5509006DE0D0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A633BC1A31AF1F344286918F /* Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig */;
+			baseConfigurationReference = 903567A63E7A81854045DC7B /* Pods-SRGIntegrationLayerDataProvider Demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -518,7 +522,7 @@
 		};
 		E6A025291B0C5509006DE0D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27D245EB01F0134C89899DEF /* Pods-SRGIntegrationLayerDataProvider DemoTests.debug.xcconfig */;
+			baseConfigurationReference = A8FDEE8E883AEF84BD354049 /* Pods-SRGIntegrationLayerDataProvider DemoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -539,7 +543,7 @@
 		};
 		E6A0252A1B0C5509006DE0D0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EF20F53DBE9C69A030CFBB2F /* Pods-SRGIntegrationLayerDataProvider DemoTests.release.xcconfig */;
+			baseConfigurationReference = 7E13F19B934EC94FAB36C2B7 /* Pods-SRGIntegrationLayerDataProvider DemoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
