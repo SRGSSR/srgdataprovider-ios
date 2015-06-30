@@ -471,7 +471,7 @@ static NSArray *validBusinessUnits = nil;
 
 - (NSString *)fetchKeyForIndex:(enum SRGILFetchListIndex)index
 {
-    return [_UUID stringByAppendingFormat:@"-%@-FetchListIndex-%ld", self.businessUnit, index];
+    return [_UUID stringByAppendingFormat:@"-%@-FetchListIndex-%ld", self.businessUnit, (long)index];
 }
 
 - (NSDate *)fetchDateForIndex:(enum SRGILFetchListIndex)index
