@@ -108,7 +108,8 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     // can therefore be displayed as is by the player
     SRGILMedia *media = self.identifiedMedias[urnString];
     if (media.segments) {
-        completionHandler((id<RTSMediaSegment>)media, media.segments, nil);
+        NSArray *segments = (media.isFullLength) ? media.segments : nil;
+        completionHandler((id<RTSMediaSegment>)media, segments, nil);
     }
     else {
         SRGILURN *urn = [SRGILURN URNWithString:urnString];
@@ -128,7 +129,8 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                     else {
                                         self.identifiedMedias[urnString] = media;
                                         [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
-                                        completionHandler((id<RTSMediaSegment>)media, media.segments, error);
+                                        NSArray *segments = (media.isFullLength) ? media.segments : nil;
+                                        completionHandler((id<RTSMediaSegment>)media, segments, error);
                                     }
                                 }];
     }
