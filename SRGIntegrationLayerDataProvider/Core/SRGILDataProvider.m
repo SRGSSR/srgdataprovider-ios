@@ -367,7 +367,13 @@ static NSArray *validBusinessUnits = nil;
                 NSString *urnString = [(SRGILMedia *)modelObject urnString];
                 _identifiedMedias[urnString] = modelObject;
             }
-            if ([modelObject isKindOfClass:[SRGILShow class]]) {
+            else if ([modelObject isKindOfClass:[SRGILAssetSet class]]) {
+                for (SRGILAsset *asset in [(SRGILAssetSet *)modelObject assets]) {
+                    SRGILMedia *media = asset.fullLengthMedia;
+                    _identifiedMedias[media.urnString] = media;
+                }
+            }
+            else if ([modelObject isKindOfClass:[SRGILShow class]]) {
                 NSString *identifier = [(SRGILShow *)modelObject identifier];
                 _identifiedShows[identifier] = modelObject;
             }
