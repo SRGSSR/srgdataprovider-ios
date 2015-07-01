@@ -75,8 +75,8 @@
 // SRGMediaPlayer
 #define COCOAPODS_POD_AVAILABLE_SRGMediaPlayer
 #define COCOAPODS_VERSION_MAJOR_SRGMediaPlayer 0
-#define COCOAPODS_VERSION_MINOR_SRGMediaPlayer 5
-#define COCOAPODS_VERSION_PATCH_SRGMediaPlayer 2
+#define COCOAPODS_VERSION_MINOR_SRGMediaPlayer 7
+#define COCOAPODS_VERSION_PATCH_SRGMediaPlayer 1
 
 // SRGOfflineStorage
 #define COCOAPODS_POD_AVAILABLE_SRGOfflineStorage
