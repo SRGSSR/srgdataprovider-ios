@@ -370,7 +370,9 @@ static NSArray *validBusinessUnits = nil;
             else if ([modelObject isKindOfClass:[SRGILAssetSet class]]) {
                 for (SRGILAsset *asset in [(SRGILAssetSet *)modelObject assets]) {
                     SRGILMedia *media = asset.fullLengthMedia;
-                    _identifiedMedias[media.urnString] = media;
+                    if (media.urnString) {
+                        _identifiedMedias[media.urnString] = media;
+                    }
                 }
             }
             else if ([modelObject isKindOfClass:[SRGILShow class]]) {
