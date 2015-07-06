@@ -8,9 +8,7 @@
 
 #import "SRGILErrors.h"
 
-NSString *const SRGILErrorDomain = @"ch.srgssr.integrationlayer";
-
-NSError *SRGILCreateUserFacingError(NSString *failureReason, NSError *underlyingError, enum SRGILErrorCode errorCode)
+NSError *SRGILCreateUserFacingError(NSString *failureReason, NSError *underlyingError, enum SRGILDataProviderErrorCode errorCode)
 {
     NSMutableDictionary *errorInfo = [NSMutableDictionary dictionary];
     
@@ -23,6 +21,6 @@ NSError *SRGILCreateUserFacingError(NSString *failureReason, NSError *underlying
         [errorInfo setObject:underlyingError forKey:NSUnderlyingErrorKey];
     }
     
-    NSError *newError = [NSError errorWithDomain:SRGILErrorDomain code:errorCode userInfo:errorInfo];
+    NSError *newError = [NSError errorWithDomain:SRGILDataProviderErrorDomain code:errorCode userInfo:errorInfo];
     return newError;
 }

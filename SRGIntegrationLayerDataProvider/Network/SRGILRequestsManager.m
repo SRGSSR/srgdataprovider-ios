@@ -8,6 +8,8 @@
 #import <libextobjc/EXTScope.h>
 
 #import "SRGILDataProvider.h"
+#import "SRGILDataProviderConstants.h"
+
 #import "SRGILOngoingRequest+Private.h"
 #import "SRGILRequestsManager.h"
 #import "SRGILOrganisedModelDataItem.h"
@@ -94,7 +96,7 @@ static SGVReachability *reachability;
 - (BOOL)requestMediaOfType:(enum SRGILMediaType)mediaType
             withIdentifier:(NSString *)identifier
            completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
-{
+{    
     NSString *path = nil;
     Class objectClass = NULL;
     NSString *JSONKey = nil;
@@ -105,13 +107,13 @@ static SGVReachability *reachability;
             path = [NSString stringWithFormat:@"video/play/%@.json", identifier];
             objectClass = [SRGILVideo class];
             JSONKey = @"Video";
-            errorMessage = NSLocalizedString(@"UNABLE_TO_CREATE_VIDEO", nil);
+            errorMessage = NSLocalizedString(@"Unable to built a valid video object.", nil);
             break;
         case SRGILMediaTypeAudio:
             path = [NSString stringWithFormat:@"audio/play/%@.json", identifier];
             objectClass = [SRGILAudio class];
             JSONKey = @"Audio";
-            errorMessage = NSLocalizedString(@"UNABLE_TO_CREATE_AUDIO", nil);
+            errorMessage = NSLocalizedString(@"Unable to built a valid video object.", nil);
             break;
 
         default:
@@ -183,7 +185,7 @@ static SGVReachability *reachability;
                     newError = error;
                 }
                 else {
-                    newError = SRGILCreateUserFacingError(error.localizedDescription, error, SRGILErrorCodeInvalidData);
+                    newError = SRGILCreateUserFacingError(error.localizedDescription, error, SRGILDataProviderErrorCodeInvalidData);
                 }
                 return callCompletionBlocks(nil, newError);
             });
@@ -195,7 +197,7 @@ static SGVReachability *reachability;
                 return callCompletionBlocks(nil, JSONError);
             }
             else if (![JSON isKindOfClass:[NSDictionary class]]) {
-                JSONError = SRGILCreateUserFacingError(@"Invalid JSON", nil, SRGILErrorCodeInvalidData);
+                JSONError = SRGILCreateUserFacingError(@"Invalid JSON", nil, SRGILDataProviderErrorCodeInvalidData);
                 return callCompletionBlocks(nil, JSONError);
             }
             else {
@@ -205,7 +207,7 @@ static SGVReachability *reachability;
                         return callCompletionBlocks(media, nil);
                     }
                     else {
-                        NSError *newError = SRGILCreateUserFacingError(errorMessage, nil, SRGILErrorCodeInvalidData);
+                        NSError *newError = SRGILCreateUserFacingError(errorMessage, nil, SRGILDataProviderErrorCodeInvalidData);
                         return callCompletionBlocks(nil, newError);
                     }
                 });
@@ -276,7 +278,7 @@ static SGVReachability *reachability;
                     newError = JSONError;
                 }
                 else {
-                    newError = SRGILCreateUserFacingError(NSLocalizedString(@"INVALID_DATA_FOR_CATEGORY", nil), error, SRGILErrorCodeInvalidData);
+                    newError = SRGILCreateUserFacingError(NSLocalizedString(@"INVALID_DATA_FOR_CATEGORY", nil), error, SRGILDataProviderErrorCodeInvalidData);
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completionBlock(nil, newError);

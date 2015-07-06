@@ -69,9 +69,9 @@
 		9F4421001B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4420FF1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m */; };
 		9F598B001B301E9B00201366 /* SRGILDataProviderOfflineStorageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F598AFF1B301E9B00201366 /* SRGILDataProviderOfflineStorageTest.m */; };
 		9F83AB161B29C0C800D7D8BE /* SRGILDataProviderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F83AB151B29C0C800D7D8BE /* SRGILDataProviderTest.m */; };
-		9F83AB191B29C9F400D7D8BE /* SRGILDataProviderConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F83AB181B29C9F400D7D8BE /* SRGILDataProviderConstants.m */; };
 		9F8B389D1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B389C1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m */; };
 		9FCA04921B414935009937E2 /* SRGILURN.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCA04911B414935009937E2 /* SRGILURN.m */; };
+		9FF55F9A1B4B0F5900A99DA2 /* SRGILDataProviderConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF55F991B4B0F5900A99DA2 /* SRGILDataProviderConstants.m */; };
 		AC01AA295800C7CDE4E23876 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F6EBD656367387D07A08A6 /* libPods.a */; };
 		C2E8B26471460B332CD298C5 /* libPods-SRGIntegrationLayerDataProviderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */; };
 		E604EAFC1B174254004A627D /* SRGILOngoingRequest+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */; };
@@ -197,11 +197,11 @@
 		9F4421011B0A116D00AD0613 /* SRGILDataProviderMediaPlayerDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SRGILDataProviderMediaPlayerDataSource.h; path = SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h; sourceTree = SOURCE_ROOT; };
 		9F598AFF1B301E9B00201366 /* SRGILDataProviderOfflineStorageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderOfflineStorageTest.m; sourceTree = "<group>"; };
 		9F83AB151B29C0C800D7D8BE /* SRGILDataProviderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderTest.m; sourceTree = "<group>"; };
-		9F83AB171B29C9F400D7D8BE /* SRGILDataProviderConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILDataProviderConstants.h; sourceTree = "<group>"; };
-		9F83AB181B29C9F400D7D8BE /* SRGILDataProviderConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderConstants.m; sourceTree = "<group>"; };
 		9F8B389C1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderMediaPlayerTest.m; sourceTree = "<group>"; };
 		9FCA04901B414935009937E2 /* SRGILURN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILURN.h; sourceTree = "<group>"; };
 		9FCA04911B414935009937E2 /* SRGILURN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILURN.m; sourceTree = "<group>"; };
+		9FF55F981B4B0F5900A99DA2 /* SRGILDataProviderConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILDataProviderConstants.h; sourceTree = "<group>"; };
+		9FF55F991B4B0F5900A99DA2 /* SRGILDataProviderConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderConstants.m; sourceTree = "<group>"; };
 		A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProviderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E604EAFA1B174254004A627D /* SRGILOngoingRequest+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGILOngoingRequest+Private.h"; sourceTree = "<group>"; };
 		E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGILOngoingRequest+Private.m"; sourceTree = "<group>"; };
@@ -256,8 +256,8 @@
 				9F13D5051AE9270600E4D897 /* SRGILDataProvider.m */,
 				9F4421011B0A116D00AD0613 /* SRGILDataProviderMediaPlayerDataSource.h */,
 				9F13D5631AE92C4900E4D897 /* SRGILDataProviderOfflineStorage.h */,
-				9F83AB171B29C9F400D7D8BE /* SRGILDataProviderConstants.h */,
-				9F83AB181B29C9F400D7D8BE /* SRGILDataProviderConstants.m */,
+				9FF55F981B4B0F5900A99DA2 /* SRGILDataProviderConstants.h */,
+				9FF55F991B4B0F5900A99DA2 /* SRGILDataProviderConstants.m */,
 				9F4420FD1B0A107900AD0613 /* MediaPlayer & Analytics */,
 				9F13D55E1AE92C4900E4D897 /* Offline */,
 			);
@@ -650,6 +650,7 @@
 				9F13D5431AE9270700E4D897 /* SRGILList.m in Sources */,
 				9F13D5461AE9270700E4D897 /* SRGILMedia.m in Sources */,
 				9F13D53F1AE9270700E4D897 /* SRGILAssetSet.m in Sources */,
+				9FF55F9A1B4B0F5900A99DA2 /* SRGILDataProviderConstants.m in Sources */,
 				9F13D54F1AE9270700E4D897 /* SRGILErrors.m in Sources */,
 				E68E95E31B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m in Sources */,
 				9F13D5451AE9270700E4D897 /* SRGILLiveHeaderData.m in Sources */,
@@ -670,7 +671,6 @@
 				9F13D53A1AE9270700E4D897 /* SRGILStreamSenseAnalyticsInfos.m in Sources */,
 				9F13D53D1AE9270700E4D897 /* SRGILAsset.m in Sources */,
 				9F13D5641AE92C4900E4D897 /* SRGILDataProvider+OfflineStorage.m in Sources */,
-				9F83AB191B29C9F400D7D8BE /* SRGILDataProviderConstants.m in Sources */,
 				9F13D5391AE9270700E4D897 /* SRGILComScoreAnalyticsInfos.m in Sources */,
 				9F13D5411AE9270700E4D897 /* SRGILImage.m in Sources */,
 				9F13D5441AE9270700E4D897 /* SRGILLiveHeaderChannel.m in Sources */,

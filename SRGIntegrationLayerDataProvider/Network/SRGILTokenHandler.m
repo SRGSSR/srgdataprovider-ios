@@ -9,6 +9,7 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 #import "SRGILTokenHandler.h"
+#import "SRGILDataProviderConstants.h"
 #import "SRGILErrors.h"
 
 #ifdef DEBUG
@@ -81,7 +82,7 @@ static NSString * const SRGILTokenHandlerBaseURLString = @"http://tp.srgssr.ch/t
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 //TODO Add this localized string somewhere
                 NSDictionary *userInfo = @{NSLocalizedDescriptionKey : NSLocalizedString(@"MISSING_TOKEN_AUTHPARAMS_ERROR_DESCRIPTION", nil)};
-                completionBlock(nil, [NSError errorWithDomain:SRGILErrorDomain code:SRGILErrorCodeInvalidData userInfo:userInfo]);
+                completionBlock(nil, [NSError errorWithDomain:SRGILDataProviderErrorDomain code:SRGILDataProviderErrorCodeInvalidData userInfo:userInfo]);
             }];
             return;
         }

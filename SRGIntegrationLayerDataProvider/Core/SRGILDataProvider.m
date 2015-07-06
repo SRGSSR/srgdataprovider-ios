@@ -10,14 +10,13 @@
 
 #import "SRGILDataProvider.h"
 #import "SRGILDataProvider+Private.h"
-#import "SRGILOrganisedModelDataItem.h"
 #import "SRGILDataProviderConstants.h"
+
+#import "SRGILModel.h"
+#import "SRGILOrganisedModelDataItem.h"
 
 #import "SRGILErrors.h"
 #import "SRGILRequestsManager.h"
-
-#import "SRGILDataProvider+Private.h"
-#import "SRGILModel.h"
 
 #import <libextobjc/EXTScope.h>
 
@@ -115,8 +114,8 @@ static NSArray *validBusinessUnits = nil;
         if (completionBlock) {
             NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                                  code:SRGILDataProviderErrorCodeInvalidFetchIndex
-                                             userInfo:@{NSLocalizedDescriptionKey:
-                                                            NSLocalizedString(@"Invalid fetch index", nil)}];
+                                             userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Invalid fetch index", nil)}];
+            
             completionBlock(nil, nil, error);
         }
         return NO;
@@ -124,6 +123,7 @@ static NSArray *validBusinessUnits = nil;
     
     id<NSCopying> tag = @(index);
     NSString *remoteURLPath = SRGConfigNoValidRequestURLPath;
+    NSString *errorMessage = nil;
     
     switch (index) {
         case SRGILFetchListVideoLiveStreams:
@@ -175,6 +175,7 @@ static NSArray *validBusinessUnits = nil;
                     }
                 }
             }
+            // It is OK to find no remoteURLpath and let it go. No request will be made, that's it.
             
         }
             break;
@@ -210,7 +211,7 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [NSString stringWithFormat:@"audio/play/%@.json", arg];
             }
             else {
-                DDLogWarn(@"Invalid arg for SRGILFetchListAudioLiveStreams: %@", arg);
+                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListAudioLiveStreams: '%@'.", nil), arg];
             }
         }
             break;
@@ -220,7 +221,7 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [NSString stringWithFormat:@"audio/latestEpisodesByChannel/%@.json?pageSize=20", arg];
             }
             else {
-                DDLogWarn(@"Invalid arg for SRGILFetchListAudioMostRecent: %@", arg);
+                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListAudioMostRecent: '%@'.", nil), arg];
             }
         }
             break;
@@ -230,7 +231,7 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [NSString stringWithFormat:@"audio/mostClickedByChannel/%@.json?pageSize=20", arg];
             }
             else {
-                DDLogWarn(@"Invalid arg for SRGILFetchListAudioMostListened: %@", arg);
+                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListAudioMostListened: '%@'.", nil), arg];
             }
         }
             break;
@@ -240,7 +241,7 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [NSString stringWithFormat:@"radio/assetGroup/editorialPlayerAlphabeticalByChannel/%@.json", arg];
             }
             else {
-                DDLogWarn(@"Invalid arg for SRGILFetchListAudioShowsAZ: %@", arg);
+                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListAudioShowsAZ: '%@'.", nil), arg];
             }
         }
             break;
@@ -252,7 +253,7 @@ static NSArray *validBusinessUnits = nil;
     _typedFetchPaths[@(index)] = [remoteURLPath copy];
     
     if (remoteURLPath && remoteURLPath != SRGConfigNoValidRequestURLPath) {
-        DDLogWarn(@"Fetch request for item type %ld with path %@", (long)index, remoteURLPath);
+        DDLogInfo(@"Fetch request for item type %ld with path %@", (long)index, remoteURLPath);
         
         @weakify(self);
         [_ongoingFetchIndices addObject:@(index)];
@@ -261,6 +262,7 @@ static NSArray *validBusinessUnits = nil;
                                         onCompletion:^(NSDictionary *rawDictionary, NSError *error) {
                                             @strongify(self);
                                             [_ongoingFetchIndices removeObject:@(index)];
+                                            // Error handling is handled in extractItems...
                                             [self recordFetchDateForIndex:index];
                                             [self extractItemsAndClassNameFromRawDictionary:rawDictionary
                                                                                      forTag:tag
@@ -268,8 +270,17 @@ static NSArray *validBusinessUnits = nil;
                                                                         withCompletionBlock:completionBlock];
                                         }];        
     }
-    else {
-        DDLogWarn(@"Invalid fetch request for item type %ld", (long)index);
+    else if (errorMessage) {
+        DDLogWarn(@"%@", errorMessage);
+
+        if (completionBlock) {
+            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                 code:SRGILDataProviderErrorCodeInvalidFetchIndex
+                                             userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
+            
+            completionBlock(nil, nil, error);
+        }
+        return NO;
     }
     
     return [self isFetchPathValidForIndex:index];
@@ -444,8 +455,8 @@ static NSArray *validBusinessUnits = nil;
     else {
         if (error) {
             NSString *message = [NSString stringWithFormat:NSLocalizedString(@"INVALID_DATA", nil)];
-            *error = [NSError errorWithDomain:SRGILErrorDomain
-                                         code:SRGILErrorCodeInvalidData
+            *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                         code:SRGILDataProviderErrorCodeInvalidData
                                      userInfo:@{NSLocalizedDescriptionKey: message}];
         }
     }
@@ -459,7 +470,7 @@ static NSArray *validBusinessUnits = nil;
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *reason = [NSString stringWithFormat:NSLocalizedString(@"INVALID_DATA_FOR_CATEGORY", nil), tag];
-        NSError *newError = SRGILCreateUserFacingError(reason, error, SRGILErrorCodeInvalidData);
+        NSError *newError = SRGILCreateUserFacingError(reason, error, SRGILDataProviderErrorCodeInvalidData);
         completionBlock(nil, nil, newError);
     });
 }
@@ -516,11 +527,29 @@ static NSArray *validBusinessUnits = nil;
 
 - (BOOL)fetchMediaWithURNString:(NSString *)urnString completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
 {
-    NSParameterAssert(urnString);
+    NSAssert(completionBlock, @"Missing completion block");
+    
+    NSString *errorMessage = nil;
+    if (!urnString) {
+        errorMessage = NSLocalizedString(@"Missing media URN string. Nothing to fetch.", nil);
+    }
     
     SRGILURN *urn = [SRGILURN URNWithString:urnString];
-    NSAssert(urn, @"Unable to create URN from identifier, which is needed to proceed.");
-    NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined mediaType inferred from URN.");
+    if (!urn) {
+        errorMessage = NSLocalizedString(@"Unable to create URN from identifier, which is needed to proceed.", nil);
+    }
+    else if (urn.mediaType == SRGILMediaTypeUndefined) {
+        errorMessage = NSLocalizedString(@"Undefined mediaType inferred from URN.", nil);
+    }
+    
+    if (errorMessage) {
+        NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                             code:SRGILDataProviderErrorCodeInvalidMediaIdentifier
+                                         userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
+        
+        completionBlock(nil, error);
+        return NO;
+    }
 
     return [self.requestManager requestMediaOfType:urn.mediaType
                                     withIdentifier:urn.identifier
@@ -529,12 +558,30 @@ static NSArray *validBusinessUnits = nil;
 
 - (BOOL)fetchLiveMetaInfosWithURNString:(NSString *)urnString completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
 {
-    NSParameterAssert(urnString);
+    NSParameterAssert(completionBlock);
+    
+    NSString *errorMessage = nil;
+    if (!urnString) {
+        errorMessage = NSLocalizedString(@"Missing media URN string. Nothing to fetch.", nil);
+    }
     
     SRGILURN *urn = [SRGILURN URNWithString:urnString];
-    NSAssert(urn, @"Unable to create URN from identifier, which is needed to proceed.");
-    NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined mediaType inferred from URN.");
-
+    if (!urn) {
+        errorMessage = NSLocalizedString(@"Unable to create URN from identifier, which is needed to proceed.", nil);
+    }
+    else if (urn.mediaType == SRGILMediaTypeUndefined) {
+        errorMessage = NSLocalizedString(@"Undefined mediaType inferred from URN.", nil);
+    }
+    
+    if (errorMessage) {
+        NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                             code:SRGILDataProviderErrorCodeInvalidMediaIdentifier
+                                         userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
+        
+        completionBlock(nil, error);
+        return NO;
+    }
+    
     return [self.requestManager requestLiveMetaInfosForMediaType:urn.mediaType
                                                      withAssetId:urn.identifier
                                                  completionBlock:completionBlock];

@@ -8,6 +8,7 @@
 
 #import "SRGILDataProvider+MediaPlayer.h"
 #import "SRGILDataProvider+Private.h"
+#import "SRGILDataProviderConstants.h"
 
 #import "SRGILErrors.h"
 #import "SRGILRequestsManager.h"
@@ -64,8 +65,8 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                                   }];
         }
         else {
-            NSError *error = [NSError errorWithDomain:SRGILErrorDomain
-                                                 code:SRGILErrorVideoNoSourceURL
+            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                 code:SRGILDataProviderErrorVideoNoSourceURL
                                              userInfo:nil];
             
             completionHandler(nil, error);
