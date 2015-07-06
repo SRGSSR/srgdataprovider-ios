@@ -152,9 +152,8 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [NSString stringWithFormat:@"assetSet/listByAssetGroup/%@.json?pageSize=20", arg];
             }
             else if ([arg isKindOfClass:[NSDictionary class]]) {
-                remoteURLPath = _typedFetchPaths[@(index)];
+                remoteURLPath = _typedFetchPaths[@(index)]; // Can be SRGConfigNoValidRequestURLPath, and it is OK.
                 NSRange r = [remoteURLPath rangeOfString:@"?"];
-                NSAssert(r.location != NSNotFound, @"Missing URL arguments list starting character?");
                 
                 if (r.location != NSNotFound) {
                     remoteURLPath = [remoteURLPath substringToIndex:r.location+1];

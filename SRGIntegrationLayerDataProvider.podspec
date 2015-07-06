@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SRGIntegrationLayerDataProvider"
-  s.version = "0.9.5"
+  s.version = "0.9.6"
   s.summary = "Data Provider using the Integration Layer for the SRG Media Player"
   s.description = <<-DESC
     This is the implementation of the Data Provider using the Integration Layer. It is a generic data provider and it
@@ -37,7 +37,7 @@ DESC
     mp.private_header_files = "SRGIntegrationLayerDataProvider/**/*+Private.h"
     mp.frameworks           = "Foundation", "UIKit"
     mp.dependency             "SRGIntegrationLayerDataProvider/Core"
-    mp.dependency             "SRGMediaPlayer", "~> 0.5"
+    mp.dependency             "SRGMediaPlayer", "~> 0.7"
     mp.dependency             "SRGAnalytics", "~> 0.5"
     mp.dependency             "SRGAnalytics/MediaPlayer", "~> 0.5"
   end
