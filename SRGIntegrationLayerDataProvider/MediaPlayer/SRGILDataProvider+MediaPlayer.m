@@ -54,8 +54,6 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     
     SRGILMedia *existingMedia = self.identifiedMedias[urnString];
     
-    @weakify(self)
-    
     void (^tokenBlock)(SRGILMedia *) = ^(SRGILMedia *media) {
         if (media.contentURL) {
             [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.contentURL
@@ -78,6 +76,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         NSAssert(urn, @"Unable to create URN from string '%@', which is needed to proceed.", urnString);
         NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined mediaType inferred from URN.");
 
+        @weakify(self)
         [self.requestManager requestMediaOfType:urn.mediaType
                                  withIdentifier:urn.identifier
                                 completionBlock:^(SRGILMedia *media, NSError *error) {
@@ -95,6 +94,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                 }];
     }
     else {
+        [self prepareAnalyticsInfosForMedia:medexistingMediaia withContentURL:existingMedia.contentURL];
         tokenBlock(existingMedia);
     }
 }
@@ -141,12 +141,14 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 
 - (void)prepareAnalyticsInfosForMedia:(SRGILMedia *)media withContentURL:(NSURL *)contentURL
 {
-    SRGILComScoreAnalyticsInfos *comScoreDataSource = [[SRGILComScoreAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
-    SRGILStreamSenseAnalyticsInfos *streamSenseDataSource = [[SRGILStreamSenseAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
+    // Do not check for existing sources. Allow to override the sources with a freshly-(re)downloaded media.
     
     NSString *comScoreKeyPath = [comScoreKeyPathPrefix stringByAppendingString:media.urnString];
     NSString *streamSenseKeyPath = [streamSenseKeyPathPrefix stringByAppendingString:media.urnString];
-    
+ 
+    SRGILComScoreAnalyticsInfos *comScoreDataSource = [[SRGILComScoreAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
+    SRGILStreamSenseAnalyticsInfos *streamSenseDataSource = [[SRGILStreamSenseAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
+
     self.analyticsInfos[comScoreKeyPath] = comScoreDataSource;
     self.analyticsInfos[streamSenseKeyPath] = streamSenseDataSource;
 }
