@@ -57,6 +57,9 @@
                           XCTAssertNotNil(contentURL, @"Content URL must be present.");
                           XCTAssertNil(error, @"Error must be nil.");
                           
+                          XCTAssertNotNil([dataProvider streamSenseClipMetadataForIdentifier:urnString withSegment:nil]);
+                          XCTAssertNotNil([dataProvider streamSensePlaylistMetadataForIdentifier:urnString]);
+                          
                           if (!error && contentURL) {
                               NSLog(@"The contentURL is: %@", contentURL);
                               [expectation fulfill];
@@ -86,6 +89,8 @@
                       completionHandler:^(NSURL *contentURL, NSError *error) {
                           XCTAssertNil(contentURL, @"Content URL must be nil.");
                           XCTAssertNotNil(error, @"Error must be present.");
+                          XCTAssertNil([dataProvider streamSenseClipMetadataForIdentifier:urnString withSegment:nil]);
+                          XCTAssertNil([dataProvider streamSensePlaylistMetadataForIdentifier:urnString]);
 
                           if (error) {
                               NSLog(@"completion error: %@", error);
@@ -114,11 +119,19 @@
     [dataProvider segmentsController:nil
                segmentsForIdentifier:urnString
                withCompletionHandler:^(id<RTSMediaSegment> fullLength, NSArray *segments, NSError *error) {
+                   XCTAssertNil(error, @"Error must be nil");
+
                    XCTAssertNotNil(fullLength, @"Missing full-length video");
                    XCTAssertNotNil(segments, @"Missing segments");
                    XCTAssertTrue(segments.count > 0, @"Missing segments");
-                   XCTAssertNil(error, @"Error must be nil");
-                   
+
+                   XCTAssertNotNil([dataProvider streamSenseClipMetadataForIdentifier:urnString withSegment:nil]);
+                   XCTAssertNotNil([dataProvider streamSensePlaylistMetadataForIdentifier:urnString]);
+
+                   for (id<RTSMediaSegment>segment in segments) {
+                       XCTAssertNotNil([dataProvider streamSenseClipMetadataForIdentifier:urnString withSegment:segment]);
+                   }
+
                    if (fullLength && segments && !error) {
                        [expectation fulfill];
                    }
