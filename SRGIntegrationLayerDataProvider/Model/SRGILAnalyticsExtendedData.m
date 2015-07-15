@@ -15,7 +15,8 @@
     self = [super initWithDictionary:dictionary];
 
     if (self) {
-        NSArray *entries = [dictionary objectForKey:@"Entry"];
+        id tmpEntries = [dictionary objectForKey:@"Entry"];
+        NSArray *entries = ([tmpEntries isKindOfClass:[NSDictionary class]]) ? @[tmpEntries] : tmpEntries;
         
         if ([entries count] > 0) {
             [entries enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
