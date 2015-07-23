@@ -95,6 +95,12 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                      withIdentifier:urn.identifier
                                     completionBlock:^(SRGILMedia *media, NSError *error) {
                                         @strongify(self)
+                                        
+                                        if (! error && media.blocked) {
+                                            error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                                        code:SRGILDataProviderErrorVideoNoSourceURL
+                                                                    userInfo:@{NSLocalizedDescriptionKey: SRGILMediaBlockingReasonMessageForReason(media.blockingReason)}];
+                                        }
                                     
                                         if (error) {
                                             [self.identifiedMedias removeObjectForKey:urnString];
