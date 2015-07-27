@@ -7,6 +7,26 @@
 #import <Foundation/Foundation.h>
 
 /**
+ *  @enum RTSMediaType
+ *
+ *  Enumeration of the possible media types.
+ */
+typedef NS_ENUM(NSInteger, RTSMediaType) {
+	/**
+	 *  Unknown type, or type yet unknown
+	 */
+	RTSMediaTypeUnknown,
+	/**
+	 *  Video
+	 */
+	RTSMediaTypeVideo,
+	/**
+	 *  Audio
+	 */
+	RTSMediaTypeAudio
+};
+
+/**
  *  @enum RTSMediaPlaybackState
  *
  *  Enumeration of the possible playback states.
@@ -83,6 +103,30 @@ typedef NS_ENUM(NSInteger, RTSMediaPlaybackSegmentChange) {
 	 *  The seek has finished.
 	 */
 	RTSMediaPlaybackSegmentSeekUponBlockingEnd,
+};
+
+/**
+ *  @enum RTSMediaStreamType
+ *
+ *  Enumeration of the possible stream types.
+ */
+typedef NS_ENUM(NSInteger, RTSMediaStreamType) {
+	/**
+	 *  Unknown type, or type yet unknown
+	 */
+	RTSMediaStreamTypeUnknown,
+	/**
+	 *  On-demand stream
+	 */
+	RTSMediaStreamTypeOnDemand,
+	/**
+	 *  Live stream
+	 */
+	RTSMediaStreamTypeLive,
+	/**
+	 *  DVR stream
+	 */
+	RTSMediaStreamTypeDVR,
 };
 
 FOUNDATION_EXTERN NSTimeInterval const RTSMediaPlaybackTickInterval; // in seconds.

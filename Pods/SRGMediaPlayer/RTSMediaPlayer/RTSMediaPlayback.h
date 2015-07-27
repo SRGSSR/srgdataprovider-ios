@@ -4,6 +4,7 @@
 //  Licence information is available from the LICENCE file.
 //
 
+#import <SRGMediaPlayer/RTSMediaPlayerConstants.h>
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
@@ -82,29 +83,48 @@
 - (AVPlayerItem *)playerItem;
 
 /**
+ *  The current media time range (might be empty or indefinite)
+ */
+@property (nonatomic, readonly) CMTimeRange timeRange;
+
+/**
+ *  The media type
+ */
+@property (readonly) RTSMediaType mediaType;
+
+/**
+ *  The stream type
+ */
+@property (readonly) RTSMediaStreamType streamType;
+
+/**
  *  --------------------
  *  @name Time Observers
  *  --------------------
  */
 /**
- *  Register a block for periodical execution during playback. Playback observers are more reliable than periodic time
- *  observers which trigger block execution also when the player state changes. Such observers are therefore especially
- *  useful when some work needs to be done periodically in a reliable way
+ *  Register a block for periodical execution during playback and pause!
  *
  *  @param interval Time interval between block executions
  *  @param queue    The serial queue onto which block should be enqueued (main queue if NULL)
  *  @param block	The block to be executed during playback
+ * 
+ *  @warning Two things make these time observers different from the regular registration of periodic time observers on AVPlayer instance.
+ *           First: there is no need to KVO-observe the presence or not of the AVPlayer instance before registration. It is done automatically for you.
+ *           Second: To the contrary of usual periodic time observers, which stops when playback pauses, and restart when
+ *           playback restars, these time observers are continuous, and do NOT stop during pause.
+ *           It is very useful for livestreams and timeshifts, when the UI may need to be updated nonetheless.
  *
  *  @return The time observer. The observer is retained by the media player controller, you can store a weak reference
  *          to it to remove it at a later time if needed
  */
-- (id)addPlaybackTimeObserverForInterval:(CMTime)interval queue:(dispatch_queue_t)queue usingBlock:(void (^)(CMTime time))block;
+- (id)addPeriodicTimeObserverForInterval:(CMTime)interval queue:(dispatch_queue_t)queue usingBlock:(void (^)(CMTime time))block;
 
 /**
- *  Remove a playback time observer (does nothing if the observer is not registered)
+ *  Remove a time observer (does nothing if the observer is not registered)
  *
- *  @param playbackTimeObserver The playback time observer to remove
+ *  @param observer The time observer to remove
  */
-- (void)removePlaybackTimeObserver:(id)observer;
+- (void)removePeriodicTimeObserver:(id)observer;
 
 @end

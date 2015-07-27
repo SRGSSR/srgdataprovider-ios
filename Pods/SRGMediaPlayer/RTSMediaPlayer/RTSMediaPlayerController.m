@@ -12,7 +12,7 @@
 
 #import "RTSMediaPlayerError.h"
 #import "RTSMediaPlayerView.h"
-#import "RTSPlaybackTimeObserver.h"
+#import "RTSPeriodicTimeObserver.h"
 #import "RTSActivityGestureRecognizer.h"
 #import "RTSMediaPlayerLogger.h"
 
@@ -66,7 +66,7 @@ NSString * const RTSMediaPlayerPlaybackSeekingUponBlockingReasonInfoKey = @"Bloc
 @property (readwrite) id playbackStartObserver;
 @property (readwrite) CMTime previousPlaybackTime;
 
-@property (readwrite) NSMutableDictionary *playbackTimeObservers;
+@property (readwrite) NSMutableDictionary *periodicTimeObservers;
 
 @property (readonly) RTSMediaPlayerView *playerView;
 @property (readonly) RTSActivityGestureRecognizer *activityGestureRecognizer;
@@ -107,7 +107,9 @@ NSString * const RTSMediaPlayerPlaybackSeekingUponBlockingReasonInfoKey = @"Bloc
 	_dataSource = dataSource;
 	
 	self.overlayViewsHidingDelay = RTSMediaPlayerOverlayHidingDelay;
-	self.playbackTimeObservers = [NSMutableDictionary dictionary];
+	self.periodicTimeObservers = [NSMutableDictionary dictionary];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
 	
 	[self.stateMachine activate];
 	
@@ -119,6 +121,8 @@ NSString * const RTSMediaPlayerPlaybackSeekingUponBlockingReasonInfoKey = @"Bloc
 	if (![self.stateMachine.currentState isEqual:self.idleState]) {
 		RTSMediaPlayerLogWarning(@"The media player controller reached dealloc while still active. You should call the `reset` method before reaching dealloc.");
 	}
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 	[self.activityView removeGestureRecognizer:self.activityGestureRecognizer];
 	
@@ -265,11 +269,27 @@ static NSDictionary * ErrorUserInfo(NSError *error, NSString *failureReason)
 		}
 	}];
 	
+	[playing setWillEnterStateBlock:^(TKState *state, TKTransition *transition) {
+		@strongify(self)
+
+		// See https://developer.apple.com/library/ios/qa/qa1668/_index.html
+		RTSMediaType mediaType = [self mediaType];
+		if (mediaType == RTSMediaTypeVideo) {
+			[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient error:nil];
+			[[AVAudioSession sharedInstance] setMode:AVAudioSessionModeMoviePlayback error:nil];
+		}
+		else if (mediaType == RTSMediaTypeAudio) {
+			[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+			[[AVAudioSession sharedInstance] setMode:AVAudioSessionModeDefault error:nil];
+		}
+		else {
+			[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient error:nil];
+			[[AVAudioSession sharedInstance] setMode:AVAudioSessionModeDefault error:nil];
+		}
+	}];
+	
 	[playing setDidEnterStateBlock:^(TKState *state, TKTransition *transition) {
 		@strongify(self)
-		BOOL isVideoAsset = [[[self.player.currentItem.tracks.firstObject assetTrack] mediaType] isEqualToString:AVMediaTypeVideo];
-		[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
-		[[AVAudioSession sharedInstance] setMode:(isVideoAsset) ? AVAudioSessionModeMoviePlayback : AVAudioSessionModeDefault error:nil];
 		[self resetIdleTimer];
 	}];
 	
@@ -290,6 +310,7 @@ static NSDictionary * ErrorUserInfo(NSError *error, NSString *failureReason)
 	[reset setDidFireEventBlock:^(TKEvent *event, TKTransition *transition) {
 		@strongify(self)
 		[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient error:nil];
+		[[AVAudioSession sharedInstance] setMode:AVAudioSessionModeDefault error:nil];
 		self.previousPlaybackTime = kCMTimeInvalid;
 		self.playerView.player = nil;
 		self.player = nil;
@@ -446,41 +467,97 @@ static NSDictionary * ErrorUserInfo(NSError *error, NSString *failureReason)
 	}
 }
 
-- (id) addPlaybackTimeObserverForInterval:(CMTime)interval queue:(dispatch_queue_t)queue usingBlock:(void (^)(CMTime time))block
+- (CMTimeRange) timeRange
+{
+	AVPlayerItem *playerItem = self.playerItem;
+	
+	NSValue *firstSeekableTimeRangeValue = [playerItem.seekableTimeRanges firstObject];
+	if (!firstSeekableTimeRangeValue) {
+		return kCMTimeRangeZero;
+	}
+	
+	NSValue *lastSeekableTimeRangeValue = [playerItem.seekableTimeRanges lastObject];
+	if (!lastSeekableTimeRangeValue) {
+		return kCMTimeRangeZero;
+	}
+	
+	CMTimeRange firstSeekableTimeRange = [firstSeekableTimeRangeValue CMTimeRangeValue];
+	CMTimeRange lastSeekableTimeRange = [firstSeekableTimeRangeValue CMTimeRangeValue];
+	
+	if (!CMTIMERANGE_IS_VALID(firstSeekableTimeRange) || !CMTIMERANGE_IS_VALID(lastSeekableTimeRange)) {
+		return kCMTimeRangeZero;
+	}
+	
+	return CMTimeRangeFromTimeToTime(firstSeekableTimeRange.start, CMTimeRangeGetEnd(lastSeekableTimeRange));
+}
+
+- (RTSMediaType)mediaType
+{
+	if (! self.player) {
+		return RTSMediaTypeUnknown;
+	}
+	
+	NSArray *tracks = self.player.currentItem.tracks;
+	if (tracks.count == 0) {
+		return RTSMediaTypeUnknown;
+	}
+	
+	NSString *mediaType = [[tracks.firstObject assetTrack] mediaType];
+	return [mediaType isEqualToString:AVMediaTypeVideo] ? RTSMediaTypeVideo : RTSMediaTypeAudio;
+}
+
+- (RTSMediaStreamType) streamType
+{
+	if (! self.playerItem) {
+		return RTSMediaStreamTypeUnknown;
+	}
+	
+	if (CMTIMERANGE_IS_EMPTY(self.timeRange)) {
+		return RTSMediaStreamTypeLive;
+	}
+	else if (CMTIME_IS_INDEFINITE(self.playerItem.duration)) {
+		return RTSMediaStreamTypeDVR;
+	}
+	else {
+		return RTSMediaStreamTypeOnDemand;
+	}
+}
+
+- (id) addPeriodicTimeObserverForInterval:(CMTime)interval queue:(dispatch_queue_t)queue usingBlock:(void (^)(CMTime time))block
 {
 	if (!block) {
 		return nil;
 	}
 	
 	NSString *identifier = [[NSUUID UUID] UUIDString];
-	RTSPlaybackTimeObserver *playbackTimeObserver = [self playbackTimeObserverForInterval:interval queue:queue];
-	[playbackTimeObserver setBlock:block forIdentifier:identifier];
+	RTSPeriodicTimeObserver *periodicTimeObserver = [self periodicTimeObserverForInterval:interval queue:queue];
+	[periodicTimeObserver setBlock:block forIdentifier:identifier];
 	
 	if (self.player) {
-		[playbackTimeObserver attachToMediaPlayer:self.player];
+		[periodicTimeObserver attachToMediaPlayer:self.player];
 	}
 	
 	// Return the opaque identifier
 	return identifier;
 }
 
-- (void) removePlaybackTimeObserver:(id)observer
+- (void) removePeriodicTimeObserver:(id)observer
 {
-	for (RTSPlaybackTimeObserver *playbackTimeObserver in [self.playbackTimeObservers allValues]) {
-		[playbackTimeObserver removeBlockWithIdentifier:observer];
+	for (RTSPeriodicTimeObserver *periodicTimeObserver in [self.periodicTimeObservers allValues]) {
+		[periodicTimeObserver removeBlockWithIdentifier:observer];
 	}
 }
 
-- (RTSPlaybackTimeObserver *) playbackTimeObserverForInterval:(CMTime)interval queue:(dispatch_queue_t)queue
+- (RTSPeriodicTimeObserver *) periodicTimeObserverForInterval:(CMTime)interval queue:(dispatch_queue_t)queue
 {
 	NSString *key = [NSString stringWithFormat:@"%@-%@-%@-%@-%p", @(interval.value), @(interval.timescale), @(interval.flags), @(interval.epoch), queue];
-	RTSPlaybackTimeObserver *playbackTimeObserver = self.playbackTimeObservers[key];
-	if (!playbackTimeObserver)
+	RTSPeriodicTimeObserver *periodicTimeObserver = self.periodicTimeObservers[key];
+	if (!periodicTimeObserver)
 	{
-		playbackTimeObserver = [[RTSPlaybackTimeObserver alloc] initWithInterval:interval queue:queue];
-		self.playbackTimeObservers[key] = playbackTimeObserver;
+		periodicTimeObserver = [[RTSPeriodicTimeObserver alloc] initWithInterval:interval queue:queue];
+		self.periodicTimeObservers[key] = periodicTimeObserver;
 	}
-	return playbackTimeObserver;
+	return periodicTimeObserver;
 }
 
 #pragma mark - AVPlayer
@@ -532,7 +609,7 @@ static const void * const AVPlayerItemLoadedTimeRangesContext = &AVPlayerItemLoa
 			self.periodicTimeObserver = nil;
 		}
 		
-		[self unregisterPlaybackObservers];
+		[self unregisterPeriodicTimeObservers];
 		
 		_player = player;
 		
@@ -552,7 +629,7 @@ static const void * const AVPlayerItemLoadedTimeRangesContext = &AVPlayerItemLoa
 			
 			[self registerPlaybackStartObserver];
 			[self registerPeriodicTimeObserver];
-			[self registerPlaybackObservers];
+			[self registerPeriodicTimeObservers];
 		}
 	}
 }
@@ -609,18 +686,18 @@ static const void * const AVPlayerItemLoadedTimeRangesContext = &AVPlayerItemLoa
 	}];
 }
 
-- (void) registerPlaybackObservers
+- (void) registerPeriodicTimeObservers
 {
-	[self unregisterPlaybackObservers];
+	[self unregisterPeriodicTimeObservers];
 	
-	for (RTSPlaybackTimeObserver *playbackBlockRegistration in [self.playbackTimeObservers allValues]) {
+	for (RTSPeriodicTimeObserver *playbackBlockRegistration in [self.periodicTimeObservers allValues]) {
 		[playbackBlockRegistration attachToMediaPlayer:self.player];
 	}
 }
 
-- (void) unregisterPlaybackObservers
+- (void) unregisterPeriodicTimeObservers
 {
-	for (RTSPlaybackTimeObserver *playbackBlockRegistration in [self.playbackTimeObservers allValues]) {
+	for (RTSPeriodicTimeObserver *playbackBlockRegistration in [self.periodicTimeObservers allValues]) {
 		[playbackBlockRegistration detach];
 	}
 }
@@ -685,6 +762,9 @@ static const void * const AVPlayerItemLoadedTimeRangesContext = &AVPlayerItemLoa
 		if (oldRate == 1 && newRate == 0 && stoppedManually) {
 			[self fireEvent:self.pauseEvent userInfo:nil];
 		}
+		else if (newRate == 1 && oldRate == 0 && self.stateMachine.currentState != self.playingState) {
+			[self fireEvent:self.playEvent userInfo:nil];
+		}		
 	}
 	else if (context == AVPlayerItemPlaybackLikelyToKeepUpContext) {
 		AVPlayer *player = object;
@@ -887,6 +967,16 @@ static void LogProperties(id object)
 	}
 	else {
 		playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+	}
+}
+
+#pragma mark - Notifications
+
+- (void)applicationWillResignActive:(NSNotification *)notification
+{
+	if ([self mediaType] == RTSMediaTypeVideo) {
+		[self.player pause];
+		[self fireEvent:self.pauseEvent userInfo:nil];
 	}
 }
 

@@ -32,8 +32,14 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 	_mediaPlayerController = nil;
 }
 
-- (id)initWithPlayer:(RTSMediaPlayerController *)mediaPlayerController dataSource:(id<RTSAnalyticsMediaPlayerDataSource>)dataSource virtualSite:(NSString *)virtualSite
+- (id)initWithPlayer:(RTSMediaPlayerController *)mediaPlayerController
+          dataSource:(id<RTSAnalyticsMediaPlayerDataSource>)dataSource
+         virtualSite:(NSString *)virtualSite
 {
+    NSParameterAssert(mediaPlayerController);
+    NSParameterAssert(dataSource);
+    NSParameterAssert(virtualSite);
+
     if(!(self = [super init])) {
 	   return nil;
     }
@@ -60,13 +66,6 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 {
     [self updateLabelsWithSegment:segment];
 	[self notify:playerEvent position:[self currentPositionInMilliseconds] labels:nil];
-}
-
-- (NSMutableDictionary *) createMeasurementLabels:(CSStreamSenseEventType)eventType initialLabels:(NSDictionary *)initialLabels
-{
-	NSMutableDictionary *measurementLabels = [super createMeasurementLabels:eventType initialLabels:initialLabels];
-    [self updateLabelsWithSegment:nil];
-	return measurementLabels;
 }
 
 #pragma mark - CSStreamSensePluginProtocol
@@ -228,12 +227,18 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 	return self.mediaPlayerController.player.isExternalPlaybackActive ? @"1" : @"0";
 }
 
-- (NSString *) liveStream
+// As requested by Markus Gubler, do not even send a "0" when it is not live stream.
+- (NSString *)liveStream
 {
-	if (!self.mediaPlayerController.player.currentItem)
+    if (!self.mediaPlayerController.player.currentItem) {
 		return nil;
+    }
 		
-	return (CMTimeCompare(self.mediaPlayerController.player.currentItem.duration, kCMTimeIndefinite) == 0) ? @"1" : @"0";
+    if (CMTimeCompare(self.mediaPlayerController.player.currentItem.duration, kCMTimeIndefinite) == 0) {
+        return @"1";
+    }
+    
+    return nil;
 }
 
 - (NSString *) dimensions

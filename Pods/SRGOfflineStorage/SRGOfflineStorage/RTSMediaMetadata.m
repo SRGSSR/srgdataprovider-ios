@@ -41,6 +41,7 @@
 
         self.publicationDate = REALM_NONNULL_DATE([container publicationDate]);
         
+        self.type = [container type];
         self.durationInMs = [container durationInMs];
         self.viewCount = [container viewCount];
         self.isDownloadable = [container isDownloadable];
