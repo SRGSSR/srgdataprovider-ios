@@ -54,13 +54,13 @@
 - (void)setMediaPlayerController:(RTSMediaPlayerController *)mediaPlayerController
 {
     if (_mediaPlayerController) {
-        [_mediaPlayerController removePlaybackTimeObserver:self.playbackTimeObserver];
+        [_mediaPlayerController removePeriodicTimeObserver:self.playbackTimeObserver];
     }
     
     _mediaPlayerController = mediaPlayerController;
     
     if (mediaPlayerController) {
-        self.playbackTimeObserver = [mediaPlayerController addPlaybackTimeObserverForInterval:CMTimeMake(1., 5.) queue:NULL usingBlock:^(CMTime time) {
+        self.playbackTimeObserver = [mediaPlayerController addPeriodicTimeObserverForInterval:CMTimeMake(1., 5.) queue:NULL usingBlock:^(CMTime time) {
             [self updateAppearanceWithTime:time];
         }];
     }
