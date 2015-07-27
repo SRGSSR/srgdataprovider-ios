@@ -51,13 +51,13 @@
 {
     NSMutableDictionary *labels = [NSMutableDictionary dictionary];
 
-    NSString *srg_n1 = @"(UndefinedMediaType)";
+    NSString *srg_n1 = @"UndefinedMediaType";
     switch ([self.media type]) {
         case SRGILMediaTypeVideo:
-            srg_n1 = @"VideoPlayer";
+            srg_n1 = @"TV";
             break;
         case SRGILMediaTypeAudio:
-            srg_n1 = @"AudioPlayer";
+            srg_n1 = @"Radio";
             break;
         default:
             break;
