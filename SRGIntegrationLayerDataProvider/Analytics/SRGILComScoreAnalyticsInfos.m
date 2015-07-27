@@ -17,38 +17,6 @@
 
 @implementation SRGILComScoreAnalyticsInfos
 
-//+ (NSDictionary *)labelsForViewController:(UIViewController *)controller
-//{
-//    NSMutableDictionary *labels = [NSMutableDictionary dictionary];
-//    
-//    NSString *metatitle = nil;
-//    NSString *srg_n1 = @"TV";
-//
-//    if ([controller isKindOfClass:[SRGCollectionViewController class]]) {
-//        SRGCollectionViewControllerConfig *config = [(SRGCollectionViewController *)controller config];
-//        if (config.audioChannelID) {
-//            srg_n1 = @"Radio";
-//        }
-//        
-//        if ([config.requestURLPaths count] == 1 &&
-//            [[[config.requestURLPaths allKeys] lastObject] isKindOfClass:[NSNumber class]] &&
-//            [[[config.requestURLPaths allKeys] lastObject] integerValue] == SRGILMediaCategoryLiveStreamsVideo)
-//        {
-//            metatitle = @"Live";
-//        }
-//    }
-//    
-//    NSString *category = srg_n1;
-//    NSString *title = [self stringWithComscoreFormat:(metatitle ? metatitle : (controller.title ? controller.title : @"Untitled"))];
-//    
-//    [labels setObject:srg_n1 forKey:@"srg_n1"];
-//    [labels setObject:category forKey:@"category"];
-//    [labels setObject:title forKey:@"srg_title"];
-//    [labels setObject:[NSString stringWithFormat:@"Player.%@.%@", category, title] forKey:@"name"];
-//    
-//    return [labels copy];
-//}
-
 + (NSDictionary *)globalLabelsForAppEnteringForeground
 {
     NSMutableDictionary *labels = [NSMutableDictionary dictionary];
