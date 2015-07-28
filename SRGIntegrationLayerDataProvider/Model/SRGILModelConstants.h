@@ -25,7 +25,9 @@ typedef NS_ENUM(NSInteger, SRGILMediaImageUsage) {
     SRGILMediaImageUsagePodcast,
     SRGILMediaImageUsageWeb,
     SRGILMediaImageUsageEditorialPick,
-    SRGILMediaImageUsageShowEpisode
+    SRGILMediaImageUsageShowEpisode,
+    SRGILMediaImageUsageLogo,
+    SRGILMediaImageUsageLogoResponsive,
 };
 
 SRGILMediaImageUsage SRGILMediaImageUsageFromString(NSString *input);
@@ -86,8 +88,8 @@ typedef NS_ENUM(NSInteger, SRGILPlaylistSegmentation) {
     SRGILPlaylistSegmentationPhysical
 };
 
-SRGILPlaylistProtocol SRGILPlayListProtocolForString(NSString *protocol);
-SRGILPlaylistURLQuality SRGILPlaylistURLQualityForString(NSString *quality);
-SRGILPlaylistSegmentation SRGILPlaylistSegmentationForString(NSString *segmentation);
+SRGILPlaylistProtocol SRGILPlayListProtocolForString(NSString *protocolString);
+SRGILPlaylistURLQuality SRGILPlaylistURLQualityForString(NSString *qualityString);
+SRGILPlaylistSegmentation SRGILPlaylistSegmentationForString(NSString *segmentationString);
 
 #endif

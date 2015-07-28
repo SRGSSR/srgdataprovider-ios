@@ -45,10 +45,9 @@
     return [results lastObject];
 }
 
-// Don't use 'usage' key, as it is not consistent between BUs...
 - (SRGILImageRepresentation *)imageRepresentationForVideoCell
 {
-    return [_imageRepresentations lastObject];
+    return [self imageRepresentationForUsage:SRGILMediaImageUsageLogo];
 }
 
 @end

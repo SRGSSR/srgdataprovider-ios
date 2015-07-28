@@ -12,158 +12,105 @@ NSString * const SRGILVideoUseHighQualityOverCellularNetworkKey = @"SRGILVideoUs
 
 SRGILMediaImageUsage SRGILMediaImageUsageFromString(NSString *input)
 {
-    SRGILMediaImageUsage usage = SRGILMediaImageUsageUnknown;
-    if ([@"HEADER_SRF_PLAYER" isEqualToString:input]) {
-        usage = SRGILMediaImageUsageHeader;
-    }
-    else if ([@"PODCAST" isEqualToString:input]) {
-        usage = SRGILMediaImageUsagePodcast;
-    }
-    else if ([@"WEBVISUAL" isEqualToString:input]) {
-        usage = SRGILMediaImageUsageWeb;
-    }
-    else if ([@"EDITORIALPICK" isEqualToString:input]) {
-        usage = SRGILMediaImageUsageEditorialPick;
-    }
-    else if ([@"EPISODE_IMAGE" isEqualToString:input]) {
-        usage = SRGILMediaImageUsageShowEpisode;
-    }
-    return usage;
+    static dispatch_once_t onceToken;
+    static NSDictionary *usages;
+    dispatch_once(&onceToken, ^{
+        usages = @{ @"HEADER_SRF_PLAYER" : @(SRGILMediaImageUsageHeader),
+                    @"PODCAST" : @(SRGILMediaImageUsagePodcast),
+                    @"WEBVISUAL" : @(SRGILMediaImageUsageWeb),
+                    @"EDITORIALPICK" : @(SRGILMediaImageUsageEditorialPick),
+                    @"EPISODE_IMAGE" : @(SRGILMediaImageUsageShowEpisode),
+                    @"LOGO" : @(SRGILMediaImageUsageLogo),
+                    @"LOGO_RESPONSIVE" : @(SRGILMediaImageUsageLogoResponsive) };
+    });
+    NSNumber *usage = usages[input.uppercaseString];
+    return usage ? [usage integerValue] : SRGILMediaImageUsageUnknown;
 }
-
-NSString * const SRGILMediaBlockingReasonKeyNone           = @"NONE";
-NSString * const SRGILMediaBlockingReasonKeyGeoblock       = @"GEOBLOCK";
-NSString * const SRGILMediaBlockingReasonKeyLegal          = @"LEGAL";
-NSString * const SRGILMediaBlockingReasonKeyCommercial     = @"COMMERCIAL";
-NSString * const SRGILMediaBlockingReasonKeyAgeRating18    = @"AGERATING18";
-NSString * const SRGILMediaBlockingReasonKeyAgeRating12    = @"AGERATING12";
-NSString * const SRGILMediaBlockingReasonKeyStartDate      = @"STARTDATE";
-NSString * const SRGILMediaBlockingReasonKeyEndDate        = @"ENDDATE";
 
 SRGILMediaBlockingReason SRGILMediaBlockingReasonForKey(NSString *key)
 {
-    if ([SRGILMediaBlockingReasonKeyGeoblock isEqualToString:[key uppercaseString]]) {
-        return SRGILMediaBlockingReasonGeoblock;
-    }
-    else if ([SRGILMediaBlockingReasonKeyLegal isEqualToString:[key uppercaseString]]) {
-        return SRGILMediaBlockingReasonLegal;
-    }
-    else if ([SRGILMediaBlockingReasonKeyCommercial isEqualToString:[key uppercaseString]]) {
-        return SRGILMediaBlockingReasonCommercial;
-    }
-    else if ([SRGILMediaBlockingReasonKeyAgeRating18 isEqualToString:[key uppercaseString]]) {
-        return SRGILMediaBlockingReasonAgeRating18;
-    }
-    else if ([SRGILMediaBlockingReasonKeyAgeRating12 isEqualToString:[key uppercaseString]]) {
-        return SRGILMediaBlockingReasonAgeRating12;
-    }
-    else if ([SRGILMediaBlockingReasonKeyStartDate isEqualToString:[key uppercaseString]]) {
-        return SRGILMediaBlockingReasonStartDate;
-    }
-    else if ([SRGILMediaBlockingReasonKeyEndDate isEqualToString:[key uppercaseString]]) {
-        return SRGILMediaBlockingReasonEndDate;
-    }
-    else {
-        return SRGILMediaBlockingReasonNone;
-    }
+    static dispatch_once_t onceToken;
+    static NSDictionary *reasons;
+    dispatch_once(&onceToken, ^{
+        reasons = @{ @"GEOBLOCK" : @(SRGILMediaBlockingReasonGeoblock),
+                     @"LEGAL" : @(SRGILMediaBlockingReasonLegal),
+                     @"COMMERCIAL" : @(SRGILMediaBlockingReasonCommercial),
+                     @"AGERATING18" : @(SRGILMediaBlockingReasonAgeRating18),
+                     @"AGERATING12" : @(SRGILMediaBlockingReasonAgeRating12),
+                     @"STARTDATE" : @(SRGILMediaBlockingReasonStartDate),
+                     @"ENDDATE" : @(SRGILMediaBlockingReasonEndDate) };
+    });
+    NSNumber *reason = reasons[key.uppercaseString];
+    return reason ? [reason integerValue] : SRGILMediaBlockingReasonNone;
 }
 
 NSString *SRGILMediaBlockingReasonMessageForReason(SRGILMediaBlockingReason reason)
 {
-    switch (reason) {
-        case SRGILMediaBlockingReasonGeoblock:
-            return NSLocalizedString(@"BLOCKED_GEOBLOCK", nil);
-        case SRGILMediaBlockingReasonLegal:
-            return NSLocalizedString(@"BLOCKED_LEGAL", nil);
-        case SRGILMediaBlockingReasonCommercial:
-            return NSLocalizedString(@"BLOCKED_COMMERCIAL", nil);
-        case SRGILMediaBlockingReasonAgeRating18:
-            return NSLocalizedString(@"BLOCKED_AGERATING18", nil);
-        case SRGILMediaBlockingReasonAgeRating12:
-            return NSLocalizedString(@"BLOCKED_AGERATING12", nil);
-                // FIXME warning check this is the correct message
-        case SRGILMediaBlockingReasonStartDate:
-            return NSLocalizedString(@"BLOCKED_STARTDATE", nil);
-        case SRGILMediaBlockingReasonEndDate:
-            return NSLocalizedString(@"BLOCKED_ENDDATE", nil);
-        default:
-            return @"";
-    }
+    static dispatch_once_t onceToken;
+    static NSDictionary *messages;
+    dispatch_once(&onceToken, ^{
+        messages = @{ @(SRGILMediaBlockingReasonGeoblock) : NSLocalizedString(@"BLOCKED_GEOBLOCK", nil),
+                      @(SRGILMediaBlockingReasonLegal) : NSLocalizedString(@"BLOCKED_LEGAL", nil),
+                      @(SRGILMediaBlockingReasonCommercial) : NSLocalizedString(@"BLOCKED_COMMERCIAL", nil),
+                      @(SRGILMediaBlockingReasonAgeRating18) : NSLocalizedString(@"BLOCKED_AGERATING18", nil),
+                      @(SRGILMediaBlockingReasonAgeRating12) : NSLocalizedString(@"BLOCKED_AGERATING12", nil),
+                      @(SRGILMediaBlockingReasonStartDate) : NSLocalizedString(@"BLOCKED_STARTDATE", nil),
+                      @(SRGILMediaBlockingReasonEndDate) : NSLocalizedString(@"BLOCKED_ENDDATE", nil) };
+    });
+    return messages[@(reason)] ?: @"";
 }
 
 SRGILAssetSubSetType SRGILAssetSubSetTypeForString(NSString *subtypeString)
 {
-    SRGILAssetSubSetType result = SRGILAssetSubSetTypeUnknown;
-    if (subtypeString) {
-        if ([@"EPISODE" isEqualToString:subtypeString]) {
-            return SRGILAssetSubSetTypeEpisode;
-        }
-        
-        if ([@"TRAILER" isEqualToString:subtypeString]) {
-            return SRGILAssetSubSetTypeTrailer;
-        }
-        
-        if ([@"LIVESTREAM" isEqualToString:subtypeString]) {
-            return SRGILAssetSubSetTypeLivestream;
-        }
-    }
-    
-    return result;
+    static dispatch_once_t onceToken;
+    static NSDictionary *subSetTypes;
+    dispatch_once(&onceToken, ^{
+        subSetTypes = @{ @"EPISODE" : @(SRGILAssetSubSetTypeEpisode),
+                         @"TRAILER" : @(SRGILAssetSubSetTypeTrailer),
+                         @"LIVESTREAM" : @(SRGILAssetSubSetTypeLivestream) };
+    });
+    NSNumber *subSetType = subSetTypes[subtypeString.uppercaseString];
+    return subSetType ? [subSetType integerValue] : SRGILAssetSubSetTypeUnknown;
 }
 
-SRGILPlaylistProtocol SRGILPlayListProtocolForString(NSString *protocol)
+SRGILPlaylistProtocol SRGILPlayListProtocolForString(NSString *protocolString)
 {
-    if (protocol) {
-        if ([@"HTTP-HDS" isEqualToString:protocol]) {
-            return SRGILPlaylistProtocolHDS;
-        }
-        if ([@"HTTP-HLS" isEqualToString:protocol]) {
-            return SRGILPlaylistProtocolHLS;
-        }
-        if ([@"HTTP" isEqualToString:protocol]) {
-            return SRGILPlaylistProtocolHTTP;
-        }
-        if ([@"RTMP" isEqualToString:protocol]) {
-            return SRGILPlaylistProtocolRTMP;
-        }
-    }
-    return SRGILPlaylistProtocolUnknown;
+    static dispatch_once_t onceToken;
+    static NSDictionary *protocols;
+    dispatch_once(&onceToken, ^{
+        protocols = @{ @"HTTP-HDS" : @(SRGILPlaylistProtocolHDS),
+                       @"HTTP-HLS" : @(SRGILPlaylistProtocolHLS),
+                       @"HTTP" : @(SRGILPlaylistProtocolHTTP),
+                       @"RTMP" : @(SRGILPlaylistProtocolRTMP) };
+    });
+    NSNumber *protocol = protocols[protocolString.uppercaseString];
+    return protocol ? [protocol integerValue] : SRGILPlaylistProtocolUnknown;
 }
 
-SRGILPlaylistURLQuality SRGILPlaylistURLQualityForString(NSString *quality)
+SRGILPlaylistURLQuality SRGILPlaylistURLQualityForString(NSString *qualityString)
 {
-    if (quality) {
-        if ([@"SD" isEqualToString:quality]) {
-            return SRGILPlaylistURLQualitySD;
-        }
-        if ([@"HD" isEqualToString:quality]) {
-            return SRGILPlaylistURLQualityHD;
-        }
-        if ([@"SQ" isEqualToString:quality]) {
-            return SRGILPlaylistURLQualitySQ;
-        }
-        if ([@"LQ" isEqualToString:quality]) {
-            return SRGILPlaylistURLQualityLQ;
-        }
-        if ([@"MQ" isEqualToString:quality]) {
-            return SRGILPlaylistURLQualityMQ;
-        }
-        if ([@"HQ" isEqualToString:quality]) {
-            return SRGILPlaylistURLQualityHQ;
-        }
-    }
-    return SRGILPlaylistURLQualityUnknown;
+    static dispatch_once_t onceToken;
+    static NSDictionary *qualities;
+    dispatch_once(&onceToken, ^{
+        qualities = @{ @"SD" : @(SRGILPlaylistURLQualitySD),
+                       @"HD" : @(SRGILPlaylistURLQualityHD),
+                       @"SQ" : @(SRGILPlaylistURLQualitySQ),
+                       @"LQ" : @(SRGILPlaylistURLQualityLQ),
+                       @"MQ" : @(SRGILPlaylistURLQualityMQ),
+                       @"HQ" : @(SRGILPlaylistURLQualityHQ) };
+    });
+    NSNumber *quality = qualities[qualityString.uppercaseString];
+    return quality ? [quality integerValue] : SRGILPlaylistURLQualityUnknown;
 }
 
-SRGILPlaylistSegmentation SRGILPlaylistSegmentationForString(NSString *segmentation)
+SRGILPlaylistSegmentation SRGILPlaylistSegmentationForString(NSString *segmentationString)
 {
-    if (segmentation) {
-        if ([@"PHYSICAL" isEqualToString:segmentation]) {
-            return SRGILPlaylistSegmentationPhysical;
-        }
-        if ([@"LOGICAL" isEqualToString:segmentation]) {
-            return SRGILPlaylistSegmentationLogical;
-        }
-    }
-    return SRGILPlaylistSegmentationUnknown;
+    static dispatch_once_t onceToken;
+    static NSDictionary *segmentations;
+    dispatch_once(&onceToken, ^{
+        segmentations = @{ @"PHYSICAL" : @(SRGILPlaylistSegmentationPhysical),
+                           @"LOGICAL" : @(SRGILPlaylistSegmentationLogical) };
+    });
+    NSNumber *segmentation = segmentations[segmentationString.uppercaseString];
+    return segmentation ? [segmentation integerValue] : SRGILPlaylistSegmentationUnknown;
 }
