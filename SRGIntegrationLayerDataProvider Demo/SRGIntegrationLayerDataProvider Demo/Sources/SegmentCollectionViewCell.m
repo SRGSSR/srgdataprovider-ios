@@ -44,7 +44,8 @@ static NSString *sexagesimalDurationStringFromValue(NSInteger duration)
     self.durationLabel.text = sexagesimalDurationStringFromValue(segment.duration);
     
     SRGILImage *image = ([segment isFullLength] && segment.assetSet.show.image) ? segment.assetSet.show.image : segment.image;
-    NSURL *imageURL = [[image imageRepresentationForVideoCell] URL];
+    SRGILImageRepresentation *imgRep = [image imageRepresentationForUsage:SRGILMediaImageUsageWeb] ?: [image imageRepresentationForUsage:SRGILMediaImageUsageShowEpisode];
+    NSURL *imageURL = [imgRep URL];
     
     CGFloat w = CGRectGetWidth(self.imageView.frame) * [[UIScreen mainScreen] scale];
     NSURL *completeURL = [imageURL URLByAppendingPathComponent:[NSString stringWithFormat:@"/scale/width/%.0f", w]];

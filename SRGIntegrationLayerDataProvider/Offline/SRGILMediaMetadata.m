@@ -37,7 +37,7 @@
             image = ([video isFullLength] && video.assetSet.show.image) ? video.assetSet.show.image : video.image;
         }
         
-        SRGILImageRepresentation *imgRep = [image imageRepresentationForVideoCell];
+        SRGILImageRepresentation *imgRep = [image imageRepresentationForUsage:SRGILMediaImageUsageWeb] ?: [image imageRepresentationForUsage:SRGILMediaImageUsageShowEpisode];
         return imgRep.URL;
     }
     return nil;
