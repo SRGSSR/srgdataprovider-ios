@@ -45,9 +45,4 @@
     return [results lastObject];
 }
 
-- (SRGILImageRepresentation *)imageRepresentationForVideoCell
-{
-    return [self imageRepresentationForUsage:SRGILMediaImageUsageLogo];
-}
-
 @end
