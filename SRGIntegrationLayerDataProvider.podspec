@@ -44,7 +44,7 @@ DESC
 
   s.subspec 'OfflineStorage' do |os|
     os.source_files         = "SRGIntegrationLayerDataProvider/SRGILDataProviderOfflineStorage.h", "SRGIntegrationLayerDataProvider/Offline/*.{h,m}"
-    os.private_header_files = "SRGIntegrationLayerDataProvider/Offline/SRGIL*Metadata.{h,m}"
+    os.private_header_files = "SRGIntegrationLayerDataProvider/Offline/SRGIL*Metadata.{h}"
     os.dependency             "SRGIntegrationLayerDataProvider/Core"
     os.dependency             "SRGOfflineStorage", "~> 0.5"
   end
