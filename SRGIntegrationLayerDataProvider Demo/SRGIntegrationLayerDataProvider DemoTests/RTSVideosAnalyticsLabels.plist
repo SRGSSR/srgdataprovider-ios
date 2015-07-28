@@ -1271,7 +1271,7 @@
 		<key>ns_st_pl</key>
 		<string>Temps présent</string>
 		<key>ns_st_pn</key>
-		<string>1</string>
+		<string>2</string>
 		<key>ns_st_po</key>
 		<string>104</string>
 		<key>ns_st_pr</key>
@@ -1712,7 +1712,7 @@
 		<key>ns_st_pl</key>
 		<string>Climage</string>
 		<key>ns_st_pn</key>
-		<string>1</string>
+		<string>3</string>
 		<key>ns_st_po</key>
 		<string>103</string>
 		<key>ns_st_pr</key>
@@ -1859,7 +1859,7 @@
 		<key>ns_st_pl</key>
 		<string>Tennis</string>
 		<key>ns_st_pn</key>
-		<string>1</string>
+		<string>2</string>
 		<key>ns_st_po</key>
 		<string>106</string>
 		<key>ns_st_pr</key>
@@ -2006,7 +2006,7 @@
 		<key>ns_st_pl</key>
 		<string>Couleurs locales</string>
 		<key>ns_st_pn</key>
-		<string>1</string>
+		<string>2</string>
 		<key>ns_st_po</key>
 		<string>106</string>
 		<key>ns_st_pr</key>
