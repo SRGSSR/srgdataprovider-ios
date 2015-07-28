@@ -88,9 +88,8 @@
     NSString *ns_st_dt   = [usDateFormatter stringFromDate:(self.media.assetSet.publishedDate) ?: self.media.creationDate];
     NSString *ns_st_li   = (self.media.isLiveStream) ? @"1" : @"0";
 
-// TODO: Segments
-    NSString *ns_st_pn   = @"1"; // [self.mediaDataSource itemOrderPosition] > 0 ? [NSString stringWithFormat:@"%li", (long)[self.mediaDataSource itemOrderPosition]] : @"1";
-    NSString *ns_st_tp   = @"1";
+    NSString *ns_st_pn = (self.media.orderPosition > 0) ? [NSString stringWithFormat:@"%li", (long)self.media.orderPosition] : @"1";
+    NSString *ns_st_tp = @"1";
     
     [metadata safeSetValue:ns_st_ty forKey:@"ns_st_ty"];
     [metadata safeSetValue:ns_st_ep forKey:@"ns_st_ep"];
