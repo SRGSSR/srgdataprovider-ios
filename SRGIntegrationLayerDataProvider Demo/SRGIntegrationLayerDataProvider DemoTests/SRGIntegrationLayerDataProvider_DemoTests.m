@@ -29,7 +29,6 @@ static NSArray *dynamicValueKeys = nil;
     }
 }
 
-
 - (void)testComScoreMeasurementsOnValidVideos
 {
     [KIFUITestActor setDefaultTimeout:60];
@@ -44,7 +43,8 @@ static NSArray *dynamicValueKeys = nil;
 
         [tester tapRowAtIndexPath:indexPath inTableViewWithAccessibilityIdentifier:@"tableView"];
         
-        NSNotification *notification = [system waitForNotificationName:@"RTSAnalyticsComScoreRequestDidFinish" object:nil];
+        NSNotification *notification = [system waitForNotificationName:@"RTSAnalyticsComScoreRequestDidFinish" object:nil]; // First notification: ReadyToPlay
+        notification = [system waitForNotificationName:@"RTSAnalyticsComScoreRequestDidFinish" object:nil];// Wait for the SECOND notification: Playing
         NSDictionary *labels = notification.userInfo[@"RTSAnalyticsLabels"];
 
         if (refLabelsDict[indexPathKey]) {
