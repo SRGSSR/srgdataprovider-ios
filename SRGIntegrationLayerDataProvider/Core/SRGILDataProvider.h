@@ -26,6 +26,7 @@ typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
     SRGILFetchListVideoShowsAZ,
     SRGILFetchListVideoShowsAZDetail,
     SRGILFetchListVideoShowsByDate,
+    SRGILFetchListVideoSearchResult,
     SRGILFetchListAudioLiveStreams,
     SRGILFetchListAudioMostRecent,
     SRGILFetchListAudioMostListened,
@@ -141,7 +142,7 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
                 completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
 
 /**
- *  Fet the meta infos for the live streams.
+ *  Fetch the meta infos for the live streams.
  *
  *  @param mediaType       The media type
  *  @param identifier      The identifier of the media.

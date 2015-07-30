@@ -246,6 +246,16 @@ static NSArray *validBusinessUnits = nil;
         }
             break;
             
+        case SRGILFetchListVideoSearchResult: {
+            if ([arg isKindOfClass:[NSString class]]) {
+                remoteURLPath = [NSString stringWithFormat:@"video/search.json?q=%@", arg];
+            }
+            else {
+                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListVideoSearchResult: '%@'.", nil), arg];
+            }
+        }
+            break;
+            
         default:
             break;
     }
@@ -300,7 +310,7 @@ static NSArray *validBusinessUnits = nil;
     // The only way to distinguish an array of items with the dictionary of a single item, is to parse the main
     // dictionary and see if we can build an _array_ of the following class names. This is made necessary due to the
     // change of semantics from XML to JSON.
-    NSArray *validItemClassKeys = @[@"Video", @"Show", @"AssetSet", @"Audio"];
+    NSArray *validItemClassKeys = @[@"Video", @"Show", @"AssetSet", @"Audio", @"SearchResult"];
     
     NSString *mainKey = [[rawDictionary allKeys] lastObject];
     NSDictionary *mainValue = [[rawDictionary allValues] lastObject];
