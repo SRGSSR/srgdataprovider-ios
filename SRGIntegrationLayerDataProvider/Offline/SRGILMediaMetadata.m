@@ -84,7 +84,7 @@
     return md;
 }
 
-- (instancetype)initWithContainer:(id<RTSMediaMetadataContainer>)container
+- (instancetype)initWithContainer:(id<SRGMediaMetadataContainer>)container
 {
     self = [super initWithContainer:container];
     if (self) {

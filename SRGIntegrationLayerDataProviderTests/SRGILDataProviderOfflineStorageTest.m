@@ -18,12 +18,12 @@
 #import "SRGILDataProvider+MediaPlayer.h"
 #import "SRGILDataProvider+OfflineStorage.h"
 
-@interface RTSOfflineStorageCenter (Private)
+@interface SRGOfflineStorageCenter (Private)
 - (void)__resetCenter__;
 @end
 
 @interface SRGILDataProvider (Private)
-@property(nonatomic, strong) RTSOfflineStorageCenter *storageCenter;
+@property(nonatomic, strong) SRGOfflineStorageCenter *storageCenter;
 @end
 
 @interface SRGILDataProviderOfflineStorageTest : XCTestCase
@@ -114,7 +114,7 @@
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
     
     // Use private method to insert old-style metadata into DB.
-    dataProvider.storageCenter = [RTSOfflineStorageCenter favoritesCenterWithMetadataProvider:dataProvider];
+    dataProvider.storageCenter = [SRGOfflineStorageCenter favoritesCenterWithMetadataProvider:dataProvider];
     [dataProvider.storageCenter flagAsFavorite:YES
                            mediaWithIdentifier:[SRGILURN identifierForURNString:self.validMediaURNString]
                                 audioChannelID:nil];

@@ -1,20 +1,30 @@
 //
 //  SRGOfflineStorageCenter.h
-//  RTSOfflineMediaStorage
+//  SRGOfflineStorage
 //
-//  Created by Cédric Foellmi on 21/04/15.
 //  Copyright (c) 2015 RTS. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <Realm/RLMResults.h>
-#import "RTSMetadatasProtocols.h"
+#import "SRGMetadatasProtocols.h"
 
 extern NSString * const RTSOfflineStorageErrorDomain;
 
-@interface RTSOfflineStorageCenter : NSObject
+/**
+ *  The storage center is the central object of the library. It allows to store metadatas for medias and shows,
+ *  along with a "favorite" flag.
+ */
+@interface SRGOfflineStorageCenter : NSObject
 
-+ (RTSOfflineStorageCenter *)favoritesCenterWithMetadataProvider:(id<RTSMetadatasProvider>)provider;
+/**
+ *  Create if necessary, and returns an instance of the storage center to store metadata.
+ *
+ *  @param provider The metadata provider
+ *
+ *  @return The unique instance of the center associated with "Favorites"
+ */
++ (SRGOfflineStorageCenter *)favoritesCenterWithMetadataProvider:(id<SRGMetadatasProvider>)provider;
 
 - (RLMResults *)flaggedAsFavoriteMediaMetadatas;
 - (RLMResults *)flaggedAsFavoriteShowMetadatas;
@@ -22,8 +32,8 @@ extern NSString * const RTSOfflineStorageErrorDomain;
 - (void)flagAsFavorite:(BOOL)favorite mediaWithIdentifier:(NSString *)identifier audioChannelID:(NSString *)audioChannelID;
 - (void)flagAsFavorite:(BOOL)favorite showWithIdentifier:(NSString *)identifier audioChannelID:(NSString *)audioChannelID;
 
-- (id<RTSMediaMetadataContainer>)mediaMetadataForIdentifier:(NSString *)identifier;
-- (id<RTSShowMetadataContainer>)showMetadataForIdentifier:(NSString *)identifier;
+- (id<SRGMediaMetadataContainer>)mediaMetadataForIdentifier:(NSString *)identifier;
+- (id<SRGShowMetadataContainer>)showMetadataForIdentifier:(NSString *)identifier;
 
 - (RLMResults *)allSavedMediaMetadatas;
 - (RLMResults *)allSavedShowMetadatas;

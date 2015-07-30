@@ -32,7 +32,7 @@
     return md;
 }
 
-- (instancetype)initWithContainer:(id<RTSShowMetadataContainer>)container
+- (instancetype)initWithContainer:(id<SRGShowMetadataContainer>)container
 {
     self = [super initWithContainer:container];
     if (self) {

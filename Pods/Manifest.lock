@@ -32,24 +32,24 @@ PODS:
   - SRGAnalytics/MediaPlayer (0.5.7):
     - SRGAnalytics/Core
     - SRGMediaPlayer (~> 0.8.7)
-  - SRGIntegrationLayerDataProvider (0.11.0):
-    - SRGIntegrationLayerDataProvider/Core (= 0.11.0)
-  - SRGIntegrationLayerDataProvider/Core (0.11.0):
+  - SRGIntegrationLayerDataProvider (0.11.1):
+    - SRGIntegrationLayerDataProvider/Core (= 0.11.1)
+  - SRGIntegrationLayerDataProvider/Core (0.11.1):
     - CocoaLumberjack (~> 2.0.0)
     - libextobjc/EXTScope (= 0.4.1)
     - SGVReachability (~> 1.0.0)
-  - SRGIntegrationLayerDataProvider/MediaPlayer (0.11.0):
+  - SRGIntegrationLayerDataProvider/MediaPlayer (0.11.1):
     - SRGAnalytics (~> 0.5)
     - SRGAnalytics/MediaPlayer (~> 0.5)
     - SRGIntegrationLayerDataProvider/Core
     - SRGMediaPlayer (~> 0.8)
-  - SRGIntegrationLayerDataProvider/OfflineStorage (0.11.0):
+  - SRGIntegrationLayerDataProvider/OfflineStorage (0.11.1):
     - SRGIntegrationLayerDataProvider/Core
-    - SRGOfflineStorage (~> 0.5)
-  - SRGMediaPlayer (0.8.10):
+    - SRGOfflineStorage (~> 1.0)
+  - SRGMediaPlayer (0.8.13):
     - libextobjc/EXTScope (~> 0.4.1)
     - TransitionKit (~> 2.2.0)
-  - SRGOfflineStorage (0.5.2):
+  - SRGOfflineStorage (1.0.0):
     - Realm (~> 0.91.3)
   - TransitionKit (2.2.1)
 
@@ -66,7 +66,7 @@ DEPENDENCIES:
   - SRGIntegrationLayerDataProvider/MediaPlayer (from `.`)
   - SRGIntegrationLayerDataProvider/OfflineStorage (from `.`)
   - SRGMediaPlayer (~> 0.8.9)
-  - SRGOfflineStorage (~> 0.5.2)
+  - SRGOfflineStorage (~> 1.0.0)
 
 EXTERNAL SOURCES:
   SRGIntegrationLayerDataProvider:
@@ -82,9 +82,9 @@ SPEC CHECKSUMS:
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
   SRGAnalytics: 8c37bc108f5836f11aa3adaae06e8780f796dfe9
-  SRGIntegrationLayerDataProvider: ecbf0f87c5eb108432575f92789f354dd98ea7b8
-  SRGMediaPlayer: 5b5e3465a8d611e5bad38111eaeac25eebb92d34
-  SRGOfflineStorage: 86efab9faef4dae0da5c0172b07bd03f2e644ce9
+  SRGIntegrationLayerDataProvider: bcc4fe804520592d9cac65c0d6543ae2f06e21d6
+  SRGMediaPlayer: 6bf4ceffbecf894b4ade2051c80751f7365143ab
+  SRGOfflineStorage: 55c1d646991a07a3dae02fe93a198df7267288de
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
 
 COCOAPODS: 0.37.2

@@ -11,7 +11,7 @@
 #import "SRGILBaseMetadata.h"
 #import "SRGILShow.h"
 
-@interface SRGILShowMetadata : SRGILBaseMetadata <RTSShowMetadataContainer>
+@interface SRGILShowMetadata : SRGILBaseMetadata <SRGShowMetadataContainer>
 
 + (SRGILShowMetadata *)showMetadataForShow:(SRGILShow *)show;
 

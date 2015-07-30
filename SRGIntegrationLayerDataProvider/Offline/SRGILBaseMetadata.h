@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <SRGOfflineStorage/SRGOfflineStorage.h>
 
-@interface SRGILBaseMetadata : NSObject <RTSBaseMetadataContainer>
+@interface SRGILBaseMetadata : NSObject <SRGBaseMetadataContainer>
 
 @property(nonatomic, strong) NSString *identifier;
 @property(nonatomic, strong) NSString *title;
@@ -22,7 +22,7 @@
 
 @property(nonatomic, strong) NSString *audioChannelID;
 
-+ (instancetype)metadataForContainer:(id<RTSBaseMetadataContainer>)container;
-- (instancetype)initWithContainer:(id<RTSBaseMetadataContainer>)container;
++ (instancetype)metadataForContainer:(id<SRGBaseMetadataContainer>)container;
+- (instancetype)initWithContainer:(id<SRGBaseMetadataContainer>)container;
 
 @end

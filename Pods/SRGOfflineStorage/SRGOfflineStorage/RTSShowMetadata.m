@@ -1,9 +1,8 @@
 //
 //  RTSShowMetadata.m
-//  Pods
+//  SRGOfflineStorage
 //
-//  Created by Cédric Foellmi on 06/05/15.
-//
+//  Copyright (c) 2015 SRG. All rights reserved.
 //
 
 #import "RTSShowMetadata.h"
@@ -24,7 +23,7 @@
     return [defaults copy];
 }
 
-- (instancetype)initWithContainer:(id<RTSShowMetadataContainer>)container
+- (instancetype)initWithContainer:(id<SRGShowMetadataContainer>)container
 {
     self = [super initWithContainer:container];
     if (self) {

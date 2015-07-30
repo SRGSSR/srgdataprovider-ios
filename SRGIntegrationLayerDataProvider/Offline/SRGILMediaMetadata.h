@@ -12,7 +12,7 @@
 
 @class SRGILMedia;
 
-@interface SRGILMediaMetadata : SRGILBaseMetadata <RTSMediaMetadataContainer>
+@interface SRGILMediaMetadata : SRGILBaseMetadata <SRGMediaMetadataContainer>
 
 + (SRGILMediaMetadata *)mediaMetadataForMedia:(SRGILMedia *)media;
 

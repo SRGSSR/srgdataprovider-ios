@@ -1,15 +1,14 @@
 //
-//  RTSBaseMetadata.h
-//  Pods
+//  RTSBaseMetadata
+//  SRGOfflineStorage
 //
-//  Created by Cédric Foellmi on 06/05/15.
-//
+//  Copyright (c) 2015 RTS. All rights reserved.
 //
 
 #import <Realm/Realm.h>
-#import "RTSMetadatasProtocols.h"
+#import "SRGMetadatasProtocols.h"
 
-@interface RTSBaseMetadata : RLMObject <RTSBaseMetadataContainer>
+@interface RTSBaseMetadata : RLMObject <SRGBaseMetadataContainer>
 
 // As Realm doc indicates, do not provide storage keyword (strong, assign...) in properties.
 @property NSString *identifier;
@@ -22,8 +21,8 @@
 
 @property BOOL isFavorite;
 
-+ (instancetype)metadataForContainer:(id<RTSBaseMetadataContainer>)container;
-- (instancetype)initWithContainer:(id<RTSBaseMetadataContainer>)container;
++ (instancetype)metadataForContainer:(id<SRGBaseMetadataContainer>)container;
+- (instancetype)initWithContainer:(id<SRGBaseMetadataContainer>)container;
 
 - (BOOL)isValueEmptyForKey:(NSString *)key;
 

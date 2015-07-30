@@ -1,0 +1,1 @@
+../../../SRGOfflineStorage/SRGOfflineStorage/SRGMetadatasProtocols.h

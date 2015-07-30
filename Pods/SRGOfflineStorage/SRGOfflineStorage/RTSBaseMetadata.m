@@ -1,9 +1,8 @@
 //
-//  RTSBaseMetadata.m
-//  Pods
+//  RTSBaseMetadata
+//  SRGOfflineStorage
 //
-//  Created by Cédric Foellmi on 06/05/15.
-//
+//  Copyright (c) 2015 RTS. All rights reserved.
 //
 
 #import "RTSBaseMetadata.h"
@@ -29,7 +28,7 @@
              @"isFavorite": @(0)};
 }
 
-+ (instancetype)metadataForContainer:(id<RTSBaseMetadataContainer>)container
++ (instancetype)metadataForContainer:(id<SRGBaseMetadataContainer>)container
 {
     if (!container) {
         return nil;
@@ -40,7 +39,7 @@
     
 }
 
-- (instancetype)initWithContainer:(id<RTSBaseMetadataContainer>)container
+- (instancetype)initWithContainer:(id<SRGBaseMetadataContainer>)container
 {
     if (!container) {
         return nil;

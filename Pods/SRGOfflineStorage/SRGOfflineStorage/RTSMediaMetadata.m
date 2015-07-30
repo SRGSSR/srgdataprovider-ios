@@ -1,8 +1,7 @@
 //
 //  SRGILMediaMetadata.m
-//  SRGIntegrationLayerDataProvider
+//  SRGOfflineStorage
 //
-//  Created by Cédric Foellmi on 21/04/15.
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
@@ -32,7 +31,7 @@
     return [defaults copy];
 }
 
-- (instancetype)initWithContainer:(id<RTSMediaMetadataContainer>)container
+- (instancetype)initWithContainer:(id<SRGMediaMetadataContainer>)container
 {
     self = [super initWithContainer:container];
     if (self) {

@@ -12,8 +12,8 @@ xcodeproj 'SRGIntegrationLayerDataProvider'
 pod 'SRGAnalytics', '~> 0.5.7'
 pod 'SRGAnalytics/MediaPlayer'
 
-pod 'SRGMediaPlayer', '~> 0.8.9'
-pod 'SRGOfflineStorage', '~> 0.5.2'
+pod 'SRGMediaPlayer', '~> 0.8.13'
+pod 'SRGOfflineStorage', '~> 1.0.0'
 
 pod 'SGVReachability', '~> 1.0.0'
 pod 'CocoaLumberjack', '~> 2.0.0'

@@ -76,13 +76,13 @@
 #define COCOAPODS_POD_AVAILABLE_SRGMediaPlayer
 #define COCOAPODS_VERSION_MAJOR_SRGMediaPlayer 0
 #define COCOAPODS_VERSION_MINOR_SRGMediaPlayer 8
-#define COCOAPODS_VERSION_PATCH_SRGMediaPlayer 10
+#define COCOAPODS_VERSION_PATCH_SRGMediaPlayer 13
 
 // SRGOfflineStorage
 #define COCOAPODS_POD_AVAILABLE_SRGOfflineStorage
-#define COCOAPODS_VERSION_MAJOR_SRGOfflineStorage 0
-#define COCOAPODS_VERSION_MINOR_SRGOfflineStorage 5
-#define COCOAPODS_VERSION_PATCH_SRGOfflineStorage 2
+#define COCOAPODS_VERSION_MAJOR_SRGOfflineStorage 1
+#define COCOAPODS_VERSION_MINOR_SRGOfflineStorage 0
+#define COCOAPODS_VERSION_PATCH_SRGOfflineStorage 0
 
 // TransitionKit
 #define COCOAPODS_POD_AVAILABLE_TransitionKit

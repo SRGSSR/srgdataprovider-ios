@@ -1,14 +1,13 @@
 //
 //  SRGOfflineStorageCenter.m
-//  RTSOfflineMediaStorage
+//  SRGOfflineStorage
 //
-//  Created by Cédric Foellmi on 21/04/15.
 //  Copyright (c) 2015 RTS. All rights reserved.
 //
 
 #import <Realm/Realm.h>
 
-#import "RTSOfflineStorageCenter.h"
+#import "SRGOfflineStorageCenter.h"
 #import "RTSMediaMetadata.h"
 #import "RTSShowMetadata.h"
 
@@ -18,17 +17,17 @@ NSString * const RTSOfflineStorageErrorDomain = @"RTSOfflineStorageErrorDomain";
 static NSString * const SRGOfflineStorageCenterFavoritesStorageKey = @"SRGOfflineStorageCenterFavoritesStorage";
 static NSMutableDictionary *keyedCenters = nil;
 
-@interface RTSOfflineStorageCenter ()
-@property(nonatomic, weak) id<RTSMetadatasProvider> metadatasProvider;
+@interface SRGOfflineStorageCenter ()
+@property(nonatomic, weak) id<SRGMetadatasProvider> metadatasProvider;
 @property(nonatomic, strong) RLMRealm *realm;
 @property(nonatomic, strong) NSString *storageKey;
 @end
 
-@implementation RTSOfflineStorageCenter
+@implementation SRGOfflineStorageCenter
 
 + (void)initialize
 {
-    if (self == [RTSOfflineStorageCenter class]) {
+    if (self == [SRGOfflineStorageCenter class]) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             keyedCenters = [[NSMutableDictionary alloc] init];
@@ -36,11 +35,11 @@ static NSMutableDictionary *keyedCenters = nil;
     }
 }
 
-+ (RTSOfflineStorageCenter *)favoritesCenterWithMetadataProvider:(id<RTSMetadatasProvider>)metadataProvider
++ (SRGOfflineStorageCenter *)favoritesCenterWithMetadataProvider:(id<SRGMetadatasProvider>)metadataProvider
 {
-    RTSOfflineStorageCenter *instance = [keyedCenters objectForKey:SRGOfflineStorageCenterFavoritesStorageKey];
+    SRGOfflineStorageCenter *instance = [keyedCenters objectForKey:SRGOfflineStorageCenterFavoritesStorageKey];
     if (!instance) {
-        instance = [[RTSOfflineStorageCenter alloc] init_SRGOfflineStorageCenter_withStorageKey:SRGOfflineStorageCenterFavoritesStorageKey];
+        instance = [[SRGOfflineStorageCenter alloc] init_SRGOfflineStorageCenter_withStorageKey:SRGOfflineStorageCenterFavoritesStorageKey];
         keyedCenters[SRGOfflineStorageCenterFavoritesStorageKey] = instance;
     }
     instance.metadatasProvider = metadataProvider;
@@ -79,7 +78,7 @@ static NSMutableDictionary *keyedCenters = nil;
 
 - (void)setup:(NSString *)storageKey
 {
-    NSString *realmPath = [RTSOfflineStorageCenter realmPathForStorageKey:storageKey];
+    NSString *realmPath = [SRGOfflineStorageCenter realmPathForStorageKey:storageKey];
     [RLMRealm setSchemaVersion:1
                 forRealmAtPath:realmPath
             withMigrationBlock:^(RLMMigration *migration, NSUInteger oldSchemaVersion) {
@@ -164,7 +163,7 @@ static NSMutableDictionary *keyedCenters = nil;
     if (metadata == nil) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        id<RTSBaseMetadataContainer> container = [self.metadatasProvider performSelector:selector withObject:identifier];
+        id<SRGBaseMetadataContainer> container = [self.metadatasProvider performSelector:selector withObject:identifier];
 #pragma clang diagnostic pop
         if (container == nil) {
 #ifdef DEBUG
@@ -195,7 +194,7 @@ static NSMutableDictionary *keyedCenters = nil;
     return [results valueForKey:@"identifier"];
 }
 
-- (id<RTSMediaMetadataContainer>)mediaMetadataForIdentifier:(NSString *)identifier
+- (id<SRGMediaMetadataContainer>)mediaMetadataForIdentifier:(NSString *)identifier
 {
     if (identifier) {
         return [RTSMediaMetadata objectInRealm:self.realm forPrimaryKey:identifier];
@@ -203,7 +202,7 @@ static NSMutableDictionary *keyedCenters = nil;
     return nil;
 }
 
-- (id<RTSShowMetadataContainer>)showMetadataForIdentifier:(NSString *)identifier
+- (id<SRGShowMetadataContainer>)showMetadataForIdentifier:(NSString *)identifier
 {
     if (identifier) {
         return [RTSShowMetadata objectInRealm:self.realm forPrimaryKey:identifier];

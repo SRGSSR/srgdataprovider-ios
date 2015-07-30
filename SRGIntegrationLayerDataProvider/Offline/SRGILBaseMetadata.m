@@ -11,12 +11,12 @@
 
 @implementation SRGILBaseMetadata
 
-+ (instancetype)metadataForContainer:(id<RTSBaseMetadataContainer>)container
++ (instancetype)metadataForContainer:(id<SRGBaseMetadataContainer>)container
 {
     return [[[self class] alloc] initWithContainer:container];;
 }
 
-- (instancetype)initWithContainer:(id<RTSBaseMetadataContainer>)container
+- (instancetype)initWithContainer:(id<SRGBaseMetadataContainer>)container
 {
     if (!container) {
         return nil;
