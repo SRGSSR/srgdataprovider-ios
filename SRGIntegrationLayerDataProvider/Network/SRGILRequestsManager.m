@@ -332,18 +332,6 @@ static SGVReachability *reachability;
     }
 }
 
-#pragma mark - Search items
-
-- (BOOL)requestItemsWithSearchQuery:(NSString *)queryString onProgress:(SRGILFetchListDownloadProgressBlock)downloadBlock
-                       onCompletion:(SRGILRequestArrayCompletionBlock)completionBlock
-{
-    NSAssert(queryString, @"A query string is required");
-    NSAssert(completionBlock, @"A completion block is required, otherwise, what's the point?");
-
-    return YES;
-}
-
-
 #pragma mark - View Count
 
 - (void)sendViewCountUpdate:(NSString *)identifier forMediaTypeName:(NSString *)mediaType

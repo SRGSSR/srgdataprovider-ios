@@ -29,5 +29,6 @@
 #import "SRGILSocialCounts.h"
 #import "SRGILURN.h"
 #import "SRGILVideo.h"
+#import "SRGILSearchResult.h"
 
 #endif

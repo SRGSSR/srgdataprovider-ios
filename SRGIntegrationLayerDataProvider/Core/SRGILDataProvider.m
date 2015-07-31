@@ -402,7 +402,8 @@ static NSArray *validBusinessUnits = nil;
         }
     }];
     
-    if ([dictionaries count] == 1 || modelClass == [SRGILAssetSet class] || modelClass == [SRGILAudio class]) {
+    if ([dictionaries count] == 1 || modelClass == [SRGILAssetSet class] || modelClass == [SRGILAudio class]
+    ) {
         return @[[SRGILOrganisedModelDataItem dataItemForTag:tag withItems:items class:modelClass properties:properties]];
     }
     else if (modelClass == [SRGILVideo class]) {
@@ -461,6 +462,14 @@ static NSArray *validBusinessUnits = nil;
         else {
             return @[[SRGILOrganisedModelDataItem dataItemForTag:tag withItems:items class:modelClass properties:properties]];
         }
+    }
+    else if (modelClass == SRGILSearchResult.class) {
+        // Did not include in first case, because we'll have to deal with different type of search results (video, audio, shows).
+        // We only process videos at the moment
+        return @[[SRGILOrganisedModelDataItem dataItemForTag:tag
+                                                   withItems:items
+                                                       class:modelClass
+                                                  properties:properties]];
     }
     else {
         if (error) {
