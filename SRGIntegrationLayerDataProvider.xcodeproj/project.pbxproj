@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6643BD401B6B6C7100C32830 /* SRGILSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6643BD3F1B6B6C7100C32830 /* SRGILSearchResult.m */; };
 		9F13D5391AE9270700E4D897 /* SRGILComScoreAnalyticsInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5001AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.m */; };
 		9F13D53A1AE9270700E4D897 /* SRGILStreamSenseAnalyticsInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5021AE9270600E4D897 /* SRGILStreamSenseAnalyticsInfos.m */; };
 		9F13D53B1AE9270700E4D897 /* SRGILDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5051AE9270600E4D897 /* SRGILDataProvider.m */; };
@@ -92,6 +93,9 @@
 
 /* Begin PBXFileReference section */
 		440E25A6651384A0E61A662D /* Pods.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.test.xcconfig; path = "Pods/Target Support Files/Pods/Pods.test.xcconfig"; sourceTree = "<group>"; };
+		6643BD3E1B6B6C7100C32830 /* SRGILSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILSearchResult.h; sourceTree = "<group>"; };
+		6643BD3F1B6B6C7100C32830 /* SRGILSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILSearchResult.m; sourceTree = "<group>"; };
+		6643BD421B6B6CEB00C32830 /* searchResult01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchResult01.json; sourceTree = "<group>"; };
 		79F6EBD656367387D07A08A6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B6FF59926E98E782269D426 /* Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProviderTests/Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		83089866E34A141E885FA2E9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -235,6 +239,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6643BD431B6B6D2900C32830 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
 		77070573698EDF5E66AA0B19 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,6 +271,7 @@
 				9FF55F991B4B0F5900A99DA2 /* SRGILDataProviderConstants.m */,
 				9F4420FD1B0A107900AD0613 /* MediaPlayer & Analytics */,
 				9F13D55E1AE92C4900E4D897 /* Offline */,
+				6643BD431B6B6D2900C32830 /* Search */,
 			);
 			name = SRGILProvider;
 			path = SRGIntegrationLayerDataProvider/Core;
@@ -300,6 +312,8 @@
 				9F13D5271AE9270700E4D897 /* SRGILPrimaryChannel.m */,
 				9F13D5281AE9270700E4D897 /* SRGILRubric.h */,
 				9F13D5291AE9270700E4D897 /* SRGILRubric.m */,
+				6643BD3E1B6B6C7100C32830 /* SRGILSearchResult.h */,
+				6643BD3F1B6B6C7100C32830 /* SRGILSearchResult.m */,
 				9F13D52A1AE9270700E4D897 /* SRGILShow.h */,
 				9F13D52B1AE9270700E4D897 /* SRGILShow.m */,
 				9F13D52C1AE9270700E4D897 /* SRGILSocialCounts.h */,
@@ -416,6 +430,7 @@
 				9F1A5B141ACD68E700C0E528 /* video_03.json */,
 				9F1A5B151ACD68E700C0E528 /* video_04.json */,
 				9F1A5B161ACD68E700C0E528 /* videoaggregation_01.json */,
+				6643BD421B6B6CEB00C32830 /* searchResult01.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -663,6 +678,7 @@
 				9F13D54A1AE9270700E4D897 /* SRGILPrimaryChannel.m in Sources */,
 				9F13D54C1AE9270700E4D897 /* SRGILShow.m in Sources */,
 				9F13D5471AE9270700E4D897 /* SRGILModelConstants.m in Sources */,
+				6643BD401B6B6C7100C32830 /* SRGILSearchResult.m in Sources */,
 				9F4421001B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m in Sources */,
 				9F13D5521AE9270700E4D897 /* SRGILTokenHandler.m in Sources */,
 				E604EAFC1B174254004A627D /* SRGILOngoingRequest+Private.m in Sources */,
