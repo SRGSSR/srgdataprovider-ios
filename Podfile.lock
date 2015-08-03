@@ -32,21 +32,21 @@ PODS:
   - SRGAnalytics/MediaPlayer (0.5.7):
     - SRGAnalytics/Core
     - SRGMediaPlayer (~> 0.8.7)
-  - SRGIntegrationLayerDataProvider (0.11.1):
-    - SRGIntegrationLayerDataProvider/Core (= 0.11.1)
-  - SRGIntegrationLayerDataProvider/Core (0.11.1):
+  - SRGIntegrationLayerDataProvider (0.11.2):
+    - SRGIntegrationLayerDataProvider/Core (= 0.11.2)
+  - SRGIntegrationLayerDataProvider/Core (0.11.2):
     - CocoaLumberjack (~> 2.0.0)
     - libextobjc/EXTScope (= 0.4.1)
     - SGVReachability (~> 1.0.0)
-  - SRGIntegrationLayerDataProvider/MediaPlayer (0.11.1):
+  - SRGIntegrationLayerDataProvider/MediaPlayer (0.11.2):
     - SRGAnalytics (~> 0.5)
     - SRGAnalytics/MediaPlayer (~> 0.5)
     - SRGIntegrationLayerDataProvider/Core
     - SRGMediaPlayer (~> 0.8)
-  - SRGIntegrationLayerDataProvider/OfflineStorage (0.11.1):
+  - SRGIntegrationLayerDataProvider/OfflineStorage (0.11.2):
     - SRGIntegrationLayerDataProvider/Core
     - SRGOfflineStorage (~> 1.0)
-  - SRGMediaPlayer (0.8.13):
+  - SRGMediaPlayer (0.8.17):
     - libextobjc/EXTScope (~> 0.4.1)
     - TransitionKit (~> 2.2.0)
   - SRGOfflineStorage (1.0.0):
@@ -65,12 +65,12 @@ DEPENDENCIES:
   - SRGIntegrationLayerDataProvider (from `.`)
   - SRGIntegrationLayerDataProvider/MediaPlayer (from `.`)
   - SRGIntegrationLayerDataProvider/OfflineStorage (from `.`)
-  - SRGMediaPlayer (~> 0.8.9)
+  - SRGMediaPlayer (~> 0.8.13)
   - SRGOfflineStorage (~> 1.0.0)
 
 EXTERNAL SOURCES:
   SRGIntegrationLayerDataProvider:
-    :path: .
+    :path: "."
 
 SPEC CHECKSUMS:
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
@@ -82,8 +82,8 @@ SPEC CHECKSUMS:
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
   SRGAnalytics: 8c37bc108f5836f11aa3adaae06e8780f796dfe9
-  SRGIntegrationLayerDataProvider: bcc4fe804520592d9cac65c0d6543ae2f06e21d6
-  SRGMediaPlayer: 6bf4ceffbecf894b4ade2051c80751f7365143ab
+  SRGIntegrationLayerDataProvider: febc9a073de70c96231db56be287d3d2e1ac6498
+  SRGMediaPlayer: babc2257d0f1ce5fc578db54ce70a6b8173644a4
   SRGOfflineStorage: 55c1d646991a07a3dae02fe93a198df7267288de
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
 

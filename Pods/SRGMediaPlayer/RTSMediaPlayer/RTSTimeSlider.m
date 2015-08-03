@@ -356,7 +356,7 @@ static NSString *RTSTimeSliderFormatter(NSTimeInterval seconds)
 			if (!self.isTracking)
 			{
 				CMTimeRange timeRange = [self.playbackController timeRange];
-				if (!CMTIMERANGE_IS_EMPTY(timeRange) && !CMTIMERANGE_IS_INDEFINITE(timeRange))
+				if (!CMTIMERANGE_IS_EMPTY(timeRange) && !CMTIMERANGE_IS_INDEFINITE(timeRange) && !CMTIMERANGE_IS_INVALID(timeRange))
 				{
 					self.minimumValue = CMTimeGetSeconds(timeRange.start);
 					self.maximumValue = CMTimeGetSeconds(CMTimeRangeGetEnd(timeRange));
@@ -374,6 +374,9 @@ static NSString *RTSTimeSliderFormatter(NSTimeInterval seconds)
 			[self updateTimeRangeLabels];
 			[self setNeedsDisplay];
 		}];
+	}
+	else {
+		[self.playbackController removePeriodicTimeObserver:self.periodicTimeObserver];
 	}
 }
 
