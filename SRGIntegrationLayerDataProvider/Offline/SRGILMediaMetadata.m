@@ -73,7 +73,7 @@
     md.mediaDescription = [media mediaDescription];
     md.imageURLString = [media.thumbnailURL description];
 
-    md.publicationDate = media.assetSet.publishedDate;
+    md.publicationDate = media.assetSet.publishedDate ?: media.creationDate;
     
     md.durationInMs = media.duration * 1000.0;
     md.viewCount = (int)[media viewCount];

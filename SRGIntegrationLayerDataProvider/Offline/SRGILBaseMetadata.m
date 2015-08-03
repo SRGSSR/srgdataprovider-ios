@@ -13,7 +13,7 @@
 
 + (instancetype)metadataForContainer:(id<SRGBaseMetadataContainer>)container
 {
-    return [[[self class] alloc] initWithContainer:container];;
+    return [[[self class] alloc] initWithContainer:container];
 }
 
 - (instancetype)initWithContainer:(id<SRGBaseMetadataContainer>)container
