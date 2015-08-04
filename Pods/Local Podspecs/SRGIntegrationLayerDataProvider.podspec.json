@@ -63,7 +63,7 @@
 
         ],
         "SRGMediaPlayer": [
-          "~> 1.0.0"
+          "~> 1.1.0"
         ],
         "SRGAnalytics": [
           "~> 1.0.0"
