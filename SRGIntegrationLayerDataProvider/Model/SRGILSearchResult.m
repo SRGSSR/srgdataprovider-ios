@@ -27,6 +27,24 @@
         _publishedDate = [dateFormatter dateFromString:dictionary[@"publishedDate"]];
         _imageURL = [NSURL URLWithString:dictionary[@"imageurl"]];
         _duration = [dictionary[@"duration"] integerValue];
+                
+        [[dictionary valueForKeyPath:@"parentIds.id"] enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+            if ([@"assetgroup" isEqualToString:obj[@"@ref"]]) {
+                _assetGroupId = obj[@"text"];
+            }
+            if ([@"assetset" isEqualToString:obj[@"@ref"]]) {
+                _assetSetId = obj[@"text"];
+            }
+        }];
+        
+        [[dictionary valueForKeyPath:@"parentTitles.title"] enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+            if ([@"assetgroup" isEqualToString:obj[@"@ref"]]) {
+                _assetGroupTitle = obj[@"text"];
+            }
+            if ([@"assetset" isEqualToString:obj[@"@ref"]]) {
+                _assetSetTitle = obj[@"text"];
+            }
+        }];
     }
     
     return self;

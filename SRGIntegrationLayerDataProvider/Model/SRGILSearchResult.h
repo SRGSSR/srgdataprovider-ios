@@ -16,4 +16,9 @@
 @property(nonatomic,readonly,strong) NSURL *imageURL;
 @property(nonatomic,readonly) NSInteger duration;
 
+@property(nonatomic,readonly,strong) NSString *assetGroupId;
+@property(nonatomic,readonly,strong) NSString *assetGroupTitle;
+@property(nonatomic,readonly,strong) NSString *assetSetId;
+@property(nonatomic,readonly,strong) NSString *assetSetTitle;
+
 @end
