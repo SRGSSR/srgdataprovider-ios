@@ -73,7 +73,7 @@ static NSArray *validBusinessUnits = nil;
                                        reason:msg
                                      userInfo:nil];
     }
-
+    
     self = [super init];
     if (self) {
         _UUID = [[NSUUID UUID] UUIDString];
@@ -82,7 +82,7 @@ static NSArray *validBusinessUnits = nil;
         _taggedItemLists = [[NSMutableDictionary alloc] init];
         _typedFetchPaths = [[NSMutableDictionary alloc] init];
         _requestManager = [[SRGILRequestsManager alloc] initWithBusinessUnit:businessUnit];
-        _ongoingFetchIndices = [[NSMutableSet alloc] init];        
+        _ongoingFetchIndices = [[NSMutableSet alloc] init];
     }
     return self;
 }
@@ -248,7 +248,12 @@ static NSArray *validBusinessUnits = nil;
             
         case SRGILFetchListVideoSearchResult: {
             if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"video/search.json?q=%@", arg];
+                if ([@"" isEqualToString:arg]) {
+                    errorMessage = NSLocalizedString(@"No search result", nil);
+                }
+                else {
+                    remoteURLPath = [NSString stringWithFormat:@"video/search.json?q=%@", arg];
+                }
             }
             else {
                 errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListVideoSearchResult: '%@'.", nil), arg];
@@ -278,11 +283,11 @@ static NSArray *validBusinessUnits = nil;
                                                                                      forTag:tag
                                                                            organisationType:orgType
                                                                         withCompletionBlock:completionBlock];
-                                        }];        
+                                        }];
     }
     else if (errorMessage) {
         DDLogWarn(@"%@", errorMessage);
-
+        
         if (completionBlock) {
             NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                                  code:SRGILDataProviderErrorCodeInvalidFetchIndex
@@ -403,7 +408,7 @@ static NSArray *validBusinessUnits = nil;
     }];
     
     if ([dictionaries count] == 1 || modelClass == [SRGILAssetSet class] || modelClass == [SRGILAudio class]
-    ) {
+        ) {
         return @[[SRGILOrganisedModelDataItem dataItemForTag:tag withItems:items class:modelClass properties:properties]];
     }
     else if (modelClass == [SRGILVideo class]) {
@@ -569,7 +574,7 @@ static NSArray *validBusinessUnits = nil;
         completionBlock(nil, error);
         return NO;
     }
-
+    
     return [self.requestManager requestMediaOfType:urn.mediaType
                                     withIdentifier:urn.identifier
                                    completionBlock:completionBlock];
