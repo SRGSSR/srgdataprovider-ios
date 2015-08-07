@@ -227,7 +227,7 @@ static NSArray *validBusinessUnits = nil;
             
         case SRGILFetchListVideoSearchResult: {
             if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"video/search.json?q=%@&pagesize=24", arg];
+                remoteURLPath = [NSString stringWithFormat:@"video/search.json?q=%@&pageSize=24", arg];
             }
             else if ([arg isKindOfClass:[NSDictionary class]]) {
                 remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
