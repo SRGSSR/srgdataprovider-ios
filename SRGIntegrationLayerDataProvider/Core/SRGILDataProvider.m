@@ -152,28 +152,7 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [NSString stringWithFormat:@"assetSet/listByAssetGroup/%@.json?pageSize=20", arg];
             }
             else if ([arg isKindOfClass:[NSDictionary class]]) {
-                remoteURLPath = _typedFetchPaths[@(index)]; // Can be SRGConfigNoValidRequestURLPath, and it is OK.
-                NSRange r = [remoteURLPath rangeOfString:@"?"];
-                
-                if (r.location != NSNotFound) {
-                    remoteURLPath = [remoteURLPath substringToIndex:r.location+1];
-                    
-                    NSDictionary *properties = (NSDictionary *)arg;
-                    NSInteger currentPageNumber = [[properties objectForKey:@"pageNumber"] integerValue];
-                    NSInteger currentPageSize = [[properties objectForKey:@"pageSize"] integerValue];
-                    NSInteger totalItemsCount = [[properties objectForKey:@"total"] integerValue];
-                    
-                    NSInteger expectedNewMax = (currentPageNumber+1)*currentPageSize;
-                    BOOL hasReachedEnd = (expectedNewMax - totalItemsCount >= currentPageSize);
-                    
-                    if (!hasReachedEnd) {
-                        remoteURLPath = [remoteURLPath stringByAppendingFormat:@"pageSize=%ld&pageNumber=%ld",
-                                         (long)currentPageSize, (long)currentPageNumber+1];
-                    }
-                    else {
-                        remoteURLPath = SRGConfigNoValidRequestURLPath;
-                    }
-                }
+                remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
             }
             // It is OK to find no remoteURLpath and let it go. No request will be made, that's it.
             
@@ -248,12 +227,10 @@ static NSArray *validBusinessUnits = nil;
             
         case SRGILFetchListVideoSearchResult: {
             if ([arg isKindOfClass:[NSString class]]) {
-                if ([@"" isEqualToString:arg]) {
-                    errorMessage = NSLocalizedString(@"No search result", nil);
-                }
-                else {
-                    remoteURLPath = [NSString stringWithFormat:@"video/search.json?q=%@", arg];
-                }
+                remoteURLPath = [NSString stringWithFormat:@"video/search.json?q=%@&pagesize=24", arg];
+            }
+            else if ([arg isKindOfClass:[NSDictionary class]]) {
+                remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
             }
             else {
                 errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListVideoSearchResult: '%@'.", nil), arg];
@@ -299,6 +276,34 @@ static NSArray *validBusinessUnits = nil;
     }
     
     return [self isFetchPathValidForIndex:index];
+}
+
+- (NSString *)urlPathForListIndex:(enum SRGILFetchListIndex)index withParameters:(NSDictionary *)parameters
+{
+    NSString *remoteURLPath = _typedFetchPaths[@(index)]; // Can be SRGConfigNoValidRequestURLPath, and it is OK.
+    NSRange r = [remoteURLPath rangeOfString:@"?"];
+    
+    if (r.location != NSNotFound) {
+        remoteURLPath = [remoteURLPath substringToIndex:r.location+1];
+        
+        NSDictionary *properties = (NSDictionary *)parameters;
+        NSInteger currentPageNumber = [[properties objectForKey:@"pageNumber"] integerValue];
+        NSInteger currentPageSize = [[properties objectForKey:@"pageSize"] integerValue];
+        NSInteger totalItemsCount = [[properties objectForKey:@"total"] integerValue];
+        
+        NSInteger expectedNewMax = (currentPageNumber+1)*currentPageSize;
+        BOOL hasReachedEnd = (expectedNewMax - totalItemsCount >= currentPageSize);
+        
+        if (!hasReachedEnd) {
+            remoteURLPath = [remoteURLPath stringByAppendingFormat:@"pageSize=%ld&pageNumber=%ld",
+                             (long)currentPageSize, (long)currentPageNumber+1];
+        }
+        else {
+            remoteURLPath = SRGConfigNoValidRequestURLPath;
+        }
+    }
+    
+    return remoteURLPath;
 }
 
 - (void)extractItemsAndClassNameFromRawDictionary:(NSDictionary *)rawDictionary
