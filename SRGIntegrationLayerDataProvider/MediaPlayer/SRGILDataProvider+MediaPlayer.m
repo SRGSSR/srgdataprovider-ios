@@ -130,13 +130,20 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         self.analyticsInfos = [[NSMutableDictionary alloc] init];
     }
     
+    void (^segmentsAndAnalyticsBlock)(SRGILMedia *) = ^(SRGILMedia *media) {
+        if (media.contentURL) {
+            [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
+        }
+        
+        NSArray *segments = (media.isFullLength) ? media.segments : nil;
+        completionHandler((id<RTSMediaSegment>)media, segments, nil);
+    };
+    
     // SRGILMedia has been been made conformant to the RTSMediaPlayerSegment protocol (see SRGILVideo+MediaPlayer.h), segments
     // can therefore be displayed as is by the player
     SRGILMedia *media = self.identifiedMedias[urnString];
     if (media.segments) {
-        [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
-        NSArray *segments = (media.isFullLength) ? media.segments : nil;
-        completionHandler((id<RTSMediaSegment>)media, segments, nil);
+        segmentsAndAnalyticsBlock(media);
     }
     else {
         SRGILURN *urn = [SRGILURN URNWithString:urnString];
@@ -169,9 +176,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                         }
                                         else {
                                             self.identifiedMedias[urnString] = media;
-                                            [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
-                                            NSArray *segments = (media.isFullLength) ? media.segments : nil;
-                                            completionHandler((id<RTSMediaSegment>)media, segments, error);
+                                            segmentsAndAnalyticsBlock(media);
                                         }
                                     }];
         }
