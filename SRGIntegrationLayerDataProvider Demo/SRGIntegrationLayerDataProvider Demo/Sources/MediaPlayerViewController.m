@@ -121,7 +121,7 @@
     return segmentCell;
 }
 
-#pragma ark - RTSTimeSliderSeekingDelegate protocol
+#pragma ark - RTSTimeSliderDelegate protocol
 
 - (void)timeSlider:(RTSTimeSlider *)slider isMovingToPlaybackTime:(CMTime)time withValue:(CGFloat)value interactive:(BOOL)interactive
 {
