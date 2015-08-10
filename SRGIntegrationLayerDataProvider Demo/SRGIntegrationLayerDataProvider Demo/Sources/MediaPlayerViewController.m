@@ -123,14 +123,16 @@
 
 #pragma ark - RTSTimeSliderSeekingDelegate protocol
 
-- (void)timeSlider:(RTSTimeSlider *)slider isSlidingAtPlaybackTime:(CMTime)time withValue:(CGFloat)value
+- (void)timeSlider:(RTSTimeSlider *)slider isMovingToPlaybackTime:(CMTime)time withValue:(CGFloat)value interactive:(BOOL)interactive
 {
     [self updateAppearanceWithTime:time];
     
-    NSUInteger visibleSegmentIndex = [self.timelineView.segmentsController indexOfVisibleSegmentForTime:time];
-    if (visibleSegmentIndex != NSNotFound) {
-        id<RTSMediaSegment> segment = [[self.timelineView.segmentsController visibleSegments] objectAtIndex:visibleSegmentIndex];
-        [self.timelineView scrollToSegment:segment animated:YES];
+    if (interactive) {
+        NSUInteger visibleSegmentIndex = [self.timelineView.segmentsController indexOfVisibleSegmentForTime:time];
+        if (visibleSegmentIndex != NSNotFound) {
+            id<RTSMediaSegment> segment = [[self.timelineView.segmentsController visibleSegments] objectAtIndex:visibleSegmentIndex];
+            [self.timelineView scrollToSegment:segment animated:YES];
+        }        
     }
 }
 
