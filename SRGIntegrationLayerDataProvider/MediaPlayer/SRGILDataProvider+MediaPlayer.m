@@ -54,8 +54,10 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     
     SRGILMedia *existingMedia = self.identifiedMedias[urnString];
     
-    void (^tokenBlock)(SRGILMedia *) = ^(SRGILMedia *media) {
+    void (^tokenAndAnalyticsBlock)(SRGILMedia *) = ^(SRGILMedia *media) {
         if (media.contentURL) {
+            [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
+            
             [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.contentURL
                                         appendLogicalSegmentation:nil
                                                   completionBlock:^(NSURL *tokenizedURL, NSError *error) {
@@ -108,15 +110,13 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                         }
                                         else {
                                             self.identifiedMedias[urnString] = media;
-                                            [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
-                                            tokenBlock(media);
+                                            tokenAndAnalyticsBlock(media);
                                         }
                                     }];
         }
     }
     else {
-        [self prepareAnalyticsInfosForMedia:existingMedia withContentURL:existingMedia.contentURL];
-        tokenBlock(existingMedia);
+        tokenAndAnalyticsBlock(existingMedia);
     }
 }
 
