@@ -107,13 +107,13 @@ static SGVReachability *reachability;
             path = [NSString stringWithFormat:@"video/play/%@.json", identifier];
             objectClass = [SRGILVideo class];
             JSONKey = @"Video";
-            errorMessage = NSLocalizedString(@"Unable to built a valid video object.", nil);
+            errorMessage = NSLocalizedString(@"Unable to build a valid video object.", nil);
             break;
         case SRGILMediaTypeAudio:
             path = [NSString stringWithFormat:@"audio/play/%@.json", identifier];
             objectClass = [SRGILAudio class];
             JSONKey = @"Audio";
-            errorMessage = NSLocalizedString(@"Unable to built a valid video object.", nil);
+            errorMessage = NSLocalizedString(@"Unable to build a valid video object.", nil);
             break;
 
         default:
