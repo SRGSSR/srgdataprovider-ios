@@ -460,7 +460,11 @@ static NSArray *validBusinessUnits = nil;
             NSArray *sortedShowsGroupsKeys = [[showsGroups allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
             
             [sortedShowsGroupsKeys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
-                SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemForTag:key
+                // Remove accents / diacritics from the key
+                NSString *mutableKey = [key mutableCopy];
+                CFStringTransform((__bridge CFMutableStringRef)mutableKey, NULL, kCFStringTransformStripCombiningMarks, NO);
+                
+                SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemForTag:[mutableKey copy]
                                                                                           withItems:showsGroups[key]
                                                                                               class:modelClass
                                                                                          properties:properties];
