@@ -61,7 +61,19 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
             [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.contentURL
                                         appendLogicalSegmentation:nil
                                                   completionBlock:^(NSURL *tokenizedURL, NSError *error) {
-                                                      completionHandler(tokenizedURL, error);
+                                                      if (error) {
+                                                          completionHandler(nil, error);
+                                                          return;
+                                                      }
+                                                      
+                                                      if (media.fullLength || media.isLiveStream) {
+                                                          completionHandler(tokenizedURL, nil);
+                                                      }
+                                                      else {
+                                                          NSURLComponents *components = [NSURLComponents componentsWithURL:tokenizedURL resolvingAgainstBaseURL:NO];
+                                                          components.query = [components.query stringByAppendingFormat:@"&start=%.0f&end=%.0f", round(media.markIn), round(media.markOut)];
+                                                          completionHandler(components.URL, nil);
+                                                      }
                                                   }];
         }
         else {
