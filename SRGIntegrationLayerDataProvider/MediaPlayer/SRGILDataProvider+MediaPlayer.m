@@ -66,7 +66,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                                           return;
                                                       }
                                                       
-                                                      if ([media segmentationForURL:tokenizedURL] == SRGILPlaylistSegmentationLogical
+                                                      if ([media segmentationForURL:media.contentURL] == SRGILPlaylistSegmentationLogical
                                                             && !media.fullLength && !media.isLiveStream) {
                                                           NSURLComponents *components = [NSURLComponents componentsWithURL:tokenizedURL resolvingAgainstBaseURL:NO];
                                                           components.query = [components.query stringByAppendingFormat:@"&start=%.0f&end=%.0f", round(media.markIn), round(media.markOut)];
