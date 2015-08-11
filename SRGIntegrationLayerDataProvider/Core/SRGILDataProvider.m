@@ -448,7 +448,10 @@ static NSArray *validBusinessUnits = nil;
             showsGroups[currentKey] = [NSMutableArray array];
             
             [sortedShows enumerateObjectsUsingBlock:^(SRGILShow *show, NSUInteger idx, BOOL *stop) {
-                NSString *firstLetter = [[show.title substringToIndex:1] uppercaseString];
+                // Extract the first letter and remove accents / diacritics
+                NSMutableString *firstLetter = [[[show.title substringToIndex:1] uppercaseString] mutableCopy];
+                CFStringTransform((__bridge CFMutableStringRef)firstLetter, NULL, kCFStringTransformStripCombiningMarks, NO);
+                
                 if (![numberStrings containsObject:firstLetter] && ![currentKey isEqualToString:firstLetter]) {
                     currentKey = firstLetter;
                     showsGroups[currentKey] = [NSMutableArray array];
@@ -460,11 +463,7 @@ static NSArray *validBusinessUnits = nil;
             NSArray *sortedShowsGroupsKeys = [[showsGroups allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
             
             [sortedShowsGroupsKeys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
-                // Remove accents / diacritics from the key
-                NSString *mutableKey = [key mutableCopy];
-                CFStringTransform((__bridge CFMutableStringRef)mutableKey, NULL, kCFStringTransformStripCombiningMarks, NO);
-                
-                SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemForTag:[mutableKey copy]
+                SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemForTag:key
                                                                                           withItems:showsGroups[key]
                                                                                               class:modelClass
                                                                                          properties:properties];
