@@ -54,35 +54,49 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     
     SRGILMedia *existingMedia = self.identifiedMedias[urnString];
     
-    void (^tokenAndAnalyticsBlock)(SRGILMedia *) = ^(SRGILMedia *media) {
-        if (media.contentURL) {
-            [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
-            
-            [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.contentURL
-                                        appendLogicalSegmentation:nil
-                                                  completionBlock:^(NSURL *tokenizedURL, NSError *error) {
-                                                      if (error) {
-                                                          completionHandler(nil, error);
-                                                          return;
-                                                      }
-                                                      
-                                                      if ([media segmentationForURL:media.contentURL] == SRGILPlaylistSegmentationLogical
-                                                            && !media.fullLength && !media.isLiveStream) {
-                                                          NSURLComponents *components = [NSURLComponents componentsWithURL:tokenizedURL resolvingAgainstBaseURL:NO];
-                                                          components.query = [components.query stringByAppendingFormat:@"&start=%.0f&end=%.0f", round(media.markIn), round(media.markOut)];
-                                                          completionHandler(components.URL, nil);
-                                                      }
-                                                      else {
-                                                          completionHandler(tokenizedURL, nil);
-                                                      }
-                                                  }];
+    void (^playBlock)(SRGILMedia *, NSError *) = ^(SRGILMedia *media, NSError *error) {
+        if (!error && media.blocked) {
+            error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                        code:SRGILDataProviderErrorVideoNoSourceURL
+                                    userInfo:@{NSLocalizedDescriptionKey: SRGILMediaBlockingReasonMessageForReason(media.blockingReason)}];
+        }
+        
+        if (error) {
+            [self.identifiedMedias removeObjectForKey:urnString];
+            completionHandler(nil, error);
         }
         else {
-            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                 code:SRGILDataProviderErrorVideoNoSourceURL
-                                             userInfo:nil];
+            self.identifiedMedias[urnString] = media;
             
-            completionHandler(nil, error);
+            if (media.contentURL) {
+                [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
+                
+                [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.contentURL
+                                            appendLogicalSegmentation:nil
+                                                      completionBlock:^(NSURL *tokenizedURL, NSError *error) {
+                                                          if (error) {
+                                                              completionHandler(nil, error);
+                                                              return;
+                                                          }
+                                                          
+                                                          if ([media segmentationForURL:media.contentURL] == SRGILPlaylistSegmentationLogical
+                                                              && !media.fullLength && !media.isLiveStream) {
+                                                              NSURLComponents *components = [NSURLComponents componentsWithURL:tokenizedURL resolvingAgainstBaseURL:NO];
+                                                              components.query = [components.query stringByAppendingFormat:@"&start=%.0f&end=%.0f", round(media.markIn), round(media.markOut)];
+                                                              completionHandler(components.URL, nil);
+                                                          }
+                                                          else {
+                                                              completionHandler(tokenizedURL, nil);
+                                                          }
+                                                      }];
+            }
+            else {
+                NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                     code:SRGILDataProviderErrorVideoNoSourceURL
+                                                 userInfo:nil];
+                
+                completionHandler(nil, error);
+            }
         }
     };
     
@@ -105,31 +119,13 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
             completionHandler(nil, error);
         }
         else {
-            @weakify(self)
             [self.requestManager requestMediaOfType:urn.mediaType
                                      withIdentifier:urn.identifier
-                                    completionBlock:^(SRGILMedia *media, NSError *error) {
-                                        @strongify(self)
-                                        
-                                        if (!error && media.blocked) {
-                                            error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                                        code:SRGILDataProviderErrorVideoNoSourceURL
-                                                                    userInfo:@{NSLocalizedDescriptionKey: SRGILMediaBlockingReasonMessageForReason(media.blockingReason)}];
-                                        }
-                                    
-                                        if (error) {
-                                            [self.identifiedMedias removeObjectForKey:urnString];
-                                            completionHandler(nil, error);
-                                        }
-                                        else {
-                                            self.identifiedMedias[urnString] = media;
-                                            tokenAndAnalyticsBlock(media);
-                                        }
-                                    }];
+                                    completionBlock:playBlock];
         }
     }
     else {
-        tokenAndAnalyticsBlock(existingMedia);
+        playBlock(existingMedia, nil);
     }
 }
 
