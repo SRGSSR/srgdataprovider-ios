@@ -63,6 +63,8 @@
             break;
     }
     
+    [labels setObject:srg_n1.lowercaseString forKey:@"srg_n1"];
+
     NSString *srg_n2 = nil;
     NSString *title = nil;
 
@@ -75,17 +77,18 @@
         title = [self.media.title comScoreFormattedString];
     }
 
-    NSString *category = srg_n2 ? [NSString stringWithFormat:@"%@.%@", srg_n1, srg_n2] : srg_n1;
-
-    [labels setObject:category forKey:@"category"];
-    [labels setObject:srg_n1 forKey:@"srg_n1"];
     if (srg_n2) {
-        [labels setObject:srg_n2 forKey:@"srg_n2"];
+        [labels setObject:srg_n2.lowercaseString forKey:@"srg_n2"];
     }
     if (title) {
         [labels setObject:title forKey:@"srg_title"];
     }
-    [labels setObject:[NSString stringWithFormat:@"Player.%@.%@", category, title] forKey:@"name"];
+
+    NSString *category = srg_n2 ? [NSString stringWithFormat:@"%@.%@", srg_n1, srg_n2] : srg_n1;
+    NSString *name = [NSString stringWithFormat:@"Player.%@.%@", category, title];
+    
+    [labels setObject:category forKey:@"category"];
+    [labels setObject:name forKey:@"name"];
     
     return [labels copy];
 }
