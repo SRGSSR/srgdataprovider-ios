@@ -51,10 +51,17 @@
 
 @property(nonatomic, strong) NSDate *publicationDate;
 
-@property(nonatomic, assign) SRGILMediaType type;
+@property(nonatomic, assign) NSInteger type;
 @property(nonatomic, assign) long durationInMs;
 @property(nonatomic, assign) int viewCount;
 @property(nonatomic, assign) BOOL isDownloadable;
+
+@property (nonatomic, assign) BOOL isDownloading;
+@property (nonatomic, assign) BOOL isDownloaded;
+
+@property (nonatomic, strong) NSString *downloadURLString;
+@property (nonatomic, strong) NSString *localURLString;
+
 @end
 
 @implementation SRGILMediaMetadata
@@ -77,9 +84,15 @@
     
     md.durationInMs = media.duration * 1000.0;
     md.viewCount = (int)[media viewCount];
-    md.isDownloadable = NO;
+    md.isDownloadable = NO; //TODO get the real value
     md.isFavorite = NO;
     md.type = media.type;
+    
+    md.isDownloading = NO;
+    md.isDownloaded = NO;
+    
+    md.downloadURLString = nil; //TODO get the HD or SD content URL
+    md.localURLString = nil;
 
     return md;
 }

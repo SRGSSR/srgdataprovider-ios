@@ -40,7 +40,7 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
 - (BOOL)isMediaFlaggedAsFavorite:(NSString *)urnString
 {
     if (!self.storageCenter) {
-        self.storageCenter = [SRGOfflineStorageCenter favoritesCenterWithMetadataProvider:self];
+        self.storageCenter = [SRGOfflineStorageCenter favoritesOffineStorageCenter];
     }
     id<SRGMediaMetadataContainer> md = [self.storageCenter mediaMetadataForIdentifier:urnString];
     if (!md) { // if none is found with URN string. Try with identifier, for backward compatibility.
@@ -52,7 +52,7 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
 - (BOOL)isShowFlaggedAsFavorite:(NSString *)identifier
 {
     if (!self.storageCenter) {
-        self.storageCenter = [SRGOfflineStorageCenter favoritesCenterWithMetadataProvider:self];
+        self.storageCenter = [SRGOfflineStorageCenter favoritesOffineStorageCenter];
     }
     id<SRGShowMetadataContainer> md = [self.storageCenter showMetadataForIdentifier:identifier];
     return [md isFavorite];
@@ -66,15 +66,21 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
     }
 
     if (!self.storageCenter) {
-        self.storageCenter = [SRGOfflineStorageCenter favoritesCenterWithMetadataProvider:self];
+        self.storageCenter = [SRGOfflineStorageCenter favoritesOffineStorageCenter];
     }
     
     id<SRGMediaMetadataContainer> md = [self.storageCenter mediaMetadataForIdentifier:[SRGILURN identifierForURNString:urnString]];
     if (md) { // If a media is stored the old fashion, delete it first.
         [self.storageCenter deleteMediaMetadatasWithIdentifier:[SRGILURN identifierForURNString:urnString]];
     }
-
-    [self.storageCenter flagAsFavorite:favorite mediaWithIdentifier:urnString audioChannelID:audioChannelID];
+    
+    id<SRGMediaMetadataContainer> mediaMetadata = [self mediaMetadataContainerForIdentifier:urnString audioChannelID:audioChannelID];
+    if (!mediaMetadata) {
+        // We don't have the complete associated media. We reate an empty one first to save the identifier in the offline storage
+        SRGILMedia *emptyMedia = [[SRGILMedia alloc] initAnEmptyModelObjectWithUrnString:urnString];
+        mediaMetadata = [SRGILMediaMetadata mediaMetadataForMedia:emptyMedia];
+    }
+    [self.storageCenter flagAsFavorite:favorite mediaMetadata:mediaMetadata];
     
     if (!self.identifiedMedias[urnString]) {
         // We don't have the complete associated media. hence, fetch it, and complete its metadatas.
@@ -90,9 +96,9 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
                                     @strongify(self);
                                     if (!error) {
                                         self.identifiedMedias[urnString] = media;
-                                        [self.storageCenter flagAsFavorite:favorite
-                                                       mediaWithIdentifier:urnString
-                                                            audioChannelID:audioChannelID];
+                                        
+                                        id<SRGMediaMetadataContainer> mediaMetadata = [self mediaMetadataContainerForIdentifier:urnString audioChannelID:audioChannelID];
+                                        [self.storageCenter flagAsFavorite:favorite mediaMetadata:mediaMetadata];
                                     }
                                 }];
     }
@@ -106,52 +112,37 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
     }
 
     if (!self.storageCenter) {
-        self.storageCenter = [SRGOfflineStorageCenter favoritesCenterWithMetadataProvider:self];
+        self.storageCenter = [SRGOfflineStorageCenter favoritesOffineStorageCenter];
     }
+    
+    id<SRGShowMetadataContainer> showMetadata = [self showMetadataContainerForIdentifier:identifier audioChannelID:audioChannelID];
+    [self.storageCenter flagAsFavorite:favorite showMetadata:showMetadata];
 
-    [self.storageCenter flagAsFavorite:favorite showWithIdentifier:identifier audioChannelID:audioChannelID];
+    [self.storageCenter flagAsFavorite:favorite showMetadata:showMetadata];
 }
 
 - (NSArray *)flaggedAsFavoriteMediaMetadatas
 {
     if (!self.storageCenter) {
-        self.storageCenter = [SRGOfflineStorageCenter favoritesCenterWithMetadataProvider:self];
+        self.storageCenter = [SRGOfflineStorageCenter favoritesOffineStorageCenter];
     }
-
-    NSMutableArray *items = [NSMutableArray array];
-    RLMResults *results = [self.storageCenter flaggedAsFavoriteMediaMetadatas];
     
-    for (id<SRGMediaMetadataContainer>container in results) {
-        SRGILMediaMetadata *md = [SRGILMediaMetadata metadataForContainer:container];
-        if (md) {
-            [items addObject:md];
-        }
-    }
-    return [NSArray arrayWithArray:items];
+    return [self.storageCenter flaggedAsFavoriteMediaMetadatas];
 }
 
 - (NSArray *)flaggedAsFavoriteShowMetadatas
 {
     if (!self.storageCenter) {
-        self.storageCenter = [SRGOfflineStorageCenter favoritesCenterWithMetadataProvider:self];
+        self.storageCenter = [SRGOfflineStorageCenter favoritesOffineStorageCenter];
     }
 
-    NSMutableArray *items = [NSMutableArray array];
-    RLMResults *results = [self.storageCenter flaggedAsFavoriteShowMetadatas];
-    
-    for (id<SRGShowMetadataContainer>container in results) {
-        SRGILShowMetadata *md = [SRGILShowMetadata metadataForContainer:container];
-        if (md) {
-            [items addObject:md];
-        }
-    }
-    return [NSArray arrayWithArray:items];
+    return [self.storageCenter flaggedAsFavoriteShowMetadatas];
 }
 
 - (void)extractLocalItemsOfIndex:(SRGILFetchListIndex)index onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
     if (!self.storageCenter) {
-        self.storageCenter = [SRGOfflineStorageCenter favoritesCenterWithMetadataProvider:self];
+        self.storageCenter = [SRGOfflineStorageCenter favoritesOffineStorageCenter];
     }
 
     switch (index) {
@@ -190,13 +181,14 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
 
 #pragma mark - RTSMetadatasProvider
 
-- (id<SRGMediaMetadataContainer>)mediaMetadataContainerForIdentifier:(NSString *)identifier
+- (id<SRGMediaMetadataContainer>)mediaMetadataContainerForIdentifier:(NSString *)identifier audioChannelID:(NSString *)audioChannel
 {
     SRGILMediaMetadata *md = nil;
     // For medias, the identifier must be the URN string
     SRGILMedia *existingMedia = [self.identifiedMedias objectForKey:identifier];
     if (existingMedia) {
         md = [SRGILMediaMetadata mediaMetadataForMedia:existingMedia];
+        md.audioChannelID = audioChannel;
     }
     else {
         id<SRGMediaMetadataContainer> container = [self.storageCenter mediaMetadataForIdentifier:identifier];
@@ -205,12 +197,13 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
     return md;
 }
 
-- (id<SRGShowMetadataContainer>)showMetadataContainerForIdentifier:(NSString *)identifier
+- (id<SRGShowMetadataContainer>)showMetadataContainerForIdentifier:(NSString *)identifier audioChannelID:(NSString *)audioChannel
 {
     SRGILShowMetadata *md = nil;
     SRGILShow *existingShow = [self.identifiedShows objectForKey:identifier];
     if (existingShow) {
         md = [SRGILShowMetadata showMetadataForShow:existingShow];
+        md.audioChannelID = audioChannel;
     }
     else {
         id<SRGShowMetadataContainer> container = [self.storageCenter showMetadataForIdentifier:identifier];

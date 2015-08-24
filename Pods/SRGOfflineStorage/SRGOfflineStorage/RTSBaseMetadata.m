@@ -48,16 +48,21 @@
     self = [super init];
     if (self) {
         self.identifier = REALM_NONNULL_STRING([container identifier]);
-        self.title = REALM_NONNULL_STRING([container title]);
-        self.imageURLString = REALM_NONNULL_STRING([container imageURLString]);
-        self.audioChannelID = REALM_NONNULL_STRING([container audioChannelID]);
-
-        self.expirationDate = REALM_NONNULL_DATE([container expirationDate]);
-        self.favoriteChangeDate = REALM_NONNULL_DATE(nil);
-        
-        self.isFavorite = [container isFavorite];
+        [self udpateWithContainer:container];
     }
     return self;
+}
+
+- (void)udpateWithContainer:(id<SRGBaseMetadataContainer>)container
+{
+    self.title = REALM_NONNULL_STRING([container title]);
+    self.imageURLString = REALM_NONNULL_STRING([container imageURLString]);
+    self.audioChannelID = REALM_NONNULL_STRING([container audioChannelID]);
+    
+    self.expirationDate = REALM_NONNULL_DATE([container expirationDate]);
+    self.favoriteChangeDate = REALM_NONNULL_DATE(nil);
+    
+    self.isFavorite = [container isFavorite];
 }
 
 - (BOOL)isValueEmptyForKey:(NSString *)key

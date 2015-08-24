@@ -9,7 +9,7 @@
 #import "SRGILDataProvider.h"
 #import <SRGOfflineStorage/SRGOfflineStorage.h>
 
-@interface SRGILDataProvider (OfflineStorage) <SRGMetadatasProvider>
+@interface SRGILDataProvider (OfflineStorage)
 
 - (BOOL)isMediaFlaggedAsFavorite:(NSString *)urnString;
 - (BOOL)isShowFlaggedAsFavorite:(NSString *)identifier;

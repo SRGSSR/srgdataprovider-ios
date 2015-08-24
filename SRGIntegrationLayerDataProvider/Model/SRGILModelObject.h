@@ -29,6 +29,7 @@
 @property(nonatomic, strong, readonly) NSDate *downloadDate;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
+- (id)initAnEmptyModelObjectWithUrnString:(NSString *)urnString;
 
 /**
  *  This method can be used to switch on or off the support for NSCoding for properties of the object.

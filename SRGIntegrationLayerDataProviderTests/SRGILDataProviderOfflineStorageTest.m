@@ -114,17 +114,19 @@
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
     
     // Use private method to insert old-style metadata into DB.
-    dataProvider.storageCenter = [SRGOfflineStorageCenter favoritesCenterWithMetadataProvider:dataProvider];
+    dataProvider.storageCenter = [SRGOfflineStorageCenter favoritesOffineStorageCenter];
+    
+    id mediaMetadaMock = OCMProtocolMock(@protocol(SRGMediaMetadataContainer));
+    OCMStub([mediaMetadaMock identifier]).andReturn([SRGILURN identifierForURNString:self.validMediaURNString]);
+    
     [dataProvider.storageCenter flagAsFavorite:YES
-                           mediaWithIdentifier:[SRGILURN identifierForURNString:self.validMediaURNString]
-                                audioChannelID:nil];
+                                 mediaMetadata:mediaMetadaMock];
     
     XCTAssertTrue([self.dataProvider isMediaFlaggedAsFavorite:[SRGILURN identifierForURNString:self.validMediaURNString]]);
     XCTAssertTrue([self.dataProvider isMediaFlaggedAsFavorite:self.validMediaURNString]);
     
     // When flagging again, the metadata with the identifier must disappear, even when flagging with the same value.
     [dataProvider flagAsFavorite:YES mediaWithURNString:self.validMediaURNString audioChannelID:nil];
-        
     XCTAssertTrue([self.dataProvider isMediaFlaggedAsFavorite:self.validMediaURNString]);
     XCTAssertFalse([self.dataProvider isMediaFlaggedAsFavorite:[SRGILURN identifierForURNString:self.validMediaURNString]]);
 }

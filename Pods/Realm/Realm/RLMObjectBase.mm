@@ -23,10 +23,13 @@
 #import "RLMProperty_Private.h"
 #import "RLMRealm_Private.hpp"
 #import "RLMSchema_Private.h"
+#import "RLMArray_Private.hpp"
 
 #import "RLMObjectStore.h"
 #import "RLMSwiftSupport.h"
 #import "RLMUtil.hpp"
+
+using namespace realm;
 
 const NSUInteger RLMDescriptionMaxDepth = 5;
 
@@ -34,50 +37,78 @@ const NSUInteger RLMDescriptionMaxDepth = 5;
 
 // standalone init
 - (instancetype)init {
-    if (RLMSchema.sharedSchema) {
-        RLMObjectSchema *objectSchema = [self.class sharedSchema];
-        self = [self initWithRealm:nil schema:objectSchema];
+    self = [super init];
+    if (self && RLMSchema.sharedSchema) {
+        _objectSchema = [self.class sharedSchema];
 
         // set default values
-        if (!objectSchema.isSwiftClass) {
-            NSDictionary *dict = RLMDefaultValuesForObjectSchema(objectSchema);
+        if (!_objectSchema.isSwiftClass) {
+            NSDictionary *dict = RLMDefaultValuesForObjectSchema(_objectSchema);
             for (NSString *key in dict) {
                 [self setValue:dict[key] forKey:key];
             }
         }
 
         // set standalone accessor class
-        object_setClass(self, objectSchema.standaloneClass);
-    }
-    else {
-        // if schema not initialized
-        // this is only used for introspection
-        self = [super init];
+        object_setClass(self, _objectSchema.standaloneClass);
     }
 
     return self;
 }
 
-- (instancetype)initWithObject:(id)value schema:(RLMSchema *)schema {
+static id RLMValidatedObjectForProperty(id obj, RLMProperty *prop, RLMSchema *schema) {
+    if (RLMIsObjectValidForProperty(obj, prop)) {
+        return obj;
+    }
+
+    // check for object or array of properties
+    if (prop.type == RLMPropertyTypeObject) {
+        // for object create and try to initialize with obj
+        RLMObjectSchema *objSchema = schema[prop.objectClassName];
+        return [[objSchema.objectClass alloc] initWithValue:obj schema:schema];
+    }
+    else if (prop.type == RLMPropertyTypeArray && [obj conformsToProtocol:@protocol(NSFastEnumeration)]) {
+        // for arrays, create objects for each element and return new array
+        RLMObjectSchema *objSchema = schema[prop.objectClassName];
+        RLMArray *objects = [[RLMArray alloc] initWithObjectClassName: objSchema.className standalone:YES];
+        for (id el in obj) {
+            [objects addObject:[[objSchema.objectClass alloc] initWithValue:el schema:schema]];
+        }
+        return objects;
+    }
+
+    // if not convertible to prop throw
+    @throw RLMException([NSString stringWithFormat:@"Invalid value '%@' for property '%@'", obj, prop.name]);
+}
+
+- (instancetype)initWithValue:(id)value schema:(RLMSchema *)schema {
     self = [self init];
+    NSArray *properties = _objectSchema.properties;
     if (NSArray *array = RLMDynamicCast<NSArray>(value)) {
-        // validate and populate
-        array = RLMValidatedArrayForObjectSchema(array, _objectSchema, schema);
-        NSArray *properties = _objectSchema.properties;
+        if (array.count != properties.count) {
+            @throw RLMException(@"Invalid array input. Number of array elements does not match number of properties.");
+        }
         for (NSUInteger i = 0; i < array.count; i++) {
-            [self setValue:array[i] forKeyPath:[properties[i] name]];
+            id propertyValue = RLMValidatedObjectForProperty(array[i], properties[i], schema);
+            [self setValue:RLMNSNullToNil(propertyValue) forKeyPath:[properties[i] name]];
         }
     }
     else {
-        // assume our object is an NSDictionary or a an object with kvc properties
-        NSDictionary *dict = RLMValidatedDictionaryForObjectSchema(value, _objectSchema, schema);
-        for (NSString *name in dict) {
-            id val = dict[name];
-            // strip out NSNull before passing values to standalone setters
-            if (val == NSNull.null) {
-                val = nil;
+        // assume our object is an NSDictionary or an object with kvc properties
+        NSDictionary *defaultValues = nil;
+        for (RLMProperty *prop in properties) {
+            id obj = RLMValidatedValueForProperty(value, prop.name, _objectSchema.className);
+
+            // get default for nil object
+            if (!obj) {
+                if (!defaultValues) {
+                    defaultValues = RLMDefaultValuesForObjectSchema(_objectSchema);
+                }
+                obj = defaultValues[prop.name];
             }
-            [self setValue:val forKeyPath:name];
+
+            obj = RLMValidatedObjectForProperty(obj, prop, schema);
+            [self setValue:RLMNSNullToNil(obj) forKeyPath:prop.name];
         }
     }
 
@@ -179,6 +210,10 @@ const NSUInteger RLMDescriptionMaxDepth = 5;
     else {
         return [super hash];
     }
+}
+
++ (BOOL)shouldPersistToRealm {
+    return RLMIsObjectSubclass(self);
 }
 
 @end
@@ -296,6 +331,18 @@ BOOL RLMObjectBaseAreEqual(RLMObjectBase *o1, RLMObjectBase *o2) {
     o1->_row.get_index() == o2->_row.get_index();
 }
 
+id RLMValidatedValueForProperty(id object, NSString *key, NSString *className) {
+    @try {
+        return [object valueForKey:key];
+    }
+    @catch (NSException *e) {
+        if ([e.name isEqualToString:NSUndefinedKeyException]) {
+            @throw RLMException([NSString stringWithFormat:@"Invalid value '%@' to initialize object of type '%@': missing key '%@'",
+                                 object, className, key]);
+        }
+        @throw;
+    }
+}
 
 Class RLMObjectUtilClass(BOOL isSwift) {
     static Class objectUtilObjc = [RLMObjectUtil class];
@@ -304,10 +351,6 @@ Class RLMObjectUtilClass(BOOL isSwift) {
 }
 
 @implementation RLMObjectUtil
-
-+ (NSString *)primaryKeyForClass:(Class)cls {
-    return [cls primaryKey];
-}
 
 + (NSArray *)ignoredPropertiesForClass:(Class)cls {
     return [cls ignoredProperties];
@@ -322,6 +365,14 @@ Class RLMObjectUtilClass(BOOL isSwift) {
 }
 
 + (void)initializeListProperty:(__unused RLMObjectBase *)object property:(__unused RLMProperty *)property array:(__unused RLMArray *)array {
+}
+
++ (NSArray *)getOptionalPropertyNames:(__unused id)obj {
+    return nil;
+}
+
++ (NSArray *)requiredPropertiesForClass:(Class)cls {
+    return [cls requiredProperties];
 }
 
 @end

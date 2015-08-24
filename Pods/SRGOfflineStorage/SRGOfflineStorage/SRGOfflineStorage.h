@@ -5,6 +5,7 @@
 //  Copyright (c) 2015 RTS. All rights reserved.
 //
 
-#import "SRGMetadatasProtocols.h"
 #import "SRGOfflineStorageCenter.h"
+#import "SRGMetadatasProtocols.h"
+#import "SRGDownloadProtocol.h"
 

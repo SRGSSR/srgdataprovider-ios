@@ -14,50 +14,50 @@ PODS:
   - libextobjc/EXTScope (0.4.1):
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.4.1)
-  - OCMock (3.0.2)
-  - Realm (0.91.5):
-    - Realm/Headers (= 0.91.5)
-  - Realm/Headers (0.91.5)
+  - OCMock (3.1.2)
+  - Realm (0.94.1):
+    - Realm/Headers (= 0.94.1)
+  - Realm/Headers (0.94.1)
   - SDWebImage (3.7.0):
     - SDWebImage/Core (= 3.7.0)
   - SDWebImage/Core (3.7.0)
   - SGVReachability (1.0.0)
-  - SRGAnalytics (1.0.1):
-    - SRGAnalytics/Core (= 1.0.1)
-  - SRGAnalytics/Core (1.0.1):
+  - SRGAnalytics (1.0.2):
+    - SRGAnalytics/Core (= 1.0.2)
+  - SRGAnalytics/Core (1.0.2):
     - comScore-iOS-SDK-RTS (= 3.1504.30)
-    - SRGAnalytics/Core/Version (= 1.0.1)
-  - SRGAnalytics/Core/Version (1.0.1):
+    - SRGAnalytics/Core/Version (= 1.0.2)
+  - SRGAnalytics/Core/Version (1.0.2):
     - comScore-iOS-SDK-RTS (= 3.1504.30)
-  - SRGAnalytics/MediaPlayer (1.0.1):
+  - SRGAnalytics/MediaPlayer (1.0.2):
     - SRGAnalytics/Core
     - SRGMediaPlayer (~> 1.1.0)
-  - SRGIntegrationLayerDataProvider (1.0.1):
-    - SRGIntegrationLayerDataProvider/Core (= 1.0.1)
-  - SRGIntegrationLayerDataProvider/Core (1.0.1):
+  - SRGIntegrationLayerDataProvider (1.0.11):
+    - SRGIntegrationLayerDataProvider/Core (= 1.0.11)
+  - SRGIntegrationLayerDataProvider/Core (1.0.11):
     - CocoaLumberjack (~> 2.0.0)
     - libextobjc/EXTScope (= 0.4.1)
     - SGVReachability (~> 1.0.0)
-  - SRGIntegrationLayerDataProvider/MediaPlayer (1.0.1):
+  - SRGIntegrationLayerDataProvider/MediaPlayer (1.0.11):
     - SRGAnalytics (~> 1.0.0)
     - SRGAnalytics/MediaPlayer (~> 1.0.0)
     - SRGIntegrationLayerDataProvider/Core
     - SRGMediaPlayer (~> 1.1.0)
-  - SRGIntegrationLayerDataProvider/OfflineStorage (1.0.1):
+  - SRGIntegrationLayerDataProvider/OfflineStorage (1.0.11):
     - SRGIntegrationLayerDataProvider/Core
-    - SRGOfflineStorage (~> 1.0.0)
-  - SRGMediaPlayer (1.1.1):
+    - SRGOfflineStorage (~> 1.2.0)
+  - SRGMediaPlayer (1.1.5):
     - libextobjc/EXTScope (~> 0.4.1)
     - TransitionKit (~> 2.2.0)
-  - SRGOfflineStorage (1.0.0):
-    - Realm (~> 0.91.3)
+  - SRGOfflineStorage (1.2.0):
+    - Realm (~> 0.94.1)
   - TransitionKit (2.2.1)
 
 DEPENDENCIES:
   - CocoaLumberjack (~> 2.0.0)
   - KIF (= 3.2.1)
   - libextobjc/EXTScope (= 0.4.1)
-  - OCMock (~> 3.0.0)
+  - OCMock (= 3.1.2)
   - SDWebImage (= 3.7.0)
   - SGVReachability (~> 1.0.0)
   - SRGAnalytics (~> 1.0.0)
@@ -66,25 +66,34 @@ DEPENDENCIES:
   - SRGIntegrationLayerDataProvider/MediaPlayer (from `.`)
   - SRGIntegrationLayerDataProvider/OfflineStorage (from `.`)
   - SRGMediaPlayer (~> 1.1.0)
-  - SRGOfflineStorage (~> 1.0.0)
+  - SRGOfflineStorage (from `ssh://git@bitbucket.org/rtsmb/srgofflinestorage-ios.git`,
+    commit `88e141c51acc8cc40f727db6d41808456c9808fa`)
 
 EXTERNAL SOURCES:
   SRGIntegrationLayerDataProvider:
-    :path: "."
+    :path: .
+  SRGOfflineStorage:
+    :commit: 88e141c51acc8cc40f727db6d41808456c9808fa
+    :git: ssh://git@bitbucket.org/rtsmb/srgofflinestorage-ios.git
+
+CHECKOUT OPTIONS:
+  SRGOfflineStorage:
+    :commit: 88e141c51acc8cc40f727db6d41808456c9808fa
+    :git: ssh://git@bitbucket.org/rtsmb/srgofflinestorage-ios.git
 
 SPEC CHECKSUMS:
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
   comScore-iOS-SDK-RTS: fba80241be3d1770a28304d7ff5a131ecd8c4ad6
   KIF: ef1691e54e1d969c3b4fd0b5b56a3d7ddf37f216
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
-  OCMock: 1f0871af0f397183f33e7552cca088bd2b485c25
-  Realm: 670059efdb212ab939c1745a60aff27820c0a9c4
+  OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
+  Realm: d999a6cf0b41577a077349c9cc9d496cc62a7d17
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
-  SRGAnalytics: 885494e9e4b9114a3946f231e731aa110eabc383
-  SRGIntegrationLayerDataProvider: e3a0a07adcdb69b6875ab3b816dd45a61c120fe2
-  SRGMediaPlayer: 0c33485b14c9c7e5f1d9a8fd9ecdbec308262ee3
-  SRGOfflineStorage: 55c1d646991a07a3dae02fe93a198df7267288de
+  SRGAnalytics: c36d7392bcd71b634fbc98c7115f5df5ab5aae9c
+  SRGIntegrationLayerDataProvider: 8f027861fdf8a98c2bd2b45486c6109c4dc643d5
+  SRGMediaPlayer: 663b41579e93e050d1ec6c3261f9820a6e773a38
+  SRGOfflineStorage: 048677606805235497d9642d5579c70226013d2f
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
 
 COCOAPODS: 0.37.2

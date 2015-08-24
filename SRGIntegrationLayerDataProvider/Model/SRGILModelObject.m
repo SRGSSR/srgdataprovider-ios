@@ -21,6 +21,11 @@
     return nil;
 }
 
+- (id)initAnEmptyModelObjectWithUrnString:(NSString *)urnString
+{
+    return [[self.class alloc] initWithDictionary:@{@"urn":urnString}];
+}
+
 - (id)initWithDictionary:(NSDictionary *)dictionary
 {
     if (!dictionary) {

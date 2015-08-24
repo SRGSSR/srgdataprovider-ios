@@ -12,15 +12,15 @@
  */
 @protocol SRGBaseMetadataContainer <NSObject>
 
-- (NSString *)identifier;
-- (NSString *)title;
-- (NSString *)imageURLString;
-- (NSString *)audioChannelID;
+@property (nonatomic, readonly) NSString *identifier;
+@property (nonatomic, readonly) NSString *title;
+@property (nonatomic, readonly) NSString *imageURLString;
+@property (nonatomic, readonly) NSString *audioChannelID;
 
-- (NSDate *)expirationDate;
-- (NSDate *)favoriteChangeDate;
+@property (nonatomic, readonly) NSDate *expirationDate;
+@property (nonatomic, readonly) NSDate *favoriteChangeDate;
 
-- (BOOL)isFavorite;
+@property (nonatomic, readonly) BOOL isFavorite;
 
 @end
 
@@ -29,15 +29,21 @@
  */
 @protocol SRGMediaMetadataContainer <SRGBaseMetadataContainer>
 
-- (NSString *)parentTitle;
-- (NSString *)mediaDescription;
+@property (nonatomic, readonly) NSString *parentTitle;
+@property (nonatomic, readonly) NSString *mediaDescription;
 
-- (NSDate *)publicationDate;
+@property (nonatomic, readonly) NSDate *publicationDate;
 
-- (NSInteger)type;
-- (long)durationInMs;
-- (int)viewCount;
-- (BOOL)isDownloadable;
+@property (nonatomic, readonly) NSInteger type;
+@property (nonatomic, readonly) long durationInMs;
+@property (nonatomic, readonly) int viewCount;
+@property (nonatomic, readonly) BOOL isDownloadable;
+
+@property (nonatomic, readonly) BOOL isDownloading;
+@property (nonatomic, readonly) BOOL isDownloaded;
+
+@property (nonatomic, readonly) NSString *downloadURLString;
+@property (nonatomic, readonly) NSString *localURLString;
 
 @end
 
@@ -46,17 +52,6 @@
  */
 @protocol SRGShowMetadataContainer <SRGBaseMetadataContainer>
 
-- (NSString *)showDescription;
-
-@end
-
-
-/**
- *  The protocol that defaines what a metadata provider must implement for the storage to work.
- */
-@protocol SRGMetadatasProvider <NSObject>
-
-- (id<SRGMediaMetadataContainer>)mediaMetadataContainerForIdentifier:(NSString *)identifier;
-- (id<SRGShowMetadataContainer>)showMetadataContainerForIdentifier:(NSString *)identifier;
+@property (nonatomic, readonly) NSString *showDescription;
 
 @end

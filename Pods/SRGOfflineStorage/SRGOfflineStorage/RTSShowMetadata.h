@@ -11,7 +11,7 @@
 
 @interface RTSShowMetadata : RTSBaseMetadata <SRGShowMetadataContainer>
 
-@property NSString *showDescription;
+@property (nonatomic) NSString *showDescription;
 
 @end
 

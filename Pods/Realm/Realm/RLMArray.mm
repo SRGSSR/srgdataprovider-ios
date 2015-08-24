@@ -18,7 +18,6 @@
 
 #import "RLMArray_Private.hpp"
 
-#import "RLMObject.h"
 #import "RLMObject_Private.h"
 #import "RLMObjectStore.h"
 #import "RLMObjectSchema.h"
@@ -84,10 +83,9 @@
     }
 }
 
-- (void)removeAllObjects {
-    while (self.count) {
-        [self removeLastObject];
-    }
+- (void)removeAllObjects
+{
+    [_backingArray removeAllObjects];
 }
 
 - (id)objectAtIndexedSubscript:(NSUInteger)index {
@@ -105,11 +103,22 @@
 
 static void RLMValidateMatchingObjectType(RLMArray *array, RLMObject *object) {
     if (!object || ![array->_objectClassName isEqualToString:object->_objectSchema.className]) {
-        @throw RLMException(@"Object type does not match RLMArray");
+        NSString *message = [NSString stringWithFormat:@"Object type '%@' does not match RLMArray type '%@'.", object->_objectSchema.className, array->_objectClassName];
+        @throw RLMException(message);
+    }
+}
+
+static void RLMValidateArrayBounds(__unsafe_unretained RLMArray *const ar,
+                                   NSUInteger index, bool allowOnePastEnd=false) {
+    NSUInteger max = ar->_backingArray.count + allowOnePastEnd;
+    if (index >= max) {
+        @throw RLMException([NSString stringWithFormat:@"Index %llu is out of bounds (must be less than %llu).",
+                             (unsigned long long)index, (unsigned long long)max]);
     }
 }
 
 - (id)objectAtIndex:(NSUInteger)index {
+    RLMValidateArrayBounds(self, index);
     return [_backingArray objectAtIndex:index];
 }
 
@@ -127,16 +136,33 @@ static void RLMValidateMatchingObjectType(RLMArray *array, RLMObject *object) {
 
 - (void)insertObject:(RLMObject *)anObject atIndex:(NSUInteger)index {
     RLMValidateMatchingObjectType(self, anObject);
+    RLMValidateArrayBounds(self, index, true);
     [_backingArray insertObject:anObject atIndex:index];
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index {
+    RLMValidateArrayBounds(self, index);
     [_backingArray removeObjectAtIndex:index];
 }
 
 - (void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject {
     RLMValidateMatchingObjectType(self, anObject);
+    RLMValidateArrayBounds(self, index);
     [_backingArray replaceObjectAtIndex:index withObject:anObject];
+}
+
+- (void)moveObjectAtIndex:(NSUInteger)sourceIndex toIndex:(NSUInteger)destinationIndex {
+    RLMValidateArrayBounds(self, sourceIndex);
+    RLMValidateArrayBounds(self, destinationIndex);
+    RLMObjectBase *original = _backingArray[sourceIndex];
+    [_backingArray removeObjectAtIndex:sourceIndex];
+    [_backingArray insertObject:original atIndex:destinationIndex];
+}
+
+- (void)exchangeObjectAtIndex:(NSUInteger)index1 withObjectAtIndex:(NSUInteger)index2 {
+    RLMValidateArrayBounds(self, index1);
+    RLMValidateArrayBounds(self, index2);
+    [_backingArray exchangeObjectAtIndex:index1 withObjectAtIndex:index2];
 }
 
 - (NSUInteger)indexOfObject:(RLMObject *)object {
@@ -149,12 +175,6 @@ static void RLMValidateMatchingObjectType(RLMArray *array, RLMObject *object) {
         index++;
     }
     return NSNotFound;
-}
-
-- (void)deleteObjectsFromRealm {
-    for (RLMObject *obj in _backingArray) {
-        RLMDeleteObjectFromRealm(obj, _realm);
-    }
 }
 
 - (RLMResults *)objectsWhere:(NSString *)predicateFormat, ...
@@ -175,6 +195,12 @@ static void RLMValidateMatchingObjectType(RLMArray *array, RLMObject *object) {
 
 - (void)setValue:(id)value forKey:(NSString *)key {
     [_backingArray setValue:value forKey:key];
+}
+
+- (NSUInteger)indexOfObjectWithPredicate:(NSPredicate *)predicate {
+    return [_backingArray indexOfObjectPassingTest:^BOOL(id obj, NSUInteger, BOOL *) {
+        return [predicate evaluateWithObject:obj];
+    }];
 }
 
 //
@@ -212,15 +238,6 @@ static void RLMValidateMatchingObjectType(RLMArray *array, RLMObject *object) {
 {
     return [self indexOfObjectWithPredicate:[NSPredicate predicateWithFormat:predicateFormat
                                                                    arguments:args]];
-}
-
-- (NSUInteger)indexOfObjectWithPredicate:(NSPredicate *)predicate
-{
-    RLMResults *objects = [self objectsWithPredicate:predicate];
-    if ([objects count] == 0) {
-        return NSNotFound;
-    }
-    return [self indexOfObject:[objects firstObject]];
 }
 
 #pragma mark - Superclass Overrides

@@ -1,0 +1,33 @@
+{
+  "name": "SRGOfflineStorage",
+  "version": "1.2.0",
+  "summary": "Offline Storage for media and show metadata",
+  "description": "    This is an implementation for storing offline metadata of medias and shows. For the moment it is not entirely\n    generic and is still modeled around the metadata of the SRG Integration Layer. It is used in SRG Play apps to\n    implement the 'Favorites' features.\n",
+  "homepage": "http://rts.ch",
+  "license": {
+    "type": "N/A"
+  },
+  "authors": {
+    "Cédric Foellmi": "cedric@onekilopars.ec",
+    "Pierre-Yves bertholon": "py.bertholon@gmail.com"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "source": {
+    "git": "git@bitbucket.org:rtsmb/srgofflinestorage-ios.git",
+    "tag": "1.2.0"
+  },
+  "source_files": "SRGOfflineStorage",
+  "public_header_files": "SRGOfflineStorage/*.h",
+  "frameworks": [
+    "Foundation",
+    "UIKit"
+  ],
+  "dependencies": {
+    "Realm": [
+      "~> 0.94.1"
+    ]
+  }
+}

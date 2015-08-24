@@ -28,6 +28,10 @@
     defaults[@"durationInMs"] = @(-1);
     defaults[@"viewCount"] = @(-1);
     defaults[@"isDownloadable"] = @(0);
+    defaults[@"isDownloading"] = @(0);
+    defaults[@"isDownloaded"] = @(0);
+    defaults[@"downloadURLString"] = @"";
+    defaults[@"localURLString"] = @"";
     return [defaults copy];
 }
 
@@ -35,17 +39,29 @@
 {
     self = [super initWithContainer:container];
     if (self) {
-        self.parentTitle = REALM_NONNULL_STRING([container parentTitle]);
-        self.mediaDescription = REALM_NONNULL_STRING([container mediaDescription]);
-
-        self.publicationDate = REALM_NONNULL_DATE([container publicationDate]);
-        
-        self.type = [container type];
-        self.durationInMs = [container durationInMs];
-        self.viewCount = [container viewCount];
-        self.isDownloadable = [container isDownloadable];
+        [self udpateWithContainer:container];
     }
     return self;
+}
+
+- (void)udpateWithContainer:(id<SRGMediaMetadataContainer>)container
+{
+    [super udpateWithContainer:container];
+    self.parentTitle = REALM_NONNULL_STRING([container parentTitle]);
+    self.mediaDescription = REALM_NONNULL_STRING([container mediaDescription]);
+    
+    self.publicationDate = REALM_NONNULL_DATE([container publicationDate]);
+    
+    self.type = [container type];
+    self.durationInMs = [container durationInMs];
+    self.viewCount = [container viewCount];
+    self.isDownloadable = [container isDownloadable];
+    
+    self.isDownloading = [container isDownloading];
+    self.isDownloaded = [container isDownloaded];
+    
+    self.downloadURLString = REALM_NONNULL_STRING([container downloadURLString]);
+    self.localURLString = REALM_NONNULL_STRING([container localURLString]);
 }
 
 @end

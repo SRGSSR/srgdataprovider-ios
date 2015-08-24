@@ -13,14 +13,16 @@ pod 'SRGAnalytics', '~> 1.0.0'
 pod 'SRGAnalytics/MediaPlayer'
 
 pod 'SRGMediaPlayer', '~> 1.1.0'
-pod 'SRGOfflineStorage', '~> 1.0.0'
+#pod 'SRGOfflineStorage', '~> 1.2.0'
+#pod 'SRGOfflineStorage', :path => '../srgofflinestorage-ios/'
+pod  'SRGOfflineStorage', :git => 'ssh://git@bitbucket.org/rtsmb/srgofflinestorage-ios.git', :commit => '88e141c51acc8cc40f727db6d41808456c9808fa'
 
 pod 'SGVReachability', '~> 1.0.0'
 pod 'CocoaLumberjack', '~> 2.0.0'
 pod 'libextobjc/EXTScope', '0.4.1'
 
 target 'SRGIntegrationLayerDataProviderTests', :exclusive => true do
-    pod 'OCMock', '~> 3.0.0'
+    pod 'OCMock', '3.1.2'
 	pod 'SRGIntegrationLayerDataProvider', :path => '.'
 	pod 'SRGIntegrationLayerDataProvider/MediaPlayer', :path => '.'
 	pod 'SRGIntegrationLayerDataProvider/OfflineStorage', :path => '.'
@@ -41,15 +43,18 @@ target 'SRGIntegrationLayerDataProvider DemoTests', :exclusive => true do
 end
 
 
-# See https://github.com/CocoaPods/CocoaPods/issues/2704
-# where the 'stdc++' has been stripped to 'c++'
-
 post_install do |installer|
+    
+    pods_project = installer.respond_to?(:pods_project) ? installer.pods_project : installer.project # Prepare for CocoaPods 0.38.2
+    
+    # See https://github.com/CocoaPods/CocoaPods/issues/2704
+    # where the 'stdc++' has been stripped to 'c++' / Fixed with CocoaPods 0.38.2
     
     support_files_group = installer.project.support_files_group.groups[0]
     source_tree = File.join(installer.sandbox_root, support_files_group.path)
     
     support_files_group.files.each do |file|
+        
         next unless file.path.end_with?('.xcconfig')
         xcconfig_path = File.join(source_tree, file.path)
         xcconfig = File.read(xcconfig_path)
@@ -58,11 +63,12 @@ post_install do |installer|
         
     end
     
-   installer.project.targets.each do |target|
-       target.build_configurations.each do |config|
-           config.build_settings['TARGETED_DEVICE_FAMILY'] = '1,2' # iPhone, iPad
-#            config.build_settings['TARGETED_DEVICE_FAMILY'] = '2'
-       end
-   end
-   
+    # Set Device family to iPhone/iPad
+    
+    pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['TARGETED_DEVICE_FAMILY'] = '1,2' # iPhone, iPad
+        end
+    end
+    
 end

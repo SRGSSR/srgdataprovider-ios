@@ -27,9 +27,15 @@
 {
     self = [super initWithContainer:container];
     if (self) {
-        self.showDescription = REALM_NONNULL_STRING([container showDescription]);
+        [self udpateWithContainer:container];
     }
     return self;
+}
+
+- (void)udpateWithContainer:(id<SRGShowMetadataContainer>)container
+{
+    [super udpateWithContainer:container];
+    self.showDescription = REALM_NONNULL_STRING([container showDescription]);
 }
 
 @end

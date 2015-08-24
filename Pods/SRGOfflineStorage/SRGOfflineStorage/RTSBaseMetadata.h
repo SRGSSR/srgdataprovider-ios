@@ -11,19 +11,20 @@
 @interface RTSBaseMetadata : RLMObject <SRGBaseMetadataContainer>
 
 // As Realm doc indicates, do not provide storage keyword (strong, assign...) in properties.
-@property NSString *identifier;
-@property NSString *title;
-@property NSString *imageURLString;
-@property NSString *audioChannelID;
+@property (nonatomic) NSString *identifier;
+@property (nonatomic) NSString *title;
+@property (nonatomic) NSString *imageURLString;
+@property (nonatomic) NSString *audioChannelID;
 
-@property NSDate *expirationDate;
-@property NSDate *favoriteChangeDate;
+@property (nonatomic) NSDate *expirationDate;
+@property (nonatomic) NSDate *favoriteChangeDate;
 
-@property BOOL isFavorite;
+@property (nonatomic) BOOL isFavorite;
 
 + (instancetype)metadataForContainer:(id<SRGBaseMetadataContainer>)container;
 - (instancetype)initWithContainer:(id<SRGBaseMetadataContainer>)container;
 
+- (void)udpateWithContainer:(id<SRGBaseMetadataContainer>)container;
 - (BOOL)isValueEmptyForKey:(NSString *)key;
 
 @end

@@ -11,15 +11,21 @@
 
 @interface RTSMediaMetadata : RTSBaseMetadata <SRGMediaMetadataContainer>
 
-@property NSString *parentTitle;
-@property NSString *mediaDescription;
+@property (nonatomic) NSString *parentTitle;
+@property (nonatomic) NSString *mediaDescription;
 
-@property NSDate *publicationDate;
+@property (nonatomic) NSDate *publicationDate;
 
-@property NSInteger type;
-@property long durationInMs;
-@property int viewCount;
-@property BOOL isDownloadable;
+@property (nonatomic) NSInteger type;
+@property (nonatomic) long durationInMs;
+@property (nonatomic) int viewCount;
+@property (nonatomic) BOOL isDownloadable;
+
+@property (nonatomic) BOOL isDownloading;
+@property (nonatomic) BOOL isDownloaded;
+
+@property (nonatomic) NSString *downloadURLString;
+@property (nonatomic) NSString *localURLString;
 
 @end
 
