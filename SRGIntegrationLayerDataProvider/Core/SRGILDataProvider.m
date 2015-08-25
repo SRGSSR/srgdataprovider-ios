@@ -293,11 +293,26 @@ static NSArray *validBusinessUnits = nil;
 
 - (NSString *)urlPathForListIndex:(enum SRGILFetchListIndex)index withParameters:(NSDictionary *)parameters
 {
-    NSString *remoteURLPath = _typedFetchPaths[@(index)]; // Can be SRGConfigNoValidRequestURLPath, and it is OK.
-    NSRange r = [remoteURLPath rangeOfString:@"?"];
+    __block NSString *remoteURLPath = _typedFetchPaths[@(index)]; // Can be SRGConfigNoValidRequestURLPath, and it is OK.
+    NSURL *url = [NSURL URLWithString:remoteURLPath];
     
-    if (r.location != NSNotFound) {
-        remoteURLPath = [remoteURLPath substringToIndex:r.location+1];
+    if (url.query) {
+        // Problem: don't magle parameters other than the paging ones (i.e. search param 'q')
+        NSArray *pagingParams = @[@"pageNumber", @"pageSize", @"total"];
+        
+        // Extract non-paging params and values:
+        __block NSMutableDictionary *nonPagingParams = [NSMutableDictionary dictionary];
+        [[url.query componentsSeparatedByString:@"&"] enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
+            NSArray *chunks = [obj componentsSeparatedByString:@"="];
+            if ([chunks count] == 2) {
+                NSString *name = chunks[0];
+                if (![pagingParams containsObject:name]) {
+                    nonPagingParams[name] = chunks[1];
+                }
+            }
+        }];
+        
+        remoteURLPath = [NSString stringWithFormat:@"%@?", url.path];
         
         NSDictionary *properties = (NSDictionary *)parameters;
         NSInteger currentPageNumber = [[properties objectForKey:@"pageNumber"] integerValue];
@@ -310,14 +325,19 @@ static NSArray *validBusinessUnits = nil;
         if (!hasReachedEnd) {
             remoteURLPath = [remoteURLPath stringByAppendingFormat:@"pageSize=%ld&pageNumber=%ld",
                              (long)currentPageSize, (long)currentPageNumber+1];
+            
+            // Add non-paging params:
+            [nonPagingParams enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *stop) {
+                remoteURLPath = [remoteURLPath stringByAppendingFormat:@"&%@=%@", key, obj];
+            }];
+            
         }
         else {
             remoteURLPath = SRGConfigNoValidRequestURLPath;
         }
     }
     
-    return remoteURLPath;
-}
+    return remoteURLPath;}
 
 - (void)extractItemsAndClassNameFromRawDictionary:(NSDictionary *)rawDictionary
                                            forTag:(id<NSCopying>)tag
