@@ -9,6 +9,8 @@
 #import "SRGILMedia.h"
 
 #import "SRGILPlaylist.h"
+#import "SRGILDownload.h"
+
 #import "SRGILImage.h"
 #import "SRGILAsset.h"
 #import "SRGILAssetSet.h"
@@ -83,6 +85,17 @@
             }
         }
         _playlists = [NSArray arrayWithArray:tmp];
+
+        NSArray *downloadsDictionaries = [dictionary valueForKeyPath:@"Downloads.Download"];
+        [tmp removeAllObjects];
+        
+        for (NSDictionary *downloadDict in downloadsDictionaries) {
+            SRGILDownload *download = [[SRGILDownload alloc] initWithDictionary:downloadDict];
+            if (download) {
+                [tmp addObject:download];
+            }
+        }
+        _downloads = [NSArray arrayWithArray:tmp];
         
         NSString *positionKey = [dictionary objectForKey:@"editorialPosition"] ? @"editorialPosition" : @"position";
         _orderPosition = [[dictionary objectForKey:positionKey] integerValue];

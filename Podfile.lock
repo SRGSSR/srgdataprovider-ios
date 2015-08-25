@@ -15,9 +15,6 @@ PODS:
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.4.1)
   - OCMock (3.1.2)
-  - Realm (0.94.1):
-    - Realm/Headers (= 0.94.1)
-  - Realm/Headers (0.94.1)
   - SDWebImage (3.7.0):
     - SDWebImage/Core (= 3.7.0)
   - SDWebImage/Core (3.7.0)
@@ -32,25 +29,20 @@ PODS:
   - SRGAnalytics/MediaPlayer (1.0.2):
     - SRGAnalytics/Core
     - SRGMediaPlayer (~> 1.1.0)
-  - SRGIntegrationLayerDataProvider (1.0.12):
-    - SRGIntegrationLayerDataProvider/Core (= 1.0.12)
-  - SRGIntegrationLayerDataProvider/Core (1.0.12):
+  - SRGIntegrationLayerDataProvider (2.0.0):
+    - SRGIntegrationLayerDataProvider/Core (= 2.0.0)
+  - SRGIntegrationLayerDataProvider/Core (2.0.0):
     - CocoaLumberjack (~> 2.0.0)
     - libextobjc/EXTScope (= 0.4.1)
     - SGVReachability (~> 1.0.0)
-  - SRGIntegrationLayerDataProvider/MediaPlayer (1.0.12):
+  - SRGIntegrationLayerDataProvider/MediaPlayer (2.0.0):
     - SRGAnalytics (~> 1.0.0)
     - SRGAnalytics/MediaPlayer (~> 1.0.0)
     - SRGIntegrationLayerDataProvider/Core
     - SRGMediaPlayer (~> 1.1.0)
-  - SRGIntegrationLayerDataProvider/OfflineStorage (1.0.12):
-    - SRGIntegrationLayerDataProvider/Core
-    - SRGOfflineStorage (~> 1.2.1)
   - SRGMediaPlayer (1.1.5):
     - libextobjc/EXTScope (~> 0.4.1)
     - TransitionKit (~> 2.2.0)
-  - SRGOfflineStorage (1.2.1):
-    - Realm (~> 0.94.1)
   - TransitionKit (2.2.1)
 
 DEPENDENCIES:
@@ -64,9 +56,7 @@ DEPENDENCIES:
   - SRGAnalytics/MediaPlayer
   - SRGIntegrationLayerDataProvider (from `.`)
   - SRGIntegrationLayerDataProvider/MediaPlayer (from `.`)
-  - SRGIntegrationLayerDataProvider/OfflineStorage (from `.`)
   - SRGMediaPlayer (~> 1.1.0)
-  - SRGOfflineStorage (~> 1.2.1)
 
 EXTERNAL SOURCES:
   SRGIntegrationLayerDataProvider:
@@ -78,13 +68,11 @@ SPEC CHECKSUMS:
   KIF: ef1691e54e1d969c3b4fd0b5b56a3d7ddf37f216
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
-  Realm: d999a6cf0b41577a077349c9cc9d496cc62a7d17
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
   SRGAnalytics: c36d7392bcd71b634fbc98c7115f5df5ab5aae9c
-  SRGIntegrationLayerDataProvider: b60107a2b76e398c3bd54c617f25572b8241622a
+  SRGIntegrationLayerDataProvider: dc3cb8d5fafb9373e454c149fbaab51eae948021
   SRGMediaPlayer: 663b41579e93e050d1ec6c3261f9820a6e773a38
-  SRGOfflineStorage: ee9f21e50e35d0582f9e4c11559369305b3ce5ae
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
 
 COCOAPODS: 0.37.2

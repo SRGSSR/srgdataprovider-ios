@@ -15,7 +15,4 @@
 #import "SRGILDataProviderMediaPlayerDataSource.h"
 #endif
 
-#if __has_include("SRGILDataProviderOfflineStorage.h")
-#import "SRGILDataProviderOfflineStorage.h"
-#endif
 

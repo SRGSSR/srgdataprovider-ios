@@ -92,4 +92,28 @@ SRGILPlaylistProtocol SRGILPlayListProtocolForString(NSString *protocolString);
 SRGILPlaylistURLQuality SRGILPlaylistURLQualityForString(NSString *qualityString);
 SRGILPlaylistSegmentation SRGILPlaylistSegmentationForString(NSString *segmentationString);
 
+
+
+typedef NS_ENUM(NSInteger, SRGILDownloadProtocol) {
+    SRGILDownloadProtocolEnumBegin = 0,
+    SRGILDownloadProtocolHTTP = SRGILDownloadProtocolEnumBegin,
+    SRGILDownloadProtocolUnknown,
+    SRGILDownloadProtocolEnumEnd,
+    SRGILDownloadProtocolEnumSize = SRGILDownloadProtocolEnumEnd - SRGILDownloadProtocolEnumBegin
+};
+
+typedef NS_ENUM(NSInteger, SRGILDownloadURLQuality) {
+    SRGILDownloadURLQualityEnumBegin = 0,
+    SRGILDownloadURLQualitySD = SRGILDownloadURLQualityEnumBegin,
+    SRGILDownloadURLQualityHD,
+    SRGILDownloadURLQualityUnknown,
+    SRGILDownloadURLQualityEnumEnd,
+    SRGILDownloadURLQualityEnumsize = SRGILDownloadURLQualityEnumEnd - SRGILDownloadURLQualityEnumBegin
+};
+
+SRGILDownloadProtocol SRGILDownloadProtocolForString(NSString *protocolString);
+SRGILDownloadURLQuality SRGILDownloadURLQualityForString(NSString *qualityString);
+
+
+
 #endif

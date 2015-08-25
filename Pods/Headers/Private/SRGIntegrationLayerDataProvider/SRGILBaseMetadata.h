@@ -1,1 +1,0 @@
-../../../../SRGIntegrationLayerDataProvider/Offline/SRGILBaseMetadata.h
