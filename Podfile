@@ -13,9 +13,8 @@ pod 'SRGAnalytics', '~> 1.0.0'
 pod 'SRGAnalytics/MediaPlayer'
 
 pod 'SRGMediaPlayer', '~> 1.1.0'
-#pod 'SRGOfflineStorage', '~> 1.2.0'
 #pod 'SRGOfflineStorage', :path => '../srgofflinestorage-ios/'
-pod  'SRGOfflineStorage', :git => 'ssh://git@bitbucket.org/rtsmb/srgofflinestorage-ios.git', :commit => '88e141c51acc8cc40f727db6d41808456c9808fa'
+pod  'SRGOfflineStorage', '~> 1.2.1'
 
 pod 'SGVReachability', '~> 1.0.0'
 pod 'CocoaLumberjack', '~> 2.0.0'

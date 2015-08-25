@@ -82,7 +82,7 @@
 #define COCOAPODS_POD_AVAILABLE_SRGOfflineStorage
 #define COCOAPODS_VERSION_MAJOR_SRGOfflineStorage 1
 #define COCOAPODS_VERSION_MINOR_SRGOfflineStorage 2
-#define COCOAPODS_VERSION_PATCH_SRGOfflineStorage 0
+#define COCOAPODS_VERSION_PATCH_SRGOfflineStorage 1
 
 // TransitionKit
 #define COCOAPODS_POD_AVAILABLE_TransitionKit

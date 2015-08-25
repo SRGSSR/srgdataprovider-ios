@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SRGIntegrationLayerDataProvider"
-  s.version = "1.0.11"
+  s.version = "1.0.12"
   s.summary = "Data Provider using the Integration Layer for the SRG Media Player"
   s.description = <<-DESC
     This is the implementation of the Data Provider using the Integration Layer. It is a generic data provider and it
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 DESC
   s.homepage = "http://rts.ch"
   s.license = { :type => "N/A" }
-  s.authors = { "Cédric Foellmi" => "cedric.foellmi@hortis.ch", "Cédric Luthi" => "cedric.luthi@rts.ch" }
+  s.authors = { "Cédric Foellmi" => "cedric.foellmi@hortis.ch", "Cédric Luthi" => "cedric.luthi@rts.ch", "Pierre-Yves bertholon" => "py.bertholon@gmail.com" }
   s.source = { :git => "git@bitbucket.org:rtsmb/srgintegrationlayerdataprovider-ios.git", :tag => s.version.to_s }
 
   # Platform setup
@@ -46,7 +46,7 @@ DESC
     os.source_files         = "SRGIntegrationLayerDataProvider/SRGILDataProviderOfflineStorage.h", "SRGIntegrationLayerDataProvider/Offline/*.{h,m}"
     os.private_header_files = "SRGIntegrationLayerDataProvider/Offline/SRGIL*Metadata.{h}"
     os.dependency             "SRGIntegrationLayerDataProvider/Core"
-    os.dependency             "SRGOfflineStorage", "~> 1.2.0"
+    os.dependency             "SRGOfflineStorage", "~> 1.2.1"
   end
 
 end
