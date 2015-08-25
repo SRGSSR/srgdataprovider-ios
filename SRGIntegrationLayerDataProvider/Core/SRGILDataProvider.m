@@ -238,6 +238,19 @@ static NSArray *validBusinessUnits = nil;
         }
             break;
             
+        case SRGILFetchListAudioSearchResult: {
+            if ([arg isKindOfClass:[NSString class]]) {
+                remoteURLPath = [NSString stringWithFormat:@"audio/search.json?q=%@&pageSize=24", arg];
+            }
+            else if ([arg isKindOfClass:[NSDictionary class]]) {
+                remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
+            }
+            else {
+                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListAudioSearchResult: '%@'.", nil), arg];
+            }
+        }
+            break;
+            
         default:
             break;
     }
