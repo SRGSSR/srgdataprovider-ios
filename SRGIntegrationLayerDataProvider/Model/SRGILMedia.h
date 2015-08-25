@@ -205,6 +205,8 @@
  */
 @property (nonatomic, strong) NSArray *playlists;
 
+@property (nonatomic, strong) NSArray *downloads;
+
 /**
  * Override of read-only public property position
  */

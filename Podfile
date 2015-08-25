@@ -13,8 +13,6 @@ pod 'SRGAnalytics', '~> 1.0.0'
 pod 'SRGAnalytics/MediaPlayer'
 
 pod 'SRGMediaPlayer', '~> 1.1.0'
-#pod 'SRGOfflineStorage', :path => '../srgofflinestorage-ios/'
-pod  'SRGOfflineStorage', '~> 1.2.1'
 
 pod 'SGVReachability', '~> 1.0.0'
 pod 'CocoaLumberjack', '~> 2.0.0'
@@ -24,7 +22,6 @@ target 'SRGIntegrationLayerDataProviderTests', :exclusive => true do
     pod 'OCMock', '3.1.2'
 	pod 'SRGIntegrationLayerDataProvider', :path => '.'
 	pod 'SRGIntegrationLayerDataProvider/MediaPlayer', :path => '.'
-	pod 'SRGIntegrationLayerDataProvider/OfflineStorage', :path => '.'
 end
 
 ### Demo project

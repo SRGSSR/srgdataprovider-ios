@@ -114,3 +114,27 @@ SRGILPlaylistSegmentation SRGILPlaylistSegmentationForString(NSString *segmentat
     NSNumber *segmentation = segmentations[segmentationString.uppercaseString];
     return segmentation ? [segmentation integerValue] : SRGILPlaylistSegmentationUnknown;
 }
+
+
+SRGILDownloadProtocol SRGILDownloadProtocolForString(NSString *protocolString)
+{
+    static dispatch_once_t onceToken;
+    static NSDictionary *protocols;
+    dispatch_once(&onceToken, ^{
+        protocols = @{ @"HTTP" : @(SRGILDownloadProtocolHTTP)};
+    });
+    NSNumber *protocol = protocols[protocolString.uppercaseString];
+    return protocol ? [protocol integerValue] : SRGILDownloadProtocolUnknown;
+}
+
+SRGILDownloadURLQuality SRGILDownloadURLQualityForString(NSString *qualityString)
+{
+    static dispatch_once_t onceToken;
+    static NSDictionary *qualities;
+    dispatch_once(&onceToken, ^{
+        qualities = @{ @"SD" : @(SRGILDownloadURLQualitySD),
+                       @"HD" : @(SRGILDownloadURLQualityHD)};
+    });
+    NSNumber *quality = qualities[qualityString.uppercaseString];
+    return quality ? [quality integerValue] : SRGILDownloadURLQualityUnknown;
+}

@@ -1,1 +1,0 @@
-../../../SRGOfflineStorage/SRGOfflineStorage/RTSShowMetadata.h

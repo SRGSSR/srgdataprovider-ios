@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SRGIntegrationLayerDataProvider"
-  s.version = "1.0.12"
+  s.version = "2.0.0"
   s.summary = "Data Provider using the Integration Layer for the SRG Media Player"
   s.description = <<-DESC
     This is the implementation of the Data Provider using the Integration Layer. It is a generic data provider and it
@@ -40,13 +40,6 @@ DESC
     mp.dependency             "SRGMediaPlayer", "~> 1.1.0"
     mp.dependency             "SRGAnalytics", "~> 1.0.0"
     mp.dependency             "SRGAnalytics/MediaPlayer", "~> 1.0.0"
-  end
-
-  s.subspec 'OfflineStorage' do |os|
-    os.source_files         = "SRGIntegrationLayerDataProvider/SRGILDataProviderOfflineStorage.h", "SRGIntegrationLayerDataProvider/Offline/*.{h,m}"
-    os.private_header_files = "SRGIntegrationLayerDataProvider/Offline/SRGIL*Metadata.{h}"
-    os.dependency             "SRGIntegrationLayerDataProvider/Core"
-    os.dependency             "SRGOfflineStorage", "~> 1.2.1"
   end
 
 end

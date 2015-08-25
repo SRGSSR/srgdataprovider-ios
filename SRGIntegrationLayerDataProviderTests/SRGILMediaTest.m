@@ -11,9 +11,11 @@
 
 #import "SRGILMedia.h"
 #import "SRGILVideo.h"
+#import "SRGILDownload.h"
 
 @interface SRGILMediaTest : XCTestCase
 @property(nonatomic, strong) SRGILMedia *media;
+@property(nonatomic, strong) SRGILMedia *downloadableMedia;
 @end
 
 @implementation SRGILMediaTest
@@ -22,6 +24,7 @@
 {
     [super setUp];
     self.media = [[SRGILMedia alloc] initWithDictionary:[self loadJSONFile:@"video_03" withClassName:@"Video"]];
+    self.downloadableMedia = [[SRGILMedia alloc] initWithDictionary:[self loadJSONFile:@"video_download_srf_01" withClassName:@"Video"]];
 }
 
 - (void)tearDown
@@ -124,6 +127,14 @@
 - (void)testAssetSetForNormalVideo
 {
     XCTAssertNotNil(self.media.assetSet, @"Asset set should not be nil.");
+}
+
+- (void)testDownloadForValidVideo
+{
+    XCTAssertNotNil(self.downloadableMedia.downloads, @"Downloads should not be nil.");
+    XCTAssertTrue([self.downloadableMedia.downloads count] == 1, @"There should be only one.");
+    SRGILDownload *download = self.downloadableMedia.downloads.lastObject;
+    XCTAssertNotNil([download URLForQuality:SRGILDownloadURLQualitySD], @"There should be an URL for that quality");
 }
 
 @end
