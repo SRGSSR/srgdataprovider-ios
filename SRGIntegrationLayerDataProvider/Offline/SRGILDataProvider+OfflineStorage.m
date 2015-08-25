@@ -117,8 +117,6 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
     
     id<SRGShowMetadataContainer> showMetadata = [self showMetadataContainerForIdentifier:identifier audioChannelID:audioChannelID];
     [self.storageCenter flagAsFavorite:favorite showMetadata:showMetadata];
-
-    [self.storageCenter flagAsFavorite:favorite showMetadata:showMetadata];
 }
 
 - (NSArray *)flaggedAsFavoriteMediaMetadatas
