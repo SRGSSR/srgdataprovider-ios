@@ -11,6 +11,7 @@
 
 @class SRGILList;
 @class SRGILMedia;
+@class SRGILShow;
 
 typedef NS_ENUM(NSInteger, SRGILModelDataOrganisationType) {
     SRGILModelDataOrganisationTypeFlat,
@@ -32,7 +33,6 @@ typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
     SRGILFetchListAudioMostListened,
     SRGILFetchListAudioShowsAZ,
     SRGILFetchListAudioShowsAZDetail,
-    SRGILFetchListAudioSearchResult,
     SRGILFetchListMediaFavorite,  // local storage fetch
     SRGILFetchListShowFavorite, // local storage fetch
     SRGILFetchListEnumEnd,
@@ -169,11 +169,20 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
 /**
  *  Access an already-fetch media, if any. If it is not yet fetched, returns nil.
  *
- *  @param identifier The identifier of the media (not its URN).
+ *  @param urnString The URN string of the media (not its identifier).
+ *
+ *  @return An instance of the media with that URN.
+ */
+- (SRGILMedia *)mediaForURNString:(NSString *)urnString;
+
+/**
+ *  Access an already-fetch show, if any. If it is not yet fetched, returns nil.
+ *
+ *  @param identifier The identifier of the show
  *
  *  @return An instance of the media with that identifier.
  */
-- (SRGILMedia *)mediaForURNString:(NSString *)urnString;
+- (SRGILShow *)showForIdentifier:(NSString *)identifier;
 
 
 // ********* Network checks **********
