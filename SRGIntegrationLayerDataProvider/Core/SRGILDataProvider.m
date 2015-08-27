@@ -583,9 +583,23 @@ static NSArray *validBusinessUnits = nil;
         return NO;
     }
     
+    SRGILRequestMediaCompletionBlock wrappedCompletionBlock = ^(SRGILMedia *media, NSError *error) {
+        if (error || !media) {
+            if (_identifiedMedias[urnString]) {
+                completionBlock(_identifiedMedias[urnString], nil);
+            }
+            else {
+                completionBlock(nil, error);
+            }
+        }
+        else {
+            completionBlock(media, nil);
+        }
+    };
+    
     return [self.requestManager requestMediaOfType:urn.mediaType
                                     withIdentifier:urn.identifier
-                                   completionBlock:completionBlock];
+                                   completionBlock:wrappedCompletionBlock];
 }
 
 - (BOOL)fetchLiveMetaInfosWithURNString:(NSString *)urnString completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
