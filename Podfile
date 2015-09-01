@@ -9,10 +9,10 @@ workspace 'SRGIntegrationLayerDataProvider.xcworkspace'
 
 xcodeproj 'SRGIntegrationLayerDataProvider'
 
-pod 'SRGAnalytics', '~> 1.0.0'
+pod 'SRGAnalytics', '~> 1.1.0'
 pod 'SRGAnalytics/MediaPlayer'
 
-pod 'SRGMediaPlayer', '~> 1.1.0'
+pod 'SRGMediaPlayer', '~> 1.2.0'
 
 pod 'SGVReachability', '~> 1.0.0'
 pod 'CocoaLumberjack', '~> 2.0.0'

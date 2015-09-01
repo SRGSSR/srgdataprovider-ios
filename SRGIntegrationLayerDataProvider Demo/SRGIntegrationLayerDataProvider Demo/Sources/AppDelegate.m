@@ -23,7 +23,6 @@
     [[RTSAnalyticsTracker sharedTracker] setProduction:NO];
 
     [[RTSAnalyticsTracker sharedTracker] startTrackingForBusinessUnit:SSRBusinessUnitRTS
-                                                        launchOptions:launchOptions
                                                       mediaDataSource:self.dataSource];
         
     return YES;

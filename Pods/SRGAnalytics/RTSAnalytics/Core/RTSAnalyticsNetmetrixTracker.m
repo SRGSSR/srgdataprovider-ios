@@ -1,6 +1,7 @@
 //
-//  Created by Frédéric Humbert-Droz on 10/04/15.
-//  Copyright (c) 2015 RTS. All rights reserved.
+//  Copyright (c) RTS. All rights reserved.
+//
+//  Licence information is available from the LICENCE file.
 //
 
 #import "RTSAnalyticsTracker.h"
@@ -8,11 +9,10 @@
 #import "RTSAnalyticsLogger.h"
 
 static NSString * const LoggerDomainAnalyticsNetmetrix = @"Netmetrix";
-static NSString * const RTSAnalyticsNetmetrixRequestDidFinishFakeNotification = @"RTSAnalyticsNetmetrixRequestDidFinishFake";
 
-NSString * const RTSAnalyticsNetmetrixWillSendRequestNotification = @"RTSAnalyticsNetmetrixWillSendRequest";
 NSString * const RTSAnalyticsNetmetrixRequestDidFinishNotification = @"RTSAnalyticsNetmetrixRequestDidFinish";
 NSString * const RTSAnalyticsNetmetrixRequestSuccessUserInfoKey = @"RTSAnalyticsNetmetrixSuccess";
+NSString * const RTSAnalyticsNetmetrixRequestErrorUserInfoKey = @"RTSAnalyticsNetmetrixError";
 NSString * const RTSAnalyticsNetmetrixRequestResponseUserInfoKey = @"RTSAnalyticsNetmetrixResponse";
 
 @interface RTSAnalyticsNetmetrixTracker ()
@@ -62,19 +62,14 @@ NSString * const RTSAnalyticsNetmetrixRequestResponseUserInfoKey = @"RTSAnalytic
 	[request setValue:userAgent forHTTPHeaderField:@"User-Agent"];
 	
 	BOOL testMode = [self.appID isEqualToString:@"test"] || NSClassFromString(@"XCTestCase") != NULL;
-	if (self.production || testMode)
-	{
-		RTSAnalyticsLogVerbose(@"%@ : will send view event:\nurl        = %@\nuser-agent = %@", LoggerDomainAnalyticsNetmetrix, netmetrixURLString, userAgent);
-		[[NSNotificationCenter defaultCenter] postNotificationName:RTSAnalyticsNetmetrixWillSendRequestNotification object:request userInfo:nil];
-	}
 	
 	if (testMode)
 	{
 		RTSAnalyticsLogWarning(@"%@ response will be fake due to testing flag or xctest bundle presence", LoggerDomainAnalyticsNetmetrix);
-		[[NSNotificationCenter defaultCenter] postNotificationName:RTSAnalyticsNetmetrixRequestDidFinishFakeNotification object:request userInfo:nil];
 	}
 	else if (self.production)
 	{
+		RTSAnalyticsLogVerbose(@"%@ : will send view event:\nurl        = %@\nuser-agent = %@", LoggerDomainAnalyticsNetmetrix, netmetrixURLString, userAgent);
 		[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
 			
 			BOOL succes = !connectionError;
@@ -89,6 +84,8 @@ NSString * const RTSAnalyticsNetmetrixRequestResponseUserInfoKey = @"RTSAnalytic
 			NSMutableDictionary *userInfo = [@{ RTSAnalyticsNetmetrixRequestSuccessUserInfoKey: @(succes) } mutableCopy];
 			if (response)
 				userInfo[RTSAnalyticsNetmetrixRequestResponseUserInfoKey] = response;
+			if (connectionError)
+				userInfo[RTSAnalyticsNetmetrixRequestErrorUserInfoKey] = connectionError;
 			
 			[[NSNotificationCenter defaultCenter] postNotificationName:RTSAnalyticsNetmetrixRequestDidFinishNotification object:request userInfo:[userInfo copy]];
 		}];

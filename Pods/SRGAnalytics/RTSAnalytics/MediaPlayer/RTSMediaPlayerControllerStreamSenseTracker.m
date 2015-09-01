@@ -1,6 +1,7 @@
 //
-//  Created by Frédéric Humbert-Droz on 08/04/15.
-//  Copyright (c) 2015 RTS. All rights reserved.
+//  Copyright (c) RTS. All rights reserved.
+//
+//  Licence information is available from the LICENCE file.
 //
 
 #import "SRGAnalytics.h"
@@ -134,6 +135,14 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
     else {
         [[[self clip] labels] removeObjectForKey:@"srg_enc"];
     }
+    
+    NSString *timeshift = [self timeshiftFromLiveInMilliseconds];
+    if (timeshift) {
+        [[self clip] setLabel:@"srg_timeshift" value:timeshift];
+    }
+    else {
+        [[[self clip] labels] removeObjectForKey:@"srg_timeshift"];
+    }
 	
 	// Playlist
 	if ([self.dataSource respondsToSelector:@selector(streamSensePlaylistMetadataForIdentifier:)]) {
@@ -248,7 +257,7 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 // As requested by Markus Gubler, do not even send a "0" when it is not live stream.
 - (NSString *)liveStream
 {
-    return self.mediaPlayerController.live ? @"1" : nil;
+    return (self.mediaPlayerController.streamType == RTSMediaStreamTypeLive || self.mediaPlayerController.streamType == RTSMediaStreamTypeDVR) ? @"1" : nil;
 }
 
 - (NSString *) dimensions
@@ -269,6 +278,18 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 		}
 	}
 	return nil;
+}
+
+- (NSString *)timeshiftFromLiveInMilliseconds
+{
+    if (self.mediaPlayerController.streamType == RTSMediaStreamTypeDVR) {
+        CMTime timeShift = CMTimeSubtract(CMTimeRangeGetEnd(self.mediaPlayerController.timeRange), self.mediaPlayerController.playerItem.currentTime);
+        return [NSString stringWithFormat:@"%ld", (long) fabs(CMTimeGetSeconds(timeShift)) * 1000];
+    }
+    else if (self.mediaPlayerController.streamType == RTSMediaStreamTypeLive) {
+        return @"0";
+    }
+    return nil;
 }
 
 - (NSURL *)contentURL

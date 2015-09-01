@@ -1,12 +1,15 @@
 //
-//  Created by Cédric Foellmi on 31/03/15.
-//  Copyright (c) 2015 RTS. All rights reserved.
+//  Copyright (c) RTS. All rights reserved.
+//
+//  Licence information is available from the LICENCE file.
 //
 
-#import "RTSAnalyticsTracker.h"
-#import "RTSAnalyticsPageViewDataSource.h"
-#import "UIViewController+RTSAnalytics.h"
+#import <SRGAnalytics/RTSAnalyticsTracker.h>
+#import <SRGAnalytics/RTSAnalyticsComScoreTracker.h>
+#import <SRGAnalytics/RTSAnalyticsNetmetrixTracker.h>
+#import <SRGAnalytics/RTSAnalyticsPageViewDataSource.h>
+#import <SRGAnalytics/UIViewController+RTSAnalytics.h>
 
 #if __has_include("RTSAnalyticsMediaPlayer.h")
-#import "RTSAnalyticsMediaPlayer.h"
+#import <SRGAnalytics/RTSAnalyticsMediaPlayer.h>
 #endif
