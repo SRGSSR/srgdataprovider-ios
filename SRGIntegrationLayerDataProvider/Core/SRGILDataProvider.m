@@ -251,6 +251,33 @@ static NSArray *validBusinessUnits = nil;
         }
             break;
             
+        case SRGILFetchListAudioShowSearchResult: {
+            if ([arg isKindOfClass:[NSString class]]) {
+                remoteURLPath = [NSString stringWithFormat:@"radio/assetGroup/search.json?q=%@&pageSize=24", arg];
+            }
+            else if ([arg isKindOfClass:[NSDictionary class]]) {
+                remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
+            }
+            else {
+                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListAudioShowSearchResult: '%@'.", nil), arg];
+            }
+        }
+            break;
+            
+        case SRGILFetchListVideoShowSearchResult: {
+            if ([arg isKindOfClass:[NSString class]]) {
+                remoteURLPath = [NSString stringWithFormat:@"tv/assetGroup/search.json?q=%@&pageSize=24", arg];
+            }
+            else if ([arg isKindOfClass:[NSDictionary class]]) {
+                remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
+            }
+            else {
+                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListVideoShowSearchResult: '%@'.", nil), arg];
+            }
+        }
+            break;
+
+            
         default:
             break;
     }
