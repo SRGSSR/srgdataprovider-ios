@@ -1,0 +1,591 @@
+{
+    "Video": {
+        "id": "5908114",
+        "markIn": 0,
+        "duration": 1853000,
+        "urn": "urn:rts:cms:video:5908114",
+        "Image": {
+            "id": "5908113",
+            "ImageRepresentations": {
+                "ImageRepresentation": [
+                                        {
+                                        "id": "5908113",
+                                        "url": "http://www.rts.ch/2014/06/05/20/21/5908113.image/16x9",
+                                        "usage": "EPISODE_IMAGE"
+                                        }
+                                        ]
+            }
+        },
+        "modifiedDate": "2014-06-06T14:25:07+02:00",
+        "fullLength": true,
+        "markOut": 1853000,
+        "Playlists": {
+            "Playlist": [
+                         {
+                         "url": [
+                                 {
+                                 "text": "http://rtsww-f.akamaihd.net/z/tj/2014/tj_20140605_full_f_791729-,101,701,1201,k.mp4.csmil/manifest.f4m",
+                                 "@quality": "HD"
+                                 }
+                                 ],
+                         "@protocol": "HTTP-HDS",
+                         "@segmentation": "LOGICAL"
+                         },
+                         {
+                         "url": [
+                                 {
+                                 "text": "http://stream-i.rts.ch/i/tj/2014/tj_20140605_full_f_791729-,101,701,1201,k.mp4.csmil/master.m3u8",
+                                 "@quality": "HD"
+                                 }
+                                 ],
+                         "@protocol": "HTTP-HLS",
+                         "@segmentation": "LOGICAL"
+                         }
+                         ],
+            "@availability": "ONDEMAND"
+        },
+        "staticGeoBlock": false,
+        "assetSetId": "5791826",
+        "assetSubSetId": "EPISODE",
+        "createdDate": "2014-06-05T19:30:00+02:00",
+        "position": 0,
+        "AssetSet": {
+            "createdDate": "2014-06-05T19:30:00+02:00",
+            "modifiedDate": "2014-06-05T20:56:02+02:00",
+            "id": "5791826",
+            "publishedDate": "2014-06-05T19:30:00+02:00",
+            "Show": {
+                "title": "le 19:30",
+                "id": "105932",
+                "Image": {
+                    "id": "5196769",
+                    "ImageRepresentations": {
+                        "ImageRepresentation": [
+                                                {
+                                                "id": "5196769",
+                                                "url": "http://www.rts.ch/2013/09/09/15/58/5196769.image/16x9",
+                                                "usage": "WEBVISUAL"
+                                                }
+                                                ]
+                    }
+                },
+                "lead": "19:30",
+                "description": " "
+            },
+            "Assets": {
+                "Video": [
+                          {
+                          "id": "5908114",
+                          "markIn": 0,
+                          "duration": 1853000,
+                          "urn": "urn:rts:cms:video:5908114",
+                          "Image": {
+                          "id": "5908113",
+                          "ImageRepresentations": {
+                          "ImageRepresentation": [
+                                                  {
+                                                  "id": "5908113",
+                                                  "url": "http://www.rts.ch/2014/06/05/20/21/5908113.image/16x9",
+                                                  "usage": "EPISODE_IMAGE"
+                                                  }
+                                                  ]
+                          }
+                          },
+                          "modifiedDate": "2014-06-06T14:25:07+02:00",
+                          "fullLength": true,
+                          "assetSubSetId": "EPISODE",
+                          "markOut": 1853000,
+                          "staticGeoBlock": false,
+                          "createdDate": "2014-06-05T19:30:00+02:00",
+                          "position": 0,
+                          "AssetMetadatas": {
+                          "AssetMetadata": [
+                                            {
+                                            "usage": "DEFAULT",
+                                            "createdDate": "2014-06-05T19:30:00+02:00",
+                                            "modifiedDate": "2014-06-06T14:25:07+02:00",
+                                            "id": "5908114",
+                                            "assetId": "5908114",
+                                            "lead": "",
+                                            "title": "19:30 le journal"
+                                            }
+                                            ]
+                          }
+                          },
+                          {
+                          "id": "5908108",
+                          "markIn": 93680,
+                          "duration": 121000,
+                          "urn": "urn:rts:cms:video:5908108",
+                          "Image": {
+                          "id": "5908107",
+                          "ImageRepresentations": {
+                          "ImageRepresentation": [
+                                                  {
+                                                  "id": "5908107",
+                                                  "url": "http://www.rts.ch/2014/06/05/20/21/5908107.image/16x9",
+                                                  "usage": "EPISODE_IMAGE"
+                                                  }
+                                                  ]
+                          }
+                          },
+                          "modifiedDate": "2014-06-06T13:35:31+02:00",
+                          "fullLength": false,
+                          "assetSubSetId": "EPISODE",
+                          "markOut": 215440,
+                          "staticGeoBlock": false,
+                          "createdDate": "2014-06-05T19:30:00+02:00",
+                          "position": 1,
+                          "AssetMetadatas": {
+                          "AssetMetadata": [
+                                            {
+                                            "usage": "DEFAULT",
+                                            "createdDate": "2014-06-05T19:30:00+02:00",
+                                            "modifiedDate": "2014-06-06T13:35:31+02:00",
+                                            "id": "5908108",
+                                            "assetId": "5908108",
+                                            "lead": "",
+                                            "title": "Le détenu en fuite avait tué une prostituée d'une centaine de coups de poinçon"
+                                            }
+                                            ]
+                          }
+                          },
+                          {
+                          "id": "5908104",
+                          "markIn": 215680,
+                          "duration": 74000,
+                          "urn": "urn:rts:cms:video:5908104",
+                          "Image": {
+                          "id": "5908103",
+                          "ImageRepresentations": {
+                          "ImageRepresentation": [
+                                                  {
+                                                  "id": "5908103",
+                                                  "url": "http://www.rts.ch/2014/06/05/20/21/5908103.image/16x9",
+                                                  "usage": "EPISODE_IMAGE"
+                                                  }
+                                                  ]
+                          }
+                          },
+                          "modifiedDate": "2014-06-06T14:25:20+02:00",
+                          "fullLength": false,
+                          "assetSubSetId": "EPISODE",
+                          "markOut": 290360,
+                          "staticGeoBlock": false,
+                          "createdDate": "2014-06-05T19:30:00+02:00",
+                          "position": 2,
+                          "AssetMetadatas": {
+                          "AssetMetadata": [
+                                            {
+                                            "usage": "DEFAULT",
+                                            "createdDate": "2014-06-05T19:30:00+02:00",
+                                            "modifiedDate": "2014-06-06T14:25:20+02:00",
+                                            "id": "5908104",
+                                            "assetId": "5908104",
+                                            "lead": "",
+                                            "title": "Détenu en fuite: les explications de Marion Faliu"
+                                            }
+                                            ]
+                          }
+                          },
+                          {
+                          "id": "5908124",
+                          "markIn": 291400,
+                          "duration": 178000,
+                          "urn": "urn:rts:cms:video:5908124",
+                          "Image": {
+                          "id": "5908123",
+                          "ImageRepresentations": {
+                          "ImageRepresentation": [
+                                                  {
+                                                  "id": "5908123",
+                                                  "url": "http://www.rts.ch/2014/06/05/20/21/5908123.image/16x9",
+                                                  "usage": "EPISODE_IMAGE"
+                                                  }
+                                                  ]
+                          }
+                          },
+                          "modifiedDate": "2014-06-06T14:20:26+02:00",
+                          "fullLength": false,
+                          "assetSubSetId": "EPISODE",
+                          "markOut": 469560,
+                          "staticGeoBlock": false,
+                          "createdDate": "2014-06-05T19:30:00+02:00",
+                          "position": 3,
+                          "AssetMetadatas": {
+                          "AssetMetadata": [
+                                            {
+                                            "usage": "DEFAULT",
+                                            "createdDate": "2014-06-05T19:30:00+02:00",
+                                            "modifiedDate": "2014-06-06T14:20:26+02:00",
+                                            "id": "5908124",
+                                            "assetId": "5908124",
+                                            "lead": "",
+                                            "title": "Le Conseil national a pris de nouvelles mesures sur la naturalisation"
+                                            }
+                                            ]
+                          }
+                          },
+                          {
+                          "id": "5908118",
+                          "markIn": 478320,
+                          "duration": 100000,
+                          "urn": "urn:rts:cms:video:5908118",
+                          "Image": {
+                          "id": "5908117",
+                          "ImageRepresentations": {
+                          "ImageRepresentation": [
+                                                  {
+                                                  "id": "5908117",
+                                                  "url": "http://www.rts.ch/2014/06/05/20/21/5908117.image/16x9",
+                                                  "usage": "EPISODE_IMAGE"
+                                                  }
+                                                  ]
+                          }
+                          },
+                          "modifiedDate": "2014-06-06T14:20:21+02:00",
+                          "fullLength": false,
+                          "assetSubSetId": "EPISODE",
+                          "markOut": 578840,
+                          "staticGeoBlock": false,
+                          "createdDate": "2014-06-05T19:30:00+02:00",
+                          "position": 4,
+                          "AssetMetadatas": {
+                          "AssetMetadata": [
+                                            {
+                                            "usage": "DEFAULT",
+                                            "createdDate": "2014-06-05T19:30:00+02:00",
+                                            "modifiedDate": "2014-06-06T14:20:21+02:00",
+                                            "id": "5908118",
+                                            "assetId": "5908118",
+                                            "lead": "",
+                                            "title": "La BCE prend une décision qui marque un tournant dans la politique monétaire"
+                                            }
+                                            ]
+                          }
+                          },
+                          {
+                          "id": "5908126",
+                          "markIn": 579160,
+                          "duration": 108000,
+                          "urn": "urn:rts:cms:video:5908126",
+                          "Image": {
+                          "id": "5908125",
+                          "ImageRepresentations": {
+                          "ImageRepresentation": [
+                                                  {
+                                                  "id": "5908125",
+                                                  "url": "http://www.rts.ch/2014/06/05/20/21/5908125.image/16x9",
+                                                  "usage": "EPISODE_IMAGE"
+                                                  }
+                                                  ]
+                          }
+                          },
+                          "modifiedDate": "2014-06-06T13:55:21+02:00",
+                          "fullLength": false,
+                          "assetSubSetId": "EPISODE",
+                          "markOut": 687240,
+                          "staticGeoBlock": false,
+                          "createdDate": "2014-06-05T19:30:00+02:00",
+                          "position": 5,
+                          "AssetMetadatas": {
+                          "AssetMetadata": [
+                                            {
+                                            "usage": "DEFAULT",
+                                            "createdDate": "2014-06-05T19:30:00+02:00",
+                                            "modifiedDate": "2014-06-06T13:55:21+02:00",
+                                            "id": "5908126",
+                                            "assetId": "5908126",
+                                            "lead": "",
+                                            "title": "Le verdict des 3 freeriders qui avaient déclenché une avalanche en décembre 2009 est tombé"
+                                            }
+                                            ]
+                          }
+                          },
+                          {
+                          "id": "5908102",
+                          "markIn": 687520,
+                          "duration": 80000,
+                          "urn": "urn:rts:cms:video:5908102",
+                          "Image": {
+                          "id": "5908101",
+                          "ImageRepresentations": {
+                          "ImageRepresentation": [
+                                                  {
+                                                  "id": "5908101",
+                                                  "url": "http://www.rts.ch/2014/06/05/20/21/5908101.image/16x9",
+                                                  "usage": "EPISODE_IMAGE"
+                                                  }
+                                                  ]
+                          }
+                          },
+                          "modifiedDate": "2014-06-06T13:35:30+02:00",
+                          "fullLength": false,
+                          "assetSubSetId": "EPISODE",
+                          "markOut": 767960,
+                          "staticGeoBlock": false,
+                          "createdDate": "2014-06-05T19:30:00+02:00",
+                          "position": 6,
+                          "AssetMetadatas": {
+                          "AssetMetadata": [
+                                            {
+                                            "usage": "DEFAULT",
+                                            "createdDate": "2014-06-05T19:30:00+02:00",
+                                            "modifiedDate": "2014-06-06T13:35:30+02:00",
+                                            "id": "5908102",
+                                            "assetId": "5908102",
+                                            "lead": "",
+                                            "title": "Les Suisses aiment de plus en plus le sport"
+                                            }
+                                            ]
+                          }
+                          },
+                          {
+                          "id": "5908120",
+                          "markIn": 768320,
+                          "duration": 111000,
+                          "urn": "urn:rts:cms:video:5908120",
+                          "Image": {
+                          "id": "5908119",
+                          "ImageRepresentations": {
+                          "ImageRepresentation": [
+                                                  {
+                                                  "id": "5908119",
+                                                  "url": "http://www.rts.ch/2014/06/05/20/21/5908119.image/16x9",
+                                                  "usage": "EPISODE_IMAGE"
+                                                  }
+                                                  ]
+                          }
+                          },
+                          "modifiedDate": "2014-06-06T13:40:18+02:00",
+                          "fullLength": false,
+                          "assetSubSetId": "EPISODE",
+                          "markOut": 879560,
+                          "staticGeoBlock": false,
+                          "createdDate": "2014-06-05T19:30:00+02:00",
+                          "position": 7,
+                          "AssetMetadatas": {
+                          "AssetMetadata": [
+                                            {
+                                            "usage": "DEFAULT",
+                                            "createdDate": "2014-06-05T19:30:00+02:00",
+                                            "modifiedDate": "2014-06-06T13:40:18+02:00",
+                                            "id": "5908120",
+                                            "assetId": "5908120",
+                                            "lead": "",
+                                            "title": "Portraits de sportifs de plus en plus pratiquants"
+                                            }
+                                            ]
+                          }
+                          },
+                          {
+                          "id": "5908122",
+                          "markIn": 879960,
+                          "duration": 135000,
+                          "urn": "urn:rts:cms:video:5908122",
+                          "Image": {
+                          "id": "5908121",
+                          "ImageRepresentations": {
+                          "ImageRepresentation": [
+                                                  {
+                                                  "id": "5908121",
+                                                  "url": "http://www.rts.ch/2014/06/05/20/21/5908121.image/16x9",
+                                                  "usage": "EPISODE_IMAGE"
+                                                  }
+                                                  ]
+                          }
+                          },
+                          "modifiedDate": "2014-06-06T14:20:31+02:00",
+                          "fullLength": false,
+                          "assetSubSetId": "EPISODE",
+                          "markOut": 1014960,
+                          "staticGeoBlock": false,
+                          "createdDate": "2014-06-05T19:30:00+02:00",
+                          "position": 8,
+                          "AssetMetadatas": {
+                          "AssetMetadata": [
+                                            {
+                                            "usage": "DEFAULT",
+                                            "createdDate": "2014-06-05T19:30:00+02:00",
+                                            "modifiedDate": "2014-06-06T14:20:31+02:00",
+                                            "id": "5908122",
+                                            "assetId": "5908122",
+                                            "lead": "",
+                                            "title": "Le zoo de Zurich inaugure un nouveau parc à éléphants"
+                                            }
+                                            ]
+                          }
+                          },
+                          {
+                          "id": "5908106",
+                          "markIn": 1031320,
+                          "duration": 241000,
+                          "urn": "urn:rts:cms:video:5908106",
+                          "Image": {
+                          "id": "5908105",
+                          "ImageRepresentations": {
+                          "ImageRepresentation": [
+                                                  {
+                                                  "id": "5908105",
+                                                  "url": "http://www.rts.ch/2014/06/05/20/21/5908105.image/16x9",
+                                                  "usage": "EPISODE_IMAGE"
+                                                  }
+                                                  ]
+                          }
+                          },
+                          "modifiedDate": "2014-06-06T14:15:29+02:00",
+                          "fullLength": false,
+                          "assetSubSetId": "EPISODE",
+                          "markOut": 1272560,
+                          "staticGeoBlock": false,
+                          "createdDate": "2014-06-05T19:30:00+02:00",
+                          "position": 9,
+                          "AssetMetadatas": {
+                          "AssetMetadata": [
+                                            {
+                                            "usage": "DEFAULT",
+                                            "createdDate": "2014-06-05T19:30:00+02:00",
+                                            "modifiedDate": "2014-06-06T14:15:29+02:00",
+                                            "id": "5908106",
+                                            "assetId": "5908106",
+                                            "lead": "",
+                                            "title": "Le sacrifice des soldats débarqués en Normandie a durablement marqué les habitants"
+                                            }
+                                            ]
+                          }
+                          },
+                          {
+                          "id": "5908112",
+                          "markIn": 1287040,
+                          "duration": 192000,
+                          "urn": "urn:rts:cms:video:5908112",
+                          "Image": {
+                          "id": "5908111",
+                          "ImageRepresentations": {
+                          "ImageRepresentation": [
+                                                  {
+                                                  "id": "5908111",
+                                                  "url": "http://www.rts.ch/2014/06/05/20/21/5908111.image/16x9",
+                                                  "usage": "EPISODE_IMAGE"
+                                                  }
+                                                  ]
+                          }
+                          },
+                          "modifiedDate": "2014-06-06T14:15:23+02:00",
+                          "fullLength": false,
+                          "assetSubSetId": "EPISODE",
+                          "markOut": 1479240,
+                          "staticGeoBlock": false,
+                          "createdDate": "2014-06-05T19:30:00+02:00",
+                          "position": 10,
+                          "AssetMetadatas": {
+                          "AssetMetadata": [
+                                            {
+                                            "usage": "DEFAULT",
+                                            "createdDate": "2014-06-05T19:30:00+02:00",
+                                            "modifiedDate": "2014-06-06T14:15:23+02:00",
+                                            "id": "5908112",
+                                            "assetId": "5908112",
+                                            "lead": "",
+                                            "title": "Il reste encore beaucoup à faire au Brésil pour accueillir la Coupe du monde"
+                                            }
+                                            ]
+                          }
+                          },
+                          {
+                          "id": "5908110",
+                          "markIn": 1526160,
+                          "duration": 111000,
+                          "urn": "urn:rts:cms:video:5908110",
+                          "Image": {
+                          "id": "5908109",
+                          "ImageRepresentations": {
+                          "ImageRepresentation": [
+                                                  {
+                                                  "id": "5908109",
+                                                  "url": "http://www.rts.ch/2014/06/05/20/21/5908109.image/16x9",
+                                                  "usage": "EPISODE_IMAGE"
+                                                  }
+                                                  ]
+                          }
+                          },
+                          "modifiedDate": "2014-06-06T13:35:17+02:00",
+                          "fullLength": false,
+                          "assetSubSetId": "EPISODE",
+                          "markOut": 1637480,
+                          "staticGeoBlock": false,
+                          "createdDate": "2014-06-05T19:30:00+02:00",
+                          "position": 11,
+                          "AssetMetadatas": {
+                          "AssetMetadata": [
+                                            {
+                                            "usage": "DEFAULT",
+                                            "createdDate": "2014-06-05T19:30:00+02:00",
+                                            "modifiedDate": "2014-06-06T13:35:17+02:00",
+                                            "id": "5908110",
+                                            "assetId": "5908110",
+                                            "lead": "",
+                                            "title": "Une alternative à l'expérimentation animale a peut-être été trouvée"
+                                            }
+                                            ]
+                          }
+                          },
+                          {
+                          "id": "5908116",
+                          "markIn": 1637800,
+                          "duration": 165000,
+                          "urn": "urn:rts:cms:video:5908116",
+                          "Image": {
+                          "id": "5908115",
+                          "ImageRepresentations": {
+                          "ImageRepresentation": [
+                                                  {
+                                                  "id": "5908115",
+                                                  "url": "http://www.rts.ch/2014/06/05/20/21/5908115.image/16x9",
+                                                  "usage": "EPISODE_IMAGE"
+                                                  }
+                                                  ]
+                          }
+                          },
+                          "modifiedDate": "2014-06-06T14:20:18+02:00",
+                          "fullLength": false,
+                          "assetSubSetId": "EPISODE",
+                          "markOut": 1803520,
+                          "staticGeoBlock": false,
+                          "createdDate": "2014-06-05T19:30:00+02:00",
+                          "position": 12,
+                          "AssetMetadatas": {
+                          "AssetMetadata": [
+                                            {
+                                            "usage": "DEFAULT",
+                                            "createdDate": "2014-06-05T19:30:00+02:00",
+                                            "modifiedDate": "2014-06-06T14:20:18+02:00",
+                                            "id": "5908116",
+                                            "assetId": "5908116",
+                                            "lead": "",
+                                            "title": "Nouvo: des projets de voitures (presque) sans pilote se multiplient"
+                                            }
+                                            ]
+                          }
+                          }
+                          ]
+            },
+            "assetGroupId": "105932",
+            "title": "Le journal"
+        },
+        "AssetMetadatas": {
+            "AssetMetadata": [
+                              {
+                              "description": "",
+                              "createdDate": "2014-06-05T19:30:00+02:00",
+                              "modifiedDate": "2014-06-06T14:25:07+02:00",
+                              "id": "5908114",
+                              "usage": "DEFAULT",
+                              "assetId": "5908114",
+                              "lead": "",
+                              "title": "19:30 le journal"
+                              }
+                              ]
+        }
+    }
+}

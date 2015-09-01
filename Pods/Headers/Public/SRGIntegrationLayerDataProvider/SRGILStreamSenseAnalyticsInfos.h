@@ -1,0 +1,1 @@
+../../../../SRGIntegrationLayerDataProvider/Analytics/SRGILStreamSenseAnalyticsInfos.h

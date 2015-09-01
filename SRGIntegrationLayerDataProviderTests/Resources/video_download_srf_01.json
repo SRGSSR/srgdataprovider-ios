@@ -1,0 +1,526 @@
+{
+  "Video": {
+    "id": "52b307ea-8ff7-4a88-a278-4354d270dc37",
+    "modifiedDate": "2015-08-24T22:45:25+02:00",
+    "urn": "urn:srf:ais:video:52b307ea-8ff7-4a88-a278-4354d270dc37",
+    "displayable": true,
+    "createdDate": "2015-08-24T00:00:00+02:00",
+    "assetSetId": "8e39a69a-3b8f-4a3e-bd04-648813b5e77e",
+    "position": 0,
+    "assetSubSetId": "EPISODE",
+    "noEmbed": false,
+    "Previous": {
+      "id": "55904d26-88fc-4062-8e7b-7dd6372d4aeb",
+      "AssetSet": {
+        "id": "ed428cce-5cd1-4dfa-afa4-6ba8a2ba1ec3",
+        "title": "10vor10 vom 21.08.2015",
+        "publishedDate": "2015-08-21T21:50:00+02:00"
+      }
+    },
+    "AssetMetadatas": {
+      "AssetMetadata": [
+        {
+          "id": "52b307ea-8ff7-4a88-a278-4354d270dc37",
+          "modifiedDate": "2015-08-24T22:45:10+02:00",
+          "createdDate": "2015-08-24T00:00:00+02:00",
+          "title": "10vor10 vom 24.08.2015",
+          "assetId": "52b307ea-8ff7-4a88-a278-4354d270dc37",
+          "usage": "DEFAULT"
+        }
+      ]
+    },
+    "Image": {
+      "id": "28933151-ab8d-4f92-8cea-70fed86af5ec",
+      "modifiedDate": "2015-08-24T22:45:24+02:00",
+      "createdDate": "2015-08-24T00:00:00+02:00",
+      "title": "10vor10 vom 24.08.2015",
+      "ImageRepresentations": {
+        "ImageRepresentation": [
+          {
+            "id": "44a49817-ae37-449e-9a32-324d6c21c491",
+            "url": "http://ws.srf.ch/asset/image/audio/28933151-ab8d-4f92-8cea-70fed86af5ec/EPISODE_IMAGE/1440449124000.png",
+            "usage": "EPISODE_IMAGE",
+            "modifiedDate": "2015-08-24T22:45:24+02:00",
+            "createdDate": "2015-08-24T22:45:24+02:00"
+          }
+        ]
+      }
+    },
+    "Downloads": {
+      "Download": [
+        {
+          "@protocol": "HTTP",
+          "url": [
+            {
+              "@quality": "SD",
+              "text": "http://podcastsource.sf.tv/nps/podcast/10vor10/2015/08/10vor10_20150824_215000_v_podcast_h264_q10.mp4"
+            }
+          ]
+        }
+      ]
+    },
+    "AssetSet": {
+      "id": "8e39a69a-3b8f-4a3e-bd04-648813b5e77e",
+      "createdDate": "2015-08-24T22:21:19+02:00",
+      "publishedDate": "2015-08-24T21:50:00+02:00",
+      "modifiedDate": "2015-08-24T22:45:09+02:00",
+      "title": "10vor10 vom 24.08.2015",
+      "assetGroupId": "c38cc259-b5cd-4ac1-b901-e3fddd901a3d",
+      "Show": {
+        "id": "c38cc259-b5cd-4ac1-b901-e3fddd901a3d",
+        "title": "10vor10",
+        "lead": "Die Hintergründe zu den wichtigsten Themen des Tages um zehn vor zehn.",
+        "description": "«10vor10» berichtet in Magazinform über die wichtigsten Themen des Tages und deren Hintergründe. «10vor10» vertieft die aktuellen News, leistet Zusatzrecherchen und profiliert sich mit Reportagen.",
+        "homepageUrl": "http://www.srf.ch/sendungen/10vor10",
+        "podcastSubscriptionUrl": "http://www.srf.ch/podcasts",
+        "Image": {
+          "id": "7b99fee0-a71e-486d-b3f6-841103157d7d",
+          "modifiedDate": "2015-06-24T22:37:45+02:00",
+          "createdDate": "1999-11-30T00:00:00+01:00",
+          "title": "10vor10",
+          "ImageRepresentations": {
+            "ImageRepresentation": [
+              {
+                "id": "239fd489-662d-4dca-8a2b-74111bdb9b0b",
+                "url": "http://ws.srf.ch/asset/image/audio/7b99fee0-a71e-486d-b3f6-841103157d7d/HEADER_SRF_PLAYER/1435178265000.jpg",
+                "usage": "HEADER_SRF_PLAYER",
+                "modifiedDate": "2015-06-24T22:37:45+02:00",
+                "createdDate": "2015-06-24T22:37:45+02:00"
+              },
+              {
+                "id": "b9986a70-adef-447b-b076-8889b40a68e8",
+                "url": "http://ws.srf.ch/asset/image/audio/7b99fee0-a71e-486d-b3f6-841103157d7d/WEBVISUAL/1435178265000.jpg",
+                "usage": "WEBVISUAL",
+                "modifiedDate": "2015-06-24T22:37:45+02:00",
+                "createdDate": "2015-06-24T22:37:45+02:00"
+              }
+            ]
+          }
+        }
+      },
+      "Assets": {
+        "Video": [
+          {
+            "id": "52b307ea-8ff7-4a88-a278-4354d270dc37",
+            "modifiedDate": "2015-08-24T22:45:25+02:00",
+            "urn": "urn:srf:ais:video:52b307ea-8ff7-4a88-a278-4354d270dc37",
+            "displayable": true,
+            "createdDate": "2015-08-24T00:00:00+02:00",
+            "assetSetId": "8e39a69a-3b8f-4a3e-bd04-648813b5e77e",
+            "position": 0,
+            "assetSubSetId": "EPISODE",
+            "AssetMetadatas": {
+              "AssetMetadata": [
+                {
+                  "id": "52b307ea-8ff7-4a88-a278-4354d270dc37",
+                  "modifiedDate": "2015-08-24T22:45:10+02:00",
+                  "createdDate": "2015-08-24T00:00:00+02:00",
+                  "title": "10vor10 vom 24.08.2015",
+                  "assetId": "52b307ea-8ff7-4a88-a278-4354d270dc37",
+                  "usage": "DEFAULT"
+                }
+              ]
+            },
+            "Image": {
+              "id": "28933151-ab8d-4f92-8cea-70fed86af5ec",
+              "modifiedDate": "2015-08-24T22:45:24+02:00",
+              "createdDate": "2015-08-24T00:00:00+02:00",
+              "title": "10vor10 vom 24.08.2015",
+              "ImageRepresentations": {
+                "ImageRepresentation": [
+                  {
+                    "id": "44a49817-ae37-449e-9a32-324d6c21c491",
+                    "url": "http://ws.srf.ch/asset/image/audio/28933151-ab8d-4f92-8cea-70fed86af5ec/EPISODE_IMAGE/1440449124000.png",
+                    "usage": "EPISODE_IMAGE",
+                    "modifiedDate": "2015-08-24T22:45:24+02:00",
+                    "createdDate": "2015-08-24T22:45:24+02:00"
+                  }
+                ]
+              }
+            },
+            "duration": 1549360,
+            "markIn": 0,
+            "markOut": 1549360,
+            "fullLength": true,
+            "staticGeoBlock": false,
+            "AnalyticsData": {
+              "Entry": [
+                {
+                  "@key": "srg_tv_id",
+                  "@value": "9eaf3819-5939-4837-a599-3cca113bd769"
+                }
+              ]
+            }
+          },
+          {
+            "id": "e2e7d66d-0ab6-4f7c-ac08-b5e81a455c0f",
+            "modifiedDate": "2015-08-24T22:45:27+02:00",
+            "urn": "urn:srf:ais:video:e2e7d66d-0ab6-4f7c-ac08-b5e81a455c0f",
+            "displayable": true,
+            "createdDate": "2015-08-24T22:23:40+02:00",
+            "assetSetId": "8e39a69a-3b8f-4a3e-bd04-648813b5e77e",
+            "position": 1,
+            "assetSubSetId": "EPISODE",
+            "AssetMetadatas": {
+              "AssetMetadata": [
+                {
+                  "id": "e2e7d66d-0ab6-4f7c-ac08-b5e81a455c0f",
+                  "modifiedDate": "2015-08-24T22:45:16+02:00",
+                  "createdDate": "2015-08-24T22:23:40+02:00",
+                  "description": "Spätestens die Abwertung der chinesischen Währung hat weltweit für Verunsicherung an den Märkten gesorgt. Heute ging an den Börsen das Gespenst vom «schwarzen Montag» um.",
+                  "title": "FOKUS: China bringt Börsen weltweit zum Zittern",
+                  "assetId": "e2e7d66d-0ab6-4f7c-ac08-b5e81a455c0f",
+                  "usage": "DEFAULT"
+                }
+              ]
+            },
+            "Image": {
+              "id": "95de1177-262f-41ca-8739-2e13d7ed11c4",
+              "modifiedDate": "2015-08-24T22:45:24+02:00",
+              "createdDate": "2015-08-24T22:23:40+02:00",
+              "title": "FOKUS: China bringt Börsen weltweit zum Zittern",
+              "ImageRepresentations": {
+                "ImageRepresentation": [
+                  {
+                    "id": "5bf11090-efe2-4b34-a8e7-36c5f1e27490",
+                    "url": "http://ws.srf.ch/asset/image/audio/95de1177-262f-41ca-8739-2e13d7ed11c4/EPISODE_IMAGE/1440449124000.png",
+                    "usage": "EPISODE_IMAGE",
+                    "modifiedDate": "2015-08-24T22:45:24+02:00",
+                    "createdDate": "2015-08-24T22:45:24+02:00"
+                  }
+                ]
+              }
+            },
+            "duration": 201093,
+            "markIn": 65467,
+            "markOut": 266560,
+            "fullLength": false,
+            "staticGeoBlock": false,
+            "AnalyticsData": {
+              "Entry": [
+                {
+                  "@key": "srg_tv_id",
+                  "@value": "9eaf3819-5939-4837-a599-3cca113bd769"
+                }
+              ]
+            }
+          },
+          {
+            "id": "7336bb2e-8fa7-4212-b6ad-a6dc7b045b32",
+            "modifiedDate": "2015-08-24T22:45:29+02:00",
+            "urn": "urn:srf:ais:video:7336bb2e-8fa7-4212-b6ad-a6dc7b045b32",
+            "displayable": true,
+            "createdDate": "2015-08-24T22:24:32+02:00",
+            "assetSetId": "8e39a69a-3b8f-4a3e-bd04-648813b5e77e",
+            "position": 2,
+            "assetSubSetId": "EPISODE",
+            "AssetMetadatas": {
+              "AssetMetadata": [
+                {
+                  "id": "7336bb2e-8fa7-4212-b6ad-a6dc7b045b32",
+                  "modifiedDate": "2015-08-24T22:45:16+02:00",
+                  "createdDate": "2015-08-24T22:24:32+02:00",
+                  "description": "Im Studio analysiert der SRF-Wirtschaftsredaktor Reto Lipp die aktuelle Wirtschaftslage und wagt eine Einschätzung.",
+                  "title": "FOKUS: Studiogespräch",
+                  "assetId": "7336bb2e-8fa7-4212-b6ad-a6dc7b045b32",
+                  "usage": "DEFAULT"
+                }
+              ]
+            },
+            "Image": {
+              "id": "e4679c4d-a294-4d66-8963-0cc39d3aa6e2",
+              "modifiedDate": "2015-08-24T22:45:27+02:00",
+              "createdDate": "2015-08-24T22:24:32+02:00",
+              "title": "FOKUS: Studiogespräch",
+              "ImageRepresentations": {
+                "ImageRepresentation": [
+                  {
+                    "id": "872e9eff-77c2-4e5c-9a01-8dba618f13cc",
+                    "url": "http://ws.srf.ch/asset/image/audio/e4679c4d-a294-4d66-8963-0cc39d3aa6e2/EPISODE_IMAGE/1440449127000.png",
+                    "usage": "EPISODE_IMAGE",
+                    "modifiedDate": "2015-08-24T22:45:27+02:00",
+                    "createdDate": "2015-08-24T22:45:27+02:00"
+                  }
+                ]
+              }
+            },
+            "duration": 289770,
+            "markIn": 267549,
+            "markOut": 557319,
+            "fullLength": false,
+            "staticGeoBlock": false,
+            "AnalyticsData": {
+              "Entry": [
+                {
+                  "@key": "srg_tv_id",
+                  "@value": "9eaf3819-5939-4837-a599-3cca113bd769"
+                }
+              ]
+            }
+          },
+          {
+            "id": "2e1347cc-ee12-41f0-b768-209784800579",
+            "modifiedDate": "2015-08-24T22:45:30+02:00",
+            "urn": "urn:srf:ais:video:2e1347cc-ee12-41f0-b768-209784800579",
+            "displayable": true,
+            "createdDate": "2015-08-24T22:25:36+02:00",
+            "assetSetId": "8e39a69a-3b8f-4a3e-bd04-648813b5e77e",
+            "position": 3,
+            "assetSubSetId": "EPISODE",
+            "AssetMetadatas": {
+              "AssetMetadata": [
+                {
+                  "id": "2e1347cc-ee12-41f0-b768-209784800579",
+                  "modifiedDate": "2015-08-24T22:45:20+02:00",
+                  "createdDate": "2015-08-24T22:25:36+02:00",
+                  "description": "Monate vor der Wahl beginnt bereits das Kandidaten-Karussell für den Bundesrat zu drehen. Wir stellen zwei Szenarien vor.",
+                  "title": "Karussell um Bundesratssitz beginnt zu drehen",
+                  "assetId": "2e1347cc-ee12-41f0-b768-209784800579",
+                  "usage": "DEFAULT"
+                }
+              ]
+            },
+            "Image": {
+              "id": "cf943789-74ad-44de-aa93-8b827e73de9f",
+              "modifiedDate": "2015-08-24T22:45:29+02:00",
+              "createdDate": "2015-08-24T22:25:36+02:00",
+              "title": "Karussell um Bundesratssitz beginnt zu drehen",
+              "ImageRepresentations": {
+                "ImageRepresentation": [
+                  {
+                    "id": "19fa1761-a4b2-40f2-93a6-15dedec0649f",
+                    "url": "http://ws.srf.ch/asset/image/audio/cf943789-74ad-44de-aa93-8b827e73de9f/EPISODE_IMAGE/1440449129000.png",
+                    "usage": "EPISODE_IMAGE",
+                    "modifiedDate": "2015-08-24T22:45:29+02:00",
+                    "createdDate": "2015-08-24T22:45:29+02:00"
+                  }
+                ]
+              }
+            },
+            "duration": 216604,
+            "markIn": 559196,
+            "markOut": 775800,
+            "fullLength": false,
+            "staticGeoBlock": false,
+            "AnalyticsData": {
+              "Entry": [
+                {
+                  "@key": "srg_tv_id",
+                  "@value": "9eaf3819-5939-4837-a599-3cca113bd769"
+                }
+              ]
+            }
+          },
+          {
+            "id": "1791cfb5-05c7-4b88-a8cd-a55f3acc708b",
+            "modifiedDate": "2015-08-24T22:45:32+02:00",
+            "urn": "urn:srf:ais:video:1791cfb5-05c7-4b88-a8cd-a55f3acc708b",
+            "displayable": true,
+            "createdDate": "2015-08-24T22:27:05+02:00",
+            "assetSetId": "8e39a69a-3b8f-4a3e-bd04-648813b5e77e",
+            "position": 4,
+            "assetSubSetId": "EPISODE",
+            "AssetMetadatas": {
+              "AssetMetadata": [
+                {
+                  "id": "1791cfb5-05c7-4b88-a8cd-a55f3acc708b",
+                  "modifiedDate": "2015-08-24T22:45:20+02:00",
+                  "createdDate": "2015-08-24T22:27:05+02:00",
+                  "description": "Der zweite Teil unserer Reportagen-Serie aus dem griechisch-mazedonischen Grenzgebiet zeigt das Elend der Flüchtlinge. Doch auch eine kleine Liebesgeschichte.",
+                  "title": "Eine Liebesgeschichte auf der Flucht",
+                  "assetId": "1791cfb5-05c7-4b88-a8cd-a55f3acc708b",
+                  "usage": "DEFAULT"
+                }
+              ]
+            },
+            "Image": {
+              "id": "e599d335-7fa2-4c62-ab69-72267f192b50",
+              "modifiedDate": "2015-08-24T22:45:29+02:00",
+              "createdDate": "2015-08-24T22:27:05+02:00",
+              "title": "Eine Liebesgeschichte auf der Flucht",
+              "ImageRepresentations": {
+                "ImageRepresentation": [
+                  {
+                    "id": "5282e955-8f93-40a7-820a-193e37ff8d27",
+                    "url": "http://ws.srf.ch/asset/image/audio/e599d335-7fa2-4c62-ab69-72267f192b50/EPISODE_IMAGE/1440449129000.png",
+                    "usage": "EPISODE_IMAGE",
+                    "modifiedDate": "2015-08-24T22:45:29+02:00",
+                    "createdDate": "2015-08-24T22:45:29+02:00"
+                  }
+                ]
+              }
+            },
+            "duration": 449689,
+            "markIn": 777258,
+            "markOut": 1226947,
+            "fullLength": false,
+            "staticGeoBlock": false,
+            "AnalyticsData": {
+              "Entry": [
+                {
+                  "@key": "srg_tv_id",
+                  "@value": "9eaf3819-5939-4837-a599-3cca113bd769"
+                }
+              ]
+            }
+          },
+          {
+            "id": "dfc6e73c-ba7f-444c-bc5e-336877986222",
+            "modifiedDate": "2015-08-24T22:45:24+02:00",
+            "urn": "urn:srf:ais:video:dfc6e73c-ba7f-444c-bc5e-336877986222",
+            "displayable": true,
+            "createdDate": "2015-08-24T22:33:54+02:00",
+            "assetSetId": "8e39a69a-3b8f-4a3e-bd04-648813b5e77e",
+            "position": 5,
+            "assetSubSetId": "EPISODE",
+            "AssetMetadatas": {
+              "AssetMetadata": [
+                {
+                  "id": "dfc6e73c-ba7f-444c-bc5e-336877986222",
+                  "modifiedDate": "2015-08-24T22:45:09+02:00",
+                  "createdDate": "2015-08-24T22:33:54+02:00",
+                  "description": "Neuer Schweizerrekord für Kambundji +++ IS sprengt Tempel in Palmyra +++ Merkel lädt zu Krisengespräch",
+                  "title": "Newsflash",
+                  "assetId": "dfc6e73c-ba7f-444c-bc5e-336877986222",
+                  "usage": "DEFAULT"
+                }
+              ]
+            },
+            "Image": {
+              "id": "bfbb6783-634f-4ce3-9da3-2fd5e36c0772",
+              "modifiedDate": "2015-08-24T22:45:22+02:00",
+              "createdDate": "2015-08-24T22:33:54+02:00",
+              "title": "Newsflash",
+              "ImageRepresentations": {
+                "ImageRepresentation": [
+                  {
+                    "id": "e50e5d5e-b924-4b8a-9ae4-ac19f3e7798a",
+                    "url": "http://ws.srf.ch/asset/image/audio/bfbb6783-634f-4ce3-9da3-2fd5e36c0772/EPISODE_IMAGE/1440449122000.png",
+                    "usage": "EPISODE_IMAGE",
+                    "modifiedDate": "2015-08-24T22:45:22+02:00",
+                    "createdDate": "2015-08-24T22:45:22+02:00"
+                  }
+                ]
+              }
+            },
+            "duration": 48680,
+            "markIn": 1229640,
+            "markOut": 1278320,
+            "fullLength": false,
+            "staticGeoBlock": false,
+            "AnalyticsData": {
+              "Entry": [
+                {
+                  "@key": "srg_tv_id",
+                  "@value": "9eaf3819-5939-4837-a599-3cca113bd769"
+                }
+              ]
+            }
+          },
+          {
+            "id": "59204e2e-756c-408a-be1e-c832b6441ecf",
+            "modifiedDate": "2015-08-24T22:45:22+02:00",
+            "urn": "urn:srf:ais:video:59204e2e-756c-408a-be1e-c832b6441ecf",
+            "displayable": true,
+            "createdDate": "2015-08-24T22:34:43+02:00",
+            "assetSetId": "8e39a69a-3b8f-4a3e-bd04-648813b5e77e",
+            "position": 6,
+            "assetSubSetId": "EPISODE",
+            "AssetMetadatas": {
+              "AssetMetadata": [
+                {
+                  "id": "59204e2e-756c-408a-be1e-c832b6441ecf",
+                  "modifiedDate": "2015-08-24T22:45:09+02:00",
+                  "createdDate": "2015-08-24T22:34:43+02:00",
+                  "description": "Verheerende Brände in der Vergangenheit zeigen auf, wie wichtig Sicherheit in den heutigen Tunnels ist. Im NEAT-Basistunnel werden deshalb umfangreiche Massnahmen ergriffen.",
+                  "title": "Sicherheit im NEAT-Tunnel",
+                  "assetId": "59204e2e-756c-408a-be1e-c832b6441ecf",
+                  "usage": "DEFAULT"
+                }
+              ]
+            },
+            "Image": {
+              "id": "cf2a5b8b-b4d5-47f2-8cc8-f16901be47ef",
+              "modifiedDate": "2015-08-24T22:45:20+02:00",
+              "createdDate": "2015-08-24T22:34:43+02:00",
+              "title": "Sicherheit im NEAT-Tunnel",
+              "ImageRepresentations": {
+                "ImageRepresentation": [
+                  {
+                    "id": "d6633ad0-ffe7-4fc2-97ad-752e5db27106",
+                    "url": "http://ws.srf.ch/asset/image/audio/cf2a5b8b-b4d5-47f2-8cc8-f16901be47ef/EPISODE_IMAGE/1440449120000.png",
+                    "usage": "EPISODE_IMAGE",
+                    "modifiedDate": "2015-08-24T22:45:20+02:00",
+                    "createdDate": "2015-08-24T22:45:20+02:00"
+                  }
+                ]
+              }
+            },
+            "duration": 250470,
+            "markIn": 1278930,
+            "markOut": 1529400,
+            "fullLength": false,
+            "staticGeoBlock": false,
+            "AnalyticsData": {
+              "Entry": [
+                {
+                  "@key": "srg_tv_id",
+                  "@value": "9eaf3819-5939-4837-a599-3cca113bd769"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "SocialCounts": {
+        "srgView": 4526
+      }
+    },
+    "Playlists": {
+      "@availability": "ONDEMAND",
+      "Playlist": [
+        {
+          "@segmentation": "LOGICAL",
+          "@protocol": "HTTP-HDS",
+          "url": [
+            {
+              "@quality": "SD",
+              "text": "http://srfvodhd-vh.akamaihd.net/z/vod/10vor10/2015/08/10vor10_20150824_215000_v_webcast_h264_,q10,q20,q30,q40,.mp4.csmil/manifest.f4m"
+            }
+          ]
+        },
+        {
+          "@segmentation": "LOGICAL",
+          "@protocol": "HTTP-HLS",
+          "url": [
+            {
+              "@quality": "SD",
+              "text": "http://srfvodhd-vh.akamaihd.net/i/vod/10vor10/2015/08/10vor10_20150824_215000_v_webcast_h264_,q10,q20,q30,q40,.mp4.csmil/master.m3u8"
+            }
+          ]
+        }
+      ]
+    },
+    "duration": 1549360,
+    "markIn": 0,
+    "markOut": 1549360,
+    "fullLength": true,
+    "staticGeoBlock": false,
+    "AnalyticsData": {
+      "Entry": [
+        {
+          "@key": "srg_tv_id",
+          "@value": "9eaf3819-5939-4837-a599-3cca113bd769"
+        },
+        {
+          "@key": "srg_c1",
+          "@value": "News, Politik, Wirtschaft"
+        }
+      ]
+    },
+    "Subtitles": {
+      "TTMLUrl": "http://www.srf.ch/player/subtitles/urn:srf:ais:video:52b307ea-8ff7-4a88-a278-4354d270dc37/subtitle.ttml",
+      "VTTUrl": "http://www.srf.ch/player/subtitles/urn:srf:ais:video:52b307ea-8ff7-4a88-a278-4354d270dc37/subtitle.vtt"
+    }
+  }
+}

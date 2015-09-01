@@ -2,12 +2,17 @@
 //  SRGIntegrationLayerDataProvider.h
 //  SRGIntegrationLayerDataProvider
 //
-//  Created by Cédric Foellmi on 27/03/15.
+//  Created by Cédric Foellmi on 31/03/15.
 //  Copyright (c) 2015 SRG. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "SRGILModel.h"
+#import "SRGILList.h"
+#import "SRGILDataProvider.h"
+#import "SRGILDataProviderConstants.h"
 
-@interface SRGIntegrationLayerDataProvider : NSObject
+#if __has_include("SRGILDataProviderMediaPlayerDataSource.h")
+#import "SRGILDataProviderMediaPlayerDataSource.h"
+#endif
 
-@end
+

@@ -1,0 +1,1 @@
+../../../SRGAnalytics/RTSAnalytics/MediaPlayer/RTSMediaPlayerControllerTrackingInfo.h

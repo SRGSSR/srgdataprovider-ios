@@ -1,0 +1,39 @@
+{"ImageRepresentations":             [
+                                      {"ImageRepresentation":               {
+                                      "id": "00985ee5-b9a4-4abc-af30-07ad4b3709d5",
+                                      "modifiedDate": "2013-11-26T15:00:19+01:00",
+                                      "createdDate": "2013-11-26T15:00:19+01:00",
+                                      "height": "160",
+                                      "imageId": "abbfd6a8-b012-4af5-92f4-d551bfad480b",
+                                      "location": "ais://assets/image/root/2013/2/5/18477e06-560d-4305-85f0-fd397d43ad1c_0005.jpg",
+                                      "staticUrl": "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/abbfd6a8-b012-4af5-92f4-d551bfad480b/HEADER_SRF_PLAYER.jpg",
+                                      "url": "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/abbfd6a8-b012-4af5-92f4-d551bfad480b/HEADER_SRF_PLAYER/1385474419000.jpg",
+                                      "usage": "HEADER_SRF_PLAYER",
+                                      "width": "484"
+                                      }},
+                                      {"ImageRepresentation":               {
+                                      "id": "2f5abf6a-8eee-4ab0-8e7e-2b2b08830d09",
+                                      "modifiedDate": "2013-11-26T14:59:39+01:00",
+                                      "createdDate": "2013-11-26T14:59:39+01:00",
+                                      "height": "1400",
+                                      "imageId": "abbfd6a8-b012-4af5-92f4-d551bfad480b",
+                                      "location": "ais://assets/image/root/2012/12/16/18477e06-560d-4305-85f0-fd397d43ad1c_0003.jpg",
+                                      "staticUrl": "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/abbfd6a8-b012-4af5-92f4-d551bfad480b/PODCAST.jpg",
+                                      "url": "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/abbfd6a8-b012-4af5-92f4-d551bfad480b/PODCAST/1385474379000.jpg",
+                                      "usage": "PODCAST",
+                                      "width": "1400"
+                                      }},
+                                      {"ImageRepresentation":               {
+                                      "id": "95267a3f-fb7b-4d39-9f7a-61776f65d353",
+                                      "modifiedDate": "2013-11-26T14:59:58+01:00",
+                                      "createdDate": "2013-11-26T14:59:58+01:00",
+                                      "height": "1080",
+                                      "imageId": "abbfd6a8-b012-4af5-92f4-d551bfad480b",
+                                      "location": "ais://assets/image/root/2012/12/16/18477e06-560d-4305-85f0-fd397d43ad1c.jpg",
+                                      "staticUrl": "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/abbfd6a8-b012-4af5-92f4-d551bfad480b/WEBVISUAL.jpg",
+                                      "url": "http://srfcdn.www-stage-relaunch.tp.sf.tv/asset/image/audio/abbfd6a8-b012-4af5-92f4-d551bfad480b/WEBVISUAL/1385474398000.jpg",
+                                      "usage": "WEBVISUAL",
+                                      "width": "1920"
+                                      }}
+                                      ]
+}
