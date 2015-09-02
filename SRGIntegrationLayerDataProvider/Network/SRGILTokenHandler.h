@@ -1,9 +1,7 @@
 //
-//  SRGILTokenHandler.h
-//  SRFPlayer
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Frédéric VERGEZ on 07/03/14.
-//  Copyright (c) 2014 SRG SSR. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import <Foundation/Foundation.h>

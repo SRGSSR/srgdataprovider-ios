@@ -1,9 +1,7 @@
 //
-//  SRGIntegrationLayerDataProvider_DemoTests.m
-//  SRGIntegrationLayerDataProvider DemoTests
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Samuel Defago on 20.05.15.
-//  Copyright (c) 2015 SRG. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import <UIKit/UIKit.h>

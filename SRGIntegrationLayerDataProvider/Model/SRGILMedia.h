@@ -1,7 +1,7 @@
 //
-//  SRGILMedia.h
-//  SRGPlayer
-//  Copyright (c) 2014 SRG SSR. All rights reserved.
+//  Copyright (c) SRG. All rights reserved.
+//
+//  License information is available from the LICENSE file.
 //
 
 #import <Foundation/Foundation.h>

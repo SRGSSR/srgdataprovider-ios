@@ -1,11 +1,8 @@
-
 //
-//  SRFModelObject.m
-//  SRFPlayer
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Samuel Défago on 15/01/14.
+//  License information is available from the LICENSE file.
 //
-//  Copyright (c) 2014 SRG SSR. All rights reserved.
 
 #import "SRGILModelObject.h"
 #import <objc/runtime.h>

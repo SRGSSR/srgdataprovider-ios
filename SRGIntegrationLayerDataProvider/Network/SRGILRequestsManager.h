@@ -1,5 +1,7 @@
 //
-// Created by Sebastien Chauvin on 26/11/14.
+//  Copyright (c) SRG. All rights reserved.
+//
+//  License information is available from the LICENSE file.
 //
 
 #import <Foundation/Foundation.h>
