@@ -1,9 +1,7 @@
 //
-//  SRGAnalyticsData.m
-//  SRGILMediaPlayer
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Frédéric VERGEZ on 20/03/15.
-//  Copyright (c) 2015 SRG SSR. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import "SRGILAnalyticsExtendedData.h"

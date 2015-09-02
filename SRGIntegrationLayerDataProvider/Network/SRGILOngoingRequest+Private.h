@@ -1,9 +1,7 @@
 //
-//  SRGILOngoingRequest+Private.h
-//  SRGIntegrationLayerDataProvider
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Samuel Defago on 28.05.15.
-//  Copyright (c) 2015 SRG. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import <Foundation/Foundation.h>

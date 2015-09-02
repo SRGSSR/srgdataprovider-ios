@@ -1,9 +1,7 @@
 //
-//  SRGILDownload.m
-//  SRGIntegrationLayerDataProvider
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Cédric Foellmi on 25/08/15.
-//  Copyright (c) 2015 SRG. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import "SRGILDownload.h"

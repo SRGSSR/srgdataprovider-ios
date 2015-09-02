@@ -1,9 +1,7 @@
 //
-//  SRGILLiveHeaderChannel.h
-//  SRGILMediaPlayer
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Cédric Foellmi on 03/12/14.
-//  Copyright (c) 2014 onekiloparsec. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import <Foundation/Foundation.h>

@@ -1,9 +1,7 @@
 //
-//  SRGILAssetSet.h
-//  SRFPlayer
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Samuel Défago on 12/02/14.
-//  Copyright (c) 2014 SRG SSR. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import <Foundation/Foundation.h>
