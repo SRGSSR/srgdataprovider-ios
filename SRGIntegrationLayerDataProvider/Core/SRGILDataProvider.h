@@ -6,60 +6,61 @@
 
 #import <Foundation/Foundation.h>
 #import "SRGILModelConstants.h"
+#import "SRGILDataProviderConstants.h"
 
 @class SRGILList;
 @class SRGILMedia;
 @class SRGILShow;
 
-typedef NS_ENUM(NSInteger, SRGILModelDataOrganisationType) {
-    SRGILModelDataOrganisationTypeFlat,
-    SRGILModelDataOrganisationTypeAlphabetical,
-};
 
-typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
-    SRGILFetchListEnumBegin,
-    SRGILFetchListVideoLiveStreams = SRGILFetchListEnumBegin,
-    SRGILFetchListVideoEditorialPicks,
-    SRGILFetchListVideoMostRecent,
-    SRGILFetchListVideoMostSeen,
-    SRGILFetchListVideoShowsAZ,
-    SRGILFetchListVideoShowsAZDetail,
-    SRGILFetchListVideoShowsByDate,
-    SRGILFetchListVideoSearchResult,
-    SRGILFetchListAudioLiveStreams,
-    SRGILFetchListAudioMostRecent,
-    SRGILFetchListAudioMostListened,
-    SRGILFetchListAudioShowsAZ,
-    SRGILFetchListAudioShowsAZDetail,
-    SRGILFetchListMediaFavorite,  // local storage fetch
-    SRGILFetchListShowFavorite, // local storage fetch
-    SRGILFetchListEnumEnd,
-    SRGILFetchListEnumSize = SRGILFetchListEnumEnd - SRGILFetchListEnumBegin
-};
-
-static const float DOWNLOAD_PROGRESS_DONE = 1.0;
-
+/**
+ *  Block associated with a fetch request, informing about the progresses of ALL on-going requests. This is mostly
+ *  used for detailed information in the 'pull-to-refresh' feature in the Play SRG apps. One screen being composed
+ *  of multiple fetch requests, it might be interesting to indicate how many are completed over the total.
+ *
+ *  @param fraction The fraction of all requests being completed.
+ */
 typedef void (^SRGILFetchListDownloadProgressBlock)(float fraction);
-typedef void (^SRGILFetchListCompletionBlock)(SRGILList *items, Class itemClass, NSError *error);
-typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *error);
 
+/**
+ *  The completion block once a fetch request is done.
+ *
+ *  @param items     The list of items returned by the IL, if any (nil, in case of error). A SRGList is a subclass of NSArray with associated properties.
+ *  @param itemClass The IL model class of the items in the list.
+ *  @param error     The error associated with the request (nil, in case of a successful request).
+ */
+typedef void (^SRGILFetchListCompletionBlock)(SRGILList * __nullable items, Class __nullable itemClass, NSError * __nullable error);
+
+/**
+ *  The completion block associated with the request of a single media.
+ *
+ *  @param media The media requested (SRGILAudio or SRGILVideo).
+ *  @param error The error, if any.
+ */
+typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia * __nullable media, NSError * __nullable error);
+
+
+/**
+ * The IL Data Provider is the main class to interact with the Integration Layer.
+ *
+ */
 @interface SRGILDataProvider : NSObject 
 
 /**
- *  Designated initialize of the data provider.
+ *  Designated initializer of the data provider.
  *
  *  @param businessUnit A three-letters string indicating the BU, can either be 'srf', 'rts', 'rsi', 'rtr' or 'swi'.
  *
  *  @return A new instance of the IL data provider.
  */
-- (instancetype)initWithBusinessUnit:(NSString *)businessUnit NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithBusinessUnit:(nonnull NSString *)businessUnit NS_DESIGNATED_INITIALIZER;
 
 /**
  *  The business unit the data provider is hooked into.
  *
  *  @return The 3-letter string passed as parameter during the init.
  */
-- (NSString *)businessUnit;
+- (nonnull NSString *)businessUnit;
 
 // ********* Fetch lists of IL model objects **********
 
@@ -71,16 +72,16 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  *  @param index           The list "index". See enum SRGILFetchListIndex.
  *  @param arg             The argument to be used to build the URL path for fetching data. Highly
  *  @param orgType         The organisation type: flat of alphabetical.
- *  @param progressBlock   The block to be used to be informed of the progress of the fetch.
+ *  @param progressBlock   The block to be used to be informed of the progress of the fetch. See documentation of SRGILFetchListDownloadProgressBlock abive.
  *  @param completionBlock The block to be used upon fetch completion.
  *
  *  @return A boolean value indicating whether the fetch is valid or not (it may not, depending on the argument).
  */
 - (BOOL)fetchListOfIndex:(enum SRGILFetchListIndex)index
-        withPathArgument:(id)arg
+        withPathArgument:(nullable id)arg
                organised:(SRGILModelDataOrganisationType)orgType
-              onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
-            onCompletion:(SRGILFetchListCompletionBlock)completionBlock;
+              onProgress:(nullable SRGILFetchListDownloadProgressBlock)progressBlock
+            onCompletion:(nonnull SRGILFetchListCompletionBlock)completionBlock;
 
 /**
  *  Indicates the number of current fetches ongoing.
@@ -96,7 +97,7 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  *
  *  @return The date associated with the last successful retrieval of the list.
  */
-- (NSDate *)fetchDateForIndex:(enum SRGILFetchListIndex)index;
+- (nullable NSDate *)fetchDateForIndex:(enum SRGILFetchListIndex)index;
 
 /**
  *  Return the last date of fetch for a given set of indexes. Useful for indicating the last refresh date of a 
@@ -106,7 +107,7 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  *
  *  @return The last of the fetch dates associated with the indexes.
  */
-- (NSDate *)lastFetchDateForIndexes:(NSArray *)indexes;
+- (nullable NSDate *)lastFetchDateForIndexes:(nonnull NSArray *)indexes;
 
 /**
  *  Indicates whether the current fetch path is valid for the given index or not. Corresponds to the last 
@@ -137,8 +138,8 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  *
  *  @return A boolean indicating if the fetch is started or not.
  */
-- (BOOL)fetchMediaWithURNString:(NSString *)urnString
-                completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)fetchMediaWithURNString:(nonnull NSString *)urnString
+                completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
 
 /**
  *  Fetch the meta infos for the live streams.
@@ -149,8 +150,8 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  *
  *  @return A boolean indicating if the fetch is started or not.
  */
-- (BOOL)fetchLiveMetaInfosWithURNString:(NSString *)urnString
-                        completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)fetchLiveMetaInfosWithURNString:(nonnull NSString *)urnString
+                        completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
 
 
 // ********* Data Accessors **********
@@ -162,7 +163,7 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  *
  *  @return An instance of the list of items associated with that index.
  */
-- (SRGILList *)itemsListForIndex:(enum SRGILFetchListIndex)index;
+- (nullable SRGILList *)itemsListForIndex:(enum SRGILFetchListIndex)index;
 
 /**
  *  Access an already-fetch media, if any. If it is not yet fetched, returns nil.
@@ -171,7 +172,7 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  *
  *  @return An instance of the media with that URN.
  */
-- (SRGILMedia *)mediaForURNString:(NSString *)urnString;
+- (nullable  SRGILMedia *)mediaForURNString:(nonnull NSString *)urnString;
 
 /**
  *  Access an already-fetch show, if any. If it is not yet fetched, returns nil.
@@ -180,7 +181,7 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  *
  *  @return An instance of the media with that identifier.
  */
-- (SRGILShow *)showForIdentifier:(NSString *)identifier;
+- (nullable  SRGILShow *)showForIdentifier:(nonnull NSString *)identifier;
 
 
 // ********* Network checks **********
@@ -198,7 +199,7 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia *media, NSError *err
  *  @return Returns the SSID string of the current WIFI, if 'isUsingWIFI' returns 'YES'.
  *  Returns nil otherwise.
  */
-+ (NSString *)WIFISSID;
++ (nullable NSString *)WIFISSID;
 
 /**
  *  As a central network-based request, the request manager also provide some utilities.

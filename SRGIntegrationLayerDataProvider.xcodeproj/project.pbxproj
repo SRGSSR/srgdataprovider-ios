@@ -195,6 +195,7 @@
 		9F4421011B0A116D00AD0613 /* SRGILDataProviderMediaPlayerDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SRGILDataProviderMediaPlayerDataSource.h; path = SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h; sourceTree = SOURCE_ROOT; };
 		9F83AB151B29C0C800D7D8BE /* SRGILDataProviderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderTest.m; sourceTree = "<group>"; };
 		9F8B389C1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderMediaPlayerTest.m; sourceTree = "<group>"; };
+		9FA643351B96EBC300B2B51B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9FCA04901B414935009937E2 /* SRGILURN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILURN.h; sourceTree = "<group>"; };
 		9FCA04911B414935009937E2 /* SRGILURN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILURN.m; sourceTree = "<group>"; };
 		9FF55F981B4B0F5900A99DA2 /* SRGILDataProviderConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILDataProviderConstants.h; sourceTree = "<group>"; };
@@ -254,7 +255,6 @@
 				9F13D5041AE9270600E4D897 /* SRGILDataProvider.h */,
 				9F13D5591AE92B1800E4D897 /* SRGILDataProvider+Private.h */,
 				9F13D5051AE9270600E4D897 /* SRGILDataProvider.m */,
-				9F4421011B0A116D00AD0613 /* SRGILDataProviderMediaPlayerDataSource.h */,
 				9FF55F981B4B0F5900A99DA2 /* SRGILDataProviderConstants.h */,
 				9FF55F991B4B0F5900A99DA2 /* SRGILDataProviderConstants.m */,
 				9F4420FD1B0A107900AD0613 /* MediaPlayer & Analytics */,
@@ -338,6 +338,7 @@
 		9F15192C1AC5A7F200AE051D = {
 			isa = PBXGroup;
 			children = (
+				9FA643351B96EBC300B2B51B /* README.md */,
 				9F13D4FC1AE9238100E4D897 /* SRGIntegrationLayerDataProvider.podspec */,
 				9F1519581ACAA85A00AE051D /* SRGIntegrationLayerDataProvider.h */,
 				9F13D5031AE9270600E4D897 /* SRGILProvider */,
@@ -414,6 +415,7 @@
 		9F4420FD1B0A107900AD0613 /* MediaPlayer & Analytics */ = {
 			isa = PBXGroup;
 			children = (
+				9F4421011B0A116D00AD0613 /* SRGILDataProviderMediaPlayerDataSource.h */,
 				9F4420FE1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.h */,
 				9F4420FF1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m */,
 				E68E95E11B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.h */,

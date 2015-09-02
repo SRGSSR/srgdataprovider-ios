@@ -14,6 +14,6 @@
  */
 @interface SRGILImage : SRGILModelObject
 
-- (SRGILImageRepresentation *)imageRepresentationForUsage:(SRGILMediaImageUsage)usage;
+- (nullable SRGILImageRepresentation *)imageRepresentationForUsage:(SRGILMediaImageUsage)usage;
 
 @end

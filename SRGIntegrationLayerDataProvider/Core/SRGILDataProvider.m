@@ -49,11 +49,6 @@ static NSArray *validBusinessUnits = nil;
     }
 }
 
-- (instancetype)init
-{
-    return [self initWithBusinessUnit:nil];
-}
-
 - (instancetype)initWithBusinessUnit:(NSString *)businessUnit
 {
     if (!businessUnit) {
@@ -165,23 +160,7 @@ static NSArray *validBusinessUnits = nil;
                              (long)dateComponents.year, (long)dateComponents.month, (long)dateComponents.day];
         }
             break;
-            
-        case SRGILFetchListMediaFavorite:
-        case SRGILFetchListShowFavorite: {
-#if __has_include("SRGILDataProviderOfflineStorage.h")
-            if (progressBlock) {
-                progressBlock(DOWNLOAD_PROGRESS_DONE);
-            }
-            // This little trick is necessary to avoid some troubles updating a collection view too quickly,
-            // in the same run loop. By scheduling it for the next loop, it "looks" more like a network fetch.
-            [[NSOperationQueue currentQueue] addOperationWithBlock:^{
-                [self extractLocalItemsOfIndex:index onCompletion:completionBlock];
-            }];
-            return YES;
-#endif
-        }
-            break;
-            
+                        
             
         case SRGILFetchListAudioLiveStreams: {
             if ([arg isKindOfClass:[NSString class]]) {
@@ -543,6 +522,9 @@ static NSArray *validBusinessUnits = nil;
             }
         }
     }];
+    if (seconds == 0) {
+        return nil;
+    }
     return [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
 }
 

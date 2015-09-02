@@ -16,20 +16,14 @@
  * Object identifier.
  * It is automatically set when using the initWithDictionary constructor.
  */
-@property(nonatomic, strong, readonly) NSString *identifier;
+@property(nonatomic, strong, readonly, nonnull) NSString *identifier;
 
-/**
- *  URN string
- */
-@property(nonatomic, strong, readonly) NSString *urnString;
+@property(nonatomic, strong, readonly, nullable) NSString *urnString;
 
-/**
- *  Download date
- */
-@property(nonatomic, strong, readonly) NSDate *downloadDate;
+@property(nonatomic, strong, readonly, nonnull) NSDate *downloadDate;
 
-- (id)initWithDictionary:(NSDictionary *)dictionary;
-- (id)initAnEmptyModelObjectWithUrnString:(NSString *)urnString;
+- (nullable id)initWithDictionary:(nonnull NSDictionary *)dictionary;
+- (nullable id)initAnEmptyModelObjectWithUrnString:(nonnull NSString *)urnString;
 
 /**
  *  This method can be used to switch on or off the support for NSCoding for properties of the object.

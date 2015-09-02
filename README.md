@@ -3,6 +3,36 @@
 ## About
 
 The SRG Integration Layer (IL) Data Provider library for iOS provides a simple way to communicate with the common service shared by SRG business units.
+It has been developed along with the SRGMediaPlayer library. However, this dependency is optional, and must be activated as explained below,
+if you want to use this provider with the media player.
+
+## Quick Start
+
+Create a property where you need it, and instanciate a IL Data provider like this:
+
+```
+#!objective-c
+    self.ILDataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:[NSString businessUnitIdentifier]];
+```
+
+Then, to fetch a list of item:
+
+```
+#!objective-c
+    [self.ILDataProvider fetchListOfIndex:<fetch list index>
+                         withPathArgument:<a possible argument>
+                                organised:<SRGILModelDataOrganisationTypeFlat or SRGILModelDataOrganisationTypeAlphabetical>
+                               onProgress:<an optional progress block>
+                             onCompletion:<a completion block>];
+```
+
+When you have a media to play, request its complete metadata with:
+
+```
+#!objective-c
+    [self.ILDataProvider fetchMediaWithURNString:<a media URN string>
+                                 completionBlock:<a completion block>];
+```
 
 ## Compatibility
 

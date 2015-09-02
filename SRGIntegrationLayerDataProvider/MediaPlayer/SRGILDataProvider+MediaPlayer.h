@@ -8,6 +8,11 @@
 #import <SRGMediaPlayer/SRGMediaPlayer.h>
 #import <SRGAnalytics/SRGAnalytics.h>
 
-@interface SRGILDataProvider (MediaPlayer) <RTSMediaPlayerControllerDataSource, RTSMediaSegmentsDataSource, RTSAnalyticsMediaPlayerDataSource>
+/**
+ *  The category of the IL Data provider providing a complete impementation of all what is required by the 
+ *  media player for running playback and supply analytics infos.
+ */
+@interface SRGILDataProvider (MediaPlayer)
+<RTSMediaPlayerControllerDataSource, RTSMediaSegmentsDataSource, RTSAnalyticsMediaPlayerDataSource>
 
 @end

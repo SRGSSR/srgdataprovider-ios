@@ -11,6 +11,6 @@
 
 @property(nonatomic, assign, readonly) SRGILDownloadProtocol protocol;
 
-- (NSURL *)URLForQuality:(SRGILDownloadURLQuality)quality;
+- (nullable NSURL *)URLForQuality:(SRGILDownloadURLQuality)quality;
 
 @end
