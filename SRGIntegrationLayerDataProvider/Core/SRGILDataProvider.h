@@ -28,11 +28,14 @@ typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
     SRGILFetchListVideoShowsAZDetail,
     SRGILFetchListVideoShowsByDate,
     SRGILFetchListVideoSearchResult,
+    SRGILFetchListVideoShowSearchResult,
     SRGILFetchListAudioLiveStreams,
     SRGILFetchListAudioMostRecent,
     SRGILFetchListAudioMostListened,
     SRGILFetchListAudioShowsAZ,
     SRGILFetchListAudioShowsAZDetail,
+    SRGILFetchListAudioShowSearchResult,
+    SRGILFetchListAudioSearchResult,
     SRGILFetchListMediaFavorite,  // local storage fetch
     SRGILFetchListShowFavorite, // local storage fetch
     SRGILFetchListEnumEnd,
