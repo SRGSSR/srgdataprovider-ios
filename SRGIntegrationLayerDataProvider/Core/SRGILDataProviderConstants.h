@@ -71,6 +71,8 @@ typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
     SRGILFetchListAudioShowsAZDetail,
     SRGILFetchListAudioShowSearchResult,
     SRGILFetchListAudioSearchResult,
+    SRGILFetchListMediaFavorite,
+    SRGILFetchListShowFavorite,
     SRGILFetchListEnumEnd,
     SRGILFetchListEnumSize = SRGILFetchListEnumEnd - SRGILFetchListEnumBegin
 };
