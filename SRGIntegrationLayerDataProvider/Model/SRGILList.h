@@ -1,13 +1,14 @@
 //
-//  SRGILList.h
-//  SRFPlayer
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Cédric Foellmi on 08/09/2014.
-//  Copyright (c) 2014 SRG SSR. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  A subclass of NSArray that can also store global properties, and a tag.
+ */
 @interface SRGILList : NSArray
 
 @property(nonatomic, strong) NSDictionary *globalProperties;

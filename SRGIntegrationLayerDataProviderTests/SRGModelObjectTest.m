@@ -1,9 +1,7 @@
 //
-//  SRGILModelObjectTest.m
-//  SRGILMediaPlayer
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Cédric Foellmi on 21/11/14.
-//  Copyright (c) 2014 onekiloparsec. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import <UIKit/UIKit.h>

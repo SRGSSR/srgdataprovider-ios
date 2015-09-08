@@ -1,9 +1,7 @@
 //
-//  SRGAnalyticsData.h
-//  SRGILMediaPlayer
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Frédéric VERGEZ on 20/03/15.
-//  Copyright (c) 2015 SRG SSR. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,8 +9,6 @@
 
 @interface SRGILAnalyticsExtendedData : SRGILModelObject
 
-@property(nonatomic, readonly) NSString *srgC1;
-@property(nonatomic, readonly) NSString *srgC2;
-@property(nonatomic, readonly) NSString *srgC3;
+@property(nonatomic, readonly) NSDictionary *extendedData;
 
 @end

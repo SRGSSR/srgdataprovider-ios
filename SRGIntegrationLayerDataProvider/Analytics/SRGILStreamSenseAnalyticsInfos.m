@@ -1,9 +1,7 @@
 //
-//  SRGStreamSenseAnalyticsDataSource.m
-//  SRFPlayer
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Cédric Foellmi on 10/07/2014.
-//  Copyright (c) 2014 SRG SSR. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import "SRGILStreamSenseAnalyticsInfos.h"
@@ -101,10 +99,10 @@
     [metadata safeSetValue:ns_st_tp forKey:@"ns_st_tp"];
     
     // Placeholder for values of SMAC-4163:
-    [metadata safeSetValue:self.media.analyticsData.srgC1 forKey:@"srg_c1"];
-    [metadata safeSetValue:self.media.analyticsData.srgC2 forKey:@"srg_c2"];
-    [metadata safeSetValue:self.media.analyticsData.srgC3 forKey:@"srg_c3"];
-
+    if (self.media.analyticsData.extendedData.count > 0) {
+        [metadata addEntriesFromDictionary:self.media.analyticsData.extendedData];
+    }
+    
     // Add common part of the clip (that changes on segment update):
     [metadata addEntriesFromDictionary:[self segmentClipMetadataForMedia:self.media]];
 

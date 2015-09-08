@@ -1,9 +1,7 @@
 //
-//  SRGAsset.h
-//  SRFPlayer
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Cédric Foellmi on 28/08/2014.
-//  Copyright (c) 2014 SRG SSR. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import <Foundation/Foundation.h>
@@ -13,10 +11,10 @@
 
 @interface SRGILAsset : SRGILModelObject
 
-@property(nonatomic, strong) NSString *title;
-@property(nonatomic, strong) SRGILMedia *fullLengthMedia;
-@property(nonatomic, strong) NSArray *mediaSegments;
+@property(nonatomic, strong, nullable) NSString *title;
+@property(nonatomic, strong, nullable) SRGILMedia *fullLengthMedia;
+@property(nonatomic, strong, nullable) NSArray *mediaSegments;
 
-- (void)reloadWithFullLengthMedia:(SRGILMedia *)media;
+- (void)reloadWithFullLengthMedia:(nonnull SRGILMedia *)media;
 
 @end

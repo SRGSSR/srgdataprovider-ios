@@ -1,9 +1,7 @@
 //
-//  SRGILMedia+MediaPlayer.m
-//  SRGIntegrationLayerDataProvider
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Samuel Defago on 27.05.15.
-//  Copyright (c) 2015 SRG. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import "SRGILMedia+MediaPlayer.h"

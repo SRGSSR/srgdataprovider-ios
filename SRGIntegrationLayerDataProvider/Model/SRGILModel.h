@@ -1,9 +1,7 @@
 //
-//  SRGILModel.h
-//  SRGIntegrationLayerDataProvider
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Cédric Foellmi on 01/04/15.
-//  Copyright (c) 2015 SRG. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #ifndef SRGIntegrationLayerDataProvider_SRGILModel_h

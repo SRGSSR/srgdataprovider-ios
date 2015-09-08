@@ -1,15 +1,18 @@
 //
-//  SRGILDataProvider+MediaPlayer.h
-//  SRGIntegrationLayerDataProvider
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Cédric Foellmi on 18/05/15.
-//  Copyright (c) 2015 SRG. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import "SRGILDataProvider.h"
 #import <SRGMediaPlayer/SRGMediaPlayer.h>
 #import <SRGAnalytics/SRGAnalytics.h>
 
-@interface SRGILDataProvider (MediaPlayer) <RTSMediaPlayerControllerDataSource, RTSMediaSegmentsDataSource, RTSAnalyticsMediaPlayerDataSource>
+/**
+ *  The category of the IL Data provider providing a complete impementation of all what is required by the 
+ *  media player for running playback and supply analytics infos.
+ */
+@interface SRGILDataProvider (MediaPlayer)
+<RTSMediaPlayerControllerDataSource, RTSMediaSegmentsDataSource, RTSAnalyticsMediaPlayerDataSource>
 
 @end

@@ -1,9 +1,7 @@
 //
-//  SRGILDataProvider.m
-//  SRGIntegrationLayerDataProvider
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Cédric Foellmi on 31/03/15.
-//  Copyright (c) 2015 SRG. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
@@ -49,11 +47,6 @@ static NSArray *validBusinessUnits = nil;
     if (self == [SRGILDataProvider class]) {
         validBusinessUnits = @[@"srf", @"rts", @"rsi", @"rtr", @"swi"];
     }
-}
-
-- (instancetype)init
-{
-    return [self initWithBusinessUnit:nil];
 }
 
 - (instancetype)initWithBusinessUnit:(NSString *)businessUnit
@@ -167,23 +160,7 @@ static NSArray *validBusinessUnits = nil;
                              (long)dateComponents.year, (long)dateComponents.month, (long)dateComponents.day];
         }
             break;
-            
-        case SRGILFetchListMediaFavorite:
-        case SRGILFetchListShowFavorite: {
-#if __has_include("SRGILDataProviderOfflineStorage.h")
-            if (progressBlock) {
-                progressBlock(DOWNLOAD_PROGRESS_DONE);
-            }
-            // This little trick is necessary to avoid some troubles updating a collection view too quickly,
-            // in the same run loop. By scheduling it for the next loop, it "looks" more like a network fetch.
-            [[NSOperationQueue currentQueue] addOperationWithBlock:^{
-                [self extractLocalItemsOfIndex:index onCompletion:completionBlock];
-            }];
-            return YES;
-#endif
-        }
-            break;
-            
+                        
             
         case SRGILFetchListAudioLiveStreams: {
             if ([arg isKindOfClass:[NSString class]]) {
@@ -606,6 +583,9 @@ static NSArray *validBusinessUnits = nil;
             }
         }
     }];
+    if (seconds == 0) {
+        return nil;
+    }
     return [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
 }
 

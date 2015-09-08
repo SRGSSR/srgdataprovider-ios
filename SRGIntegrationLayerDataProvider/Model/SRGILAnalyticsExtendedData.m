@@ -1,9 +1,7 @@
 //
-//  SRGAnalyticsData.m
-//  SRGILMediaPlayer
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Frédéric VERGEZ on 20/03/15.
-//  Copyright (c) 2015 SRG SSR. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import "SRGILAnalyticsExtendedData.h"
@@ -17,22 +15,15 @@
     if (self) {
         id tmpEntries = [dictionary objectForKey:@"Entry"];
         NSArray *entries = ([tmpEntries isKindOfClass:[NSDictionary class]]) ? @[tmpEntries] : tmpEntries;
+        NSMutableDictionary *tmpData = [NSMutableDictionary dictionary];
         
         if ([entries count] > 0) {
             [entries enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
-                if ([@"srg_c1" isEqualToString:obj[@"@key"]]) {
-                    _srgC1 = obj[@"@value"];
-                }
-                
-                if ([@"srg_c2" isEqualToString:obj[@"@key"]]) {
-                    _srgC2 = obj[@"@value"];
-                }
-                
-                if ([@"srg_c3" isEqualToString:obj[@"@key"]]) {
-                    _srgC3 = obj[@"@value"];
-                }
+                [tmpData setObject:[obj[@"@value"] description] forKey:obj[@"@key"]];
             }];
         }
+        
+        _extendedData = [NSDictionary dictionaryWithDictionary:tmpData];
     }
     
     return self;

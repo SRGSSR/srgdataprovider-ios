@@ -1,9 +1,7 @@
 //
-//  SRGILImage.h.h
-//  SRFPlayer
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Samuel Défago on 07/02/14.
-//  Copyright (c) 2014 SRG SSR. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import <Foundation/Foundation.h>
@@ -16,6 +14,6 @@
  */
 @interface SRGILImage : SRGILModelObject
 
-- (SRGILImageRepresentation *)imageRepresentationForUsage:(SRGILMediaImageUsage)usage;
+- (nullable SRGILImageRepresentation *)imageRepresentationForUsage:(SRGILMediaImageUsage)usage;
 
 @end

@@ -1,9 +1,7 @@
 //
-//  SRGILVideoTest.m
-//  SRFPlayer
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Cédric Foellmi on 06/06/2014.
-//  Copyright (c) 2014 SRG SSR. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import <XCTest/XCTest.h>

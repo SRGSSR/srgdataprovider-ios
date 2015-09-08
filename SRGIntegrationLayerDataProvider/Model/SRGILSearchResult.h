@@ -1,9 +1,7 @@
 //
-//  SRGILSearchResult.h
-//  SRGIntegrationLayerDataProvider
+//  Copyright (c) SRG. All rights reserved.
 //
-//  Created by Frédéric VERGEZ on 29/07/15.
-//  Copyright (c) 2015 SRG. All rights reserved.
+//  License information is available from the LICENSE file.
 //
 
 #import "SRGILModelObject.h"
