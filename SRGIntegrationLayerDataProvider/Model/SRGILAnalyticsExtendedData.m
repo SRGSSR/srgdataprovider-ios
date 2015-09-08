@@ -19,7 +19,7 @@
         
         if ([entries count] > 0) {
             [entries enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
-                [tmpData setObject:obj[@"@value"] forKey:obj[@"@key"]];
+                [tmpData setObject:[obj[@"@value"] description] forKey:obj[@"@key"]];
             }];
         }
         
