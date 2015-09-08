@@ -27,7 +27,6 @@
 
 - (void)testProviderInvalidInits
 {
-    XCTAssertThrows([[SRGILDataProvider alloc] init], @"You must use the designated initializer");
     XCTAssertThrows([[SRGILDataProvider alloc] initWithBusinessUnit:@"toto"], @"You must provide a valid BU value");
 }
 
