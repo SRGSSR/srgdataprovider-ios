@@ -9,8 +9,6 @@
 
 @interface SRGILAnalyticsExtendedData : SRGILModelObject
 
-@property(nonatomic, readonly) NSString *srgC1;
-@property(nonatomic, readonly) NSString *srgC2;
-@property(nonatomic, readonly) NSString *srgC3;
+@property(nonatomic, readonly) NSDictionary *extendedData;
 
 @end
