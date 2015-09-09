@@ -18,5 +18,5 @@
 @property(nonatomic,readonly,strong) NSString *assetGroupTitle;
 @property(nonatomic,readonly,strong) NSString *assetSetId;
 @property(nonatomic,readonly,strong) NSString *assetSetTitle;
-
+@property(nonatomic,readonly,strong) NSString *primaryChannelId;
 @end

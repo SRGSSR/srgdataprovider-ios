@@ -25,7 +25,8 @@
         _publishedDate = [dateFormatter dateFromString:dictionary[@"publishedDate"]];
         _imageURL = [NSURL URLWithString:dictionary[@"imageurl"]];
         _duration = [dictionary[@"duration"] integerValue];
-                
+        _primaryChannelId = dictionary[@"primaryChannelId"];
+        
         [[dictionary valueForKeyPath:@"parentIds.id"] enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
             if ([@"assetgroup" isEqualToString:obj[@"@ref"]]) {
                 _assetGroupId = obj[@"text"];
@@ -43,7 +44,7 @@
                 _assetSetTitle = obj[@"text"];
             }
         }];
-    }
+            }
     
     return self;
 }
