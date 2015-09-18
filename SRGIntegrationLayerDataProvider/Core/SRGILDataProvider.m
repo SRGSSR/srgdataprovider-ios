@@ -452,11 +452,20 @@ static NSArray *validBusinessUnits = nil;
                 NSMutableString *firstLetter = [[[show.title substringToIndex:1] uppercaseString] mutableCopy];
                 CFStringTransform((__bridge CFMutableStringRef)firstLetter, NULL, kCFStringTransformStripCombiningMarks, NO);
                 
-                if (![numberStrings containsObject:firstLetter] && ![currentKey isEqualToString:firstLetter]) {
-                    currentKey = firstLetter;
-                    showsGroups[currentKey] = [NSMutableArray array];
+                // Set non alphanumeric first letter in 0-9 section
+                unichar firstChar = [firstLetter characterAtIndex:0];
+                NSCharacterSet *alphanumericChars = [NSCharacterSet alphanumericCharacterSet];
+
+                if (![alphanumericChars characterIsMember:[firstLetter characterAtIndex:0]]) {
+                    [showsGroups[digitKey] addObject:show];
                 }
-                [showsGroups[currentKey] addObject:show];
+                else {
+                    if (![numberStrings containsObject:firstLetter] && ![currentKey isEqualToString:firstLetter]) {
+                        currentKey = firstLetter;
+                        showsGroups[currentKey] = [NSMutableArray array];
+                    }
+                    [showsGroups[currentKey] addObject:show];
+                }
             }];
             
             NSMutableArray *splittedShows = [NSMutableArray array];
