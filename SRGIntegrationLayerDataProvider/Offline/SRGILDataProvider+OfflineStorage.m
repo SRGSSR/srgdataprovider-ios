@@ -76,7 +76,10 @@ static void *kStorageCenterAssociatedObjectKey = &kStorageCenterAssociatedObject
 
     [self.storageCenter flagAsFavorite:favorite mediaWithIdentifier:urnString audioChannelID:audioChannelID];
     
-    if (!self.identifiedMedias[urnString]) {
+    // Make sure we have an URN string to launch a request.
+    // Old version (v2.1) of the app may send a naked identifier, in which case the 'favorite' flag will be NO.
+    // But the request mus be performed for new ones, whatever the value of the flag.
+    if ([SRGILURN URNWithString:urnString] && !self.identifiedMedias[urnString]) {
         // We don't have the complete associated media. hence, fetch it, and complete its metadatas.
         
         SRGILURN *urn = [SRGILURN URNWithString:urnString];

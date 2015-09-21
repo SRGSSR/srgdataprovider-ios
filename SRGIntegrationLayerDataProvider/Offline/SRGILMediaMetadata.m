@@ -37,7 +37,13 @@
             image = ([video isFullLength] && video.assetSet.show.image) ? video.assetSet.show.image : video.image;
         }
         
-        SRGILImageRepresentation *imgRep = [image imageRepresentationForUsage:SRGILMediaImageUsageWeb] ?: [image imageRepresentationForUsage:SRGILMediaImageUsageShowEpisode];
+        SRGILImageRepresentation *imgRep = [image imageRepresentationForUsage:SRGILMediaImageUsageWeb];
+        if (!imgRep) {
+            imgRep = [image imageRepresentationForUsage:SRGILMediaImageUsageEditorialPick];
+        }
+        if (!imgRep) {
+            imgRep = [image imageRepresentationForUsage:SRGILMediaImageUsageShowEpisode];
+        }
         return imgRep.URL;
     }
     return nil;
