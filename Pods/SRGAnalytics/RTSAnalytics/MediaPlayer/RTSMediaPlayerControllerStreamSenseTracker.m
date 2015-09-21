@@ -50,7 +50,7 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 	NSBundle *mediaPlayerBundle = [NSBundle RTSMediaPlayerBundle];
 	
 	[self setLabel:@"ns_st_mp" value:[mediaPlayerBundle objectForInfoDictionaryKey:@"CFBundleName"]];
-	[self setLabel:@"ns_st_pv" value:RTSAnalyticsVersion()];
+	[self setLabel:@"ns_st_pu" value:RTSAnalyticsVersion()];
 	[self setLabel:@"ns_st_mv" value:[mediaPlayerBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
 	[self setLabel:@"ns_st_it" value:@"c"];
 	
@@ -65,7 +65,13 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 - (void)notify:(CSStreamSenseEventType)playerEvent withSegment:(id<RTSMediaSegment>)segment
 {
     [self updateLabelsWithSegment:segment];
-	[self notify:playerEvent position:[self currentPositionInMilliseconds] labels:nil];
+    
+    if (segment && playerEvent == CSStreamSensePlay) {
+        [self notify:playerEvent position:CMTimeGetSeconds(segment.timeRange.start) * 1000. labels:nil];
+    }
+    else {
+        [self notify:playerEvent position:[self currentPositionInMilliseconds] labels:nil];
+    }
 }
 
 #pragma mark - CSStreamSensePluginProtocol
