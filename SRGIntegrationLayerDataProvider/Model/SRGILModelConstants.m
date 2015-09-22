@@ -7,6 +7,7 @@
 #import "SRGILModelConstants.h"
 
 NSString * const SRGILVideoUseHighQualityOverCellularNetworkKey = @"SRGILVideoUseHighQualityOverCellularNetworkKey";
+NSString * const SRGILVideoDownloadHighQualityWhenAvailableKey = @"SRGILVideoDownloadHighQualityWhenAvailableKey";
 
 SRGILMediaImageUsage SRGILMediaImageUsageFromString(NSString *input)
 {
@@ -131,7 +132,8 @@ SRGILDownloadURLQuality SRGILDownloadURLQualityForString(NSString *qualityString
     static NSDictionary *qualities;
     dispatch_once(&onceToken, ^{
         qualities = @{ @"SD" : @(SRGILDownloadURLQualitySD),
-                       @"HD" : @(SRGILDownloadURLQualityHD)};
+                       @"HD" : @(SRGILDownloadURLQualityHD),
+                       @"LQ" : @(SRGILDownloadURLQualityLQ)};
     });
     NSNumber *quality = qualities[qualityString.uppercaseString];
     return quality ? [quality integerValue] : SRGILDownloadURLQualityUnknown;
