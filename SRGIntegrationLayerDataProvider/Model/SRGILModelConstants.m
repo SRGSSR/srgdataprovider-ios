@@ -7,7 +7,6 @@
 #import "SRGILModelConstants.h"
 
 NSString * const SRGILVideoUseHighQualityOverCellularNetworkKey = @"SRGILVideoUseHighQualityOverCellularNetworkKey";
-NSString * const SRGILVideoDownloadHighQualityWhenAvailableKey = @"SRGILVideoDownloadHighQualityWhenAvailableKey";
 
 SRGILMediaImageUsage SRGILMediaImageUsageFromString(NSString *input)
 {
