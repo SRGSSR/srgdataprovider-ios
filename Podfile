@@ -40,31 +40,15 @@ end
 
 
 post_install do |installer|
-    
+
     pods_project = installer.respond_to?(:pods_project) ? installer.pods_project : installer.project # Prepare for CocoaPods 0.38.2
-    
-    # See https://github.com/CocoaPods/CocoaPods/issues/2704
-    # where the 'stdc++' has been stripped to 'c++' / Fixed with CocoaPods 0.38.2
-    
-    support_files_group = installer.project.support_files_group.groups[0]
-    source_tree = File.join(installer.sandbox_root, support_files_group.path)
-    
-    support_files_group.files.each do |file|
-        
-        next unless file.path.end_with?('.xcconfig')
-        xcconfig_path = File.join(source_tree, file.path)
-        xcconfig = File.read(xcconfig_path)
-        newXcconfig = xcconfig.gsub(/\ -l"c\+\+"/, '')
-        File.open(xcconfig_path, "w") { |file| file << newXcconfig }
-        
-    end
-    
+
     # Set Device family to iPhone/iPad
-    
+
     pods_project.targets.each do |target|
         target.build_configurations.each do |config|
             config.build_settings['TARGETED_DEVICE_FAMILY'] = '1,2' # iPhone, iPad
         end
     end
-    
+
 end

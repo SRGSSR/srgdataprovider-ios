@@ -269,7 +269,10 @@ static SGVReachability *reachability;
         
         if (!hasBeenCancelled) {
             NSError *JSONError = nil;
-            id rawDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&JSONError];
+            id rawDictionary = nil;
+            if (data) {
+                rawDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&JSONError];
+            }
             
             if (error || JSONError || !rawDictionary || ![rawDictionary isKindOfClass:[NSDictionary class]]) {
                 NSError *newError = nil;

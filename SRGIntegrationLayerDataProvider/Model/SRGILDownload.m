@@ -49,5 +49,4 @@
     return [_URLs objectForKey:@(quality)];
 }
 
-
 @end

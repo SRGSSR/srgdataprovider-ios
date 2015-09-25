@@ -51,7 +51,7 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 	NSBundle *mediaPlayerBundle = [NSBundle RTSMediaPlayerBundle];
 	
 	[self setLabel:@"ns_st_mp" value:[mediaPlayerBundle objectForInfoDictionaryKey:@"CFBundleName"]];
-	[self setLabel:@"ns_st_pv" value:RTSAnalyticsVersion()];
+	[self setLabel:@"ns_st_pu" value:RTSAnalyticsVersion()];
 	[self setLabel:@"ns_st_mv" value:[mediaPlayerBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
 	[self setLabel:@"ns_st_it" value:@"c"];
 	
@@ -284,7 +284,15 @@ static NSString * const LoggerDomainAnalyticsStreamSense = @"StreamSense";
 {
     if (self.mediaPlayerController.streamType == RTSMediaStreamTypeDVR) {
         CMTime timeShift = CMTimeSubtract(CMTimeRangeGetEnd(self.mediaPlayerController.timeRange), self.mediaPlayerController.playerItem.currentTime);
-        return [NSString stringWithFormat:@"%ld", (long) fabs(CMTimeGetSeconds(timeShift)) * 1000];
+        NSInteger timeShiftInSeconds = (NSInteger)fabs(CMTimeGetSeconds(timeShift));
+        
+        // Consider offsets smaller than the tolerance to be equivalent to live conditions, sending 0 instead of the real offset
+        if (timeShiftInSeconds <= RTSMediaLiveTolerance) {
+            return @"0";
+        }
+        else {
+            return [NSString stringWithFormat:@"%@", @(timeShiftInSeconds * 1000)];
+        }
     }
     else if (self.mediaPlayerController.streamType == RTSMediaStreamTypeLive) {
         return @"0";

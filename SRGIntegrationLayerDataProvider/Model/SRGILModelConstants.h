@@ -10,7 +10,6 @@
 #define SRGIntegrationLayerDataProvider_SRGILModelConstants_h
 
 extern NSString * const SRGILVideoUseHighQualityOverCellularNetworkKey;
-extern NSString * const SRGILVideoDownloadHighQualityWhenAvailableKey;
 
 typedef NS_ENUM (NSInteger, SRGILMediaType) {
     SRGILMediaTypeUndefined,
@@ -105,6 +104,7 @@ typedef NS_ENUM(NSInteger, SRGILDownloadURLQuality) {
     SRGILDownloadURLQualityEnumBegin = 0,
     SRGILDownloadURLQualitySD = SRGILDownloadURLQualityEnumBegin,
     SRGILDownloadURLQualityHD,
+    SRGILDownloadURLQualityLQ,
     SRGILDownloadURLQualityUnknown,
     SRGILDownloadURLQualityEnumEnd,
     SRGILDownloadURLQualityEnumsize = SRGILDownloadURLQualityEnumEnd - SRGILDownloadURLQualityEnumBegin

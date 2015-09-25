@@ -19,23 +19,23 @@ PODS:
     - SDWebImage/Core (= 3.7.0)
   - SDWebImage/Core (3.7.0)
   - SGVReachability (1.0.0)
-  - SRGAnalytics (1.1.2):
-    - SRGAnalytics/Core (= 1.1.2)
-  - SRGAnalytics/Core (1.1.2):
+  - SRGAnalytics (1.1.3):
+    - SRGAnalytics/Core (= 1.1.3)
+  - SRGAnalytics/Core (1.1.3):
     - comScore-iOS-SDK-RTS (= 3.1504.30)
-    - SRGAnalytics/Core/Version (= 1.1.2)
-  - SRGAnalytics/Core/Version (1.1.2):
+    - SRGAnalytics/Core/Version (= 1.1.3)
+  - SRGAnalytics/Core/Version (1.1.3):
     - comScore-iOS-SDK-RTS (= 3.1504.30)
-  - SRGAnalytics/MediaPlayer (1.1.2):
+  - SRGAnalytics/MediaPlayer (1.1.3):
     - SRGAnalytics/Core
-    - SRGMediaPlayer (~> 1.2.0)
-  - SRGIntegrationLayerDataProvider (2.1.2):
-    - SRGIntegrationLayerDataProvider/Core (= 2.1.2)
-  - SRGIntegrationLayerDataProvider/Core (2.1.2):
+    - SRGMediaPlayer (~> 1.2.1)
+  - SRGIntegrationLayerDataProvider (2.3.0):
+    - SRGIntegrationLayerDataProvider/Core (= 2.3.0)
+  - SRGIntegrationLayerDataProvider/Core (2.3.0):
     - CocoaLumberjack (~> 2.0.0)
     - libextobjc/EXTScope (= 0.4.1)
     - SGVReachability (~> 1.0.0)
-  - SRGIntegrationLayerDataProvider/MediaPlayer (2.1.2):
+  - SRGIntegrationLayerDataProvider/MediaPlayer (2.3.0):
     - SRGAnalytics (~> 1.1.0)
     - SRGAnalytics/MediaPlayer (~> 1.1.0)
     - SRGIntegrationLayerDataProvider/Core
@@ -70,9 +70,9 @@ SPEC CHECKSUMS:
   OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
-  SRGAnalytics: c3d0dc9fb342624d3d4a424968a8b8797dbdb0e3
-  SRGIntegrationLayerDataProvider: 8e2ef6708d2437e55920152128779f8926c45fc2
+  SRGAnalytics: 8c76f91c2047a241c54b9603b99c3488c3d8e790
+  SRGIntegrationLayerDataProvider: 11d90ac226b3b67c970f2831ac134692632d76a4
   SRGMediaPlayer: 681bfe713b658e797e30ec891e19e22411394775
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.2
