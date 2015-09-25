@@ -478,7 +478,7 @@ static NSArray *validBusinessUnits = nil;
             NSArray *sortedShows = [items sortedArrayUsingDescriptors:@[desc]];
             
             NSArray *numberStrings = @[@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9"];
-            static NSString *digitKey = @"0-9";
+            static NSString *digitKey = @"#";
             __block NSString *currentKey = digitKey;
             
             NSMutableDictionary *showsGroups = [NSMutableDictionary dictionary];
