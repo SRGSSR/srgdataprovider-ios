@@ -12,7 +12,6 @@
 @class SRGILMedia;
 @class SRGILShow;
 
-
 /**
  *  Block associated with a fetch request, informing about the progresses of ALL on-going requests. This is mostly
  *  used for detailed information in the 'pull-to-refresh' feature in the Play SRG apps. One screen being composed
