@@ -476,41 +476,46 @@ static NSArray *validBusinessUnits = nil;
             
             NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES comparator:comparator];
             NSArray *sortedShows = [items sortedArrayUsingDescriptors:@[desc]];
-            
-            NSArray *numberStrings = @[@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9"];
-            static NSString *digitKey = @"#";
-            __block NSString *currentKey = digitKey;
+            NSArray *letterCharacterSet = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M",
+                                            @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
             
             NSMutableDictionary *showsGroups = [NSMutableDictionary dictionary];
-            showsGroups[currentKey] = [NSMutableArray array];
             
             [sortedShows enumerateObjectsUsingBlock:^(SRGILShow *show, NSUInteger idx, BOOL *stop) {
-                // Extract the first letter and remove accents / diacritics
+                // Extract the first letter
                 NSMutableString *firstLetter = [[[show.title substringToIndex:1] uppercaseString] mutableCopy];
+                if (!firstLetter) {
+                    return;
+                }
+                
+                // Remove accents / diacritics
                 CFStringTransform((__bridge CFMutableStringRef)firstLetter, NULL, kCFStringTransformStripCombiningMarks, NO);
                 
-                // Set non alphanumeric first letter in 0-9 section
+                // Put non alphanumeric characters in a common # section
                 unichar firstChar = [firstLetter characterAtIndex:0];
-                NSCharacterSet *alphanumericChars = [NSCharacterSet alphanumericCharacterSet];
-
-                if (![alphanumericChars characterIsMember:[firstLetter characterAtIndex:0]]) {
-                    [showsGroups[digitKey] addObject:show];
+                NSString *firstCharKey = [NSString stringWithCharacters:&firstChar length:1];
+                if (![letterCharacterSet containsObject:firstCharKey]) {
+                    firstCharKey = @"#";
                 }
-                else {
-                    if (![numberStrings containsObject:firstLetter] && ![currentKey isEqualToString:firstLetter]) {
-                        currentKey = firstLetter;
-                        showsGroups[currentKey] = [NSMutableArray array];
-                    }
-                    [showsGroups[currentKey] addObject:show];
+                
+                NSMutableArray *showsForLetter = showsGroups[firstCharKey];
+                if (!showsForLetter) {
+                    showsForLetter = [NSMutableArray array];
+                    showsGroups[firstCharKey] = showsForLetter;
                 }
+                [showsForLetter addObject:show];
             }];
             
             NSMutableArray *splittedShows = [NSMutableArray array];
-            NSArray *sortedShowsGroupsKeys = [[showsGroups allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+            NSArray *sortedShowsGroupsKeys = [[showsGroups allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
             
             [sortedShowsGroupsKeys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
+                NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES comparator:^NSComparisonResult(NSString *title1, NSString *title2) {
+                    return [title1 localizedCaseInsensitiveCompare:title2];
+                }];
+                NSArray *sortedShows = [showsGroups[key] sortedArrayUsingDescriptors:@[sortDescriptor]];
                 SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemForTag:key
-                                                                                          withItems:showsGroups[key]
+                                                                                          withItems:sortedShows
                                                                                               class:modelClass
                                                                                          properties:properties];
                 [splittedShows addObject:dataItem];
