@@ -447,6 +447,8 @@ static NSArray *validBusinessUnits = nil;
                 NSString *identifier = [(SRGILShow *)modelObject identifier];
                 _identifiedShows[identifier] = modelObject;
             }
+            // FIXME: This does not deal with the new SRGILSearchResult possible model object class yet. In particular,
+            //        should those be cached as well in some _identifiedSearchResults dictionary?
         }
     }];
     
