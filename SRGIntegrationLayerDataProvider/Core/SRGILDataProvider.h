@@ -100,7 +100,7 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia * __nullable media, 
 
 /**
  *  Return the last date of fetch for a given set of indexes. Useful for indicating the last refresh date of a 
- *  screen containing multiple lists of items.
+ *  screen containing multiple lists of items. If no fetch date is available, return the reference date.
  *
  *  @param indexes The indexes of lists.
  *

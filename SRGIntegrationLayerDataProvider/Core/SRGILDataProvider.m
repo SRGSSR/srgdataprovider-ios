@@ -599,9 +599,6 @@ static NSArray *validBusinessUnits = nil;
             }
         }
     }];
-    if (seconds == 0) {
-        return nil;
-    }
     return [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
 }
 
