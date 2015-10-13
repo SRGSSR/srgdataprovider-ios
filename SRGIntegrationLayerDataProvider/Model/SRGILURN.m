@@ -6,6 +6,8 @@
 
 #import "SRGILURN.h"
 
+NSString * const defaultURNStringSeparator = @":";
+
 @interface SRGILURN ()
 @property(nonatomic, strong) NSString *prefix;
 @property(nonatomic, strong) NSString *businessUnit;
@@ -45,6 +47,43 @@
 + (NSString *)identifierForURNString:(NSString *)urnString
 {
     return [[urnString componentsSeparatedByString:@":"] lastObject];
+}
+
++ (SRGILURN *)URNForIdentifier:(NSString *)identifier mediaType:(SRGILMediaType)type businessUnit:(NSString *)bu
+{
+    NSAssert(bu, @"Missing BU?");
+    NSAssert(type != SRGILMediaTypeUndefined, @"Undefined?");
+    
+    SRGILURN *urn = [SRGILURN URNWithString:identifier];
+    if (urn) {
+        // If identifier is in fact already an URN string, just returns the URN.
+        return urn;
+    }
+    
+    urn = [[SRGILURN alloc] init];
+    urn.prefix = @"urn";
+    urn.businessUnit = bu;
+    urn.mediaType = type;
+    urn.identifier = identifier;
+    
+    return urn;
+}
+
+- (NSString *)URNStringWithSeparator:(NSString *)separator
+{
+    NSMutableArray *components = [NSMutableArray array];
+    if (self.prefix) {
+        [components addObject:self.prefix];
+    }
+    [components addObject:self.businessUnit];
+    [components addObject:(self.mediaType == SRGILMediaTypeVideo) ? @"video": @"audio"];
+    [components addObject:self.identifier];
+    
+    if (!separator) {
+        separator = defaultURNStringSeparator;
+    }
+    
+    return [components componentsJoinedByString:separator];
 }
 
 @end
