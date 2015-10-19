@@ -10,7 +10,7 @@ NSError *SRGILCreateUserFacingError(NSString *failureReason, NSError *underlying
 {
     NSMutableDictionary *errorInfo = [NSMutableDictionary dictionary];
     
-    [errorInfo setObject:NSLocalizedString(@"GENERIC_ERROR_MESSAGE", nil) forKey:NSLocalizedDescriptionKey];
+    [errorInfo setObject:NSLocalizedString(@"There is some technical problems right now. Normal quality service will resume soon.", nil) forKey:NSLocalizedDescriptionKey];
     if (failureReason) {
         [errorInfo setObject:failureReason forKey:NSLocalizedFailureReasonErrorKey];
     }

@@ -540,7 +540,7 @@ static NSArray *validBusinessUnits = nil;
     }
     else {
         if (error) {
-            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"INVALID_DATA", nil)];
+            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"The received data is invalid.", nil)];
             *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                          code:SRGILDataProviderErrorCodeInvalidData
                                      userInfo:@{NSLocalizedDescriptionKey: message}];
@@ -555,7 +555,7 @@ static NSArray *validBusinessUnits = nil;
                   completionBlock:(SRGILFetchListCompletionBlock)completionBlock
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *reason = [NSString stringWithFormat:NSLocalizedString(@"INVALID_DATA_FOR_CATEGORY", nil), tag];
+        NSString *reason = [NSString stringWithFormat:NSLocalizedString(@"The received data is invalid for category %@", nil), tag];
         NSError *newError = SRGILCreateUserFacingError(reason, error, SRGILDataProviderErrorCodeInvalidData);
         completionBlock(nil, nil, newError);
     });
