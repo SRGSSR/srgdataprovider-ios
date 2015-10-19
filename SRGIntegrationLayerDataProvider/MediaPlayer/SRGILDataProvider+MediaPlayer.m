@@ -19,6 +19,8 @@
 #import "SRGILModel.h"
 #import "SRGILModelConstants.h"
 
+#import "NSBundle+SRGILDataProvider.h"
+
 #import <libextobjc/EXTScope.h>
 #import <objc/runtime.h>
 
@@ -103,10 +105,10 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         
         NSString *errorMessage = nil;
         if (!urn) {
-            errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Unable to create URN from string '%@', which is needed to proceed.", nil), urnString];
+            errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Unable to create URN from string '%@', which is needed to proceed.", nil), urnString];
         }
         else if (urn.mediaType == SRGILMediaTypeUndefined) {
-            errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Undefined mediaType inferred from URN string '%@'.", nil), urnString];
+            errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Undefined mediaType inferred from URN string '%@'.", nil), urnString];
         }
         
         if (errorMessage) {
@@ -157,10 +159,10 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         
         NSString *errorMessage = nil;
         if (!urn) {
-            errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Unable to create URN from string '%@', which is needed to proceed.", nil), urnString];
+            errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Unable to create URN from string '%@', which is needed to proceed.", nil), urnString];
         }
         else if (urn.mediaType == SRGILMediaTypeUndefined) {
-            errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Undefined mediaType inferred from URN string '%@'.", nil), urnString];
+            errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Undefined mediaType inferred from URN string '%@'.", nil), urnString];
         }
         
         if (errorMessage) {
