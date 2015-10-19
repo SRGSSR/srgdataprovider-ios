@@ -80,6 +80,16 @@
 		E68E95E31B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E68E95E21B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9FDA13D91BD523B70073722D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F15192D1AC5A7F200AE051D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FDA13C91BD519920073722D;
+			remoteInfo = "SRGILDataProvider Resources";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		9F1519331AC5A7F200AE051D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -510,6 +520,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9FDA13DA1BD523B70073722D /* PBXTargetDependency */,
 			);
 			name = SRGIntegrationLayerDataProvider;
 			productName = SRGIntegrationLayerDataProvider;
@@ -756,6 +767,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		9FDA13DA1BD523B70073722D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9FDA13C91BD519920073722D /* SRGILDataProvider Resources */;
+			targetProxy = 9FDA13D91BD523B70073722D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		9FDA13D41BD51C200073722D /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -961,6 +980,7 @@
 				9FDA13CF1BD519920073722D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
