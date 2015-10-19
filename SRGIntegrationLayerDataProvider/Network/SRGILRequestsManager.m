@@ -283,7 +283,7 @@ static SGVReachability *reachability;
                     newError = JSONError;
                 }
                 else {
-                    newError = SRGILCreateUserFacingError(NSLocalizedString(@"INVALID_DATA_FOR_CATEGORY", nil), error, SRGILDataProviderErrorCodeInvalidData);
+                    newError = SRGILCreateUserFacingError(NSLocalizedString(@"The received data is invalid for category %@", nil), error, SRGILDataProviderErrorCodeInvalidData);
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completionBlock(nil, newError);

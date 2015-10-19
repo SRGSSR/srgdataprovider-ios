@@ -78,8 +78,7 @@ static NSString * const SRGILTokenHandlerBaseURLString = @"http://tp.srgssr.ch/t
         
         if (![[JSON objectForKey:@"token"] objectForKey:@"authparams"]) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                //TODO Add this localized string somewhere
-                NSDictionary *userInfo = @{NSLocalizedDescriptionKey : NSLocalizedString(@"MISSING_TOKEN_AUTHPARAMS_ERROR_DESCRIPTION", nil)};
+                NSDictionary *userInfo = @{NSLocalizedDescriptionKey : NSLocalizedString(@"Missing parameters for token.", nil)};
                 completionBlock(nil, [NSError errorWithDomain:SRGILDataProviderErrorDomain code:SRGILDataProviderErrorCodeInvalidData userInfo:userInfo]);
             }];
             return;

@@ -99,7 +99,7 @@
 		<key>ns_st_po</key>
 		<string>104</string>
 		<key>ns_st_pr</key>
-		<string>Geopolitis STAT_DATE_PREPOSITION 23.05.2015</string>
+		<string>Geopolitis on 23.05.2015</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -246,7 +246,7 @@
 		<key>ns_st_po</key>
 		<string>105</string>
 		<key>ns_st_pr</key>
-		<string>Le court du jour STAT_DATE_PREPOSITION 21.05.2012</string>
+		<string>Le court du jour on 21.05.2012</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -393,7 +393,7 @@
 		<key>ns_st_po</key>
 		<string>104</string>
 		<key>ns_st_pr</key>
-		<string>Sport dimanche STAT_DATE_PREPOSITION 11.05.2014</string>
+		<string>Sport dimanche on 11.05.2014</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -540,7 +540,7 @@
 		<key>ns_st_po</key>
 		<string>106</string>
 		<key>ns_st_pr</key>
-		<string>12h45 STAT_DATE_PREPOSITION 28.12.2014</string>
+		<string>12h45 on 28.12.2014</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -687,7 +687,7 @@
 		<key>ns_st_po</key>
 		<string>104</string>
 		<key>ns_st_pr</key>
-		<string>19h30 signé STAT_DATE_PREPOSITION 01.01.2015</string>
+		<string>19h30 signé on 01.01.2015</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -834,7 +834,7 @@
 		<key>ns_st_po</key>
 		<string>105</string>
 		<key>ns_st_pr</key>
-		<string>19h30 STAT_DATE_PREPOSITION 27.12.2014</string>
+		<string>19h30 on 27.12.2014</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -981,7 +981,7 @@
 		<key>ns_st_po</key>
 		<string>104</string>
 		<key>ns_st_pr</key>
-		<string>Temps présent STAT_DATE_PREPOSITION 25.12.2014</string>
+		<string>Temps présent on 25.12.2014</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -1128,7 +1128,7 @@
 		<key>ns_st_po</key>
 		<string>103</string>
 		<key>ns_st_pr</key>
-		<string>Temps présent STAT_DATE_PREPOSITION 25.12.2014</string>
+		<string>Temps présent on 25.12.2014</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -1275,7 +1275,7 @@
 		<key>ns_st_po</key>
 		<string>104</string>
 		<key>ns_st_pr</key>
-		<string>Temps présent STAT_DATE_PREPOSITION 25.12.2014</string>
+		<string>Temps présent on 25.12.2014</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -1422,7 +1422,7 @@
 		<key>ns_st_po</key>
 		<string>104</string>
 		<key>ns_st_pr</key>
-		<string>La semaine des médias STAT_DATE_PREPOSITION 09.03.2015</string>
+		<string>La semaine des médias on 09.03.2015</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -1569,7 +1569,7 @@
 		<key>ns_st_po</key>
 		<string>104</string>
 		<key>ns_st_pr</key>
-		<string>Le journal du samedi STAT_DATE_PREPOSITION 06.06.2015</string>
+		<string>Le journal du samedi on 06.06.2015</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -1716,7 +1716,7 @@
 		<key>ns_st_po</key>
 		<string>103</string>
 		<key>ns_st_pr</key>
-		<string>Climage STAT_DATE_PREPOSITION 22.01.2015</string>
+		<string>Climage on 22.01.2015</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -1863,7 +1863,7 @@
 		<key>ns_st_po</key>
 		<string>106</string>
 		<key>ns_st_pr</key>
-		<string>Tennis STAT_DATE_PREPOSITION 20.05.2015</string>
+		<string>Tennis on 20.05.2015</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -2010,7 +2010,7 @@
 		<key>ns_st_po</key>
 		<string>106</string>
 		<key>ns_st_pr</key>
-		<string>Couleurs locales STAT_DATE_PREPOSITION 04.06.2015</string>
+		<string>Couleurs locales on 04.06.2015</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -2157,7 +2157,7 @@
 		<key>ns_st_po</key>
 		<string>106</string>
 		<key>ns_st_pr</key>
-		<string>Contre-pied STAT_DATE_PREPOSITION 12.06.2014</string>
+		<string>Contre-pied on 12.06.2014</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -2304,7 +2304,7 @@
 		<key>ns_st_po</key>
 		<string>104</string>
 		<key>ns_st_pr</key>
-		<string>Break-ups STAT_DATE_PREPOSITION 14.02.2014</string>
+		<string>Break-ups on 14.02.2014</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -2451,7 +2451,7 @@
 		<key>ns_st_po</key>
 		<string>106</string>
 		<key>ns_st_pr</key>
-		<string>120 secondes STAT_DATE_PREPOSITION 19.08.2014</string>
+		<string>120 secondes on 19.08.2014</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -2598,7 +2598,7 @@
 		<key>ns_st_po</key>
 		<string>106</string>
 		<key>ns_st_pr</key>
-		<string>Météo STAT_DATE_PREPOSITION 16.05.2015</string>
+		<string>Météo on 16.05.2015</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -2745,7 +2745,7 @@
 		<key>ns_st_po</key>
 		<string>104</string>
 		<key>ns_st_pr</key>
-		<string>RTS Découverte STAT_DATE_PREPOSITION 10.06.2015</string>
+		<string>RTS Découverte on 10.06.2015</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -2892,7 +2892,7 @@
 		<key>ns_st_po</key>
 		<string>105</string>
 		<key>ns_st_pr</key>
-		<string>Dîner à la ferme STAT_DATE_PREPOSITION 02.01.2015</string>
+		<string>Dîner à la ferme on 02.01.2015</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -3039,7 +3039,7 @@
 		<key>ns_st_po</key>
 		<string>104</string>
 		<key>ns_st_pr</key>
-		<string>Avant-première sportive STAT_DATE_PREPOSITION 10.04.1970</string>
+		<string>Avant-première sportive on 10.04.1970</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
@@ -3186,7 +3186,7 @@
 		<key>ns_st_po</key>
 		<string>103</string>
 		<key>ns_st_pr</key>
-		<string>Les Coups de coeur d&apos;Alain Morisod STAT_DATE_PREPOSITION 13.06.2015</string>
+		<string>Les Coups de coeur d&apos;Alain Morisod on 13.06.2015</string>
 		<key>ns_st_pv</key>
 		<string>0.0.1</string>
 		<key>ns_st_sg</key>
