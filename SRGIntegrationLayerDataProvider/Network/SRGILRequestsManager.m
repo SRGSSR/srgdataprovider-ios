@@ -20,6 +20,8 @@
 #import "SRGILErrors.h"
 #import "SRGILList.h"
 
+#import "NSBundle+SRGILDataProvider.h"
+
 #ifdef DEBUG
 static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 #else
@@ -109,13 +111,13 @@ static SGVReachability *reachability;
             path = [NSString stringWithFormat:@"video/play/%@.json", identifier];
             objectClass = [SRGILVideo class];
             JSONKey = @"Video";
-            errorMessage = NSLocalizedString(@"Unable to build a valid video object.", nil);
+            errorMessage = SRGILDataProviderLocalizedString(@"Unable to build a valid video object.", nil);
             break;
         case SRGILMediaTypeAudio:
             path = [NSString stringWithFormat:@"audio/play/%@.json", identifier];
             objectClass = [SRGILAudio class];
             JSONKey = @"Audio";
-            errorMessage = NSLocalizedString(@"Unable to build a valid video object.", nil);
+            errorMessage = SRGILDataProviderLocalizedString(@"Unable to build a valid video object.", nil);
             break;
 
         default:
@@ -283,7 +285,7 @@ static SGVReachability *reachability;
                     newError = JSONError;
                 }
                 else {
-                    newError = SRGILCreateUserFacingError(NSLocalizedString(@"The received data is invalid for category %@", nil), error, SRGILDataProviderErrorCodeInvalidData);
+                    newError = SRGILCreateUserFacingError(SRGILDataProviderLocalizedString(@"The received data is invalid for category %@", nil), error, SRGILDataProviderErrorCodeInvalidData);
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completionBlock(nil, newError);

@@ -9,6 +9,7 @@
 #import "SRGILTokenHandler.h"
 #import "SRGILDataProviderConstants.h"
 #import "SRGILErrors.h"
+#import "NSBundle+SRGILDataProvider.h"
 
 #ifdef DEBUG
 static const DDLogLevel ddLogLevel = DDLogLevelDebug;
@@ -78,7 +79,7 @@ static NSString * const SRGILTokenHandlerBaseURLString = @"http://tp.srgssr.ch/t
         
         if (![[JSON objectForKey:@"token"] objectForKey:@"authparams"]) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                NSDictionary *userInfo = @{NSLocalizedDescriptionKey : NSLocalizedString(@"Missing parameters for token.", nil)};
+                NSDictionary *userInfo = @{NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"Missing parameters for token.", nil)};
                 completionBlock(nil, [NSError errorWithDomain:SRGILDataProviderErrorDomain code:SRGILDataProviderErrorCodeInvalidData userInfo:userInfo]);
             }];
             return;
