@@ -144,8 +144,13 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
             [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
         }
         
-        NSArray *segments = (media.isFullLength) ? media.segments : nil;
-        completionHandler((id<RTSMediaSegment>)media, segments, nil);
+        NSMutableArray *segments = [NSMutableArray array];
+        [segments addObject:media];
+        if (media.segments) {
+            [segments addObjectsFromArray:media.segments];
+        }
+        
+        completionHandler(segments, nil);
     };
     
     // SRGILMedia has been been made conformant to the RTSMediaPlayerSegment protocol (see SRGILVideo+MediaPlayer.h), segments
@@ -170,7 +175,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                                  code:SRGILDataProviderErrorCodeInvalidMediaIdentifier
                                              userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
             
-            completionHandler(nil, nil, error);
+            completionHandler(nil, error);
         }
         else {
             @weakify(self)
@@ -181,7 +186,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                         
                                         if (error) {
                                             [self.identifiedMedias removeObjectForKey:urnString];
-                                            completionHandler(nil, nil, error);
+                                            completionHandler(nil, error);
                                         }
                                         else {
                                             self.identifiedMedias[urnString] = media;

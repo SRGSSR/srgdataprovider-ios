@@ -24,7 +24,9 @@
     NSURL *_cachedSDHLSURL;
     NSURL *_cachedMQHLSURL;
     NSURL *_cachedMQHTTPURL;
+    NSArray *_cachedSegments;
 }
+@property (nonatomic, weak) SRGILMedia *parent;
 @end
 
 @implementation SRGILMedia
@@ -46,18 +48,18 @@
             dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
         });
-
+        
         _creationDate = [dateFormatter dateFromString:(NSString *)[dictionary objectForKey:@"createdDate"]];
         _fullLengthNumber = [dictionary objectForKey:@"fullLength"];
         
         // Immediately makes seconds, to avoid tweaking later on.
         _markInNumber = @([[dictionary objectForKey:@"markIn"] doubleValue] / 1000.0);
         _markOutNumber = @([[dictionary objectForKey:@"markOut"] doubleValue] / 1000.0);
-
+        
         if ([dictionary objectForKey:@"duration"]) {
             _assetDuration = @([[dictionary objectForKey:@"duration"] doubleValue] / 1000.0);
         }
-
+        
         NSArray *assetMetadataDictionaries = [dictionary valueForKeyPath:@"AssetMetadatas.AssetMetadata"];
         NSMutableArray *tmp = [NSMutableArray array];
         for (NSDictionary *assetMetadataDict in assetMetadataDictionaries) {
@@ -67,7 +69,7 @@
             }
         }
         _assetMetadatas = [NSArray arrayWithArray:tmp];
-
+        
         _assetSet = [[SRGILAssetSet alloc] initWithDictionary:[dictionary objectForKey:@"AssetSet"]];
         _assetSetSubType = SRGILAssetSubSetTypeForString([dictionary objectForKey:@"assetSubSetId"]);
         
@@ -85,7 +87,7 @@
             }
         }
         _playlists = [NSArray arrayWithArray:tmp];
-
+        
         NSArray *downloadsDictionaries = [dictionary valueForKeyPath:@"Downloads.Download"];
         [tmp removeAllObjects];
         
@@ -108,7 +110,7 @@
         if ([dictionary objectForKey:@"AnalyticsData"]) {
             _analyticsData = [[SRGILAnalyticsExtendedData alloc] initWithDictionary:[dictionary objectForKey:@"AnalyticsData"]];
         }
-
+        
     }
     return self;
 }
@@ -178,7 +180,7 @@
 - (NSTimeInterval)fullLengthDuration
 {
     NSTimeInterval defaultDuration = [self duration];
-    SRGILAsset *asset = (SRGILAsset *)self.assetSet.assets[0];
+    SRGILAsset *asset = (SRGILAsset *)[self.assetSet.assets firstObject];
     if (!self.isFullLength && asset && asset.fullLengthMedia) {
         defaultDuration = asset.fullLengthMedia.duration;
     }
@@ -187,7 +189,11 @@
 
 - (NSArray *)segments
 {
-    return [(SRGILAsset *)[self.assetSet.assets firstObject] mediaSegments];
+    if (!_cachedSegments) {
+        _cachedSegments = [(SRGILAsset *)[self.assetSet.assets firstObject] mediaSegments];
+        [_cachedSegments makeObjectsPerformSelector:@selector(setParent:) withObject:self];
+    }
+    return _cachedSegments;
 }
 
 - (NSComparisonResult)compareMarkInTimes:(SRGILVideo *)other
@@ -239,7 +245,7 @@
 - (NSURL *)URLForPlaylistWithProtocol:(enum SRGILPlaylistProtocol)playlistProtocol withQuality:(SRGILPlaylistURLQuality)quality
 {
     __block NSURL *result = nil;
-
+    
     [self.playlists enumerateObjectsUsingBlock:^(SRGILPlaylist *pl, NSUInteger idx, BOOL *stop) {
         if (pl.protocol == playlistProtocol) {
             result = [pl URLForQuality:quality];
@@ -249,7 +255,7 @@
             }
         }
     }];
-
+    
     return result;
 }
 
