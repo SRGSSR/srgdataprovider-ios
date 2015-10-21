@@ -1,0 +1,1 @@
+../../../../SRGIntegrationLayerDataProvider/Core/NSBundle+SRGILDataProvider.h
