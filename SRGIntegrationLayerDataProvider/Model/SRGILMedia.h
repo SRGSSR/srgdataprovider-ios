@@ -26,6 +26,11 @@
 - (SRGILMediaType)type;
 
 /**
+ *  The parent of the media. Nil in case of fullLength.
+ */
+@property (nonatomic, readonly, weak) SRGILMedia *parent;
+
+/**
  *  The title of the media.
  */
 @property (nonatomic, readonly, strong) NSString *title;
@@ -121,7 +126,7 @@
 @property (nonatomic, readonly, assign) NSTimeInterval fullLengthDuration;
 
 /**
- *  Complemetary analytics data. 
+ *  Complemetary analytics data.
  *  At the moment:
  *  - for RSI and RTS (but will generalized)
  *  - video only
@@ -129,7 +134,7 @@
 @property(nonatomic,readonly) SRGILAnalyticsExtendedData *analyticsData;
 
 /**
- *  For some medias, it is possible to access individual segments. Here is returned the complete 
+ *  For some medias, it is possible to access individual segments. Here is returned the complete
  *  array of segments, whatever their subtype.
  *
  *  @return An array of SRGILMedia instances containing all the information for playing a segment.

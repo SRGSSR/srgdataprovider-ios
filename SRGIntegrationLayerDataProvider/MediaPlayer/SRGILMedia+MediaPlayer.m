@@ -10,6 +10,11 @@
 
 #pragma mark - RTSMediaPlayerSegment protocol
 
+- (NSString *)segmentIdentifier
+{
+    return self.urnString;
+}
+
 - (CMTimeRange)timeRange
 {
     return CMTimeRangeFromTimeToTime(CMTimeMakeWithSeconds(self.markIn, 1.), CMTimeMakeWithSeconds(self.markOut, 1.));
@@ -17,7 +22,12 @@
 
 - (BOOL)isVisible
 {
-    return self.displayable;
+    if (self.type == SRGILMediaTypeVideo) {
+        return self.displayable && !self.isFullLength;
+    }
+    else {
+        return self.displayable;
+    }
 }
 
 @end

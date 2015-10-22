@@ -5,6 +5,7 @@
 //
 
 #import "SRGILModelConstants.h"
+#import "NSBundle+SRGILDataProvider.h"
 
 NSString * const SRGILVideoUseHighQualityOverCellularNetworkKey = @"SRGILVideoUseHighQualityOverCellularNetworkKey";
 
@@ -47,13 +48,13 @@ NSString *SRGILMediaBlockingReasonMessageForReason(SRGILMediaBlockingReason reas
     static dispatch_once_t onceToken;
     static NSDictionary *messages;
     dispatch_once(&onceToken, ^{
-        messages = @{ @(SRGILMediaBlockingReasonGeoblock) : NSLocalizedString(@"BLOCKED_GEOBLOCK", nil),
-                      @(SRGILMediaBlockingReasonLegal) : NSLocalizedString(@"BLOCKED_LEGAL", nil),
-                      @(SRGILMediaBlockingReasonCommercial) : NSLocalizedString(@"BLOCKED_COMMERCIAL", nil),
-                      @(SRGILMediaBlockingReasonAgeRating18) : NSLocalizedString(@"BLOCKED_AGERATING18", nil),
-                      @(SRGILMediaBlockingReasonAgeRating12) : NSLocalizedString(@"BLOCKED_AGERATING12", nil),
-                      @(SRGILMediaBlockingReasonStartDate) : NSLocalizedString(@"BLOCKED_STARTDATE", nil),
-                      @(SRGILMediaBlockingReasonEndDate) : NSLocalizedString(@"BLOCKED_ENDDATE", nil) };
+        messages = @{ @(SRGILMediaBlockingReasonGeoblock) : SRGILDataProviderLocalizedString(@"For legal reasons, this video is not available in your region.", nil),
+                      @(SRGILMediaBlockingReasonLegal) : SRGILDataProviderLocalizedString(@"The video cannot be transmitted for legal reasons.", nil),
+                      @(SRGILMediaBlockingReasonCommercial) : SRGILDataProviderLocalizedString(@"Advertising will not be shown. Please wait – video will appear shortly.", nil),
+                      @(SRGILMediaBlockingReasonAgeRating18) : SRGILDataProviderLocalizedString(@"To protect children under the age of 18, this video is only available between 11 p.m. and 5 a.m.", nil),
+                      @(SRGILMediaBlockingReasonAgeRating12) : SRGILDataProviderLocalizedString(@"To protect children under the age of 12, this video is only available between 8 p.m. and 6 a.m.", nil),
+                      @(SRGILMediaBlockingReasonStartDate) : SRGILDataProviderLocalizedString(@"This video is not yet available. Please try again later.", nil),
+                      @(SRGILMediaBlockingReasonEndDate) : SRGILDataProviderLocalizedString(@"For legal reasons, this video was only available for a specified period of time.", nil) };
     });
     return messages[@(reason)] ?: @"";
 }

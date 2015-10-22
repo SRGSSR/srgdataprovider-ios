@@ -160,10 +160,9 @@
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
     [dataProvider segmentsController:nil
                segmentsForIdentifier:urnString
-               withCompletionHandler:^(id<RTSMediaSegment> fullLength, NSArray *segments, NSError *error) {
+               withCompletionHandler:^(NSArray *segments, NSError *error) {
                    XCTAssertNil(error, @"Error must be nil");
 
-                   XCTAssertNotNil(fullLength, @"Missing full-length video");
                    XCTAssertNotNil(segments, @"Missing segments");
                    XCTAssertTrue(segments.count > 0, @"Missing segments");
 
@@ -174,7 +173,7 @@
                        XCTAssertNotNil([dataProvider streamSenseClipMetadataForIdentifier:urnString withSegment:segment]);
                    }
 
-                   if (fullLength && segments && !error) {
+                   if (segments && !error) {
                        [expectation fulfill];
                    }
                }];

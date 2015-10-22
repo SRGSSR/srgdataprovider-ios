@@ -18,10 +18,10 @@
 
     [[RTSAnalyticsTracker sharedTracker] setComscoreVSite:@"rts-app-test-v"];
     [[RTSAnalyticsTracker sharedTracker] setNetmetrixAppId:@"test"];
-    [[RTSAnalyticsTracker sharedTracker] setProduction:NO];
 
     [[RTSAnalyticsTracker sharedTracker] startTrackingForBusinessUnit:SSRBusinessUnitRTS
-                                                      mediaDataSource:self.dataSource];
+                                                      mediaDataSource:self.dataSource
+                                                        forProduction:NO];
         
     return YES;
 }

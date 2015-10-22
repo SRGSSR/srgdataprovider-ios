@@ -16,6 +16,8 @@
 #import "SRGILErrors.h"
 #import "SRGILRequestsManager.h"
 
+#import "NSBundle+SRGILDataProvider.h"
+
 #import <libextobjc/EXTScope.h>
 
 #if __has_include("SRGILDataProviderOfflineStorage.h")
@@ -107,7 +109,7 @@ static NSArray *validBusinessUnits = nil;
         if (completionBlock) {
             NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                                  code:SRGILDataProviderErrorCodeInvalidFetchIndex
-                                             userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Invalid fetch index", nil)}];
+                                             userInfo:@{NSLocalizedDescriptionKey: SRGILDataProviderLocalizedString(@"Invalid fetch index", nil)}];
             
             completionBlock(nil, nil, error);
         }
@@ -167,7 +169,7 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [NSString stringWithFormat:@"audio/play/%@.json", arg];
             }
             else {
-                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListAudioLiveStreams: '%@'.", nil), arg];
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioLiveStreams: '%@'.", nil), arg];
             }
         }
             break;
@@ -177,7 +179,7 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [NSString stringWithFormat:@"audio/latestEpisodesByChannel/%@.json?pageSize=20", arg];
             }
             else {
-                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListAudioMostRecent: '%@'.", nil), arg];
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioMostRecent: '%@'.", nil), arg];
             }
         }
             break;
@@ -187,7 +189,7 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [NSString stringWithFormat:@"audio/mostClickedByChannel/%@.json?pageSize=20", arg];
             }
             else {
-                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListAudioMostListened: '%@'.", nil), arg];
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioMostListened: '%@'.", nil), arg];
             }
         }
             break;
@@ -197,7 +199,7 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [NSString stringWithFormat:@"radio/assetGroup/editorialPlayerAlphabeticalByChannel/%@.json", arg];
             }
             else {
-                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListAudioShowsAZ: '%@'.", nil), arg];
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioShowsAZ: '%@'.", nil), arg];
             }
         }
             break;
@@ -210,7 +212,7 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
             }
             else {
-                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListVideoSearchResult: '%@'.", nil), arg];
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListVideoSearchResult: '%@'.", nil), arg];
             }
         }
             break;
@@ -223,7 +225,7 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
             }
             else {
-                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListAudioSearchResult: '%@'.", nil), arg];
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioSearchResult: '%@'.", nil), arg];
             }
         }
             break;
@@ -236,7 +238,7 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
             }
             else {
-                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListAudioShowSearchResult: '%@'.", nil), arg];
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioShowSearchResult: '%@'.", nil), arg];
             }
         }
             break;
@@ -249,7 +251,7 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
             }
             else {
-                errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Invalid arg for SRGILFetchListVideoShowSearchResult: '%@'.", nil), arg];
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListVideoShowSearchResult: '%@'.", nil), arg];
             }
         }
             break;
@@ -540,7 +542,7 @@ static NSArray *validBusinessUnits = nil;
     }
     else {
         if (error) {
-            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"INVALID_DATA", nil)];
+            NSString *message = SRGILDataProviderLocalizedString(@"The received data is invalid.", nil);
             *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                          code:SRGILDataProviderErrorCodeInvalidData
                                      userInfo:@{NSLocalizedDescriptionKey: message}];
@@ -555,7 +557,7 @@ static NSArray *validBusinessUnits = nil;
                   completionBlock:(SRGILFetchListCompletionBlock)completionBlock
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *reason = [NSString stringWithFormat:NSLocalizedString(@"INVALID_DATA_FOR_CATEGORY", nil), tag];
+        NSString *reason = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"The received data is invalid for category %@", nil), tag];
         NSError *newError = SRGILCreateUserFacingError(reason, error, SRGILDataProviderErrorCodeInvalidData);
         completionBlock(nil, nil, newError);
     });
@@ -617,15 +619,15 @@ static NSArray *validBusinessUnits = nil;
     
     NSString *errorMessage = nil;
     if (!urnString) {
-        errorMessage = NSLocalizedString(@"Missing media URN string. Nothing to fetch.", nil);
+        errorMessage = SRGILDataProviderLocalizedString(@"Missing media URN string. Nothing to fetch.", nil);
     }
     
     SRGILURN *urn = [SRGILURN URNWithString:urnString];
     if (!urn) {
-        errorMessage = NSLocalizedString(@"Unable to create URN from identifier, which is needed to proceed.", nil);
+        errorMessage = SRGILDataProviderLocalizedString(@"Unable to create URN from identifier, which is needed to proceed.", nil);
     }
     else if (urn.mediaType == SRGILMediaTypeUndefined) {
-        errorMessage = NSLocalizedString(@"Undefined mediaType inferred from URN.", nil);
+        errorMessage = SRGILDataProviderLocalizedString(@"Undefined mediaType inferred from URN.", nil);
     }
     
     if (errorMessage) {
@@ -662,15 +664,15 @@ static NSArray *validBusinessUnits = nil;
     
     NSString *errorMessage = nil;
     if (!urnString) {
-        errorMessage = NSLocalizedString(@"Missing media URN string. Nothing to fetch.", nil);
+        errorMessage = SRGILDataProviderLocalizedString(@"Missing media URN string. Nothing to fetch.", nil);
     }
     
     SRGILURN *urn = [SRGILURN URNWithString:urnString];
     if (!urn) {
-        errorMessage = NSLocalizedString(@"Unable to create URN from identifier, which is needed to proceed.", nil);
+        errorMessage = SRGILDataProviderLocalizedString(@"Unable to create URN from identifier, which is needed to proceed.", nil);
     }
     else if (urn.mediaType == SRGILMediaTypeUndefined) {
-        errorMessage = NSLocalizedString(@"Undefined mediaType inferred from URN.", nil);
+        errorMessage = SRGILDataProviderLocalizedString(@"Undefined mediaType inferred from URN.", nil);
     }
     
     if (errorMessage) {

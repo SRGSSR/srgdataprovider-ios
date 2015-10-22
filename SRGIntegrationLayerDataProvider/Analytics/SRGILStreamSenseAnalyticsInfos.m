@@ -9,6 +9,7 @@
 #import <SRGAnalytics/NSString+RTSAnalytics.h>
 
 #import "SRGILModel.h"
+#import "NSBundle+SRGILDataProvider.h"
 
 
 @interface SRGILStreamSenseAnalyticsInfos ()
@@ -79,7 +80,7 @@
     NSString *ns_st_ep   = (self.media.isLiveStream) ? @"Livestream" : [self.media.title truncateAndAddEllipsisForStatistics];
     NSString *ns_st_pr   = (self.media.isLiveStream) ? self.media.assetSet.title : [NSString stringWithFormat:@"%@ %@ %@",
                                                                                     self.media.parentTitle,
-                                                                                    NSLocalizedString(@"STAT_DATE_PREPOSITION", nil),
+                                                                                    SRGILDataProviderLocalizedString(@"on", nil),
                                                                                     [euDateFormatter stringFromDate:self.media.assetSet.publishedDate]];
     
     NSString *ns_st_el   = (self.media.isLiveStream) ? @"0" : [NSString stringWithFormat:@"%d", (int)(self.media.fullLengthDuration * 1000.f)];

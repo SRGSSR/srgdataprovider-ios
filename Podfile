@@ -12,7 +12,7 @@ xcodeproj 'SRGIntegrationLayerDataProvider'
 pod 'SRGAnalytics', '~> 1.2.0'
 pod 'SRGAnalytics/MediaPlayer'
 
-pod 'SRGMediaPlayer', '~> 1.2.1'
+pod 'SRGMediaPlayer', '~> 1.3.0'
 
 pod 'SGVReachability', '~> 1.0.0'
 pod 'CocoaLumberjack', '~> 2.0.0'
@@ -35,7 +35,7 @@ end
 
 target 'SRGIntegrationLayerDataProvider DemoTests', :exclusive => true do
     xcodeproj 'SRGIntegrationLayerDataProvider Demo/SRGIntegrationLayerDataProvider Demo'
-    pod 'KIF', '3.2.1'
+    pod 'KIF', '3.3'
 end
 
 
