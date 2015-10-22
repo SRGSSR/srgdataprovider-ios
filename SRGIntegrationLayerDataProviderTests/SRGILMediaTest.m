@@ -110,12 +110,6 @@
     XCTAssertNotNil(self.media.HDHLSURL, @"With correct input, there must be a HD HLS URL.");
 }
 
-- (void)testWrongInitWithNilDictionary
-{
-    XCTAssertNil([[SRGILMedia alloc] initWithDictionary:nil],
-                 @"Init video with nil dictionary must return nil.");
-}
-
 - (void)testWrongInitWithNotADictionary
 {
     XCTAssertThrows([[SRGILMedia alloc] initWithDictionary:(NSDictionary *)@"string"],

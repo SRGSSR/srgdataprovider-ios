@@ -29,11 +29,6 @@
     XCTAssertThrows([[SRGILModelObject alloc] init], @"Normal init should throw an exception.");
 }
 
-- (void)testDefaultInitWithNilDictionary
-{
-    XCTAssertNil([[SRGILModelObject alloc] initWithDictionary:nil], @"Providing a nil dictionary should return nil.");
-}
-
 - (void)testDefaultInitWithValidDictionary
 {
     XCTAssertNotNil([[SRGILModelObject alloc] initWithDictionary:[self loadJSONFile:@"video_03" withClassName:@"Video"]],
