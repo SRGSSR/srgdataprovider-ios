@@ -17,7 +17,8 @@
 
 - (CMTimeRange)timeRange
 {
-    return CMTimeRangeFromTimeToTime(CMTimeMakeWithSeconds(self.markIn, 1.), CMTimeMakeWithSeconds(self.markOut, 1.));
+    NSTimeInterval markOunt = (self.markOut > 0) ? self.markOut : self.markIn + self.duration;
+    return CMTimeRangeFromTimeToTime(CMTimeMakeWithSeconds(self.markIn, 1.), CMTimeMakeWithSeconds(markOunt, 1.));
 }
 
 - (BOOL)isVisible
