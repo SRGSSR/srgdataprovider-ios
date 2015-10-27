@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "D17FBD8C51928B6A6A5782A0C9049061334C5929",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "02BE86DC4A7BA2B5080626376A19F4634175FD44" : 0,
+    "D17FBD8C51928B6A6A5782A0C9049061334C5929" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6D4298A7-215E-4D25-B4EA-4AF1E81C2716",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "02BE86DC4A7BA2B5080626376A19F4634175FD44" : "srgofflinestorage-ios",
+    "D17FBD8C51928B6A6A5782A0C9049061334C5929" : "srgintegrationlayerdataprovider-ios"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "SRGIntegrationLayerDataProvider",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "SRGIntegrationLayerDataProvider.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/bitbucket.org\/rtsmb\/srgofflinestorage-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "02BE86DC4A7BA2B5080626376A19F4634175FD44"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/bitbucket.org\/rtsmb\/srgintegrationlayerdataprovider-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D17FBD8C51928B6A6A5782A0C9049061334C5929"
+    }
+  ]
+}
