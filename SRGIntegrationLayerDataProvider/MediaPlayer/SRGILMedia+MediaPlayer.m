@@ -12,7 +12,13 @@
 
 - (NSString *)segmentIdentifier
 {
-    return self.urnString;
+    // Override segment identifiers with the one of their parent for logical video segments
+    if (self.type == SRGILMediaTypeVideo) {
+        return self.parent.urnString ?: self.urnString;
+    }
+    else {
+        return self.urnString;
+    }
 }
 
 - (CMTimeRange)timeRange
