@@ -9,6 +9,4 @@
 
 @interface SRGILMedia (MediaPlayer) <RTSMediaSegment>
 
-@property (nonatomic, weak) SRGILMedia *parent;
-
 @end

@@ -82,6 +82,12 @@ static NSArray *validBusinessUnits = nil;
     return self;
 }
 
+- (instancetype)init
+{
+    [self doesNotRecognizeSelector:_cmd];
+    return [self initWithBusinessUnit:@""];
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

@@ -151,9 +151,6 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         
         NSMutableArray *segments = [NSMutableArray array];
         [segments addObject:parentMedia];
-        if ([parentMedia segmentationForURL:parentMedia.contentURL] != SRGILPlaylistSegmentationPhysical) {
-            [parentMedia.segments makeObjectsPerformSelector:@selector(setParent:) withObject:parentMedia];
-        }
         [segments addObjectsFromArray:parentMedia.segments];
         
         completionHandler(segments, nil);
