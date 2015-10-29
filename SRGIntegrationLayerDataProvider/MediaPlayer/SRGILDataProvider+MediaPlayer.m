@@ -139,16 +139,19 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         self.analyticsInfos = [[NSMutableDictionary alloc] init];
     }
     
-    void (^segmentsAndAnalyticsBlock)(SRGILMedia *) = ^(SRGILMedia *media) {
-        if (media.contentURL) {
-            [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
+    void (^segmentsAndAnalyticsBlock)(SRGILMedia *) = ^(SRGILMedia *parentMedia) {
+        if (parentMedia.contentURL) {
+            [self prepareAnalyticsInfosForMedia:parentMedia withContentURL:parentMedia.contentURL];
+        }
+        
+        if (!parentMedia.fullLength || parentMedia.segments.count == 0) {
+            completionHandler(nil, nil);
+            return;
         }
         
         NSMutableArray *segments = [NSMutableArray array];
-        [segments addObject:media];
-        if (media.segments) {
-            [segments addObjectsFromArray:media.segments];
-        }
+        [segments addObject:parentMedia];
+        [segments addObjectsFromArray:parentMedia.segments];
         
         completionHandler(segments, nil);
     };
@@ -209,10 +212,10 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     
     NSString *comScoreKeyPath = [comScoreKeyPathPrefix stringByAppendingString:media.urnString];
     NSString *streamSenseKeyPath = [streamSenseKeyPathPrefix stringByAppendingString:media.urnString];
- 
+    
     SRGILComScoreAnalyticsInfos *comScoreDataSource = [[SRGILComScoreAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
     SRGILStreamSenseAnalyticsInfos *streamSenseDataSource = [[SRGILStreamSenseAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
-
+    
     self.analyticsInfos[comScoreKeyPath] = comScoreDataSource;
     self.analyticsInfos[streamSenseKeyPath] = streamSenseDataSource;
 }
@@ -270,7 +273,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         SRGILURN *urn = [SRGILURN URNWithString:player.identifier];
         NSAssert(urn, @"Unable to create URN from identifier, which is needed to proceed.");
         NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined mediaType inferred from URN.");
-
+        
         NSString *typeName = nil;
         switch (urn.mediaType) {
             case SRGILMediaTypeAudio:

@@ -15,14 +15,9 @@
 @protocol RTSMediaSegment <NSObject>
 
 /**
- *  Parent segment.
- */
-@property (nonatomic, readonly, weak) id<RTSMediaSegment> parent;
-
-/**
  *  Media Segment Identifier
  */
-@property (nonatomic, readonly) NSString *segmentIdentifier; // chiote
+@property (nonatomic, readonly, copy) NSString *segmentIdentifier; // chiote
 
 /**
  *  Segment start and end times (might be identical)

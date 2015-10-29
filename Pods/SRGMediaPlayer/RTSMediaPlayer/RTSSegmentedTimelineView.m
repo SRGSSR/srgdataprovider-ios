@@ -92,10 +92,10 @@ static void commonInit(RTSSegmentedTimelineView *self);
 - (void)reloadSegmentsForIdentifier:(NSString *)identifier completionHandler:(void (^)(NSError *error))completionHandler
 {
 	[self.segmentsController reloadSegmentsForIdentifier:identifier completionHandler:^(NSError *error) {
-        if (completionHandler) {
-            completionHandler(error);
-        }        
-        [self.collectionView reloadData];
+		if (completionHandler) {
+			completionHandler(error);
+		}
+		[self.collectionView reloadData];
 	}];
 }
 
@@ -117,8 +117,8 @@ static void commonInit(RTSSegmentedTimelineView *self);
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	id<RTSMediaSegment> segment = self.segmentsController.visibleSegments[indexPath.row];
-	[self scrollToSegmentAtTime:segment.timeRange.start animated:YES];
-	[self.segmentsController playVisibleSegmentAtIndex:indexPath.row];	
+	[self scrollToSegment:segment animated:YES];
+    [self.segmentsController playSegment:segment];
 }
 
 #pragma mark - UIScrollViewDelegate protocol
@@ -154,11 +154,15 @@ static void commonInit(RTSSegmentedTimelineView *self);
 
 - (NSArray *) visibleCells
 {
-    return self.collectionView.visibleCells;
+	return self.collectionView.visibleCells;
 }
 
 - (void) scrollToSegment:(id<RTSMediaSegment>)segment animated:(BOOL)animated
 {
+    if (!segment) {
+        return;
+    }
+    
 	NSInteger segmentIndex = [self.segmentsController.visibleSegments indexOfObject:segment];
 	if (segmentIndex == NSNotFound) {
 		return;
@@ -167,16 +171,6 @@ static void commonInit(RTSSegmentedTimelineView *self);
 	[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:segmentIndex inSection:0]
 								atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
 										animated:animated];
-}
-
-- (void) scrollToSegmentAtTime:(CMTime)time animated:(BOOL)animated
-{
-	for (id<RTSMediaSegment> segment in self.segmentsController.visibleSegments) {
-		if (CMTimeRangeContainsTime(segment.timeRange, time)) {
-			[self scrollToSegment:segment animated:animated];
-			return;
-		}
-	}
 }
 
 @end
