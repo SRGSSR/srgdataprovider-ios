@@ -153,7 +153,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         [segments addObject:parentMedia];
         [segments addObjectsFromArray:parentMedia.segments];
         
-        completionHandler(segments, nil);
+        completionHandler([segments copy], nil);
     };
     
     // SRGILMedia has been been made conformant to the RTSMediaPlayerSegment protocol (see SRGILVideo+MediaPlayer.h), segments
