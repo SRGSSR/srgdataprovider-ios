@@ -39,7 +39,7 @@ DESC
     mp.private_header_files = "SRGIntegrationLayerDataProvider/**/*+Private.h"
     mp.frameworks           = "Foundation", "UIKit"
     mp.dependency             "SRGIntegrationLayerDataProvider/Core"
-    mp.dependency             "SRGMediaPlayer", "~> 1.4.0"
+    mp.dependency             "SRGMediaPlayer", "~> 1.5.0"
     mp.dependency             "SRGAnalytics", "~> 1.2.0"
     mp.dependency             "SRGAnalytics/MediaPlayer", "~> 1.2.0"
   end
