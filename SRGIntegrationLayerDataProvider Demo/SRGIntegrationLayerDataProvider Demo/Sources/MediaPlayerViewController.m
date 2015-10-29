@@ -106,7 +106,7 @@
 - (void)updateAppearanceWithTime:(CMTime)time
 {
     for (SegmentCollectionViewCell *segmentCell in [self.timelineView visibleCells]) {
-        [segmentCell updateAppearanceWithTime:time];
+        [segmentCell updateAppearanceWithTime:time identifier:self.mediaPlayerController.identifier];
     }
 }
 
@@ -126,11 +126,14 @@
     [self updateAppearanceWithTime:time];
     
     if (interactive) {
-        NSUInteger visibleSegmentIndex = [self.timelineView.segmentsController indexOfVisibleSegmentForTime:time];
-        if (visibleSegmentIndex != NSNotFound) {
-            id<RTSMediaSegment> segment = [[self.timelineView.segmentsController visibleSegments] objectAtIndex:visibleSegmentIndex];
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id<RTSMediaSegment>  _Nonnull segment, NSDictionary<NSString *,id> * _Nullable bindings) {
+            return [[segment segmentIdentifier] isEqualToString:self.mediaPlayerController.identifier]
+            && CMTimeRangeContainsTime(segment.timeRange, time);
+        }];
+        id<RTSMediaSegment> segment = [[self.timelineView.segmentsController.visibleSegments filteredArrayUsingPredicate:predicate] firstObject];
+        if (segment) {
             [self.timelineView scrollToSegment:segment animated:YES];
-        }        
+        }		
     }
 }
 

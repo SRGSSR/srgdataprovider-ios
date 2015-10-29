@@ -12,6 +12,6 @@
 
 @property (nonatomic, strong) SRGILVideo *segment;
 
-- (void)updateAppearanceWithTime:(CMTime)time;
+- (void)updateAppearanceWithTime:(CMTime)time identifier:(NSString *)identifier;
 
 @end

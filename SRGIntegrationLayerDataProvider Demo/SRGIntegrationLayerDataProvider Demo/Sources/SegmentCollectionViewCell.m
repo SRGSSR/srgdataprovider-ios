@@ -5,6 +5,8 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SRGIntegrationLayerDataProvider/SRGIntegrationLayerDataProvider.h>
+
 #import "SegmentCollectionViewCell.h"
 #import "SRGILModel.h"
 
@@ -62,13 +64,19 @@ static NSString *sexagesimalDurationStringFromValue(NSInteger duration)
 
 #pragma mark - UI
 
-- (void)updateAppearanceWithTime:(CMTime)time
+- (void)updateAppearanceWithTime:(CMTime)time identifier:(NSString *)identifier
 {
-    float progress = (CMTimeGetSeconds(time) - self.segment.markIn) / (self.segment.markOut - self.segment.markIn);
-    progress = fminf(1.f, fmaxf(0.f, progress));
-    
-    self.progressView.progress = progress;
-    self.backgroundColor = (progress != 0.f && progress != 1.f) ? [UIColor colorWithRed:128.0 / 256.0 green:0.0 / 256.0 blue:0.0 / 256.0 alpha:1.0] : [UIColor blackColor];
+    if ([self.segment.segmentIdentifier isEqualToString:identifier]) {
+        float progress = (CMTimeGetSeconds(time) - self.segment.markIn) / (self.segment.markOut - self.segment.markIn);
+        progress = fminf(1.f, fmaxf(0.f, progress));
+        
+        self.progressView.progress = progress;
+        self.backgroundColor = (progress != 0.f && progress != 1.f) ? [UIColor colorWithRed:128.0 / 256.0 green:0.0 / 256.0 blue:0.0 / 256.0 alpha:1.0] : [UIColor blackColor];
+    }
+    else {
+        self.progressView.progress = 0.f;
+        self.backgroundColor = [UIColor blackColor];
+    }
 }
 
 @end
