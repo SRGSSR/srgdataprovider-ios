@@ -24,6 +24,9 @@ typedef void (^SRGILRequestArrayCompletionBlock)(NSDictionary *rawDictionary, NS
             withIdentifier:(NSString *)assetIdentifier
            completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
 
+- (BOOL)requestShowWithIdentifier:(NSString *)identifier
+                     onCompletion:(SRGILRequestMediaCompletionBlock)completionBlock;
+
 - (BOOL)requestLiveMetaInfosForMediaType:(enum SRGILMediaType)mediaType
                              withAssetId:(NSString *)assetId
                          completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;

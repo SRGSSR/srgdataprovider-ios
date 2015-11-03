@@ -237,6 +237,19 @@ static SGVReachability *reachability;
     return YES;
 }
 
+#pragma mark - Requesting Show
+
+- (BOOL)requestShowWithIdentifier:(NSString *)identifier
+                  onCompletion:(SRGILRequestMediaCompletionBlock)completionBlock
+{
+    return [self requestModelObject:SRGILShow.class
+                               path:[NSString stringWithFormat:@"assetGroup/detail/%@.json", identifier]
+                            assetId:identifier
+                            JSONKey:@"Show"
+                       errorMessage:SRGILDataProviderLocalizedString(@"Unable to build a valid show object.", nil)
+                    completionBlock:completionBlock];
+}
+
 #pragma mark - Requesting Item Lists
 
 - (BOOL)requestItemsWithURLPath:(NSString *)path

@@ -33,10 +33,19 @@ typedef void (^SRGILFetchListCompletionBlock)(SRGILList * __nullable items, Clas
 /**
  *  The completion block associated with the request of a single media.
  *
- *  @param media The media requested (SRGILAudio or SRGILVideo).
+ *  @param media The media requested (SRGILAudio or SRGILVideo) or SRGILShow.
  *  @param error The error, if any.
  */
-typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia * __nullable media, NSError * __nullable error);
+typedef void (^SRGILRequestMediaCompletionBlock)(id __nullable media, NSError * __nullable error);
+
+
+/**
+ *  The completion block associated with the request of a show (audio or video).
+ *
+ *  @param media The show requested.
+ *  @param error The error, if any.
+ */
+typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSError * __nullable error);
 
 
 /**
@@ -152,6 +161,16 @@ typedef void (^SRGILRequestMediaCompletionBlock)(SRGILMedia * __nullable media, 
 - (BOOL)fetchLiveMetaInfosWithURNString:(nonnull NSString *)urnString
                         completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
 
+/**
+ * Fetch show with given identifier.
+ *
+ * @param urnString URN of the show
+ * @param completionBlock The block called on completion (with success or not).
+ *
+ * @return A boolean indicating if the fetch is started or not.
+ */
+- (BOOL)fetchShowWithURNString:(nonnull NSString *)urnString
+               completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
 
 // ********* Data Accessors **********
 

@@ -617,7 +617,46 @@ static NSArray *validBusinessUnits = nil;
 }
 
 
-#pragma mark - Fetch Medias
+#pragma mark - Fetch Medias or Shows
+
+- (BOOL)fetchShowWithURNString:(NSString *)urnString completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
+{
+    NSAssert(completionBlock, @"Missing completion block");
+    NSString *errorMessage = nil;
+    if (!urnString) {
+        errorMessage = SRGILDataProviderLocalizedString(@"Missing show URN string. Nothing to fetch.", nil);
+    }
+    
+    SRGILURN *urn = [SRGILURN URNWithString:urnString];
+    if (!urn) {
+        errorMessage = SRGILDataProviderLocalizedString(@"Unable to create URN from identifier, which is needed to proceed.", nil);
+    }
+
+    if (errorMessage) {
+        NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                             code:SRGILDataProviderErrorCodeInvalidMediaIdentifier
+                                         userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
+        
+        completionBlock(nil, error);
+        return NO;
+    }
+    
+    SRGILRequestMediaCompletionBlock wrappedCompletionBlock = ^(SRGILShow *show, NSError *error) {
+        if (error || !show) {
+            if (_identifiedShows[urnString]) {
+                completionBlock(_identifiedShows[urnString], nil);
+            }
+            else {
+                completionBlock(nil, error);
+            }
+        }
+        else {
+            completionBlock(show, nil);
+        }
+    };
+    
+    return [self.requestManager requestShowWithIdentifier:urn.identifier onCompletion:wrappedCompletionBlock];
+}
 
 - (BOOL)fetchMediaWithURNString:(NSString *)urnString completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
 {
