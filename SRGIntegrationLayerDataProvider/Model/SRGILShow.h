@@ -34,4 +34,11 @@
  */
 @property (nonatomic, strong) NSString *showDescription;
 
+
+/**
+ * Primary channel ID.
+ * Returned when fetching a single *audio* show
+ */
+@property (nonatomic) NSString *primaryChannelId;
+
 @end

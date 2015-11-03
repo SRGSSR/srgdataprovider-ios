@@ -16,6 +16,7 @@
         _image = [[SRGILImage alloc] initWithDictionary:[dictionary objectForKey:@"Image"]];
         _showDescription = [dictionary objectForKey:@"description"];
         _primaryChannel = [[SRGILPrimaryChannel alloc] initWithDictionary:[dictionary objectForKey:@"PrimaryChannel"]];
+        _primaryChannelId = dictionary[@"primaryChannelId"];
     }
     return self;
 }
