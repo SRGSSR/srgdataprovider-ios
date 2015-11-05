@@ -31,7 +31,7 @@ static NSArray *dynamicValueKeys = nil;
 {
     [KIFUITestActor setDefaultTimeout:60];
 
-    for (NSInteger i = 0; i <= 21; i++) {
+    for (NSInteger i = 0; i < 22; i++) {
     
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:1];
         NSString *indexPathKey = [NSString stringWithFormat:@"indexPath-row-%@-section-1", @(i)];
@@ -41,8 +41,8 @@ static NSArray *dynamicValueKeys = nil;
 
         [tester tapRowAtIndexPath:indexPath inTableViewWithAccessibilityIdentifier:@"tableView"];
         
-        NSNotification *notification = [system waitForNotificationName:@"RTSAnalyticsComScoreRequestDidFinish" object:nil]; // First notification: ReadyToPlay
-        notification = [system waitForNotificationName:@"RTSAnalyticsComScoreRequestDidFinish" object:nil];// Wait for the SECOND notification: Playing
+        [system waitForNotificationName:@"RTSAnalyticsComScoreRequestDidFinish" object:nil]; // First notification: ReadyToPlay
+        NSNotification *notification = [system waitForNotificationName:@"RTSAnalyticsComScoreRequestDidFinish" object:nil];// Wait for the SECOND notification: Playing
         NSDictionary *labels = notification.userInfo[@"RTSAnalyticsLabels"];
 
         if (refLabelsDict[indexPathKey]) {
