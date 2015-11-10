@@ -40,8 +40,8 @@ DESC
     mp.frameworks           = "Foundation", "UIKit"
     mp.dependency             "SRGIntegrationLayerDataProvider/Core"
     mp.dependency             "SRGMediaPlayer", "~> 1.5.0"
-    mp.dependency             "SRGAnalytics", "~> 1.2.0"
-    mp.dependency             "SRGAnalytics/MediaPlayer", "~> 1.2.0"
+    mp.dependency             "SRGAnalytics", "~> 1.3.0"
+    mp.dependency             "SRGAnalytics/MediaPlayer", "~> 1.3.0"
   end
 
 end
