@@ -183,15 +183,16 @@ static SGVReachability *reachability;
         };
         
         if (error) {
+            NSError *newError = nil;
+            if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == -1009) {
+                newError = error;
+            }
+            else {
+                newError = SRGILCreateUserFacingError(error.localizedDescription, error, SRGILDataProviderErrorCodeInvalidData);
+            }
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSError *newError = nil;
-                if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == -1009) {
-                    newError = error;
-                }
-                else {
-                    newError = SRGILCreateUserFacingError(error.localizedDescription, error, SRGILDataProviderErrorCodeInvalidData);
-                }
-                return callCompletionBlocks(nil, newError);
+                callCompletionBlocks(nil, newError);
             });
         }
         else {
@@ -202,19 +203,23 @@ static SGVReachability *reachability;
             }
             else if (![JSON isKindOfClass:[NSDictionary class]]) {
                 JSONError = SRGILCreateUserFacingError(@"Invalid JSON", nil, SRGILDataProviderErrorCodeInvalidData);
-                return callCompletionBlocks(nil, JSONError);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    callCompletionBlocks(nil, JSONError);
+                });
             }
             else {
                 id media = [[modelClass alloc] initWithDictionary:[(NSDictionary *)JSON valueForKey:JSONKey]];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (media) {
-                        return callCompletionBlocks(media, nil);
-                    }
-                    else {
-                        NSError *newError = SRGILCreateUserFacingError(errorMessage, nil, SRGILDataProviderErrorCodeInvalidData);
-                        return callCompletionBlocks(nil, newError);
-                    }
-                });
+                if (media) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        callCompletionBlocks(media, nil);
+                    });
+                }
+                else {
+                    NSError *newError = SRGILCreateUserFacingError(errorMessage, nil, SRGILDataProviderErrorCodeInvalidData);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        callCompletionBlocks(nil, newError);
+                    });
+                }
             }
         }
     };
@@ -305,7 +310,9 @@ static SGVReachability *reachability;
                 });
             }
             else {
-                completionBlock(rawDictionary, nil);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(rawDictionary, nil);
+                });
             }
         }
     };
