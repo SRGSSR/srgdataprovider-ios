@@ -9,6 +9,7 @@
 
 #import "SegmentCollectionViewCell.h"
 #import "SRGILModel.h"
+#import "RTSMediaSegment.h"
 
 #pragma mark - Functions
 
