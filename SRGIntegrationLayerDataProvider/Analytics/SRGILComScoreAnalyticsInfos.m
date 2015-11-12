@@ -4,8 +4,10 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGILComScoreAnalyticsInfos.h"
 #import <SRGAnalytics/NSString+RTSAnalytics.h>
+
+#import "SRGILComScoreAnalyticsInfos.h"
+#import "SRGILAnalyticsInfosProtocol.h"
 #import "SRGILModel.h"
 
 @interface SRGILComScoreAnalyticsInfos ()

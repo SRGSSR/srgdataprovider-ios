@@ -4,6 +4,12 @@
 //  License information is available from the LICENSE file.
 //
 
+#import <libextobjc/EXTScope.h>
+#import <objc/runtime.h>
+
+#import <SRGMediaPlayer/SRGMediaPlayer.h>
+#import <SRGAnalytics/SRGAnalytics.h>
+
 #import "SRGILDataProvider+MediaPlayer.h"
 #import "SRGILDataProvider+Private.h"
 #import "SRGILDataProviderConstants.h"
@@ -20,9 +26,6 @@
 #import "SRGILModelConstants.h"
 
 #import "NSBundle+SRGILDataProvider.h"
-
-#import <libextobjc/EXTScope.h>
-#import <objc/runtime.h>
 
 static void *kAnalyticsInfosAssociatedObjectKey = &kAnalyticsInfosAssociatedObjectKey;
 

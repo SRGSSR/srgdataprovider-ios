@@ -4,7 +4,9 @@
 //  License information is available from the LICENSE file.
 //
 
+#import <SRGMediaPlayer/RTSMediaSegment.h>
 #import "SRGILMedia+MediaPlayer.h"
+#import "RTSMediaSegment.h"
 
 @implementation SRGILMedia (MediaPlayer)
 

@@ -5,8 +5,10 @@
 //
 
 #import "SRGILDataProvider.h"
-#import <SRGMediaPlayer/SRGMediaPlayer.h>
-#import <SRGAnalytics/SRGAnalytics.h>
+
+@protocol RTSMediaPlayerControllerDataSource;
+@protocol RTSMediaSegmentsDataSource;
+@protocol RTSAnalyticsMediaPlayerDataSource;
 
 /**
  *  The category of the IL Data provider providing a complete impementation of all what is required by the 
