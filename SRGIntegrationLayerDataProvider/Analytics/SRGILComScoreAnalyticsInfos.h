@@ -5,7 +5,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SRGILAnalyticsInfosProtocol.h"
+
+@protocol SRGILAnalyticsInfos;
 
 @interface SRGILComScoreAnalyticsInfos : NSObject <SRGILAnalyticsInfos>
 

@@ -4,11 +4,13 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGILStreamSenseAnalyticsInfos.h"
 #import <SRGAnalytics/NSDictionary+RTSAnalytics.h>
 #import <SRGAnalytics/NSString+RTSAnalytics.h>
 
+#import "SRGILStreamSenseAnalyticsInfos.h"
+
 #import "SRGILModel.h"
+#import "SRGILAnalyticsInfosProtocol.h"
 #import "NSBundle+SRGILDataProvider.h"
 
 
