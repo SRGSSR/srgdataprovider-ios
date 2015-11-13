@@ -223,12 +223,6 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     self.analyticsInfos[streamSenseKeyPath] = streamSenseDataSource;
 }
 
-- (SRGILComScoreAnalyticsInfos *)comScoreIndividualDataSourceForIdenfifier:(NSString *)identifier
-{
-    NSString *comScoreKeyPath = [comScoreKeyPathPrefix stringByAppendingString:identifier];
-    return self.analyticsInfos[comScoreKeyPath];
-}
-
 - (SRGILStreamSenseAnalyticsInfos *)streamSenseIndividualDataSourceForIdenfifier:(NSString *)identifier
 {
     NSString *streamSenseKeyPath = [streamSenseKeyPathPrefix stringByAppendingString:identifier];
@@ -240,12 +234,6 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 - (NSDictionary *)comScoreLabelsForAppEnteringForeground
 {
     return [SRGILComScoreAnalyticsInfos globalLabelsForAppEnteringForeground];
-}
-
-- (NSDictionary *)comScoreReadyToPlayLabelsForIdentifier:(NSString *)identifier
-{
-    SRGILComScoreAnalyticsInfos *ds = [self comScoreIndividualDataSourceForIdenfifier:identifier];
-    return [ds statusLabels];
 }
 
 - (NSDictionary *)streamSensePlaylistMetadataForIdentifier:(NSString *)identifier

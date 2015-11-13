@@ -59,11 +59,6 @@
                           
                           XCTAssertNotNil([dataProvider streamSenseClipMetadataForIdentifier:urnString withSegment:nil]);
                           XCTAssertNotNil([dataProvider streamSensePlaylistMetadataForIdentifier:urnString]);
-                          XCTAssertNotNil([dataProvider comScoreReadyToPlayLabelsForIdentifier:urnString]);
-                          
-                          NSDictionary *comscoreLabels = [dataProvider comScoreReadyToPlayLabelsForIdentifier:urnString];
-                          XCTAssertTrue([comscoreLabels[@"name"] hasPrefix:@"Player.TV."], @"Wrong name label.");
-                          XCTAssertTrue([comscoreLabels[@"category"] hasPrefix:@"TV."], @"Wrong name label.");
                           
                           if (!error && contentURL) {
                               NSLog(@"The contentURL is: %@", contentURL);
@@ -97,11 +92,6 @@
                           
                           XCTAssertNotNil([dataProvider streamSenseClipMetadataForIdentifier:urnString withSegment:nil]);
                           XCTAssertNotNil([dataProvider streamSensePlaylistMetadataForIdentifier:urnString]);
-                          XCTAssertNotNil([dataProvider comScoreReadyToPlayLabelsForIdentifier:urnString]);
-                          
-                          NSDictionary *comscoreLabels = [dataProvider comScoreReadyToPlayLabelsForIdentifier:urnString];
-                          XCTAssertTrue([comscoreLabels[@"name"] hasPrefix:@"Player.Radio."], @"Wrong name label.");
-                          XCTAssertTrue([comscoreLabels[@"category"] hasPrefix:@"Radio."], @"Wrong name label.");
                           
                           if (!error && contentURL) {
                               NSLog(@"The contentURL is: %@", contentURL);
@@ -134,7 +124,6 @@
                           XCTAssertNotNil(error, @"Error must be present.");
                           XCTAssertNil([dataProvider streamSenseClipMetadataForIdentifier:urnString withSegment:nil]);
                           XCTAssertNil([dataProvider streamSensePlaylistMetadataForIdentifier:urnString]);
-                          XCTAssertNil([dataProvider comScoreReadyToPlayLabelsForIdentifier:urnString]);
                           
                           if (error) {
                               NSLog(@"completion error: %@", error);
