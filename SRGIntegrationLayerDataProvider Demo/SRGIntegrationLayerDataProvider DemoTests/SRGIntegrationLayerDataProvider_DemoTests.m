@@ -41,8 +41,7 @@ static NSArray *dynamicValueKeys = nil;
 
         [tester tapRowAtIndexPath:indexPath inTableViewWithAccessibilityIdentifier:@"tableView"];
         
-        [system waitForNotificationName:@"RTSAnalyticsComScoreRequestDidFinish" object:nil]; // First notification: ReadyToPlay
-        NSNotification *notification = [system waitForNotificationName:@"RTSAnalyticsComScoreRequestDidFinish" object:nil];// Wait for the SECOND notification: Playing
+        NSNotification *notification = [system waitForNotificationName:@"RTSAnalyticsComScoreRequestDidFinish" object:nil];
         NSDictionary *labels = notification.userInfo[@"RTSAnalyticsLabels"];
 
         if (refLabelsDict[indexPathKey]) {

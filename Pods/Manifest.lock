@@ -19,28 +19,28 @@ PODS:
     - SDWebImage/Core (= 3.7.0)
   - SDWebImage/Core (3.7.0)
   - SGVReachability (1.0.0)
-  - SRGAnalytics (1.3.0):
-    - SRGAnalytics/Core (= 1.3.0)
-  - SRGAnalytics/Core (1.3.0):
+  - SRGAnalytics (1.3.1):
+    - SRGAnalytics/Core (= 1.3.1)
+  - SRGAnalytics/Core (1.3.1):
     - comScore-iOS-SDK-RTS (= 3.1509.15)
-    - SRGAnalytics/Core/Version (= 1.3.0)
-  - SRGAnalytics/Core/Version (1.3.0):
+    - SRGAnalytics/Core/Version (= 1.3.1)
+  - SRGAnalytics/Core/Version (1.3.1):
     - comScore-iOS-SDK-RTS (= 3.1509.15)
-  - SRGAnalytics/MediaPlayer (1.3.0):
+  - SRGAnalytics/MediaPlayer (1.3.1):
     - SRGAnalytics/Core
     - SRGMediaPlayer (~> 1.5.0)
-  - SRGIntegrationLayerDataProvider (2.5.6):
-    - SRGIntegrationLayerDataProvider/Core (= 2.5.6)
-  - SRGIntegrationLayerDataProvider/Core (2.5.6):
+  - SRGIntegrationLayerDataProvider (2.5.8):
+    - SRGIntegrationLayerDataProvider/Core (= 2.5.8)
+  - SRGIntegrationLayerDataProvider/Core (2.5.8):
     - CocoaLumberjack (~> 2.0.0)
     - libextobjc/EXTScope (= 0.4.1)
     - SGVReachability (~> 1.0.0)
-  - SRGIntegrationLayerDataProvider/MediaPlayer (2.5.6):
+  - SRGIntegrationLayerDataProvider/MediaPlayer (2.5.8):
     - SRGAnalytics (~> 1.3.0)
     - SRGAnalytics/MediaPlayer (~> 1.3.0)
     - SRGIntegrationLayerDataProvider/Core
     - SRGMediaPlayer (~> 1.5.0)
-  - SRGMediaPlayer (1.5.3):
+  - SRGMediaPlayer (1.5.5):
     - libextobjc/EXTScope (~> 0.4.1)
     - TransitionKit (~> 2.2.0)
   - TransitionKit (2.2.1)
@@ -70,9 +70,9 @@ SPEC CHECKSUMS:
   OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
-  SRGAnalytics: 99b12b518c0bf150a2ee9ca73949502750bf24d3
-  SRGIntegrationLayerDataProvider: 0880c2a2853df42f101b3314a8b17ce6a36374e5
-  SRGMediaPlayer: a81f42f7d0def8b75f8294b755f71bfc60164397
+  SRGAnalytics: c222c85acbee06533a0d5a37a2015cea8a59c3ce
+  SRGIntegrationLayerDataProvider: 17687a694255e7ad5613ed28efb78ab367915401
+  SRGMediaPlayer: a9ffca9cd6adb2da6b0ebf37388447a8719b233c
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
 
 COCOAPODS: 0.38.2
