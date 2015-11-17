@@ -107,7 +107,8 @@
 
 - (void)testPresenceOfHDURLforHLS
 {
-    XCTAssertNotNil(self.media.HDHLSURL, @"With correct input, there must be a HD HLS URL.");
+    XCTAssertNotNil([self.media contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityHD],
+                    @"With correct input, there must be a HD HLS URL.");
 }
 
 - (void)testWrongInitWithNotADictionary

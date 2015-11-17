@@ -71,10 +71,10 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         else {
             self.identifiedMedias[urnString] = media;
             
-            if (media.contentURL) {
-                [self prepareAnalyticsInfosForMedia:media withContentURL:media.contentURL];
+            if (media.defaultContentURL) {
+                [self prepareAnalyticsInfosForMedia:media withContentURL:media.defaultContentURL];
                 
-                [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.contentURL
+                [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.defaultContentURL
                                             appendLogicalSegmentation:nil
                                                       completionBlock:^(NSURL *tokenizedURL, NSError *error) {
                                                           if (error) {
@@ -82,7 +82,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                                               return;
                                                           }
                                                           
-                                                          if ([media segmentationForURL:media.contentURL] == SRGILPlaylistSegmentationLogical
+                                                          if ([media segmentationForURL:media.defaultContentURL] == SRGILPlaylistSegmentationLogical
                                                               && (media.markIn > 0.f) && !media.isLiveStream) {
                                                               NSURLComponents *components = [NSURLComponents componentsWithURL:tokenizedURL resolvingAgainstBaseURL:NO];
                                                               components.query = [components.query stringByAppendingFormat:@"&start=%.0f&end=%.0f", round(media.markIn), round(media.markOut)];
@@ -103,7 +103,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         }
     };
     
-    if (!existingMedia || !existingMedia.contentURL) {
+    if (!existingMedia || !existingMedia.defaultContentURL) {
         SRGILURN *urn = [SRGILURN URNWithString:urnString];
         
         NSString *errorMessage = nil;
@@ -143,8 +143,8 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     }
     
     void (^segmentsAndAnalyticsBlock)(SRGILMedia *) = ^(SRGILMedia *parentMedia) {
-        if (parentMedia.contentURL) {
-            [self prepareAnalyticsInfosForMedia:parentMedia withContentURL:parentMedia.contentURL];
+        if (parentMedia.defaultContentURL) {
+            [self prepareAnalyticsInfosForMedia:parentMedia withContentURL:parentMedia.defaultContentURL];
         }
         
         if (!parentMedia.fullLength || parentMedia.segments.count == 0) {

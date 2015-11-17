@@ -89,7 +89,8 @@
 
 - (void)testPresenceOfHDURLforHLS
 {
-    XCTAssertNotNil(self.video.HDHLSURL, @"With correct input, there must be a HD HLS URL.");
+    NSURL *hd = [self.video contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityHD];
+    XCTAssertNotNil(hd, @"With correct input, there must be a HD HLS URL.");
 }
 
 - (void)testPresenceOfSDURLforHLS
