@@ -227,10 +227,9 @@
     return nil; // Must be overriden
 }
 
-
 - (NSURL *)contentURLForPlaylistWithProtocol:(enum SRGILPlaylistProtocol)playlistProtocol withQuality:(SRGILPlaylistURLQuality)quality
 {
-    NSNumber *key = [self URLKeyForPlaylistWithProtocol:SRGILPlaylistProtocolHTTP withQuality:SRGILPlaylistURLQualityMQ];
+    NSNumber *key = [self URLKeyForPlaylistWithProtocol:playlistProtocol withQuality:quality];
     return [_cachedURLs objectForKey:key];
 }
 
