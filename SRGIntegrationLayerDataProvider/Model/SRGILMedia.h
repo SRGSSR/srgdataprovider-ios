@@ -53,7 +53,8 @@
 /**
  * The URL of the content, according to current state of network.
  */
-- (NSURL *)contentURL;
+- (NSURL *)defaultContentURL;
+- (NSURL *)contentURLForPlaylistWithProtocol:(enum SRGILPlaylistProtocol)playlistProtocol withQuality:(SRGILPlaylistURLQuality)quality;
 
 /**
  *  The number of time this media has been 'viewed'.
@@ -149,16 +150,6 @@
  *  @return NSOrderedSame if other.markIn > self.markIn, etc.
  */
 - (NSComparisonResult)compareMarkInTimes:(SRGILMedia *)other;
-
-// --- Begin
-
-// TODO: This was previously in SRGILMedia+Private.h, but was moved to the public header to solve issues with
-//       Play SRG compilation issues during refactoring. Move back to the private file if possible
-
-- (NSURL *)HDHLSURL;
-- (NSURL *)SDHLSURL;
-- (NSURL *)MQHLSURL;
-- (NSURL *)MQHTTPURL;
 
 - (SRGILPlaylistSegmentation)segmentationForURL:(NSURL *)URL;
 

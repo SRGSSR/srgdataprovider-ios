@@ -20,11 +20,8 @@
 
 @interface SRGILMedia () {
     NSMutableDictionary *_cachedSegmentationFlags;
-    NSURL *_cachedHDHLSURL;
-    NSURL *_cachedSDHLSURL;
-    NSURL *_cachedMQHLSURL;
-    NSURL *_cachedMQHTTPURL;
     NSArray *_cachedSegments;
+    NSMutableDictionary *_cachedURLs;
 }
 @property (nonatomic, weak) SRGILMedia *parent;
 @end
@@ -111,6 +108,16 @@
             _analyticsData = [[SRGILAnalyticsExtendedData alloc] initWithDictionary:[dictionary objectForKey:@"AnalyticsData"]];
         }
         
+        _cachedURLs = [[NSMutableDictionary alloc] init];
+        [self.playlists enumerateObjectsUsingBlock:^(SRGILPlaylist *pl, NSUInteger idx, BOOL *stop) {
+            for (SRGILPlaylistURLQuality quality = SRGILPlaylistURLQualityEnumBegin; quality < SRGILPlaylistURLQualityEnumEnd; quality++) {
+                NSURL *result = [pl URLForQuality:quality];
+                if (result) {
+                    NSNumber *key = [self URLKeyForPlaylistWithProtocol:pl.protocol withQuality:quality];
+                    _cachedURLs[key] = result;
+                }
+            }
+        }];
     }
     return self;
 }
@@ -210,53 +217,21 @@
     }
 }
 
-- (NSURL *)HDHLSURL
+- (NSNumber *)URLKeyForPlaylistWithProtocol:(enum SRGILPlaylistProtocol)playlistProtocol withQuality:(SRGILPlaylistURLQuality)quality
 {
-    if (!_cachedHDHLSURL) {
-        _cachedHDHLSURL = [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityHD];
-    }
-    return _cachedHDHLSURL;
+    return @(playlistProtocol + 100*quality);
 }
 
-- (NSURL *)SDHLSURL
+- (NSURL *)defaultContentURL
 {
-    if (!_cachedSDHLSURL) {
-        _cachedSDHLSURL = [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualitySD];
-    }
-    return _cachedSDHLSURL;
+    return nil; // Must be overriden
 }
 
-- (NSURL *)MQHLSURL
-{
-    if (!_cachedMQHLSURL) {
-        _cachedMQHLSURL =  [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityMQ];
-    }
-    return _cachedMQHLSURL;
-}
 
-- (NSURL *)MQHTTPURL
+- (NSURL *)contentURLForPlaylistWithProtocol:(enum SRGILPlaylistProtocol)playlistProtocol withQuality:(SRGILPlaylistURLQuality)quality
 {
-    if (!_cachedMQHTTPURL) {
-        _cachedMQHTTPURL = [self URLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTP withQuality:SRGILPlaylistURLQualityMQ];
-    }
-    return _cachedMQHTTPURL;
-}
-
-- (NSURL *)URLForPlaylistWithProtocol:(enum SRGILPlaylistProtocol)playlistProtocol withQuality:(SRGILPlaylistURLQuality)quality
-{
-    __block NSURL *result = nil;
-    
-    [self.playlists enumerateObjectsUsingBlock:^(SRGILPlaylist *pl, NSUInteger idx, BOOL *stop) {
-        if (pl.protocol == playlistProtocol) {
-            result = [pl URLForQuality:quality];
-            if (result) {
-                [_cachedSegmentationFlags setObject:@(pl.segmentation) forKey:(result)];
-                *stop = YES;
-            }
-        }
-    }];
-    
-    return result;
+    NSNumber *key = [self URLKeyForPlaylistWithProtocol:SRGILPlaylistProtocolHTTP withQuality:SRGILPlaylistURLQualityMQ];
+    return [_cachedURLs objectForKey:key];
 }
 
 - (SRGILPlaylistProtocol)playlistProtocolForURL:(NSURL *)URL
@@ -309,11 +284,6 @@
 - (NSInteger)viewCount
 {
     return (self.socialCounts) ? self.socialCounts.srgView : NSNotFound;
-}
-
-- (NSURL *)contentURL
-{
-    return nil; // Must be overriden
 }
 
 @end
