@@ -83,11 +83,13 @@
     
     XCTAssertNotNil(video, @"Could not format/create object");
     
-    XCTAssertTrue([[video.HDHLSURL absoluteString] isEqualToString:@"http://stream-i.rts.ch/i/meteo/2014/meteo_20140320_full_f_777781-,101,251,701,1201,k.mp4.csmil/master.m3u8"],
-                  @"Bad HD HLS stream url for video: %@", video.HDHLSURL);
+    NSURL *hd = [video contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityHD];
+    XCTAssertTrue([[hd absoluteString] isEqualToString:@"http://stream-i.rts.ch/i/meteo/2014/meteo_20140320_full_f_777781-,101,251,701,1201,k.mp4.csmil/master.m3u8"],
+                  @"Bad HD HLS stream url for video: %@", hd);
     
     // No SD in this case:
-    XCTAssertNil(video.SDHLSURL, @"Bad SD HLS stream url for video: %@", [video.SDHLSURL absoluteString]);    
+    NSURL *sd = [video contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualitySD];
+    XCTAssertNil(sd, @"Bad SD HLS stream url for video: %@", [sd absoluteString]);
 }
 
 - (void)testSRGILVideoPlaylists
