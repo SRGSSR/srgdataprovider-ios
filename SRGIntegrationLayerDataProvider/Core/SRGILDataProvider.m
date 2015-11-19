@@ -310,6 +310,7 @@ static NSArray *validBusinessUnits = nil;
     if (url.query) {
         // Problem: don't magle parameters other than the paging ones (i.e. search param 'q')
         NSArray *pagingParams = @[@"pageNumber", @"pageSize", @"total"];
+        NSInteger __block queryPageSize = -1;
         
         // Extract non-paging params and values:
         __block NSMutableDictionary *nonPagingParams = [NSMutableDictionary dictionary];
@@ -317,6 +318,10 @@ static NSArray *validBusinessUnits = nil;
             NSArray *chunks = [obj componentsSeparatedByString:@"="];
             if ([chunks count] == 2) {
                 NSString *name = chunks[0];
+                if ([name isEqualToString:@"pageSize"]) {
+                    queryPageSize = [chunks[1] integerValue];
+                }
+                
                 if (![pagingParams containsObject:name]) {
                     nonPagingParams[name] = chunks[1];
                 }
@@ -327,10 +332,10 @@ static NSArray *validBusinessUnits = nil;
         
         NSDictionary *properties = (NSDictionary *)parameters;
         NSInteger currentPageNumber = [[properties objectForKey:@"pageNumber"] integerValue];
-        NSInteger currentPageSize = [[properties objectForKey:@"pageSize"] integerValue];
+        NSInteger currentPageSize = queryPageSize > 0 ? queryPageSize : [[properties objectForKey:@"pageSize"] integerValue];
         NSInteger totalItemsCount = [[properties objectForKey:@"total"] integerValue];
         
-        NSInteger expectedNewMax = (currentPageNumber+1)*currentPageSize;
+        NSInteger expectedNewMax = (currentPageNumber + 1) * currentPageSize;
         BOOL hasReachedEnd = (expectedNewMax - totalItemsCount >= currentPageSize);
         
         if (!hasReachedEnd) {
