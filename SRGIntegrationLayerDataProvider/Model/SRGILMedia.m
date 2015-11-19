@@ -115,6 +115,7 @@
                 if (result) {
                     NSNumber *key = [self URLKeyForPlaylistWithProtocol:pl.protocol withQuality:quality];
                     _cachedURLs[key] = result;
+                    _cachedSegmentationFlags[result] = @(pl.segmentation);
                 }
             }
         }];
@@ -219,7 +220,7 @@
 
 - (NSNumber *)URLKeyForPlaylistWithProtocol:(enum SRGILPlaylistProtocol)playlistProtocol withQuality:(SRGILPlaylistURLQuality)quality
 {
-    return @(playlistProtocol + 100*quality);
+    return @(100*playlistProtocol + quality);
 }
 
 - (NSURL *)defaultContentURL

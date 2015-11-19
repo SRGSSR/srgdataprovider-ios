@@ -15,13 +15,10 @@
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
 
     self.dataSource = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
-
-    [[RTSAnalyticsTracker sharedTracker] setComscoreVSite:@"rts-app-test-v"];
-    [[RTSAnalyticsTracker sharedTracker] setNetmetrixAppId:@"test"];
-
+    
     [[RTSAnalyticsTracker sharedTracker] startTrackingForBusinessUnit:SSRBusinessUnitRTS
                                                       mediaDataSource:self.dataSource
-                                                        forProduction:NO];
+                                                          inDebugMode:YES];
         
     return YES;
 }
