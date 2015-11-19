@@ -18,7 +18,7 @@ DESC
   s.ios.deployment_target = "7.0"
   s.requires_arc = true
 
-  s.resource_bundle = { "SRGILDataProvider" => [ "SRGIntegrationLayerDataProvider/SRGILDataProviderBundle/Info.plist", "SRGIntegrationLayerDataProvider/SRGILDataProviderBundle/*.lproj" ] }
+  s.resource_bundle = { "SRGILDataProvider" => [ "SRGIntegrationLayerDataProvider/SRGILDataProviderBundle/*.lproj" ] }
 
   # Exclude optional MediaPlayer & Analytics modules
   s.default_subspec = 'Core'
