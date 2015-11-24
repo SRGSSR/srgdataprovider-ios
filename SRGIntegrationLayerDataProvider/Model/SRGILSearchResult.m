@@ -27,24 +27,34 @@
         _duration = [dictionary[@"duration"] integerValue];
         _primaryChannelId = dictionary[@"primaryChannelId"];
         
-        [[dictionary valueForKeyPath:@"parentIds.id"] enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
-            if ([@"assetgroup" isEqualToString:obj[@"@ref"]]) {
-                _assetGroupId = obj[@"text"];
-            }
-            if ([@"assetset" isEqualToString:obj[@"@ref"]]) {
-                _assetSetId = obj[@"text"];
-            }
-        }];
+        // The IL is broken by design. Chiote.
         
-        [[dictionary valueForKeyPath:@"parentTitles.title"] enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
-            if ([@"assetgroup" isEqualToString:obj[@"@ref"]]) {
-                _assetGroupTitle = obj[@"text"];
+        id tmp = [dictionary valueForKeyPath:@"parentIds.id"];
+        if ([tmp isKindOfClass:[NSArray class]]) {
+            tmp = [(NSArray *)tmp lastObject];
+        }
+        if ([tmp isKindOfClass:[NSDictionary class]]) {
+            if ([@"assetgroup" isEqualToString:tmp[@"@ref"]]) {
+                _assetGroupId = tmp[@"text"];
             }
-            if ([@"assetset" isEqualToString:obj[@"@ref"]]) {
-                _assetSetTitle = obj[@"text"];
+            if ([@"assetset" isEqualToString:tmp[@"@ref"]]) {
+                _assetSetId = tmp[@"text"];
             }
-        }];
+        }
+        
+        tmp = [dictionary valueForKeyPath:@"parentTitles.title"];
+        if ([tmp isKindOfClass:[NSArray class]]) {
+            tmp = [(NSArray *)tmp lastObject];
+        }
+        if ([tmp isKindOfClass:[NSDictionary class]]) {
+            if ([@"assetgroup" isEqualToString:tmp[@"@ref"]]) {
+                _assetGroupTitle = tmp[@"text"];
             }
+            if ([@"assetset" isEqualToString:tmp[@"@ref"]]) {
+                _assetSetTitle = tmp[@"text"];
+            }
+        }
+    }
     
     return self;
 }
