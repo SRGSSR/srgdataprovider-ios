@@ -78,18 +78,18 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
  *  is NOT called either.
  * 
  *  @param index           The list "index". See enum SRGILFetchListIndex.
- *  @param arg             The argument to be used to build the URL path for fetching data. Highly
+ *  @param queryItems      An array of NSURLQueryItems. Can be nil, or empty.
  *  @param orgType         The organisation type: flat of alphabetical.
  *  @param progressBlock   The block to be used to be informed of the progress of the fetch. See documentation of SRGILFetchListDownloadProgressBlock abive.
  *  @param completionBlock The block to be used upon fetch completion.
  *
  *  @return A boolean value indicating whether the fetch is valid or not (it may not, depending on the argument).
  */
-- (BOOL)fetchListOfIndex:(enum SRGILFetchListIndex)index
-        withPathArgument:(nullable id)arg
-               organised:(SRGILModelDataOrganisationType)orgType
-              onProgress:(nullable SRGILFetchListDownloadProgressBlock)progressBlock
-            onCompletion:(nonnull SRGILFetchListCompletionBlock)completionBlock;
+- (BOOL)fetchObjectsListForIndex:(enum SRGILFetchListIndex)index
+                   withArguments:(nullable  NSArray <NSURLQueryItem *> *)queryItems
+                       organised:(SRGILModelDataOrganisationType)orgType
+                      onProgress:(nullable SRGILFetchListDownloadProgressBlock)progressBlock
+                    onCompletion:(nonnull SRGILFetchListCompletionBlock)completionBlock;
 
 /**
  *  Indicates the number of current fetches ongoing.
@@ -169,8 +169,9 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
  *
  * @return A boolean indicating if the fetch is started or not.
  */
-- (BOOL)fetchShowWithURNString:(nonnull NSString *)urnString
-               completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)fetchShowWithIdentifier:(nonnull NSString *)identifier
+                completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
+
 
 // ********* Data Accessors **********
 

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SRGIntegrationLayerDataProvider"
-  s.version = "2.6.4"
+  s.version = "3.0.0"
   s.summary = "Data Provider using the Integration Layer for the SRG Media Player"
   s.description = <<-DESC
     This is the implementation of the Data Provider using the Integration Layer. It is a generic data provider and it
@@ -15,7 +15,7 @@ DESC
 
   # Platform setup
   s.platform = :ios
-  s.ios.deployment_target = "7.0"
+  s.ios.deployment_target = "8.0"
   s.requires_arc = true
 
   s.resource_bundle = { "SRGILDataProvider" => [ "SRGIntegrationLayerDataProvider/SRGILDataProviderBundle/*.lproj" ] }

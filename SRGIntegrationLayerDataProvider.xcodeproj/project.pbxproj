@@ -66,10 +66,11 @@
 		9F3C1CC31ADC0B4A007C54AD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3C1CBF1ADC0B02007C54AD /* SystemConfiguration.framework */; };
 		9F3C1CC41ADC0B50007C54AD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3C1CC11ADC0B26007C54AD /* MobileCoreServices.framework */; };
 		9F4421001B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4420FF1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m */; };
+		9F631A231C0DE743000CBD6F /* SRGILFetchListURLComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F631A221C0DE743000CBD6F /* SRGILFetchListURLComponents.m */; };
 		9F83AB161B29C0C800D7D8BE /* SRGILDataProviderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F83AB151B29C0C800D7D8BE /* SRGILDataProviderTest.m */; };
 		9F8B389D1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B389C1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m */; };
 		9FCA04921B414935009937E2 /* SRGILURN.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCA04911B414935009937E2 /* SRGILURN.m */; };
-		9FDA13C41BD517A00073722D /* NSBundle+SRGILDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA13C31BD517A00073722D /* NSBundle+SRGILDataProvider.m */; settings = {ASSET_TAGS = (); }; };
+		9FDA13C41BD517A00073722D /* NSBundle+SRGILDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA13C31BD517A00073722D /* NSBundle+SRGILDataProvider.m */; };
 		9FDA13D21BD51C200073722D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FDA13D41BD51C200073722D /* Localizable.strings */; };
 		9FF55F9A1B4B0F5900A99DA2 /* SRGILDataProviderConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF55F991B4B0F5900A99DA2 /* SRGILDataProviderConstants.m */; };
 		9FFDA47F1B8C769200EEF7DA /* SRGILDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDA47E1B8C769200EEF7DA /* SRGILDownload.m */; };
@@ -205,6 +206,8 @@
 		9F4420FE1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGILDataProvider+MediaPlayer.h"; sourceTree = "<group>"; };
 		9F4420FF1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGILDataProvider+MediaPlayer.m"; sourceTree = "<group>"; };
 		9F4421011B0A116D00AD0613 /* SRGILDataProviderMediaPlayerDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SRGILDataProviderMediaPlayerDataSource.h; path = SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h; sourceTree = SOURCE_ROOT; };
+		9F631A211C0DE743000CBD6F /* SRGILFetchListURLComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILFetchListURLComponents.h; sourceTree = "<group>"; };
+		9F631A221C0DE743000CBD6F /* SRGILFetchListURLComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILFetchListURLComponents.m; sourceTree = "<group>"; };
 		9F83AB151B29C0C800D7D8BE /* SRGILDataProviderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderTest.m; sourceTree = "<group>"; };
 		9F8B389C1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderMediaPlayerTest.m; sourceTree = "<group>"; };
 		9FA643351B96EBC300B2B51B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -278,6 +281,8 @@
 				9F13D5051AE9270600E4D897 /* SRGILDataProvider.m */,
 				9FF55F981B4B0F5900A99DA2 /* SRGILDataProviderConstants.h */,
 				9FF55F991B4B0F5900A99DA2 /* SRGILDataProviderConstants.m */,
+				9F631A211C0DE743000CBD6F /* SRGILFetchListURLComponents.h */,
+				9F631A221C0DE743000CBD6F /* SRGILFetchListURLComponents.m */,
 				9F4420FD1B0A107900AD0613 /* MediaPlayer & Analytics */,
 			);
 			name = SRGILProvider;
@@ -714,6 +719,7 @@
 				9F13D54B1AE9270700E4D897 /* SRGILRubric.m in Sources */,
 				9F13D5491AE9270700E4D897 /* SRGILPlaylist.m in Sources */,
 				9F13D5421AE9270700E4D897 /* SRGILImageRepresentation.m in Sources */,
+				9F631A231C0DE743000CBD6F /* SRGILFetchListURLComponents.m in Sources */,
 				9F13D5431AE9270700E4D897 /* SRGILList.m in Sources */,
 				9F13D5461AE9270700E4D897 /* SRGILMedia.m in Sources */,
 				9F13D53F1AE9270700E4D897 /* SRGILAssetSet.m in Sources */,
@@ -826,7 +832,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -860,7 +866,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

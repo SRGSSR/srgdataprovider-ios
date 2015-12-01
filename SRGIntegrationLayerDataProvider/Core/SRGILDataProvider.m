@@ -9,6 +9,7 @@
 #import "SRGILDataProvider.h"
 #import "SRGILDataProvider+Private.h"
 #import "SRGILDataProviderConstants.h"
+#import "SRGILFetchListURLComponents.h"
 
 #import "SRGILModel.h"
 #import "SRGILOrganisedModelDataItem.h"
@@ -105,11 +106,11 @@ static NSArray *validBusinessUnits = nil;
 
 #pragma mark - Item Lists
 
-- (BOOL)fetchListOfIndex:(enum SRGILFetchListIndex)index
-        withPathArgument:(id)arg
-               organised:(SRGILModelDataOrganisationType)orgType
-              onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
-            onCompletion:(SRGILFetchListCompletionBlock)completionBlock
+- (BOOL)fetchObjectsListForIndex:(enum SRGILFetchListIndex)index
+                   withArguments:(nullable  NSArray <NSURLQueryItem *> *)queryItems
+                       organised:(SRGILModelDataOrganisationType)orgType
+                      onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
+                    onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
     if (index < SRGILFetchListEnumBegin || index >= SRGILFetchListEnumEnd) {
         if (completionBlock) {
@@ -122,33 +123,82 @@ static NSArray *validBusinessUnits = nil;
         return NO;
     }
     
+    SRGILFetchListURLComponents *components = [SRGILFetchListURLComponents URLComponentsForFetchListIndex:index];
+    
     id<NSCopying> tag = @(index);
     NSString *remoteURLPath = SRGConfigNoValidRequestURLPath;
     NSString *errorMessage = nil;
+    NSString *argumentsString = [self validateArguments:arguments forIndex:index];
     
     switch (index) {
+            // --- Videos ---
+            
         case SRGILFetchListVideoLiveStreams:
             remoteURLPath = @"video/livestream.json";
             break;
             
-        case SRGILFetchListVideoEditorialPicks:
+        case SRGILFetchListVideoEditorialPicks: {
+            NSString *pageSize = @"20";
+                if ([arg isKindOfClass:[NSDictionary class]])
             remoteURLPath = @"video/editorialPlayerPicks.json?pageSize=20";
+        }
             break;
             
-        case SRGILFetchListVideoMostRecent:
+        case SRGILFetchListVideoEditorialLatest:
             remoteURLPath = @"video/editorialPlayerLatest.json?pageSize=20";
             break;
             
-        case SRGILFetchListVideoMostSeen:
+        case SRGILFetchListVideoMostClicked:
             remoteURLPath = @"video/mostClicked.json?pageSize=20&period=24";
             break;
             
-        case SRGILFetchListVideoShowsAZ:
+        case SRGILFetchListVideoSearch: {
+            if ([arg isKindOfClass:[NSString class]]) {
+                remoteURLPath = [NSString stringWithFormat:@"video/search.json?q=%@&pageSize=24", arg];
+            }
+            else if ([arg isKindOfClass:[NSDictionary class]]) {
+                remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
+            }
+            else {
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListVideoSearch: '%@'.", nil), arg];
+            }
+        }
+            break;
+
+            
+            // --- Video Shows ---
+            
+        case SRGILFetchListVideoShowsAlphabetical:
             remoteURLPath = @"tv/assetGroup/editorialPlayerAlphabetical.json";
             break;
             
-        case SRGILFetchListVideoShowsAZDetail:
-        case SRGILFetchListAudioShowsAZDetail: {
+        case SRGILFetchListVideoEpisodesByDate: {
+            NSDate *date = (arg && [arg isKindOfClass:[NSDate class]]) ? (NSDate *)arg : [NSDate date];
+            NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSDateComponents *dateComponents = [gregorianCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
+            remoteURLPath = [NSString stringWithFormat:@"video/episodesByDate.json?day=%4li-%02li-%02li",
+                             (long)dateComponents.year, (long)dateComponents.month, (long)dateComponents.day];
+        }
+            break;
+            
+            
+        case SRGILFetchListVideoShowsSearch: {
+            if ([arg isKindOfClass:[NSString class]]) {
+                remoteURLPath = [NSString stringWithFormat:@"tv/assetGroup/search.json?q=%@&pageSize=24", arg];
+            }
+            else if ([arg isKindOfClass:[NSDictionary class]]) {
+                remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
+            }
+            else {
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListVideoShowsSearch: '%@'.", nil), arg];
+            }
+        }
+            break;
+            
+            // --- Audio & Video Show Detail ---
+            
+        case SRGILFetchListVideoShowDetail:
+        case SRGILFetchListAudioShowDetail: {
             if ([arg isKindOfClass:[NSString class]]) {
                 remoteURLPath = [NSString stringWithFormat:@"assetSet/listByAssetGroup/%@.json?pageSize=20", arg];
             }
@@ -160,15 +210,8 @@ static NSArray *validBusinessUnits = nil;
         }
             break;
             
-        case SRGILFetchListVideoShowsByDate: {
-            NSDate *date = (arg && [arg isKindOfClass:[NSDate class]]) ? (NSDate *)arg : [NSDate date];
-            NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-            NSDateComponents *dateComponents = [gregorianCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
-            remoteURLPath = [NSString stringWithFormat:@"video/episodesByDate.json?day=%4li-%02li-%02li",
-                             (long)dateComponents.year, (long)dateComponents.month, (long)dateComponents.day];
-        }
-            break;
-                        
+            
+            // --- Audios ---
             
         case SRGILFetchListAudioLiveStreams: {
             if ([arg isKindOfClass:[NSString class]]) {
@@ -179,51 +222,38 @@ static NSArray *validBusinessUnits = nil;
             }
         }
             break;
-            
-        case SRGILFetchListAudioMostRecent: {
+
+        case SRGILFetchListAudioEditorialLatest: {
+            if ([arg isKindOfClass:[NSString class]]) {
+                remoteURLPath = [NSString stringWithFormat:@"audio/editorialPlayerLatestByChannel/%@.json?pageSize=20", arg];
+            }
+            else {
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioEditorialLatest: '%@'.", nil), arg];
+            }
+        }
+            break;
+
+        case SRGILFetchListAudioEpisodesLatest: {
             if ([arg isKindOfClass:[NSString class]]) {
                 remoteURLPath = [NSString stringWithFormat:@"audio/latestEpisodesByChannel/%@.json?pageSize=20", arg];
             }
             else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioMostRecent: '%@'.", nil), arg];
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioEpisodesLatest: '%@'.", nil), arg];
             }
         }
             break;
-            
-        case SRGILFetchListAudioMostListened: {
+
+        case SRGILFetchListAudioMostClicked: {
             if ([arg isKindOfClass:[NSString class]]) {
                 remoteURLPath = [NSString stringWithFormat:@"audio/mostClickedByChannel/%@.json?pageSize=20", arg];
             }
             else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioMostListened: '%@'.", nil), arg];
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioMostClicked: '%@'.", nil), arg];
             }
         }
             break;
             
-        case SRGILFetchListAudioShowsAZ: {
-            if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"radio/assetGroup/editorialPlayerAlphabeticalByChannel/%@.json", arg];
-            }
-            else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioShowsAZ: '%@'.", nil), arg];
-            }
-        }
-            break;
-            
-        case SRGILFetchListVideoSearchResult: {
-            if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"video/search.json?q=%@&pageSize=24", arg];
-            }
-            else if ([arg isKindOfClass:[NSDictionary class]]) {
-                remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
-            }
-            else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListVideoSearchResult: '%@'.", nil), arg];
-            }
-        }
-            break;
-            
-        case SRGILFetchListAudioSearchResult: {
+        case SRGILFetchListAudioSearch: {
             if ([arg isKindOfClass:[NSString class]]) {
                 remoteURLPath = [NSString stringWithFormat:@"audio/search.json?q=%@&pageSize=24", arg];
             }
@@ -231,12 +261,26 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
             }
             else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioSearchResult: '%@'.", nil), arg];
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioSearch: '%@'.", nil), arg];
             }
         }
             break;
             
-        case SRGILFetchListAudioShowSearchResult: {
+            
+            // --- Audio Shows ---
+            
+        case SRGILFetchListAudioShowsAlphabetical: {
+            if ([arg isKindOfClass:[NSString class]]) {
+                remoteURLPath = [NSString stringWithFormat:@"radio/assetGroup/editorialPlayerAlphabeticalByChannel/%@.json", arg];
+            }
+            else {
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioShowsAlphabetical: '%@'.", nil), arg];
+            }
+        }
+            break;
+            
+            
+        case SRGILFetchListAudioShowsSearch: {
             if ([arg isKindOfClass:[NSString class]]) {
                 remoteURLPath = [NSString stringWithFormat:@"radio/assetGroup/search.json?q=%@&pageSize=24", arg];
             }
@@ -244,20 +288,7 @@ static NSArray *validBusinessUnits = nil;
                 remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
             }
             else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioShowSearchResult: '%@'.", nil), arg];
-            }
-        }
-            break;
-            
-        case SRGILFetchListVideoShowSearchResult: {
-            if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"tv/assetGroup/search.json?q=%@&pageSize=24", arg];
-            }
-            else if ([arg isKindOfClass:[NSDictionary class]]) {
-                remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
-            }
-            else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListVideoShowSearchResult: '%@'.", nil), arg];
+                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioShowsSearch: '%@'.", nil), arg];
             }
         }
             break;
@@ -308,7 +339,7 @@ static NSArray *validBusinessUnits = nil;
     NSURL *url = [NSURL URLWithString:remoteURLPath];
     
     if (url.query) {
-        // Problem: don't magle parameters other than the paging ones (i.e. search param 'q')
+        // Problem: don't mangle parameters other than the paging ones (i.e. search param 'q')
         NSArray *pagingParams = @[@"pageNumber", @"pageSize", @"total"];
         NSInteger __block queryPageSize = -1;
         
@@ -624,19 +655,14 @@ static NSArray *validBusinessUnits = nil;
 
 #pragma mark - Fetch Medias or Shows
 
-- (BOOL)fetchShowWithURNString:(NSString *)urnString completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
+- (BOOL)fetchShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
 {
     NSAssert(completionBlock, @"Missing completion block");
     NSString *errorMessage = nil;
-    if (!urnString) {
-        errorMessage = SRGILDataProviderLocalizedString(@"Missing show URN string. Nothing to fetch.", nil);
+    if (!identifier) {
+        errorMessage = SRGILDataProviderLocalizedString(@"Missing show identifier. Nothing to fetch.", nil);
     }
     
-    SRGILURN *urn = [SRGILURN URNWithString:urnString];
-    if (!urn) {
-        errorMessage = SRGILDataProviderLocalizedString(@"Unable to create URN from identifier, which is needed to proceed.", nil);
-    }
-
     if (errorMessage) {
         NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                              code:SRGILDataProviderErrorCodeInvalidMediaIdentifier
@@ -660,7 +686,7 @@ static NSArray *validBusinessUnits = nil;
         }
     };
     
-    return [self.requestManager requestShowWithIdentifier:urn.identifier onCompletion:wrappedCompletionBlock];
+    return [self.requestManager requestShowWithIdentifier:identifier onCompletion:wrappedCompletionBlock];
 }
 
 - (BOOL)fetchMediaWithURNString:(NSString *)urnString completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
