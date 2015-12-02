@@ -11,6 +11,7 @@
 @class SRGILList;
 @class SRGILMedia;
 @class SRGILShow;
+@class SRGILURLComponents;
 
 /**
  *  Block associated with a fetch request, informing about the progresses of ALL on-going requests. This is mostly
@@ -77,19 +78,15 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
  *  constructed from the index and its potential argument, returns NO and no request is made, and the completion block
  *  is NOT called either.
  * 
- *  @param index           The list "index". See enum SRGILFetchListIndex.
- *  @param queryItems      An array of NSURLQueryItems. Can be nil, or empty.
+ *  @param components      The URL components build with the SRGILURLComponents factory.
  *  @param orgType         The organisation type: flat of alphabetical.
  *  @param progressBlock   The block to be used to be informed of the progress of the fetch. See documentation of SRGILFetchListDownloadProgressBlock abive.
  *  @param completionBlock The block to be used upon fetch completion.
- *
- *  @return A boolean value indicating whether the fetch is valid or not (it may not, depending on the argument).
  */
-- (BOOL)fetchObjectsListForIndex:(enum SRGILFetchListIndex)index
-                   withArguments:(nullable  NSArray <NSURLQueryItem *> *)queryItems
-                       organised:(SRGILModelDataOrganisationType)orgType
-                      onProgress:(nullable SRGILFetchListDownloadProgressBlock)progressBlock
-                    onCompletion:(nonnull SRGILFetchListCompletionBlock)completionBlock;
+- (void)fetchObjectsListWithURLComponents:(nonnull SRGILURLComponents *)components
+                                organised:(SRGILModelDataOrganisationType)orgType
+                               onProgress:(nullable SRGILFetchListDownloadProgressBlock)progressBlock
+                             onCompletion:(nonnull SRGILFetchListCompletionBlock)completionBlock;
 
 /**
  *  Indicates the number of current fetches ongoing.
@@ -116,23 +113,6 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
  *  @return The last of the fetch dates associated with the indexes.
  */
 - (nullable NSDate *)lastFetchDateForIndexes:(nonnull NSArray *)indexes;
-
-/**
- *  Indicates whether the current fetch path is valid for the given index or not. Corresponds to the last 
- *  value returned by 'fetchListOfIndex:...' for that index.
- *
- *  @param index The fetch list index.
- *
- *  @return A boolean value indicating if the last fetch path for that index was valid or not.
- */
-- (BOOL)isFetchPathValidForIndex:(enum SRGILFetchListIndex)index;
-
-/**
- *  Reset the fetch path for the given index.
- *
- *  @param index The index for which the path must be reset.
- */
-- (void)resetFetchPathForIndex:(enum SRGILFetchListIndex)index;
 
 
 // ********* Fetch individual media of IL model objects **********

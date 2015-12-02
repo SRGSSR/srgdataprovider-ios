@@ -8,6 +8,7 @@
 #import "SRGILList.h"
 #import "SRGILDataProvider.h"
 #import "SRGILDataProviderConstants.h"
+#import "SRGILURLComponents.h"
 
 #if __has_include("SRGILDataProviderMediaPlayerDataSource.h")
 #import "SRGILDataProviderMediaPlayerDataSource.h"

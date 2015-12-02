@@ -31,9 +31,9 @@ typedef void (^SRGILRequestArrayCompletionBlock)(NSDictionary *rawDictionary, NS
                              withAssetId:(NSString *)assetId
                          completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
 
-- (BOOL)requestItemsWithURLPath:(NSString *)path
-                     onProgress:(SRGILFetchListDownloadProgressBlock)downloadBlock
-                   onCompletion:(SRGILRequestArrayCompletionBlock)completionBlock;
+- (BOOL)requestItemsWithFullURLString:(NSString *)URLString
+                           onProgress:(SRGILFetchListDownloadProgressBlock)downloadBlock
+                         onCompletion:(SRGILRequestArrayCompletionBlock)completionBlock;
 
 - (void)cancelAllRequests;
 

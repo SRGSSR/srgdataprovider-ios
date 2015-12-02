@@ -9,7 +9,7 @@
 #import "SRGILDataProvider.h"
 #import "SRGILDataProvider+Private.h"
 #import "SRGILDataProviderConstants.h"
-#import "SRGILFetchListURLComponents.h"
+#import "SRGILURLComponents.h"
 
 #import "SRGILModel.h"
 #import "SRGILOrganisedModelDataItem.h"
@@ -37,7 +37,6 @@ static NSArray *validBusinessUnits = nil;
 
 @interface SRGILDataProvider () {
     NSMutableDictionary *_taggedItemLists;
-    NSMutableDictionary *_typedFetchPaths;
     NSMutableSet *_ongoingFetchIndices;
     NSString *_UUID;
 }
@@ -76,7 +75,6 @@ static NSArray *validBusinessUnits = nil;
         _identifiedMedias = [[NSMutableDictionary alloc] init];
         _identifiedShows = [[NSMutableDictionary alloc] init];
         _taggedItemLists = [[NSMutableDictionary alloc] init];
-        _typedFetchPaths = [[NSMutableDictionary alloc] init];
         _requestManager = [[SRGILRequestsManager alloc] initWithBusinessUnit:businessUnit];
         _ongoingFetchIndices = [[NSMutableSet alloc] init];
     }
@@ -106,287 +104,86 @@ static NSArray *validBusinessUnits = nil;
 
 #pragma mark - Item Lists
 
-- (BOOL)fetchObjectsListForIndex:(enum SRGILFetchListIndex)index
-                   withArguments:(nullable  NSArray <NSURLQueryItem *> *)queryItems
-                       organised:(SRGILModelDataOrganisationType)orgType
-                      onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
-                    onCompletion:(SRGILFetchListCompletionBlock)completionBlock
+- (void)fetchObjectsListWithURLComponents:(nonnull SRGILURLComponents *)components
+                                organised:(SRGILModelDataOrganisationType)orgType
+                               onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
+                             onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
-    if (index < SRGILFetchListEnumBegin || index >= SRGILFetchListEnumEnd) {
-        if (completionBlock) {
-            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                 code:SRGILDataProviderErrorCodeInvalidFetchIndex
-                                             userInfo:@{NSLocalizedDescriptionKey: SRGILDataProviderLocalizedString(@"Invalid fetch index", nil)}];
-            
-            completionBlock(nil, nil, error);
-        }
-        return NO;
-    }
+    components.host = self.requestManager.baseURL.host;
+    components.scheme = self.requestManager.baseURL.scheme;
+    components.path = [self.requestManager.baseURL.path stringByAppendingString:components.path];
+    NSNumber *tag = @(components.index);
     
-    SRGILFetchListURLComponents *components = [SRGILFetchListURLComponents URLComponentsForFetchListIndex:index];
-    
-    id<NSCopying> tag = @(index);
-    NSString *remoteURLPath = SRGConfigNoValidRequestURLPath;
-    NSString *errorMessage = nil;
-    NSString *argumentsString = [self validateArguments:arguments forIndex:index];
-    
-    switch (index) {
-            // --- Videos ---
-            
-        case SRGILFetchListVideoLiveStreams:
-            remoteURLPath = @"video/livestream.json";
-            break;
-            
-        case SRGILFetchListVideoEditorialPicks: {
-            NSString *pageSize = @"20";
-                if ([arg isKindOfClass:[NSDictionary class]])
-            remoteURLPath = @"video/editorialPlayerPicks.json?pageSize=20";
-        }
-            break;
-            
-        case SRGILFetchListVideoEditorialLatest:
-            remoteURLPath = @"video/editorialPlayerLatest.json?pageSize=20";
-            break;
-            
-        case SRGILFetchListVideoMostClicked:
-            remoteURLPath = @"video/mostClicked.json?pageSize=20&period=24";
-            break;
-            
-        case SRGILFetchListVideoSearch: {
-            if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"video/search.json?q=%@&pageSize=24", arg];
-            }
-            else if ([arg isKindOfClass:[NSDictionary class]]) {
-                remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
-            }
-            else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListVideoSearch: '%@'.", nil), arg];
-            }
-        }
-            break;
-
-            
-            // --- Video Shows ---
-            
-        case SRGILFetchListVideoShowsAlphabetical:
-            remoteURLPath = @"tv/assetGroup/editorialPlayerAlphabetical.json";
-            break;
-            
-        case SRGILFetchListVideoEpisodesByDate: {
-            NSDate *date = (arg && [arg isKindOfClass:[NSDate class]]) ? (NSDate *)arg : [NSDate date];
-            NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-            NSDateComponents *dateComponents = [gregorianCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
-            remoteURLPath = [NSString stringWithFormat:@"video/episodesByDate.json?day=%4li-%02li-%02li",
-                             (long)dateComponents.year, (long)dateComponents.month, (long)dateComponents.day];
-        }
-            break;
-            
-            
-        case SRGILFetchListVideoShowsSearch: {
-            if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"tv/assetGroup/search.json?q=%@&pageSize=24", arg];
-            }
-            else if ([arg isKindOfClass:[NSDictionary class]]) {
-                remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
-            }
-            else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListVideoShowsSearch: '%@'.", nil), arg];
-            }
-        }
-            break;
-            
-            // --- Audio & Video Show Detail ---
-            
-        case SRGILFetchListVideoShowDetail:
-        case SRGILFetchListAudioShowDetail: {
-            if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"assetSet/listByAssetGroup/%@.json?pageSize=20", arg];
-            }
-            else if ([arg isKindOfClass:[NSDictionary class]]) {
-                remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
-            }
-            // It is OK to find no remoteURLpath and let it go. No request will be made, that's it.
-            
-        }
-            break;
-            
-            
-            // --- Audios ---
-            
-        case SRGILFetchListAudioLiveStreams: {
-            if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"audio/play/%@.json", arg];
-            }
-            else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioLiveStreams: '%@'.", nil), arg];
-            }
-        }
-            break;
-
-        case SRGILFetchListAudioEditorialLatest: {
-            if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"audio/editorialPlayerLatestByChannel/%@.json?pageSize=20", arg];
-            }
-            else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioEditorialLatest: '%@'.", nil), arg];
-            }
-        }
-            break;
-
-        case SRGILFetchListAudioEpisodesLatest: {
-            if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"audio/latestEpisodesByChannel/%@.json?pageSize=20", arg];
-            }
-            else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioEpisodesLatest: '%@'.", nil), arg];
-            }
-        }
-            break;
-
-        case SRGILFetchListAudioMostClicked: {
-            if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"audio/mostClickedByChannel/%@.json?pageSize=20", arg];
-            }
-            else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioMostClicked: '%@'.", nil), arg];
-            }
-        }
-            break;
-            
-        case SRGILFetchListAudioSearch: {
-            if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"audio/search.json?q=%@&pageSize=24", arg];
-            }
-            else if ([arg isKindOfClass:[NSDictionary class]]) {
-                remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
-            }
-            else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioSearch: '%@'.", nil), arg];
-            }
-        }
-            break;
-            
-            
-            // --- Audio Shows ---
-            
-        case SRGILFetchListAudioShowsAlphabetical: {
-            if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"radio/assetGroup/editorialPlayerAlphabeticalByChannel/%@.json", arg];
-            }
-            else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioShowsAlphabetical: '%@'.", nil), arg];
-            }
-        }
-            break;
-            
-            
-        case SRGILFetchListAudioShowsSearch: {
-            if ([arg isKindOfClass:[NSString class]]) {
-                remoteURLPath = [NSString stringWithFormat:@"radio/assetGroup/search.json?q=%@&pageSize=24", arg];
-            }
-            else if ([arg isKindOfClass:[NSDictionary class]]) {
-                remoteURLPath = [self urlPathForListIndex:index withParameters:arg];
-            }
-            else {
-                errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Invalid arg for SRGILFetchListAudioShowsSearch: '%@'.", nil), arg];
-            }
-        }
-            break;
-            
-        default:
-            break;
-    }
-    
-    _typedFetchPaths[@(index)] = [remoteURLPath copy];
-    
-    if (remoteURLPath && remoteURLPath != SRGConfigNoValidRequestURLPath) {
-        DDLogInfo(@"Fetch request for item type %ld with path %@", (long)index, remoteURLPath);
-        
-        @weakify(self);
-        [_ongoingFetchIndices addObject:@(index)];
-        [self.requestManager requestItemsWithURLPath:remoteURLPath
-                                          onProgress:progressBlock
-                                        onCompletion:^(NSDictionary *rawDictionary, NSError *error) {
-                                            @strongify(self);
-                                            [_ongoingFetchIndices removeObject:@(index)];
-                                            // Error handling is handled in extractItems...
-                                            [self recordFetchDateForIndex:index];
-                                            [self extractItemsAndClassNameFromRawDictionary:rawDictionary
-                                                                                     forTag:tag
-                                                                           organisationType:orgType
-                                                                        withCompletionBlock:completionBlock];
-                                        }];
-    }
-    else if (errorMessage) {
-        DDLogWarn(@"%@", errorMessage);
-        
-        if (completionBlock) {
-            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                 code:SRGILDataProviderErrorCodeInvalidFetchIndex
-                                             userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
-            
-            completionBlock(nil, nil, error);
-        }
-        return NO;
-    }
-    
-    return [self isFetchPathValidForIndex:index];
+    @weakify(self);
+    [_ongoingFetchIndices addObject:tag];
+    [self.requestManager requestItemsWithFullURLString:components.string
+                                            onProgress:progressBlock
+                                          onCompletion:^(NSDictionary *rawDictionary, NSError *error) {
+                                              @strongify(self);
+                                              [_ongoingFetchIndices removeObject:tag];
+                                              // Error handling is handled in extractItems...
+                                              [self recordFetchDateForIndex:components.index];
+                                              [self extractItemsAndClassNameFromRawDictionary:rawDictionary
+                                                                                       forTag:tag
+                                                                             organisationType:orgType
+                                                                          withCompletionBlock:completionBlock];
+                                          }];
 }
 
-- (NSString *)urlPathForListIndex:(enum SRGILFetchListIndex)index withParameters:(NSDictionary *)parameters
-{
-    __block NSString *remoteURLPath = _typedFetchPaths[@(index)]; // Can be SRGConfigNoValidRequestURLPath, and it is OK.
-    NSURL *url = [NSURL URLWithString:remoteURLPath];
-    
-    if (url.query) {
-        // Problem: don't mangle parameters other than the paging ones (i.e. search param 'q')
-        NSArray *pagingParams = @[@"pageNumber", @"pageSize", @"total"];
-        NSInteger __block queryPageSize = -1;
-        
-        // Extract non-paging params and values:
-        __block NSMutableDictionary *nonPagingParams = [NSMutableDictionary dictionary];
-        [[url.query componentsSeparatedByString:@"&"] enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
-            NSArray *chunks = [obj componentsSeparatedByString:@"="];
-            if ([chunks count] == 2) {
-                NSString *name = chunks[0];
-                if ([name isEqualToString:@"pageSize"]) {
-                    queryPageSize = [chunks[1] integerValue];
-                }
-                
-                if (![pagingParams containsObject:name]) {
-                    nonPagingParams[name] = chunks[1];
-                }
-            }
-        }];
-        
-        remoteURLPath = [NSString stringWithFormat:@"%@?", url.path];
-        
-        NSDictionary *properties = (NSDictionary *)parameters;
-        NSInteger currentPageNumber = [[properties objectForKey:@"pageNumber"] integerValue];
-        NSInteger currentPageSize = queryPageSize > 0 ? queryPageSize : [[properties objectForKey:@"pageSize"] integerValue];
-        NSInteger totalItemsCount = [[properties objectForKey:@"total"] integerValue];
-        
-        NSInteger expectedNewMax = (currentPageNumber + 1) * currentPageSize;
-        BOOL hasReachedEnd = (expectedNewMax - totalItemsCount >= currentPageSize);
-        
-        if (!hasReachedEnd) {
-            remoteURLPath = [remoteURLPath stringByAppendingFormat:@"pageSize=%ld&pageNumber=%ld",
-                             (long)currentPageSize, (long)currentPageNumber+1];
-            
-            // Add non-paging params:
-            [nonPagingParams enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *stop) {
-                remoteURLPath = [remoteURLPath stringByAppendingFormat:@"&%@=%@", key, obj];
-            }];
-            
-        }
-        else {
-            remoteURLPath = SRGConfigNoValidRequestURLPath;
-        }
-    }
-    
-    return remoteURLPath;
-}
-
+//- (NSString *)urlPathForListIndex:(enum SRGILFetchListIndex)index withParameters:(NSDictionary *)parameters
+//{
+//    __block NSString *remoteURLPath = _typedFetchPaths[@(index)]; // Can be SRGConfigNoValidRequestURLPath, and it is OK.
+//    NSURL *url = [NSURL URLWithString:remoteURLPath];
+//    
+//    if (url.query) {
+//        // Problem: don't mangle parameters other than the paging ones (i.e. search param 'q')
+//        NSArray *pagingParams = @[@"pageNumber", @"pageSize", @"total"];
+//        NSInteger __block queryPageSize = -1;
+//        
+//        // Extract non-paging params and values:
+//        __block NSMutableDictionary *nonPagingParams = [NSMutableDictionary dictionary];
+//        [[url.query componentsSeparatedByString:@"&"] enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
+//            NSArray *chunks = [obj componentsSeparatedByString:@"="];
+//            if ([chunks count] == 2) {
+//                NSString *name = chunks[0];
+//                if ([name isEqualToString:@"pageSize"]) {
+//                    queryPageSize = [chunks[1] integerValue];
+//                }
+//                
+//                if (![pagingParams containsObject:name]) {
+//                    nonPagingParams[name] = chunks[1];
+//                }
+//            }
+//        }];
+//        
+//        remoteURLPath = [NSString stringWithFormat:@"%@?", url.path];
+//        
+//        NSDictionary *properties = (NSDictionary *)parameters;
+//        NSInteger currentPageNumber = [[properties objectForKey:@"pageNumber"] integerValue];
+//        NSInteger currentPageSize = queryPageSize > 0 ? queryPageSize : [[properties objectForKey:@"pageSize"] integerValue];
+//        NSInteger totalItemsCount = [[properties objectForKey:@"total"] integerValue];
+//        
+//        NSInteger expectedNewMax = (currentPageNumber + 1) * currentPageSize;
+//        BOOL hasReachedEnd = (expectedNewMax - totalItemsCount >= currentPageSize);
+//        
+//        if (!hasReachedEnd) {
+//            remoteURLPath = [remoteURLPath stringByAppendingFormat:@"pageSize=%ld&pageNumber=%ld",
+//                             (long)currentPageSize, (long)currentPageNumber+1];
+//            
+//            // Add non-paging params:
+//            [nonPagingParams enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *stop) {
+//                remoteURLPath = [remoteURLPath stringByAppendingFormat:@"&%@=%@", key, obj];
+//            }];
+//            
+//        }
+//        else {
+//            remoteURLPath = SRGConfigNoValidRequestURLPath;
+//        }
+//    }
+//    
+//    return remoteURLPath;
+//}
+//
 
 - (void)extractItemsAndClassNameFromRawDictionary:(NSDictionary *)rawDictionary
                                            forTag:(id<NSCopying>)tag
@@ -605,16 +402,6 @@ static NSArray *validBusinessUnits = nil;
     });
 }
 
-- (BOOL)isFetchPathValidForIndex:(enum SRGILFetchListIndex)index
-{
-    return (_typedFetchPaths[@(index)] && _typedFetchPaths[@(index)] != SRGConfigNoValidRequestURLPath);
-}
-
-- (void)resetFetchPathForIndex:(enum SRGILFetchListIndex)index
-{
-    [_typedFetchPaths removeObjectForKey:@(index)];
-}
-
 #pragma mark - Fetch Dates
 
 - (NSString *)fetchKeyForIndex:(enum SRGILFetchListIndex)index
@@ -674,8 +461,8 @@ static NSArray *validBusinessUnits = nil;
     
     SRGILRequestMediaCompletionBlock wrappedCompletionBlock = ^(SRGILShow *show, NSError *error) {
         if (error || !show) {
-            if (_identifiedShows[urnString]) {
-                completionBlock(_identifiedShows[urnString], nil);
+            if (_identifiedShows[identifier]) {
+                completionBlock(_identifiedShows[identifier], nil);
             }
             else {
                 completionBlock(nil, error);

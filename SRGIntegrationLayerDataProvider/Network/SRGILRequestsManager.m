@@ -257,20 +257,20 @@ static SGVReachability *reachability;
 
 #pragma mark - Requesting Item Lists
 
-- (BOOL)requestItemsWithURLPath:(NSString *)path
-                     onProgress:(SRGILFetchListDownloadProgressBlock)downloadBlock
-                   onCompletion:(SRGILRequestArrayCompletionBlock)completionBlock
+- (BOOL)requestItemsWithFullURLString:(NSString *)URLString
+                           onProgress:(SRGILFetchListDownloadProgressBlock)downloadBlock
+                         onCompletion:(SRGILRequestArrayCompletionBlock)completionBlock
 {
-    NSAssert(path, @"An URL path is required, otherwise, what's the point?");
+    NSAssert(URLString, @"An URL path is required, otherwise, what's the point?");
     NSAssert(completionBlock, @"A completion block is required, otherwise, what's the point?");
     
         // Fill dictionary with 0 numbers, as we need the count of requests for the total fraction
-    NSNumber *downloadFraction = [self.ongoingVideoListDownloads objectForKey:path];
+    NSNumber *downloadFraction = [self.ongoingVideoListDownloads objectForKey:URLString];
     if (!downloadFraction) {
-        [self.ongoingVideoListDownloads setObject:@(0.0) forKey:path];
+        [self.ongoingVideoListDownloads setObject:@(0.0) forKey:URLString];
     }
     
-    NSURL *completeURL = [self.baseURL URLByAppendingPathComponent:path];
+    NSURL *completeURL = [NSURL URLWithString:URLString];
 
     @weakify(self)
     void (^completion)(NSData *data, NSURLResponse *response, NSError *error) = ^(NSData *data, NSURLResponse *response, NSError *error) {

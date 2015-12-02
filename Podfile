@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 source 'ssh://git@bitbucket.org/rtsmb/srgpodspecs.git'
 
 inhibit_all_warnings!
-platform :ios, '7.0'
+platform :ios, '8.0'
 workspace 'SRGIntegrationLayerDataProvider.xcworkspace'
 
 ### Library project

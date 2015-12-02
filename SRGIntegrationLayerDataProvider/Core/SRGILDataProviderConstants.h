@@ -36,6 +36,7 @@ typedef NS_ENUM (NSInteger, SRGILDataProviderErrorCode) {
 
 // Domain for IL errors
 extern NSString *const SRGILDataProviderErrorDomain;
+extern NSString *const SRGILFetchListURLComponentsEmptySearchQueryString;
 
 /**
  *  Fetched data from the IL can be returned, organised in different ways.
