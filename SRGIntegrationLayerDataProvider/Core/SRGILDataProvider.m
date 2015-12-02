@@ -109,16 +109,13 @@ static NSArray *validBusinessUnits = nil;
                                onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
                              onCompletion:(SRGILFetchListCompletionBlock)completionBlock
 {
-    components.host = self.requestManager.baseURL.host;
-    components.scheme = self.requestManager.baseURL.scheme;
-    components.path = [self.requestManager.baseURL.path stringByAppendingString:components.path];
     NSNumber *tag = @(components.index);
     
     @weakify(self);
     [_ongoingFetchIndices addObject:tag];
-    [self.requestManager requestItemsWithFullURLString:components.string
-                                            onProgress:progressBlock
-                                          onCompletion:^(NSDictionary *rawDictionary, NSError *error) {
+    [self.requestManager requestItemsWithURLComponents:components
+                                         progressBlock:progressBlock
+                                       completionBlock:^(NSDictionary *rawDictionary, NSError *error) {
                                               @strongify(self);
                                               [_ongoingFetchIndices removeObject:tag];
                                               // Error handling is handled in extractItems...
@@ -129,61 +126,6 @@ static NSArray *validBusinessUnits = nil;
                                                                           withCompletionBlock:completionBlock];
                                           }];
 }
-
-//- (NSString *)urlPathForListIndex:(enum SRGILFetchListIndex)index withParameters:(NSDictionary *)parameters
-//{
-//    __block NSString *remoteURLPath = _typedFetchPaths[@(index)]; // Can be SRGConfigNoValidRequestURLPath, and it is OK.
-//    NSURL *url = [NSURL URLWithString:remoteURLPath];
-//    
-//    if (url.query) {
-//        // Problem: don't mangle parameters other than the paging ones (i.e. search param 'q')
-//        NSArray *pagingParams = @[@"pageNumber", @"pageSize", @"total"];
-//        NSInteger __block queryPageSize = -1;
-//        
-//        // Extract non-paging params and values:
-//        __block NSMutableDictionary *nonPagingParams = [NSMutableDictionary dictionary];
-//        [[url.query componentsSeparatedByString:@"&"] enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
-//            NSArray *chunks = [obj componentsSeparatedByString:@"="];
-//            if ([chunks count] == 2) {
-//                NSString *name = chunks[0];
-//                if ([name isEqualToString:@"pageSize"]) {
-//                    queryPageSize = [chunks[1] integerValue];
-//                }
-//                
-//                if (![pagingParams containsObject:name]) {
-//                    nonPagingParams[name] = chunks[1];
-//                }
-//            }
-//        }];
-//        
-//        remoteURLPath = [NSString stringWithFormat:@"%@?", url.path];
-//        
-//        NSDictionary *properties = (NSDictionary *)parameters;
-//        NSInteger currentPageNumber = [[properties objectForKey:@"pageNumber"] integerValue];
-//        NSInteger currentPageSize = queryPageSize > 0 ? queryPageSize : [[properties objectForKey:@"pageSize"] integerValue];
-//        NSInteger totalItemsCount = [[properties objectForKey:@"total"] integerValue];
-//        
-//        NSInteger expectedNewMax = (currentPageNumber + 1) * currentPageSize;
-//        BOOL hasReachedEnd = (expectedNewMax - totalItemsCount >= currentPageSize);
-//        
-//        if (!hasReachedEnd) {
-//            remoteURLPath = [remoteURLPath stringByAppendingFormat:@"pageSize=%ld&pageNumber=%ld",
-//                             (long)currentPageSize, (long)currentPageNumber+1];
-//            
-//            // Add non-paging params:
-//            [nonPagingParams enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *stop) {
-//                remoteURLPath = [remoteURLPath stringByAppendingFormat:@"&%@=%@", key, obj];
-//            }];
-//            
-//        }
-//        else {
-//            remoteURLPath = SRGConfigNoValidRequestURLPath;
-//        }
-//    }
-//    
-//    return remoteURLPath;
-//}
-//
 
 - (void)extractItemsAndClassNameFromRawDictionary:(NSDictionary *)rawDictionary
                                            forTag:(id<NSCopying>)tag
@@ -442,6 +384,76 @@ static NSArray *validBusinessUnits = nil;
 
 #pragma mark - Fetch Medias or Shows
 
+- (BOOL)fetchMediaWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock
+{
+    NSAssert(completionBlock, @"Missing completion block");
+    
+    NSString *errorMessage = nil;
+    if (!urn) {
+        errorMessage = SRGILDataProviderLocalizedString(@"Missing media URN. Nothing to fetch.", nil);
+    }
+    
+    if (urn.identifier.length == 0) {
+        errorMessage = SRGILDataProviderLocalizedString(@"Missing media URN identifier, which is needed to proceed.", nil);
+    }
+    else if (urn.mediaType == SRGILMediaTypeUndefined) {
+        errorMessage = SRGILDataProviderLocalizedString(@"Undefined mediaType inferred from URN.", nil);
+    }
+    
+    if (errorMessage) {
+        NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                             code:SRGILDataProviderErrorCodeInvalidMediaIdentifier
+                                         userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
+        
+        completionBlock(nil, error);
+        return NO;
+    }
+    
+    SRGILRequestMediaCompletionBlock wrappedCompletionBlock = ^(SRGILMedia *media, NSError *error) {
+        if (error || !media) {
+            if (_identifiedMedias[urn.URNString]) {
+                completionBlock(_identifiedMedias[urn.URNString], nil);
+            }
+            else {
+                completionBlock(nil, error);
+            }
+        }
+        else {
+            completionBlock(media, nil);
+        }
+    };
+    
+    return [self.requestManager requestMediaWithURN:urn completionBlock:wrappedCompletionBlock];
+}
+
+- (BOOL)fetchLiveMetaInfosWithWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock
+{
+    NSParameterAssert(completionBlock);
+    
+    NSString *errorMessage = nil;
+    if (!urn) {
+        errorMessage = SRGILDataProviderLocalizedString(@"Missing media URN. Nothing to fetch.", nil);
+    }
+    
+    if (!urn.identifier) {
+        errorMessage = SRGILDataProviderLocalizedString(@"Missing media URN identifier, which is needed to proceed.", nil);
+    }
+    else if (urn.mediaType == SRGILMediaTypeUndefined) {
+        errorMessage = SRGILDataProviderLocalizedString(@"Undefined mediaType inferred from URN.", nil);
+    }
+    
+    if (errorMessage) {
+        NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                             code:SRGILDataProviderErrorCodeInvalidMediaIdentifier
+                                         userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
+        
+        completionBlock(nil, error);
+        return NO;
+    }
+    
+    return [self.requestManager requestLiveMetaInfosWithURN:urn completionBlock:completionBlock];
+}
+
 - (BOOL)fetchShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
 {
     NSAssert(completionBlock, @"Missing completion block");
@@ -473,83 +485,7 @@ static NSArray *validBusinessUnits = nil;
         }
     };
     
-    return [self.requestManager requestShowWithIdentifier:identifier onCompletion:wrappedCompletionBlock];
-}
-
-- (BOOL)fetchMediaWithURNString:(NSString *)urnString completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
-{
-    NSAssert(completionBlock, @"Missing completion block");
-    
-    NSString *errorMessage = nil;
-    if (!urnString) {
-        errorMessage = SRGILDataProviderLocalizedString(@"Missing media URN string. Nothing to fetch.", nil);
-    }
-    
-    SRGILURN *urn = [SRGILURN URNWithString:urnString];
-    if (!urn) {
-        errorMessage = SRGILDataProviderLocalizedString(@"Unable to create URN from identifier, which is needed to proceed.", nil);
-    }
-    else if (urn.mediaType == SRGILMediaTypeUndefined) {
-        errorMessage = SRGILDataProviderLocalizedString(@"Undefined mediaType inferred from URN.", nil);
-    }
-    
-    if (errorMessage) {
-        NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                             code:SRGILDataProviderErrorCodeInvalidMediaIdentifier
-                                         userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
-        
-        completionBlock(nil, error);
-        return NO;
-    }
-    
-    SRGILRequestMediaCompletionBlock wrappedCompletionBlock = ^(SRGILMedia *media, NSError *error) {
-        if (error || !media) {
-            if (_identifiedMedias[urnString]) {
-                completionBlock(_identifiedMedias[urnString], nil);
-            }
-            else {
-                completionBlock(nil, error);
-            }
-        }
-        else {
-            completionBlock(media, nil);
-        }
-    };
-    
-    return [self.requestManager requestMediaOfType:urn.mediaType
-                                    withIdentifier:urn.identifier
-                                   completionBlock:wrappedCompletionBlock];
-}
-
-- (BOOL)fetchLiveMetaInfosWithURNString:(NSString *)urnString completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
-{
-    NSParameterAssert(completionBlock);
-    
-    NSString *errorMessage = nil;
-    if (!urnString) {
-        errorMessage = SRGILDataProviderLocalizedString(@"Missing media URN string. Nothing to fetch.", nil);
-    }
-    
-    SRGILURN *urn = [SRGILURN URNWithString:urnString];
-    if (!urn) {
-        errorMessage = SRGILDataProviderLocalizedString(@"Unable to create URN from identifier, which is needed to proceed.", nil);
-    }
-    else if (urn.mediaType == SRGILMediaTypeUndefined) {
-        errorMessage = SRGILDataProviderLocalizedString(@"Undefined mediaType inferred from URN.", nil);
-    }
-    
-    if (errorMessage) {
-        NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                             code:SRGILDataProviderErrorCodeInvalidMediaIdentifier
-                                         userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
-        
-        completionBlock(nil, error);
-        return NO;
-    }
-    
-    return [self.requestManager requestLiveMetaInfosForMediaType:urn.mediaType
-                                                     withAssetId:urn.identifier
-                                                 completionBlock:completionBlock];
+    return [self.requestManager requestShowWithIdentifier:identifier completionBlock:wrappedCompletionBlock];
 }
 
 #pragma mark - Data Accessors

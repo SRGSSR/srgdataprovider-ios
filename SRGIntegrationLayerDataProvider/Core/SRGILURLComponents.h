@@ -11,7 +11,8 @@
 
 @interface SRGILURLComponents : NSURLComponents
 
-@property(nonatomic, assign) SRGILFetchListIndex index;
+@property(nonatomic, assign, readonly) SRGILFetchListIndex index;
+@property(nonatomic, copy, readonly) NSString *identifier;
 
 + (nullable SRGILURLComponents *)URLComponentsForFetchListIndex:(SRGILFetchListIndex)index
                                                  withIdentifier:(nullable NSString *)identifier

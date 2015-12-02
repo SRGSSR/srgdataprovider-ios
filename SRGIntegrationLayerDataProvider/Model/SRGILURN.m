@@ -86,4 +86,9 @@ NSString * const defaultURNStringSeparator = @":";
     return [components componentsJoinedByString:separator];
 }
 
+- (nonnull NSString *)URNString
+{
+    return [self URNStringWithSeparator:@":"];
+}
+
 @end

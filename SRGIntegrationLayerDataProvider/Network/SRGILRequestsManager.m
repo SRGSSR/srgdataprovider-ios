@@ -11,6 +11,7 @@
 
 #import "SRGILDataProvider.h"
 #import "SRGILDataProviderConstants.h"
+#import "SRGILURLComponents.h"
 
 #import "SRGILOngoingRequest+Private.h"
 #import "SRGILRequestsManager.h"
@@ -97,24 +98,23 @@ static SGVReachability *reachability;
 
 #pragma mark - Requesting Media
 
-- (BOOL)requestMediaOfType:(enum SRGILMediaType)mediaType
-            withIdentifier:(NSString *)identifier
-           completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
+- (BOOL)requestMediaWithURN:(SRGILURN *)URN
+            completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
 {    
     NSString *path = nil;
     Class objectClass = NULL;
     NSString *JSONKey = nil;
     NSString *errorMessage = nil;
 
-    switch (mediaType) {
+    switch (URN.mediaType) {
         case SRGILMediaTypeVideo:
-            path = [NSString stringWithFormat:@"video/play/%@.json", identifier];
+            path = [NSString stringWithFormat:@"video/play/%@.json", URN.identifier];
             objectClass = [SRGILVideo class];
             JSONKey = @"Video";
             errorMessage = SRGILDataProviderLocalizedString(@"Unable to build a valid video object.", nil);
             break;
         case SRGILMediaTypeAudio:
-            path = [NSString stringWithFormat:@"audio/play/%@.json", identifier];
+            path = [NSString stringWithFormat:@"audio/play/%@.json", URN.identifier];
             objectClass = [SRGILAudio class];
             JSONKey = @"Audio";
             errorMessage = SRGILDataProviderLocalizedString(@"Unable to build a valid video object.", nil);
@@ -127,21 +127,22 @@ static SGVReachability *reachability;
 
     return [self requestModelObject:objectClass
                                path:path
-                            assetId:identifier
+                         identifier:URN.identifier
                             JSONKey:JSONKey
                        errorMessage:errorMessage
                     completionBlock:completionBlock];
 }
 
-- (BOOL)requestLiveMetaInfosForMediaType:(enum SRGILMediaType)mediaType
-                             withAssetId:(NSString *)assetId
-                         completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
+- (BOOL)requestLiveMetaInfosForWithURN:(SRGILURN *)URN
+                       completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
 {
-    NSAssert(mediaType == SRGILMediaTypeAudio, @"Unknown for media type other than audio.");
-    NSString *path = [NSString stringWithFormat:@"channel/%@/nowAndNext.json", assetId];
+    NSParameterAssert(URN);
+    NSAssert(URN.mediaType == SRGILMediaTypeAudio, @"Unknown for media type other than audio.");
+    
+    NSString *path = [NSString stringWithFormat:@"channel/%@/nowAndNext.json", URN.identifier];
     return [self requestModelObject:[SRGILLiveHeaderChannel class]
                                path:path
-                            assetId:path // Trying this
+                         identifier:path // Trying this
                             JSONKey:@"Channel"
                        errorMessage:nil
                     completionBlock:completionBlock];
@@ -149,7 +150,7 @@ static SGVReachability *reachability;
 
 - (BOOL)requestModelObject:(Class)modelClass
                       path:(NSString *)path
-                   assetId:(NSString *)identifier
+                identifier:(NSString *)identifier
                    JSONKey:(NSString *)JSONKey
               errorMessage:(NSString *)errorMessage
            completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
@@ -249,7 +250,7 @@ static SGVReachability *reachability;
 {
     return [self requestModelObject:SRGILShow.class
                                path:[NSString stringWithFormat:@"assetGroup/detail/%@.json", identifier]
-                            assetId:identifier
+                         identifier:identifier
                             JSONKey:@"Show"
                        errorMessage:SRGILDataProviderLocalizedString(@"Unable to build a valid show object.", nil)
                     completionBlock:completionBlock];
@@ -257,29 +258,33 @@ static SGVReachability *reachability;
 
 #pragma mark - Requesting Item Lists
 
-- (BOOL)requestItemsWithFullURLString:(NSString *)URLString
-                           onProgress:(SRGILFetchListDownloadProgressBlock)downloadBlock
-                         onCompletion:(SRGILRequestArrayCompletionBlock)completionBlock
+- (BOOL)requestItemsWithURLComponents:(SRGILURLComponents *)components
+                        progressBlock:(SRGILFetchListDownloadProgressBlock)progressBlock
+                      completionBlock:(SRGILRequestArrayCompletionBlock)completionBlock
 {
-    NSAssert(URLString, @"An URL path is required, otherwise, what's the point?");
+    NSAssert(components, @"An SRGILURNComponents instance is required, otherwise, what's the point?");
     NSAssert(completionBlock, @"A completion block is required, otherwise, what's the point?");
     
-        // Fill dictionary with 0 numbers, as we need the count of requests for the total fraction
-    NSNumber *downloadFraction = [self.ongoingVideoListDownloads objectForKey:URLString];
-    if (!downloadFraction) {
-        [self.ongoingVideoListDownloads setObject:@(0.0) forKey:URLString];
+    components.host = self.baseURL.host;
+    components.scheme = self.baseURL.scheme;
+    if (NO == [components.path hasPrefix:self.baseURL.path]) {
+        components.path = [self.baseURL.path stringByAppendingString:components.path];
     }
     
-    NSURL *completeURL = [NSURL URLWithString:URLString];
-
+        // Fill dictionary with 0 numbers, as we need the count of requests for the total fraction
+    NSNumber *downloadFraction = [self.ongoingVideoListDownloads objectForKey:components.string];
+    if (!downloadFraction) {
+        [self.ongoingVideoListDownloads setObject:@(0.0) forKey:components.string];
+    }
+    
     @weakify(self)
     void (^completion)(NSData *data, NSURLResponse *response, NSError *error) = ^(NSData *data, NSURLResponse *response, NSError *error) {
         @strongify(self)
         
-        BOOL hasBeenCancelled = (![self.ongoingRequests objectForKey:completeURL]);
+        BOOL hasBeenCancelled = (![self.ongoingRequests objectForKey:components.URL]);
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.ongoingRequests removeObjectForKey:completeURL];
+            [self.ongoingRequests removeObjectForKey:components.URL];
             if (self.ongoingRequests.count == 0) {
                 [self.ongoingVideoListDownloads removeAllObjects];
                 [self.URLSession invalidateAndCancel];
@@ -323,22 +328,22 @@ static SGVReachability *reachability;
                                                    delegateQueue:nil];
     }
 
-    NSURLSessionTask *task = [self.URLSession dataTaskWithURL:completeURL completionHandler:completion];
+    NSURLSessionTask *task = [self.URLSession dataTaskWithURL:components.URL completionHandler:completion];
     
     SRGILOngoingRequest *ongoingRequest = [[SRGILOngoingRequest alloc] initWithTask:task];
     ongoingRequest.progressBlock = ^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
         if (totalBytesExpectedToRead >= 0) { // Will be -1 when unknown
             float fraction = (float)bytesRead/(float)totalBytesRead;
-            [self.ongoingVideoListDownloads setObject:@(fraction) forKey:completeURL];
+            [self.ongoingVideoListDownloads setObject:@(fraction) forKey:components.URL];
         }
         
-        if (downloadBlock) {
+        if (progressBlock) {
             NSNumber *sumFractions = [[self.ongoingVideoListDownloads allValues] valueForKeyPath:@"@sum.self"];
-            downloadBlock([sumFractions floatValue]/[self.ongoingVideoListDownloads count]);
+            progressBlock([sumFractions floatValue]/[self.ongoingVideoListDownloads count]);
         }
     };
     
-    self.ongoingRequests[completeURL] = ongoingRequest;
+    self.ongoingRequests[components.URL] = ongoingRequest;
     [task resume];
     
     return YES;

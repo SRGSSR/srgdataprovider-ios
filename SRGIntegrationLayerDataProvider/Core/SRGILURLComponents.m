@@ -17,6 +17,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 @interface SRGILURLComponents ()
 @property(nonatomic, strong) NSURLComponents *wrapped;
+@property(nonatomic, assign) SRGILFetchListIndex index;
+@property(nonatomic, copy) NSString *identifier;
 @end
 
 @implementation SRGILURLComponents
@@ -36,6 +38,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     
     SRGILURLComponents *components = [[SRGILURLComponents alloc] init];
     components.index = index;
+    components.identifier = identifier;
     
     switch (index) {
             // --- Videos ---

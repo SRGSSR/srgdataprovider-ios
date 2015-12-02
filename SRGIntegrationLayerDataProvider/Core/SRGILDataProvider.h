@@ -8,6 +8,7 @@
 #import "SRGILModelConstants.h"
 #import "SRGILDataProviderConstants.h"
 
+@class SRGILURN;
 @class SRGILList;
 @class SRGILMedia;
 @class SRGILShow;
@@ -74,9 +75,7 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
 // ********* Fetch lists of IL model objects **********
 
 /**
- *  Fetch items of a specific 'index' from the IL, or from a local storage (Favorites). If no request path can be 
- *  constructed from the index and its potential argument, returns NO and no request is made, and the completion block
- *  is NOT called either.
+ *  Fetch items of a specific 'index' from the IL, or from a local storage (Favorites).
  * 
  *  @param components      The URL components build with the SRGILURLComponents factory.
  *  @param orgType         The organisation type: flat of alphabetical.
@@ -120,26 +119,22 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
 /**
  *  Fetch an individual media (Video or Audio) from the IL.
  *
- *  @param mediaType       The media type
- *  @param assetIdentifier The identifier of the media.
+ *  @param urn The URN of the media.
  *  @param completionBlock The block called on completion (with success or not).
  *
  *  @return A boolean indicating if the fetch is started or not.
  */
-- (BOOL)fetchMediaWithURNString:(nonnull NSString *)urnString
-                completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)fetchMediaWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
 
 /**
  *  Fetch the meta infos for the live streams.
  *
- *  @param mediaType       The media type
- *  @param identifier      The identifier of the media.
+ *  @param urn The URN of the media.
  *  @param completionBlock The block called on completion (with success or not).
  *
  *  @return A boolean indicating if the fetch is started or not.
  */
-- (BOOL)fetchLiveMetaInfosWithURNString:(nonnull NSString *)urnString
-                        completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)fetchLiveMetaInfosWithWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
 
 /**
  * Fetch show with given identifier.
@@ -149,8 +144,7 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
  *
  * @return A boolean indicating if the fetch is started or not.
  */
-- (BOOL)fetchShowWithIdentifier:(nonnull NSString *)identifier
-                completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)fetchShowWithIdentifier:(nonnull NSString *)identifier completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
 
 
 // ********* Data Accessors **********
@@ -167,11 +161,11 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
 /**
  *  Access an already-fetch media, if any. If it is not yet fetched, returns nil.
  *
- *  @param urnString The URN string of the media (not its identifier).
+ *  @param urn The URN of the media;
  *
  *  @return An instance of the media with that URN.
  */
-- (nullable  SRGILMedia *)mediaForURNString:(nonnull NSString *)urnString;
+- (nullable  SRGILMedia *)mediaForURN:(nonnull SRGILURN *)urn;
 
 /**
  *  Access an already-fetch show, if any. If it is not yet fetched, returns nil.
