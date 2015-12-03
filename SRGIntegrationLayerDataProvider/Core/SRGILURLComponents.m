@@ -52,11 +52,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
             break;
             
-        case SRGILFetchListVideoEditorialLatest:
-            components.path = @"/video/editorialPlayerLatest.json";
-            components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
-            break;
-            
         case SRGILFetchListVideoMostClicked:
             components.path = @"/video/mostClicked.json";
             components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"],
@@ -73,8 +68,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             components.path = @"/tv/topic.json";
             break;
 
-        case SRGILFetchListVideoMostRecentByTopic:
-            components.path = @"/tv/topic.json";
+        case SRGILFetchListVideoMostRecentByTopic: {
+            if (identifier.length > 0) {
+                components.path = @"/video/editorialPlayerLatest.json";
+                components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"],
+                                          [NSURLQueryItem queryItemWithName:@"topic" value:identifier]];
+            }
+        }
             break;
             
         case SRGILFetchListVideoSearch:
