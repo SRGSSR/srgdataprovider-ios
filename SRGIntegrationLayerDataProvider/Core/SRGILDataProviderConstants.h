@@ -63,9 +63,10 @@ typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
     SRGILFetchListVideoEditorialPicks,
     SRGILFetchListVideoEditorialLatest,
     SRGILFetchListVideoMostClicked,
+    SRGILFetchListVideoEpisodesByDate,
+    SRGILFetchListVideoMostRecentByTopic,
     SRGILFetchListVideoSearch,
     SRGILFetchListVideoShowsAlphabetical,
-    SRGILFetchListVideoEpisodesByDate,
     SRGILFetchListVideoShowsSearch,
     SRGILFetchListVideoShowDetail,
 
