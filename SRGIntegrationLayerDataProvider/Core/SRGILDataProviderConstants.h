@@ -59,6 +59,7 @@ typedef NS_ENUM(NSInteger, SRGILModelDataOrganisationType){
  */
 typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
     SRGILFetchListEnumBegin,
+    
     SRGILFetchListVideoLiveStreams = SRGILFetchListEnumBegin,
     SRGILFetchListVideoEditorialPicks,
     SRGILFetchListVideoMostClicked,
@@ -78,9 +79,13 @@ typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
     SRGILFetchListAudioShowsAlphabetical,
     SRGILFetchListAudioShowsSearch,
     SRGILFetchListAudioShowDetail,
-    
+
+    SRGILFetchListSonglogPlaying,
+    SRGILFetchListSonglogLatest,
+
     SRGILFetchListMediaFavorite,
     SRGILFetchListShowFavorite,
+    
     SRGILFetchListEnumEnd,
     SRGILFetchListEnumSize = SRGILFetchListEnumEnd - SRGILFetchListEnumBegin
 };

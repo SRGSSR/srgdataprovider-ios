@@ -60,7 +60,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             
         case SRGILFetchListVideoEpisodesByDate: {
             components.path = @"/video/episodesByDate.json";
-            components.queryItems = @[[SRGILURLComponents URLQueryItemForDate:[NSDate date]]];
+            components.queryItems = @[[SRGILURLComponents URLQueryItemForName:@"day" withDate:[NSDate date] includeTime:NO]];
         }
             break;
             
@@ -167,6 +167,31 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                      [NSURLQueryItem queryItemWithName:@"pageSize" value:@"24"]];
             break;
             
+            
+            // -- Songlog --
+            
+        case SRGILFetchListSonglogPlaying: {
+            if (identifier.length > 0) {
+                components.path = [NSString stringWithFormat:@"/songlog/playingByChannel/%@.json", identifier];
+            }
+        }
+            break;
+            
+        case SRGILFetchListSonglogLatest: {
+            if (identifier.length > 0) {
+                components.path = [NSString stringWithFormat:@"/songlog/latestByChannel/%@.json", identifier];
+                
+                NSDate *now = [NSDate date];
+                NSDate *yesterday = [now dateByAddingTimeInterval:-86400.0];
+                
+                components.queryItems = @[[SRGILURLComponents URLQueryItemForName:@"fromDate" withDate:yesterday includeTime:YES],
+                                          [SRGILURLComponents URLQueryItemForName:@"toDate" withDate:now includeTime:YES],
+                                          [NSURLQueryItem queryItemWithName:@"pageSize" value:@"10"],
+                                          [NSURLQueryItem queryItemWithName:@"pageNumber" value:@"1"]];
+            }
+        }
+            break;
+
         default:
             break;
         }
@@ -202,7 +227,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 {
     NSParameterAssert(newDate);
     if (self.index == SRGILFetchListVideoEpisodesByDate) {
-        [self replaceQueryItemWithName:@"day" withNewItem:[SRGILURLComponents URLQueryItemForDate:newDate]];
+        [self replaceQueryItemWithName:@"day" withNewItem:[SRGILURLComponents URLQueryItemForName:@"day" withDate:newDate includeTime:NO]];
     }
     else {
         DDLogDebug(@"Providing a date for an index different from SRGILFetchListVideoEpisodesByDate has no effect.");
@@ -223,15 +248,26 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.queryItems = items;
 }
 
-+ (nonnull NSURLQueryItem *)URLQueryItemForDate:(NSDate *)date
++ (nonnull NSURLQueryItem *)URLQueryItemForName:(NSString *)name withDate:(NSDate *)date includeTime:(BOOL)withTime
 {
+    NSParameterAssert(name);
+    
     if (!date) {
         date = [NSDate date];
     }
+    
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDateComponents *dateComponents = [gregorianCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
-    NSString *dateString = [NSString stringWithFormat:@"%4li-%02li-%02li", (long)dateComponents.year, (long)dateComponents.month, (long)dateComponents.day];
-    return [NSURLQueryItem queryItemWithName:@"day" value:dateString];
+    NSDateComponents *dateComponents = [gregorianCalendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond fromDate:date];
+    NSString *dateString = [NSString stringWithFormat:@"%4li-%02li-%02li",
+                            (long)dateComponents.year, (long)dateComponents.month, (long)dateComponents.day];
+    
+    if (withTime) {
+        NSString *timeString = [NSString stringWithFormat:@"T%02li:%02li:%02li",
+                                (long)dateComponents.hour, (long)dateComponents.minute, (long)dateComponents.second];
+        
+        dateString = [dateString stringByAppendingString:timeString];
+    }
+    return [NSURLQueryItem queryItemWithName:name value:dateString];
 }
 
 #pragma mark - Constructors

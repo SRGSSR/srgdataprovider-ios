@@ -141,7 +141,7 @@ static NSArray *validBusinessUnits = nil;
     // The only way to distinguish an array of items with the dictionary of a single item, is to parse the main
     // dictionary and see if we can build an _array_ of the following class names. This is made necessary due to the
     // change of semantics from XML to JSON.
-    NSArray *validItemClassKeys = @[@"Video", @"Show", @"AssetSet", @"Audio", @"SearchResult", @"Topic"];
+    NSArray *validItemClassKeys = @[@"Video", @"Show", @"AssetSet", @"Audio", @"SearchResult", @"Topic", @"Songlog"];
     
     NSString *mainKey = [[rawDictionary allKeys] lastObject];
     NSDictionary *mainValue = [[rawDictionary allValues] lastObject];
@@ -312,7 +312,7 @@ static NSArray *validBusinessUnits = nil;
             return @[[SRGILOrganisedModelDataItem dataItemForTag:tag withItems:items class:modelClass properties:properties]];
         }
     }
-    else if (modelClass == SRGILSearchResult.class || modelClass == SRGILTopic.class) {
+    else if (modelClass == SRGILSearchResult.class || modelClass == SRGILTopic.class || modelClass == SRGILSonglog.class) {
         // Did not include in first case, because we'll have to deal with different type of search results (video, audio, shows).
         // We only process videos at the moment
         return @[[SRGILOrganisedModelDataItem dataItemForTag:tag
