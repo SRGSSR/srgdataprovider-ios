@@ -8,6 +8,8 @@
 
 #import <XCTest/XCTest.h>
 #import "XCTestCase+JSON.h"
+
+#import "SRGILList.h"
 #import "SRGILModel.h"
 #import "SRGILDataProvider.h"
 #import "SRGILURLComponents.h"
@@ -32,7 +34,7 @@
 
 - (void)testFetchListTopics
 {
-    [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     
     SRGILURLComponents *components = [SRGILURLComponents URLComponentsForFetchListIndex:SRGILFetchListVideoTopics
                                                                          withIdentifier:nil
@@ -42,15 +44,13 @@
                                                organised:SRGILModelDataOrganisationTypeFlat
                                               onProgress:nil
                                             onCompletion:^(SRGILList * _Nullable items, Class  _Nullable __unsafe_unretained itemClass, NSError * _Nullable error) {
-                                                [self fu]
+                                                [expectation fulfill];
+                                                XCTAssertNil(error);
+                                                XCTAssertTrue(itemClass == SRGILTopic.class);
+                                                XCTAssertTrue(items.count > 0);
                                             }];
-}
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+    
+    [self waitForExpectationsWithTimeout:30.0 handler:nil];
 }
 
 @end

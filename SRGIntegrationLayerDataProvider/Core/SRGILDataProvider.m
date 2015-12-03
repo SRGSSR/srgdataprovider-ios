@@ -235,8 +235,7 @@ static NSArray *validBusinessUnits = nil;
         }
     }];
     
-    if ([dictionaries count] == 1 || modelClass == [SRGILAssetSet class] || modelClass == [SRGILAudio class]
-        ) {
+    if ([dictionaries count] == 1 || modelClass == [SRGILAssetSet class] || modelClass == [SRGILAudio class]) {
         return @[[SRGILOrganisedModelDataItem dataItemForTag:tag withItems:items class:modelClass properties:properties]];
     }
     else if (modelClass == [SRGILVideo class]) {
@@ -313,7 +312,7 @@ static NSArray *validBusinessUnits = nil;
             return @[[SRGILOrganisedModelDataItem dataItemForTag:tag withItems:items class:modelClass properties:properties]];
         }
     }
-    else if (modelClass == SRGILSearchResult.class) {
+    else if (modelClass == SRGILSearchResult.class || modelClass == SRGILTopic.class) {
         // Did not include in first case, because we'll have to deal with different type of search results (video, audio, shows).
         // We only process videos at the moment
         return @[[SRGILOrganisedModelDataItem dataItemForTag:tag
@@ -426,23 +425,12 @@ static NSArray *validBusinessUnits = nil;
     return [self.requestManager requestMediaWithURN:urn completionBlock:wrappedCompletionBlock];
 }
 
-- (BOOL)fetchLiveMetaInfosWithWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock
+- (BOOL)fetchLiveMetaInfosWithWitChannelID:(nonnull NSString *)channelID completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock
 {
     NSParameterAssert(completionBlock);
     
-    NSString *errorMessage = nil;
-    if (!urn) {
-        errorMessage = SRGILDataProviderLocalizedString(@"Missing media URN. Nothing to fetch.", nil);
-    }
-    
-    if (!urn.identifier) {
-        errorMessage = SRGILDataProviderLocalizedString(@"Missing media URN identifier, which is needed to proceed.", nil);
-    }
-    else if (urn.mediaType == SRGILMediaTypeUndefined) {
-        errorMessage = SRGILDataProviderLocalizedString(@"Undefined mediaType inferred from URN.", nil);
-    }
-    
-    if (errorMessage) {
+    if (!channelID) {
+        NSString *errorMessage = SRGILDataProviderLocalizedString(@"Missing channelID. Nothing to fetch.", nil);
         NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                              code:SRGILDataProviderErrorCodeInvalidMediaIdentifier
                                          userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
@@ -451,7 +439,7 @@ static NSArray *validBusinessUnits = nil;
         return NO;
     }
     
-    return [self.requestManager requestLiveMetaInfosWithURN:urn completionBlock:completionBlock];
+    return [self.requestManager requestLiveMetaInfosWithChannelID:channelID completionBlock:completionBlock];
 }
 
 - (BOOL)fetchShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
