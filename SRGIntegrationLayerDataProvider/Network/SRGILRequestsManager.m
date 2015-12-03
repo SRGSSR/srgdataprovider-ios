@@ -132,7 +132,7 @@ static SGVReachability *reachability;
                     completionBlock:completionBlock];
 }
 
-- (BOOL)requestLiveMetaInfosForWithURN:(SRGILURN *)URN completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
+- (BOOL)requestLiveMetaInfosWithURN:(SRGILURN *)URN completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 {
     NSParameterAssert(URN);
     NSAssert(URN.mediaType == SRGILMediaTypeAudio, @"Unknown for media type other than audio.");
@@ -254,9 +254,9 @@ static SGVReachability *reachability;
 
 #pragma mark - Requesting Item Lists
 
-- (BOOL)requestItemsWithURLComponents:(SRGILURLComponents *)components
-                        progressBlock:(SRGILFetchListDownloadProgressBlock)progressBlock
-                      completionBlock:(SRGILRequestArrayCompletionBlock)completionBlock
+- (BOOL)requestObjectsListWithURLComponents:(SRGILURLComponents *)components
+                              progressBlock:(SRGILFetchListDownloadProgressBlock)progressBlock
+                            completionBlock:(SRGILRequestListCompletionBlock)completionBlock
 {
     NSAssert(components, @"An SRGILURNComponents instance is required, otherwise, what's the point?");
     NSAssert(completionBlock, @"A completion block is required, otherwise, what's the point?");

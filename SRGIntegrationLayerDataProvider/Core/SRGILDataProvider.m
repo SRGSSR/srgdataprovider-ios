@@ -113,18 +113,18 @@ static NSArray *validBusinessUnits = nil;
     
     @weakify(self);
     [_ongoingFetchIndices addObject:tag];
-    [self.requestManager requestItemsWithURLComponents:components
-                                         progressBlock:progressBlock
-                                       completionBlock:^(NSDictionary *rawDictionary, NSError *error) {
-                                              @strongify(self);
-                                              [_ongoingFetchIndices removeObject:tag];
-                                              // Error handling is handled in extractItems...
-                                              [self recordFetchDateForIndex:components.index];
-                                              [self extractItemsAndClassNameFromRawDictionary:rawDictionary
-                                                                                       forTag:tag
-                                                                             organisationType:orgType
-                                                                          withCompletionBlock:completionBlock];
-                                          }];
+    [self.requestManager requestObjectsListWithURLComponents:components
+                                               progressBlock:progressBlock
+                                             completionBlock:^(NSDictionary *rawDictionary, NSError *error) {
+                                                 @strongify(self);
+                                                 [_ongoingFetchIndices removeObject:tag];
+                                                 // Error handling is handled in extractItems...
+                                                 [self recordFetchDateForIndex:components.index];
+                                                 [self extractItemsAndClassNameFromRawDictionary:rawDictionary
+                                                                                          forTag:tag
+                                                                                organisationType:orgType
+                                                                             withCompletionBlock:completionBlock];
+                                             }];
 }
 
 - (void)extractItemsAndClassNameFromRawDictionary:(NSDictionary *)rawDictionary
@@ -334,12 +334,12 @@ static NSArray *validBusinessUnits = nil;
 }
 
 - (void)sendUserFacingErrorForTag:(id<NSCopying>)tag
-                    withTechError:(NSError *)error
+                    withTechError:(NSError *)techError
                   completionBlock:(SRGILFetchListCompletionBlock)completionBlock
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *reason = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"The received data is invalid for category %@", nil), tag];
-        NSError *newError = SRGILCreateUserFacingError(reason, error, SRGILDataProviderErrorCodeInvalidData);
+        NSString *reason = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"The received data is invalid for tag %@", nil), tag];
+        NSError *newError = SRGILCreateUserFacingError(reason, techError, SRGILDataProviderErrorCodeInvalidData);
         completionBlock(nil, nil, newError);
     });
 }

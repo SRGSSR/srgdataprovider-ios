@@ -13,7 +13,7 @@
 @class SRGILURN;
 @class SRGILURLComponents;
 
-typedef void (^SRGILRequestArrayCompletionBlock)(NSDictionary *rawDictionary, NSError *error);
+typedef void (^SRGILRequestListCompletionBlock)(NSDictionary *rawDictionary, NSError *error);
 
 @interface SRGILRequestsManager : NSObject
 
@@ -22,18 +22,15 @@ typedef void (^SRGILRequestArrayCompletionBlock)(NSDictionary *rawDictionary, NS
 - (NSString *)businessUnit;
 - (NSURL *)baseURL;
 
-- (BOOL)requestMediaWithURN:(SRGILURN *)URN
-            completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
+- (BOOL)requestMediaWithURN:(SRGILURN *)URN completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 
-- (BOOL)requestLiveMetaInfosWithURN:(SRGILURN *)URN
-                    completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
+- (BOOL)requestLiveMetaInfosWithURN:(SRGILURN *)URN completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 
-- (BOOL)requestShowWithIdentifier:(NSString *)identifier
-                  completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
+- (BOOL)requestShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 
-- (BOOL)requestItemsWithURLComponents:(SRGILURLComponents *)components
-                        progressBlock:(SRGILFetchListDownloadProgressBlock)progressBlock
-                      completionBlock:(SRGILRequestArrayCompletionBlock)completionBlock;
+- (BOOL)requestObjectsListWithURLComponents:(SRGILURLComponents *)components
+                              progressBlock:(SRGILFetchListDownloadProgressBlock)progressBlock
+                            completionBlock:(SRGILRequestListCompletionBlock)completionBlock;
 
 - (void)cancelAllRequests;
 
