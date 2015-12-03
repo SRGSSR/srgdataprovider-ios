@@ -495,13 +495,13 @@ static NSArray *validBusinessUnits = nil;
     return _taggedItemLists[@(index)];
 }
 
-- (SRGILMedia *)mediaForURNString:(NSString *)urnString
+- (nullable SRGILMedia *)mediaForURN:(nonnull SRGILURN *)urn
 {
-    NSParameterAssert(urnString);
-    if (!urnString) {
+    NSParameterAssert(urn);
+    if (!urn) {
         return nil;
     }
-    return _identifiedMedias[urnString];
+    return _identifiedMedias[urn.URNString];
 }
 
 - (SRGILShow *)showForIdentifier:(NSString *)identifier;

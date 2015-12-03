@@ -75,7 +75,7 @@ typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * _
  *  @param completionBlock The block to be used upon fetch completion.
  */
 - (void)fetchObjectsListWithURLComponents:(nonnull SRGILURLComponents *)components
-                                organised:(SRGILModelDataOrganisationType)orgType
+                                organised:(enum SRGILModelDataOrganisationType)orgType
                                onProgress:(nullable SRGILFetchListDownloadProgressBlock)progressBlock
                              onCompletion:(nonnull SRGILFetchListCompletionBlock)completionBlock;
 
