@@ -106,8 +106,8 @@ static NSArray *validBusinessUnits = nil;
 
 - (void)fetchObjectsListWithURLComponents:(nonnull SRGILURLComponents *)components
                                 organised:(SRGILModelDataOrganisationType)orgType
-                               onProgress:(SRGILFetchListDownloadProgressBlock)progressBlock
-                             onCompletion:(SRGILFetchListCompletionBlock)completionBlock
+                            progressBlock:(nullable SRGILFetchListDownloadProgressBlock)progressBlock
+                          completionBlock:(nonnull SRGILFetchListCompletionBlock)completionBlock;
 {
     NSNumber *tag = @(components.index);
     

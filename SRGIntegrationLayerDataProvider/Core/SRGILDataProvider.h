@@ -76,8 +76,8 @@ typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * _
  */
 - (void)fetchObjectsListWithURLComponents:(nonnull SRGILURLComponents *)components
                                 organised:(enum SRGILModelDataOrganisationType)orgType
-                               onProgress:(nullable SRGILFetchListDownloadProgressBlock)progressBlock
-                             onCompletion:(nonnull SRGILFetchListCompletionBlock)completionBlock;
+                            progressBlock:(nullable SRGILFetchListDownloadProgressBlock)progressBlock
+                          completionBlock:(nonnull SRGILFetchListCompletionBlock)completionBlock;
 
 /**
  *  Indicates the number of current fetches ongoing.
@@ -157,7 +157,7 @@ typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * _
  *
  *  @return An instance of the media with that URN.
  */
-- (nullable  SRGILMedia *)mediaForURN:(nonnull SRGILURN *)urn;
+- (nullable SRGILMedia *)mediaForURN:(nonnull SRGILURN *)urn;
 
 /**
  *  Access an already-fetch show, if any. If it is not yet fetched, returns nil.
