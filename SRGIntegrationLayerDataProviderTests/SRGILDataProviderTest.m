@@ -46,12 +46,4 @@
     }
 }
 
-- (void)testProviderFetchPathsUponInit
-{
-    SRGILDataProvider *p = ([[SRGILDataProvider alloc] initWithBusinessUnit:@"srf"]);
-    for (NSInteger i = SRGILFetchListEnumBegin; i < SRGILFetchListEnumEnd; i ++) {
-        XCTAssertFalse([p isFetchPathValidForIndex:i], @"Fetch path must be valid if no data were fetched.");
-    }
-}
-
 @end
