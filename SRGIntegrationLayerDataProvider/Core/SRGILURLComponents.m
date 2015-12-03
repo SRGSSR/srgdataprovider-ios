@@ -15,6 +15,24 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 #endif
 
+NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTime);
+NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTime)
+{
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *dateComponents = [gregorianCalendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond fromDate:date];
+    NSString *dateString = [NSString stringWithFormat:@"%4li-%02li-%02li",
+                            (long)dateComponents.year, (long)dateComponents.month, (long)dateComponents.day];
+    
+    if (withTime) {
+        NSString *timeString = [NSString stringWithFormat:@"T%02li:%02li:%02li",
+                                (long)dateComponents.hour, (long)dateComponents.minute, (long)dateComponents.second];
+        
+        dateString = [dateString stringByAppendingString:timeString];
+    }
+    return [NSURLQueryItem queryItemWithName:name value:dateString];
+}
+
+
 @interface SRGILURLComponents ()
 @property(nonatomic, strong) NSURLComponents *wrapped;
 @property(nonatomic, assign) SRGILFetchListIndex index;
@@ -47,7 +65,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             components.path = @"/video/livestream.json";
             break;
             
-        case SRGILFetchListVideoEditorialPicks: {
+        case SRGILFetchListVideoEditorialPicks:
             components.path = @"/video/editorialPlayerPicks.json";
             components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
             break;
@@ -58,10 +76,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                      [NSURLQueryItem queryItemWithName:@"period" value:@"24"]];
             break;
             
-        case SRGILFetchListVideoEpisodesByDate: {
+        case SRGILFetchListVideoMostRecent: // Just specify NO topic!
+            components.path = @"/video/editorialPlayerLatest.json";
+            components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
+            break;
+            
+            
+        case SRGILFetchListVideoEpisodesByDate:
             components.path = @"/video/episodesByDate.json";
-            components.queryItems = @[[SRGILURLComponents URLQueryItemForName:@"day" withDate:[NSDate date] includeTime:NO]];
-        }
+            components.queryItems = @[NSURLQueryItemForName(@"day", [NSDate date], NO)];
             break;
             
         case SRGILFetchListVideoTopics:
@@ -143,11 +166,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         }
             break;
             
-        case SRGILFetchListAudioSearch: {
+        case SRGILFetchListAudioMostRecent: {
+            if (identifier.length > 0) {
+                components.path = [NSString stringWithFormat:@"/audio/latestEpisodesByChannel/%@.json", identifier];
+                components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
+            }
+            break;
+            
+        case SRGILFetchListAudioSearch:
             components.path = @"/audio/search.json";
             components.queryItems = @[[NSURLQueryItem queryItemWithName:@"q" value:SRGILFetchListURLComponentsEmptySearchQueryString],
                                      [NSURLQueryItem queryItemWithName:@"pageSize" value:@"24"]];
-        }
             break;
             
             
@@ -184,8 +213,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 NSDate *now = [NSDate date];
                 NSDate *yesterday = [now dateByAddingTimeInterval:-86400.0];
                 
-                components.queryItems = @[[SRGILURLComponents URLQueryItemForName:@"fromDate" withDate:yesterday includeTime:YES],
-                                          [SRGILURLComponents URLQueryItemForName:@"toDate" withDate:now includeTime:YES],
+                components.queryItems = @[NSURLQueryItemForName(@"fromDate", yesterday, YES),
+                                          NSURLQueryItemForName(@"toDate", now, YES),
                                           [NSURLQueryItem queryItemWithName:@"pageSize" value:@"10"],
                                           [NSURLQueryItem queryItemWithName:@"pageNumber" value:@"1"]];
             }
@@ -196,7 +225,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             break;
         }
     }
-    
+
     if (!components.path && error) {
         if (identifier.length == 0) {
             NSString *format = SRGILDataProviderLocalizedString(@"An identifier is required for fetch index: %ld. Found %@.", nil);
@@ -227,7 +256,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 {
     NSParameterAssert(newDate);
     if (self.index == SRGILFetchListVideoEpisodesByDate) {
-        [self replaceQueryItemWithName:@"day" withNewItem:[SRGILURLComponents URLQueryItemForName:@"day" withDate:newDate includeTime:NO]];
+        [self replaceQueryItemWithName:@"day" withNewItem:NSURLQueryItemForName(@"day", newDate, NO)];
     }
     else {
         DDLogDebug(@"Providing a date for an index different from SRGILFetchListVideoEpisodesByDate has no effect.");
@@ -246,28 +275,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
     [items addObject:newItem];
     self.queryItems = items;
-}
-
-+ (nonnull NSURLQueryItem *)URLQueryItemForName:(NSString *)name withDate:(NSDate *)date includeTime:(BOOL)withTime
-{
-    NSParameterAssert(name);
-    
-    if (!date) {
-        date = [NSDate date];
-    }
-    
-    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDateComponents *dateComponents = [gregorianCalendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond fromDate:date];
-    NSString *dateString = [NSString stringWithFormat:@"%4li-%02li-%02li",
-                            (long)dateComponents.year, (long)dateComponents.month, (long)dateComponents.day];
-    
-    if (withTime) {
-        NSString *timeString = [NSString stringWithFormat:@"T%02li:%02li:%02li",
-                                (long)dateComponents.hour, (long)dateComponents.minute, (long)dateComponents.second];
-        
-        dateString = [dateString stringByAppendingString:timeString];
-    }
-    return [NSURLQueryItem queryItemWithName:name value:dateString];
 }
 
 #pragma mark - Constructors
