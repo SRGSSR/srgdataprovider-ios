@@ -34,13 +34,10 @@
 		9F13D5501AE9270700E4D897 /* SRGILOrganisedModelDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5341AE9270700E4D897 /* SRGILOrganisedModelDataItem.m */; };
 		9F13D5511AE9270700E4D897 /* SRGILRequestsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5361AE9270700E4D897 /* SRGILRequestsManager.m */; };
 		9F13D5521AE9270700E4D897 /* SRGILTokenHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5381AE9270700E4D897 /* SRGILTokenHandler.m */; };
-		9F1A5B2A1ACD690C00C0E528 /* SRGILAudioTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B171ACD68E700C0E528 /* SRGILAudioTest.m */; };
 		9F1A5B2B1ACD690C00C0E528 /* SRGLiveStreamVideoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B181ACD68E700C0E528 /* SRGLiveStreamVideoTest.m */; };
 		9F1A5B2C1ACD690C00C0E528 /* SRGILMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B191ACD68E700C0E528 /* SRGILMediaTest.m */; };
 		9F1A5B2D1ACD690C00C0E528 /* SRGModelObjectTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B1A1ACD68E700C0E528 /* SRGModelObjectTest.m */; };
-		9F1A5B2F1ACD690C00C0E528 /* SRGRequestModelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B1C1ACD68E700C0E528 /* SRGRequestModelTest.m */; };
 		9F1A5B301ACD690C00C0E528 /* SRGTokenHandlerStubsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B1D1ACD68E700C0E528 /* SRGTokenHandlerStubsTest.m */; };
-		9F1A5B311ACD690C00C0E528 /* SRGILVideoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B1E1ACD68E700C0E528 /* SRGILVideoTest.m */; };
 		9F1A5B321ACD690C00C0E528 /* XCTestCase+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B201ACD68E700C0E528 /* XCTestCase+JSON.m */; };
 		9F1A5B331ACD691700C0E528 /* assetmetadata_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B041ACD68E700C0E528 /* assetmetadata_01.json */; };
 		9F1A5B341ACD691700C0E528 /* assetset_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B051ACD68E700C0E528 /* assetset_01.json */; };
@@ -76,6 +73,7 @@
 		9FEE12621C10441200AD7A8B /* SRGILSonglog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEE12611C10441200AD7A8B /* SRGILSonglog.m */; };
 		9FEE12651C10442000AD7A8B /* SRGILSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEE12641C10442000AD7A8B /* SRGILSong.m */; };
 		9FEE12681C10443100AD7A8B /* SRGILArtist.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEE12671C10443100AD7A8B /* SRGILArtist.m */; };
+		9FEE126A1C105BF900AD7A8B /* SRGFetchListsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEE12691C105BF800AD7A8B /* SRGFetchListsTest.m */; };
 		9FF55F9A1B4B0F5900A99DA2 /* SRGILDataProviderConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF55F991B4B0F5900A99DA2 /* SRGILDataProviderConstants.m */; };
 		9FFDA47F1B8C769200EEF7DA /* SRGILDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDA47E1B8C769200EEF7DA /* SRGILDownload.m */; };
 		9FFDA4811B8C946F00EEF7DA /* video_download_srf_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9FFDA4801B8C8ABC00EEF7DA /* video_download_srf_01.json */; };
@@ -196,13 +194,10 @@
 		9F1A5B141ACD68E700C0E528 /* video_03.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = video_03.json; sourceTree = "<group>"; };
 		9F1A5B151ACD68E700C0E528 /* video_04.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = video_04.json; sourceTree = "<group>"; };
 		9F1A5B161ACD68E700C0E528 /* videoaggregation_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videoaggregation_01.json; sourceTree = "<group>"; };
-		9F1A5B171ACD68E700C0E528 /* SRGILAudioTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILAudioTest.m; sourceTree = "<group>"; };
 		9F1A5B181ACD68E700C0E528 /* SRGLiveStreamVideoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGLiveStreamVideoTest.m; sourceTree = "<group>"; };
 		9F1A5B191ACD68E700C0E528 /* SRGILMediaTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILMediaTest.m; sourceTree = "<group>"; };
 		9F1A5B1A1ACD68E700C0E528 /* SRGModelObjectTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGModelObjectTest.m; sourceTree = "<group>"; };
-		9F1A5B1C1ACD68E700C0E528 /* SRGRequestModelTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGRequestModelTest.m; sourceTree = "<group>"; };
 		9F1A5B1D1ACD68E700C0E528 /* SRGTokenHandlerStubsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGTokenHandlerStubsTest.m; sourceTree = "<group>"; };
-		9F1A5B1E1ACD68E700C0E528 /* SRGILVideoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILVideoTest.m; sourceTree = "<group>"; };
 		9F1A5B1F1ACD68E700C0E528 /* XCTestCase+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+JSON.h"; sourceTree = "<group>"; };
 		9F1A5B201ACD68E700C0E528 /* XCTestCase+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+JSON.m"; sourceTree = "<group>"; };
 		9F3C1CBF1ADC0B02007C54AD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -234,6 +229,7 @@
 		9FEE12641C10442000AD7A8B /* SRGILSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILSong.m; sourceTree = "<group>"; };
 		9FEE12661C10443100AD7A8B /* SRGILArtist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILArtist.h; sourceTree = "<group>"; };
 		9FEE12671C10443100AD7A8B /* SRGILArtist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILArtist.m; sourceTree = "<group>"; };
+		9FEE12691C105BF800AD7A8B /* SRGFetchListsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGFetchListsTest.m; sourceTree = "<group>"; };
 		9FF55F981B4B0F5900A99DA2 /* SRGILDataProviderConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILDataProviderConstants.h; sourceTree = "<group>"; };
 		9FF55F991B4B0F5900A99DA2 /* SRGILDataProviderConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderConstants.m; sourceTree = "<group>"; };
 		9FFDA47D1B8C769200EEF7DA /* SRGILDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILDownload.h; sourceTree = "<group>"; };
@@ -481,12 +477,9 @@
 		9F83AB131B29BFB500D7D8BE /* Model Tests */ = {
 			isa = PBXGroup;
 			children = (
-				9F1A5B171ACD68E700C0E528 /* SRGILAudioTest.m */,
-				9F1A5B1E1ACD68E700C0E528 /* SRGILVideoTest.m */,
 				9F1A5B191ACD68E700C0E528 /* SRGILMediaTest.m */,
 				9F1A5B181ACD68E700C0E528 /* SRGLiveStreamVideoTest.m */,
 				9F1A5B1A1ACD68E700C0E528 /* SRGModelObjectTest.m */,
-				9F1A5B1C1ACD68E700C0E528 /* SRGRequestModelTest.m */,
 			);
 			name = "Model Tests";
 			sourceTree = "<group>";
@@ -495,6 +488,7 @@
 			isa = PBXGroup;
 			children = (
 				9F1A5B1D1ACD68E700C0E528 /* SRGTokenHandlerStubsTest.m */,
+				9FEE12691C105BF800AD7A8B /* SRGFetchListsTest.m */,
 			);
 			name = "Network Tests";
 			sourceTree = "<group>";
@@ -785,11 +779,9 @@
 				9F8B389D1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m in Sources */,
 				9F1A5B2C1ACD690C00C0E528 /* SRGILMediaTest.m in Sources */,
 				9F1A5B2B1ACD690C00C0E528 /* SRGLiveStreamVideoTest.m in Sources */,
+				9FEE126A1C105BF900AD7A8B /* SRGFetchListsTest.m in Sources */,
 				9F1A5B301ACD690C00C0E528 /* SRGTokenHandlerStubsTest.m in Sources */,
-				9F1A5B2A1ACD690C00C0E528 /* SRGILAudioTest.m in Sources */,
 				9F83AB161B29C0C800D7D8BE /* SRGILDataProviderTest.m in Sources */,
-				9F1A5B311ACD690C00C0E528 /* SRGILVideoTest.m in Sources */,
-				9F1A5B2F1ACD690C00C0E528 /* SRGRequestModelTest.m in Sources */,
 				9F1A5B2D1ACD690C00C0E528 /* SRGModelObjectTest.m in Sources */,
 				9F1A5B321ACD690C00C0E528 /* XCTestCase+JSON.m in Sources */,
 			);
