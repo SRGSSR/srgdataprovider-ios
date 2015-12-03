@@ -23,13 +23,13 @@ typedef void (^SRGILRequestArrayCompletionBlock)(NSDictionary *rawDictionary, NS
 - (NSURL *)baseURL;
 
 - (BOOL)requestMediaWithURN:(SRGILURN *)URN
-            completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
+            completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 
 - (BOOL)requestLiveMetaInfosWithURN:(SRGILURN *)URN
-                    completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
+                    completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 
 - (BOOL)requestShowWithIdentifier:(NSString *)identifier
-                  completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
+                  completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 
 - (BOOL)requestItemsWithURLComponents:(SRGILURLComponents *)components
                         progressBlock:(SRGILFetchListDownloadProgressBlock)progressBlock

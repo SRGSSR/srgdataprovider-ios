@@ -37,8 +37,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (BOOL)isNetworkError
 {
-    NSArray *connectionErrorList = @[
-                                     @(NSURLErrorUnknown),
+    NSArray *connectionErrorList = @[@(NSURLErrorUnknown),
                                      @(NSURLErrorCancelled),
                                      @(NSURLErrorTimedOut),
                                      @(NSURLErrorCannotFindHost),
@@ -48,8 +47,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                      @(NSURLErrorCannotLoadFromNetwork),
                                      @(NSURLErrorInternationalRoamingOff),
                                      @(NSURLErrorCallIsActive),
-                                     @(NSURLErrorDataNotAllowed),
-                                     ];
+                                     @(NSURLErrorDataNotAllowed)];
     
     return [self.domain isEqualToString:NSURLErrorDomain] && [connectionErrorList containsObject:@(self.code)];
 }
@@ -98,30 +96,32 @@ static SGVReachability *reachability;
 
 #pragma mark - Requesting Media
 
-- (BOOL)requestMediaWithURN:(SRGILURN *)URN
-            completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
-{    
+- (BOOL)requestMediaWithURN:(SRGILURN *)URN completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
+{
+    NSParameterAssert(URN);
+    
     NSString *path = nil;
     Class objectClass = NULL;
     NSString *JSONKey = nil;
-    NSString *errorMessage = nil;
 
     switch (URN.mediaType) {
         case SRGILMediaTypeVideo:
             path = [NSString stringWithFormat:@"video/play/%@.json", URN.identifier];
             objectClass = [SRGILVideo class];
             JSONKey = @"Video";
-            errorMessage = SRGILDataProviderLocalizedString(@"Unable to build a valid video object.", nil);
             break;
         case SRGILMediaTypeAudio:
             path = [NSString stringWithFormat:@"audio/play/%@.json", URN.identifier];
             objectClass = [SRGILAudio class];
             JSONKey = @"Audio";
-            errorMessage = SRGILDataProviderLocalizedString(@"Unable to build a valid video object.", nil);
             break;
 
-        default:
-            NSAssert(NO, @"Wrong to be here.");
+        default: {
+            NSString *msg = SRGILDataProviderLocalizedString(@"Unknown media type. Impossible to request media", nil);
+            NSError *error = SRGILCreateUserFacingError(msg, nil, SRGILDataProviderErrorCodeInvalidMediaType);
+            completionBlock(nil, error);
+            return NO;
+        }
             break;
     }
 
@@ -129,12 +129,10 @@ static SGVReachability *reachability;
                                path:path
                          identifier:URN.identifier
                             JSONKey:JSONKey
-                       errorMessage:errorMessage
                     completionBlock:completionBlock];
 }
 
-- (BOOL)requestLiveMetaInfosForWithURN:(SRGILURN *)URN
-                       completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
+- (BOOL)requestLiveMetaInfosForWithURN:(SRGILURN *)URN completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
 {
     NSParameterAssert(URN);
     NSAssert(URN.mediaType == SRGILMediaTypeAudio, @"Unknown for media type other than audio.");
@@ -144,7 +142,15 @@ static SGVReachability *reachability;
                                path:path
                          identifier:path // Trying this
                             JSONKey:@"Channel"
-                       errorMessage:nil
+                    completionBlock:completionBlock];
+}
+
+- (BOOL)requestShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
+{
+    return [self requestModelObject:SRGILShow.class
+                               path:[NSString stringWithFormat:@"assetGroup/detail/%@.json", identifier]
+                         identifier:identifier
+                            JSONKey:@"Show"
                     completionBlock:completionBlock];
 }
 
@@ -152,8 +158,7 @@ static SGVReachability *reachability;
                       path:(NSString *)path
                 identifier:(NSString *)identifier
                    JSONKey:(NSString *)JSONKey
-              errorMessage:(NSString *)errorMessage
-           completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
+           completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
 {
     NSAssert(modelClass, @"Missing model class");
     NSAssert(path, @"Missing model request URL path");
@@ -178,11 +183,12 @@ static SGVReachability *reachability;
         }
         
         void (^callCompletionBlocks)(SRGILMedia *, NSError *) = ^(SRGILMedia *media, NSError *error) {
-            for (SRGILRequestMediaCompletionBlock completionBlock in ongoingRequest.completionBlocks) {
+            for (SRGILFetchObjectCompletionBlock completionBlock in ongoingRequest.completionBlocks) {
                 completionBlock(media, error);
             }
         };
         
+        // -- Handling request errors. --
         if (error) {
             NSError *newError = nil;
             if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == -1009) {
@@ -191,38 +197,41 @@ static SGVReachability *reachability;
             else {
                 newError = SRGILCreateUserFacingError(error.localizedDescription, error, SRGILDataProviderErrorCodeInvalidData);
             }
-            
             dispatch_async(dispatch_get_main_queue(), ^{
                 callCompletionBlocks(nil, newError);
             });
+            return;
         }
-        else {
-            NSError *JSONError = nil;
-            id JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&JSONError];
-            if (JSONError) {
-                return callCompletionBlocks(nil, JSONError);
-            }
-            else if (![JSON isKindOfClass:[NSDictionary class]]) {
-                JSONError = SRGILCreateUserFacingError(@"Invalid JSON", nil, SRGILDataProviderErrorCodeInvalidData);
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    callCompletionBlocks(nil, JSONError);
-                });
-            }
-            else {
-                id media = [[modelClass alloc] initWithDictionary:[(NSDictionary *)JSON valueForKey:JSONKey]];
-                if (media) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        callCompletionBlocks(media, nil);
-                    });
-                }
-                else {
-                    NSError *newError = SRGILCreateUserFacingError(errorMessage, nil, SRGILDataProviderErrorCodeInvalidData);
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        callCompletionBlocks(nil, newError);
-                    });
-                }
-            }
+        
+        // -- Handling deserialization errors. --
+        NSError *JSONError = nil;
+        id JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&JSONError];
+        if (JSON && ![JSON isKindOfClass:[NSDictionary class]]) {
+            JSONError = SRGILCreateUserFacingError(@"Invalid JSON", nil, SRGILDataProviderErrorCodeInvalidData);
         }
+        if (JSONError) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callCompletionBlocks(nil, JSONError);
+            });
+            return;
+        }
+        
+        // -- Handling modeling errors. --
+        id modelObject = [[modelClass alloc] initWithDictionary:[(NSDictionary *)JSON valueForKey:JSONKey]];
+        if (!modelObject) {
+            NSString *format = SRGILDataProviderLocalizedString(@"Unable to build a valid object of class %@", nil);
+            NSString *message = [NSString stringWithFormat:format, NSStringFromClass(modelClass)];
+            NSError *mediaError = SRGILCreateUserFacingError(message, nil, SRGILDataProviderErrorCodeInvalidData);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callCompletionBlocks(nil, mediaError);
+            });
+            return;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            callCompletionBlocks(modelObject, nil);
+        });
     };
     
     if (!self.URLSession) {
@@ -241,19 +250,6 @@ static SGVReachability *reachability;
     [task resume];
     
     return YES;
-}
-
-#pragma mark - Requesting Show
-
-- (BOOL)requestShowWithIdentifier:(NSString *)identifier
-                  onCompletion:(SRGILRequestMediaCompletionBlock)completionBlock
-{
-    return [self requestModelObject:SRGILShow.class
-                               path:[NSString stringWithFormat:@"assetGroup/detail/%@.json", identifier]
-                         identifier:identifier
-                            JSONKey:@"Show"
-                       errorMessage:SRGILDataProviderLocalizedString(@"Unable to build a valid show object.", nil)
-                    completionBlock:completionBlock];
 }
 
 #pragma mark - Requesting Item Lists

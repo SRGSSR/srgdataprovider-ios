@@ -384,7 +384,7 @@ static NSArray *validBusinessUnits = nil;
 
 #pragma mark - Fetch Medias or Shows
 
-- (BOOL)fetchMediaWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock
+- (BOOL)fetchMediaWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock
 {
     NSAssert(completionBlock, @"Missing completion block");
     
@@ -409,7 +409,7 @@ static NSArray *validBusinessUnits = nil;
         return NO;
     }
     
-    SRGILRequestMediaCompletionBlock wrappedCompletionBlock = ^(SRGILMedia *media, NSError *error) {
+    SRGILFetchObjectCompletionBlock wrappedCompletionBlock = ^(SRGILMedia *media, NSError *error) {
         if (error || !media) {
             if (_identifiedMedias[urn.URNString]) {
                 completionBlock(_identifiedMedias[urn.URNString], nil);
@@ -426,7 +426,7 @@ static NSArray *validBusinessUnits = nil;
     return [self.requestManager requestMediaWithURN:urn completionBlock:wrappedCompletionBlock];
 }
 
-- (BOOL)fetchLiveMetaInfosWithWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock
+- (BOOL)fetchLiveMetaInfosWithWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock
 {
     NSParameterAssert(completionBlock);
     
@@ -454,7 +454,7 @@ static NSArray *validBusinessUnits = nil;
     return [self.requestManager requestLiveMetaInfosWithURN:urn completionBlock:completionBlock];
 }
 
-- (BOOL)fetchShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock
+- (BOOL)fetchShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
 {
     NSAssert(completionBlock, @"Missing completion block");
     NSString *errorMessage = nil;
@@ -471,7 +471,7 @@ static NSArray *validBusinessUnits = nil;
         return NO;
     }
     
-    SRGILRequestMediaCompletionBlock wrappedCompletionBlock = ^(SRGILShow *show, NSError *error) {
+    SRGILFetchObjectCompletionBlock wrappedCompletionBlock = ^(SRGILShow *show, NSError *error) {
         if (error || !show) {
             if (_identifiedShows[identifier]) {
                 completionBlock(_identifiedShows[identifier], nil);
@@ -490,7 +490,7 @@ static NSArray *validBusinessUnits = nil;
 
 #pragma mark - Data Accessors
 
-- (SRGILList *)itemsListForIndex:(enum SRGILFetchListIndex)index
+- (SRGILList *)objectsListForIndex:(enum SRGILFetchListIndex)index
 {
     return _taggedItemLists[@(index)];
 }

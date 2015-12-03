@@ -9,10 +9,11 @@
 #import "SRGILDataProviderConstants.h"
 
 @class SRGILURN;
+@class SRGILURLComponents;
+
 @class SRGILList;
 @class SRGILMedia;
 @class SRGILShow;
-@class SRGILURLComponents;
 
 /**
  *  Block associated with a fetch request, informing about the progresses of ALL on-going requests. This is mostly
@@ -38,16 +39,7 @@ typedef void (^SRGILFetchListCompletionBlock)(SRGILList * __nullable items, Clas
  *  @param media The media requested (SRGILAudio or SRGILVideo) or SRGILShow.
  *  @param error The error, if any.
  */
-typedef void (^SRGILRequestMediaCompletionBlock)(id __nullable media, NSError * __nullable error);
-
-
-/**
- *  The completion block associated with the request of a show (audio or video).
- *
- *  @param media The show requested.
- *  @param error The error, if any.
- */
-typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSError * __nullable error);
+typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * __nullable error);
 
 
 /**
@@ -75,7 +67,7 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
 // ********* Fetch lists of IL model objects **********
 
 /**
- *  Fetch items of a specific 'index' from the IL, or from a local storage (Favorites).
+ *  Fetch objects of a specific 'index' from the IL
  * 
  *  @param components      The URL components build with the SRGILURLComponents factory.
  *  @param orgType         The organisation type: flat of alphabetical.
@@ -122,19 +114,19 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
  *  @param urn The URN of the media.
  *  @param completionBlock The block called on completion (with success or not).
  *
- *  @return A boolean indicating if the fetch is started or not.
+ *  @return A boolean indicating if the fetch is started or not. If not, the completion block is called immediately with an error.
  */
-- (BOOL)fetchMediaWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)fetchMediaWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
 
 /**
  *  Fetch the meta infos for the live streams.
  *
- *  @param urn The URN of the media.
+ *  @param urn The URN of the live infos.
  *  @param completionBlock The block called on completion (with success or not).
  *
- *  @return A boolean indicating if the fetch is started or not.
+ *  @return A boolean indicating if the fetch is started or not. If not, the completion block is called immediately with an error.
  */
-- (BOOL)fetchLiveMetaInfosWithWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)fetchLiveMetaInfosWithWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
 
 /**
  * Fetch show with given identifier.
@@ -142,9 +134,9 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
  * @param urnString URN of the show
  * @param completionBlock The block called on completion (with success or not).
  *
- * @return A boolean indicating if the fetch is started or not.
+ *  @return A boolean indicating if the fetch is started or not. If not, the completion block is called immediately with an error.
  */
-- (BOOL)fetchShowWithIdentifier:(nonnull NSString *)identifier completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)fetchShowWithIdentifier:(nonnull NSString *)identifier completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
 
 
 // ********* Data Accessors **********
@@ -156,7 +148,7 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
  *
  *  @return An instance of the list of items associated with that index.
  */
-- (nullable SRGILList *)itemsListForIndex:(enum SRGILFetchListIndex)index;
+- (nullable SRGILList *)objectsListForIndex:(enum SRGILFetchListIndex)index;
 
 /**
  *  Access an already-fetch media, if any. If it is not yet fetched, returns nil.

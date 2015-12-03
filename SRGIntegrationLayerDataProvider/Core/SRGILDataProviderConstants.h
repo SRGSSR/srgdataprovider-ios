@@ -19,6 +19,7 @@ typedef NS_ENUM (NSInteger, SRGILDataProviderErrorCode) {
     SRGILDataProviderErrorCodeInvalidURLComponent,
     SRGILDataProviderErrorCodeMissingURLIdentifier,
     SRGILDataProviderErrorCodeInvalidMediaIdentifier,
+    SRGILDataProviderErrorCodeInvalidMediaType,
     SRGILDataProviderErrorCodeInvalidData,
     SRGILDataProviderErrorContentProviderWrongUri,
     SRGILDataProviderErrorContentProviderBadQuery,
