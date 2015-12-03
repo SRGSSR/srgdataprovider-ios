@@ -52,4 +52,22 @@
     XCTAssertNil(error);
 }
 
+- (void)testIndexVideoSearch
+{
+    NSError *error = nil;
+    SRGILURLComponents *components = [SRGILURLComponents URLComponentsForFetchListIndex:SRGILFetchListVideoSearch
+                                                                         withIdentifier:nil
+                                                                                  error:&error];
+    
+    XCTAssertNotNil(components);
+    XCTAssertNotNil(components.path);
+    XCTAssertNotNil(components.queryItems);
+    XCTAssertNil(error);
+
+    XCTAssertTrue([components.string containsString:@"pageSize="]);
+
+    [components updateQueryItemsWithSearchString:@"dump_test_search_string"];
+    XCTAssertTrue([components.string containsString:@"q=dump_test_search_string"]);
+}
+
 @end
