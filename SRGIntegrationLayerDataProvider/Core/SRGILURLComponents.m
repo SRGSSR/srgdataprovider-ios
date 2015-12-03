@@ -63,6 +63,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                      [NSURLQueryItem queryItemWithName:@"period" value:@"24"]];
             break;
             
+        case SRGILFetchListVideoEpisodesByDate: {
+            components.path = @"/video/episodesByDate.json";
+            components.queryItems = @[[SRGILURLComponents URLQueryItemForDate:[NSDate date]]];
+        }
+            break;
+            
+        case SRGILFetchListVideoTopics:
+            components.path = @"/tv/topic.json";
+            break;
+
+        case SRGILFetchListVideoMostRecentByTopic:
+            components.path = @"/tv/topic.json";
+            break;
+            
         case SRGILFetchListVideoSearch:
             components.path = @"/video/search.json";
             components.queryItems = @[[NSURLQueryItem queryItemWithName:@"q" value:SRGILFetchListURLComponentsEmptySearchQueryString],
@@ -74,12 +88,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             
         case SRGILFetchListVideoShowsAlphabetical:
             components.path = @"/tv/assetGroup/editorialPlayerAlphabetical.json";
-            break;
-            
-        case SRGILFetchListVideoEpisodesByDate: {
-            components.path = @"/video/episodesByDate.json";
-            components.queryItems = @[[SRGILURLComponents URLQueryItemForDate:[NSDate date]]];
-        }
             break;
             
         case SRGILFetchListVideoShowsSearch:

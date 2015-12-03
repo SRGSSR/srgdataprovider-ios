@@ -141,7 +141,7 @@ static NSArray *validBusinessUnits = nil;
     // The only way to distinguish an array of items with the dictionary of a single item, is to parse the main
     // dictionary and see if we can build an _array_ of the following class names. This is made necessary due to the
     // change of semantics from XML to JSON.
-    NSArray *validItemClassKeys = @[@"Video", @"Show", @"AssetSet", @"Audio", @"SearchResult"];
+    NSArray *validItemClassKeys = @[@"Video", @"Show", @"AssetSet", @"Audio", @"SearchResult", @"Topic"];
     
     NSString *mainKey = [[rawDictionary allKeys] lastObject];
     NSDictionary *mainValue = [[rawDictionary allValues] lastObject];
