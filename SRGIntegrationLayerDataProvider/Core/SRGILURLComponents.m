@@ -272,6 +272,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 #pragma mark - Constructors
 
++ (instancetype)componentsWithString:(NSString *)URLString
+{
+    return [[SRGILURLComponents alloc] initWithString:URLString];
+}
+
++ (instancetype)componentsWithURL:(NSURL *)url resolvingAgainstBaseURL:(BOOL)resolve
+{
+    return [[SRGILURLComponents alloc] initWithURL:url resolvingAgainstBaseURL:resolve];
+}
+
 - (instancetype)init
 {
     self = [super init];
