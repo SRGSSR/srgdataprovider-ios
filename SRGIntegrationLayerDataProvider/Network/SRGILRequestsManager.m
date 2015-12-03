@@ -132,12 +132,10 @@ static SGVReachability *reachability;
                     completionBlock:completionBlock];
 }
 
-- (BOOL)requestLiveMetaInfosWithURN:(SRGILURN *)URN completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
+- (BOOL)requestLiveMetaInfosWithChannelID:(NSString *)channelID completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 {
-    NSParameterAssert(URN);
-    NSAssert(URN.mediaType == SRGILMediaTypeAudio, @"Unknown for media type other than audio.");
-    
-    NSString *path = [NSString stringWithFormat:@"channel/%@/nowAndNext.json", URN.identifier];
+    NSParameterAssert(channelID);
+    NSString *path = [NSString stringWithFormat:@"channel/%@/nowAndNext.json", channelID];
     return [self requestModelObject:[SRGILLiveHeaderChannel class]
                                path:path
                          identifier:path // Trying this
@@ -147,6 +145,7 @@ static SGVReachability *reachability;
 
 - (BOOL)requestShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
 {
+    NSParameterAssert(identifier);
     return [self requestModelObject:SRGILShow.class
                                path:[NSString stringWithFormat:@"assetGroup/detail/%@.json", identifier]
                          identifier:identifier
