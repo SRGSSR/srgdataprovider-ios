@@ -249,10 +249,9 @@
                                       NSInteger startVal = [v integerValue];
                                       XCTAssertTrue(startVal > 0, @"The 'start' value should be equal to markin and positive" );
                                   }
-                                  else
-                                      if ([k isEqualToString:@"end"]) {
+                                  else if ([k isEqualToString:@"end"]) {
                                           NSInteger endVal = [v integerValue];
-                                          XCTAssertTrue(endVal > 0, @"The 'start' value should be equal to markout and positive" );
+                                          XCTAssertTrue(endVal > 0, @"The 'end' value should be equal to markout and positive" );
                                       }
                               }
                           }];
