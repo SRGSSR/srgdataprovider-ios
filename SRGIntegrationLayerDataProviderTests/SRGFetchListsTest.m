@@ -44,8 +44,8 @@ static NSString *const SRFRadioVirusChannelID = @"66815fe2-9008-4853-80a5-f9caaf
     
     [self.dataProvider fetchObjectsListWithURLComponents:components
                                                organised:SRGILModelDataOrganisationTypeFlat
-                                              onProgress:nil
-                                            onCompletion:^(SRGILList * _Nullable items, Class  _Nullable __unsafe_unretained itemClass, NSError * _Nullable error) {
+                                              progressBlock:nil
+                                            completionBlock:^(SRGILList * _Nullable items, Class  _Nullable __unsafe_unretained itemClass, NSError * _Nullable error) {
                                                 [expectation fulfill];
                                                 XCTAssertNil(error);
                                                 XCTAssertTrue(itemClass == SRGILTopic.class);
@@ -65,8 +65,8 @@ static NSString *const SRFRadioVirusChannelID = @"66815fe2-9008-4853-80a5-f9caaf
     
     [self.dataProvider fetchObjectsListWithURLComponents:components
                                                organised:SRGILModelDataOrganisationTypeFlat
-                                              onProgress:nil
-                                            onCompletion:^(SRGILList * _Nullable items, Class  _Nullable __unsafe_unretained itemClass, NSError * _Nullable error) {
+                                              progressBlock:nil
+                                            completionBlock:^(SRGILList * _Nullable items, Class  _Nullable __unsafe_unretained itemClass, NSError * _Nullable error) {
                                                 [expectation fulfill];
                                                 XCTAssertNil(error);
                                                 XCTAssertTrue(itemClass == SRGILSonglog.class);
@@ -86,8 +86,8 @@ static NSString *const SRFRadioVirusChannelID = @"66815fe2-9008-4853-80a5-f9caaf
     
     [self.dataProvider fetchObjectsListWithURLComponents:components
                                                organised:SRGILModelDataOrganisationTypeFlat
-                                              onProgress:nil
-                                            onCompletion:^(SRGILList * _Nullable items, Class  _Nullable __unsafe_unretained itemClass, NSError * _Nullable error) {
+                                              progressBlock:nil
+                                            completionBlock:^(SRGILList * _Nullable items, Class  _Nullable __unsafe_unretained itemClass, NSError * _Nullable error) {
                                                 [expectation fulfill];
                                                 XCTAssertNil(error);
                                                 XCTAssertTrue(itemClass == SRGILSonglog.class);

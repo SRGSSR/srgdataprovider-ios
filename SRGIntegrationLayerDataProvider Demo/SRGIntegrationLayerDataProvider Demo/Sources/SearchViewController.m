@@ -48,8 +48,8 @@
     
     [self.dataSource fetchObjectsListWithURLComponents:components
                                              organised:SRGILModelDataOrganisationTypeFlat
-                                            onProgress:nil
-                                          onCompletion:^(SRGILList *items, __unsafe_unretained Class itemClass, NSError *error) {
+                                            progressBlock:nil
+                                          completionBlock:^(SRGILList *items, __unsafe_unretained Class itemClass, NSError *error) {
                                               self.resultItems = items;
                                               NSLog(@"Result: %@", items);
                                               [[NSOperationQueue mainQueue] addOperationWithBlock:^{
