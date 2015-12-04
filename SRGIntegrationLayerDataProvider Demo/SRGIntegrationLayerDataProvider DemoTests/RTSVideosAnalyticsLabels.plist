@@ -109,7 +109,7 @@
 		<key>ns_st_sv</key>
 		<string>4.1509.15</string>
 		<key>ns_st_tp</key>
-		<string>1</string>
+		<string>4</string>
 		<key>ns_st_ty</key>
 		<string>Video</string>
 		<key>ns_st_ub</key>
@@ -399,7 +399,7 @@
 		<key>ns_st_sv</key>
 		<string>4.1509.15</string>
 		<key>ns_st_tp</key>
-		<string>1</string>
+		<string>12</string>
 		<key>ns_st_ty</key>
 		<string>Video</string>
 		<key>ns_st_ub</key>
@@ -544,7 +544,7 @@
 		<key>ns_st_sv</key>
 		<string>4.1509.15</string>
 		<key>ns_st_tp</key>
-		<string>1</string>
+		<string>4</string>
 		<key>ns_st_ty</key>
 		<string>Video</string>
 		<key>ns_st_ub</key>
@@ -834,7 +834,7 @@
 		<key>ns_st_sv</key>
 		<string>4.1509.15</string>
 		<key>ns_st_tp</key>
-		<string>1</string>
+		<string>10</string>
 		<key>ns_st_ty</key>
 		<string>Video</string>
 		<key>ns_st_ub</key>
@@ -979,7 +979,7 @@
 		<key>ns_st_sv</key>
 		<string>4.1509.15</string>
 		<key>ns_st_tp</key>
-		<string>1</string>
+		<string>2</string>
 		<key>ns_st_ty</key>
 		<string>Video</string>
 		<key>ns_st_ub</key>
@@ -1255,7 +1255,7 @@
 		<key>ns_st_pl</key>
 		<string>Temps présent</string>
 		<key>ns_st_pn</key>
-		<string>2</string>
+		<string>1</string>
 		<key>ns_st_po</key>
 		<string>104</string>
 		<key>ns_st_pr</key>
@@ -1690,7 +1690,7 @@
 		<key>ns_st_pl</key>
 		<string>Climage</string>
 		<key>ns_st_pn</key>
-		<string>3</string>
+		<string>1</string>
 		<key>ns_st_po</key>
 		<string>103</string>
 		<key>ns_st_pr</key>
@@ -1835,7 +1835,7 @@
 		<key>ns_st_pl</key>
 		<string>Tennis</string>
 		<key>ns_st_pn</key>
-		<string>2</string>
+		<string>1</string>
 		<key>ns_st_po</key>
 		<string>106</string>
 		<key>ns_st_pr</key>
@@ -1980,7 +1980,7 @@
 		<key>ns_st_pl</key>
 		<string>Couleurs locales</string>
 		<key>ns_st_pn</key>
-		<string>2</string>
+		<string>1</string>
 		<key>ns_st_po</key>
 		<string>106</string>
 		<key>ns_st_pr</key>
