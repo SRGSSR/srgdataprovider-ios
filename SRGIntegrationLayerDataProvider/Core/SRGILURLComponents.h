@@ -14,9 +14,9 @@
 @property(nonatomic, assign, readonly) SRGILFetchListIndex index;
 @property(nonatomic, copy, readonly, nullable) NSString *identifier;
 
-+ (nullable SRGILURLComponents *)URLComponentsForFetchListIndex:(SRGILFetchListIndex)index
-                                                 withIdentifier:(nullable NSString *)identifier
-                                                          error:(NSError * __nullable __autoreleasing * __nullable)error;
++ (nullable SRGILURLComponents *)componentsForFetchListIndex:(SRGILFetchListIndex)index
+                                              withIdentifier:(nullable NSString *)identifier
+                                                       error:(NSError * __nullable __autoreleasing * __nullable)error;
 
 // Convenient methods to update the query
 - (void)updateQueryItemsWithSearchString:(nonnull NSString *)newQueryString;

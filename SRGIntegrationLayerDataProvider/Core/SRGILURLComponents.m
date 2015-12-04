@@ -41,9 +41,9 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
 
 @implementation SRGILURLComponents
 
-+ (nullable SRGILURLComponents *)URLComponentsForFetchListIndex:(SRGILFetchListIndex)index
-                                                 withIdentifier:(nullable NSString *)identifier
-                                                          error:(NSError * __nullable __autoreleasing * __nullable)error;
++ (nullable SRGILURLComponents *)componentsForFetchListIndex:(SRGILFetchListIndex)index
+                                              withIdentifier:(nullable NSString *)identifier
+                                                       error:(NSError * __nullable __autoreleasing * __nullable)error;
 {
     if (index < SRGILFetchListEnumBegin || index >= SRGILFetchListEnumEnd) {
         if (error) {
