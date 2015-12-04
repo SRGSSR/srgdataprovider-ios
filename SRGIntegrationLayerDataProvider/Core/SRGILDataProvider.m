@@ -363,7 +363,7 @@ static NSArray *validBusinessUnits = nil;
 {
     __block NSInteger seconds = 0;
     [indexes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSInteger index = [obj integerValue];
+        NSInteger index = ([obj isKindOfClass:[SRGILURLComponents class]]) ? [obj index] : [obj integerValue];
         if ([[NSUserDefaults standardUserDefaults] objectForKey:[self fetchKeyForIndex:index]]) {
             NSInteger newSeconds = [[NSUserDefaults standardUserDefaults] integerForKey:[self fetchKeyForIndex:index]];
             if (newSeconds > seconds) {
