@@ -276,6 +276,39 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
     self.queryItems = items;
 }
 
+- (BOOL)canIncrementPageNumberBoundedByTotal:(NSInteger)totalItemsCount
+{
+    NSArray *pageSizeItems = [self.queryItems filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"pageSize"]];
+    if (pageSizeItems.count != 1) {
+        return NO; // There is no pageSize in query, hence nothing we can increment.
+    }
+    
+    NSInteger currentPageSize = [[pageSizeItems.lastObject valueForKey:@"value"] integerValue];
+    NSInteger expectedNewMax = ([self currentPageNumber] + 1) * currentPageSize;
+    BOOL hasReachedEnd = (expectedNewMax - totalItemsCount >= currentPageSize);
+    
+    return !hasReachedEnd;
+}
+
+- (BOOL)incrementPageNumberBoundedByTotal:(NSInteger)totalItemsCount
+{
+    if ([self canIncrementPageNumberBoundedByTotal:totalItemsCount]) {
+        NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:@"pageNumber" value:[@([self currentPageNumber]+1) stringValue]];
+        [self replaceQueryItemWithName:@"pageNumber" withNewItem:item];
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (NSInteger)currentPageNumber
+{
+    // The IL is 1-based, not 0-based...
+    NSArray *pageNumberItems = [self.queryItems filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"pageNumber"]];
+    NSAssert(pageNumberItems.count <= 1, @"Multiple pageNumber query items?");
+    return (pageNumberItems.count == 1) ? [[pageNumberItems.lastObject valueForKey:@"value"] integerValue] : 1;
+}
+
 #pragma mark - Constructors
 
 + (instancetype)componentsWithString:(NSString *)URLString

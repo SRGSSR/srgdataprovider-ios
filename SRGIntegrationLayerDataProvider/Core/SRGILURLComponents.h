@@ -23,4 +23,8 @@
 - (void)updateQueryItemsWithPageSize:(nonnull NSString *)newPageSize;
 - (void)updateQueryItemsWithDate:(nonnull NSDate *)newDate;
 
+/// Returns NO in case the end is reached, and the pageNumber is not increased.
+- (BOOL)canIncrementPageNumberBoundedByTotal:(NSInteger)totalItemsCount;
+- (BOOL)incrementPageNumberBoundedByTotal:(NSInteger)totalItemsCount;
+
 @end
