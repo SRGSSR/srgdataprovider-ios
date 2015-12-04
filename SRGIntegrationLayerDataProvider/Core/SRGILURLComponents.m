@@ -137,7 +137,6 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
         case SRGILFetchListAudioLiveStreams: {
             if (identifier.length > 0) {
                 components.path = [NSString stringWithFormat:@"/audio/play/%@.json", identifier];
-                components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
             }
         }
             break;
