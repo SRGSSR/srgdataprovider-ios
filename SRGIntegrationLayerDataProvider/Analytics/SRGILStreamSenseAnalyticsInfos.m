@@ -88,9 +88,6 @@
     NSString *ns_st_el   = (self.media.isLiveStream) ? @"0" : [NSString stringWithFormat:@"%d", (int)(self.media.fullLengthDuration * 1000.f)];
     NSString *ns_st_dt   = [usDateFormatter stringFromDate:(self.media.assetSet.publishedDate) ?: self.media.creationDate];
     NSString *ns_st_li   = (self.media.isLiveStream) ? @"1" : @"0";
-
-    NSString *ns_st_pn = (self.media.orderPosition > 0) ? [NSString stringWithFormat:@"%li", (long)self.media.orderPosition] : @"1";
-    NSString *ns_st_tp = @"1";
     
     [metadata safeSetValue:ns_st_ty forKey:@"ns_st_ty"];
     [metadata safeSetValue:ns_st_ep forKey:@"ns_st_ep"];
@@ -98,8 +95,6 @@
     [metadata safeSetValue:ns_st_dt forKey:@"ns_st_dt"];
     [metadata safeSetValue:ns_st_li forKey:@"ns_st_li"];
     [metadata safeSetValue:ns_st_pr forKey:@"ns_st_pr"];
-    [metadata safeSetValue:ns_st_pn forKey:@"ns_st_pn"];
-    [metadata safeSetValue:ns_st_tp forKey:@"ns_st_tp"];
     
     // Placeholder for values of SMAC-4163:
     if (self.media.analyticsData.extendedData.count > 0) {
