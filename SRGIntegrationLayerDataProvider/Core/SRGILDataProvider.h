@@ -8,6 +8,9 @@
 #import "SRGILModelConstants.h"
 #import "SRGILDataProviderConstants.h"
 
+@class SRGILURN;
+@class SRGILURLComponents;
+
 @class SRGILList;
 @class SRGILMedia;
 @class SRGILShow;
@@ -36,16 +39,7 @@ typedef void (^SRGILFetchListCompletionBlock)(SRGILList * __nullable items, Clas
  *  @param media The media requested (SRGILAudio or SRGILVideo) or SRGILShow.
  *  @param error The error, if any.
  */
-typedef void (^SRGILRequestMediaCompletionBlock)(id __nullable media, NSError * __nullable error);
-
-
-/**
- *  The completion block associated with the request of a show (audio or video).
- *
- *  @param media The show requested.
- *  @param error The error, if any.
- */
-typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSError * __nullable error);
+typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * __nullable error);
 
 
 /**
@@ -73,23 +67,17 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
 // ********* Fetch lists of IL model objects **********
 
 /**
- *  Fetch items of a specific 'index' from the IL, or from a local storage (Favorites). If no request path can be 
- *  constructed from the index and its potential argument, returns NO and no request is made, and the completion block
- *  is NOT called either.
+ *  Fetch objects of a specific 'index' from the IL
  * 
- *  @param index           The list "index". See enum SRGILFetchListIndex.
- *  @param arg             The argument to be used to build the URL path for fetching data. Highly
+ *  @param components      The URL components build with the SRGILURLComponents factory.
  *  @param orgType         The organisation type: flat of alphabetical.
  *  @param progressBlock   The block to be used to be informed of the progress of the fetch. See documentation of SRGILFetchListDownloadProgressBlock abive.
  *  @param completionBlock The block to be used upon fetch completion.
- *
- *  @return A boolean value indicating whether the fetch is valid or not (it may not, depending on the argument).
  */
-- (BOOL)fetchListOfIndex:(enum SRGILFetchListIndex)index
-        withPathArgument:(nullable id)arg
-               organised:(SRGILModelDataOrganisationType)orgType
-              onProgress:(nullable SRGILFetchListDownloadProgressBlock)progressBlock
-            onCompletion:(nonnull SRGILFetchListCompletionBlock)completionBlock;
+- (void)fetchObjectsListWithURLComponents:(nonnull SRGILURLComponents *)components
+                                organised:(enum SRGILModelDataOrganisationType)orgType
+                            progressBlock:(nullable SRGILFetchListDownloadProgressBlock)progressBlock
+                          completionBlock:(nonnull SRGILFetchListCompletionBlock)completionBlock;
 
 /**
  *  Indicates the number of current fetches ongoing.
@@ -117,49 +105,28 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
  */
 - (nullable NSDate *)lastFetchDateForIndexes:(nonnull NSArray *)indexes;
 
-/**
- *  Indicates whether the current fetch path is valid for the given index or not. Corresponds to the last 
- *  value returned by 'fetchListOfIndex:...' for that index.
- *
- *  @param index The fetch list index.
- *
- *  @return A boolean value indicating if the last fetch path for that index was valid or not.
- */
-- (BOOL)isFetchPathValidForIndex:(enum SRGILFetchListIndex)index;
-
-/**
- *  Reset the fetch path for the given index.
- *
- *  @param index The index for which the path must be reset.
- */
-- (void)resetFetchPathForIndex:(enum SRGILFetchListIndex)index;
-
 
 // ********* Fetch individual media of IL model objects **********
 
 /**
  *  Fetch an individual media (Video or Audio) from the IL.
  *
- *  @param mediaType       The media type
- *  @param assetIdentifier The identifier of the media.
+ *  @param urn The URN of the media.
  *  @param completionBlock The block called on completion (with success or not).
  *
- *  @return A boolean indicating if the fetch is started or not.
+ *  @return A boolean indicating if the fetch is started or not. If not, the completion block is called immediately with an error.
  */
-- (BOOL)fetchMediaWithURNString:(nonnull NSString *)urnString
-                completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)fetchMediaWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
 
 /**
  *  Fetch the meta infos for the live streams.
  *
- *  @param mediaType       The media type
- *  @param identifier      The identifier of the media.
+ *  @param urn The URN of the live infos.
  *  @param completionBlock The block called on completion (with success or not).
  *
- *  @return A boolean indicating if the fetch is started or not.
+ *  @return A boolean indicating if the fetch is started or not. If not, the completion block is called immediately with an error.
  */
-- (BOOL)fetchLiveMetaInfosWithURNString:(nonnull NSString *)urnString
-                        completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)fetchLiveMetaInfosWithWitChannelID:(nonnull NSString *)channelID completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
 
 /**
  * Fetch show with given identifier.
@@ -167,10 +134,10 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
  * @param urnString URN of the show
  * @param completionBlock The block called on completion (with success or not).
  *
- * @return A boolean indicating if the fetch is started or not.
+ *  @return A boolean indicating if the fetch is started or not. If not, the completion block is called immediately with an error.
  */
-- (BOOL)fetchShowWithURNString:(nonnull NSString *)urnString
-               completionBlock:(nonnull SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)fetchShowWithIdentifier:(nonnull NSString *)identifier completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
+
 
 // ********* Data Accessors **********
 
@@ -181,16 +148,16 @@ typedef void (^SRGILRequestShowCompletionBlock)(SRGILShow * __nullable show, NSE
  *
  *  @return An instance of the list of items associated with that index.
  */
-- (nullable SRGILList *)itemsListForIndex:(enum SRGILFetchListIndex)index;
+- (nullable SRGILList *)objectsListForIndex:(enum SRGILFetchListIndex)index;
 
 /**
  *  Access an already-fetch media, if any. If it is not yet fetched, returns nil.
  *
- *  @param urnString The URN string of the media (not its identifier).
+ *  @param urn The URN of the media;
  *
  *  @return An instance of the media with that URN.
  */
-- (nullable  SRGILMedia *)mediaForURNString:(nonnull NSString *)urnString;
+- (nullable SRGILMedia *)mediaForURN:(nonnull SRGILURN *)urn;
 
 /**
  *  Access an already-fetch show, if any. If it is not yet fetched, returns nil.

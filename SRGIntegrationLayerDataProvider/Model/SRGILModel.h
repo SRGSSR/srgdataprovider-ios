@@ -10,6 +10,7 @@
 #import "SRGILModelConstants.h"
 
 #import "SRGILAnalyticsExtendedData.h"
+#import "SRGILArtist.h"
 #import "SRGILAsset.h"
 #import "SRGILAssetMetadata.h"
 #import "SRGILAssetSet.h"
@@ -24,10 +25,13 @@
 #import "SRGILPlaylist.h"
 #import "SRGILPrimaryChannel.h"
 #import "SRGILRubric.h"
+#import "SRGILSearchResult.h"
 #import "SRGILShow.h"
 #import "SRGILSocialCounts.h"
+#import "SRGILSonglog.h"
+#import "SRGILSong.h"
+#import "SRGILTopic.h"
 #import "SRGILURN.h"
 #import "SRGILVideo.h"
-#import "SRGILSearchResult.h"
 
 #endif

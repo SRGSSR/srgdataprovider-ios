@@ -122,9 +122,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
             completionHandler(nil, error);
         }
         else {
-            [self.requestManager requestMediaOfType:urn.mediaType
-                                     withIdentifier:urn.identifier
-                                    completionBlock:playBlock];
+            [self.requestManager requestMediaWithURN:urn completionBlock:playBlock];
         }
     }
     else {
@@ -185,20 +183,18 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         }
         else {
             @weakify(self)
-            [self.requestManager requestMediaOfType:urn.mediaType
-                                     withIdentifier:urn.identifier
-                                    completionBlock:^(SRGILMedia *media, NSError *error) {
-                                        @strongify(self)
-                                        
-                                        if (error) {
-                                            [self.identifiedMedias removeObjectForKey:urnString];
-                                            completionHandler(nil, error);
-                                        }
-                                        else {
-                                            self.identifiedMedias[urnString] = media;
-                                            segmentsAndAnalyticsBlock(media);
-                                        }
-                                    }];
+            [self.requestManager requestMediaWithURN:urn
+                                     completionBlock:^(SRGILMedia *media, NSError *error) {
+                                         @strongify(self)   
+                                         if (error) {
+                                             [self.identifiedMedias removeObjectForKey:urnString];
+                                             completionHandler(nil, error);
+                                         }
+                                         else {
+                                             self.identifiedMedias[urnString] = media;
+                                             segmentsAndAnalyticsBlock(media);
+                                         }
+                                     }];
         }
     }
 }
