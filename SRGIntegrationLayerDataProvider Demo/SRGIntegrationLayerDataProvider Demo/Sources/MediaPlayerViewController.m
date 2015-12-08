@@ -19,7 +19,7 @@
 @property (nonatomic) IBOutlet RTSMediaPlayerController *mediaPlayerController;
 @property (nonatomic) IBOutlet RTSMediaSegmentsController *mediaSegmentsController;
 
-@property (nonatomic) SRGILDataProvider *dataSource;
+@property (nonatomic) SRGILDataProvider *dataProvider;
 
 @property (nonatomic, weak) IBOutlet RTSSegmentedTimelineView *timelineView;
 @property (nonatomic, weak) IBOutlet RTSTimeSlider *timeSlider;
@@ -36,7 +36,7 @@
 {
     if (self = [super initWithCoder:aDecoder]) {
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        self.dataSource = appDelegate.dataSource;
+        self.dataProvider = appDelegate.dataProvider;
     }
     return self;
 }
@@ -70,8 +70,8 @@
 {
 	[super viewDidLoad];
 
-    self.mediaPlayerController.dataSource = self.dataSource;
-    self.mediaSegmentsController.dataSource = self.dataSource;
+    self.mediaPlayerController.dataSource = self.dataProvider;
+    self.mediaSegmentsController.dataSource = self.dataProvider;
 
     NSString *className = NSStringFromClass([SegmentCollectionViewCell class]);
     UINib *nib = [UINib nibWithNibName:className bundle:nil];

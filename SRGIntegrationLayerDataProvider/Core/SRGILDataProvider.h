@@ -67,6 +67,19 @@ typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * _
 // ********* Fetch lists of IL model objects **********
 
 /**
+ *  Create the URL Components object objects of a specific 'index';
+ *
+ *  @param index      The fetch index
+ *  @param identifier The identifier relevant for that fetch index.
+ *  @param error      The reference to an error instance.
+ *
+ *  @return The URL Components for that index. Or nil in case of error. In which the error object contains the reason.
+ */
+- (nullable SRGILURLComponents *)URLComponentsForFetchListIndex:(SRGILFetchListIndex)index
+                                                 withIdentifier:(nullable NSString *)identifier
+                                                          error:(NSError * __nullable __autoreleasing * __nullable)error;
+
+/**
  *  Fetch objects of a specific 'index' from the IL
  * 
  *  @param components      The URL components build with the SRGILURLComponents factory.
@@ -142,13 +155,13 @@ typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * _
 // ********* Data Accessors **********
 
 /**
- *  Returns the list associated with a given index. Does NOT work for lists with organisation type = Alphabetical (yet).
+ *  Returns the list associated with a given URL components. Does NOT work for lists with organisation type = Alphabetical (yet).
  *
- *  @param index The index of the list
+ *  @param index The URL components of the list
  *
  *  @return An instance of the list of items associated with that index.
  */
-- (nullable SRGILList *)objectsListForIndex:(enum SRGILFetchListIndex)index;
+- (nullable SRGILList *)objectsListForURLComponents:(nonnull SRGILURLComponents *)components;
 
 /**
  *  Access an already-fetch media, if any. If it is not yet fetched, returns nil.

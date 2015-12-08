@@ -15,7 +15,6 @@
 
 #import "SRGILOngoingRequest+Private.h"
 #import "SRGILRequestsManager.h"
-#import "SRGILOrganisedModelDataItem.h"
 
 #import "SRGILModel.h"
 #import "SRGILErrors.h"
