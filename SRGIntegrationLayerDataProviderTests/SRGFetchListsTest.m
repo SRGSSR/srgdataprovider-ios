@@ -38,7 +38,7 @@ static NSString *const SRFRadioVirusChannelID = @"66815fe2-9008-4853-80a5-f9caaf
 {
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     
-    SRGILURLComponents *components = [SRGILURLComponents URLComponentsForFetchListIndex:SRGILFetchListVideoTopics
+    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:SRGILFetchListVideoTopics
                                                                          withIdentifier:nil
                                                                                   error:nil];
     
@@ -59,7 +59,7 @@ static NSString *const SRFRadioVirusChannelID = @"66815fe2-9008-4853-80a5-f9caaf
 {
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     
-    SRGILURLComponents *components = [SRGILURLComponents URLComponentsForFetchListIndex:SRGILFetchListSonglogPlaying
+    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:SRGILFetchListSonglogPlaying
                                                                          withIdentifier:SRFRadioVirusChannelID
                                                                                   error:nil];
     
@@ -80,7 +80,7 @@ static NSString *const SRFRadioVirusChannelID = @"66815fe2-9008-4853-80a5-f9caaf
 {
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     
-    SRGILURLComponents *components = [SRGILURLComponents URLComponentsForFetchListIndex:SRGILFetchListSonglogLatest
+    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:SRGILFetchListSonglogLatest
                                                                          withIdentifier:SRFRadioVirusChannelID
                                                                                   error:nil];
     

@@ -40,9 +40,9 @@
 {
     // DO the stuff...
     
-    SRGILURLComponents *components = [SRGILURLComponents URLComponentsForFetchListIndex:SRGILFetchListVideoSearch
-                                                                         withIdentifier:nil
-                                                                                  error:nil];
+    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:SRGILFetchListVideoSearch
+                                                                      withIdentifier:nil
+                                                                               error:nil];
     
     [components updateQueryItemsWithSearchString:searchBar.text];
     

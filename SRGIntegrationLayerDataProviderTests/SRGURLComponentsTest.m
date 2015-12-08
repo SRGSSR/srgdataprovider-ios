@@ -31,7 +31,7 @@
 - (void)testWrongIndex
 {
     NSError *error = nil;
-    SRGILURLComponents *components = [SRGILURLComponents URLComponentsForFetchListIndex:-1
+    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:-1
                                                                          withIdentifier:nil
                                                                                   error:&error];
     
@@ -42,7 +42,7 @@
 - (void)testIndexVideoLiveStreams
 {
     NSError *error = nil;
-    SRGILURLComponents *components = [SRGILURLComponents URLComponentsForFetchListIndex:SRGILFetchListVideoLiveStreams
+    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:SRGILFetchListVideoLiveStreams
                                                                          withIdentifier:nil
                                                                                   error:&error];
     
@@ -55,7 +55,7 @@
 - (void)testIndexVideoSearch
 {
     NSError *error = nil;
-    SRGILURLComponents *components = [SRGILURLComponents URLComponentsForFetchListIndex:SRGILFetchListVideoSearch
+    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:SRGILFetchListVideoSearch
                                                                          withIdentifier:nil
                                                                                   error:&error];
     
