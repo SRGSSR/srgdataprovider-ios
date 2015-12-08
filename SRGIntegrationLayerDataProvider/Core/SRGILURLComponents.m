@@ -61,6 +61,10 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
     switch (index) {
             // --- Videos ---
             
+        case SRGILFetchListVideoTrendingPicks:
+            components.path = @"/video/trendingPicks.json";
+            break;
+            
         case SRGILFetchListVideoLiveStreams:
             components.path = @"/video/livestream.json";
             break;

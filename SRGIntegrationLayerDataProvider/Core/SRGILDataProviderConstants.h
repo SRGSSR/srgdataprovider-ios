@@ -61,6 +61,7 @@ typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
     SRGILFetchListEnumBegin,
     
     SRGILFetchListVideoLiveStreams = SRGILFetchListEnumBegin,
+    SRGILFetchListVideoTrendingPicks,
     SRGILFetchListVideoEditorialPicks,
     SRGILFetchListVideoMostClicked,
     SRGILFetchListVideoMostRecent,
