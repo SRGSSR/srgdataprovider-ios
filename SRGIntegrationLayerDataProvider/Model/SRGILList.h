@@ -6,12 +6,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class SRGILURLComponents;
+
 /**
  *  A subclass of NSArray that can also store global properties, and a tag.
  */
 @interface SRGILList : NSArray
 
 @property(nonatomic, strong) NSDictionary *globalProperties;
-@property(nonatomic, copy) id<NSCopying> tag;
+@property(nonatomic, strong) SRGILURLComponents *URLComponents;
 
 @end

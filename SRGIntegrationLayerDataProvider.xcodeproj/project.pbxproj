@@ -31,7 +31,6 @@
 		9F13D54D1AE9270700E4D897 /* SRGILSocialCounts.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D52D1AE9270700E4D897 /* SRGILSocialCounts.m */; };
 		9F13D54E1AE9270700E4D897 /* SRGILVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D52F1AE9270700E4D897 /* SRGILVideo.m */; };
 		9F13D54F1AE9270700E4D897 /* SRGILErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5321AE9270700E4D897 /* SRGILErrors.m */; };
-		9F13D5501AE9270700E4D897 /* SRGILOrganisedModelDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5341AE9270700E4D897 /* SRGILOrganisedModelDataItem.m */; };
 		9F13D5511AE9270700E4D897 /* SRGILRequestsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5361AE9270700E4D897 /* SRGILRequestsManager.m */; };
 		9F13D5521AE9270700E4D897 /* SRGILTokenHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5381AE9270700E4D897 /* SRGILTokenHandler.m */; };
 		9F1A5B2B1ACD690C00C0E528 /* SRGLiveStreamVideoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B181ACD68E700C0E528 /* SRGLiveStreamVideoTest.m */; };
@@ -165,8 +164,6 @@
 		9F13D52F1AE9270700E4D897 /* SRGILVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILVideo.m; sourceTree = "<group>"; };
 		9F13D5311AE9270700E4D897 /* SRGILErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILErrors.h; sourceTree = "<group>"; };
 		9F13D5321AE9270700E4D897 /* SRGILErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILErrors.m; sourceTree = "<group>"; };
-		9F13D5331AE9270700E4D897 /* SRGILOrganisedModelDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILOrganisedModelDataItem.h; sourceTree = "<group>"; };
-		9F13D5341AE9270700E4D897 /* SRGILOrganisedModelDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILOrganisedModelDataItem.m; sourceTree = "<group>"; };
 		9F13D5351AE9270700E4D897 /* SRGILRequestsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILRequestsManager.h; sourceTree = "<group>"; };
 		9F13D5361AE9270700E4D897 /* SRGILRequestsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILRequestsManager.m; sourceTree = "<group>"; };
 		9F13D5371AE9270700E4D897 /* SRGILTokenHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILTokenHandler.h; sourceTree = "<group>"; };
@@ -211,6 +208,7 @@
 		9F83AB151B29C0C800D7D8BE /* SRGILDataProviderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderTest.m; sourceTree = "<group>"; };
 		9F8B389C1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderMediaPlayerTest.m; sourceTree = "<group>"; };
 		9FA643351B96EBC300B2B51B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9FBA67AA1C1719F4005A2F40 /* SRGILURLComponents+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SRGILURLComponents+Private.h"; sourceTree = "<group>"; };
 		9FCA04901B414935009937E2 /* SRGILURN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILURN.h; sourceTree = "<group>"; };
 		9FCA04911B414935009937E2 /* SRGILURN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILURN.m; sourceTree = "<group>"; };
 		9FDA13C21BD517A00073722D /* NSBundle+SRGILDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBundle+SRGILDataProvider.h"; path = "SRGIntegrationLayerDataProvider/Core/NSBundle+SRGILDataProvider.h"; sourceTree = "<group>"; };
@@ -292,6 +290,7 @@
 				9FF55F981B4B0F5900A99DA2 /* SRGILDataProviderConstants.h */,
 				9FF55F991B4B0F5900A99DA2 /* SRGILDataProviderConstants.m */,
 				9F631A211C0DE743000CBD6F /* SRGILURLComponents.h */,
+				9FBA67AA1C1719F4005A2F40 /* SRGILURLComponents+Private.h */,
 				9F631A221C0DE743000CBD6F /* SRGILURLComponents.m */,
 				9F4420FD1B0A107900AD0613 /* MediaPlayer & Analytics */,
 			);
@@ -368,8 +367,6 @@
 				9F13D5171AE9270700E4D897 /* SRGILList.m */,
 				E604EAFA1B174254004A627D /* SRGILOngoingRequest+Private.h */,
 				E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */,
-				9F13D5331AE9270700E4D897 /* SRGILOrganisedModelDataItem.h */,
-				9F13D5341AE9270700E4D897 /* SRGILOrganisedModelDataItem.m */,
 				9F13D5351AE9270700E4D897 /* SRGILRequestsManager.h */,
 				9F13D5361AE9270700E4D897 /* SRGILRequestsManager.m */,
 				9F13D5371AE9270700E4D897 /* SRGILTokenHandler.h */,
@@ -771,7 +768,6 @@
 				9F13D5411AE9270700E4D897 /* SRGILImage.m in Sources */,
 				9F13D5441AE9270700E4D897 /* SRGILLiveHeaderChannel.m in Sources */,
 				9F13D53C1AE9270700E4D897 /* SRGILAnalyticsExtendedData.m in Sources */,
-				9F13D5501AE9270700E4D897 /* SRGILOrganisedModelDataItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

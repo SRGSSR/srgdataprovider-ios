@@ -10,7 +10,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, strong) SRGILDataProvider *dataSource;
+@property (nonatomic, strong) SRGILDataProvider *dataProvider;
 
 @end
 

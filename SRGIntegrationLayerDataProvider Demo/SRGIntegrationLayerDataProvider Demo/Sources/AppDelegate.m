@@ -14,10 +14,10 @@
 {
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
 
-    self.dataSource = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
+    self.dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
     
     [[RTSAnalyticsTracker sharedTracker] startTrackingForBusinessUnit:SSRBusinessUnitRTS
-                                                      mediaDataSource:self.dataSource
+                                                      mediaDataSource:self.dataProvider
                                                           inDebugMode:YES];
         
     return YES;

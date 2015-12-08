@@ -12,10 +12,12 @@
 #import "SRGILURLComponents.h"
 
 #import "SRGILModel.h"
-#import "SRGILOrganisedModelDataItem.h"
 
+#import "SRGILList.h"
 #import "SRGILErrors.h"
 #import "SRGILRequestsManager.h"
+#import "SRGILURLComponents.h"
+#import "SRGILURLComponents+Private.h"
 
 #import "NSBundle+SRGILDataProvider.h"
 
@@ -36,8 +38,8 @@ static NSString * const SRGConfigNoValidRequestURLPath = @"SRGConfigNoValidReque
 static NSArray *validBusinessUnits = nil;
 
 @interface SRGILDataProvider () {
-    NSMutableDictionary *_taggedItemLists;
-    NSMutableSet *_ongoingFetchIndices;
+    NSMutableDictionary *_identifiedItemLists;
+    NSMutableSet *_ongoingFetches;
     NSString *_UUID;
 }
 @end
@@ -72,11 +74,11 @@ static NSArray *validBusinessUnits = nil;
     self = [super init];
     if (self) {
         _UUID = [[NSUUID UUID] UUIDString];
+        _identifiedItemLists = [[NSMutableDictionary alloc] init];
         _identifiedMedias = [[NSMutableDictionary alloc] init];
         _identifiedShows = [[NSMutableDictionary alloc] init];
-        _taggedItemLists = [[NSMutableDictionary alloc] init];
+        _ongoingFetches = [[NSMutableSet alloc] init];
         _requestManager = [[SRGILRequestsManager alloc] initWithBusinessUnit:businessUnit];
-        _ongoingFetchIndices = [[NSMutableSet alloc] init];
     }
     return self;
 }
@@ -99,42 +101,57 @@ static NSArray *validBusinessUnits = nil;
 
 - (NSUInteger)ongoingFetchCount;
 {
-    return _ongoingFetchIndices.count;
+    return _ongoingFetches.count;
 }
 
 #pragma mark - Item Lists
+
+- (SRGILURLComponents *)URLComponentsForFetchListIndex:(SRGILFetchListIndex)index
+                                        withIdentifier:(nullable NSString *)identifier
+                                                 error:(NSError * __nullable __autoreleasing * __nullable)error
+{
+    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:index
+                                                                      withIdentifier:identifier
+                                                                               error:error];
+    
+    components.host = self.requestManager.baseURL.host;
+    components.scheme = self.requestManager.baseURL.scheme;
+    if (components.path && NO == [components.path hasPrefix:self.requestManager.baseURL.path]) {
+        components.path = [self.requestManager.baseURL.path stringByAppendingString:components.path];
+    }
+
+    return components;
+}
 
 - (void)fetchObjectsListWithURLComponents:(nonnull SRGILURLComponents *)components
                                 organised:(SRGILModelDataOrganisationType)orgType
                             progressBlock:(nullable SRGILFetchListDownloadProgressBlock)progressBlock
                           completionBlock:(nonnull SRGILFetchListCompletionBlock)completionBlock;
 {
-    NSNumber *tag = @(components.index);
-    
     @weakify(self);
-    [_ongoingFetchIndices addObject:tag];
+    [_ongoingFetches addObject:components];
     [self.requestManager requestObjectsListWithURLComponents:components
                                                progressBlock:progressBlock
                                              completionBlock:^(NSDictionary *rawDictionary, NSError *error) {
                                                  @strongify(self);
-                                                 [_ongoingFetchIndices removeObject:tag];
+                                                 [_ongoingFetches removeObject:components];
                                                  // Error handling is handled in extractItems...
                                                  [self recordFetchDateForIndex:components.index];
                                                  [self extractItemsAndClassNameFromRawDictionary:rawDictionary
-                                                                                          forTag:tag
+                                                                                forURLComponents:components
                                                                                 organisationType:orgType
                                                                              withCompletionBlock:completionBlock];
                                              }];
 }
 
 - (void)extractItemsAndClassNameFromRawDictionary:(NSDictionary *)rawDictionary
-                                           forTag:(id<NSCopying>)tag
+                                 forURLComponents:(SRGILURLComponents *)components
                                  organisationType:(SRGILModelDataOrganisationType)orgType
                               withCompletionBlock:(SRGILFetchListCompletionBlock)completionBlock
 {
     if ([[rawDictionary allKeys] count] != 1) {
         // As for now, we will only extract items from a dictionary that has a single key/value pair.
-        [self sendUserFacingErrorForTag:tag withTechError:nil completionBlock:completionBlock];
+        [self sendUserFacingErrorForURLComponents:components withTechError:nil completionBlock:completionBlock];
         return;
     }
     
@@ -171,7 +188,7 @@ static NSArray *validBusinessUnits = nil;
     }
     
     if (!className) {
-        [self sendUserFacingErrorForTag:tag withTechError:nil completionBlock:completionBlock];
+        [self sendUserFacingErrorForURLComponents:components withTechError:nil completionBlock:completionBlock];
     }
     else {
         Class itemClass = NSClassFromString([itemClassPrefix stringByAppendingString:className]);
@@ -179,22 +196,21 @@ static NSArray *validBusinessUnits = nil;
         NSError *error = nil;
         NSArray *organisedItems = [self organiseItemsWithGlobalProperties:globalProperties
                                                           rawDictionaries:itemsDictionaries
-                                                                   forTag:tag
+                                                         forURLComponents:components
                                                          organisationType:orgType
                                                                modelClass:itemClass
                                                                     error:&error];
         
         if (error) {
-            [self sendUserFacingErrorForTag:tag withTechError:error completionBlock:completionBlock];
+            [self sendUserFacingErrorForURLComponents:components withTechError:error completionBlock:completionBlock];
         }
         else {
-            DDLogInfo(@"[Info] Returning %tu organised data item for tag %@", [organisedItems count], tag);
+            DDLogInfo(@"[Info] Returning %tu organised data item for path %@", [organisedItems count], components.string);
             
-            for (SRGILOrganisedModelDataItem *dataItem in organisedItems) {
-                SRGILList *newItems = dataItem.items;
-                _taggedItemLists[newItems.tag] = newItems;
+            for (SRGILList *items in organisedItems) {
+                _identifiedItemLists[items.URLComponents] = items;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock(newItems, itemClass, nil);
+                    completionBlock(items, itemClass, nil);
                 });
             }
         }
@@ -203,7 +219,7 @@ static NSArray *validBusinessUnits = nil;
 
 - (NSArray *)organiseItemsWithGlobalProperties:(NSDictionary *)properties
                                rawDictionaries:(NSArray *)dictionaries
-                                        forTag:(id<NSCopying>)tag
+                              forURLComponents:(SRGILURLComponents *)components
                               organisationType:(SRGILModelDataOrganisationType)orgType
                                     modelClass:(Class)modelClass
                                          error:(NSError * __autoreleasing *)error;
@@ -236,15 +252,17 @@ static NSArray *validBusinessUnits = nil;
     }];
     
     if ([dictionaries count] == 1 || modelClass == [SRGILAssetSet class] || modelClass == [SRGILAudio class]) {
-        return @[[SRGILOrganisedModelDataItem dataItemForTag:tag withItems:items class:modelClass properties:properties]];
+        SRGILList *itemsList = [[SRGILList alloc] initWithArray:items];
+        itemsList.globalProperties = properties;
+        itemsList.URLComponents = components;
+        return @[itemsList];
     }
     else if (modelClass == [SRGILVideo class]) {
         NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES];
-        SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemForTag:tag
-                                                                                  withItems:[items sortedArrayUsingDescriptors:@[desc]]
-                                                                                      class:modelClass
-                                                                                 properties:properties];
-        return @[dataItem];
+        SRGILList *itemsList = [[SRGILList alloc] initWithArray:[items sortedArrayUsingDescriptors:@[desc]]];
+        itemsList.globalProperties = properties;
+        itemsList.URLComponents = components;
+        return @[items];
     }
     else if (modelClass == [SRGILShow class]) {
         if (orgType == SRGILModelDataOrganisationTypeAlphabetical) {
@@ -294,31 +312,39 @@ static NSArray *validBusinessUnits = nil;
             NSMutableArray *splittedShows = [NSMutableArray array];
             NSArray *sortedShowsGroupsKeys = [[showsGroups allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
             
+            
             [sortedShowsGroupsKeys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
                 NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES comparator:^NSComparisonResult(NSString *title1, NSString *title2) {
                     return [title1 localizedCaseInsensitiveCompare:title2];
                 }];
                 NSArray *sortedShows = [showsGroups[key] sortedArrayUsingDescriptors:@[sortDescriptor]];
-                SRGILOrganisedModelDataItem *dataItem = [SRGILOrganisedModelDataItem dataItemForTag:key
-                                                                                          withItems:sortedShows
-                                                                                              class:modelClass
-                                                                                         properties:properties];
-                [splittedShows addObject:dataItem];
+                
+                NSMutableDictionary *extendedProperties = [properties mutableCopy];
+                extendedProperties[@"tag"] = key;
+                
+                SRGILList *items = [[SRGILList alloc] initWithArray:sortedShows];
+                items.globalProperties = [extendedProperties copy];
+                items.URLComponents = components;
+                
+                [splittedShows addObject:items];
             }];
             
             return [NSArray arrayWithArray:splittedShows];
         }
         else {
-            return @[[SRGILOrganisedModelDataItem dataItemForTag:tag withItems:items class:modelClass properties:properties]];
+            SRGILList *itemsList = [[SRGILList alloc] initWithArray:items];
+            itemsList.globalProperties = properties;
+            itemsList.URLComponents = components;
+            return @[itemsList];
         }
     }
     else if (modelClass == SRGILSearchResult.class || modelClass == SRGILTopic.class || modelClass == SRGILSonglog.class) {
         // Did not include in first case, because we'll have to deal with different type of search results (video, audio, shows).
         // We only process videos at the moment
-        return @[[SRGILOrganisedModelDataItem dataItemForTag:tag
-                                                   withItems:items
-                                                       class:modelClass
-                                                  properties:properties]];
+        SRGILList *itemsList = [[SRGILList alloc] initWithArray:items];
+        itemsList.globalProperties = properties;
+        itemsList.URLComponents = components;
+        return @[itemsList];
     }
     else {
         if (error) {
@@ -332,12 +358,12 @@ static NSArray *validBusinessUnits = nil;
     return nil;
 }
 
-- (void)sendUserFacingErrorForTag:(id<NSCopying>)tag
-                    withTechError:(NSError *)techError
-                  completionBlock:(SRGILFetchListCompletionBlock)completionBlock
+- (void)sendUserFacingErrorForURLComponents:(SRGILURLComponents *)components
+                              withTechError:(NSError *)techError
+                            completionBlock:(SRGILFetchListCompletionBlock)completionBlock
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *reason = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"The received data is invalid for tag %@", nil), tag];
+        NSString *reason = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"The received data is invalid for tag %@", nil), @(components.index)];
         NSError *newError = SRGILCreateUserFacingError(reason, techError, SRGILDataProviderErrorCodeInvalidData);
         completionBlock(nil, nil, newError);
     });
@@ -468,9 +494,10 @@ static NSArray *validBusinessUnits = nil;
 
 #pragma mark - Data Accessors
 
-- (SRGILList *)objectsListForIndex:(enum SRGILFetchListIndex)index
+- (SRGILList *)objectsListForURLComponents:(SRGILURLComponents *)components
 {
-    return _taggedItemLists[@(index)];
+    NSParameterAssert(components);
+    return _identifiedItemLists[components];
 }
 
 - (nullable SRGILMedia *)mediaForURN:(nonnull SRGILURN *)urn

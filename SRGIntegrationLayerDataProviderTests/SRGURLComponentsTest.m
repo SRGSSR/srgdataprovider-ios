@@ -10,10 +10,11 @@
 
 #import "SRGILList.h"
 #import "SRGILModel.h"
+#import "SRGILDataProvider.h"
 #import "SRGILURLComponents.h"
 
 @interface SRGURLComponentsTest : XCTestCase
-
+@property(nonatomic, strong) SRGILDataProvider *dataProvider;
 @end
 
 @implementation SRGURLComponentsTest
@@ -21,17 +22,19 @@
 - (void)setUp
 {
     [super setUp];
+    self.dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"srf"];
 }
 
 - (void)tearDown
 {
+    self.dataProvider = nil;
     [super tearDown];
 }
 
 - (void)testWrongIndex
 {
     NSError *error = nil;
-    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:-1
+    SRGILURLComponents *components = [self.dataProvider URLComponentsForFetchListIndex:-1
                                                                          withIdentifier:nil
                                                                                   error:&error];
     
@@ -42,7 +45,7 @@
 - (void)testIndexVideoLiveStreams
 {
     NSError *error = nil;
-    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:SRGILFetchListVideoLiveStreams
+    SRGILURLComponents *components = [self.dataProvider URLComponentsForFetchListIndex:SRGILFetchListVideoLiveStreams
                                                                          withIdentifier:nil
                                                                                   error:&error];
     
@@ -55,7 +58,7 @@
 - (void)testIndexVideoSearch
 {
     NSError *error = nil;
-    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:SRGILFetchListVideoSearch
+    SRGILURLComponents *components = [self.dataProvider URLComponentsForFetchListIndex:SRGILFetchListVideoSearch
                                                                          withIdentifier:nil
                                                                                   error:&error];
     

@@ -11,7 +11,7 @@
 
 @interface SearchViewController ()
 
-@property(nonatomic,weak) SRGILDataProvider *dataSource;
+@property(nonatomic,weak) SRGILDataProvider *dataProvider;
 @property(nonatomic,strong) SRGILList *resultItems;
 
 @end
@@ -22,7 +22,7 @@
 {
     if (self = [super initWithCoder:aDecoder]) {
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        self.dataSource = appDelegate.dataSource;
+        self.dataProvider = appDelegate.dataProvider;
     }
     return self;
 }
@@ -40,13 +40,13 @@
 {
     // DO the stuff...
     
-    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:SRGILFetchListVideoSearch
-                                                                      withIdentifier:nil
-                                                                               error:nil];
+    SRGILURLComponents *components = [self.dataProvider URLComponentsForFetchListIndex:SRGILFetchListVideoSearch
+                                                                        withIdentifier:nil
+                                                                                 error:nil];
     
     [components updateQueryItemsWithSearchString:searchBar.text];
     
-    [self.dataSource fetchObjectsListWithURLComponents:components
+    [self.dataProvider fetchObjectsListWithURLComponents:components
                                              organised:SRGILModelDataOrganisationTypeFlat
                                             progressBlock:nil
                                           completionBlock:^(SRGILList *items, __unsafe_unretained Class itemClass, NSError *error) {
@@ -61,7 +61,7 @@
 }
 
 
-#pragma mark - UITableViewDataSource
+#pragma mark - UITableViewdataProvider
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
