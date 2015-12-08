@@ -25,5 +25,6 @@ extern NSString * _Nonnull const defaultURNStringSeparator;
 + (nullable SRGILURN *)URNForIdentifier:(nonnull NSString *)identifier mediaType:(SRGILMediaType)type businessUnit:(nonnull NSString *)bu;
 
 - (nonnull NSString *)URNStringWithSeparator:(nonnull NSString *)separator;
+- (nonnull NSString *)URNString; // Using ':' as default separator
 
 @end

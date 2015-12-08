@@ -4,10 +4,8 @@
 //  License information is available from the LICENSE file.
 //
 
+#import <SRGIntegrationLayerDataProvider/SRGIntegrationLayerDataProvider.h>
 #import "SearchViewController.h"
-#import <SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h>
-
-
 #import "AppDelegate.h"
 
 
@@ -29,7 +27,8 @@
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     _searchBar.delegate = self;
@@ -37,40 +36,26 @@
     self.tableview.delegate = self;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
-
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     // DO the stuff...
     
-    [self.dataSource fetchListOfIndex:SRGILFetchListVideoSearchResult
-                     withPathArgument:searchBar.text
-                            organised:SRGILModelDataOrganisationTypeFlat
-                           onProgress:^(float fraction) {
-                               // Nothing here on progression
-                           }
-                         onCompletion:^(SRGILList *items, __unsafe_unretained Class itemClass, NSError *error) {
-                             // TODO...
-                             self.resultItems = items;
-                             NSLog(@"Result: %@", items);
-                             
-                             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                 [self.tableview reloadData];
-                             }];
-                         }];
+    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:SRGILFetchListVideoSearch
+                                                                      withIdentifier:nil
+                                                                               error:nil];
+    
+    [components updateQueryItemsWithSearchString:searchBar.text];
+    
+    [self.dataSource fetchObjectsListWithURLComponents:components
+                                             organised:SRGILModelDataOrganisationTypeFlat
+                                            progressBlock:nil
+                                          completionBlock:^(SRGILList *items, __unsafe_unretained Class itemClass, NSError *error) {
+                                              self.resultItems = items;
+                                              NSLog(@"Result: %@", items);
+                                              [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                                  [self.tableview reloadData];
+                                              }];
+                                          }];
     
     [searchBar resignFirstResponder];
 }
@@ -78,23 +63,18 @@
 
 #pragma mark - UITableViewDataSource
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.resultItems ? [self.resultItems count] : 0;
 }
 
 
 #pragma mark - UITableViewDelegate
-
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

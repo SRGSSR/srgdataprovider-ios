@@ -34,13 +34,10 @@
 		9F13D5501AE9270700E4D897 /* SRGILOrganisedModelDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5341AE9270700E4D897 /* SRGILOrganisedModelDataItem.m */; };
 		9F13D5511AE9270700E4D897 /* SRGILRequestsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5361AE9270700E4D897 /* SRGILRequestsManager.m */; };
 		9F13D5521AE9270700E4D897 /* SRGILTokenHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5381AE9270700E4D897 /* SRGILTokenHandler.m */; };
-		9F1A5B2A1ACD690C00C0E528 /* SRGILAudioTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B171ACD68E700C0E528 /* SRGILAudioTest.m */; };
 		9F1A5B2B1ACD690C00C0E528 /* SRGLiveStreamVideoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B181ACD68E700C0E528 /* SRGLiveStreamVideoTest.m */; };
 		9F1A5B2C1ACD690C00C0E528 /* SRGILMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B191ACD68E700C0E528 /* SRGILMediaTest.m */; };
 		9F1A5B2D1ACD690C00C0E528 /* SRGModelObjectTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B1A1ACD68E700C0E528 /* SRGModelObjectTest.m */; };
-		9F1A5B2F1ACD690C00C0E528 /* SRGRequestModelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B1C1ACD68E700C0E528 /* SRGRequestModelTest.m */; };
 		9F1A5B301ACD690C00C0E528 /* SRGTokenHandlerStubsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B1D1ACD68E700C0E528 /* SRGTokenHandlerStubsTest.m */; };
-		9F1A5B311ACD690C00C0E528 /* SRGILVideoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B1E1ACD68E700C0E528 /* SRGILVideoTest.m */; };
 		9F1A5B321ACD690C00C0E528 /* XCTestCase+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B201ACD68E700C0E528 /* XCTestCase+JSON.m */; };
 		9F1A5B331ACD691700C0E528 /* assetmetadata_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B041ACD68E700C0E528 /* assetmetadata_01.json */; };
 		9F1A5B341ACD691700C0E528 /* assetset_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A5B051ACD68E700C0E528 /* assetset_01.json */; };
@@ -66,11 +63,18 @@
 		9F3C1CC31ADC0B4A007C54AD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3C1CBF1ADC0B02007C54AD /* SystemConfiguration.framework */; };
 		9F3C1CC41ADC0B50007C54AD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3C1CC11ADC0B26007C54AD /* MobileCoreServices.framework */; };
 		9F4421001B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4420FF1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m */; };
+		9F631A231C0DE743000CBD6F /* SRGILURLComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F631A221C0DE743000CBD6F /* SRGILURLComponents.m */; };
 		9F83AB161B29C0C800D7D8BE /* SRGILDataProviderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F83AB151B29C0C800D7D8BE /* SRGILDataProviderTest.m */; };
 		9F8B389D1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B389C1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m */; };
 		9FCA04921B414935009937E2 /* SRGILURN.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCA04911B414935009937E2 /* SRGILURN.m */; };
-		9FDA13C41BD517A00073722D /* NSBundle+SRGILDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA13C31BD517A00073722D /* NSBundle+SRGILDataProvider.m */; settings = {ASSET_TAGS = (); }; };
+		9FDA13C41BD517A00073722D /* NSBundle+SRGILDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA13C31BD517A00073722D /* NSBundle+SRGILDataProvider.m */; };
 		9FDA13D21BD51C200073722D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FDA13D41BD51C200073722D /* Localizable.strings */; };
+		9FEE125F1C1041E700AD7A8B /* SRGILTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEE125E1C1041E700AD7A8B /* SRGILTopic.m */; };
+		9FEE12621C10441200AD7A8B /* SRGILSonglog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEE12611C10441200AD7A8B /* SRGILSonglog.m */; };
+		9FEE12651C10442000AD7A8B /* SRGILSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEE12641C10442000AD7A8B /* SRGILSong.m */; };
+		9FEE12681C10443100AD7A8B /* SRGILArtist.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEE12671C10443100AD7A8B /* SRGILArtist.m */; };
+		9FEE126A1C105BF900AD7A8B /* SRGFetchListsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEE12691C105BF800AD7A8B /* SRGFetchListsTest.m */; };
+		9FEE126C1C10716800AD7A8B /* SRGURLComponentsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEE126B1C10716800AD7A8B /* SRGURLComponentsTest.m */; };
 		9FF55F9A1B4B0F5900A99DA2 /* SRGILDataProviderConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF55F991B4B0F5900A99DA2 /* SRGILDataProviderConstants.m */; };
 		9FFDA47F1B8C769200EEF7DA /* SRGILDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDA47E1B8C769200EEF7DA /* SRGILDownload.m */; };
 		9FFDA4811B8C946F00EEF7DA /* video_download_srf_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9FFDA4801B8C8ABC00EEF7DA /* video_download_srf_01.json */; };
@@ -191,13 +195,10 @@
 		9F1A5B141ACD68E700C0E528 /* video_03.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = video_03.json; sourceTree = "<group>"; };
 		9F1A5B151ACD68E700C0E528 /* video_04.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = video_04.json; sourceTree = "<group>"; };
 		9F1A5B161ACD68E700C0E528 /* videoaggregation_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videoaggregation_01.json; sourceTree = "<group>"; };
-		9F1A5B171ACD68E700C0E528 /* SRGILAudioTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILAudioTest.m; sourceTree = "<group>"; };
 		9F1A5B181ACD68E700C0E528 /* SRGLiveStreamVideoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGLiveStreamVideoTest.m; sourceTree = "<group>"; };
 		9F1A5B191ACD68E700C0E528 /* SRGILMediaTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILMediaTest.m; sourceTree = "<group>"; };
 		9F1A5B1A1ACD68E700C0E528 /* SRGModelObjectTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGModelObjectTest.m; sourceTree = "<group>"; };
-		9F1A5B1C1ACD68E700C0E528 /* SRGRequestModelTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGRequestModelTest.m; sourceTree = "<group>"; };
 		9F1A5B1D1ACD68E700C0E528 /* SRGTokenHandlerStubsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGTokenHandlerStubsTest.m; sourceTree = "<group>"; };
-		9F1A5B1E1ACD68E700C0E528 /* SRGILVideoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILVideoTest.m; sourceTree = "<group>"; };
 		9F1A5B1F1ACD68E700C0E528 /* XCTestCase+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+JSON.h"; sourceTree = "<group>"; };
 		9F1A5B201ACD68E700C0E528 /* XCTestCase+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+JSON.m"; sourceTree = "<group>"; };
 		9F3C1CBF1ADC0B02007C54AD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -205,6 +206,8 @@
 		9F4420FE1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGILDataProvider+MediaPlayer.h"; sourceTree = "<group>"; };
 		9F4420FF1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGILDataProvider+MediaPlayer.m"; sourceTree = "<group>"; };
 		9F4421011B0A116D00AD0613 /* SRGILDataProviderMediaPlayerDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SRGILDataProviderMediaPlayerDataSource.h; path = SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h; sourceTree = SOURCE_ROOT; };
+		9F631A211C0DE743000CBD6F /* SRGILURLComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILURLComponents.h; sourceTree = "<group>"; };
+		9F631A221C0DE743000CBD6F /* SRGILURLComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILURLComponents.m; sourceTree = "<group>"; };
 		9F83AB151B29C0C800D7D8BE /* SRGILDataProviderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderTest.m; sourceTree = "<group>"; };
 		9F8B389C1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderMediaPlayerTest.m; sourceTree = "<group>"; };
 		9FA643351B96EBC300B2B51B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -219,6 +222,16 @@
 		9FDA13D61BD51FA70073722D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9FDA13D71BD51FBA0073722D /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9FDA13D81BD51FC80073722D /* rm-CH */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "rm-CH"; path = "rm-CH.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		9FEE125D1C1041E700AD7A8B /* SRGILTopic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILTopic.h; sourceTree = "<group>"; };
+		9FEE125E1C1041E700AD7A8B /* SRGILTopic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILTopic.m; sourceTree = "<group>"; };
+		9FEE12601C10441200AD7A8B /* SRGILSonglog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILSonglog.h; sourceTree = "<group>"; };
+		9FEE12611C10441200AD7A8B /* SRGILSonglog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILSonglog.m; sourceTree = "<group>"; };
+		9FEE12631C10442000AD7A8B /* SRGILSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILSong.h; sourceTree = "<group>"; };
+		9FEE12641C10442000AD7A8B /* SRGILSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILSong.m; sourceTree = "<group>"; };
+		9FEE12661C10443100AD7A8B /* SRGILArtist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILArtist.h; sourceTree = "<group>"; };
+		9FEE12671C10443100AD7A8B /* SRGILArtist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILArtist.m; sourceTree = "<group>"; };
+		9FEE12691C105BF800AD7A8B /* SRGFetchListsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGFetchListsTest.m; sourceTree = "<group>"; };
+		9FEE126B1C10716800AD7A8B /* SRGURLComponentsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGURLComponentsTest.m; sourceTree = "<group>"; };
 		9FF55F981B4B0F5900A99DA2 /* SRGILDataProviderConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILDataProviderConstants.h; sourceTree = "<group>"; };
 		9FF55F991B4B0F5900A99DA2 /* SRGILDataProviderConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDataProviderConstants.m; sourceTree = "<group>"; };
 		9FFDA47D1B8C769200EEF7DA /* SRGILDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILDownload.h; sourceTree = "<group>"; };
@@ -278,6 +291,8 @@
 				9F13D5051AE9270600E4D897 /* SRGILDataProvider.m */,
 				9FF55F981B4B0F5900A99DA2 /* SRGILDataProviderConstants.h */,
 				9FF55F991B4B0F5900A99DA2 /* SRGILDataProviderConstants.m */,
+				9F631A211C0DE743000CBD6F /* SRGILURLComponents.h */,
+				9F631A221C0DE743000CBD6F /* SRGILURLComponents.m */,
 				9F4420FD1B0A107900AD0613 /* MediaPlayer & Analytics */,
 			);
 			name = SRGILProvider;
@@ -287,9 +302,11 @@
 		9F13D5061AE9270600E4D897 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9F13D5091AE9270600E4D897 /* SRGILAnalyticsInfosProtocol.h */,
 				9F13D5071AE9270600E4D897 /* SRGILAnalyticsExtendedData.h */,
 				9F13D5081AE9270600E4D897 /* SRGILAnalyticsExtendedData.m */,
-				9F13D5091AE9270600E4D897 /* SRGILAnalyticsInfosProtocol.h */,
+				9FEE12661C10443100AD7A8B /* SRGILArtist.h */,
+				9FEE12671C10443100AD7A8B /* SRGILArtist.m */,
 				9F13D50A1AE9270600E4D897 /* SRGILAsset.h */,
 				9F13D50B1AE9270600E4D897 /* SRGILAsset.m */,
 				9F13D50C1AE9270600E4D897 /* SRGILAssetMetadata.h */,
@@ -327,6 +344,12 @@
 				9F13D52B1AE9270700E4D897 /* SRGILShow.m */,
 				9F13D52C1AE9270700E4D897 /* SRGILSocialCounts.h */,
 				9F13D52D1AE9270700E4D897 /* SRGILSocialCounts.m */,
+				9FEE12601C10441200AD7A8B /* SRGILSonglog.h */,
+				9FEE12611C10441200AD7A8B /* SRGILSonglog.m */,
+				9FEE12631C10442000AD7A8B /* SRGILSong.h */,
+				9FEE12641C10442000AD7A8B /* SRGILSong.m */,
+				9FEE125D1C1041E700AD7A8B /* SRGILTopic.h */,
+				9FEE125E1C1041E700AD7A8B /* SRGILTopic.m */,
 				9FCA04901B414935009937E2 /* SRGILURN.h */,
 				9FCA04911B414935009937E2 /* SRGILURN.m */,
 				9F13D52E1AE9270700E4D897 /* SRGILVideo.h */,
@@ -456,12 +479,9 @@
 		9F83AB131B29BFB500D7D8BE /* Model Tests */ = {
 			isa = PBXGroup;
 			children = (
-				9F1A5B171ACD68E700C0E528 /* SRGILAudioTest.m */,
-				9F1A5B1E1ACD68E700C0E528 /* SRGILVideoTest.m */,
 				9F1A5B191ACD68E700C0E528 /* SRGILMediaTest.m */,
 				9F1A5B181ACD68E700C0E528 /* SRGLiveStreamVideoTest.m */,
 				9F1A5B1A1ACD68E700C0E528 /* SRGModelObjectTest.m */,
-				9F1A5B1C1ACD68E700C0E528 /* SRGRequestModelTest.m */,
 			);
 			name = "Model Tests";
 			sourceTree = "<group>";
@@ -470,6 +490,8 @@
 			isa = PBXGroup;
 			children = (
 				9F1A5B1D1ACD68E700C0E528 /* SRGTokenHandlerStubsTest.m */,
+				9FEE12691C105BF800AD7A8B /* SRGFetchListsTest.m */,
+				9FEE126B1C10716800AD7A8B /* SRGURLComponentsTest.m */,
 			);
 			name = "Network Tests";
 			sourceTree = "<group>";
@@ -714,6 +736,7 @@
 				9F13D54B1AE9270700E4D897 /* SRGILRubric.m in Sources */,
 				9F13D5491AE9270700E4D897 /* SRGILPlaylist.m in Sources */,
 				9F13D5421AE9270700E4D897 /* SRGILImageRepresentation.m in Sources */,
+				9F631A231C0DE743000CBD6F /* SRGILURLComponents.m in Sources */,
 				9F13D5431AE9270700E4D897 /* SRGILList.m in Sources */,
 				9F13D5461AE9270700E4D897 /* SRGILMedia.m in Sources */,
 				9F13D53F1AE9270700E4D897 /* SRGILAssetSet.m in Sources */,
@@ -721,6 +744,7 @@
 				9F13D54F1AE9270700E4D897 /* SRGILErrors.m in Sources */,
 				E68E95E31B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m in Sources */,
 				9F13D5451AE9270700E4D897 /* SRGILLiveHeaderData.m in Sources */,
+				9FEE125F1C1041E700AD7A8B /* SRGILTopic.m in Sources */,
 				9F13D53B1AE9270700E4D897 /* SRGILDataProvider.m in Sources */,
 				9FDA13C41BD517A00073722D /* NSBundle+SRGILDataProvider.m in Sources */,
 				9F13D5481AE9270700E4D897 /* SRGILModelObject.m in Sources */,
@@ -729,6 +753,8 @@
 				9F13D5511AE9270700E4D897 /* SRGILRequestsManager.m in Sources */,
 				9F13D53E1AE9270700E4D897 /* SRGILAssetMetadata.m in Sources */,
 				9F13D54A1AE9270700E4D897 /* SRGILPrimaryChannel.m in Sources */,
+				9FEE12651C10442000AD7A8B /* SRGILSong.m in Sources */,
+				9FEE12621C10441200AD7A8B /* SRGILSonglog.m in Sources */,
 				9F13D54C1AE9270700E4D897 /* SRGILShow.m in Sources */,
 				9F13D5471AE9270700E4D897 /* SRGILModelConstants.m in Sources */,
 				6643BD401B6B6C7100C32830 /* SRGILSearchResult.m in Sources */,
@@ -741,6 +767,7 @@
 				9F13D53A1AE9270700E4D897 /* SRGILStreamSenseAnalyticsInfos.m in Sources */,
 				9F13D53D1AE9270700E4D897 /* SRGILAsset.m in Sources */,
 				9F13D5391AE9270700E4D897 /* SRGILComScoreAnalyticsInfos.m in Sources */,
+				9FEE12681C10443100AD7A8B /* SRGILArtist.m in Sources */,
 				9F13D5411AE9270700E4D897 /* SRGILImage.m in Sources */,
 				9F13D5441AE9270700E4D897 /* SRGILLiveHeaderChannel.m in Sources */,
 				9F13D53C1AE9270700E4D897 /* SRGILAnalyticsExtendedData.m in Sources */,
@@ -754,12 +781,11 @@
 			files = (
 				9F8B389D1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m in Sources */,
 				9F1A5B2C1ACD690C00C0E528 /* SRGILMediaTest.m in Sources */,
+				9FEE126C1C10716800AD7A8B /* SRGURLComponentsTest.m in Sources */,
 				9F1A5B2B1ACD690C00C0E528 /* SRGLiveStreamVideoTest.m in Sources */,
+				9FEE126A1C105BF900AD7A8B /* SRGFetchListsTest.m in Sources */,
 				9F1A5B301ACD690C00C0E528 /* SRGTokenHandlerStubsTest.m in Sources */,
-				9F1A5B2A1ACD690C00C0E528 /* SRGILAudioTest.m in Sources */,
 				9F83AB161B29C0C800D7D8BE /* SRGILDataProviderTest.m in Sources */,
-				9F1A5B311ACD690C00C0E528 /* SRGILVideoTest.m in Sources */,
-				9F1A5B2F1ACD690C00C0E528 /* SRGRequestModelTest.m in Sources */,
 				9F1A5B2D1ACD690C00C0E528 /* SRGModelObjectTest.m in Sources */,
 				9F1A5B321ACD690C00C0E528 /* XCTestCase+JSON.m in Sources */,
 			);
@@ -826,7 +852,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -860,7 +886,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

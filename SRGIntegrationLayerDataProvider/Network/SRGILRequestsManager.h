@@ -10,8 +10,10 @@
 
 @class SRGILMedia;
 @class SRGILList;
+@class SRGILURN;
+@class SRGILURLComponents;
 
-typedef void (^SRGILRequestArrayCompletionBlock)(NSDictionary *rawDictionary, NSError *error);
+typedef void (^SRGILRequestListCompletionBlock)(NSDictionary *rawDictionary, NSError *error);
 
 @interface SRGILRequestsManager : NSObject
 
@@ -20,20 +22,15 @@ typedef void (^SRGILRequestArrayCompletionBlock)(NSDictionary *rawDictionary, NS
 - (NSString *)businessUnit;
 - (NSURL *)baseURL;
 
-- (BOOL)requestMediaOfType:(enum SRGILMediaType)mediaType
-            withIdentifier:(NSString *)assetIdentifier
-           completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)requestMediaWithURN:(SRGILURN *)URN completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 
-- (BOOL)requestShowWithIdentifier:(NSString *)identifier
-                     onCompletion:(SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)requestLiveMetaInfosWithChannelID:(NSString *)channelID completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;;
 
-- (BOOL)requestLiveMetaInfosForMediaType:(enum SRGILMediaType)mediaType
-                             withAssetId:(NSString *)assetId
-                         completionBlock:(SRGILRequestMediaCompletionBlock)completionBlock;
+- (BOOL)requestShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 
-- (BOOL)requestItemsWithURLPath:(NSString *)path
-                     onProgress:(SRGILFetchListDownloadProgressBlock)downloadBlock
-                   onCompletion:(SRGILRequestArrayCompletionBlock)completionBlock;
+- (BOOL)requestObjectsListWithURLComponents:(SRGILURLComponents *)components
+                              progressBlock:(SRGILFetchListDownloadProgressBlock)progressBlock
+                            completionBlock:(SRGILRequestListCompletionBlock)completionBlock;
 
 - (void)cancelAllRequests;
 

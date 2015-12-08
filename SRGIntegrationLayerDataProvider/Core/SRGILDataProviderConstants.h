@@ -16,7 +16,10 @@ typedef NS_ENUM (NSInteger, SRGILDataProviderErrorCode) {
     SRGILDataProviderErrorCodeEnumBegin = 0,
     SRGILDataProviderErrorCodeInvalidFetchIndex = SRGILDataProviderErrorCodeEnumBegin,
     SRGILDataProviderErrorCodeInvalidPathArgument,
+    SRGILDataProviderErrorCodeInvalidURLComponent,
+    SRGILDataProviderErrorCodeMissingURLIdentifier,
     SRGILDataProviderErrorCodeInvalidMediaIdentifier,
+    SRGILDataProviderErrorCodeInvalidMediaType,
     SRGILDataProviderErrorCodeInvalidData,
     SRGILDataProviderErrorContentProviderWrongUri,
     SRGILDataProviderErrorContentProviderBadQuery,
@@ -34,6 +37,7 @@ typedef NS_ENUM (NSInteger, SRGILDataProviderErrorCode) {
 
 // Domain for IL errors
 extern NSString *const SRGILDataProviderErrorDomain;
+extern NSString *const SRGILFetchListURLComponentsEmptySearchQueryString;
 
 /**
  *  Fetched data from the IL can be returned, organised in different ways.
@@ -55,24 +59,35 @@ typedef NS_ENUM(NSInteger, SRGILModelDataOrganisationType){
  */
 typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
     SRGILFetchListEnumBegin,
+    
     SRGILFetchListVideoLiveStreams = SRGILFetchListEnumBegin,
     SRGILFetchListVideoEditorialPicks,
+    SRGILFetchListVideoMostClicked,
     SRGILFetchListVideoMostRecent,
-    SRGILFetchListVideoMostSeen,
-    SRGILFetchListVideoShowsAZ,
-    SRGILFetchListVideoShowsAZDetail,
-    SRGILFetchListVideoShowsByDate,
-    SRGILFetchListVideoSearchResult,
-    SRGILFetchListVideoShowSearchResult,
+    SRGILFetchListVideoEpisodesByDate,
+    SRGILFetchListVideoTopics,
+    SRGILFetchListVideoMostRecentByTopic,
+    SRGILFetchListVideoSearch,
+    SRGILFetchListVideoShowsAlphabetical,
+    SRGILFetchListVideoShowsSearch,
+    SRGILFetchListVideoShowDetail,
+
     SRGILFetchListAudioLiveStreams,
+    SRGILFetchListAudioEditorialLatest,
+    SRGILFetchListAudioEpisodesLatest,
+    SRGILFetchListAudioMostClicked,
     SRGILFetchListAudioMostRecent,
-    SRGILFetchListAudioMostListened,
-    SRGILFetchListAudioShowsAZ,
-    SRGILFetchListAudioShowsAZDetail,
-    SRGILFetchListAudioShowSearchResult,
-    SRGILFetchListAudioSearchResult,
+    SRGILFetchListAudioSearch,
+    SRGILFetchListAudioShowsAlphabetical,
+    SRGILFetchListAudioShowsSearch,
+    SRGILFetchListAudioShowDetail,
+
+    SRGILFetchListSonglogPlaying,
+    SRGILFetchListSonglogLatest,
+
     SRGILFetchListMediaFavorite,
     SRGILFetchListShowFavorite,
+    
     SRGILFetchListEnumEnd,
     SRGILFetchListEnumSize = SRGILFetchListEnumEnd - SRGILFetchListEnumBegin
 };
