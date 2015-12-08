@@ -409,13 +409,8 @@ static NSArray *validBusinessUnits = nil;
     }
     
     SRGILFetchObjectCompletionBlock wrappedCompletionBlock = ^(SRGILMedia *media, NSError *error) {
-        if (error || !media) {
-            if (_identifiedMedias[urn.URNString]) {
-                completionBlock(_identifiedMedias[urn.URNString], nil);
-            }
-            else {
-                completionBlock(nil, error);
-            }
+        if (error) {
+            completionBlock(nil, error);
         }
         else {
             completionBlock(media, nil);
@@ -460,13 +455,8 @@ static NSArray *validBusinessUnits = nil;
     }
     
     SRGILFetchObjectCompletionBlock wrappedCompletionBlock = ^(SRGILShow *show, NSError *error) {
-        if (error || !show) {
-            if (_identifiedShows[identifier]) {
-                completionBlock(_identifiedShows[identifier], nil);
-            }
-            else {
-                completionBlock(nil, error);
-            }
+        if (error) {
+            completionBlock(nil, error);
         }
         else {
             completionBlock(show, nil);
