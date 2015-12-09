@@ -262,7 +262,7 @@ static NSArray *validBusinessUnits = nil;
         SRGILList *itemsList = [[SRGILList alloc] initWithArray:[items sortedArrayUsingDescriptors:@[desc]]];
         itemsList.globalProperties = properties;
         itemsList.URLComponents = components;
-        return @[items];
+        return @[itemsList];
     }
     else if (modelClass == [SRGILShow class]) {
         if (orgType == SRGILModelDataOrganisationTypeAlphabetical) {
