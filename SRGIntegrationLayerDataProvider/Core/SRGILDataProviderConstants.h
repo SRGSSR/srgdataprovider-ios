@@ -75,7 +75,6 @@ typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
 
     SRGILFetchListAudioLiveStreams,
     SRGILFetchListAudioEditorialLatest,
-    SRGILFetchListAudioEpisodesLatest,
     SRGILFetchListAudioMostClicked,
     SRGILFetchListAudioMostRecent,
     SRGILFetchListAudioSearch,

@@ -156,14 +156,6 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
         }
             break;
             
-        case SRGILFetchListAudioEpisodesLatest: {
-            if (identifier.length > 0) {
-                components.path = [NSString stringWithFormat:@"/audio/latestEpisodesByChannel/%@.json", identifier];
-                components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
-            }
-        }
-            break;
-            
         case SRGILFetchListAudioMostClicked: {
             if (identifier.length > 0) {
                 components.path = [NSString stringWithFormat:@"/audio/mostClickedByChannel/%@.json", identifier];
