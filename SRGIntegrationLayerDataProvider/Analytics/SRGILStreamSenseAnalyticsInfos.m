@@ -79,7 +79,7 @@
     [metadata safeSetValue:srg_plid   forKey:@"srg_plid"];
 
     NSString *ns_st_ty   = [NSStringFromClass([self.media class]) stringByReplacingOccurrencesOfString:@"SRGIL" withString:@""];
-    NSString *ns_st_ep   = (self.media.isLiveStream) ? @"Livestream" : [self.media.title truncateAndAddEllipsisForStatistics];
+    NSString *ns_st_ep   = (self.media.isLiveStream) ? @"Livestream" : self.media.title; // No need to truncate. See SPA-2226
     NSString *ns_st_pr   = (self.media.isLiveStream) ? self.media.assetSet.title : [NSString stringWithFormat:@"%@ %@ %@",
                                                                                     self.media.parentTitle,
                                                                                     SRGILDataProviderLocalizedString(@"on", nil),
@@ -127,7 +127,7 @@
 {
     NSMutableDictionary *metadata = [NSMutableDictionary dictionary];
     
-    NSString *ns_st_ep = (mediaFullLengthOrSegment.isLiveStream) ? @"Livestream" : [mediaFullLengthOrSegment.title truncateAndAddEllipsisForStatistics] ?: @"";
+    NSString *ns_st_ep = (mediaFullLengthOrSegment.isLiveStream) ? @"Livestream" : mediaFullLengthOrSegment.title ?: @""; // No need to truncate. See SPA-2226
     NSString *ns_st_ci = mediaFullLengthOrSegment.identifier;
     NSString *ns_st_cl = (mediaFullLengthOrSegment.isLiveStream) ? @"0" : [NSString stringWithFormat:@"%d", (int)(mediaFullLengthOrSegment.duration * 1000.f)];
     NSString *ns_st_cn = @"1";
