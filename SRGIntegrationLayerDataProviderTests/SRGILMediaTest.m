@@ -31,6 +31,11 @@
     self.media = nil;
 }
 
+- (void)testPresenceOfKeyMethodUsedInAssetInitialization
+{
+    XCTAssertTrue([SRGILMedia instancesRespondToSelector:@selector(compareMarkInTimes:)]);
+}
+
 - (void)testCorrectInitMediaTypeFlag
 {
     XCTAssertTrue([self.media type] == SRGILMediaTypeUndefined, @"Media type should be undefined at this point.");
