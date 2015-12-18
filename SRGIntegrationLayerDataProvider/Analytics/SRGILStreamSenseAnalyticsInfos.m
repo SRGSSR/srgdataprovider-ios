@@ -88,7 +88,7 @@
                                                                                     SRGILDataProviderLocalizedString(@"on", nil),
                                                                                     [euDateFormatter stringFromDate:self.media.assetSet.publishedDate]];
     
-    NSString *ns_st_el   = (self.media.isLiveStream) ? @"0" : [NSString stringWithFormat:@"%d", (int)(self.media.duration * 1000.f)];
+    NSString *ns_st_el   = (self.media.isLiveStream) ? @"0" : [NSString stringWithFormat:@"%d", (int)(self.media.durationInMillisecond)];
     NSString *ns_st_dt   = [usDateFormatter stringFromDate:(self.media.assetSet.publishedDate) ?: self.media.creationDate];
     NSString *ns_st_li   = (self.media.isLiveStream) ? @"1" : @"0";
     
