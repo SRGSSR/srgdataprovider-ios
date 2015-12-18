@@ -152,19 +152,9 @@
     return _markInMiliseconds / 1000.0;
 }
 
-- (NSInteger)markInInMillisecond
-{
-    return _markInMiliseconds;
-}
-
 - (NSTimeInterval)markOut
 {
     return _markOutMiliseconds / 1000.0;
-}
-
-- (NSInteger)markOutInMillisecond
-{
-    return _markOutMiliseconds;
 }
 
 - (NSTimeInterval)duration
@@ -175,7 +165,7 @@
 - (NSInteger)durationInMillisecond
 {
     NSInteger markInOutDuration = (_markOutMiliseconds - _markInMiliseconds);
-    if (markInOutDuration == 0) {
+    if (markInOutDuration <= 0) {
         return _durationMiliseconds;
     }
     else {
