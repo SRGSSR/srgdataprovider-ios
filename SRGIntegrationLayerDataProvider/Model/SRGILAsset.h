@@ -12,10 +12,10 @@
 @interface SRGILAsset : SRGILModelObject
 
 @property(nonatomic, strong, nullable) NSString *title;
-@property(nonatomic, strong, nullable) SRGILMedia *fullLengthMedia;
-@property(nonatomic, strong, nullable) NSArray *mediaSegments;
+@property(nonatomic, strong, nullable) NSArray *medias;
 @property(nonatomic, strong, nullable) NSArray *otherChildren;
 
-- (void)reloadWithFullLengthMedia:(nonnull SRGILMedia *)media;
+- (nullable SRGILMedia *)fullLengthMedia;
+- (nullable NSArray *)mediaSegments;
 
 @end

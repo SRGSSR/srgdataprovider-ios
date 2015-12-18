@@ -37,27 +37,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                         id item = [[itemClass alloc] initWithDictionary:rawSegment];
                         
                         if ([item isKindOfClass:[SRGILMedia class]]) {
-                            if (!_fullLengthMedia && [(SRGILMedia *)item isFullLength]) {
-                                _fullLengthMedia = item;
-                            }
-                            else {
-                                [tmpSegments addObject:item];
-                            }
+                            [tmpSegments addObject:item];
                         }
                         else {
                             [tmpChildren addObject:item];
                         }
                     }];
                     
-                    if (!_fullLengthMedia && tmpSegments.count == 1) {
-                        DDLogWarn(@"Found 1 media segment not being a full length and no full length media. Swapping and correcting fullLength value.");
-                        _fullLengthMedia = tmpSegments.firstObject;
-                        _fullLengthMedia.fullLengthNumber = @(YES);
-                        [tmpSegments removeAllObjects];
-                    }
-                    
                     if (tmpSegments.count > 0) {
-                        _mediaSegments = [tmpSegments sortedArrayUsingSelector:@selector(compareMarkInTimes:)];
+                        _medias = [tmpSegments sortedArrayUsingSelector:@selector(compareMarkInTimes:)];
                     }
 
                     if (tmpChildren.count > 0) {
@@ -76,10 +64,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     return self;
 }
 
-- (void)reloadWithFullLengthMedia:(SRGILMedia *)media
+- (SRGILMedia *)fullLengthMedia
 {
-    _fullLengthMedia = media;
-    _mediaSegments = media.segments;
+    return [[_medias filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SRGILMedia *media, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return media.isFullLength;
+    }]] firstObject];
+}
+
+- (NSArray *)mediaSegments
+{
+    return [_medias filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SRGILMedia *media, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return !media.isFullLength;
+    }]];
 }
 
 @end
