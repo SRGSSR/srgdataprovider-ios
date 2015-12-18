@@ -108,29 +108,29 @@
 /**
  * The timestamp at which the media begins, in seconds. Its value is 0 if the media is a Live stream.
  */
-@property (nonatomic, readonly, assign) NSTimeInterval markIn;
+@property (nonatomic, readonly) NSTimeInterval markIn;
+@property (nonatomic, readonly) NSInteger markInInMillisecond;
 
 /**
  * The timestamp at which the media ends, in seconds. Its value is 0 if the media is a Live stream.
  */
-@property (nonatomic, readonly, assign) NSTimeInterval markOut;
+@property (nonatomic, readonly) NSTimeInterval markOut;
+@property (nonatomic, readonly) NSInteger markOutInMillisecond;
 
 /**
- * The media duration, in milliseconds. Its value is 0 if the media is a Live stream.
+ * The media duration, in seconds. Its value is 0 if the media is a Live stream.
  */
-@property (nonatomic, readonly, assign) NSTimeInterval duration;
+@property (nonatomic, readonly) NSTimeInterval duration;
+@property (nonatomic, readonly) NSInteger durationInMillisecond;
 
 /**
- *  If the media has segments, return the full length (1st segment) duration.
- *  Otherwise return duration.
+ *  If the media has segments, return the full length duration. Otherwise return duration.
  */
-@property (nonatomic, readonly, assign) NSTimeInterval fullLengthDuration;
+@property (nonatomic, readonly) NSTimeInterval fullLengthDuration;
+@property (nonatomic, readonly) NSInteger fullLengthDurationInMillisecond;
 
 /**
  *  Complemetary analytics data.
- *  At the moment:
- *  - for RSI and RTS (but will generalized)
- *  - video only
  */
 @property(nonatomic,readonly) SRGILAnalyticsExtendedData *analyticsData;
 
@@ -154,16 +154,6 @@
 - (SRGILPlaylistSegmentation)segmentationForURL:(NSURL *)URL;
 
 /**
- * The timestamp at which the video begins, in seconds.
- */
-@property (nonatomic, strong) NSNumber *markInNumber;
-
-/**
- * The timestamp at which the video ends, in seconds.
- */
-@property (nonatomic, strong) NSNumber *markOutNumber;
-
-/**
  * Related asset (e.g. broadcast information)
  */
 @property (nonatomic, strong) SRGILAssetSet *assetSet;
@@ -174,16 +164,6 @@
 @property (nonatomic, strong) SRGILImage *image;
 
 @property (nonatomic, strong) SRGILSocialCounts *socialCounts;
-
-/**
- * Whether the video is a full length sequence
- */
-@property (nonatomic, strong) NSNumber *fullLengthNumber;
-
-/**
- * The duration of the media, in seconds. Used for audio.
- */
-@property (nonatomic, strong) NSNumber *assetDuration;
 
 /**
  * Asset set subtype (episode, trailer or livestream)

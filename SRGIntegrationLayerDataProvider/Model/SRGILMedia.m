@@ -22,8 +22,13 @@
     NSMutableDictionary *_cachedSegmentationFlags;
     NSArray *_cachedSegments;
     NSMutableDictionary *_cachedURLs;
+    BOOL _fullLength;
+    NSInteger _markInMiliseconds;
+    NSInteger _markOutMiliseconds;
+    NSInteger _durationMiliseconds;
 }
 @property (nonatomic, weak) SRGILMedia *parent;
+@property (nonatomic, assign, getter=isFullLength) BOOL fullLength;
 @end
 
 @implementation SRGILMedia
@@ -47,14 +52,13 @@
         });
         
         _creationDate = [dateFormatter dateFromString:(NSString *)[dictionary objectForKey:@"createdDate"]];
-        _fullLengthNumber = [dictionary objectForKey:@"fullLength"];
+        _fullLength = [[dictionary objectForKey:@"fullLength"] boolValue];
         
-        // Immediately makes seconds, to avoid tweaking later on.
-        _markInNumber = @([[dictionary objectForKey:@"markIn"] doubleValue] / 1000.0);
-        _markOutNumber = @([[dictionary objectForKey:@"markOut"] doubleValue] / 1000.0);
+        _markInMiliseconds = [[dictionary objectForKey:@"markIn"] integerValue];
+        _markOutMiliseconds = [[dictionary objectForKey:@"markOut"] integerValue];
         
         if ([dictionary objectForKey:@"duration"]) {
-            _assetDuration = @([[dictionary objectForKey:@"duration"] doubleValue] / 1000.0);
+            _durationMiliseconds = [[dictionary objectForKey:@"duration"] integerValue];
         }
         
         NSArray *assetMetadataDictionaries = [dictionary valueForKeyPath:@"AssetMetadatas.AssetMetadata"];
@@ -161,24 +165,44 @@
 
 - (BOOL)isFullLength
 {
-    return [self.fullLengthNumber boolValue];
+    return _fullLength;
+}
+
+- (void)setFullLength:(BOOL)flag
+{
+    _fullLength = flag;
 }
 
 - (NSTimeInterval)markIn
 {
-    return [self.markInNumber doubleValue];
+    return _markInMiliseconds / 1000.0;
+}
+
+- (NSInteger)markInInMillisecond
+{
+    return _markInMiliseconds;
 }
 
 - (NSTimeInterval)markOut
 {
-    return [self.markOutNumber doubleValue];
+    return _markOutMiliseconds / 1000.0;
+}
+
+- (NSInteger)markOutInMillisecond
+{
+    return _markOutMiliseconds;
 }
 
 - (NSTimeInterval)duration
 {
-    NSTimeInterval markInOutDuration = self.markOut - self.markIn;
+    return self.durationInMillisecond / 1000.0;
+}
+
+- (NSInteger)durationInMillisecond
+{
+    NSInteger markInOutDuration = (_markOutMiliseconds - _markInMiliseconds);
     if (markInOutDuration == 0) {
-        return [self.assetDuration doubleValue];
+        return _durationMiliseconds;
     }
     else {
         return markInOutDuration;
@@ -187,10 +211,15 @@
 
 - (NSTimeInterval)fullLengthDuration
 {
-    NSTimeInterval defaultDuration = [self duration];
+    return self.fullLengthDurationInMillisecond / 1000.0;
+}
+
+- (NSInteger)fullLengthDurationInMillisecond
+{
+    NSInteger defaultDuration = self.durationInMillisecond;
     SRGILAsset *asset = (SRGILAsset *)[self.assetSet.assets firstObject];
     if (!self.isFullLength && asset && asset.fullLengthMedia) {
-        defaultDuration = asset.fullLengthMedia.duration;
+        defaultDuration = asset.fullLengthMedia.durationInMillisecond;
     }
     return defaultDuration;
 }
@@ -198,7 +227,7 @@
 - (NSArray *)segments
 {
     if (!_cachedSegments) {
-        _cachedSegments = [(SRGILAsset *)[self.assetSet.assets firstObject] mediaSegments];
+        _cachedSegments = [(SRGILAsset *)[self.assetSet.assets firstObject] mediaSegments]; // should return the same thing as -medias;
         [_cachedSegments makeObjectsPerformSelector:@selector(setParent:) withObject:self];
     }
     return _cachedSegments;
