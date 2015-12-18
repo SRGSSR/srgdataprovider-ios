@@ -258,7 +258,7 @@ static NSArray *validBusinessUnits = nil;
         return @[itemsList];
     }
     else if (modelClass == [SRGILVideo class]) {
-        NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES];
+        NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"orderPosition" ascending:YES];
         SRGILList *itemsList = [[SRGILList alloc] initWithArray:[items sortedArrayUsingDescriptors:@[desc]]];
         itemsList.globalProperties = properties;
         itemsList.URLComponents = components;
