@@ -48,11 +48,6 @@
     XCTAssertNotNil(self.video.title, @"With correct input, video must have a title.");
 }
 
-- (void)testCorrectParentSubtitle
-{
-    XCTAssertNotNil(self.video.parentTitle, @"With correct input, video must have a parentTitle.");
-}
-
 - (void)testCorrectCreationDate
 {
     XCTAssertNotNil(self.video.creationDate, @"With correct input, video must have a creationDate.");

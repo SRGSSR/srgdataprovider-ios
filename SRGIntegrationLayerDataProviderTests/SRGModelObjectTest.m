@@ -85,7 +85,6 @@
     // Markin / markout now in seconds
     XCTAssertTrue(1.34904 == video.markOut, @"Bad markOut: %f", video.markOut);
     XCTAssertTrue(1.34904 == video.duration, @"Bad duration: %f", video.duration);
-    XCTAssertTrue([video.parentTitle isEqualToString:@"Reporter"], @"Bad parent title");
 }
 
 // Testing hlsURL fiels
