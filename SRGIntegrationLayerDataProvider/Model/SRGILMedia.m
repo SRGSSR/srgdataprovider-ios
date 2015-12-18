@@ -22,16 +22,16 @@
     NSMutableDictionary *_cachedSegmentationFlags;
     NSArray *_cachedSegments;
     NSMutableDictionary *_cachedURLs;
+    BOOL _fullLength;
+    NSInteger _markInMiliseconds;
+    NSInteger _markOutMiliseconds;
+    NSInteger _durationMiliseconds;
+    BOOL _isLivestreamPlaylist;
 }
-@property (nonatomic, weak) SRGILMedia *parent;
+@property (nonatomic, assign, getter=isFullLength) BOOL fullLength;
 @end
 
 @implementation SRGILMedia
-
-- (SRGILMediaType)type
-{
-    return SRGILMediaTypeUndefined;
-}
 
 - (id)initWithDictionary:(NSDictionary *)dictionary
 {
@@ -47,18 +47,21 @@
         });
         
         _creationDate = [dateFormatter dateFromString:(NSString *)[dictionary objectForKey:@"createdDate"]];
-        _fullLengthNumber = [dictionary objectForKey:@"fullLength"];
-        
-        // Immediately makes seconds, to avoid tweaking later on.
-        _markInNumber = @([[dictionary objectForKey:@"markIn"] doubleValue] / 1000.0);
-        _markOutNumber = @([[dictionary objectForKey:@"markOut"] doubleValue] / 1000.0);
+        _fullLength = [[dictionary objectForKey:@"fullLength"] boolValue];
+
+        NSString *positionKey = [dictionary objectForKey:@"editorialPosition"] ? @"editorialPosition" : @"position";
+        _orderPosition = [[dictionary objectForKey:positionKey] integerValue];
+
+        _markInMiliseconds = [[dictionary objectForKey:@"markIn"] integerValue];
+        _markOutMiliseconds = [[dictionary objectForKey:@"markOut"] integerValue];
         
         if ([dictionary objectForKey:@"duration"]) {
-            _assetDuration = @([[dictionary objectForKey:@"duration"] doubleValue] / 1000.0);
+            _durationMiliseconds = [[dictionary objectForKey:@"duration"] integerValue];
         }
-        
-        NSArray *assetMetadataDictionaries = [dictionary valueForKeyPath:@"AssetMetadatas.AssetMetadata"];
+
         NSMutableArray *tmp = [NSMutableArray array];
+
+        NSArray *assetMetadataDictionaries = [dictionary valueForKeyPath:@"AssetMetadatas.AssetMetadata"];
         for (NSDictionary *assetMetadataDict in assetMetadataDictionaries) {
             SRGILAssetMetadata *assetMetaData = [[SRGILAssetMetadata alloc] initWithDictionary:assetMetadataDict];
             if (assetMetaData) {
@@ -66,17 +69,12 @@
             }
         }
         _assetMetadatas = [NSArray arrayWithArray:tmp];
-        
-        _assetSet = [[SRGILAssetSet alloc] initWithDictionary:[dictionary objectForKey:@"AssetSet"]];
-        _assetSetSubType = SRGILAssetSubSetTypeForString([dictionary objectForKey:@"assetSubSetId"]);
-        
-        _image = [[SRGILImage alloc] initWithDictionary:[dictionary objectForKey:@"Image"]];
-        _blockingReason = SRGILMediaBlockingReasonForKey([dictionary objectForKey:@"block"]); // it handles missing key.
-        _shouldBeGeoblocked = ([[dictionary objectForKey:@"staticGeoBlock"] boolValue]);
-        
-        NSArray *playlistsDictionaries = [dictionary valueForKeyPath:@"Playlists.Playlist"];
         [tmp removeAllObjects];
         
+        _assetSet = [[SRGILAssetSet alloc] initWithDictionary:[dictionary objectForKey:@"AssetSet"]];
+        _image = [[SRGILImage alloc] initWithDictionary:[dictionary objectForKey:@"Image"]];
+
+        NSArray *playlistsDictionaries = [dictionary valueForKeyPath:@"Playlists.Playlist"];
         for (NSDictionary *playlistsDict in playlistsDictionaries) {
             SRGILPlaylist *playlist = [[SRGILPlaylist alloc] initWithDictionary:playlistsDict];
             if (playlist) {
@@ -84,6 +82,7 @@
             }
         }
         _playlists = [NSArray arrayWithArray:tmp];
+        [tmp removeAllObjects];
         
         NSArray *downloadsDictionaries = [dictionary valueForKeyPath:@"Downloads.Download"];
         [tmp removeAllObjects];
@@ -95,18 +94,20 @@
             }
         }
         _downloads = [NSArray arrayWithArray:tmp];
+        [tmp removeAllObjects];
         
-        NSString *positionKey = [dictionary objectForKey:@"editorialPosition"] ? @"editorialPosition" : @"position";
-        _orderPosition = [[dictionary objectForKey:positionKey] integerValue];
-        
-        _isLivestreamPlaylist = [[[dictionary valueForKey:@"Playlists"] objectForKey:@"@availability"] isEqualToString:@"LIVE"];
-        _displayable = [dictionary valueForKey:@"displayable"] ? [[dictionary valueForKey:@"displayable"] boolValue] : YES;
-        
-        _socialCounts = [[SRGILSocialCounts alloc] initWithDictionary:[dictionary objectForKey:@"SocialCounts"]];
-        
+        if ([dictionary objectForKey:@"SocialCounts"]) {
+            _socialCounts = [[SRGILSocialCounts alloc] initWithDictionary:[dictionary objectForKey:@"SocialCounts"]];
+        }
         if ([dictionary objectForKey:@"AnalyticsData"]) {
             _analyticsData = [[SRGILAnalyticsExtendedData alloc] initWithDictionary:[dictionary objectForKey:@"AnalyticsData"]];
         }
+
+        _blockingReason = SRGILMediaBlockingReasonForKey([dictionary objectForKey:@"block"]); // it handles missing key.
+        _shouldBeGeoblocked = ([[dictionary objectForKey:@"staticGeoBlock"] boolValue]);
+        _displayable = [dictionary valueForKey:@"displayable"] ? [[dictionary valueForKey:@"displayable"] boolValue] : YES;
+        _assetSetSubType = SRGILAssetSubSetTypeForString([dictionary objectForKey:@"assetSubSetId"]);
+        _isLivestreamPlaylist = [[[dictionary valueForKey:@"Playlists"] objectForKey:@"@availability"] isEqualToString:@"LIVE"];
         
         _cachedURLs = [[NSMutableDictionary alloc] init];
         [self.playlists enumerateObjectsUsingBlock:^(SRGILPlaylist *pl, NSUInteger idx, BOOL *stop) {
@@ -136,18 +137,62 @@
     return [s copy];
 }
 
-- (NSString *)title
+- (BOOL)isFullLength
 {
-    if ([self.assetMetadatas count] > 0) {
-        SRGILAssetMetadata *firstAssetMetadata = [self.assetMetadatas firstObject];
-        return firstAssetMetadata.title;
-    }
-    return nil;
+    return _fullLength;
 }
 
-- (NSString *)parentTitle
+- (void)setFullLength:(BOOL)flag
 {
-    return self.assetSet.show.title ? : self.assetSet.rubric.title;
+    _fullLength = flag;
+}
+
+- (NSTimeInterval)markIn
+{
+    return _markInMiliseconds / 1000.0;
+}
+
+- (NSInteger)markInInMillisecond
+{
+    return _markInMiliseconds;
+}
+
+- (NSTimeInterval)markOut
+{
+    return _markOutMiliseconds / 1000.0;
+}
+
+- (NSInteger)markOutInMillisecond
+{
+    return _markOutMiliseconds;
+}
+
+- (NSTimeInterval)duration
+{
+    return self.durationInMillisecond / 1000.0;
+}
+
+- (NSInteger)durationInMillisecond
+{
+    NSInteger markInOutDuration = (_markOutMiliseconds - _markInMiliseconds);
+    if (markInOutDuration == 0) {
+        return _durationMiliseconds;
+    }
+    else {
+        return markInOutDuration;
+    }
+}
+
+#pragma mark - Convenience methods
+
+- (SRGILMediaType)type
+{
+    return SRGILMediaTypeUndefined;
+}
+
+- (NSString *)title
+{
+    return [(SRGILAssetMetadata *)self.assetMetadatas.firstObject title];
 }
 
 - (BOOL)isLiveStream
@@ -158,64 +203,19 @@
     || self.isLivestreamPlaylist;
 }
 
-
-- (BOOL)isFullLength
+- (BOOL)isBlocked
 {
-    return [self.fullLengthNumber boolValue];
+    return (_blockingReason != SRGILMediaBlockingReasonNone);
 }
 
-- (NSTimeInterval)markIn
+- (NSInteger)viewCount
 {
-    return [self.markInNumber doubleValue];
+    return (self.socialCounts) ? self.socialCounts.srgView : NSNotFound;
 }
 
-- (NSTimeInterval)markOut
+- (BOOL)isLivestreamPlaylist
 {
-    return [self.markOutNumber doubleValue];
-}
-
-- (NSTimeInterval)duration
-{
-    NSTimeInterval markInOutDuration = self.markOut - self.markIn;
-    if (markInOutDuration == 0) {
-        return [self.assetDuration doubleValue];
-    }
-    else {
-        return markInOutDuration;
-    }
-}
-
-- (NSTimeInterval)fullLengthDuration
-{
-    NSTimeInterval defaultDuration = [self duration];
-    SRGILAsset *asset = (SRGILAsset *)[self.assetSet.assets firstObject];
-    if (!self.isFullLength && asset && asset.fullLengthMedia) {
-        defaultDuration = asset.fullLengthMedia.duration;
-    }
-    return defaultDuration;
-}
-
-- (NSArray *)segments
-{
-    if (!_cachedSegments) {
-        _cachedSegments = [(SRGILAsset *)[self.assetSet.assets firstObject] mediaSegments];
-        [_cachedSegments makeObjectsPerformSelector:@selector(setParent:) withObject:self];
-    }
-    return _cachedSegments;
-}
-
-- (NSComparisonResult)compareMarkInTimes:(SRGILVideo *)other
-{
-    NSAssert(other, @"Missing other instance of SRGILVideo");
-    if (other.markIn > self.markIn) {
-        return NSOrderedAscending;
-    }
-    else if (other.markIn < self.markIn) {
-        return NSOrderedDescending;
-    }
-    else {
-        return NSOrderedSame;
-    }
+    return _isLivestreamPlaylist;
 }
 
 - (NSNumber *)URLKeyForPlaylistWithProtocol:(enum SRGILPlaylistProtocol)playlistProtocol withQuality:(SRGILPlaylistURLQuality)quality
@@ -276,14 +276,29 @@
     return SRGILPlaylistSegmentationUnknown;
 }
 
-- (BOOL)isBlocked
+- (NSComparisonResult)compareMarkInTimes:(SRGILVideo *)other
 {
-    return (_blockingReason != SRGILMediaBlockingReasonNone);
+    NSAssert(other, @"Missing other instance of SRGILVideo");
+    if (other.markIn > self.markIn) {
+        return NSOrderedAscending;
+    }
+    else if (other.markIn < self.markIn) {
+        return NSOrderedDescending;
+    }
+    else {
+        return NSOrderedSame;
+    }
 }
 
-- (NSInteger)viewCount
+- (NSArray *)segments
 {
-    return (self.socialCounts) ? self.socialCounts.srgView : NSNotFound;
+    if (!_cachedSegments) {
+        _cachedSegments = [(SRGILAsset *)[self.assetSet.assets firstObject] mediaSegments]; // should return the same thing as -medias;
+        [_cachedSegments makeObjectsPerformSelector:@selector(setParent:) withObject:self];
+    }
+    return _cachedSegments;
 }
+
+
 
 @end

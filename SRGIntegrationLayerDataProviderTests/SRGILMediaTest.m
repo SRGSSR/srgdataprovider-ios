@@ -62,11 +62,6 @@
     XCTAssertNotNil(self.media.title, @"With correct input, video must have a title.");
 }
 
-- (void)testCorrectInitSubtitle
-{
-    XCTAssertNotNil(self.media.parentTitle, @"With correct input, video must have a parentTitle.");
-}
-
 - (void)testCorrectInitCreationDate
 {
     XCTAssertNotNil(self.media.creationDate, @"With correct input, video must have a creationDate.");
