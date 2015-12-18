@@ -42,7 +42,8 @@
 {
     NSMutableDictionary *metadata = [NSMutableDictionary dictionary];
     
-    NSString *ns_st_pl = [self isLiveStream] ? @"Livestream" : self.media.parentTitle;
+    NSString *parentTitle = self.media.assetSet.show.title ?: self.media.assetSet.rubric.title;
+    NSString *ns_st_pl = [self isLiveStream] ? @"Livestream" : parentTitle;
     [metadata safeSetValue:ns_st_pl forKey:@"ns_st_pl"];
     
     NSString *srg_unit_c = [businessUnit uppercaseString];
@@ -78,14 +79,16 @@
     [metadata safeSetValue:srg_mgeobl forKey:@"srg_mgeobl"];
     [metadata safeSetValue:srg_plid   forKey:@"srg_plid"];
 
+    NSString *parentTitle = self.media.assetSet.show.title ?: self.media.assetSet.rubric.title;
+
     NSString *ns_st_ty   = [NSStringFromClass([self.media class]) stringByReplacingOccurrencesOfString:@"SRGIL" withString:@""];
     NSString *ns_st_ep   = (self.media.isLiveStream) ? @"Livestream" : self.media.title; // No need to truncate. See SPA-2226
     NSString *ns_st_pr   = (self.media.isLiveStream) ? self.media.assetSet.title : [NSString stringWithFormat:@"%@ %@ %@",
-                                                                                    self.media.parentTitle,
+                                                                                    parentTitle,
                                                                                     SRGILDataProviderLocalizedString(@"on", nil),
                                                                                     [euDateFormatter stringFromDate:self.media.assetSet.publishedDate]];
     
-    NSString *ns_st_el   = (self.media.isLiveStream) ? @"0" : [NSString stringWithFormat:@"%d", (int)(self.media.fullLengthDuration * 1000.f)];
+    NSString *ns_st_el   = (self.media.isLiveStream) ? @"0" : [NSString stringWithFormat:@"%d", (int)(self.media.duration * 1000.f)];
     NSString *ns_st_dt   = [usDateFormatter stringFromDate:(self.media.assetSet.publishedDate) ?: self.media.creationDate];
     NSString *ns_st_li   = (self.media.isLiveStream) ? @"1" : @"0";
     

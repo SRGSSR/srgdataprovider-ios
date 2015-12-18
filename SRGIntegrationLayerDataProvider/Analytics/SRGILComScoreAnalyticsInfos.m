@@ -68,12 +68,14 @@
     NSString *srg_n2 = nil;
     NSString *title = nil;
 
+    NSString *parentTitle = self.media.assetSet.show.title ?: self.media.assetSet.rubric.title;
+    
     if ([self.media isLiveStream]) {
         srg_n2 = @"Live";
-        title = [self.media.parentTitle comScoreFormattedString];
+        title = [parentTitle comScoreFormattedString];
     }
     else {
-        srg_n2 = [self.media.parentTitle comScoreFormattedString];
+        srg_n2 = [parentTitle comScoreFormattedString];
         title = [self.media.title comScoreFormattedString];
     }
 
