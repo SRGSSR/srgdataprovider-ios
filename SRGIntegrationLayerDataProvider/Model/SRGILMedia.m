@@ -103,6 +103,17 @@
             _analyticsData = [[SRGILAnalyticsExtendedData alloc] initWithDictionary:[dictionary objectForKey:@"AnalyticsData"]];
         }
 
+        _trendingContributor = SRGILMediaTrendContributorUnknown;
+        if ([dictionary objectForKey:@"trendContributor"]) {
+            NSString *rawValue = [dictionary objectForKey:@"trendContributor"];
+            if ([@"USER" isEqualToString:[rawValue uppercaseString]]) {
+                _trendingContributor = SRGILMediaTrendContributorUser;
+            }
+            else if ([@"EDITOR" isEqualToString:[rawValue uppercaseString]]) {
+                _trendingContributor = SRGILMediaTrendContributorEditor;
+            }
+        }
+
         _blockingReason = SRGILMediaBlockingReasonForKey([dictionary objectForKey:@"block"]); // it handles missing key.
         _shouldBeGeoblocked = ([[dictionary objectForKey:@"staticGeoBlock"] boolValue]);
         _displayable = [dictionary valueForKey:@"displayable"] ? [[dictionary valueForKey:@"displayable"] boolValue] : YES;

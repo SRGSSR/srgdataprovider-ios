@@ -74,6 +74,11 @@
  */
 @property (nonatomic, strong) SRGILImage *image;
 
+/**
+ *  Complementary analytics data.
+ */
+@property(nonatomic, readonly) SRGILAnalyticsExtendedData *analyticsData;
+
 
 // -- Children
 
@@ -87,15 +92,6 @@
  */
 @property (nonatomic, strong) NSArray *downloads;
 
-/**
- * Array of social counts of the video
- */
-@property (nonatomic, strong) SRGILSocialCounts *socialCounts;
-
-/**
- *  Complemetary analytics data.
- */
-@property(nonatomic,readonly) SRGILAnalyticsExtendedData *analyticsData;
 
 
 // -- Flags
@@ -127,8 +123,15 @@
  */
 @property (nonatomic, assign, readonly) SRGILAssetSubSetType assetSetSubType;
 
+/**
+ * Array of social counts of the video
+ */
+@property (nonatomic, strong, readonly) SRGILSocialCounts *socialCounts;
 
-
+/**
+ *  The trending picks contributor.
+ */
+@property (nonatomic, assign, readonly) SRGILMediaTrendContributor trendingContributor;
 
 
 // --- Convenience Computed Methods
