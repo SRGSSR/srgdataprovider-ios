@@ -147,7 +147,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         
         if (!parentMedia.fullLength || parentMedia.segments.count == 0) {
             SRGILAsset * asset = parentMedia.assetSet.assets.firstObject;
-            if (![asset fullLengthMedia] && ([asset mediaSegments].count == asset.mediaSegments.count)) // Asset with segments but without a full length
+            if (![asset fullLengthMedia] && ([asset mediaSegments].count > 1)) // Asset with segments but without a full length
             {
                 completionHandler(asset.mediaSegments, nil);
             }
