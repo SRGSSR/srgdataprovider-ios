@@ -114,5 +114,10 @@ SRGILDownloadProtocol SRGILDownloadProtocolForString(NSString *protocolString);
 SRGILDownloadURLQuality SRGILDownloadURLQualityForString(NSString *qualityString);
 
 
+typedef NS_ENUM(NSInteger, SRGILMediaTrendContributor) {
+    SRGILMediaTrendContributorUnknown,
+    SRGILMediaTrendContributorUser,
+    SRGILMediaTrendContributorEditor,
+};
 
 #endif
