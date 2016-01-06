@@ -66,6 +66,8 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
             
         case SRGILFetchListVideoTrendingPicks:
             components.path = @"/video/trendingPicks.json";
+            components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"10"],
+                                      [NSURLQueryItem queryItemWithName:@"onlyEpisodes" value:@"true"]];
             break;
             
         case SRGILFetchListVideoLiveStreams:
