@@ -258,8 +258,12 @@ static NSArray *validBusinessUnits = nil;
         return @[itemsList];
     }
     else if (modelClass == [SRGILVideo class]) {
-        NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"orderPosition" ascending:YES];
-        SRGILList *itemsList = [[SRGILList alloc] initWithArray:[items sortedArrayUsingDescriptors:@[desc]]];
+        NSArray *orderPositions = [items valueForKeyPath:@"@distinctUnionOfObjects.orderPosition"];
+        if (orderPositions.count == items.count) {
+            NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"orderPosition" ascending:YES];
+            items = [items sortedArrayUsingDescriptors:@[desc]];
+        }
+        SRGILList *itemsList = [[SRGILList alloc] initWithArray:items];
         itemsList.globalProperties = properties;
         itemsList.URLComponents = components;
         return @[itemsList];
