@@ -241,6 +241,8 @@ static SGVReachability *reachability;
     NSURL *completeURL = [self.baseURL URLByAppendingPathComponent:path];
     NSURLSessionTask *task = [self.URLSession dataTaskWithURL:completeURL completionHandler:completion];
     
+    DDLogDebug(@"Requesting complete URL %@ for identifier %@", completeURL, identifier);
+    
     ongoingRequest = [[SRGILOngoingRequest alloc] initWithTask:task];
     [ongoingRequest addCompletionBlock:completionBlock];
 

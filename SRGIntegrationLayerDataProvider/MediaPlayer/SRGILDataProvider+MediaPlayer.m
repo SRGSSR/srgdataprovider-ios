@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import <CocoaLumberjack/CocoaLumberjack.h>
 #import <libextobjc/EXTScope.h>
 #import <objc/runtime.h>
 
@@ -26,6 +27,12 @@
 #import "SRGILModelConstants.h"
 
 #import "NSBundle+SRGILDataProvider.h"
+
+#ifdef DEBUG
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+#endif
 
 static void *kAnalyticsInfosAssociatedObjectKey = &kAnalyticsInfosAssociatedObjectKey;
 
@@ -72,6 +79,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
             self.identifiedMedias[urnString] = media;
             
             if (media.defaultContentURL) {
+                DDLogDebug(@"Found default content URL %@ for identifier %@", media.defaultContentURL, urnString);
                 [self prepareAnalyticsInfosForMedia:media withContentURL:media.defaultContentURL];
                 
                 [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.defaultContentURL
