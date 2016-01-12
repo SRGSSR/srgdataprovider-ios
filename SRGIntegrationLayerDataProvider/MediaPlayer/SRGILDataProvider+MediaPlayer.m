@@ -53,14 +53,10 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 {
     NSAssert(urnString, @"Missing identifier to work with.");
     
-    if (!self.analyticsInfos) {
-        self.analyticsInfos = [[NSMutableDictionary alloc] init];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(sendViewCountMetaDataUponMediaPlayerPlaybackStateChange:)
-                                                     name:RTSMediaPlayerPlaybackStateDidChangeNotification
-                                                   object:nil];
-    }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sendViewCountMetaDataUponMediaPlayerPlaybackStateChange:)
+                                                 name:RTSMediaPlayerPlaybackStateDidChangeNotification
+                                               object:nil];
     
     SRGILMedia *existingMedia = self.identifiedMedias[urnString];
     
@@ -144,10 +140,6 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
      segmentsForIdentifier:(NSString *)urnString
      withCompletionHandler:(RTSMediaSegmentsCompletionHandler)completionHandler;
 {
-    if (!self.analyticsInfos) {
-        self.analyticsInfos = [[NSMutableDictionary alloc] init];
-    }
-    
     void (^segmentsAndAnalyticsBlock)(SRGILMedia *) = ^(SRGILMedia *parentMedia) {
         if (parentMedia.defaultContentURL) {
             [self prepareAnalyticsInfosForMedia:parentMedia withContentURL:parentMedia.defaultContentURL];
@@ -222,6 +214,10 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     NSParameterAssert(media);
     NSParameterAssert(contentURL);
     NSParameterAssert(media.urnString);
+    
+    if (!self.analyticsInfos) {
+        self.analyticsInfos = [[NSMutableDictionary alloc] init];
+    }
     
     // Do not check for existing sources. Allow to override the sources with a freshly-(re)downloaded media.
     
