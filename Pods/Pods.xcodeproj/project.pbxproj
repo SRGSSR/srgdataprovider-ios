@@ -183,6 +183,7 @@
 		754925A07F438A791DB7CC9BCCDC9626 /* OCMMacroState.h in Headers */ = {isa = PBXBuildFile; fileRef = F4A597CD5231366ACA35DA965C9D7C00 /* OCMMacroState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7667B767D4E06DFC2621CDA02195ED5D /* TransitionKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BA52B07AB622A68041118579F6A063AF /* TransitionKit-dummy.m */; };
 		76975C82E4A006D345FA01BC0F8ED719 /* RTSAnalyticsNetmetrixTracker_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 2862C3A2043AC21F46AC02E36BC7F50F /* RTSAnalyticsNetmetrixTracker_private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		772239694413EB9C8B04AB5BB78A7F03 /* RTSMediaPlayerVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 143CBD3F00D81E322932229DF5538BD4 /* RTSMediaPlayerVersion.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks -DRTS_MEDIA_PLAYER_VERSION=1.5.18 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		77B7BBDE49680062C8BF524ADB5CD08A /* OCMLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = D6EA04CD7A8E53B826B9099249BF618A /* OCMLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77CC7AF370444D34ED189ABCE0F1C8EE /* UIViewController+RTSAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B02C63969906B6FE5E79C04EBAE00D9 /* UIViewController+RTSAnalytics.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		780C8A976103EC6C25E4684C2F2C0DEF /* RTSTimelineSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 153836795D1B96C321CE72BD715F4306 /* RTSTimelineSlider.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -198,7 +199,6 @@
 		7A715B6E5262B84A8512A27A0A201CD6 /* SRGILAnalyticsInfosProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = BF64E242F995A82B005F5A3A4FB32683 /* SRGILAnalyticsInfosProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BD2FFBC72625D5C5A052663A2F8BD16 /* UIButton+WebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = E7BFF756357D6C3A6F499F47E92D9376 /* UIButton+WebCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE0E3A48A5D84C513BA3236254D50EB /* SDImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = DE640E697243ED74BB48702F2CAB8329 /* SDImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7C3E4D800F217D0846972DFFF9321F7A /* RTSAnalyticsVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 27601DED520FA0E1B4D45734B20343DE /* RTSAnalyticsVersion.m */; settings = {COMPILER_FLAGS = "-DRTS_ANALYTICS_VERSION=1.4.4 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		7CEE1646B9BDFDD0C79BC9257070CBBE /* SRGILMedia+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 48367584A340D4C8EBD88F0081F43FB0 /* SRGILMedia+MediaPlayer.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		7F3DB85B453ACFEF9E6E70724836C6A2 /* RTSMediaPlayerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498DA482FDA4AF0279B2EA2768E1982 /* RTSMediaPlayerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F58EB9E5F3415CAD7C07FF8671D8645 /* RTSMediaPlayerError.h in Headers */ = {isa = PBXBuildFile; fileRef = 217E7A983F3F5588B0EC8B6ADF8A0541 /* RTSMediaPlayerError.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -347,6 +347,7 @@
 		D812BB9A2C1A483D1E0FEB32FBDB9D60 /* SRGIntegrationLayerDataProvider-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DE99AEDCA0BF15C7479C0493D1F2146C /* SRGIntegrationLayerDataProvider-dummy.m */; };
 		D86F62CA5DFEB5481E009AF3C783B179 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB985F08FCBDF03525F5555524B462A8 /* Foundation.framework */; };
 		D8C4BF3EAD4C8F83459CC34B72731572 /* RTSAnalyticsNetmetrixTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A751BD288936872D2B1DF143E509C5C /* RTSAnalyticsNetmetrixTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8E66F23F1DE7D70D3D6F555770D3904 /* RTSAnalyticsVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 27601DED520FA0E1B4D45734B20343DE /* RTSAnalyticsVersion.m */; settings = {COMPILER_FLAGS = "-DRTS_ANALYTICS_VERSION=1.4.7 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		D8F47FA9EE68C7EAAA46388EBBCF089E /* KIFUITestActor.h in Headers */ = {isa = PBXBuildFile; fileRef = 757658850BFBFE1DD59E8C96D4E2F267 /* KIFUITestActor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D98EED0AB16406D566E2E7F20FF77ABF /* KIFUITestActor.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8CB250F2A637843F05498990F53278 /* KIFUITestActor.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		DC701921C2A23CA558A958AA0370CE4E /* NSMethodSignature+OCMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD932EC418F5BDCF031404ED7452CBE /* NSMethodSignature+OCMAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -357,7 +358,6 @@
 		DFE38EEB7BDEB03CAE4E4950260898C2 /* OCMock-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6738888CC1015783BED7CBC2554ACB4D /* OCMock-dummy.m */; };
 		E00C051A0963DBABFDFD450D25A233AA /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF48C6F441F3832FE526B18E069999C /* SDWebImageDownloader.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		E086BB8A9FD9CA6E4B4F7DC0EBCA2F7E /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F95CC75D66555CF530C55959B37A050 /* metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E236A3050B897F6A8035B9C2B03BDA85 /* RTSMediaPlayerVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 143CBD3F00D81E322932229DF5538BD4 /* RTSMediaPlayerVersion.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks -DRTS_MEDIA_PLAYER_VERSION=1.5.16 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		E2B93BE62E747D66B547F9DDA1D7D286 /* NSError-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F5BE9F7B8A2B5BA977E24CDDC56991E3 /* NSError-KIFAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3CF91C2079D2ED5091293DA58A371C7 /* SDWebImageDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EC8FDD67CFC968B6273469A92110B7A2 /* SDWebImageDownloaderOperation.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		E49001E9EEF830943668F669CB5EA9EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB985F08FCBDF03525F5555524B462A8 /* Foundation.framework */; };
@@ -2972,7 +2972,7 @@
 				C328339EE88CED63EA455132C2712AE0 /* RTSMediaPlayerLogger.m in Sources */,
 				54397E5EC384805A9732254946A85FAF /* RTSMediaPlayerPlaybackButton.m in Sources */,
 				1639FCEFF634AC5326122ADF21363C4B /* RTSMediaPlayerSharedController.m in Sources */,
-				E236A3050B897F6A8035B9C2B03BDA85 /* RTSMediaPlayerVersion.m in Sources */,
+				772239694413EB9C8B04AB5BB78A7F03 /* RTSMediaPlayerVersion.m in Sources */,
 				D28BA71DFB345683A3685F46F464FD8E /* RTSMediaPlayerView.m in Sources */,
 				F58ADA692056D79CA2EB6A80A0CF9A48 /* RTSMediaPlayerViewController.m in Sources */,
 				51ACA175991B11AD78148F291ACA024F /* RTSMediaSegmentsController.m in Sources */,
@@ -3095,7 +3095,7 @@
 				7A651765B0ED8D4559FEA50F1AF95249 /* RTSAnalyticsNetmetrixTracker.m in Sources */,
 				30CF2CD05239832D120063B31A660E49 /* RTSAnalyticsTracker+Logging.m in Sources */,
 				3BEAAAB23C22F4C9A0D37ECEA3E842F1 /* RTSAnalyticsTracker.m in Sources */,
-				7C3E4D800F217D0846972DFFF9321F7A /* RTSAnalyticsVersion.m in Sources */,
+				D8E66F23F1DE7D70D3D6F555770D3904 /* RTSAnalyticsVersion.m in Sources */,
 				5840CA80DE7071C81FDD9EC258F279E8 /* RTSMediaPlayerController+RTSAnalytics.m in Sources */,
 				1C7C6B6E2312C4EE32A65B08EC11F6DF /* RTSMediaPlayerControllerStreamSenseTracker.m in Sources */,
 				EAFDCAF3E604376F12243EC88EE534F6 /* RTSMediaPlayerControllerTracker.m in Sources */,
