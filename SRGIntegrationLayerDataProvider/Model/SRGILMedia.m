@@ -300,6 +300,11 @@
     return _cachedSegments;
 }
 
+- (NSArray *)allMedias
+{
+    return [(SRGILAsset *)[self.assetSet.assets firstObject] medias];
+}
+
 
 
 @end
