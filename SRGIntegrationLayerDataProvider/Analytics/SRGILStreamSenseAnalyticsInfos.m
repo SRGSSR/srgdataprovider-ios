@@ -6,6 +6,7 @@
 
 #import <SRGAnalytics/NSDictionary+RTSAnalytics.h>
 #import <SRGAnalytics/NSString+RTSAnalytics.h>
+#import <SRGMediaPlayer/SRGMediaPlayer.h>
 
 #import "SRGILStreamSenseAnalyticsInfos.h"
 
@@ -141,10 +142,17 @@
     [metadata safeSetValue:ns_st_cl forKey:@"ns_st_sl"]; // Identical to ns_st_cl. How nice. My Mental Healh doctor is coming at 2pm. On every saturday. Which day are we today? Oh... nurse is coming in... that's probably the time for my pills.
     [metadata safeSetValue:ns_st_cn forKey:@"ns_st_cn"];
     
-    if (mediaFullLengthOrSegment.isFullLength) {
+    // Physical segment
+    if ([RTSMediaSegmentsController isFullLengthSegment:mediaFullLengthOrSegment]) {
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id<RTSMediaSegment>  _Nonnull segment, NSDictionary<NSString *,id> * _Nullable bindings) {
+            return ![RTSMediaSegmentsController isFullLengthSegment:segment];
+        }];
+        NSArray *logicalSegments = [mediaFullLengthOrSegment.segments filteredArrayUsingPredicate:predicate];
+        
         [metadata safeSetValue:@"1" forKey:@"ns_st_pn"];
-        [metadata safeSetValue:@(1 + self.media.segments.count).stringValue forKey:@"ns_st_tp"];
+        [metadata safeSetValue:@(1 + logicalSegments.count).stringValue forKey:@"ns_st_tp"];
     }
+    // Logical segment
     else {
         NSArray *allMediasIdentifiers = [[self.media allMedias] valueForKeyPath:@"identifier"];
         [metadata safeSetValue:@([allMediasIdentifiers indexOfObject:mediaFullLengthOrSegment.identifier] + 1).stringValue forKey:@"ns_st_pn"]; // starts at 1 anyway
