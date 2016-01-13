@@ -99,16 +99,6 @@
     [metadata safeSetValue:ns_st_li forKey:@"ns_st_li"];
     [metadata safeSetValue:ns_st_pr forKey:@"ns_st_pr"];
     
-    if (self.media.isFullLength) {
-        [metadata safeSetValue:@"1" forKey:@"ns_st_pn"];
-        [metadata safeSetValue:@(1 + self.media.segments.count).stringValue forKey:@"ns_st_tp"];
-    }
-    else {
-        NSArray *allMediasIdentifiers = [[self.media allMedias] valueForKeyPath:@"identifier"];
-        [metadata safeSetValue:@([allMediasIdentifiers indexOfObject:self.media.identifier] + 1).stringValue forKey:@"ns_st_pn"]; // starts at 1 anyway
-        [metadata safeSetValue:@(allMediasIdentifiers.count).stringValue forKey:@"ns_st_tp"];
-    }
-        
     // Placeholder for values of SMAC-4163:
     if (self.media.analyticsData.extendedData.count > 0) {
         [metadata addEntriesFromDictionary:self.media.analyticsData.extendedData];
@@ -150,6 +140,16 @@
     [metadata safeSetValue:ns_st_cl forKey:@"ns_st_cl"];
     [metadata safeSetValue:ns_st_cl forKey:@"ns_st_sl"]; // Identical to ns_st_cl. How nice. My Mental Healh doctor is coming at 2pm. On every saturday. Which day are we today? Oh... nurse is coming in... that's probably the time for my pills.
     [metadata safeSetValue:ns_st_cn forKey:@"ns_st_cn"];
+    
+    if (mediaFullLengthOrSegment.isFullLength) {
+        [metadata safeSetValue:@"1" forKey:@"ns_st_pn"];
+        [metadata safeSetValue:@(1 + self.media.segments.count).stringValue forKey:@"ns_st_tp"];
+    }
+    else {
+        NSArray *allMediasIdentifiers = [[self.media allMedias] valueForKeyPath:@"identifier"];
+        [metadata safeSetValue:@([allMediasIdentifiers indexOfObject:mediaFullLengthOrSegment.identifier] + 1).stringValue forKey:@"ns_st_pn"]; // starts at 1 anyway
+        [metadata safeSetValue:@(allMediasIdentifiers.count).stringValue forKey:@"ns_st_tp"];
+    }
 
     return [metadata copy];
 }
