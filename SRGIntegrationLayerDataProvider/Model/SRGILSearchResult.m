@@ -30,28 +30,22 @@
         // The IL is broken by design. Chiote.
         
         id tmp = [dictionary valueForKeyPath:@"parentIds.id"];
-        if ([tmp isKindOfClass:[NSArray class]]) {
-            tmp = [(NSArray *)tmp lastObject];
-        }
-        if ([tmp isKindOfClass:[NSDictionary class]]) {
-            if ([@"assetgroup" isEqualToString:tmp[@"@ref"]]) {
-                _assetGroupId = tmp[@"text"];
+        for (NSDictionary *subtmp in tmp) {
+            if ([@"assetgroup" isEqualToString:subtmp[@"@ref"]]) {
+                _assetGroupId = subtmp[@"text"];
             }
-            if ([@"assetset" isEqualToString:tmp[@"@ref"]]) {
-                _assetSetId = tmp[@"text"];
+            if ([@"assetset" isEqualToString:subtmp[@"@ref"]]) {
+                _assetSetId = subtmp[@"text"];
             }
         }
         
         tmp = [dictionary valueForKeyPath:@"parentTitles.title"];
-        if ([tmp isKindOfClass:[NSArray class]]) {
-            tmp = [(NSArray *)tmp lastObject];
-        }
-        if ([tmp isKindOfClass:[NSDictionary class]]) {
-            if ([@"assetgroup" isEqualToString:tmp[@"@ref"]]) {
-                _assetGroupTitle = tmp[@"text"];
+        for (NSDictionary *subtmp in tmp) {
+            if ([@"assetgroup" isEqualToString:subtmp[@"@ref"]]) {
+                _assetGroupTitle = subtmp[@"text"];
             }
-            if ([@"assetset" isEqualToString:tmp[@"@ref"]]) {
-                _assetSetTitle = tmp[@"text"];
+            if ([@"assetset" isEqualToString:subtmp[@"@ref"]]) {
+                _assetSetTitle = subtmp[@"text"];
             }
         }
     }
