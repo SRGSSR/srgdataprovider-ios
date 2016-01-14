@@ -145,20 +145,14 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"segmentIdentifier == %@", mediaFullLengthOrSegment.segmentIdentifier];
     NSArray *segmentsWithCommonIdentifier = [[self.media allMedias] filteredArrayUsingPredicate:predicate];
     
-    if (segmentsWithCommonIdentifier.count > 1) {
-        if (!mediaFullLengthOrSegment.logical) {
-            [metadata safeSetValue:@"1" forKey:@"ns_st_pn"];
-            [metadata safeSetValue:@(segmentsWithCommonIdentifier.count).stringValue forKey:@"ns_st_tp"];
-        }
-        else {
-            NSArray *allMediasIdentifiers = [[self.media allMedias] valueForKeyPath:@"identifier"];
-            [metadata safeSetValue:@([allMediasIdentifiers indexOfObject:mediaFullLengthOrSegment.identifier] + 1).stringValue forKey:@"ns_st_pn"]; // starts at 1 anyway
-            [metadata safeSetValue:@(MAX(allMediasIdentifiers.count, 1)).stringValue forKey:@"ns_st_tp"];
-        }
+    if (mediaFullLengthOrSegment.isFullLength) {
+        [metadata safeSetValue:@"1" forKey:@"ns_st_pn"];
+        [metadata safeSetValue:@(1 + self.media.segments.count).stringValue forKey:@"ns_st_tp"];
     }
     else {
-        [metadata safeSetValue:@"1" forKey:@"ns_st_pn"];
-        [metadata safeSetValue:@"1" forKey:@"ns_st_tp"];
+        NSArray *allMediasIdentifiers = [[self.media allMedias] valueForKeyPath:@"identifier"];
+        [metadata safeSetValue:@([allMediasIdentifiers indexOfObject:mediaFullLengthOrSegment.identifier] + 1).stringValue forKey:@"ns_st_pn"]; // starts at 1 anyway
+        [metadata safeSetValue:@(allMediasIdentifiers.count).stringValue forKey:@"ns_st_tp"];
     }
     
     return [metadata copy];
