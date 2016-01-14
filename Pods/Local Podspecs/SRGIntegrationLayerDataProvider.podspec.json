@@ -69,13 +69,13 @@
 
         ],
         "SRGMediaPlayer": [
-          "~> 1.5.0"
+          "~> 1.6"
         ],
         "SRGAnalytics": [
-          "~> 1.4.7"
+          "~> 1.4.8"
         ],
         "SRGAnalytics/MediaPlayer": [
-          "~> 1.4.7"
+          "~> 1.4.8"
         ]
       }
     }
