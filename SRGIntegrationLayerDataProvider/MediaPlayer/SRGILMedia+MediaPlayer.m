@@ -31,7 +31,8 @@
 
 - (BOOL)isLogical
 {
-    return !self.isFullLength;
+    // Only logical segments in audio
+    return self.type == SRGILMediaTypeVideo && !self.isFullLength;
 }
 
 - (BOOL)isVisible
