@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import <CocoaLumberjack/CocoaLumberjack.h>
 #import <libextobjc/EXTScope.h>
 #import <objc/runtime.h>
 
@@ -27,6 +28,12 @@
 
 #import "NSBundle+SRGILDataProvider.h"
 
+#ifdef DEBUG
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+#endif
+
 static void *kAnalyticsInfosAssociatedObjectKey = &kAnalyticsInfosAssociatedObjectKey;
 
 static NSString * const comScoreKeyPathPrefix = @"SRGILComScoreAnalyticsInfos.";
@@ -46,14 +53,10 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 {
     NSAssert(urnString, @"Missing identifier to work with.");
     
-    if (!self.analyticsInfos) {
-        self.analyticsInfos = [[NSMutableDictionary alloc] init];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(sendViewCountMetaDataUponMediaPlayerPlaybackStateChange:)
-                                                     name:RTSMediaPlayerPlaybackStateDidChangeNotification
-                                                   object:nil];
-    }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sendViewCountMetaDataUponMediaPlayerPlaybackStateChange:)
+                                                 name:RTSMediaPlayerPlaybackStateDidChangeNotification
+                                               object:nil];
     
     SRGILMedia *existingMedia = self.identifiedMedias[urnString];
     
@@ -72,6 +75,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
             self.identifiedMedias[urnString] = media;
             
             if (media.defaultContentURL) {
+                DDLogDebug(@"Found default content URL %@ for identifier %@", media.defaultContentURL, urnString);
                 [self prepareAnalyticsInfosForMedia:media withContentURL:media.defaultContentURL];
                 
                 [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.defaultContentURL
@@ -136,10 +140,6 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
      segmentsForIdentifier:(NSString *)urnString
      withCompletionHandler:(RTSMediaSegmentsCompletionHandler)completionHandler;
 {
-    if (!self.analyticsInfos) {
-        self.analyticsInfos = [[NSMutableDictionary alloc] init];
-    }
-    
     void (^segmentsAndAnalyticsBlock)(SRGILMedia *) = ^(SRGILMedia *parentMedia) {
         if (parentMedia.defaultContentURL) {
             [self prepareAnalyticsInfosForMedia:parentMedia withContentURL:parentMedia.defaultContentURL];
@@ -214,6 +214,10 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     NSParameterAssert(media);
     NSParameterAssert(contentURL);
     NSParameterAssert(media.urnString);
+    
+    if (!self.analyticsInfos) {
+        self.analyticsInfos = [[NSMutableDictionary alloc] init];
+    }
     
     // Do not check for existing sources. Allow to override the sources with a freshly-(re)downloaded media.
     

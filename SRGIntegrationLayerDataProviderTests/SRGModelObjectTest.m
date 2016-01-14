@@ -83,8 +83,8 @@
      */
     XCTAssertTrue(0.0f == video.markIn, @"Bad markIn");
     // Markin / markout now in seconds
-    XCTAssertTrue(1.34904 == video.markOut, @"Bad markOut: %f", video.markOut);
-    XCTAssertTrue(1.34904 == video.duration, @"Bad duration: %f", video.duration);
+    XCTAssertTrue(1.3490 == video.markOut, @"Bad markOut: %f", video.markOut);
+    XCTAssertTrue(1.3490 == video.duration, @"Bad duration: %f", video.duration);
 }
 
 // Testing hlsURL fiels

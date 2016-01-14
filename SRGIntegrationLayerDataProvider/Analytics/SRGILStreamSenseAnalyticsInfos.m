@@ -6,9 +6,11 @@
 
 #import <SRGAnalytics/NSDictionary+RTSAnalytics.h>
 #import <SRGAnalytics/NSString+RTSAnalytics.h>
+#import <SRGMediaPlayer/SRGMediaPlayer.h>
 
 #import "SRGILStreamSenseAnalyticsInfos.h"
 
+#import "SRGILMedia+MediaPlayer.h"
 #import "SRGILModel.h"
 #import "SRGILAnalyticsInfosProtocol.h"
 #import "NSBundle+SRGILDataProvider.h"
@@ -133,14 +135,32 @@
     NSString *ns_st_ep = (mediaFullLengthOrSegment.isLiveStream) ? @"Livestream" : mediaFullLengthOrSegment.title ?: @""; // No need to truncate. See SPA-2226
     NSString *ns_st_ci = mediaFullLengthOrSegment.identifier;
     NSString *ns_st_cl = (mediaFullLengthOrSegment.isLiveStream) ? @"0" : [NSString stringWithFormat:@"%ld", mediaFullLengthOrSegment.durationInMillisecond];
-    NSString *ns_st_cn = @"1";
 
     [metadata safeSetValue:ns_st_ep forKey:@"ns_st_ep"];
     [metadata safeSetValue:ns_st_ci forKey:@"ns_st_ci"];
     [metadata safeSetValue:ns_st_cl forKey:@"ns_st_cl"];
     [metadata safeSetValue:ns_st_cl forKey:@"ns_st_sl"]; // Identical to ns_st_cl. How nice. My Mental Healh doctor is coming at 2pm. On every saturday. Which day are we today? Oh... nurse is coming in... that's probably the time for my pills.
-    [metadata safeSetValue:ns_st_cn forKey:@"ns_st_cn"];
-
+    [metadata safeSetValue:@"1" forKey:@"ns_st_cn"];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"segmentIdentifier == %@", mediaFullLengthOrSegment.segmentIdentifier];
+    NSArray *segmentsWithCommonIdentifier = [[self.media allMedias] filteredArrayUsingPredicate:predicate];
+    
+    if (segmentsWithCommonIdentifier.count > 1) {
+        if (!mediaFullLengthOrSegment.logical) {
+            [metadata safeSetValue:@"1" forKey:@"ns_st_pn"];
+            [metadata safeSetValue:@(segmentsWithCommonIdentifier.count).stringValue forKey:@"ns_st_tp"];
+        }
+        else {
+            NSArray *allMediasIdentifiers = [[self.media allMedias] valueForKeyPath:@"identifier"];
+            [metadata safeSetValue:@([allMediasIdentifiers indexOfObject:mediaFullLengthOrSegment.identifier] + 1).stringValue forKey:@"ns_st_pn"]; // starts at 1 anyway
+            [metadata safeSetValue:@(MAX(allMediasIdentifiers.count, 1)).stringValue forKey:@"ns_st_tp"];
+        }
+    }
+    else {
+        [metadata safeSetValue:@"1" forKey:@"ns_st_pn"];
+        [metadata safeSetValue:@"1" forKey:@"ns_st_tp"];
+    }
+    
     return [metadata copy];
 }
 

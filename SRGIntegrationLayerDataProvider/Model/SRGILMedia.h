@@ -235,6 +235,13 @@
  */
 - (NSArray *)segments;
 
+/**
+ *  While the above methods -[segments] filters out the possible presence of a full length, this ones does not
+ *  apply any filter whatsoever, and returns the raw list of medias as provided by the IL.
+ *
+ *  @return An array of SRGILMedia instances.
+ */
+- (NSArray *)allMedias;
 
 
 

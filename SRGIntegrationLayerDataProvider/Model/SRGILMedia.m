@@ -138,7 +138,7 @@
 - (NSString *)description
 {
     NSMutableString *s = [[NSMutableString alloc] init];
-    [s appendFormat:@"<%@: %.1f|%.1f|%.1f", NSStringFromClass([self class]), self.markIn, self.duration, self.markOut];
+    [s appendFormat:@"<%@%@ (%@) : %.1f|%.1f|%.1f", self.fullLength ? @"[FULL] " : @"", NSStringFromClass([self class]), self.title, self.markIn, self.duration, self.markOut];
     if ([self.segments count]) {
         for (SRGILMedia *media in self.segments) {
             [s appendFormat:@"\n - %@", [media description]];
@@ -298,6 +298,11 @@
         [_cachedSegments makeObjectsPerformSelector:@selector(setParent:) withObject:self];
     }
     return _cachedSegments;
+}
+
+- (NSArray *)allMedias
+{
+    return [(SRGILAsset *)[self.assetSet.assets firstObject] medias];
 }
 
 

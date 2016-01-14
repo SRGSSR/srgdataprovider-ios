@@ -102,9 +102,8 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
 
         case SRGILFetchListVideoMostRecentByTopic: {
             if (identifier.length > 0) {
-                components.path = @"/video/editorialPlayerLatest.json";
-                components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"],
-                                          [NSURLQueryItem queryItemWithName:@"topic" value:identifier]];
+                components.path = [NSString stringWithFormat:@"/video/editorialPlayerLatestByTopic/%@.json", identifier];
+                components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
             }
         }
             break;

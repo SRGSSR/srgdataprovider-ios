@@ -29,6 +29,11 @@
     return CMTimeRangeFromTimeToTime(CMTimeMakeWithSeconds(self.markIn, 1.), CMTimeMakeWithSeconds(markOunt, 1.));
 }
 
+- (BOOL)isLogical
+{
+    return !self.isFullLength;
+}
+
 - (BOOL)isVisible
 {
     if (self.type == SRGILMediaTypeVideo) {
