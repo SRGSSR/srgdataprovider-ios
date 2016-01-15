@@ -30,6 +30,9 @@
         // The IL is broken by design. Chiote.
         
         id tmp = [dictionary valueForKeyPath:@"parentIds.id"];
+        if ([tmp isKindOfClass:[NSDictionary class]]) {
+            tmp = @[tmp];
+        }
         for (NSDictionary *subtmp in tmp) {
             if ([@"assetgroup" isEqualToString:subtmp[@"@ref"]]) {
                 _assetGroupId = subtmp[@"text"];
@@ -40,6 +43,9 @@
         }
         
         tmp = [dictionary valueForKeyPath:@"parentTitles.title"];
+        if ([tmp isKindOfClass:[NSDictionary class]]) {
+            tmp = @[tmp];
+        }
         for (NSDictionary *subtmp in tmp) {
             if ([@"assetgroup" isEqualToString:subtmp[@"@ref"]]) {
                 _assetGroupTitle = subtmp[@"text"];
