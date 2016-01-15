@@ -91,6 +91,7 @@ static NSArray *validBusinessUnits = nil;
 
 - (void)dealloc
 {
+    // Cleanup any notification registration which could have been made in subspec files
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
