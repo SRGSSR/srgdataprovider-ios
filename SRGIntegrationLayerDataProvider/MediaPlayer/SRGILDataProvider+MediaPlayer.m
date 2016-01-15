@@ -35,12 +35,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 #endif
 
 static void *kAnalyticsInfosAssociatedObjectKey = &kAnalyticsInfosAssociatedObjectKey;
+static void *kRegisteredAsObserverKey = &kRegisteredAsObserverKey;
 
 static NSString * const comScoreKeyPathPrefix = @"SRGILComScoreAnalyticsInfos.";
 static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsInfos.";
 
 @interface SRGILDataProvider (MediaPlayerPrivate)
 @property(nonatomic, strong) NSMutableDictionary *analyticsInfos;
+@property(nonatomic, getter=isRegisteredAsObserver) BOOL registeredAsObserver;
 @end
 
 @implementation SRGILDataProvider (MediaPlayer)
@@ -53,10 +55,16 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 {
     NSAssert(urnString, @"Missing identifier to work with.");
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(sendViewCountMetaDataUponMediaPlayerPlaybackStateChange:)
-                                                 name:RTSMediaPlayerPlaybackStateDidChangeNotification
-                                               object:nil];
+    // Register once. Since we are in a category, we cannot override initialization and deallocation methods (well, we could
+    // swizzle them...). Instead, lazily register. The -[SRGILDataProvider dealloc] method has been implemented to properly
+    // unregisters from the notification center
+    if (!self.registeredAsObserver) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(sendViewCountMetaDataUponMediaPlayerPlaybackStateChange:)
+                                                     name:RTSMediaPlayerPlaybackStateDidChangeNotification
+                                                   object:nil];
+        self.registeredAsObserver = YES;
+    }
     
     SRGILMedia *existingMedia = self.identifiedMedias[urnString];
     
@@ -304,6 +312,16 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 - (void)setAnalyticsInfos:(NSMutableDictionary *)analyticsInfos
 {
     objc_setAssociatedObject(self, kAnalyticsInfosAssociatedObjectKey, analyticsInfos, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)isRegisteredAsObserver
+{
+    return [objc_getAssociatedObject(self, kRegisteredAsObserverKey) boolValue];
+}
+
+- (void)setRegisteredAsObserver:(BOOL)registeredAsObserver
+{
+    objc_setAssociatedObject(self, kRegisteredAsObserverKey, @(registeredAsObserver), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
