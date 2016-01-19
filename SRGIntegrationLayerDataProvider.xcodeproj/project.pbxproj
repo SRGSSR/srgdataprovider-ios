@@ -927,10 +927,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B6FF59926E98E782269D426 /* Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -946,10 +942,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89BB786265D118894389B3BF /* Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = SRGIntegrationLayerDataProviderTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.rts.$(PRODUCT_NAME:rfc1034identifier)";
