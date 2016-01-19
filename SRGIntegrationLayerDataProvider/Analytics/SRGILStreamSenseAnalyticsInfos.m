@@ -141,10 +141,7 @@
     [metadata safeSetValue:ns_st_cl forKey:@"ns_st_cl"];
     [metadata safeSetValue:ns_st_cl forKey:@"ns_st_sl"]; // Identical to ns_st_cl. How nice. My Mental Healh doctor is coming at 2pm. On every saturday. Which day are we today? Oh... nurse is coming in... that's probably the time for my pills.
     [metadata safeSetValue:@"1" forKey:@"ns_st_cn"];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"segmentIdentifier == %@", mediaFullLengthOrSegment.segmentIdentifier];
-    NSArray *segmentsWithCommonIdentifier = [[self.media allMedias] filteredArrayUsingPredicate:predicate];
-    
+        
     // Audios have only physical segments with ns_st_el = ns_st_cl
     if (mediaFullLengthOrSegment.type == SRGILMediaTypeAudio) {
         [metadata safeSetValue:@"1" forKey:@"ns_st_pn"];

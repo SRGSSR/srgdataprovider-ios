@@ -262,7 +262,7 @@ static NSArray *validBusinessUnits = nil;
         NSArray *orderPositions = [items valueForKeyPath:@"@distinctUnionOfObjects.orderPosition"];
         if (orderPositions.count == items.count) {
             NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"orderPosition" ascending:YES];
-            items = [items sortedArrayUsingDescriptors:@[desc]];
+            items = [[items sortedArrayUsingDescriptors:@[desc]] mutableCopy];
         }
         SRGILList *itemsList = [[SRGILList alloc] initWithArray:items];
         itemsList.globalProperties = properties;
