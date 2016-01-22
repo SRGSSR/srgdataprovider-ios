@@ -5,8 +5,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SRGILAnalyticsInfosProtocol.h"
 
-@protocol SRGILAnalyticsInfos;
 @class SRGILMedia;
 
 @interface SRGILStreamSenseAnalyticsInfos : NSObject <SRGILAnalyticsInfos>
