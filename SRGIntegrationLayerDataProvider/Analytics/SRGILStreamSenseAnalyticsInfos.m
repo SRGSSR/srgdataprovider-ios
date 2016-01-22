@@ -141,9 +141,15 @@
     [metadata safeSetValue:ns_st_cl forKey:@"ns_st_cl"];
     [metadata safeSetValue:ns_st_cl forKey:@"ns_st_sl"]; // Identical to ns_st_cl. How nice. My Mental Healh doctor is coming at 2pm. On every saturday. Which day are we today? Oh... nurse is coming in... that's probably the time for my pills.
     [metadata safeSetValue:@"1" forKey:@"ns_st_cn"];
-        
+    
+    // Always 1 / 1 for live streams
+    if (mediaFullLengthOrSegment.isLiveStream) {
+        [metadata safeSetValue:@"1" forKey:@"ns_st_pn"];
+        [metadata safeSetValue:@"1" forKey:@"ns_st_tp"];
+        [metadata safeSetValue:@"0" forKey:@"ns_st_el"];
+    }
     // Audios have only physical segments with ns_st_el = ns_st_cl
-    if (mediaFullLengthOrSegment.type == SRGILMediaTypeAudio) {
+    else if (mediaFullLengthOrSegment.type == SRGILMediaTypeAudio) {
         [metadata safeSetValue:@"1" forKey:@"ns_st_pn"];
         [metadata safeSetValue:@"1" forKey:@"ns_st_tp"];
         [metadata safeSetValue:ns_st_cl forKey:@"ns_st_el"];
