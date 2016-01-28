@@ -44,6 +44,11 @@ typedef void (^SRGILRequestListCompletionBlock)(NSDictionary *rawDictionary, NSE
 + (BOOL)isUsingWIFI;
 
 /**
+ *  Return YES iff online
+ */
++ (BOOL)isOnline;
+
+/**
  *  As a central network-based request, the request manager also provide some utilities.
  *
  *  @return Returns the SSID string of the current WIFI, if 'isUsingWIFI' returns 'YES'.

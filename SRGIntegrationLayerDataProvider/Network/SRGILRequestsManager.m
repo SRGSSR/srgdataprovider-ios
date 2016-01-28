@@ -419,6 +419,11 @@ static SGVReachability *reachability;
     return [reachability isReachableViaWiFi];
 }
 
++ (BOOL)isOnline
+{
+    return [reachability isReachable];
+}
+
 + (NSString *)WIFISSID
 {
     if ([SRGILRequestsManager isUsingWIFI]) {
