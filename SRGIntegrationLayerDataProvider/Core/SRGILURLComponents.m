@@ -460,4 +460,33 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
     return [self.wrapped URLRelativeToURL:baseURL];
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    SRGILURLComponents *copy = [[SRGILURLComponents alloc] init];
+    copy.wrapped = [self.wrapped copyWithZone:zone];
+    copy.index = self.index;
+    copy.identifier = [self.identifier copyWithZone:zone];
+    return copy;
+}
+
+#pragma mark - NSObject
+
+- (BOOL)isEqual:(id)anObject
+{
+    if ([anObject isKindOfClass:[SRGILURLComponents class]]) {
+        SRGILURLComponents *anOtherURLComponents = (SRGILURLComponents *)anObject;
+        return ([self.wrapped.URL isEqual:anOtherURLComponents.wrapped.URL] &&
+                self.index == anOtherURLComponents.index);
+    }
+    else
+        return NO;
+}
+
+- (NSUInteger)hash
+{
+    return self.wrapped.URL.hash ^ (self.index + 1);
+}
+
 @end
