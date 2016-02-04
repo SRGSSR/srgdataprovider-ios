@@ -50,7 +50,7 @@ NSString *SRGILMediaBlockingReasonMessageForReason(SRGILMediaBlockingReason reas
     dispatch_once(&onceToken, ^{
         messages = @{ @(SRGILMediaBlockingReasonGeoblock) : SRGILDataProviderLocalizedString(@"For legal reasons, this content is not available in your region.", nil),
                       @(SRGILMediaBlockingReasonLegal) : SRGILDataProviderLocalizedString(@"This content is not available due to legal restrictions.", nil),
-                      @(SRGILMediaBlockingReasonCommercial) : SRGILDataProviderLocalizedString(@"Advertisement will not be shown. Please wait – playback will start soon.", nil),
+                      @(SRGILMediaBlockingReasonCommercial) : SRGILDataProviderLocalizedString(@"Commercial is being skipped. Please wait – playback will resume shortly.", nil),
                       @(SRGILMediaBlockingReasonAgeRating18) : SRGILDataProviderLocalizedString(@"To protect children under the age of 18, this content is only available between 11 p.m. and 5 a.m.", nil),
                       @(SRGILMediaBlockingReasonAgeRating12) : SRGILDataProviderLocalizedString(@"To protect children under the age of 12, this content is only available between 8 p.m. and 6 a.m.", nil),
                       @(SRGILMediaBlockingReasonStartDate) : SRGILDataProviderLocalizedString(@"This content is not yet available. Please try again later.", nil),
