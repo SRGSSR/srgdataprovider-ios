@@ -135,7 +135,12 @@ static NSArray *validBusinessUnits = nil;
                                              completionBlock:^(NSDictionary *rawDictionary, NSError *error) {
                                                  @strongify(self);
                                                  [_ongoingFetches removeObject:components];
-                                                 // Error handling is handled in extractItems...
+                                                 
+                                                 if (error) {
+                                                     completionBlock ? completionBlock(nil, Nil, error) : nil;
+                                                     return;
+                                                 }
+                                                 
                                                  [self recordFetchDateForIndex:components.index];
                                                  [self extractItemsAndClassNameFromRawDictionary:rawDictionary
                                                                                 forURLComponents:components
