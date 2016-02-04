@@ -7,33 +7,16 @@
 #import <Foundation/Foundation.h>
 
 /**
- * Our error codes
- *
- * Let's try to keep this in sync with the Android code ( ErrorCursor.java )
- *
+ * Error codes
  */
 typedef NS_ENUM (NSInteger, SRGILDataProviderErrorCode) {
     SRGILDataProviderErrorCodeInvalidRequest,
     SRGILDataProviderErrorCodeInvalidData,
-    
-    SRGILDataProviderErrorCodeInvalidMediaIdentifier,
-    SRGILDataProviderErrorCodeInvalidMediaType,
-
-    SRGILDataProviderErrorContentProviderWrongUri,
-    SRGILDataProviderErrorContentProviderBadQuery,
-    SRGILDataProviderErrorHttpIo,
-    SRGILDataProviderErrorHttpCode, /* for unknown http errors, otherwise it's always >= 100 */
-    SRGILDataProviderErrorJsonIo,
-    SRGILDataProviderErrorJsonParse,
-    SRGILDataProviderErrorJsonMalformedObject,
-    SRGILDataProviderErrorJsonEmptyResponse,
-    SRGILDataProviderErrorVideoNoSourceURL,
-    SRGILDataProviderErrorVideoNoSourceURLForToken
+    SRGILDataProviderErrorCodeUnavailable
 };
 
 // Domain for IL errors
-extern NSString *const SRGILDataProviderErrorDomain;
-extern NSString *const SRGILFetchListURLComponentsEmptySearchQueryString;
+extern NSString * const SRGILDataProviderErrorDomain;
 
 /**
  *  Fetched data from the IL can be returned, organised in different ways.
@@ -87,3 +70,8 @@ typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
     SRGILFetchListEnumEnd,
     SRGILFetchListEnumSize = SRGILFetchListEnumEnd - SRGILFetchListEnumBegin
 };
+
+/**
+ * Miscellaneous
+ */
+extern NSString *const SRGILFetchListURLComponentsEmptySearchQueryString;

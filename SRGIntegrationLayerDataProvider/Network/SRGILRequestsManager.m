@@ -92,7 +92,7 @@ static SGVReachability *reachability;
         default: {
             NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                                  code:SRGILDataProviderErrorCodeInvalidRequest
-                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The request is invalid", nil) }];
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The request is invalid.", nil) }];
             completionBlock(nil, error);
             return NO;
             break;
@@ -175,7 +175,7 @@ static SGVReachability *reachability;
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                                      code:SRGILDataProviderErrorCodeInvalidData
-                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid", nil) }];
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
                 callCompletionBlocks(nil, error);
             });
             return;
@@ -187,7 +187,7 @@ static SGVReachability *reachability;
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                                      code:SRGILDataProviderErrorCodeInvalidData
-                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid", nil) }];
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
                 callCompletionBlocks(nil, error);
             });
             return;
@@ -267,7 +267,7 @@ static SGVReachability *reachability;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                                          code:SRGILDataProviderErrorCodeInvalidData
-                                                     userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid", nil) }];
+                                                     userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
                     completionBlock(nil, error);
                 });
                 return;

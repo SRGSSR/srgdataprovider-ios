@@ -48,13 +48,13 @@ NSString *SRGILMediaBlockingReasonMessageForReason(SRGILMediaBlockingReason reas
     static dispatch_once_t onceToken;
     static NSDictionary *messages;
     dispatch_once(&onceToken, ^{
-        messages = @{ @(SRGILMediaBlockingReasonGeoblock) : SRGILDataProviderLocalizedString(@"For legal reasons, this video is not available in your region.", nil),
-                      @(SRGILMediaBlockingReasonLegal) : SRGILDataProviderLocalizedString(@"The video cannot be transmitted for legal reasons.", nil),
-                      @(SRGILMediaBlockingReasonCommercial) : SRGILDataProviderLocalizedString(@"Advertising will not be shown. Please wait – video will appear shortly.", nil),
-                      @(SRGILMediaBlockingReasonAgeRating18) : SRGILDataProviderLocalizedString(@"To protect children under the age of 18, this video is only available between 11 p.m. and 5 a.m.", nil),
-                      @(SRGILMediaBlockingReasonAgeRating12) : SRGILDataProviderLocalizedString(@"To protect children under the age of 12, this video is only available between 8 p.m. and 6 a.m.", nil),
-                      @(SRGILMediaBlockingReasonStartDate) : SRGILDataProviderLocalizedString(@"This video is not yet available. Please try again later.", nil),
-                      @(SRGILMediaBlockingReasonEndDate) : SRGILDataProviderLocalizedString(@"For legal reasons, this video was only available for a specified period of time.", nil) };
+        messages = @{ @(SRGILMediaBlockingReasonGeoblock) : SRGILDataProviderLocalizedString(@"For legal reasons, this content is not available in your region.", nil),
+                      @(SRGILMediaBlockingReasonLegal) : SRGILDataProviderLocalizedString(@"This content is not available due to legal restrictions.", nil),
+                      @(SRGILMediaBlockingReasonCommercial) : SRGILDataProviderLocalizedString(@"Advertisement will not be shown. Please wait – playback will start soon.", nil),
+                      @(SRGILMediaBlockingReasonAgeRating18) : SRGILDataProviderLocalizedString(@"To protect children under the age of 18, this content is only available between 11 p.m. and 5 a.m.", nil),
+                      @(SRGILMediaBlockingReasonAgeRating12) : SRGILDataProviderLocalizedString(@"To protect children under the age of 12, this content is only available between 8 p.m. and 6 a.m.", nil),
+                      @(SRGILMediaBlockingReasonStartDate) : SRGILDataProviderLocalizedString(@"This content is not yet available. Please try again later.", nil),
+                      @(SRGILMediaBlockingReasonEndDate) : SRGILDataProviderLocalizedString(@"For legal reasons, this content was only available for a limited period of time.", nil) };
     });
     return messages[@(reason)] ?: @"";
 }

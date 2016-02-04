@@ -51,7 +51,7 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
         if (error) {
             *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                          code:SRGILDataProviderErrorCodeInvalidRequest
-                                     userInfo:@{NSLocalizedDescriptionKey:SRGILDataProviderLocalizedString(@"The request is invalid", nil)}];
+                                     userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The request is invalid.", nil) }];
         }
         return nil;
     }
@@ -228,7 +228,7 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
         if (error) {
             *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                          code:SRGILDataProviderErrorCodeInvalidRequest
-                                     userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The request is invalid", nil) }];
+                                     userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The request is invalid.", nil) }];
         }
         return nil;
     }

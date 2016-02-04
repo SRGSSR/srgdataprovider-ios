@@ -70,8 +70,8 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     void (^playBlock)(SRGILMedia *, NSError *) = ^(SRGILMedia *media, NSError *error) {
         if (!error && media.isBlocked) {
             error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                        code:SRGILDataProviderErrorVideoNoSourceURL
-                                    userInfo:@{NSLocalizedDescriptionKey: SRGILMediaBlockingReasonMessageForReason(media.blockingReason)}];
+                                        code:SRGILDataProviderErrorCodeUnavailable
+                                    userInfo:@{ NSLocalizedDescriptionKey : SRGILMediaBlockingReasonMessageForReason(media.blockingReason) }];
         }
         
         if (error) {
@@ -106,38 +106,27 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
             }
             else {
                 NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                     code:SRGILDataProviderErrorVideoNoSourceURL
-                                                 userInfo:nil];
-                
+                                                     code:SRGILDataProviderErrorCodeUnavailable
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The media cannot be played.", nil) }];
                 completionHandler(nil, error);
             }
         }
     };
     
-    if (!existingMedia || !existingMedia.defaultContentURL) {
-        SRGILURN *urn = [SRGILURN URNWithString:urnString];
-        
-        NSString *errorMessage = nil;
-        if (!urn) {
-            errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Unable to create URN from string '%@', which is needed to proceed.", nil), urnString];
-        }
-        else if (urn.mediaType == SRGILMediaTypeUndefined) {
-            errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Undefined mediaType inferred from URN string '%@'.", nil), urnString];
-        }
-        
-        if (errorMessage) {
-            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                 code:SRGILDataProviderErrorCodeInvalidMediaIdentifier
-                                             userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
-            
-            completionHandler(nil, error);
-        }
-        else {
-            [self.requestManager requestMediaWithURN:urn completionBlock:playBlock];
-        }
+    if (existingMedia && existingMedia.defaultContentURL) {
+        playBlock(existingMedia, nil);
     }
     else {
-        playBlock(existingMedia, nil);
+        SRGILURN *urn = [SRGILURN URNWithString:urnString];
+        if (!urn || urn.mediaType == SRGILMediaTypeUndefined) {
+            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                 code:SRGILDataProviderErrorCodeInvalidData
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The media cannot be played.", nil) }];
+            completionHandler(nil, error);
+            return;
+        }
+        
+        [self.requestManager requestMediaWithURN:urn completionBlock:playBlock];
     }
 }
 
@@ -180,37 +169,27 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     }
     else {
         SRGILURN *urn = [SRGILURN URNWithString:urnString];
-        
-        NSString *errorMessage = nil;
-        if (!urn) {
-            errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Unable to create URN from string '%@', which is needed to proceed.", nil), urnString];
-        }
-        else if (urn.mediaType == SRGILMediaTypeUndefined) {
-            errorMessage = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"Undefined mediaType inferred from URN string '%@'.", nil), urnString];
-        }
-        
-        if (errorMessage) {
+        if (!urn || urn.mediaType == SRGILMediaTypeUndefined) {
             NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                 code:SRGILDataProviderErrorCodeInvalidMediaIdentifier
-                                             userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
-            
+                                                 code:SRGILDataProviderErrorCodeInvalidData
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The media cannot be played.", nil) }];
             completionHandler(nil, error);
+            return;
         }
-        else {
-            @weakify(self)
-            [self.requestManager requestMediaWithURN:urn
-                                     completionBlock:^(SRGILMedia *media, NSError *error) {
-                                         @strongify(self)   
-                                         if (error) {
-                                             [self.identifiedMedias removeObjectForKey:urnString];
-                                             completionHandler(nil, error);
-                                         }
-                                         else {
-                                             self.identifiedMedias[urnString] = media;
-                                             segmentsAndAnalyticsBlock(media);
-                                         }
-                                     }];
-        }
+        
+        @weakify(self)
+        [self.requestManager requestMediaWithURN:urn
+                                 completionBlock:^(SRGILMedia *media, NSError *error) {
+                                     @strongify(self)
+                                     if (error) {
+                                         [self.identifiedMedias removeObjectForKey:urnString];
+                                         completionHandler(nil, error);
+                                     }
+                                     else {
+                                         self.identifiedMedias[urnString] = media;
+                                         segmentsAndAnalyticsBlock(media);
+                                     }
+                                 }];
     }
 }
 

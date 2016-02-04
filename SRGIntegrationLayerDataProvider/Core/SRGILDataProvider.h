@@ -139,7 +139,7 @@ typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * _
  *
  *  @return A boolean indicating if the fetch is started or not. If not, the completion block is called immediately with an error.
  */
-- (BOOL)fetchLiveMetaInfosWithWitChannelID:(nonnull NSString *)channelID completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
+- (BOOL)fetchLiveMetaInfosWithChannelID:(nonnull NSString *)channelID completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
 
 /**
  * Fetch show with given identifier.
