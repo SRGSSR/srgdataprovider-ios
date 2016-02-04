@@ -13,14 +13,12 @@
  *
  */
 typedef NS_ENUM (NSInteger, SRGILDataProviderErrorCode) {
-    SRGILDataProviderErrorCodeEnumBegin = 0,
-    SRGILDataProviderErrorCodeInvalidFetchIndex = SRGILDataProviderErrorCodeEnumBegin,
-    SRGILDataProviderErrorCodeInvalidPathArgument,
-    SRGILDataProviderErrorCodeInvalidURLComponent,
-    SRGILDataProviderErrorCodeMissingURLIdentifier,
+    SRGILDataProviderErrorCodeInvalidRequest,
+    SRGILDataProviderErrorCodeInvalidData,
+    
     SRGILDataProviderErrorCodeInvalidMediaIdentifier,
     SRGILDataProviderErrorCodeInvalidMediaType,
-    SRGILDataProviderErrorCodeInvalidData,
+
     SRGILDataProviderErrorContentProviderWrongUri,
     SRGILDataProviderErrorContentProviderBadQuery,
     SRGILDataProviderErrorHttpIo,
@@ -30,9 +28,7 @@ typedef NS_ENUM (NSInteger, SRGILDataProviderErrorCode) {
     SRGILDataProviderErrorJsonMalformedObject,
     SRGILDataProviderErrorJsonEmptyResponse,
     SRGILDataProviderErrorVideoNoSourceURL,
-    SRGILDataProviderErrorVideoNoSourceURLForToken,
-    SRGILDataProviderErrorCodeEnumEnd,
-    SRGILDataProviderErrorCodeEnumSize = SRGILDataProviderErrorCodeEnumEnd - SRGILDataProviderErrorCodeEnumBegin
+    SRGILDataProviderErrorVideoNoSourceURLForToken
 };
 
 // Domain for IL errors

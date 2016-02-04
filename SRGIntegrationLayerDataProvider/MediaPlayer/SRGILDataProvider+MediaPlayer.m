@@ -15,7 +15,6 @@
 #import "SRGILDataProvider+Private.h"
 #import "SRGILDataProviderConstants.h"
 
-#import "SRGILErrors.h"
 #import "SRGILRequestsManager.h"
 #import "SRGILTokenHandler.h"
 

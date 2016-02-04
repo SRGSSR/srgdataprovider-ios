@@ -8,7 +8,6 @@
 
 #import "SRGILTokenHandler.h"
 #import "SRGILDataProviderConstants.h"
-#import "SRGILErrors.h"
 #import "NSBundle+SRGILDataProvider.h"
 
 #ifdef DEBUG

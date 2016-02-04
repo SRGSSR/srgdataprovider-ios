@@ -30,7 +30,6 @@
 		9F13D54C1AE9270700E4D897 /* SRGILShow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D52B1AE9270700E4D897 /* SRGILShow.m */; };
 		9F13D54D1AE9270700E4D897 /* SRGILSocialCounts.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D52D1AE9270700E4D897 /* SRGILSocialCounts.m */; };
 		9F13D54E1AE9270700E4D897 /* SRGILVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D52F1AE9270700E4D897 /* SRGILVideo.m */; };
-		9F13D54F1AE9270700E4D897 /* SRGILErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5321AE9270700E4D897 /* SRGILErrors.m */; };
 		9F13D5511AE9270700E4D897 /* SRGILRequestsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5361AE9270700E4D897 /* SRGILRequestsManager.m */; };
 		9F13D5521AE9270700E4D897 /* SRGILTokenHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5381AE9270700E4D897 /* SRGILTokenHandler.m */; };
 		9F1A5B2B1ACD690C00C0E528 /* SRGLiveStreamVideoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A5B181ACD68E700C0E528 /* SRGLiveStreamVideoTest.m */; };
@@ -162,8 +161,6 @@
 		9F13D52D1AE9270700E4D897 /* SRGILSocialCounts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILSocialCounts.m; sourceTree = "<group>"; };
 		9F13D52E1AE9270700E4D897 /* SRGILVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILVideo.h; sourceTree = "<group>"; };
 		9F13D52F1AE9270700E4D897 /* SRGILVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILVideo.m; sourceTree = "<group>"; };
-		9F13D5311AE9270700E4D897 /* SRGILErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILErrors.h; sourceTree = "<group>"; };
-		9F13D5321AE9270700E4D897 /* SRGILErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILErrors.m; sourceTree = "<group>"; };
 		9F13D5351AE9270700E4D897 /* SRGILRequestsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILRequestsManager.h; sourceTree = "<group>"; };
 		9F13D5361AE9270700E4D897 /* SRGILRequestsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILRequestsManager.m; sourceTree = "<group>"; };
 		9F13D5371AE9270700E4D897 /* SRGILTokenHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILTokenHandler.h; sourceTree = "<group>"; };
@@ -361,8 +358,6 @@
 		9F13D5301AE9270700E4D897 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				9F13D5311AE9270700E4D897 /* SRGILErrors.h */,
-				9F13D5321AE9270700E4D897 /* SRGILErrors.m */,
 				9F13D5161AE9270700E4D897 /* SRGILList.h */,
 				9F13D5171AE9270700E4D897 /* SRGILList.m */,
 				E604EAFA1B174254004A627D /* SRGILOngoingRequest+Private.h */,
@@ -754,7 +749,6 @@
 				9F13D5461AE9270700E4D897 /* SRGILMedia.m in Sources */,
 				9F13D53F1AE9270700E4D897 /* SRGILAssetSet.m in Sources */,
 				9FF55F9A1B4B0F5900A99DA2 /* SRGILDataProviderConstants.m in Sources */,
-				9F13D54F1AE9270700E4D897 /* SRGILErrors.m in Sources */,
 				E68E95E31B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m in Sources */,
 				9F13D5451AE9270700E4D897 /* SRGILLiveHeaderData.m in Sources */,
 				9FEE125F1C1041E700AD7A8B /* SRGILTopic.m in Sources */,

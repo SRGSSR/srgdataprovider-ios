@@ -14,7 +14,6 @@
 #import "SRGILModel.h"
 
 #import "SRGILList.h"
-#import "SRGILErrors.h"
 #import "SRGILRequestsManager.h"
 #import "SRGILURLComponents.h"
 #import "SRGILURLComponents+Private.h"
@@ -150,9 +149,14 @@ static NSArray *validBusinessUnits = nil;
                                  organisationType:(SRGILModelDataOrganisationType)orgType
                               withCompletionBlock:(SRGILFetchListCompletionBlock)completionBlock
 {
+    // As for now, we will only extract items from a dictionary that has a single key/value pair.
     if ([[rawDictionary allKeys] count] != 1) {
-        // As for now, we will only extract items from a dictionary that has a single key/value pair.
-        [self sendUserFacingErrorForURLComponents:components withTechError:nil completionBlock:completionBlock];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                 code:SRGILDataProviderErrorCodeInvalidData
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid", nil) }];
+            completionBlock(nil, nil, error);
+        });
         return;
     }
     
@@ -189,21 +193,29 @@ static NSArray *validBusinessUnits = nil;
     }
     
     if (!className) {
-        [self sendUserFacingErrorForURLComponents:components withTechError:nil completionBlock:completionBlock];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                 code:SRGILDataProviderErrorCodeInvalidData
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid", nil) }];
+            completionBlock(nil, nil, error);
+        });
     }
     else {
         Class itemClass = NSClassFromString([itemClassPrefix stringByAppendingString:className]);
         
-        NSError *error = nil;
         NSArray *organisedItems = [self organiseItemsWithGlobalProperties:globalProperties
                                                           rawDictionaries:itemsDictionaries
                                                          forURLComponents:components
                                                          organisationType:orgType
-                                                               modelClass:itemClass
-                                                                    error:&error];
+                                                               modelClass:itemClass];
         
-        if (error) {
-            [self sendUserFacingErrorForURLComponents:components withTechError:error completionBlock:completionBlock];
+        if (!organisedItems) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                     code:SRGILDataProviderErrorCodeInvalidData
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid", nil) }];
+                completionBlock(nil, nil, error);
+            });
         }
         else {
             DDLogInfo(@"[Info] Returning %tu organised data item for path %@", [organisedItems count], components.string);
@@ -223,7 +235,6 @@ static NSArray *validBusinessUnits = nil;
                               forURLComponents:(SRGILURLComponents *)components
                               organisationType:(SRGILModelDataOrganisationType)orgType
                                     modelClass:(Class)modelClass
-                                         error:(NSError * __autoreleasing *)error;
 {
     NSMutableArray *items = [[NSMutableArray alloc] init];
     [dictionaries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -352,26 +363,8 @@ static NSArray *validBusinessUnits = nil;
         return @[itemsList];
     }
     else {
-        if (error) {
-            NSString *message = SRGILDataProviderLocalizedString(@"The received data is invalid.", nil);
-            *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                         code:SRGILDataProviderErrorCodeInvalidData
-                                     userInfo:@{NSLocalizedDescriptionKey: message}];
-        }
+        return nil;
     }
-    
-    return nil;
-}
-
-- (void)sendUserFacingErrorForURLComponents:(SRGILURLComponents *)components
-                              withTechError:(NSError *)techError
-                            completionBlock:(SRGILFetchListCompletionBlock)completionBlock
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *reason = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"The received data is invalid for tag %@", nil), @(components.index)];
-        NSError *newError = SRGILCreateUserFacingError(reason, techError, SRGILDataProviderErrorCodeInvalidData);
-        completionBlock(nil, nil, newError);
-    });
 }
 
 #pragma mark - Fetch Dates
