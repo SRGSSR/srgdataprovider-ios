@@ -8,7 +8,6 @@
 
 #import "SRGILTokenHandler.h"
 #import "SRGILDataProviderConstants.h"
-#import "SRGILErrors.h"
 #import "NSBundle+SRGILDataProvider.h"
 
 #ifdef DEBUG
@@ -78,8 +77,9 @@ static NSString *const SRGILTokenHandlerBaseURLString = @"http://tp.srgssr.ch/ak
         
         if (![[JSON objectForKey:@"token"] objectForKey:@"authparams"]) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                NSDictionary *userInfo = @{NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"Missing parameters for token.", nil)};
-                completionBlock(nil, [NSError errorWithDomain:SRGILDataProviderErrorDomain code:SRGILDataProviderErrorCodeInvalidData userInfo:userInfo]);
+                completionBlock(nil, [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                         code:SRGILDataProviderErrorCodeInvalidData
+                                                     userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The media cannot be played.", nil) }]);
             }];
             return;
         }

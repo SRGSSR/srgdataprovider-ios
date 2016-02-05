@@ -14,7 +14,6 @@
 #import "SRGILModel.h"
 
 #import "SRGILList.h"
-#import "SRGILErrors.h"
 #import "SRGILRequestsManager.h"
 #import "SRGILURLComponents.h"
 #import "SRGILURLComponents+Private.h"
@@ -136,7 +135,12 @@ static NSArray *validBusinessUnits = nil;
                                              completionBlock:^(NSDictionary *rawDictionary, NSError *error) {
                                                  @strongify(self);
                                                  [_ongoingFetches removeObject:components];
-                                                 // Error handling is handled in extractItems...
+                                                 
+                                                 if (error) {
+                                                     completionBlock ? completionBlock(nil, Nil, error) : nil;
+                                                     return;
+                                                 }
+                                                 
                                                  [self recordFetchDateForIndex:components.index];
                                                  [self extractItemsAndClassNameFromRawDictionary:rawDictionary
                                                                                 forURLComponents:components
@@ -150,9 +154,14 @@ static NSArray *validBusinessUnits = nil;
                                  organisationType:(SRGILModelDataOrganisationType)orgType
                               withCompletionBlock:(SRGILFetchListCompletionBlock)completionBlock
 {
+    // As for now, we will only extract items from a dictionary that has a single key/value pair.
     if ([[rawDictionary allKeys] count] != 1) {
-        // As for now, we will only extract items from a dictionary that has a single key/value pair.
-        [self sendUserFacingErrorForURLComponents:components withTechError:nil completionBlock:completionBlock];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                 code:SRGILDataProviderErrorCodeInvalidData
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
+            completionBlock(nil, nil, error);
+        });
         return;
     }
     
@@ -189,21 +198,29 @@ static NSArray *validBusinessUnits = nil;
     }
     
     if (!className) {
-        [self sendUserFacingErrorForURLComponents:components withTechError:nil completionBlock:completionBlock];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                 code:SRGILDataProviderErrorCodeInvalidData
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
+            completionBlock(nil, nil, error);
+        });
     }
     else {
         Class itemClass = NSClassFromString([itemClassPrefix stringByAppendingString:className]);
         
-        NSError *error = nil;
         NSArray *organisedItems = [self organiseItemsWithGlobalProperties:globalProperties
                                                           rawDictionaries:itemsDictionaries
                                                          forURLComponents:components
                                                          organisationType:orgType
-                                                               modelClass:itemClass
-                                                                    error:&error];
+                                                               modelClass:itemClass];
         
-        if (error) {
-            [self sendUserFacingErrorForURLComponents:components withTechError:error completionBlock:completionBlock];
+        if (!organisedItems) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                     code:SRGILDataProviderErrorCodeInvalidData
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
+                completionBlock(nil, nil, error);
+            });
         }
         else {
             DDLogInfo(@"[Info] Returning %tu organised data item for path %@", [organisedItems count], components.string);
@@ -223,7 +240,6 @@ static NSArray *validBusinessUnits = nil;
                               forURLComponents:(SRGILURLComponents *)components
                               organisationType:(SRGILModelDataOrganisationType)orgType
                                     modelClass:(Class)modelClass
-                                         error:(NSError * __autoreleasing *)error;
 {
     NSMutableArray *items = [[NSMutableArray alloc] init];
     [dictionaries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -352,26 +368,8 @@ static NSArray *validBusinessUnits = nil;
         return @[itemsList];
     }
     else {
-        if (error) {
-            NSString *message = SRGILDataProviderLocalizedString(@"The received data is invalid.", nil);
-            *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                         code:SRGILDataProviderErrorCodeInvalidData
-                                     userInfo:@{NSLocalizedDescriptionKey: message}];
-        }
+        return nil;
     }
-    
-    return nil;
-}
-
-- (void)sendUserFacingErrorForURLComponents:(SRGILURLComponents *)components
-                              withTechError:(NSError *)techError
-                            completionBlock:(SRGILFetchListCompletionBlock)completionBlock
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *reason = [NSString stringWithFormat:SRGILDataProviderLocalizedString(@"The received data is invalid for tag %@", nil), @(components.index)];
-        NSError *newError = SRGILCreateUserFacingError(reason, techError, SRGILDataProviderErrorCodeInvalidData);
-        completionBlock(nil, nil, newError);
-    });
 }
 
 #pragma mark - Fetch Dates
@@ -416,28 +414,8 @@ static NSArray *validBusinessUnits = nil;
 
 - (BOOL)fetchMediaWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock
 {
-    NSAssert(completionBlock, @"Missing completion block");
-    
-    NSString *errorMessage = nil;
-    if (!urn) {
-        errorMessage = SRGILDataProviderLocalizedString(@"Missing media URN. Nothing to fetch.", nil);
-    }
-    
-    if (urn.identifier.length == 0) {
-        errorMessage = SRGILDataProviderLocalizedString(@"Missing media URN identifier, which is needed to proceed.", nil);
-    }
-    else if (urn.mediaType == SRGILMediaTypeUndefined) {
-        errorMessage = SRGILDataProviderLocalizedString(@"Undefined mediaType inferred from URN.", nil);
-    }
-    
-    if (errorMessage) {
-        NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                             code:SRGILDataProviderErrorCodeInvalidMediaIdentifier
-                                         userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
-        
-        completionBlock(nil, error);
-        return NO;
-    }
+    NSParameterAssert(completionBlock);
+    NSAssert(urn.identifier.length != 0 && urn.mediaType != SRGILMediaTypeUndefined, @"The media must be valid");
     
     SRGILFetchObjectCompletionBlock wrappedCompletionBlock = ^(SRGILMedia *media, NSError *error) {
         if (error) {
@@ -451,40 +429,19 @@ static NSArray *validBusinessUnits = nil;
     return [self.requestManager requestMediaWithURN:urn completionBlock:wrappedCompletionBlock];
 }
 
-- (BOOL)fetchLiveMetaInfosWithWitChannelID:(nonnull NSString *)channelID completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock
+- (BOOL)fetchLiveMetaInfosWithChannelID:(nonnull NSString *)channelID completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock
 {
+    NSParameterAssert(channelID);
     NSParameterAssert(completionBlock);
-    
-    if (!channelID) {
-        NSString *errorMessage = SRGILDataProviderLocalizedString(@"Missing channelID. Nothing to fetch.", nil);
-        NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                             code:SRGILDataProviderErrorCodeInvalidMediaIdentifier
-                                         userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
-        
-        completionBlock(nil, error);
-        return NO;
-    }
     
     return [self.requestManager requestLiveMetaInfosWithChannelID:channelID completionBlock:completionBlock];
 }
 
 - (BOOL)fetchShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
 {
-    NSAssert(completionBlock, @"Missing completion block");
-    NSString *errorMessage = nil;
-    if (!identifier) {
-        errorMessage = SRGILDataProviderLocalizedString(@"Missing show identifier. Nothing to fetch.", nil);
-    }
-    
-    if (errorMessage) {
-        NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                             code:SRGILDataProviderErrorCodeInvalidMediaIdentifier
-                                         userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
+    NSParameterAssert(identifier);
+    NSParameterAssert(completionBlock);
         
-        completionBlock(nil, error);
-        return NO;
-    }
-    
     SRGILFetchObjectCompletionBlock wrappedCompletionBlock = ^(SRGILShow *show, NSError *error) {
         if (error) {
             completionBlock(nil, error);

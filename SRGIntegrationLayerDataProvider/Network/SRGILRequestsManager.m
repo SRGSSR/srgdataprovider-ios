@@ -17,7 +17,6 @@
 #import "SRGILRequestsManager.h"
 
 #import "SRGILModel.h"
-#import "SRGILErrors.h"
 #import "SRGILList.h"
 
 #import "NSBundle+SRGILDataProvider.h"
@@ -27,31 +26,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 #else
 static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 #endif
-
-@interface NSError (SRGNetwork)
-- (BOOL)isNetworkError;
-@end
-
-@implementation NSError (SRGNetwork)
-
-- (BOOL)isNetworkError
-{
-    NSArray *connectionErrorList = @[@(NSURLErrorUnknown),
-                                     @(NSURLErrorCancelled),
-                                     @(NSURLErrorTimedOut),
-                                     @(NSURLErrorCannotFindHost),
-                                     @(NSURLErrorNetworkConnectionLost),
-                                     @(NSURLErrorDNSLookupFailed),
-                                     @(NSURLErrorNotConnectedToInternet),
-                                     @(NSURLErrorCannotLoadFromNetwork),
-                                     @(NSURLErrorInternationalRoamingOff),
-                                     @(NSURLErrorCallIsActive),
-                                     @(NSURLErrorDataNotAllowed)];
-    
-    return [self.domain isEqualToString:NSURLErrorDomain] && [connectionErrorList containsObject:@(self.code)];
-}
-
-@end
 
 @interface SRGILRequestsManager () <NSURLSessionDelegate>
 @property (nonatomic, strong) NSURL *baseURL;
@@ -116,12 +90,13 @@ static SGVReachability *reachability;
             break;
 
         default: {
-            NSString *msg = SRGILDataProviderLocalizedString(@"Unknown media type. Impossible to request media", nil);
-            NSError *error = SRGILCreateUserFacingError(msg, nil, SRGILDataProviderErrorCodeInvalidMediaType);
+            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                 code:SRGILDataProviderErrorCodeInvalidRequest
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The request is invalid.", nil) }];
             completionBlock(nil, error);
             return NO;
-        }
             break;
+        }
     }
 
     return [self requestModelObject:objectClass
@@ -186,43 +161,34 @@ static SGVReachability *reachability;
             }
         };
         
-        // -- Handling request errors. --
+        // Request errors
         if (error) {
-            NSError *newError = nil;
-            if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == -1009) {
-                newError = error;
-            }
-            else {
-                newError = SRGILCreateUserFacingError(error.localizedDescription, error, SRGILDataProviderErrorCodeInvalidData);
-            }
             dispatch_async(dispatch_get_main_queue(), ^{
-                callCompletionBlocks(nil, newError);
+                callCompletionBlocks(nil, error);
             });
             return;
         }
         
-        // -- Handling deserialization errors. --
-        NSError *JSONError = nil;
-        id JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&JSONError];
-        if (JSON && ![JSON isKindOfClass:[NSDictionary class]]) {
-            JSONError = SRGILCreateUserFacingError(@"Invalid JSON", nil, SRGILDataProviderErrorCodeInvalidData);
-        }
-        if (JSONError) {
+        // Parsing errors
+        id JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        if (!JSON || ![JSON isKindOfClass:[NSDictionary class]]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                callCompletionBlocks(nil, JSONError);
+                NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                     code:SRGILDataProviderErrorCodeInvalidData
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
+                callCompletionBlocks(nil, error);
             });
             return;
         }
         
-        // -- Handling modeling errors. --
-        id modelObject = [[modelClass alloc] initWithDictionary:[(NSDictionary *)JSON valueForKey:JSONKey]];
+        // Model errors
+        id modelObject = [[modelClass alloc] initWithDictionary:[JSON valueForKey:JSONKey]];
         if (!modelObject) {
-            NSString *format = SRGILDataProviderLocalizedString(@"Unable to build a valid object of class %@", nil);
-            NSString *message = [NSString stringWithFormat:format, NSStringFromClass(modelClass)];
-            NSError *mediaError = SRGILCreateUserFacingError(message, nil, SRGILDataProviderErrorCodeInvalidData);
-            
             dispatch_async(dispatch_get_main_queue(), ^{
-                callCompletionBlocks(nil, mediaError);
+                NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                     code:SRGILDataProviderErrorCodeInvalidData
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
+                callCompletionBlocks(nil, error);
             });
             return;
         }
@@ -289,32 +255,27 @@ static SGVReachability *reachability;
         });
         
         if (!hasBeenCancelled) {
-            NSError *JSONError = nil;
-            id rawDictionary = nil;
-            if (data) {
-                rawDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&JSONError];
+            if (error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(nil, error);
+                });
+                return;
             }
             
-            if (error || JSONError || !rawDictionary || ![rawDictionary isKindOfClass:[NSDictionary class]]) {
-                NSError *newError = nil;
-                if ([error isNetworkError]) {
-                    newError = error;
-                }
-                else if (JSONError) {
-                    newError = JSONError;
-                }
-                else {
-                    newError = SRGILCreateUserFacingError(SRGILDataProviderLocalizedString(@"The received data is invalid for category %@", nil), error, SRGILDataProviderErrorCodeInvalidData);
-                }
+            id JSONObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+            if (!JSONObject || ![JSONObject isKindOfClass:[NSDictionary class]]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock(nil, newError);
+                    NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                         code:SRGILDataProviderErrorCodeInvalidData
+                                                     userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
+                    completionBlock(nil, error);
                 });
+                return;
             }
-            else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock(rawDictionary, nil);
-                });
-            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(JSONObject, nil);
+            });
         }
     };
     

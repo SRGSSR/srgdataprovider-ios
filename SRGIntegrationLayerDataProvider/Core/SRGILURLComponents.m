@@ -9,7 +9,6 @@
 #import "SRGILURLComponents.h"
 #import "SRGILURLComponents+Private.h"
 
-#import "SRGILErrors.h"
 #import "NSBundle+SRGILDataProvider.h"
 
 #ifdef DEBUG
@@ -51,8 +50,8 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
     if (index < SRGILFetchListEnumBegin || index >= SRGILFetchListEnumEnd) {
         if (error) {
             *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                         code:SRGILDataProviderErrorCodeInvalidFetchIndex
-                                     userInfo:@{NSLocalizedDescriptionKey: SRGILDataProviderLocalizedString(@"Invalid fetch index", nil)}];
+                                         code:SRGILDataProviderErrorCodeInvalidRequest
+                                     userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The request is invalid.", nil) }];
         }
         return nil;
     }
@@ -225,15 +224,13 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
         }
     }
 
-    if (!components.path && error) {
-        if (identifier.length == 0) {
-            NSString *format = SRGILDataProviderLocalizedString(@"An identifier is required for fetch index: %ld. Found %@.", nil);
-            NSString *message = [NSString stringWithFormat:format, identifier, index];
-            *error = SRGILCreateUserFacingError(message, nil, SRGILDataProviderErrorCodeMissingURLIdentifier);
+    if (!components.path) {
+        if (error) {
+            *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                         code:SRGILDataProviderErrorCodeInvalidRequest
+                                     userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The request is invalid.", nil) }];
         }
-        else {
-            *error = SRGILCreateUserFacingError(SRGILDataProviderLocalizedString(@"Error", nil), nil, SRGILDataProviderErrorCodeInvalidURLComponent);
-        }
+        return nil;
     }
     
     return components;
