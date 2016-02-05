@@ -230,7 +230,6 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
                                          code:SRGILDataProviderErrorCodeInvalidRequest
                                      userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The request is invalid.", nil) }];
         }
-        return nil;
     }
     
     return components;
