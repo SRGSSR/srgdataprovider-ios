@@ -168,22 +168,28 @@ static NSArray *validBusinessUnits = nil;
     // The only way to distinguish an array of items with the dictionary of a single item, is to parse the main
     // dictionary and see if we can build an _array_ of the following class names. This is made necessary due to the
     // change of semantics from XML to JSON.
-    NSArray *validItemClassKeys = @[@"Video", @"Show", @"AssetSet", @"Audio", @"SearchResult", @"Topic", @"Songlog"];
+    NSArray *validItemClassKeys = @[@"Video", @"Show", @"AssetSet", @"Audio", @"SearchResult", @"Topic", @"Songlog", @"EventConfig"];
     
     NSString *mainKey = [[rawDictionary allKeys] lastObject];
-    NSDictionary *mainValue = [[rawDictionary allValues] lastObject];
+    id mainValue = [[rawDictionary allValues] lastObject];
+    if (![mainValue isKindOfClass:[NSDictionary class]]) {
+        completionBlock(nil, nil, nil);
+        return;
+    }
+    
+    NSDictionary *mainDictionary = mainValue;
     
     __block NSString *className = nil;
     __block NSArray *itemsDictionaries = nil;
     NSMutableDictionary *globalProperties = [NSMutableDictionary dictionary];
     
-    [mainValue enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+    [mainDictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
         if (NSClassFromString([itemClassPrefix stringByAppendingString:key]) && // We have an Obj-C class to build with
             [validItemClassKeys containsObject:key] && // It is among the known class keys
             [obj isKindOfClass:[NSArray class]]) // Its value is an array of siblings.
         {
             className = key;
-            itemsDictionaries = [mainValue objectForKey:className];
+            itemsDictionaries = [mainDictionary objectForKey:className];
         }
         else if ([key length] > 1 && [key hasPrefix:@"@"]) {
             [globalProperties setObject:obj forKey:[key substringFromIndex:1]];
@@ -194,7 +200,7 @@ static NSArray *validBusinessUnits = nil;
     // We haven't found an array of items. The root object is probably what we are looking for.
     if (!className && NSClassFromString([itemClassPrefix stringByAppendingString:mainKey])) {
         className = mainKey;
-        itemsDictionaries = @[mainValue];
+        itemsDictionaries = @[mainDictionary];
     }
     
     if (!className) {

@@ -508,4 +508,14 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
     return self.wrapped.URL.hash ^ (self.index + 1);
 }
 
+#pragma mark Description
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@: %p; URL: %@>",
+            [self class],
+            self,
+            self.URL];
+}
+
 @end
