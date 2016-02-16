@@ -65,6 +65,9 @@ typedef NS_ENUM(NSInteger, SRGILFetchListIndex) {
     SRGILFetchListSonglogPlaying,
     SRGILFetchListSonglogLatest,
     
+    SRGILFetchListMediaFavorite,
+    SRGILFetchListShowFavorite,
+    
     SRGILFetchListEvents,
     
     SRGILFetchListEnumEnd,
