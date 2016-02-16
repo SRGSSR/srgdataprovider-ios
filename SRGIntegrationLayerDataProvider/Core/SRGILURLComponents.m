@@ -153,7 +153,7 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
             // --- Events ---
             
         case SRGILFetchListVideoByEvent: {
-            components.path = [NSString stringWithFormat:@"video/listByEventId/%@.json", identifier];
+            components.path = [NSString stringWithFormat:@"/video/listByEventId/%@.json", identifier];
             components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
             break;
         }
