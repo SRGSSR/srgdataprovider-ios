@@ -63,69 +63,81 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
     switch (index) {
             // --- Videos ---
             
-        case SRGILFetchListVideoTrendingPicks:
+        case SRGILFetchListVideoTrendingPicks: {
             components.path = @"/video/trendingPicks.json";
             components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"10"],
                                       [NSURLQueryItem queryItemWithName:@"onlyEpisodes" value:@"true"]];
             break;
+        }
             
-        case SRGILFetchListVideoLiveStreams:
+        case SRGILFetchListVideoLiveStreams: {
             components.path = @"/video/livestream.json";
             break;
+        }
             
-        case SRGILFetchListVideoEditorialPicks:
+        case SRGILFetchListVideoEditorialPicks: {
             components.path = @"/video/editorialPlayerPicks.json";
             components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
             break;
+        }
             
-        case SRGILFetchListVideoMostClicked:
+        case SRGILFetchListVideoMostClicked: {
             components.path = @"/video/mostClicked.json";
-            components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"],
-                                     [NSURLQueryItem queryItemWithName:@"period" value:@"24"]];
+            NSMutableArray *queryItems = [NSMutableArray array];
+            [queryItems addObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
+            [queryItems addObject:[NSURLQueryItem queryItemWithName:@"period" value:@"24"]];
+            if (identifier.length > 0) {
+                [queryItems addObject:[NSURLQueryItem queryItemWithName:@"topic" value:identifier]];
+            }
+            components.queryItems = [queryItems copy];
             break;
+        }
             
-        case SRGILFetchListVideoMostRecent: // Just specify NO topic!
+        case SRGILFetchListVideoMostRecent: { // Just specify NO topic!
             components.path = @"/video/editorialPlayerLatest.json";
             components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
             break;
+        }
             
-            
-        case SRGILFetchListVideoEpisodesByDate:
+        case SRGILFetchListVideoEpisodesByDate: {
             components.path = @"/video/episodesByDate.json";
             components.queryItems = @[NSURLQueryItemForName(@"day", [NSDate date], NO)];
             break;
+        }
             
-        case SRGILFetchListVideoTopics:
+        case SRGILFetchListVideoTopics: {
             components.path = @"/tv/topic.json";
             break;
+        }
 
         case SRGILFetchListVideoMostRecentByTopic: {
             if (identifier.length > 0) {
                 components.path = [NSString stringWithFormat:@"/video/editorialPlayerLatestByTopic/%@.json", identifier];
                 components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
             }
-        }
             break;
+        }
             
-        case SRGILFetchListVideoSearch:
+        case SRGILFetchListVideoSearch: {
             components.path = @"/video/search.json";
             components.queryItems = @[[NSURLQueryItem queryItemWithName:@"q" value:SRGILFetchListURLComponentsEmptySearchQueryString],
                                      [NSURLQueryItem queryItemWithName:@"pageSize" value:@"24"]];
             break;
-            
+        }
             
             // --- Video Shows ---
             
-        case SRGILFetchListVideoShowsAlphabetical:
+        case SRGILFetchListVideoShowsAlphabetical: {
             components.path = @"/tv/assetGroup/editorialPlayerAlphabetical.json";
             break;
+        }
             
-        case SRGILFetchListVideoShowsSearch:
+        case SRGILFetchListVideoShowsSearch: {
             components.path = @"/tv/assetGroup/search.json";
             components.queryItems = @[[NSURLQueryItem queryItemWithName:@"q" value:SRGILFetchListURLComponentsEmptySearchQueryString],
                                      [NSURLQueryItem queryItemWithName:@"pageSize" value:@"24"]];
             break;
-            
+        }
             
             // --- Audio & Video Show Detail ---
             
@@ -135,9 +147,8 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
                 components.path = [NSString stringWithFormat:@"/assetSet/listByAssetGroup/%@.json", identifier];
                 components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
             }
-        }
             break;
-            
+        }
             
             // --- Audios ---
             
@@ -145,24 +156,24 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
             if (identifier.length > 0) {
                 components.path = [NSString stringWithFormat:@"/audio/play/%@.json", identifier];
             }
-        }
             break;
+        }
             
         case SRGILFetchListAudioEditorialLatest: {
             if (identifier.length > 0) {
                 components.path = [NSString stringWithFormat:@"/audio/editorialPlayerLatestByChannel/%@.json", identifier];
                 components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
             }
-        }
             break;
+        }
             
         case SRGILFetchListAudioMostClicked: {
             if (identifier.length > 0) {
                 components.path = [NSString stringWithFormat:@"/audio/mostClickedByChannel/%@.json", identifier];
                 components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
             }
-        }
             break;
+        }
             
         case SRGILFetchListAudioMostRecent: {
             if (identifier.length > 0) {
@@ -170,13 +181,14 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
                 components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
             }
             break;
+        }
             
-        case SRGILFetchListAudioSearch:
+        case SRGILFetchListAudioSearch: {
             components.path = @"/audio/search.json";
             components.queryItems = @[[NSURLQueryItem queryItemWithName:@"q" value:SRGILFetchListURLComponentsEmptySearchQueryString],
                                      [NSURLQueryItem queryItemWithName:@"pageSize" value:@"24"]];
             break;
-            
+        }
             
             // --- Audio Shows ---
             
@@ -184,16 +196,15 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
             if (identifier.length > 0) {
                 components.path = [NSString stringWithFormat:@"/radio/assetGroup/editorialPlayerAlphabeticalByChannel/%@.json", identifier];
             }
-        }
             break;
+        }
             
-            
-        case SRGILFetchListAudioShowsSearch:
+        case SRGILFetchListAudioShowsSearch: {
             components.path = @"/radio/assetGroup/search.json";
             components.queryItems = @[[NSURLQueryItem queryItemWithName:@"q" value:SRGILFetchListURLComponentsEmptySearchQueryString],
                                      [NSURLQueryItem queryItemWithName:@"pageSize" value:@"24"]];
             break;
-            
+        }
             
             // -- Songlog --
             
@@ -201,8 +212,8 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
             if (identifier.length > 0) {
                 components.path = [NSString stringWithFormat:@"/songlog/playingByChannel/%@.json", identifier];
             }
-        }
             break;
+        }
             
         case SRGILFetchListSonglogLatest: {
             if (identifier.length > 0) {
@@ -216,12 +227,11 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
                                           [NSURLQueryItem queryItemWithName:@"pageSize" value:@"10"],
                                           [NSURLQueryItem queryItemWithName:@"pageNumber" value:@"1"]];
             }
-        }
             break;
+        }
 
         default:
             break;
-        }
     }
 
     if (!components.path) {
@@ -230,7 +240,6 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
                                          code:SRGILDataProviderErrorCodeInvalidRequest
                                      userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The request is invalid.", nil) }];
         }
-        return nil;
     }
     
     return components;
