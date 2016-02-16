@@ -104,6 +104,16 @@ static NSArray *validBusinessUnits = nil;
     return _ongoingFetches.count;
 }
 
+- (NSURL *)baseURL
+{
+    return _requestManager.baseURL;
+}
+
+- (void)setBaseURL:(NSURL *)baseURL
+{
+    _requestManager.baseURL = baseURL;
+}
+
 #pragma mark - Item Lists
 
 - (SRGILURLComponents *)URLComponentsForFetchListIndex:(SRGILFetchListIndex)index

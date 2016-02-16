@@ -19,8 +19,9 @@ typedef void (^SRGILRequestListCompletionBlock)(NSDictionary *rawDictionary, NSE
 
 - (id)initWithBusinessUnit:(NSString *)businessUnit;
 
-- (NSString *)businessUnit;
-- (NSURL *)baseURL;
+@property (nonatomic, readonly, copy) NSString *businessUnit;
+
+@property (nonatomic, null_resettable) NSURL *baseURL;
 
 - (BOOL)requestMediaWithURN:(SRGILURN *)URN completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 
