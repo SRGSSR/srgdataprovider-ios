@@ -79,6 +79,8 @@
 		AC01AA295800C7CDE4E23876 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F6EBD656367387D07A08A6 /* libPods.a */; };
 		C2E8B26471460B332CD298C5 /* libPods-SRGIntegrationLayerDataProviderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */; };
 		E604EAFC1B174254004A627D /* SRGILOngoingRequest+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */; };
+		E606D81D1C74511E003634AA /* UIColor+SRGILDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E606D81C1C74511E003634AA /* UIColor+SRGILDataProvider.m */; };
+		E67427211C73532400C15F94 /* SRGILEventConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E67427201C73532400C15F94 /* SRGILEventConfig.m */; };
 		E68E95E31B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E68E95E21B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m */; };
 /* End PBXBuildFile section */
 
@@ -235,6 +237,10 @@
 		A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProviderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E604EAFA1B174254004A627D /* SRGILOngoingRequest+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGILOngoingRequest+Private.h"; sourceTree = "<group>"; };
 		E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGILOngoingRequest+Private.m"; sourceTree = "<group>"; };
+		E606D81B1C74511E003634AA /* UIColor+SRGILDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+SRGILDataProvider.h"; path = "SRGIntegrationLayerDataProvider/Core/UIColor+SRGILDataProvider.h"; sourceTree = "<group>"; };
+		E606D81C1C74511E003634AA /* UIColor+SRGILDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+SRGILDataProvider.m"; path = "SRGIntegrationLayerDataProvider/Core/UIColor+SRGILDataProvider.m"; sourceTree = "<group>"; };
+		E674271F1C73532400C15F94 /* SRGILEventConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILEventConfig.h; sourceTree = "<group>"; };
+		E67427201C73532400C15F94 /* SRGILEventConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILEventConfig.m; sourceTree = "<group>"; };
 		E68E95E11B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGILMedia+MediaPlayer.h"; sourceTree = "<group>"; };
 		E68E95E21B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGILMedia+MediaPlayer.m"; sourceTree = "<group>"; };
 		F4A90E42A0F98F5CE90DBD45 /* Pods-SRGIntegrationLayerDataProviderTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProviderTests.test.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProviderTests/Pods-SRGIntegrationLayerDataProviderTests.test.xcconfig"; sourceTree = "<group>"; };
@@ -298,9 +304,9 @@
 		9F13D5061AE9270600E4D897 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9F13D5091AE9270600E4D897 /* SRGILAnalyticsInfosProtocol.h */,
 				9F13D5071AE9270600E4D897 /* SRGILAnalyticsExtendedData.h */,
 				9F13D5081AE9270600E4D897 /* SRGILAnalyticsExtendedData.m */,
+				9F13D5091AE9270600E4D897 /* SRGILAnalyticsInfosProtocol.h */,
 				9FEE12661C10443100AD7A8B /* SRGILArtist.h */,
 				9FEE12671C10443100AD7A8B /* SRGILArtist.m */,
 				9F13D50A1AE9270600E4D897 /* SRGILAsset.h */,
@@ -313,6 +319,8 @@
 				9F13D5111AE9270700E4D897 /* SRGILAudio.m */,
 				9FFDA47D1B8C769200EEF7DA /* SRGILDownload.h */,
 				9FFDA47E1B8C769200EEF7DA /* SRGILDownload.m */,
+				E674271F1C73532400C15F94 /* SRGILEventConfig.h */,
+				E67427201C73532400C15F94 /* SRGILEventConfig.m */,
 				9F13D5121AE9270700E4D897 /* SRGILImage.h */,
 				9F13D5131AE9270700E4D897 /* SRGILImage.m */,
 				9F13D5141AE9270700E4D897 /* SRGILImageRepresentation.h */,
@@ -340,10 +348,10 @@
 				9F13D52B1AE9270700E4D897 /* SRGILShow.m */,
 				9F13D52C1AE9270700E4D897 /* SRGILSocialCounts.h */,
 				9F13D52D1AE9270700E4D897 /* SRGILSocialCounts.m */,
-				9FEE12601C10441200AD7A8B /* SRGILSonglog.h */,
-				9FEE12611C10441200AD7A8B /* SRGILSonglog.m */,
 				9FEE12631C10442000AD7A8B /* SRGILSong.h */,
 				9FEE12641C10442000AD7A8B /* SRGILSong.m */,
+				9FEE12601C10441200AD7A8B /* SRGILSonglog.h */,
+				9FEE12611C10441200AD7A8B /* SRGILSonglog.m */,
 				9FEE125D1C1041E700AD7A8B /* SRGILTopic.h */,
 				9FEE125E1C1041E700AD7A8B /* SRGILTopic.m */,
 				9FCA04901B414935009937E2 /* SRGILURN.h */,
@@ -493,6 +501,8 @@
 			children = (
 				9FDA13C21BD517A00073722D /* NSBundle+SRGILDataProvider.h */,
 				9FDA13C31BD517A00073722D /* NSBundle+SRGILDataProvider.m */,
+				E606D81B1C74511E003634AA /* UIColor+SRGILDataProvider.h */,
+				E606D81C1C74511E003634AA /* UIColor+SRGILDataProvider.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -751,6 +761,7 @@
 				9FF55F9A1B4B0F5900A99DA2 /* SRGILDataProviderConstants.m in Sources */,
 				E68E95E31B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m in Sources */,
 				9F13D5451AE9270700E4D897 /* SRGILLiveHeaderData.m in Sources */,
+				E606D81D1C74511E003634AA /* UIColor+SRGILDataProvider.m in Sources */,
 				9FEE125F1C1041E700AD7A8B /* SRGILTopic.m in Sources */,
 				9F13D53B1AE9270700E4D897 /* SRGILDataProvider.m in Sources */,
 				9FDA13C41BD517A00073722D /* NSBundle+SRGILDataProvider.m in Sources */,
@@ -761,6 +772,7 @@
 				9F13D53E1AE9270700E4D897 /* SRGILAssetMetadata.m in Sources */,
 				9F13D54A1AE9270700E4D897 /* SRGILPrimaryChannel.m in Sources */,
 				9FEE12651C10442000AD7A8B /* SRGILSong.m in Sources */,
+				E67427211C73532400C15F94 /* SRGILEventConfig.m in Sources */,
 				9FEE12621C10441200AD7A8B /* SRGILSonglog.m in Sources */,
 				9F13D54C1AE9270700E4D897 /* SRGILShow.m in Sources */,
 				9F13D5471AE9270700E4D897 /* SRGILModelConstants.m in Sources */,

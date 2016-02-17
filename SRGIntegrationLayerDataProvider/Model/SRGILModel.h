@@ -16,6 +16,7 @@
 #import "SRGILAssetSet.h"
 #import "SRGILAudio.h"
 #import "SRGILDownload.h"
+#import "SRGILEventConfig.h"
 #import "SRGILImage.h"
 #import "SRGILImageRepresentation.h"
 #import "SRGILLiveHeaderChannel.h"
