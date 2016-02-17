@@ -139,12 +139,13 @@ typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * _
 /**
  *  Fetch the meta infos for the live streams.
  *
- *  @param urn The URN of the live infos.
+ *  @param channelID The identifier of the channel
+ *  @param livestreamID The identifier of the livestream
  *  @param completionBlock The block called on completion (with success or not).
  *
  *  @return A boolean indicating if the fetch is started or not. If not, the completion block is called immediately with an error.
  */
-- (BOOL)fetchLiveMetaInfosWithChannelID:(nonnull NSString *)channelID livestreamID:(NSString *)livestreamID completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
+- (BOOL)fetchLiveMetaInfosWithChannelID:(nonnull NSString *)channelID livestreamID:(nullable NSString *)livestreamID completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
 
 /**
  * Fetch show with given identifier.
