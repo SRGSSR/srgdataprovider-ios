@@ -133,6 +133,7 @@
 		5539A292EFC958D90F290DBA5FF86220 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = F31B13B9DFD99C90A43B925A2C98FB45 /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		56360ABA1854512FCAB9EFD3A81107F6 /* SRGILDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = FA811E3D59DD34CDA4915A41AD95B783 /* SRGILDataProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		56875F31CA6331B0B3A5008E94B6F5CF /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B44BC168AE1E201C918E79065F03DD1 /* SDWebImagePrefetcher.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		56CD983699995E9963A99132D4F9B95F /* RTSMediaPlayerVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 81E5DAD04862977C531FC8C5702FDF35 /* RTSMediaPlayerVersion.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks -DRTS_MEDIA_PLAYER_VERSION=1.6.4 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		57C2A83EB5861A995DCDC199817794A8 /* RTSSegmentedTimelineView.h in Headers */ = {isa = PBXBuildFile; fileRef = FDB0D3F83BD5948F6D4E34A88DD9B632 /* RTSSegmentedTimelineView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		58133D511BDEBBC721FA6828C943A39E /* SDWebImageDownloaderOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 164E32AB57DD41CE5D8CF7682CA4CA99 /* SDWebImageDownloaderOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5840CA80DE7071C81FDD9EC258F279E8 /* RTSMediaPlayerController+RTSAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3ADCF6E2C6CB6433A622FC41C1F965 /* RTSMediaPlayerController+RTSAnalytics.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -305,7 +306,6 @@
 		B9D9647F81FA4C431586B369BF21E974 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6B39690CB30E32109F65CD3C15A85E /* CoreMedia.framework */; };
 		B9D9F500F314E2A4F3703C47AC2BD499 /* UIBezierPath+RTSMediaPlayerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 34A613A3575BAFFA74F6833C19ADF24E /* UIBezierPath+RTSMediaPlayerUtils.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		BA407F0EA476504536060C51A7F7BE32 /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A141B2C66FB6CF819FC6C3F9ABEEAAB8 /* Pods-dummy.m */; };
-		BA5792FDC40E0A380EE5CF30D65ED86B /* RTSMediaPlayerVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 81E5DAD04862977C531FC8C5702FDF35 /* RTSMediaPlayerVersion.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks -DRTS_MEDIA_PLAYER_VERSION=1.6.3 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		BB01CAB042FA0DFD1FE0FFCB83ABC636 /* RTSMediaPlayerControllerTrackingInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 88BF1E34C4B147383D9079E405117C77 /* RTSMediaPlayerControllerTrackingInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BBBB09B5BFA2C48FFBD7982459562338 /* SRGILTokenHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A822E518D4BC5242305CB2F1F259BA1D /* SRGILTokenHandler.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		BBCA69A708A7B3DD861FB839B3A251B3 /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6F320CB9532244F54D819FDF5FCE8E /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2953,7 +2953,7 @@
 				C328339EE88CED63EA455132C2712AE0 /* RTSMediaPlayerLogger.m in Sources */,
 				54397E5EC384805A9732254946A85FAF /* RTSMediaPlayerPlaybackButton.m in Sources */,
 				1639FCEFF634AC5326122ADF21363C4B /* RTSMediaPlayerSharedController.m in Sources */,
-				BA5792FDC40E0A380EE5CF30D65ED86B /* RTSMediaPlayerVersion.m in Sources */,
+				56CD983699995E9963A99132D4F9B95F /* RTSMediaPlayerVersion.m in Sources */,
 				D28BA71DFB345683A3685F46F464FD8E /* RTSMediaPlayerView.m in Sources */,
 				F58ADA692056D79CA2EB6A80A0CF9A48 /* RTSMediaPlayerViewController.m in Sources */,
 				51ACA175991B11AD78148F291ACA024F /* RTSMediaSegmentsController.m in Sources */,
