@@ -64,6 +64,11 @@ typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * _
  */
 - (nonnull NSString *)businessUnit;
 
+/**
+ *  The base URL to use (defaults to the production base URL)
+ */
+@property (nonatomic, null_resettable) NSURL *baseURL;
+
 // ********* Fetch lists of IL model objects **********
 
 /**

@@ -150,6 +150,14 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
             break;
         }
             
+            // --- Events ---
+            
+        case SRGILFetchListVideoByEvent: {
+            components.path = [NSString stringWithFormat:@"/video/listByEventId/%@.json", identifier];
+            components.queryItems = @[[NSURLQueryItem queryItemWithName:@"pageSize" value:@"20"]];
+            break;
+        }
+            
             // --- Audios ---
             
         case SRGILFetchListAudioLiveStreams: {
@@ -227,6 +235,11 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
                                           [NSURLQueryItem queryItemWithName:@"pageSize" value:@"10"],
                                           [NSURLQueryItem queryItemWithName:@"pageNumber" value:@"1"]];
             }
+            break;
+        }
+            
+        case SRGILFetchListEvents: {
+            components.path = @"/event/list.json";
             break;
         }
 
@@ -493,6 +506,16 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
 - (NSUInteger)hash
 {
     return self.wrapped.URL.hash ^ (self.index + 1);
+}
+
+#pragma mark Description
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@: %p; URL: %@>",
+            [self class],
+            self,
+            self.URL];
 }
 
 @end

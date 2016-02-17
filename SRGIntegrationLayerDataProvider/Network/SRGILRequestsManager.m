@@ -28,13 +28,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 #endif
 
 @interface SRGILRequestsManager () <NSURLSessionDelegate>
-@property (nonatomic, strong) NSURL *baseURL;
+@property (nonatomic, copy) NSString *businessUnit;
 @property (nonatomic, strong) NSURLSession *URLSession;
 @property (nonatomic, strong) NSMutableDictionary *ongoingRequests;
 @property (nonatomic, strong) NSMutableDictionary *ongoingVideoListDownloads;
 @end
 
 @implementation SRGILRequestsManager
+
+@synthesize baseURL = _baseURL;
 
 static SGVReachability *reachability;
 
@@ -55,16 +57,12 @@ static SGVReachability *reachability;
     NSAssert(businessUnit != nil, @"Expecting 3-letters business identifier string for request manager");
     self = [super init];
     if (self) {
-        self.baseURL = [[NSURL URLWithString:@"http://il.srgssr.ch/integrationlayer/1.0/ue/"] URLByAppendingPathComponent:businessUnit];
+        self.businessUnit = businessUnit;
+        self.baseURL = nil;     // Set default base URL
         self.ongoingRequests = [NSMutableDictionary dictionary];
         self.ongoingVideoListDownloads = [NSMutableDictionary dictionary];
     }
     return self;
-}
-
-- (NSString *)businessUnit
-{
-    return [self.baseURL lastPathComponent];
 }
 
 #pragma mark - Requesting Media
@@ -104,6 +102,17 @@ static SGVReachability *reachability;
                          identifier:URN.identifier
                             JSONKey:JSONKey
                     completionBlock:completionBlock];
+}
+
+- (NSURL *)baseURL
+{
+    return _baseURL;
+}
+
+- (void)setBaseURL:(NSURL *)baseURL
+{
+    NSURL *defaultBaseURL = [NSURL URLWithString:@"http://il.srgssr.ch/integrationlayer/1.0/ue/"];
+    _baseURL = baseURL ? [baseURL URLByAppendingPathComponent:self.businessUnit] : [defaultBaseURL URLByAppendingPathComponent:self.businessUnit];
 }
 
 - (BOOL)requestLiveMetaInfosWithChannelID:(NSString *)channelID completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
