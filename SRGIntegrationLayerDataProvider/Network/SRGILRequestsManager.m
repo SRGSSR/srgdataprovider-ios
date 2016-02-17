@@ -115,10 +115,15 @@ static SGVReachability *reachability;
     _baseURL = baseURL ? [baseURL URLByAppendingPathComponent:self.businessUnit] : [defaultBaseURL URLByAppendingPathComponent:self.businessUnit];
 }
 
-- (BOOL)requestLiveMetaInfosWithChannelID:(NSString *)channelID completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
+- (BOOL)requestLiveMetaInfosWithChannelID:(NSString *)channelID livestreamID:(NSString *)livestreamID completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 {
     NSParameterAssert(channelID);
-    NSString *path = [NSString stringWithFormat:@"channel/%@/nowAndNext.json", channelID];
+    
+    if (!livestreamID) {
+        livestreamID = channelID;
+    }
+    
+    NSString *path = [NSString stringWithFormat:@"channel/%@/nowAndNext.json?livestream=%@", channelID, livestreamID];
     return [self requestModelObject:[SRGILLiveHeaderChannel class]
                                path:path
                          identifier:path // Trying this

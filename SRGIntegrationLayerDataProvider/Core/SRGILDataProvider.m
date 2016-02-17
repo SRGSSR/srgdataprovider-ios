@@ -445,12 +445,12 @@ static NSArray *validBusinessUnits = nil;
     return [self.requestManager requestMediaWithURN:urn completionBlock:wrappedCompletionBlock];
 }
 
-- (BOOL)fetchLiveMetaInfosWithChannelID:(nonnull NSString *)channelID completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock
+- (BOOL)fetchLiveMetaInfosWithChannelID:(nonnull NSString *)channelID livestreamID:(NSString *)livestreamID completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock
 {
     NSParameterAssert(channelID);
     NSParameterAssert(completionBlock);
     
-    return [self.requestManager requestLiveMetaInfosWithChannelID:channelID completionBlock:completionBlock];
+    return [self.requestManager requestLiveMetaInfosWithChannelID:channelID livestreamID:livestreamID completionBlock:completionBlock];
 }
 
 - (BOOL)fetchShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
