@@ -6,19 +6,18 @@
 
 #import "SRGILEventConfig.h"
 
+#import "UIColor+SRGILDataProvider.h"
+
 @implementation SRGILEventConfig
 
 - (id)initWithDictionary:(NSDictionary *)dictionary
 {
     if ([super initWithDictionary:dictionary]) {
         _title = dictionary[@"title"];
-        _backgroundColor = dictionary[@"bgColor"];
         
-#if 0
-        // TODO: Color from hex
-        _textColor = dictionary[@"textColor"];
-        _linkColor = dictionary[@"linkColor"];
-#endif
+        _backgroundColor = [UIColor srg_colorWithHexString:dictionary[@"bgColor"]];
+        _textColor = [UIColor srg_colorWithHexString:dictionary[@"textColor"]];
+        _linkColor = [UIColor srg_colorWithHexString:dictionary[@"linkColor"]];
         
         NSString *backgroundImageURLString = dictionary[@"bgImageUrl"];
         _backgroundImageURL = backgroundImageURLString ? [NSURL URLWithString:backgroundImageURLString]: nil;
