@@ -12,27 +12,52 @@ Create a property where you need it, and instanciate a IL Data provider like thi
 
 ```
 #!objective-c
-    self.ILDataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:[NSString businessUnitIdentifier]];
+    self.ILDataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:<business unit string>];
 ```
+The default URL is `http://il.srgssr.ch` and you need to check which business unit is supported. Today, we have `sfr`, `rts`, `rsi`, `rtr`and `swi`.
 
-Then, to fetch a list of item:
-
-```
-#!objective-c
-    [self.ILDataProvider fetchListOfIndex:<fetch list index>
-                         withPathArgument:<a possible argument>
-                                organised:<SRGILModelDataOrganisationTypeFlat or SRGILModelDataOrganisationTypeAlphabetical>
-                               onProgress:<an optional progress block>
-                             onCompletion:<a completion block>];
-```
-
-When you have a media to play, request its complete metadata with:
+To fetch a list of items, create an URL component object with the desired playlist:
 
 ```
 #!objective-c
-    [self.ILDataProvider fetchMediaWithURNString:<a media URN string>
-                                 completionBlock:<a completion block>];
+	[SRGILURLComponents URLComponentsForFetchListIndex:<fetch list index>
+                                        withIdentifier:<an optional identifier relevant for that fetch index>
+                                                 error:<an optional error>;
 ```
+
+Then, fetch the list like this:
+
+```
+#!objective-c
+    [self.ILDataProvider fetchObjectsListWithURLComponents:<fetch SRGILURLComponents object>
+                                                 organised:<SRGILModelDataOrganisationTypeFlat or SRGILModelDataOrganisationTypeAlphabetical>
+                                                onProgress:<an optional progress block>
+                                              onCompletion:<a completion block>];
+```
+
+When you have a media to play, request its complete metadata with its URN (unique identifier):
+
+```
+#!objective-c
+	SRGILURN *mediaURN = [SRGILURN URNWithString:<a media URN string>];
+    [self.ILDataProvider fetchMediaWithURN:mediaURN
+                           completionBlock:<a completion block>];
+```
+
+We get an `SRGILAudio`, `SRGILVideo` or a `SRGILShow`object in response.
+
+## IL Data Provider + MediaPlayer
+
+If you want to play a media content from the default SRG data provider, you need to deal with an authorisation token.
+The library can give the URL with the token, like this:
+
+```
+#!objective-c
+    [self.ILDataProvider mediaPlayerController:<an RTS media player controller object)
+                           contentURLForIdentifier:<a media identifier string>
+                           completionHandler:<a completion block>];
+```
+It should be used in the `RTSMediaPlayerControllerDataSource` protocol method `mediaPlayerController:contentURLForIdentifier:completionHandler:`.
 
 ## Compatibility
 
