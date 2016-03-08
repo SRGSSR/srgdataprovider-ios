@@ -57,7 +57,7 @@ The library can give the URL with the token, like this:
                            contentURLForIdentifier:<a media identifier string>
                            completionHandler:<a completion block>];
 ```
-It should be used in the `RTSMediaPlayerControllerDataSource` protocol method `mediaPlayerController:contentURLForIdentifier:completionHandler:`.
+It should be used in the `RTSMediaPlayerControllerDataSource` protocol method `mediaPlayerController:contentURLForIdentifier:completionHandler:`. With a CocoaPods installation, don't forget to add the pod subspec.
 
 ## Compatibility
 
