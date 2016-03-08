@@ -13,7 +13,9 @@
 @class SRGILURN;
 @class SRGILURLComponents;
 
-typedef void (^SRGILRequestListCompletionBlock)(NSDictionary *rawDictionary, NSError *error);
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^SRGILRequestListCompletionBlock)(NSDictionary * __nullable rawDictionary, NSError * __nullable error);
 
 @interface SRGILRequestsManager : NSObject
 
@@ -25,12 +27,12 @@ typedef void (^SRGILRequestListCompletionBlock)(NSDictionary *rawDictionary, NSE
 
 - (BOOL)requestMediaWithURN:(SRGILURN *)URN completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 
-- (BOOL)requestLiveMetaInfosWithChannelID:(NSString *)channelID livestreamID:(NSString *)livestreamID completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
+- (BOOL)requestLiveMetaInfosWithChannelID:(NSString *)channelID livestreamID:(nullable NSString *)livestreamID completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 
 - (BOOL)requestShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 
 - (BOOL)requestObjectsListWithURLComponents:(SRGILURLComponents *)components
-                              progressBlock:(SRGILFetchListDownloadProgressBlock)progressBlock
+                              progressBlock:(nullable SRGILFetchListDownloadProgressBlock)progressBlock
                             completionBlock:(SRGILRequestListCompletionBlock)completionBlock;
 
 - (void)cancelAllRequests;
@@ -55,7 +57,7 @@ typedef void (^SRGILRequestListCompletionBlock)(NSDictionary *rawDictionary, NSE
  *  @return Returns the SSID string of the current WIFI, if 'isUsingWIFI' returns 'YES'.
  *  Returns nil otherwise.
  */
-+ (NSString *)WIFISSID;
++ (nullable NSString *)WIFISSID;
 
 /**
  *  As a central network-based request, the request manager also provide some utilities.
@@ -66,3 +68,5 @@ typedef void (^SRGILRequestListCompletionBlock)(NSDictionary *rawDictionary, NSE
 + (BOOL)isUsingSwisscomWIFI;
 
 @end
+
+NS_ASSUME_NONNULL_END

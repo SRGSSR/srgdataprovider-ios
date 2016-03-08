@@ -340,6 +340,7 @@ static SGVReachability *reachability;
 - (void)sendViewCountUpdate:(NSString *)identifier forMediaTypeName:(NSString *)mediaType
 {
     NSParameterAssert(identifier);
+    NSParameterAssert(mediaType);
     
     // Mimicking AFNetworking JSON POST request
 
