@@ -17,6 +17,6 @@
 @property (nonatomic, readonly) UIColor *linkColor;
 
 @property (nonatomic, readonly) NSURL *backgroundImageURL;
-@property (nonatomic, readonly) NSURL* logoImageURL;
+@property (nonatomic, readonly) NSURL *logoImageURL;
 
 @end
