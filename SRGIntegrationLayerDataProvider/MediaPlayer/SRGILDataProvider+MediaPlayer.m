@@ -8,9 +8,6 @@
 #import <libextobjc/EXTScope.h>
 #import <objc/runtime.h>
 
-#import <SRGMediaPlayer/SRGMediaPlayer.h>
-#import <SRGAnalytics/SRGAnalytics.h>
-
 #import "SRGILDataProvider+MediaPlayer.h"
 #import "SRGILDataProvider+Private.h"
 #import "SRGILDataProviderConstants.h"
