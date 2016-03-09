@@ -15,6 +15,8 @@
 @class SRGILMedia;
 @class SRGILShow;
 
+// ********* Blocks definitions in the IL library **********
+
 /**
  *  Block associated with a fetch request, informing about the progresses of ALL on-going requests. This is mostly
  *  used for detailed information in the 'pull-to-refresh' feature in the Play SRG apps. One screen being composed
@@ -42,8 +44,13 @@ typedef void (^SRGILFetchListCompletionBlock)(SRGILList * __nullable items, Clas
 typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * __nullable error);
 
 
+// ********* Main class **********
+
 /**
  * The IL Data Provider is the main class to interact with the Integration Layer.
+ * After creating an instance with a business unit, you can fetch list.
+ * A fetch request needs an URL component object, which define the request.
+ * Object in a list can be a SRGILShow or a SRGILMedia (video or audio).
  *
  */
 @interface SRGILDataProvider : NSObject 
@@ -75,7 +82,7 @@ typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * _
  *  Create the URL Components object objects of a specific 'index';
  *
  *  @param index      The fetch index
- *  @param identifier The identifier relevant for that fetch index.
+ *  @param identifier The identifier relevant for that fetch index (Optionnal).
  *  @param error      The reference to an error instance.
  *
  *  @return The URL Components for that index. Or nil in case of error. In which the error object contains the reason.
