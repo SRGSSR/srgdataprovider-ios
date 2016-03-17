@@ -119,11 +119,14 @@ static SGVReachability *reachability;
 {
     NSParameterAssert(channelID);
     
-    if (!livestreamID) {
-        livestreamID = channelID;
+    NSString *path = nil;
+    if (livestreamID) {
+        path = [NSString stringWithFormat:@"channel/%@/nowAndNext.json?livestream=%@", channelID, livestreamID];
+    }
+    else {
+        path = [NSString stringWithFormat:@"channel/%@/nowAndNext.json", channelID];
     }
     
-    NSString *path = [NSString stringWithFormat:@"channel/%@/nowAndNext.json?livestream=%@", channelID, livestreamID];
     return [self requestModelObject:[SRGILLiveHeaderChannel class]
                                path:path
                          identifier:path // Trying this
