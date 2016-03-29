@@ -191,6 +191,13 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
             break;
         }
             
+        case SRGILFetchListAudioEpisodesByDate: {
+            if (identifier.length > 0) {
+                components.path = [NSString stringWithFormat:@"/audio/episodesByDateAndChannel/%@.json", identifier];
+            }
+            break;
+        }
+            
         case SRGILFetchListAudioSearch: {
             components.path = @"/audio/search.json";
             components.queryItems = @[[NSURLQueryItem queryItemWithName:@"q" value:SRGILFetchListURLComponentsEmptySearchQueryString],

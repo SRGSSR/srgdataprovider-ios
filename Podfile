@@ -35,7 +35,7 @@ end
 
 target 'SRGIntegrationLayerDataProvider DemoTests', :exclusive => true do
     xcodeproj 'SRGIntegrationLayerDataProvider Demo/SRGIntegrationLayerDataProvider Demo'
-    pod 'KIF', '3.3.1'
+    pod 'KIF', '3.4.1'
 end
 
 
