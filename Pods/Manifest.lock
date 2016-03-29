@@ -8,6 +8,7 @@ PODS:
   - CocoaLumberjack/Extensions (2.0.3):
     - CocoaLumberjack/Default
   - comScore-iOS-SDK-RTS (3.1509.15)
+  - JRSwizzle (1.0)
   - KIF (3.4.1):
     - KIF/Core (= 3.4.1)
   - KIF/Core (3.4.1)
@@ -19,23 +20,25 @@ PODS:
     - SDWebImage/Core (= 3.7.0)
   - SDWebImage/Core (3.7.0)
   - SGVReachability (1.0.0)
-  - SRGAnalytics (1.4.11):
-    - SRGAnalytics/Core (= 1.4.11)
-  - SRGAnalytics/Core (1.4.11):
+  - SRGAnalytics (1.4.12):
+    - SRGAnalytics/Core (= 1.4.12)
+  - SRGAnalytics/Core (1.4.12):
     - comScore-iOS-SDK-RTS (= 3.1509.15)
-    - SRGAnalytics/Core/Version (= 1.4.11)
-  - SRGAnalytics/Core/Version (1.4.11):
+    - JRSwizzle (= 1.0)
+    - SRGAnalytics/Core/Version (= 1.4.12)
+  - SRGAnalytics/Core/Version (1.4.12):
     - comScore-iOS-SDK-RTS (= 3.1509.15)
-  - SRGAnalytics/MediaPlayer (1.4.11):
+    - JRSwizzle (= 1.0)
+  - SRGAnalytics/MediaPlayer (1.4.12):
     - SRGAnalytics/Core
     - SRGMediaPlayer (~> 1.6.1)
-  - SRGIntegrationLayerDataProvider (3.5.2):
-    - SRGIntegrationLayerDataProvider/Core (= 3.5.2)
-  - SRGIntegrationLayerDataProvider/Core (3.5.2):
+  - SRGIntegrationLayerDataProvider (3.5.3):
+    - SRGIntegrationLayerDataProvider/Core (= 3.5.3)
+  - SRGIntegrationLayerDataProvider/Core (3.5.3):
     - CocoaLumberjack (~> 2.0.0)
     - libextobjc/EXTScope (= 0.4.1)
     - SGVReachability (~> 1.0.0)
-  - SRGIntegrationLayerDataProvider/MediaPlayer (3.5.2):
+  - SRGIntegrationLayerDataProvider/MediaPlayer (3.5.3):
     - SRGAnalytics (~> 1.4.9)
     - SRGAnalytics/MediaPlayer (~> 1.4.9)
     - SRGIntegrationLayerDataProvider/Core
@@ -69,13 +72,14 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   CocoaLumberjack: f58d8a19629f4d8379ae14bb3534def24161430e
   comScore-iOS-SDK-RTS: 71d28252778ba9bb06a1c5589046e96c057674f1
+  JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
   KIF: 2275c6d59c77e5e56f660f006b99d73780130540
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
-  SRGAnalytics: caba46eea1d76715ac3b42ce378cf578eef6e0cb
-  SRGIntegrationLayerDataProvider: c749c63165c7edb5f0500a3b4b411b5fc68b374d
+  SRGAnalytics: 3e03b4100299fcd11d0651f91d7d6a0cca140cfb
+  SRGIntegrationLayerDataProvider: 04197e0e48648e5eb4995f52bffaac32fe497e88
   SRGMediaPlayer: 4d9d32e56703b58b69f65fcfcd61aea5c5f768de
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
 
