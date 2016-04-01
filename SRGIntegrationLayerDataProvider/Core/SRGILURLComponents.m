@@ -161,6 +161,11 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
             // --- Audios ---
             
         case SRGILFetchListAudioLiveStreams: {
+            components.path = @"/audio/livestream.json";
+            break;
+        }
+            
+        case SRGILFetchListAudioLiveStream: {
             if (identifier.length > 0) {
                 components.path = [NSString stringWithFormat:@"/audio/play/%@.json", identifier];
             }
