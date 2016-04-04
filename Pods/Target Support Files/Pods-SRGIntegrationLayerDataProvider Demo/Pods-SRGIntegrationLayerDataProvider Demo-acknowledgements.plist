@@ -39,6 +39,15 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>Copyright (c) 2016 comScore, Inc.
+FOR MORE INFORMATION, PLEASE VISIT DIRECT.COMSCORE.COM</string>
+			<key>Title</key>
+			<string>ComScore-iOS</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>The MIT License (MIT)
 
 Copyright (c) 2014 Alexander Gusev
