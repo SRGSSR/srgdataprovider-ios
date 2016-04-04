@@ -1,5 +1,5 @@
 //
-//  Copyright (c) SRG. All rights reserved.
+//  Copyright (c) SRG SSR. All rights reserved.
 //
 //  License information is available from the LICENSE file.
 //
@@ -16,7 +16,7 @@
 /**
  * SRG/SSR Business units
  */
-typedef enum {
+typedef NS_ENUM(NSInteger, SSRBusinessUnit) {
 	/**
 	 *  Business unit for Schweizer Radio und Fernsehen (SRF)
 	 *
@@ -57,7 +57,7 @@ typedef enum {
 	 */
 	SSRBusinessUnitSWI
 	
-} SSRBusinessUnit;
+};
 
 
 /**

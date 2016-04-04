@@ -1,5 +1,5 @@
 //
-//  Copyright (c) SRG. All rights reserved.
+//  Copyright (c) SRG SSR. All rights reserved.
 //
 //  License information is available from the LICENSE file.
 //
@@ -14,7 +14,7 @@
 #import "RTSAnalyticsLogger.h"
 #import "RTSAnalyticsPageViewDataSource.h"
 
-#import <comScore-iOS-SDK-RTS/CSComScore.h>
+#import <ComScore-iOS/CSComScore.h>
 
 #if __has_include("RTSAnalyticsMediaPlayer.h")
 #define RTSAnalyticsMediaPlayerIncluded
@@ -41,6 +41,15 @@
 		sharedInstance = [[[self class] alloc] init_custom_RTSAnalyticsTracker];
 	});
 	return sharedInstance;
+}
+
++ (NSBundle *)bundle
+{
+#ifdef TEST
+    return [NSBundle bundleForClass:[self class]];
+#else
+    return [NSBundle mainBundle];
+#endif
 }
 
 - (id)init_custom_RTSAnalyticsTracker
@@ -98,7 +107,7 @@
 
 - (NSString *)infoDictionaryValueForKey:(NSString *)key
 {
-	NSDictionary *analyticsInfoDictionary = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"RTSAnalytics"];
+	NSDictionary *analyticsInfoDictionary = [[RTSAnalyticsTracker bundle] objectForInfoDictionaryKey:@"RTSAnalytics"];
 	return [analyticsInfoDictionary objectForKey:key];
 }
 
@@ -158,7 +167,7 @@
 
 - (NSDictionary *)comscoreGlobalLabels
 {
-	NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
+	NSBundle *mainBundle = [RTSAnalyticsTracker bundle];
 	
 	NSString *appName = [[mainBundle objectForInfoDictionaryKey:@"CFBundleExecutable"] stringByAppendingString:@" iOS"];
 	NSString *appLanguage = [[mainBundle preferredLocalizations] firstObject] ?: @"fr";

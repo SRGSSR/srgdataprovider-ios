@@ -375,7 +375,7 @@ static NSArray *validBusinessUnits = nil;
             return @[itemsList];
         }
     }
-    else if (modelClass == SRGILSearchResult.class || modelClass == SRGILTopic.class || modelClass == SRGILSonglog.class) {
+    else if (modelClass == SRGILSearchResult.class || modelClass == SRGILTopic.class || modelClass == SRGILSonglog.class || modelClass == SRGILEventConfig.class) {
         // Did not include in first case, because we'll have to deal with different type of search results (video, audio, shows).
         // We only process videos at the moment
         SRGILList *itemsList = [[SRGILList alloc] initWithArray:items];

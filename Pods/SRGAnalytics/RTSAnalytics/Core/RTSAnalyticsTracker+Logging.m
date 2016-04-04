@@ -1,14 +1,14 @@
 //
-//  Copyright (c) SRG. All rights reserved.
+//  Copyright (c) SRG SSR. All rights reserved.
 //
 //  License information is available from the LICENSE file.
 //
 
 #import "RTSAnalyticsTracker+Logging_private.h"
 
-#import <comScore-iOS-SDK-RTS/CSCore.h>
-#import <comScore-iOS-SDK-RTS/CSComScore.h>
-#import <comScore-iOS-SDK-RTS/CSTaskExecutor.h>
+#import <ComScore-iOS/CSCore.h>
+#import <ComScore-iOS/CSComScore.h>
+#import <ComScore-iOS/CSTaskExecutor.h>
 
 #import "CSRequest+RTSAnalytics_private.h"
 #import "RTSAnalyticsLogger.h"

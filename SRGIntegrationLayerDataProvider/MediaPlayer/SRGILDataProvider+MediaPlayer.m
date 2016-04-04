@@ -8,9 +8,6 @@
 #import <libextobjc/EXTScope.h>
 #import <objc/runtime.h>
 
-#import <SRGMediaPlayer/SRGMediaPlayer.h>
-#import <SRGAnalytics/SRGAnalytics.h>
-
 #import "SRGILDataProvider+MediaPlayer.h"
 #import "SRGILDataProvider+Private.h"
 #import "SRGILDataProviderConstants.h"
@@ -86,7 +83,6 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                 [self prepareAnalyticsInfosForMedia:media withContentURL:media.defaultContentURL];
                 
                 [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.defaultContentURL
-                                            appendLogicalSegmentation:nil
                                                       completionBlock:^(NSURL *tokenizedURL, NSError *error) {
                                                           if (error) {
                                                               completionHandler(nil, error);
@@ -256,24 +252,23 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     
     if (oldState == RTSMediaPlaybackStatePreparing && newState == RTSMediaPlaybackStateReady) {
         SRGILURN *urn = [SRGILURN URNWithString:player.identifier];
-        NSAssert(urn, @"Unable to create URN from identifier, which is needed to proceed.");
-        NSAssert(urn.mediaType != SRGILMediaTypeUndefined, @"Undefined mediaType inferred from URN.");
-        
-        NSString *typeName = nil;
-        switch (urn.mediaType) {
-            case SRGILMediaTypeAudio:
-                typeName = @"audio";
-                break;
-            case SRGILMediaTypeVideo:
-                typeName = @"video";
-                break;
-            default:
-                NSAssert(false, @"Invalid media type: %d", (int)urn.mediaType);
-                break;
-        }
-        
-        if (typeName) {
-            [self.requestManager sendViewCountUpdate:urn.identifier forMediaTypeName:typeName];
+        if (urn && urn.mediaType != SRGILMediaTypeUndefined) {
+            NSString *typeName = nil;
+            switch (urn.mediaType) {
+                case SRGILMediaTypeAudio:
+                    typeName = @"audio";
+                    break;
+                case SRGILMediaTypeVideo:
+                    typeName = @"video";
+                    break;
+                default:
+                    NSAssert(false, @"Invalid media type: %d", (int)urn.mediaType);
+                    break;
+            }
+            
+            if (typeName) {
+                [self.requestManager sendViewCountUpdate:urn.identifier forMediaTypeName:typeName];
+            }
         }
     }
 }

@@ -45,7 +45,6 @@ static NSString *const kTokenBaseUrl = @"http://www.srf.ch/player/token?acl=/";
     };
     
     [[SRGILTokenHandler sharedHandler] requestTokenForURL:url
-                                appendLogicalSegmentation:@""
                                           completionBlock:block];
 }
 

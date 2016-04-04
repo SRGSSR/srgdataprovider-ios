@@ -56,7 +56,7 @@ In the method `-application:didFinishLaunchingWithOptions:` method of your appli
 
 ```
 
-where `businessUnit` is one of the SRG business units as declared by the `SSRBusinessUnit` enum. If you have include support for the SRG Media Player library, call instead:
+where `businessUnit` is one of the SRG business units as declared by the `SSRBusinessUnit` enum. If you have included support for the SRG Media Player library, call instead:
 
 ```
 #!objective-c
@@ -73,15 +73,14 @@ Your app `Info.plist` file must contains a dictionary section called `RTSAnalyti
 
 * `ComscoreVirtualSite`: comScore virtual site
 * `NetmetrixAppID`: NET-Metrix application identifier
-* `StreamsenseVirtualSite`: Stream Sense virtual site
 
 By using custom build settings variables, it is possible to provide different values for different configurations (Debug, Beta, Release, etc.) with a single `Info.plist` file.
 
 ### Tracking view counts for view controllers
 
-For each view controller which requires tracking, have it explicitly conform to the `RTSAnalyticsPageViewDataSource` protocol, and implement the associated required method. This is all you need to do, view events will then automatically be sent when your view controller is presented.
+For each view controller which requires tracking, like a page view event, you have it explicitly conform to the `RTSAnalyticsPageViewDataSource` protocol, and implement the associated required method. This is all you need to do, view events will then automatically be sent when your view controller is presented.
 
-You can provide further optional information, please have a look at the `RTSAnalyticsPageViewDataSource` documentation for more information.
+You can provide further optional information, please have a look at the `RTSAnalyticsPageViewDataSource` header file.
 
 ### Tracking media players
 

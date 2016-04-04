@@ -1,11 +1,11 @@
 //
-//  Copyright (c) SRG. All rights reserved.
+//  Copyright (c) SRG SSR. All rights reserved.
 //
 //  License information is available from the LICENSE file.
 //
 
 #import <Foundation/Foundation.h>
-#import <comScore-iOS-SDK-RTS/CSStreamSense.h>
+#import <ComScore-iOS/CSStreamSense.h>
 
 @class RTSMediaPlayerController;
 @protocol RTSMediaSegment;
