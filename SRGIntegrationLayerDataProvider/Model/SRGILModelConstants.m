@@ -79,6 +79,8 @@ SRGILPlaylistProtocol SRGILPlayListProtocolForString(NSString *protocolString)
     dispatch_once(&onceToken, ^{
         protocols = @{ @"HTTP-HDS" : @(SRGILPlaylistProtocolHDS),
                        @"HTTP-HLS" : @(SRGILPlaylistProtocolHLS),
+                       @"HTTP-HDS-DVR" : @(SRGILPlaylistProtocolHDSDVR),
+                       @"HTTP-HLS-DVR" : @(SRGILPlaylistProtocolHLSDVR),
                        @"HTTP" : @(SRGILPlaylistProtocolHTTP),
                        @"RTMP" : @(SRGILPlaylistProtocolRTMP) };
     });
