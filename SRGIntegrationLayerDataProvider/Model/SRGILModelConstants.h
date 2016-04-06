@@ -62,6 +62,8 @@ typedef NS_ENUM(NSInteger, SRGILPlaylistProtocol) {
     SRGILPlaylistProtocolHDS,
     SRGILPlaylistProtocolRTMP,
     SRGILPlaylistProtocolHTTP,
+    SRGILPlaylistProtocolHLSDVR,
+    SRGILPlaylistProtocolHDSDVR,
     SRGILPlaylistProtocolUnknown,
     SRGILPlaylistProtocolEnumEnd,
     SRGILPlaylistProtocolEnumSize = SRGILPlaylistProtocolEnumEnd - SRGILPlaylistProtocolEnumBegin
