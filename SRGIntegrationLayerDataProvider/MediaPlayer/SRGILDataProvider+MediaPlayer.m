@@ -137,7 +137,9 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
             [self prepareAnalyticsInfosForMedia:parentMedia withContentURL:parentMedia.defaultContentURL];
         }
         
-        if (!parentMedia.fullLength || parentMedia.segments.count == 0) {
+        // RTR audio segments are special (no full length). Horrible, but if we do the same for all BUs, we have issues
+        // with RTS, for which there are videos with the same behavior ;(
+        if ([[self businessUnit] isEqualToString:@"rtr"] && !parentMedia.fullLength || parentMedia.segments.count == 0) {
             SRGILAsset * asset = parentMedia.assetSet.assets.firstObject;
             if (![asset fullLengthMedia] && ([asset mediaSegments].count > 1)) // Asset with segments but without a full length
             {
