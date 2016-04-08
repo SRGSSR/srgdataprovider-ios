@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '22B6121B265BBE3A528CA596'
+               BlueprintIdentifier = 'DC99D3310E821807A9E238E6'
                BlueprintName = 'SRGIntegrationLayerDataProvider'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libSRGIntegrationLayerDataProvider.a'>
