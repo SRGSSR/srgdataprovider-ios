@@ -20,34 +20,34 @@ PODS:
     - SDWebImage/Core (= 3.7.0)
   - SDWebImage/Core (3.7.0)
   - SGVReachability (1.0.0)
-  - SRGAnalytics (1.4.13):
-    - SRGAnalytics/Core (= 1.4.13)
-  - SRGAnalytics/Core (1.4.13):
+  - SRGAnalytics (1.4.15):
+    - SRGAnalytics/Core (= 1.4.15)
+  - SRGAnalytics/Core (1.4.15):
     - ComScore-iOS (= 3.1510.23.1)
     - JRSwizzle (= 1.0)
-    - SRGAnalytics/Core/Version (= 1.4.13)
-  - SRGAnalytics/Core/Version (1.4.13):
+    - SRGAnalytics/Core/Version (= 1.4.15)
+  - SRGAnalytics/Core/Version (1.4.15):
     - ComScore-iOS (= 3.1510.23.1)
     - JRSwizzle (= 1.0)
-  - SRGAnalytics/MediaPlayer (1.4.13):
+  - SRGAnalytics/MediaPlayer (1.4.15):
     - SRGAnalytics/Core
-    - SRGMediaPlayer (~> 1.6.1)
-  - SRGIntegrationLayerDataProvider (3.5.7):
-    - SRGIntegrationLayerDataProvider/Core (= 3.5.7)
-  - SRGIntegrationLayerDataProvider/Core (3.5.7):
+    - SRGMediaPlayer (~> 1.7.0)
+  - SRGIntegrationLayerDataProvider (3.5.8):
+    - SRGIntegrationLayerDataProvider/Core (= 3.5.8)
+  - SRGIntegrationLayerDataProvider/Core (3.5.8):
     - CocoaLumberjack (~> 2.0.0)
     - libextobjc/EXTScope (= 0.4.1)
     - SGVReachability (~> 1.0.0)
-  - SRGIntegrationLayerDataProvider/MediaPlayer (3.5.7):
-    - SRGAnalytics (~> 1.4.9)
-    - SRGAnalytics/MediaPlayer (~> 1.4.9)
+  - SRGIntegrationLayerDataProvider/MediaPlayer (3.5.8):
+    - SRGAnalytics (~> 1.4.15)
+    - SRGAnalytics/MediaPlayer (~> 1.4.15)
     - SRGIntegrationLayerDataProvider/Core
-    - SRGMediaPlayer (~> 1.6.1)
-  - SRGMediaPlayer (1.6.6):
+    - SRGMediaPlayer (~> 1.7.0)
+  - SRGMediaPlayer (1.7.0):
     - libextobjc/EXTScope (~> 0.4.1)
-    - SRGMediaPlayer/Version (= 1.6.6)
+    - SRGMediaPlayer/Version (= 1.7.0)
     - TransitionKit (~> 2.2.0)
-  - SRGMediaPlayer/Version (1.6.6):
+  - SRGMediaPlayer/Version (1.7.0):
     - libextobjc/EXTScope (~> 0.4.1)
     - TransitionKit (~> 2.2.0)
   - TransitionKit (2.2.1)
@@ -59,11 +59,11 @@ DEPENDENCIES:
   - OCMock (= 3.1.2)
   - SDWebImage (= 3.7.0)
   - SGVReachability (~> 1.0.0)
-  - SRGAnalytics (~> 1.4.9)
+  - SRGAnalytics (~> 1.4.15)
   - SRGAnalytics/MediaPlayer
   - SRGIntegrationLayerDataProvider (from `.`)
   - SRGIntegrationLayerDataProvider/MediaPlayer (from `.`)
-  - SRGMediaPlayer (~> 1.6.4)
+  - SRGMediaPlayer (~> 1.7.0)
 
 EXTERNAL SOURCES:
   SRGIntegrationLayerDataProvider:
@@ -78,9 +78,9 @@ SPEC CHECKSUMS:
   OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
-  SRGAnalytics: 538f98e4e21211ebe8d249e45585f93949fcb354
-  SRGIntegrationLayerDataProvider: 9f222a5c235572332697a6d4eb094aa21b552655
-  SRGMediaPlayer: 1136d79914d30d2d942bd732c84eeae20f7f80ce
+  SRGAnalytics: c5f1c4b4e0014ef109213366d49c2680151600c7
+  SRGIntegrationLayerDataProvider: f0973e63bc3ea1c227848796b8ae83debad031a1
+  SRGMediaPlayer: 403c72641303aac43ad8fe2382040449d2e3f2c3
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
 
 COCOAPODS: 0.39.0
