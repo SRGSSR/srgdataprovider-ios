@@ -100,6 +100,7 @@ static SGVReachability *reachability;
     return [self requestModelObject:objectClass
                                path:path
                          identifier:URN.identifier
+                     serviceVersion:@"1.0"
                             JSONKey:JSONKey
                     completionBlock:completionBlock];
 }
@@ -129,6 +130,7 @@ static SGVReachability *reachability;
     return [self requestModelObject:[SRGILLiveHeaderChannel class]
                                path:path
                          identifier:path // Trying this
+                     serviceVersion:@"1.0"
                             JSONKey:@"Channel"
                     completionBlock:completionBlock];
 }
@@ -139,6 +141,7 @@ static SGVReachability *reachability;
     return [self requestModelObject:SRGILShow.class
                                path:[NSString stringWithFormat:@"assetGroup/detail/%@.json", identifier]
                          identifier:identifier
+                     serviceVersion:@"1.0"
                             JSONKey:@"Show"
                     completionBlock:completionBlock];
 }
@@ -146,14 +149,16 @@ static SGVReachability *reachability;
 - (BOOL)requestModelObject:(Class)modelClass
                       path:(NSString *)path
                 identifier:(NSString *)identifier
+            serviceVersion:(NSString *)serviceVersion
                    JSONKey:(NSString *)JSONKey
            completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
 {
-    NSAssert(modelClass, @"Missing model class");
-    NSAssert(path, @"Missing model request URL path");
-    NSAssert(identifier, @"Missing media ID");
-    NSAssert(JSONKey, @"Missing JSON key");
-    NSAssert(completionBlock, @"Missing completion block");
+    NSParameterAssert(modelClass);
+    NSParameterAssert(path);
+    NSParameterAssert(identifier);
+    NSParameterAssert(JSONKey);
+    NSParameterAssert(completionBlock);
+    NSParameterAssert(serviceVersion);
 
     __block SRGILOngoingRequest *ongoingRequest = self.ongoingRequests[identifier];
     if (ongoingRequest) {
@@ -220,7 +225,7 @@ static SGVReachability *reachability;
                                                    delegateQueue:nil];
     }
     
-    NSURL *completeURL = [[[[self.baseURL URLByAppendingPathComponent:@"1.0"] URLByAppendingPathComponent:@"ue"] URLByAppendingPathComponent:self.businessUnit] URLByAppendingPathComponent:path];
+    NSURL *completeURL = [[[[self.baseURL URLByAppendingPathComponent:serviceVersion] URLByAppendingPathComponent:@"ue"] URLByAppendingPathComponent:self.businessUnit] URLByAppendingPathComponent:path];
     NSURLSessionTask *task = [self.URLSession dataTaskWithURL:completeURL completionHandler:completion];
     
     DDLogDebug(@"Requesting complete URL %@ for identifier %@", completeURL, identifier);
@@ -240,16 +245,14 @@ static SGVReachability *reachability;
                               progressBlock:(SRGILFetchListDownloadProgressBlock)progressBlock
                             completionBlock:(SRGILRequestListCompletionBlock)completionBlock
 {
-    NSAssert(components, @"An SRGILURNComponents instance is required, otherwise, what's the point?");
-    NSAssert(completionBlock, @"A completion block is required, otherwise, what's the point?");
+    NSParameterAssert(components);
+    NSParameterAssert(completionBlock);
     
     components.host = self.baseURL.host;
     components.scheme = self.baseURL.scheme;
-    if (NO == [components.path hasPrefix:self.baseURL.path]) {
-        components.path = [self.baseURL.path stringByAppendingString:components.path];
-    }
+    components.path = [[[[self.baseURL URLByAppendingPathComponent:components.serviceVersion] URLByAppendingPathComponent:@"ue"] URLByAppendingPathComponent:self.businessUnit] URLByAppendingPathComponent:components.path];
     
-        // Fill dictionary with 0 numbers, as we need the count of requests for the total fraction
+    // Fill dictionary with 0 numbers, as we need the count of requests for the total fraction
     NSNumber *downloadFraction = [self.ongoingVideoListDownloads objectForKey:components.string];
     if (!downloadFraction) {
         [self.ongoingVideoListDownloads setObject:@(0.0) forKey:components.string];

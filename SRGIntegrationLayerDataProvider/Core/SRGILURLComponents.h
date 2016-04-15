@@ -13,6 +13,7 @@
 
 @property(nonatomic, assign, readonly) SRGILFetchListIndex index;
 @property(nonatomic, copy, readonly, nullable) NSString *identifier;
+@property(nonatomic, copy, null_resettable) NSString *serviceVersion;          // defaults to 1.0
 
 // Convenient methods to update the query
 - (void)updateQueryItemsWithSearchString:(nonnull NSString *)newQueryString;

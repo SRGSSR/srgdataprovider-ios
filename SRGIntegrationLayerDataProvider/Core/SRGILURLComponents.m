@@ -340,6 +340,11 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
     return (pageNumberItems.count == 1) ? [[pageNumberItems.lastObject valueForKey:@"value"] integerValue] : 1;
 }
 
+- (NSString *)serviceVersion
+{
+    return _serviceVersion ?: @"1.0";
+}
+
 #pragma mark - Constructors
 
 + (instancetype)componentsWithString:(NSString *)URLString
