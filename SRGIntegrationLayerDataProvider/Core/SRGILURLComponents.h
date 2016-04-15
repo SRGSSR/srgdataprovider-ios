@@ -11,6 +11,19 @@
 
 @interface SRGILURLComponents : NSURLComponents
 
+/**
+ *  Create the URL Components object objects of a specific 'index';
+ *
+ *  @param index      The fetch index
+ *  @param identifier The identifier relevant for that fetch index (Optionnal).
+ *  @param error      The reference to an error instance.
+ *
+ *  @return The URL Components for that index. Or nil in case of error. In which the error object contains the reason.
+ */
++ (nullable SRGILURLComponents *)componentsForFetchListIndex:(SRGILFetchListIndex)index
+                                              withIdentifier:(nullable NSString *)identifier
+                                                       error:(NSError * __nullable __autoreleasing * __nullable)error;
+
 @property(nonatomic, assign, readonly) SRGILFetchListIndex index;
 @property(nonatomic, copy, readonly, nullable) NSString *identifier;
 @property(nonatomic, copy, null_resettable) NSString *serviceVersion;          // defaults to 1.0

@@ -76,21 +76,6 @@ typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * _
  */
 @property (nonatomic, null_resettable) NSURL *baseURL;
 
-// ********* Fetch lists of IL model objects **********
-
-/**
- *  Create the URL Components object objects of a specific 'index';
- *
- *  @param index      The fetch index
- *  @param identifier The identifier relevant for that fetch index (Optionnal).
- *  @param error      The reference to an error instance.
- *
- *  @return The URL Components for that index. Or nil in case of error. In which the error object contains the reason.
- */
-- (nullable SRGILURLComponents *)URLComponentsForFetchListIndex:(SRGILFetchListIndex)index
-                                                 withIdentifier:(nullable NSString *)identifier
-                                                          error:(NSError * __nullable __autoreleasing * __nullable)error;
-
 /**
  *  Fetch objects of a specific 'index' from the IL
  * 

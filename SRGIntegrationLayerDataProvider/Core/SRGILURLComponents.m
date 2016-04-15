@@ -7,7 +7,6 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 #import "SRGILURLComponents.h"
-#import "SRGILURLComponents+Private.h"
 
 #import "NSBundle+SRGILDataProvider.h"
 

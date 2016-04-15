@@ -34,9 +34,9 @@
 - (void)testWrongIndex
 {
     NSError *error = nil;
-    SRGILURLComponents *components = [self.dataProvider URLComponentsForFetchListIndex:-1
-                                                                         withIdentifier:nil
-                                                                                  error:&error];
+    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:-1
+                                                                      withIdentifier:nil
+                                                                               error:&error];
     
     XCTAssertNil(components);
     XCTAssertNotNil(error);
@@ -45,9 +45,9 @@
 - (void)testIndexVideoLiveStreams
 {
     NSError *error = nil;
-    SRGILURLComponents *components = [self.dataProvider URLComponentsForFetchListIndex:SRGILFetchListVideoLiveStreams
-                                                                         withIdentifier:nil
-                                                                                  error:&error];
+    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:SRGILFetchListVideoLiveStreams
+                                                                      withIdentifier:nil
+                                                                               error:&error];
     
     XCTAssertNotNil(components);
     XCTAssertNotNil(components.path);
@@ -58,12 +58,12 @@
 - (void)testIndexVideoSearch
 {
     NSError *error = nil;
-    SRGILURLComponents *components = [self.dataProvider URLComponentsForFetchListIndex:SRGILFetchListVideoSearch
-                                                                         withIdentifier:nil
-                                                                                  error:&error];
+    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:SRGILFetchListVideoSearch
+                                                                      withIdentifier:nil
+                                                                               error:&error];
     
-    XCTAssertNotNil(components);
-    XCTAssertNotNil(components.path);
+                                          XCTAssertNotNil(components);
+                                          XCTAssertNotNil(components.path);
     XCTAssertNotNil(components.queryItems);
     XCTAssertNil(error);
 

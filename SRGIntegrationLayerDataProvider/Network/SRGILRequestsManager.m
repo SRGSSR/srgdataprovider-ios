@@ -250,7 +250,7 @@ static SGVReachability *reachability;
     
     components.host = self.baseURL.host;
     components.scheme = self.baseURL.scheme;
-    components.path = [[[[self.baseURL URLByAppendingPathComponent:components.serviceVersion] URLByAppendingPathComponent:@"ue"] URLByAppendingPathComponent:self.businessUnit] URLByAppendingPathComponent:components.path];
+    components.path = [[[[self.baseURL.path stringByAppendingPathComponent:components.serviceVersion] stringByAppendingPathComponent:@"ue"] stringByAppendingPathComponent:self.businessUnit] stringByAppendingPathComponent:components.path];
     
     // Fill dictionary with 0 numbers, as we need the count of requests for the total fraction
     NSNumber *downloadFraction = [self.ongoingVideoListDownloads objectForKey:components.string];
