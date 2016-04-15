@@ -111,8 +111,7 @@ static SGVReachability *reachability;
 
 - (void)setBaseURL:(NSURL *)baseURL
 {
-    NSURL *defaultBaseURL = [NSURL URLWithString:@"http://il.srgssr.ch/integrationlayer/1.0/ue/"];
-    _baseURL = baseURL ? [baseURL URLByAppendingPathComponent:self.businessUnit] : [defaultBaseURL URLByAppendingPathComponent:self.businessUnit];
+    _baseURL = baseURL ?: [NSURL URLWithString:@"http://il.srgssr.ch/integrationlayer/"];
 }
 
 - (BOOL)requestLiveMetaInfosWithChannelID:(NSString *)channelID livestreamID:(NSString *)livestreamID completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
@@ -221,7 +220,7 @@ static SGVReachability *reachability;
                                                    delegateQueue:nil];
     }
     
-    NSURL *completeURL = [self.baseURL URLByAppendingPathComponent:path];
+    NSURL *completeURL = [[[[self.baseURL URLByAppendingPathComponent:@"1.0"] URLByAppendingPathComponent:@"ue"] URLByAppendingPathComponent:self.businessUnit] URLByAppendingPathComponent:path];
     NSURLSessionTask *task = [self.URLSession dataTaskWithURL:completeURL completionHandler:completion];
     
     DDLogDebug(@"Requesting complete URL %@ for identifier %@", completeURL, identifier);
