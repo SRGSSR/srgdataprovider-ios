@@ -7,7 +7,6 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 #import "SRGILURLComponents.h"
-#import "SRGILURLComponents+Private.h"
 
 #import "NSBundle+SRGILDataProvider.h"
 
@@ -338,6 +337,11 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
     NSArray *pageNumberItems = [self.queryItems filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"pageNumber"]];
     NSAssert(pageNumberItems.count <= 1, @"Multiple pageNumber query items?");
     return (pageNumberItems.count == 1) ? [[pageNumberItems.lastObject valueForKey:@"value"] integerValue] : 1;
+}
+
+- (NSString *)serviceVersion
+{
+    return _serviceVersion ?: @"1.0";
 }
 
 #pragma mark - Constructors

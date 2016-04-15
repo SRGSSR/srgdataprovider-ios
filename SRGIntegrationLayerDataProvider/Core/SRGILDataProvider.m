@@ -16,7 +16,6 @@
 #import "SRGILList.h"
 #import "SRGILRequestsManager.h"
 #import "SRGILURLComponents.h"
-#import "SRGILURLComponents+Private.h"
 
 #import "NSBundle+SRGILDataProvider.h"
 
@@ -115,23 +114,6 @@ static NSArray *validBusinessUnits = nil;
 }
 
 #pragma mark - Item Lists
-
-- (SRGILURLComponents *)URLComponentsForFetchListIndex:(SRGILFetchListIndex)index
-                                        withIdentifier:(nullable NSString *)identifier
-                                                 error:(NSError * __nullable __autoreleasing * __nullable)error
-{
-    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:index
-                                                                      withIdentifier:identifier
-                                                                               error:error];
-    
-    components.host = self.requestManager.baseURL.host;
-    components.scheme = self.requestManager.baseURL.scheme;
-    if (components.path && NO == [components.path hasPrefix:self.requestManager.baseURL.path]) {
-        components.path = [self.requestManager.baseURL.path stringByAppendingString:components.path];
-    }
-
-    return components;
-}
 
 - (void)fetchObjectsListWithURLComponents:(nonnull SRGILURLComponents *)components
                                 organised:(SRGILModelDataOrganisationType)orgType

@@ -20,9 +20,9 @@ To fetch a list of items, create an URL component object with the desired playli
 
 ```
 #!objective-c
-	[SRGILURLComponents URLComponentsForFetchListIndex:<fetch list index>
-                                        withIdentifier:<an optional identifier relevant for that fetch index>
-                                                 error:<an optional error>;
+	[SRGILURLComponents componentsForFetchListIndex:<fetch list index>
+                                     withIdentifier:<an optional identifier relevant for that fetch index>
+                                              error:<an optional error>];
 ```
 
 Then, fetch the list like this:

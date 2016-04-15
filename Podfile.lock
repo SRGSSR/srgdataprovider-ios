@@ -43,11 +43,11 @@ PODS:
     - SRGAnalytics/MediaPlayer (~> 1.4.15)
     - SRGIntegrationLayerDataProvider/Core
     - SRGMediaPlayer (~> 1.7.0)
-  - SRGMediaPlayer (1.7.0):
+  - SRGMediaPlayer (1.7.1):
     - libextobjc/EXTScope (~> 0.4.1)
-    - SRGMediaPlayer/Version (= 1.7.0)
+    - SRGMediaPlayer/Version (= 1.7.1)
     - TransitionKit (~> 2.2.0)
-  - SRGMediaPlayer/Version (1.7.0):
+  - SRGMediaPlayer/Version (1.7.1):
     - libextobjc/EXTScope (~> 0.4.1)
     - TransitionKit (~> 2.2.0)
   - TransitionKit (2.2.1)
@@ -80,7 +80,7 @@ SPEC CHECKSUMS:
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
   SRGAnalytics: c5f1c4b4e0014ef109213366d49c2680151600c7
   SRGIntegrationLayerDataProvider: f0973e63bc3ea1c227848796b8ae83debad031a1
-  SRGMediaPlayer: 403c72641303aac43ad8fe2382040449d2e3f2c3
+  SRGMediaPlayer: e87513802ad40c204517e178261d200ca39075f0
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
 
 COCOAPODS: 0.39.0
