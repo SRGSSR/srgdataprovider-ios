@@ -351,7 +351,7 @@ static SGVReachability *reachability;
 
     NSDictionary *parameters = nil;
     NSString *path = [NSString stringWithFormat:@"%@/%@/clicked.json", mediaType, identifier];
-    NSURL *URL = [self.baseURL URLByAppendingPathComponent:path];
+    NSURL *URL = [[[[self.baseURL URLByAppendingPathComponent:@"1.0"] URLByAppendingPathComponent:@"ue"] URLByAppendingPathComponent:self.businessUnit] URLByAppendingPathComponent:path];
     NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL];
     
     NSString *charset = (__bridge NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
