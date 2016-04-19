@@ -242,7 +242,7 @@
 		E67427201C73532400C15F94 /* SRGILEventConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILEventConfig.m; sourceTree = "<group>"; };
 		E68E95E11B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGILMedia+MediaPlayer.h"; sourceTree = "<group>"; };
 		E68E95E21B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGILMedia+MediaPlayer.m"; sourceTree = "<group>"; };
-		E6F8FF381CC6019B00EC0793 /* SRGILDataProviderAnalyticsDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SRGILDataProviderAnalyticsDataSource.h; path = SRGIntegrationLayerDataProvider/Analytics/SRGILDataProviderAnalyticsDataSource.h; sourceTree = SOURCE_ROOT; };
+		E6F8FF391CC6040400EC0793 /* SRGILDataProviderAnalyticsDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SRGILDataProviderAnalyticsDataSource.h; path = SRGIntegrationLayerDataProvider/SRGILDataProviderAnalyticsDataSource.h; sourceTree = SOURCE_ROOT; };
 		F4A90E42A0F98F5CE90DBD45 /* Pods-SRGIntegrationLayerDataProviderTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProviderTests.test.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProviderTests/Pods-SRGIntegrationLayerDataProviderTests.test.xcconfig"; sourceTree = "<group>"; };
 		F5D020938ACBE926372DE924 /* libPods-SRGIntegrationLayerDataProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProvider.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -461,7 +461,7 @@
 		9F4420FD1B0A107900AD0613 /* MediaPlayer & Analytics */ = {
 			isa = PBXGroup;
 			children = (
-				E6F8FF381CC6019B00EC0793 /* SRGILDataProviderAnalyticsDataSource.h */,
+				E6F8FF391CC6040400EC0793 /* SRGILDataProviderAnalyticsDataSource.h */,
 				9F4421011B0A116D00AD0613 /* SRGILDataProviderMediaPlayerDataSource.h */,
 				9F4420FE1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.h */,
 				9F4420FF1B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m */,
