@@ -100,7 +100,7 @@
 		<key>00B3C8803F838F63619D9E885B77F8CC</key>
 		<dict>
 			<key>fileRef</key>
-			<string>E273C80290806AC8F173EA6AD709C007</string>
+			<string>15C628A76B8F413842BFD9E6AF2AC23E</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -114,7 +114,7 @@
 		<key>00B9C8DEFD08201D8B597623A15F5274</key>
 		<dict>
 			<key>fileRef</key>
-			<string>08495F7CDC856FEB2BFD95631D9CF471</string>
+			<string>B7FFCEF7AA983AA14C339F589925DA23</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -486,19 +486,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>08495F7CDC856FEB2BFD95631D9CF471</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILOngoingRequest+Private.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>0879F542326459F0423610D3E8331734</key>
 		<dict>
 			<key>children</key>
@@ -585,19 +572,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>097D80CAFD4ED4833F53B58E8A06A657</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILDataProviderAnalyticsDataSource.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>0980F090031F17050E6E187E34021CCA</key>
 		<dict>
 			<key>explicitFileType</key>
@@ -612,31 +586,6 @@
 			<string>libPods.a</string>
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>098E1F70A4C193FBE801C7145669C98A</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>6DBAF182F74F4540C9573EA935B2567B</string>
-				<string>30CA41C04071E6F8FAC699496BAB33AA</string>
-				<string>DC38FB2745078663EACB34CD676F8FF1</string>
-				<string>B2CABA47516E5655A87D6127AAA15B76</string>
-				<string>3D1D023624C1D58927167D59DB9DD6D6</string>
-				<string>0E04F51A4CC69832408CAFEB2995ADC3</string>
-				<string>ED3EE8F3690097174CBABC91453F14D0</string>
-				<string>7287FA428B039391B79EB545E92183E8</string>
-				<string>EBDDC98AF98848898D59975E421546CC</string>
-				<string>1AF09FC3D66E2E4334526F7ACCC57D59</string>
-				<string>D619881BE19EC01C225A9F6DDF96EBBC</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Core</string>
-			<key>path</key>
-			<string>Core</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>099F846F5DD790F08D53B5A5F0F47C36</key>
 		<dict>
@@ -699,19 +648,6 @@
 				<string>-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
 		</dict>
-		<key>0A1A02129C65B0A7218B9B25B7EAB36B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILModel.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>0A2BF2E85B705D12E66BACA512DA44C6</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -738,19 +674,6 @@
 			<string>PBXHeadersBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
-		</dict>
-		<key>0A35516EAB91D118B89FE626A04C5153</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILRequestsManager.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>0A63B0D645A164B1E258BEFA0D82AE67</key>
 		<dict>
@@ -951,7 +874,7 @@
 		<key>0DC8454D02F52684320BACAB9A56A8A4</key>
 		<dict>
 			<key>fileRef</key>
-			<string>6C33B55815F13D6968CA6449911B9E6A</string>
+			<string>2F40EE5D0497D703E88A8D4423ADCE74</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -989,16 +912,16 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>0E04F51A4CC69832408CAFEB2995ADC3</key>
+		<key>0DFDCF9C6897857CA8E9FF7E7D249842</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>SRGILDataProviderConstants.h</string>
+			<string>SRGILSearchResult.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1242,7 +1165,7 @@
 		<key>11B1CE095BFA03D477EE51B7433D7420</key>
 		<dict>
 			<key>fileRef</key>
-			<string>BA5B7CE952369F24C817563F0A41F44B</string>
+			<string>A81A67BA256A3100FDC6EC9986DCAB4B</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1282,7 +1205,7 @@
 		<key>120F66531643590164000047A38BCE4E</key>
 		<dict>
 			<key>fileRef</key>
-			<string>6DBAF182F74F4540C9573EA935B2567B</string>
+			<string>2D2FB87E9034742BEA111A3A8D21B6EB</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1348,6 +1271,32 @@
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
+		<key>138CF8F277371F133BA68297728DE5EE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILAudio.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>13B85A5571583397DF3F5E3DEF258B28</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILAsset.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>13DDABCC5D42D8B3BAF4823E2CEACB21</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1376,6 +1325,19 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>145367E33F42826B5CC9CC3215FC9E33</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILSong.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>148A1D2C4D5D951FEDE393B27FAF0012</key>
 		<dict>
@@ -1407,6 +1369,22 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>1512FAF64DFF5477B3B762DDD0F74D68</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>37E45B1C0395DE1AFA99560627E33486</string>
+				<string>44DC8BEFECD2CC625FDA816816F9BB77</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>SRGIntegrationLayerDataProvider</string>
+			<key>path</key>
+			<string>SRGIntegrationLayerDataProvider</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>159D7799D923F719279D7C6FE532006F</key>
 		<dict>
 			<key>fileRef</key>
@@ -1430,16 +1408,16 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>1682027779621142370833FDAD79FD59</key>
+		<key>15C628A76B8F413842BFD9E6AF2AC23E</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
+			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>SRGILLiveHeaderData.m</string>
+			<string>SRGILImageRepresentation.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1543,23 +1521,10 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>179707DBDC3448D859FE7CCF70EFB2E9</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILAssetSet.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>179CCC98DBE381CA8F3131C207B0B126</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C15B85DC72D460A98AB8B1611EB2D6C9</string>
+			<string>F5CABD86075A5E27407429A6F3C72FD5</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1587,7 +1552,7 @@
 		<key>1803FFEE27460C6C51F1D0C50A69B8CA</key>
 		<dict>
 			<key>fileRef</key>
-			<string>F836A3A4578B56FF165C0613F61423CF</string>
+			<string>E72512D204ED51F61A1D1A7C403AA1A7</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1724,7 +1689,7 @@
 		<key>19DC3689D6194973F7D5BE1C0BB155EB</key>
 		<dict>
 			<key>fileRef</key>
-			<string>097D80CAFD4ED4833F53B58E8A06A657</string>
+			<string>37E45B1C0395DE1AFA99560627E33486</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1808,19 +1773,6 @@
 			<string>BB9599A1B5EB0621CBAD9F295B7A8C52</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>1AF09FC3D66E2E4334526F7ACCC57D59</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>UIColor+SRGILDataProvider.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>1B32969EF13FC43DC0B62699D0A127C5</key>
 		<dict>
@@ -1941,19 +1893,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>1CEA814E5BEDFFA0122DAA9F2C75C5E1</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILAssetSet.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>1DB36BE76F6C245CB3D47FB1AA943456</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -2049,19 +1988,6 @@
 			<string>2133DB9107946304B009F6444DBB9550</string>
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>1E98FED1907F7C539FB6AE83484B6770</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILTopic.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>1EEE7C3BA8D4C544BB369FF326397B6F</key>
 		<dict>
@@ -2179,7 +2105,7 @@
 		<key>20021882041631FAD4417FC0B347528C</key>
 		<dict>
 			<key>fileRef</key>
-			<string>6E005FDE039DAF3724C9AD3825987866</string>
+			<string>4EC09D510552ECFE8F1CA6912BBFE696</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -2217,6 +2143,19 @@
 			<string>ComScore.h</string>
 			<key>path</key>
 			<string>comScore/ComScore.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>20D94B464AC255398E22B883FDC18AF2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILAssetMetadata.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -2339,7 +2278,7 @@
 			<key>targetProxy</key>
 			<string>BD93403ECA2434BAB4CC25E3629E36F2</string>
 		</dict>
-		<key>236B8A4655283A7D76AA880C8AB93386</key>
+		<key>237BB1B4FA516AE02E36B529B242E29C</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -2348,7 +2287,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>SRGILComScoreAnalyticsInfos.h</string>
+			<string>SRGILModelObject.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -2412,7 +2351,7 @@
 		<key>251019CF7DF0C098728FDEBE1629587B</key>
 		<dict>
 			<key>fileRef</key>
-			<string>331D0CFD227D1C4FE62FB9D7F18C9F9E</string>
+			<string>5403A404B203A1D4FD23F962E3EBD0B7</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -2433,19 +2372,6 @@
 			<string>OCMVerifier.h</string>
 			<key>path</key>
 			<string>Source/OCMock/OCMVerifier.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>252F558DB16EFF374073D899F1CD123B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILSearchResult.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -2584,6 +2510,19 @@
 			<key>remoteInfo</key>
 			<string>TransitionKit</string>
 		</dict>
+		<key>2930FF27025DD3F742C41616575AD6C5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILComScoreAnalyticsInfos.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>2939AD5E99EAB3911A647DFB1B463152</key>
 		<dict>
 			<key>buildConfigurationList</key>
@@ -2690,6 +2629,19 @@
 				</array>
 			</dict>
 		</dict>
+		<key>2A009536E0637B80A3F595E718E48C06</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILLiveHeaderData.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>2A341E564B365A715F82798C0AA8550A</key>
 		<dict>
 			<key>fileRef</key>
@@ -2732,7 +2684,7 @@
 		<key>2A7E2D2FC6C7FDA68E94BD1CB1DB17D0</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D7FBB92D9F8210683A4539C2C1724ED6</string>
+			<string>7DB3C7A9C81B10CFA413A805FDE5D1D5</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -2753,19 +2705,6 @@
 			<string>UIButton+WebCache.h</string>
 			<key>path</key>
 			<string>SDWebImage/UIButton+WebCache.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2B03A7AAEDBAEB7576DDBB8789D9DA71</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILAsset.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -2855,7 +2794,7 @@
 		<key>2C64517C460755E45D035071D568B1F8</key>
 		<dict>
 			<key>fileRef</key>
-			<string>E4A01795E09BFE850D1F89195DC60D0A</string>
+			<string>7A878FDDE301BABA0E426235313B4C78</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -2902,6 +2841,19 @@
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
 		</dict>
+		<key>2D2FB87E9034742BEA111A3A8D21B6EB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>NSBundle+SRGILDataProvider.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>2D8E8EC45A3A1A1D94AE762CB5028504</key>
 		<dict>
 			<key>buildConfigurations</key>
@@ -2916,6 +2868,19 @@
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
+		<key>2D9CD5ADBFCF1EEFFB854E3134CAB3FA</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILVideo.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>2DDF58073EF77FBC25AF404A357D6093</key>
 		<dict>
 			<key>fileRef</key>
@@ -2926,7 +2891,7 @@
 		<key>2DFCEB0A5726FF315701C91CC54DEF35</key>
 		<dict>
 			<key>fileRef</key>
-			<string>478F383341DC2036C584C57FFCBBEBC0</string>
+			<string>3C9621AC66A0BCE440C0612851BC9CE2</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -3049,6 +3014,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>2F40EE5D0497D703E88A8D4423ADCE74</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILURN.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>2FA3C2A4F826A22FCDAB40BFC3EBFA32</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -3068,19 +3046,6 @@
 			<string>55F761C80E6B4D9C3BDA092B9D5BADBF</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>30CA41C04071E6F8FAC699496BAB33AA</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>NSBundle+SRGILDataProvider.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>30FFB222086530D212F79182B6C79E86</key>
 		<dict>
@@ -3213,19 +3178,6 @@
 				</array>
 			</dict>
 		</dict>
-		<key>331D0CFD227D1C4FE62FB9D7F18C9F9E</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILEventConfig.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>33979D5CB98B2F09BAA65233927BDE45</key>
 		<dict>
 			<key>fileRef</key>
@@ -3288,6 +3240,19 @@
 			<string>NSBundle-KIFAdditions.h</string>
 			<key>path</key>
 			<string>Additions/NSBundle-KIFAdditions.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>34D1E9355745355C0A6D2905F06DB572</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILVideo.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -3425,6 +3390,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>37E45B1C0395DE1AFA99560627E33486</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILDataProviderAnalyticsDataSource.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>37F1CA1800A8F0632425F44D3AF2F0CE</key>
 		<dict>
 			<key>fileRef</key>
@@ -3442,7 +3420,7 @@
 		<key>38063E2E308289E3327F1DBD0BF660F7</key>
 		<dict>
 			<key>fileRef</key>
-			<string>B7A51FDE5C603D76B74BC18B6495E842</string>
+			<string>DE425249A99D2AF8DFD8E38832905138</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -3463,7 +3441,7 @@
 		<key>385182B2ABB3D4B0D32A6A58B7B95866</key>
 		<dict>
 			<key>fileRef</key>
-			<string>5076117970A54269AC3A0B6C397D2B4C</string>
+			<string>D2E6CC5DF2F8A0C729871C91D75C29FB</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -3635,6 +3613,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>3A41185B7BE77642E9A5E23BB20D34C5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILDataProviderConstants.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>3A56DA8AE430EE64E64652F9EEA00282</key>
 		<dict>
 			<key>explicitFileType</key>
@@ -3689,7 +3680,7 @@
 		<key>3A98A819A98484BF473A83B4F9A82786</key>
 		<dict>
 			<key>fileRef</key>
-			<string>E4E6E519DEB1CE9C67D760D7ECE4A9BC</string>
+			<string>9FCA154F884F852F023F05DA94558EAA</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -3716,7 +3707,7 @@
 		<key>3B68425B640D36C831F70D5855B40213</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D59CBCAF1AB5678FBC30FBB051123A8C</string>
+			<string>5AF4D1845DEDBE4A67D03F0F47FD62A8</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -3745,7 +3736,7 @@
 		<key>3C2C72E31490118C37C1C1A0BA893CC9</key>
 		<dict>
 			<key>fileRef</key>
-			<string>EC565C2422BD4435131938818016AD5A</string>
+			<string>C2ADDC9610DF65F8122E405D138636A0</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -3754,21 +3745,16 @@
 				<string>-w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
 		</dict>
-		<key>3CD30E0A7B8A7F445B9492D8B8D365C0</key>
+		<key>3C9621AC66A0BCE440C0612851BC9CE2</key>
 		<dict>
-			<key>children</key>
-			<array>
-				<string>97F151846F8A74BF8D7ADE25C17A762E</string>
-				<string>098E1F70A4C193FBE801C7145669C98A</string>
-				<string>872BCD7C9A435DF20D60A7E7CE760787</string>
-				<string>F24DCB86E55DC880910127BCA4D33686</string>
-			</array>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>SRGIntegrationLayerDataProvider</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>SRGIntegrationLayerDataProvider</string>
+			<string>SRGILMedia.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -3819,19 +3805,6 @@
 			<string>PBXHeadersBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
-		</dict>
-		<key>3D1D023624C1D58927167D59DB9DD6D6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILDataProvider+Private.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>3D7E31BAC0ABBE708E0600DFFC2FA178</key>
 		<dict>
@@ -3892,7 +3865,7 @@
 		<key>3E3CA999C76246A6E0EAF7A3F7B53F5E</key>
 		<dict>
 			<key>fileRef</key>
-			<string>179707DBDC3448D859FE7CCF70EFB2E9</string>
+			<string>82ED5157DE9F75551100DFF756F2F472</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -3987,6 +3960,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>3F4E7E82CC53456F8190896607E3F754</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILArtist.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>3F7C5D6C702528EBB739B279DFB53D48</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -4045,6 +4031,19 @@
 			<string>OCMExceptionReturnValueProvider.h</string>
 			<key>path</key>
 			<string>Source/OCMock/OCMExceptionReturnValueProvider.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3FE9EBC1134BBBE653ACA25A3BFCCAC7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILURLComponents.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -4123,7 +4122,7 @@
 		<key>41AC199C474C44D255D0095DACD0E2B2</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D993CDE73048117FA466E221F5574204</string>
+			<string>237BB1B4FA516AE02E36B529B242E29C</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -4152,7 +4151,7 @@
 		<key>42307B66D59D17088449240821BBA4B9</key>
 		<dict>
 			<key>fileRef</key>
-			<string>93790A33B01E69D2C7131DDD63EE73C0</string>
+			<string>B757181CCA5B4187BF0C68B3E53C8DE6</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -4200,6 +4199,19 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>4293CCCBF02EA1478F5D4848DA5AEA83</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILRequestsManager.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>42C6045D736C63CDEEEF74E482F63176</key>
 		<dict>
@@ -4294,19 +4306,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>43A71FCABFDBF18BF6745FF839FDDA46</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILVideo.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>43B7F46C0CBAC755AFDF46F083C0DDEE</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -4322,6 +4321,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>440509E3893A4721A0988148513D0A36</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILDataProviderConstants.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>44377CDB44EE32F1DC84CCD79C4E6B7C</key>
 		<dict>
 			<key>fileRef</key>
@@ -4332,7 +4344,7 @@
 		<key>44651B1479075056407E68BC55DC1BD9</key>
 		<dict>
 			<key>fileRef</key>
-			<string>252F558DB16EFF374073D899F1CD123B</string>
+			<string>94CBD915C20D41257BF436BBE38E46FE</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -4429,6 +4441,25 @@
 				<string>-w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
 		</dict>
+		<key>44DC8BEFECD2CC625FDA816816F9BB77</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>CF733FF3EF1994872E5A03DAF8C4544C</string>
+				<string>9F8FCA0B3981E8CF3532BAB007E53701</string>
+				<string>2930FF27025DD3F742C41616575AD6C5</string>
+				<string>9FCA154F884F852F023F05DA94558EAA</string>
+				<string>FE0385D6517A6286727ABBB386B70383</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Analytics</string>
+			<key>path</key>
+			<string>Analytics</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>44DCC08B1BD36C1BA5570DB49C68CC6C</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -4454,6 +4485,19 @@
 			<string>text.xcconfig</string>
 			<key>path</key>
 			<string>Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>454A371431F0A47D7E359951F756AA0B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILArtist.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -4520,6 +4564,19 @@
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
+		<key>464984195868B621A479F5930E047DCE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILAssetSet.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>4678DC29F174A7C28A725C5EDD7E771F</key>
 		<dict>
 			<key>fileRef</key>
@@ -4557,16 +4614,23 @@
 			<key>remoteInfo</key>
 			<string>TransitionKit</string>
 		</dict>
-		<key>478F383341DC2036C584C57FFCBBEBC0</key>
+		<key>475302CEE517797AE36F424942A0119D</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>children</key>
+			<array>
+				<string>951D0EA86671C5412664517FE9A9A437</string>
+				<string>B7FFCEF7AA983AA14C339F589925DA23</string>
+				<string>5BDA59A2FFE65ACD8BBEF948CCD814FE</string>
+				<string>4293CCCBF02EA1478F5D4848DA5AEA83</string>
+				<string>DE425249A99D2AF8DFD8E38832905138</string>
+				<string>A1809F605014CCAF8EAD349B07B711DD</string>
+			</array>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Network</string>
 			<key>path</key>
-			<string>SRGILMedia.m</string>
+			<string>Network</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -4663,6 +4727,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>49D23A93EEB14E552AB16489446DB4AA</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILPrimaryChannel.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>49DB41FB2C5A57524D464373D6E74A9B</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -4675,6 +4752,19 @@
 			<string>OCMFunctions.h</string>
 			<key>path</key>
 			<string>Source/OCMock/OCMFunctions.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>49DE5D427A6270B1C1442C8BA690CED0</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILAnalyticsExtendedData.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -4951,6 +5041,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>4EC09D510552ECFE8F1CA6912BBFE696</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILURN.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>4F43449246DB099F62C6A99D06A0B8BA</key>
 		<dict>
 			<key>fileRef</key>
@@ -5051,23 +5154,10 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>5076117970A54269AC3A0B6C397D2B4C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILAnalyticsExtendedData.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>50833BC0B0013380D13B457ADFF8C74F</key>
 		<dict>
 			<key>fileRef</key>
-			<string>96AF91DB2DA470544608FACE5E809002</string>
+			<string>7137DA4E7BF28E17823748F7E65F72B7</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -5117,7 +5207,7 @@
 		<key>51AEF99E0D65E2780F617EC83BAB20D5</key>
 		<dict>
 			<key>fileRef</key>
-			<string>DF7062BB71F9596D21B77A6064DDCA19</string>
+			<string>951D0EA86671C5412664517FE9A9A437</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -5127,6 +5217,19 @@
 					<string>Private</string>
 				</array>
 			</dict>
+		</dict>
+		<key>51F5A529317E6055B323F67A4D79CDF5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILImage.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>52872218054DDBE02D382D678FA9F7A4</key>
 		<dict>
@@ -5200,6 +5303,19 @@
 			<string>9925271A715943FB0E326F34099B2973</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>5403A404B203A1D4FD23F962E3EBD0B7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILEventConfig.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>5442F1FAD177B091AB79BEBBCBACDF40</key>
 		<dict>
@@ -5430,7 +5546,7 @@
 		<key>57A2B929486AD9E3B8159681792E34BD</key>
 		<dict>
 			<key>fileRef</key>
-			<string>BA78DD376AAFE3B5CAAC5BF84D2BCB50</string>
+			<string>3F4E7E82CC53456F8190896607E3F754</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -5444,7 +5560,7 @@
 		<key>57BD084BAB005B80E1ECB63AC7AEC728</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C38B397359E9A17A8FFEAD9CB0FEAFA7</string>
+			<string>E6F7C3866B085F01EE1A2EDB8895C578</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -5557,19 +5673,6 @@
 			<key>remoteInfo</key>
 			<string>SRGAnalytics</string>
 		</dict>
-		<key>59C4ED11AC300ECE978C38C2E475173C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILRequestsManager.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>5A352E8B195292E4D762BC525848B33B</key>
 		<dict>
 			<key>fileRef</key>
@@ -5583,19 +5686,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>5A362DFD6AD366BB7C3B854CD817ADB7</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILDownload.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>5A9130C6AFC5BF4A949C3D1D66E8B51B</key>
 		<dict>
@@ -5623,6 +5713,32 @@
 					<string>Project</string>
 				</array>
 			</dict>
+		</dict>
+		<key>5AC98AF356DBBC2C9239679597F988C3</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILList.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5AF4D1845DEDBE4A67D03F0F47FD62A8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILImage.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>5B57E33F7FDE767D6C2B0EE70D6A439F</key>
 		<dict>
@@ -5702,6 +5818,19 @@
 			<string>UIView+WebCacheOperation.m</string>
 			<key>path</key>
 			<string>SDWebImage/UIView+WebCacheOperation.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5BDA59A2FFE65ACD8BBEF948CCD814FE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILRequestsManager.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -5830,6 +5959,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>5D2F74B16C9BC49BFA76A5D9FBCC4964</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILLiveHeaderChannel.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>5DCBA219BC81D9190F11EE56F93BB908</key>
 		<dict>
 			<key>fileRef</key>
@@ -5873,7 +6015,7 @@
 		<key>5EAD007168F8078ADB7F61C1F857BAD7</key>
 		<dict>
 			<key>fileRef</key>
-			<string>FBD63DDC099021C7E02EC1EFE9413F36</string>
+			<string>138CF8F277371F133BA68297728DE5EE</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -5935,6 +6077,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>5F36071748E2D2741AE72E28779AC64B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILSong.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>5F6FB141C30CAA62273A32118B4AABC8</key>
 		<dict>
 			<key>fileRef</key>
@@ -5976,19 +6131,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>6138D58C657D2071274B88D8DA8B94B6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILSong.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>6145522E657B0B47A8491F033BC194D4</key>
 		<dict>
@@ -6057,7 +6199,7 @@
 		<key>62701DC8BF9D6CE96C7744DACAF7D957</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D93DF74E69932FDC65CD189CDA4AB2EC</string>
+			<string>2930FF27025DD3F742C41616575AD6C5</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -6090,6 +6232,19 @@
 			<string>B581E1B841924977A5AB6D149129D8E6</string>
 			<key>productType</key>
 			<string>com.apple.product-type.bundle</string>
+		</dict>
+		<key>629ECB3796161AE71F52A6F8FB104175</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGIntegrationLayerDataProvider.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>62C30255074B32DFE2A6ACE2852EC80D</key>
 		<dict>
@@ -6306,7 +6461,7 @@
 		<dict>
 			<key>children</key>
 			<array>
-				<string>3CD30E0A7B8A7F445B9492D8B8D365C0</string>
+				<string>8D99B84A25475F9E86BC240DD9D68C86</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -6374,7 +6529,7 @@
 		<key>65AE8E17FB48D6ABADC6C9EBAA20A9A1</key>
 		<dict>
 			<key>fileRef</key>
-			<string>9568602DDFDE4EEB035892FCDB2DF6E0</string>
+			<string>CCE9FA243C83583B4D9F9E6FC3A1C0CC</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -6600,7 +6755,7 @@
 		<key>697BFFF3F35E78AEA7576691413DB027</key>
 		<dict>
 			<key>fileRef</key>
-			<string>0E04F51A4CC69832408CAFEB2995ADC3</string>
+			<string>3A41185B7BE77642E9A5E23BB20D34C5</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -6760,19 +6915,6 @@
 				</array>
 			</dict>
 		</dict>
-		<key>6C33B55815F13D6968CA6449911B9E6A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILURN.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>6C47AA13F328F28058EBBFB3DCBF73F1</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -6804,7 +6946,7 @@
 		<key>6C67A87B596A57CAC99217818AA4C940</key>
 		<dict>
 			<key>fileRef</key>
-			<string>A6FA8491A149C7A1A4CEAE985AA66112</string>
+			<string>51F5A529317E6055B323F67A4D79CDF5</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -6857,19 +6999,6 @@
 				</array>
 			</dict>
 		</dict>
-		<key>6DBAF182F74F4540C9573EA935B2567B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>NSBundle+SRGILDataProvider.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>6E000413C7BF8232AF4ED08E0E4835C0</key>
 		<dict>
 			<key>containerPortal</key>
@@ -6882,19 +7011,6 @@
 			<string>27754C1C86CC23BADDF5E93140688E54</string>
 			<key>remoteInfo</key>
 			<string>SRGIntegrationLayerDataProvider</string>
-		</dict>
-		<key>6E005FDE039DAF3724C9AD3825987866</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILURN.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>6E2C66087D253999D206F346ED9F2D3D</key>
 		<dict>
@@ -6971,6 +7087,19 @@
 			<string>XCBuildConfiguration</string>
 			<key>name</key>
 			<string>Release</string>
+		</dict>
+		<key>6E6F524572C5753AB2F748FFAF2992F4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>UIColor+SRGILDataProvider.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>6E866D88E4D077EFB4656916368C5BF3</key>
 		<dict>
@@ -7185,6 +7314,19 @@
 			<key>remoteInfo</key>
 			<string>SGVReachability</string>
 		</dict>
+		<key>70EF67B8AE651399035C458D20AA94CB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILPrimaryChannel.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>7108EB86C9EA91803D7CE469483FCD63</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -7214,6 +7356,19 @@
 				</array>
 			</dict>
 		</dict>
+		<key>7137DA4E7BF28E17823748F7E65F72B7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILSonglog.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>714E12664983BD0F16394A1A6F9F6B05</key>
 		<dict>
 			<key>fileRef</key>
@@ -7225,19 +7380,6 @@
 				<key>COMPILER_FLAGS</key>
 				<string>-w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
-		</dict>
-		<key>71893559CB0EA1CC8A9EAB85FFE54934</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILLiveHeaderChannel.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>723884BBCC241093A1731D588C1EF21F</key>
 		<dict>
@@ -7265,19 +7407,6 @@
 				<key>COMPILER_FLAGS</key>
 				<string>-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
-		</dict>
-		<key>7287FA428B039391B79EB545E92183E8</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILURLComponents.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>72BE280F9C561B27EE62ED03BC8722C2</key>
 		<dict>
@@ -7345,7 +7474,7 @@
 		<key>72EF5CDDCEA733785A1F662344C387E0</key>
 		<dict>
 			<key>fileRef</key>
-			<string>B5F5BCE29C0B8FE0C93F8EF12A758D50</string>
+			<string>20D94B464AC255398E22B883FDC18AF2</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -7376,6 +7505,19 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>73422C502D85BF8EC3DB5268363D2183</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILRubric.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>736BC0D286EE61B795A5309351CD5F57</key>
 		<dict>
 			<key>fileRef</key>
@@ -7396,19 +7538,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>73A7AFB0EE654468083144D88E82D845</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILShow.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>73CD37EA83BAC62A31173A15AA7BD96B</key>
 		<dict>
@@ -7486,6 +7615,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>744B37F9940B3D958A77279EEB393680</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILSocialCounts.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>745366ACED17D6DBA5FB918121242269</key>
 		<dict>
 			<key>isa</key>
@@ -7507,19 +7649,6 @@
 			<string>text.plist.xml</string>
 			<key>path</key>
 			<string>Pods-SRGIntegrationLayerDataProvider DemoTests-acknowledgements.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7465674F08163BCCF8939CD00072169C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILMedia.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -7627,7 +7756,7 @@
 		<key>76770F0990B0C478A25F41187470579F</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C5C360D10BAE64EB29F1AE506EF1CACD</string>
+			<string>13B85A5571583397DF3F5E3DEF258B28</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -7870,7 +7999,7 @@
 		<key>79038B3EE0DD9F2AC87F4032C571AEFD</key>
 		<dict>
 			<key>fileRef</key>
-			<string>1E98FED1907F7C539FB6AE83484B6770</string>
+			<string>ECC45C976EFC4F1781FDE70712F904F7</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -8005,19 +8134,6 @@
 				</array>
 			</dict>
 		</dict>
-		<key>7A0E0CFEF20D2B378E4395BDE7A51E58</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILModelObject.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>7A2C0274AFA1A29127051374BCE39FF2</key>
 		<dict>
 			<key>fileRef</key>
@@ -8042,6 +8158,19 @@
 			<string>text.script.sh</string>
 			<key>path</key>
 			<string>Pods-frameworks.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7A878FDDE301BABA0E426235313B4C78</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILLiveHeaderChannel.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -8227,7 +8356,7 @@
 		<key>7D9C634F77625239546A585DB0B2F22D</key>
 		<dict>
 			<key>fileRef</key>
-			<string>B1155C14B7D377A75B588CD02662B248</string>
+			<string>D89F8FF5CD69AA3BF56B42C65EA889E4</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -8252,6 +8381,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>7DB3C7A9C81B10CFA413A805FDE5D1D5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILPlaylist.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>7DE6B9BB12B78B1574683F1B2493B350</key>
 		<dict>
 			<key>fileRef</key>
@@ -8263,6 +8405,19 @@
 				<key>COMPILER_FLAGS</key>
 				<string>-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
+		</dict>
+		<key>7E26883A35242379C2D2E725F284F2E1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILShow.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>7EAADD5A787B49E87BD6B75CECDA8EDA</key>
 		<dict>
@@ -8397,7 +8552,7 @@
 		<key>80433EB33463773A397E4DB25D43BD05</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D619881BE19EC01C225A9F6DDF96EBBC</string>
+			<string>6E6F524572C5753AB2F748FFAF2992F4</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -8405,6 +8560,19 @@
 				<key>COMPILER_FLAGS</key>
 				<string>-w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
+		</dict>
+		<key>804EDDA53441FC899999883D097E66EB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>UIColor+SRGILDataProvider.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>809D42E4EF9679519CDBFA60E261381E</key>
 		<dict>
@@ -8565,7 +8733,7 @@
 		<key>823344A317D6BB96FB1A3CFAD13331E5</key>
 		<dict>
 			<key>fileRef</key>
-			<string>DC38FB2745078663EACB34CD676F8FF1</string>
+			<string>DC6FAE638414A605D40A91BF2E2A7560</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -8652,6 +8820,19 @@
 				</array>
 			</dict>
 		</dict>
+		<key>82ED5157DE9F75551100DFF756F2F472</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILAssetSet.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>82F903D74547BCB7EE16CF0360F72DB8</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -8678,6 +8859,19 @@
 				<key>COMPILER_FLAGS</key>
 				<string>-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
+		</dict>
+		<key>839CF3A17815DF5CC38C7175338B24A8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILMedia.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>83B9DF99095D4317FC98FA4AEF13DA04</key>
 		<dict>
@@ -8719,6 +8913,19 @@
 			<string>SDWebImage</string>
 			<key>path</key>
 			<string>SDWebImage</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8407631093947599D80991852121CAE1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILModel.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -8972,86 +9179,6 @@
 			<string>RTSTimelineSlider.h</string>
 			<key>path</key>
 			<string>RTSMediaPlayer/RTSTimelineSlider.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8701424CBC77F4E607BF118DC9502097</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILLiveHeaderData.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>872BCD7C9A435DF20D60A7E7CE760787</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>BA78DD376AAFE3B5CAAC5BF84D2BCB50</string>
-				<string>A110DA4E6914BF0DD2D9B45952323FA0</string>
-				<string>2B03A7AAEDBAEB7576DDBB8789D9DA71</string>
-				<string>C5C360D10BAE64EB29F1AE506EF1CACD</string>
-				<string>B5F5BCE29C0B8FE0C93F8EF12A758D50</string>
-				<string>BA5B7CE952369F24C817563F0A41F44B</string>
-				<string>1CEA814E5BEDFFA0122DAA9F2C75C5E1</string>
-				<string>179707DBDC3448D859FE7CCF70EFB2E9</string>
-				<string>FBD63DDC099021C7E02EC1EFE9413F36</string>
-				<string>EC565C2422BD4435131938818016AD5A</string>
-				<string>BA31876679E0C7076AD6ECF2BE0314E9</string>
-				<string>5A362DFD6AD366BB7C3B854CD817ADB7</string>
-				<string>C15B85DC72D460A98AB8B1611EB2D6C9</string>
-				<string>331D0CFD227D1C4FE62FB9D7F18C9F9E</string>
-				<string>A6FA8491A149C7A1A4CEAE985AA66112</string>
-				<string>D59CBCAF1AB5678FBC30FBB051123A8C</string>
-				<string>E273C80290806AC8F173EA6AD709C007</string>
-				<string>B1155C14B7D377A75B588CD02662B248</string>
-				<string>FA35498FA42F6B25E17842F4C43BD716</string>
-				<string>D2682A471170C07CAE0AEB13060FCA3A</string>
-				<string>E4A01795E09BFE850D1F89195DC60D0A</string>
-				<string>71893559CB0EA1CC8A9EAB85FFE54934</string>
-				<string>8701424CBC77F4E607BF118DC9502097</string>
-				<string>1682027779621142370833FDAD79FD59</string>
-				<string>7465674F08163BCCF8939CD00072169C</string>
-				<string>478F383341DC2036C584C57FFCBBEBC0</string>
-				<string>0A1A02129C65B0A7218B9B25B7EAB36B</string>
-				<string>C38B397359E9A17A8FFEAD9CB0FEAFA7</string>
-				<string>F22CCFE4E054E683FCD733579CD49D64</string>
-				<string>D993CDE73048117FA466E221F5574204</string>
-				<string>7A0E0CFEF20D2B378E4395BDE7A51E58</string>
-				<string>C7A57739EA823F85CF7A4231F0B76222</string>
-				<string>D7FBB92D9F8210683A4539C2C1724ED6</string>
-				<string>C9C3A84CF4E2D577A272A1FADCD95E11</string>
-				<string>C305C2E64299685E1E56B6B1F541BF9D</string>
-				<string>92C1F6C7F783277ADFD28405DF2CBE3F</string>
-				<string>9568602DDFDE4EEB035892FCDB2DF6E0</string>
-				<string>252F558DB16EFF374073D899F1CD123B</string>
-				<string>C700EBBDB07D9BC87D4DD5308D39D9EA</string>
-				<string>D2F00B87139377E0C5E9DDED0FA5D666</string>
-				<string>73A7AFB0EE654468083144D88E82D845</string>
-				<string>F025AFEEB2DD47E9C0E26E4F039ADE8A</string>
-				<string>93790A33B01E69D2C7131DDD63EE73C0</string>
-				<string>B230CCB1805BAA4F5ED8535048AF16B1</string>
-				<string>6138D58C657D2071274B88D8DA8B94B6</string>
-				<string>C47AF4039A6C99ECEA3BB51BE40B1175</string>
-				<string>96AF91DB2DA470544608FACE5E809002</string>
-				<string>F836A3A4578B56FF165C0613F61423CF</string>
-				<string>1E98FED1907F7C539FB6AE83484B6770</string>
-				<string>6E005FDE039DAF3724C9AD3825987866</string>
-				<string>6C33B55815F13D6968CA6449911B9E6A</string>
-				<string>97BE6B916C8829AD817E8716FB44CE04</string>
-				<string>43A71FCABFDBF18BF6745FF839FDDA46</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Model</string>
-			<key>path</key>
-			<string>Model</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -9526,7 +9653,7 @@
 		<key>8D8A2DEF753CD70A5617B610B53726E5</key>
 		<dict>
 			<key>fileRef</key>
-			<string>B2CABA47516E5655A87D6127AAA15B76</string>
+			<string>B8D440EB1D698C231AB91DC9D2048C44</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -9534,6 +9661,24 @@
 				<key>COMPILER_FLAGS</key>
 				<string>-w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
+		</dict>
+		<key>8D99B84A25475F9E86BC240DD9D68C86</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>629ECB3796161AE71F52A6F8FB104175</string>
+				<string>C44D27839F973F06BDE8FCDB062D055F</string>
+				<string>E440FAF9CF19D82C825DBE96D8A40C2E</string>
+				<string>475302CEE517797AE36F424942A0119D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>SRGIntegrationLayerDataProvider</string>
+			<key>path</key>
+			<string>SRGIntegrationLayerDataProvider</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>8E468205558F0A2488794CA2C30FD40C</key>
 		<dict>
@@ -9729,7 +9874,7 @@
 		<key>913F3BB99FE062CBD09485F0FBBB9488</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D425DE38F873E8A15271B60754626D0D</string>
+			<string>CF733FF3EF1994872E5A03DAF8C4544C</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -9739,6 +9884,19 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>9169FB6B82A10EC8048B7D566515BE38</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILModelObject.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>916CC04FDAF08F5D80709466DEF018F8</key>
 		<dict>
@@ -9903,16 +10061,16 @@
 				</array>
 			</dict>
 		</dict>
-		<key>92C1F6C7F783277ADFD28405DF2CBE3F</key>
+		<key>92748DD5920B91FF370E59B93F75E663</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>SRGILRubric.h</string>
+			<string>SRGILURLComponents.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -9957,19 +10115,6 @@
 			<string>KIFUIObject.m</string>
 			<key>path</key>
 			<string>Classes/KIFUIObject.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>93790A33B01E69D2C7131DDD63EE73C0</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILSocialCounts.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -10033,6 +10178,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>94CBD915C20D41257BF436BBE38E46FE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILSearchResult.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>94EF9B9483DB7448D2F2F97925391330</key>
 		<dict>
 			<key>fileRef</key>
@@ -10060,6 +10218,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>951D0EA86671C5412664517FE9A9A437</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILOngoingRequest+Private.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>9538CB000F52AEA9F26460A039193725</key>
 		<dict>
 			<key>fileRef</key>
@@ -10071,19 +10242,6 @@
 				<key>COMPILER_FLAGS</key>
 				<string>-w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
-		</dict>
-		<key>9568602DDFDE4EEB035892FCDB2DF6E0</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILRubric.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>9573203C4873C1A467919AB7D48E7DCC</key>
 		<dict>
@@ -10097,19 +10255,6 @@
 			<string>RTSAnalyticsVersion.m</string>
 			<key>path</key>
 			<string>RTSAnalytics/Core/RTSAnalyticsVersion.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>95ADDC936C6ED11131B3E654D18DA75B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILStreamSenseAnalyticsInfos.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -10192,7 +10337,7 @@
 		<key>967534661350DC47B6C847E79445147C</key>
 		<dict>
 			<key>fileRef</key>
-			<string>7465674F08163BCCF8939CD00072169C</string>
+			<string>839CF3A17815DF5CC38C7175338B24A8</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -10202,19 +10347,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>96AF91DB2DA470544608FACE5E809002</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILSonglog.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>96BDC51DE3033B3EBAF9CB0005BB2B56</key>
 		<dict>
@@ -10312,19 +10444,6 @@
 				<string>-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
 		</dict>
-		<key>97BE6B916C8829AD817E8716FB44CE04</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILVideo.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>97ED033B7C671D0E8CEF2C345BE127C7</key>
 		<dict>
 			<key>containerPortal</key>
@@ -10337,19 +10456,6 @@
 			<string>A1CF792D432631733363FFDD5A2D2A1C</string>
 			<key>remoteInfo</key>
 			<string>SRGMediaPlayer</string>
-		</dict>
-		<key>97F151846F8A74BF8D7ADE25C17A762E</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGIntegrationLayerDataProvider.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>9818A323CDEA60587EADEFDE10EAFEAF</key>
 		<dict>
@@ -10597,7 +10703,7 @@
 		<key>99B880BB9179E385B3BB0EDDBC3DFB12</key>
 		<dict>
 			<key>fileRef</key>
-			<string>F025AFEEB2DD47E9C0E26E4F039ADE8A</string>
+			<string>744B37F9940B3D958A77279EEB393680</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -10650,7 +10756,7 @@
 		<key>9AFB41B1D74FBA25C19AA03D21725D6C</key>
 		<dict>
 			<key>fileRef</key>
-			<string>ED3EE8F3690097174CBABC91453F14D0</string>
+			<string>440509E3893A4721A0988148513D0A36</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -10837,19 +10943,6 @@
 				</array>
 			</dict>
 		</dict>
-		<key>9DA7DEA63D43096DB7DB5D506055F0B3</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILTokenHandler.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>9E0751A50158BB96394E530A7DEB2D82</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -10868,7 +10961,7 @@
 		<key>9E2F2C5BA87587829F9C20F1D0F3B7DD</key>
 		<dict>
 			<key>fileRef</key>
-			<string>97F151846F8A74BF8D7ADE25C17A762E</string>
+			<string>629ECB3796161AE71F52A6F8FB104175</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -11012,6 +11105,32 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>9F8FCA0B3981E8CF3532BAB007E53701</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILComScoreAnalyticsInfos.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9FCA154F884F852F023F05DA94558EAA</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILStreamSenseAnalyticsInfos.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>A0163C2AB2C3ABB227B734CEFD4F78EA</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -11122,19 +11241,6 @@
 			<key>targetProxy</key>
 			<string>5E932113ACC9D79E4E5EA32605604DA7</string>
 		</dict>
-		<key>A110DA4E6914BF0DD2D9B45952323FA0</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILArtist.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>A141B2C66FB6CF819FC6C3F9ABEEAAB8</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -11160,6 +11266,19 @@
 			<string>SGVReachability.h</string>
 			<key>path</key>
 			<string>src/SGVReachability.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A1809F605014CCAF8EAD349B07B711DD</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILTokenHandler.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -11398,7 +11517,7 @@
 		<key>A47EE63D2479D888BB58159672611D00</key>
 		<dict>
 			<key>fileRef</key>
-			<string>30CA41C04071E6F8FAC699496BAB33AA</string>
+			<string>C87C245C26C38CD37E04FCACC936D85E</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -11423,7 +11542,7 @@
 		<key>A4BE4DE73F56D9CDAE3255797611BC1A</key>
 		<dict>
 			<key>fileRef</key>
-			<string>59C4ED11AC300ECE978C38C2E475173C</string>
+			<string>5BDA59A2FFE65ACD8BBEF948CCD814FE</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -11543,10 +11662,23 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
+		<key>A6404886377AA5103F05A474116F5957</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILShow.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>A6765B4F86E90F18B4EB64EA5C34C42A</key>
 		<dict>
 			<key>fileRef</key>
-			<string>97BE6B916C8829AD817E8716FB44CE04</string>
+			<string>34D1E9355745355C0A6D2905F06DB572</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -11585,16 +11717,16 @@
 				</array>
 			</dict>
 		</dict>
-		<key>A6FA8491A149C7A1A4CEAE985AA66112</key>
+		<key>A6DD4C26B5835C4106781610CA944435</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>SRGILImage.h</string>
+			<string>SRGILModelConstants.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -11692,7 +11824,7 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>A724C31F9109F81507EFD0C3C0E28067</key>
+		<key>A81A67BA256A3100FDC6EC9986DCAB4B</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -11701,7 +11833,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>SRGILAnalyticsExtendedData.m</string>
+			<string>SRGILAssetMetadata.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -11732,7 +11864,7 @@
 		<key>A8950FAB224900C80C377A3C86AB29F8</key>
 		<dict>
 			<key>fileRef</key>
-			<string>F22CCFE4E054E683FCD733579CD49D64</string>
+			<string>A6DD4C26B5835C4106781610CA944435</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -11941,6 +12073,19 @@
 			<string>KIFTestStepValidation.h</string>
 			<key>path</key>
 			<string>Classes/KIFTestStepValidation.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>ABEA56E093360B29537FF418AC56B55F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILDataProvider+Private.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -12161,6 +12306,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>ADD73B22C7B63120A9ECC83FE91C0941</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILAsset.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>AE569493B0A0F48B912CF5932C1D3F87</key>
 		<dict>
 			<key>fileRef</key>
@@ -12176,7 +12334,7 @@
 		<key>AE86D43208F4D935BB2FAE5CC70C8A39</key>
 		<dict>
 			<key>fileRef</key>
-			<string>A110DA4E6914BF0DD2D9B45952323FA0</string>
+			<string>454A371431F0A47D7E359951F756AA0B</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -12212,7 +12370,7 @@
 		<key>AFB9A0ADF421A51BFF5956D8BBDFD046</key>
 		<dict>
 			<key>fileRef</key>
-			<string>1AF09FC3D66E2E4334526F7ACCC57D59</string>
+			<string>804EDDA53441FC899999883D097E66EB</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -12264,19 +12422,6 @@
 			<string>OCMRealObjectForwarder.m</string>
 			<key>path</key>
 			<string>Source/OCMock/OCMRealObjectForwarder.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B1155C14B7D377A75B588CD02662B248</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILImageRepresentation.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -12353,19 +12498,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>B230CCB1805BAA4F5ED8535048AF16B1</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILSong.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>B25E82CC743B592E4DDA4EE560881629</key>
 		<dict>
 			<key>fileRef</key>
@@ -12422,19 +12554,6 @@
 			<string>XCBuildConfiguration</string>
 			<key>name</key>
 			<string>Release</string>
-		</dict>
-		<key>B2CABA47516E5655A87D6127AAA15B76</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILDataProvider.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>B2DAFFFD969863AC71760FA287261130</key>
 		<dict>
@@ -12759,19 +12878,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>B5F5BCE29C0B8FE0C93F8EF12A758D50</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILAssetMetadata.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>B60A7E2151AA17E93A199D838F5FEBF7</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -12835,7 +12941,7 @@
 		<key>B687A51DFB34E978038540CD44DE4A86</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D2F00B87139377E0C5E9DDED0FA5D666</string>
+			<string>A6404886377AA5103F05A474116F5957</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -12910,6 +13016,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>B757181CCA5B4187BF0C68B3E53C8DE6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILSocialCounts.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>B75CDFB4F3ECD68C3361E30BEB3712FD</key>
 		<dict>
 			<key>fileRef</key>
@@ -12939,23 +13058,10 @@
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
-		<key>B7A51FDE5C603D76B74BC18B6495E842</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILTokenHandler.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>B7AE69A7D00F794A55B75C546691DE09</key>
 		<dict>
 			<key>fileRef</key>
-			<string>8701424CBC77F4E607BF118DC9502097</string>
+			<string>FD69B964ED128C59E1E14AC779EA343E</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -12981,11 +13087,24 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>B7FFCEF7AA983AA14C339F589925DA23</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILOngoingRequest+Private.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>B8022216396DBDEE0E4EC41659351ABF</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>D1DEB1023C8B2E8F845A4961FA43E8E6</string>
+				<string>1512FAF64DFF5477B3B762DDD0F74D68</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -13039,7 +13158,7 @@
 		<key>B879FE1D3919A8DADA7B55A611437C84</key>
 		<dict>
 			<key>fileRef</key>
-			<string>71893559CB0EA1CC8A9EAB85FFE54934</string>
+			<string>5D2F74B16C9BC49BFA76A5D9FBCC4964</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -13103,6 +13222,19 @@
 			<string>PBXHeadersBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
+		</dict>
+		<key>B8D440EB1D698C231AB91DC9D2048C44</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILDataProvider.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>B8EE6B2F37E88C57E7DA172E1C0B4A36</key>
 		<dict>
@@ -13177,19 +13309,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>BA31876679E0C7076AD6ECF2BE0314E9</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILDownload.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>BA3783C883074ED9BDECD78DBC1E9767</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -13202,19 +13321,6 @@
 			<string>OCProtocolMockObject.h</string>
 			<key>path</key>
 			<string>Source/OCMock/OCProtocolMockObject.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BA5B7CE952369F24C817563F0A41F44B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILAssetMetadata.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -13235,23 +13341,10 @@
 			<key>xcLanguageSpecificationIdentifier</key>
 			<string>xcode.lang.ruby</string>
 		</dict>
-		<key>BA78DD376AAFE3B5CAAC5BF84D2BCB50</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILArtist.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>BAC5E4FC68E32DE68F976D930A180FA4</key>
 		<dict>
 			<key>fileRef</key>
-			<string>5A362DFD6AD366BB7C3B854CD817ADB7</string>
+			<string>D9E4B7EB13537457807E7E8249EE2BF5</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -13607,6 +13700,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>BF2BA8F03DE5EF04E7AFC7E89C5D491D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILDownload.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>BF2DE8A2F1E4F7C38C393DB3B07FA1D1</key>
 		<dict>
 			<key>buildConfigurations</key>
@@ -13700,19 +13806,6 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>C15B85DC72D460A98AB8B1611EB2D6C9</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILEventConfig.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>C164905F765E9C927BDDBF336335F1C8</key>
 		<dict>
 			<key>fileRef</key>
@@ -13753,6 +13846,19 @@
 				</array>
 			</dict>
 		</dict>
+		<key>C2ADDC9610DF65F8122E405D138636A0</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILAudio.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>C2C70498AE6D4F830D1E4B796B3B5131</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -13763,19 +13869,6 @@
 			<string>sourcecode.c.h</string>
 			<key>path</key>
 			<string>libextobjc-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>C305C2E64299685E1E56B6B1F541BF9D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILPrimaryChannel.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -13818,7 +13911,7 @@
 		<key>C37005C57CE0EF8F590AAFA69BD580EC</key>
 		<dict>
 			<key>fileRef</key>
-			<string>3D1D023624C1D58927167D59DB9DD6D6</string>
+			<string>ABEA56E093360B29537FF418AC56B55F</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -13841,19 +13934,6 @@
 			<string>LoadableCategory.h</string>
 			<key>path</key>
 			<string>Additions/LoadableCategory.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>C38B397359E9A17A8FFEAD9CB0FEAFA7</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILModelConstants.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -13939,6 +14019,31 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>C44D27839F973F06BDE8FCDB062D055F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>2D2FB87E9034742BEA111A3A8D21B6EB</string>
+				<string>C87C245C26C38CD37E04FCACC936D85E</string>
+				<string>DC6FAE638414A605D40A91BF2E2A7560</string>
+				<string>B8D440EB1D698C231AB91DC9D2048C44</string>
+				<string>ABEA56E093360B29537FF418AC56B55F</string>
+				<string>3A41185B7BE77642E9A5E23BB20D34C5</string>
+				<string>440509E3893A4721A0988148513D0A36</string>
+				<string>3FE9EBC1134BBBE653ACA25A3BFCCAC7</string>
+				<string>92748DD5920B91FF370E59B93F75E663</string>
+				<string>804EDDA53441FC899999883D097E66EB</string>
+				<string>6E6F524572C5753AB2F748FFAF2992F4</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Core</string>
+			<key>path</key>
+			<string>Core</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>C45F5C77FAF4BBC67F06520C67D986C1</key>
 		<dict>
 			<key>buildConfigurations</key>
@@ -13952,19 +14057,6 @@
 			<string>Release</string>
 			<key>isa</key>
 			<string>XCConfigurationList</string>
-		</dict>
-		<key>C47AF4039A6C99ECEA3BB51BE40B1175</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILSonglog.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>C47F9390AE7A25AD4E079FC3EE84B35C</key>
 		<dict>
@@ -14037,19 +14129,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>C5C360D10BAE64EB29F1AE506EF1CACD</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILAsset.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>C641211B199EC6108478AFA89E3E8F6B</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -14075,19 +14154,6 @@
 			<string>RTSMediaPlayerController.h</string>
 			<key>path</key>
 			<string>RTSMediaPlayer/RTSMediaPlayerController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>C700EBBDB07D9BC87D4DD5308D39D9EA</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILSearchResult.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -14132,19 +14198,6 @@
 				<string>-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
 		</dict>
-		<key>C7A57739EA823F85CF7A4231F0B76222</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILPlaylist.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>C7FEB6F93DF3CDCE32F200B6C99040D0</key>
 		<dict>
 			<key>fileRef</key>
@@ -14170,6 +14223,19 @@
 			<key>remoteInfo</key>
 			<string>SRGMediaPlayer-SRGMediaPlayer</string>
 		</dict>
+		<key>C87C245C26C38CD37E04FCACC936D85E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>NSBundle+SRGILDataProvider.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>C89DB063595C7F002AF3452D081E6EE7</key>
 		<dict>
 			<key>containerPortal</key>
@@ -14186,7 +14252,7 @@
 		<key>C902F7F1A7FFE77EB009EAC333BAE2D7</key>
 		<dict>
 			<key>fileRef</key>
-			<string>1682027779621142370833FDAD79FD59</string>
+			<string>2A009536E0637B80A3F595E718E48C06</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -14198,7 +14264,7 @@
 		<key>C9239908202BB4E7194685BFDEAA0E99</key>
 		<dict>
 			<key>fileRef</key>
-			<string>2B03A7AAEDBAEB7576DDBB8789D9DA71</string>
+			<string>ADD73B22C7B63120A9ECC83FE91C0941</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -14235,19 +14301,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>C9C3A84CF4E2D577A272A1FADCD95E11</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILPrimaryChannel.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>C9E725D814A8FEF272B6A12004FDD9BB</key>
 		<dict>
@@ -14289,7 +14342,7 @@
 		<key>CA7CAA204564E00CE952D3C21C971ADF</key>
 		<dict>
 			<key>fileRef</key>
-			<string>7A0E0CFEF20D2B378E4395BDE7A51E58</string>
+			<string>9169FB6B82A10EC8048B7D566515BE38</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -14419,6 +14472,19 @@
 				</array>
 			</dict>
 		</dict>
+		<key>CCE9FA243C83583B4D9F9E6FC3A1C0CC</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILRubric.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>CD430A62AF7944BDE6C7D56A9BB0F5DB</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -14475,6 +14541,19 @@
 			<key>sourceTree</key>
 			<string>DEVELOPER_DIR</string>
 		</dict>
+		<key>CF733FF3EF1994872E5A03DAF8C4544C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILAnalyticsInfosProtocol.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>CF7B6F310AB3A9F384ECDCF170E07C42</key>
 		<dict>
 			<key>fileRef</key>
@@ -14519,7 +14598,7 @@
 		<key>D08255E9C5BEB2C5AE4169DF2C385740</key>
 		<dict>
 			<key>fileRef</key>
-			<string>43A71FCABFDBF18BF6745FF839FDDA46</string>
+			<string>2D9CD5ADBFCF1EEFFB854E3134CAB3FA</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -14589,7 +14668,7 @@
 		<key>D1AD29D081C73E60754DA1E3A5261A1C</key>
 		<dict>
 			<key>fileRef</key>
-			<string>0A1A02129C65B0A7218B9B25B7EAB36B</string>
+			<string>8407631093947599D80991852121CAE1</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -14610,22 +14689,6 @@
 			<string>sourcecode.c.h</string>
 			<key>path</key>
 			<string>SDWebImage-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D1DEB1023C8B2E8F845A4961FA43E8E6</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>097D80CAFD4ED4833F53B58E8A06A657</string>
-				<string>E902C82921DF53D3029C8F05E76B1FB2</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>SRGIntegrationLayerDataProvider</string>
-			<key>path</key>
-			<string>SRGIntegrationLayerDataProvider</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -14661,19 +14724,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>D2682A471170C07CAE0AEB13060FCA3A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILList.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>D297B3EB41FD7E68C4028612F985108F</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -14700,7 +14750,7 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>D2F00B87139377E0C5E9DDED0FA5D666</key>
+		<key>D2E6CC5DF2F8A0C729871C91D75C29FB</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -14709,7 +14759,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>SRGILShow.h</string>
+			<string>SRGILAnalyticsExtendedData.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -14745,7 +14795,7 @@
 		<key>D3880DCD1103199F313B94585B0553A8</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D2682A471170C07CAE0AEB13060FCA3A</string>
+			<string>F6C18E61A08A152D4D6D008C41C0C4B4</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -14823,19 +14873,6 @@
 				<string>628947419B9A22293C67242BD12FED07</string>
 				<string>00552D209A6F5385E3B9CCFCC9DC4639</string>
 			</array>
-		</dict>
-		<key>D425DE38F873E8A15271B60754626D0D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILAnalyticsInfosProtocol.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>D459CC20FA0870C1FA49D3AB448B33F7</key>
 		<dict>
@@ -14944,7 +14981,7 @@
 		<key>D58350ABB3A29288337ECAE63F7A8B97</key>
 		<dict>
 			<key>fileRef</key>
-			<string>6138D58C657D2071274B88D8DA8B94B6</string>
+			<string>5F36071748E2D2741AE72E28779AC64B</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -14956,7 +14993,7 @@
 		<key>D5856271F5FF9C738143214774AD5992</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C47AF4039A6C99ECEA3BB51BE40B1175</string>
+			<string>FD42F049D7218F1974F9FC903246F4F0</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -14979,19 +15016,6 @@
 			<string>KIFTypist.m</string>
 			<key>path</key>
 			<string>Classes/KIFTypist.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D59CBCAF1AB5678FBC30FBB051123A8C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILImage.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -15023,19 +15047,6 @@
 			<key>sourceTree</key>
 			<string>DEVELOPER_DIR</string>
 		</dict>
-		<key>D619881BE19EC01C225A9F6DDF96EBBC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>UIColor+SRGILDataProvider.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>D640C5F4B38409DAFC0C2FCC8E90E7E9</key>
 		<dict>
 			<key>fileRef</key>
@@ -15051,7 +15062,7 @@
 		<key>D65E6DF07AFB385403C0D835D4DF6E49</key>
 		<dict>
 			<key>fileRef</key>
-			<string>FA35498FA42F6B25E17842F4C43BD716</string>
+			<string>5AC98AF356DBBC2C9239679597F988C3</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -15116,19 +15127,6 @@
 			<string>sourcecode.c.objc</string>
 			<key>path</key>
 			<string>JRSwizzle-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D7FBB92D9F8210683A4539C2C1724ED6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILPlaylist.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -15197,6 +15195,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>D89F8FF5CD69AA3BF56B42C65EA889E4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILImageRepresentation.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>D89FAD44D576A5421C3BE6E5A28001D3</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -15251,7 +15262,7 @@
 		<key>D8D07A0546C0932F44D2712DF9DA998F</key>
 		<dict>
 			<key>fileRef</key>
-			<string>73A7AFB0EE654468083144D88E82D845</string>
+			<string>7E26883A35242379C2D2E725F284F2E1</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -15282,23 +15293,10 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>D93DF74E69932FDC65CD189CDA4AB2EC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILComScoreAnalyticsInfos.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>D953D3AD521709F39B78B2224C275542</key>
 		<dict>
 			<key>fileRef</key>
-			<string>9DA7DEA63D43096DB7DB5D506055F0B3</string>
+			<string>A1809F605014CCAF8EAD349B07B711DD</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -15334,16 +15332,16 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>D993CDE73048117FA466E221F5574204</key>
+		<key>D9E4B7EB13537457807E7E8249EE2BF5</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>SRGILModelObject.h</string>
+			<string>SRGILDownload.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -15416,7 +15414,7 @@
 		<key>DB47D440A9D64CAB9D4A72303CFFFCB2</key>
 		<dict>
 			<key>fileRef</key>
-			<string>1CEA814E5BEDFFA0122DAA9F2C75C5E1</string>
+			<string>464984195868B621A479F5930E047DCE</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -15484,19 +15482,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>DC38FB2745078663EACB34CD676F8FF1</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILDataProvider.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>DC5C78FE26D9CD949929DAABDC9BD987</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -15509,6 +15494,19 @@
 			<string>CSStreamSensePluginProtocol.h</string>
 			<key>path</key>
 			<string>comScore/headers/CSStreamSensePluginProtocol.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DC6FAE638414A605D40A91BF2E2A7560</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILDataProvider.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -15561,7 +15559,7 @@
 		<key>DD29CCCBE2AE7AC76AF35CD7A5FABB03</key>
 		<dict>
 			<key>fileRef</key>
-			<string>7287FA428B039391B79EB545E92183E8</string>
+			<string>3FE9EBC1134BBBE653ACA25A3BFCCAC7</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -15624,7 +15622,7 @@
 		<key>DE2D16A61AA1704D36CF6D0929E1D174</key>
 		<dict>
 			<key>fileRef</key>
-			<string>B230CCB1805BAA4F5ED8535048AF16B1</string>
+			<string>145367E33F42826B5CC9CC3215FC9E33</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -15634,6 +15632,19 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>DE425249A99D2AF8DFD8E38832905138</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILTokenHandler.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>DE57CF7F56E6A45E338ADD78458428BF</key>
 		<dict>
@@ -15726,19 +15737,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>DF7062BB71F9596D21B77A6064DDCA19</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILOngoingRequest+Private.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>DFA82580FF4CFEEB41B1762BB7C01428</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -15756,7 +15754,7 @@
 		<key>DFB4C517B52B1DC45FC2C376638AEE12</key>
 		<dict>
 			<key>fileRef</key>
-			<string>95ADDC936C6ED11131B3E654D18DA75B</string>
+			<string>FE0385D6517A6286727ABBB386B70383</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -16005,23 +16003,10 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>E273C80290806AC8F173EA6AD709C007</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILImageRepresentation.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>E2DC289FD2002FA601FBF22E24105826</key>
 		<dict>
 			<key>fileRef</key>
-			<string>EBDDC98AF98848898D59975E421546CC</string>
+			<string>92748DD5920B91FF370E59B93F75E663</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -16108,16 +16093,72 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>E4A01795E09BFE850D1F89195DC60D0A</key>
+		<key>E440FAF9CF19D82C825DBE96D8A40C2E</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>children</key>
+			<array>
+				<string>D2E6CC5DF2F8A0C729871C91D75C29FB</string>
+				<string>49DE5D427A6270B1C1442C8BA690CED0</string>
+				<string>3F4E7E82CC53456F8190896607E3F754</string>
+				<string>454A371431F0A47D7E359951F756AA0B</string>
+				<string>ADD73B22C7B63120A9ECC83FE91C0941</string>
+				<string>13B85A5571583397DF3F5E3DEF258B28</string>
+				<string>20D94B464AC255398E22B883FDC18AF2</string>
+				<string>A81A67BA256A3100FDC6EC9986DCAB4B</string>
+				<string>464984195868B621A479F5930E047DCE</string>
+				<string>82ED5157DE9F75551100DFF756F2F472</string>
+				<string>138CF8F277371F133BA68297728DE5EE</string>
+				<string>C2ADDC9610DF65F8122E405D138636A0</string>
+				<string>BF2BA8F03DE5EF04E7AFC7E89C5D491D</string>
+				<string>D9E4B7EB13537457807E7E8249EE2BF5</string>
+				<string>F5CABD86075A5E27407429A6F3C72FD5</string>
+				<string>5403A404B203A1D4FD23F962E3EBD0B7</string>
+				<string>51F5A529317E6055B323F67A4D79CDF5</string>
+				<string>5AF4D1845DEDBE4A67D03F0F47FD62A8</string>
+				<string>15C628A76B8F413842BFD9E6AF2AC23E</string>
+				<string>D89F8FF5CD69AA3BF56B42C65EA889E4</string>
+				<string>5AC98AF356DBBC2C9239679597F988C3</string>
+				<string>F6C18E61A08A152D4D6D008C41C0C4B4</string>
+				<string>7A878FDDE301BABA0E426235313B4C78</string>
+				<string>5D2F74B16C9BC49BFA76A5D9FBCC4964</string>
+				<string>FD69B964ED128C59E1E14AC779EA343E</string>
+				<string>2A009536E0637B80A3F595E718E48C06</string>
+				<string>839CF3A17815DF5CC38C7175338B24A8</string>
+				<string>3C9621AC66A0BCE440C0612851BC9CE2</string>
+				<string>8407631093947599D80991852121CAE1</string>
+				<string>E6F7C3866B085F01EE1A2EDB8895C578</string>
+				<string>A6DD4C26B5835C4106781610CA944435</string>
+				<string>237BB1B4FA516AE02E36B529B242E29C</string>
+				<string>9169FB6B82A10EC8048B7D566515BE38</string>
+				<string>EC1DDE73812E15CF083782A1730704D5</string>
+				<string>7DB3C7A9C81B10CFA413A805FDE5D1D5</string>
+				<string>49D23A93EEB14E552AB16489446DB4AA</string>
+				<string>70EF67B8AE651399035C458D20AA94CB</string>
+				<string>73422C502D85BF8EC3DB5268363D2183</string>
+				<string>CCE9FA243C83583B4D9F9E6FC3A1C0CC</string>
+				<string>94CBD915C20D41257BF436BBE38E46FE</string>
+				<string>0DFDCF9C6897857CA8E9FF7E7D249842</string>
+				<string>A6404886377AA5103F05A474116F5957</string>
+				<string>7E26883A35242379C2D2E725F284F2E1</string>
+				<string>744B37F9940B3D958A77279EEB393680</string>
+				<string>B757181CCA5B4187BF0C68B3E53C8DE6</string>
+				<string>145367E33F42826B5CC9CC3215FC9E33</string>
+				<string>5F36071748E2D2741AE72E28779AC64B</string>
+				<string>FD42F049D7218F1974F9FC903246F4F0</string>
+				<string>7137DA4E7BF28E17823748F7E65F72B7</string>
+				<string>E72512D204ED51F61A1D1A7C403AA1A7</string>
+				<string>ECC45C976EFC4F1781FDE70712F904F7</string>
+				<string>4EC09D510552ECFE8F1CA6912BBFE696</string>
+				<string>2F40EE5D0497D703E88A8D4423ADCE74</string>
+				<string>34D1E9355745355C0A6D2905F06DB572</string>
+				<string>2D9CD5ADBFCF1EEFFB854E3134CAB3FA</string>
+			</array>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Model</string>
 			<key>path</key>
-			<string>SRGILLiveHeaderChannel.h</string>
+			<string>Model</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -16133,19 +16174,6 @@
 			<string>PBXHeadersBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
-		</dict>
-		<key>E4E6E519DEB1CE9C67D760D7ECE4A9BC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILStreamSenseAnalyticsInfos.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>E504EBB1E35B5527AD13BA03630A0F0E</key>
 		<dict>
@@ -16327,6 +16355,19 @@
 				<string>-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
 		</dict>
+		<key>E6F7C3866B085F01EE1A2EDB8895C578</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILModelConstants.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>E710CF5BC0121469C8B93B7C21210056</key>
 		<dict>
 			<key>fileRef</key>
@@ -16334,10 +16375,23 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>E72512D204ED51F61A1D1A7C403AA1A7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILTopic.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>E73D180E629606A820709A7362D4E892</key>
 		<dict>
 			<key>fileRef</key>
-			<string>BA31876679E0C7076AD6ECF2BE0314E9</string>
+			<string>BF2BA8F03DE5EF04E7AFC7E89C5D491D</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -16520,27 +16574,6 @@
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
 		</dict>
-		<key>E902C82921DF53D3029C8F05E76B1FB2</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>5076117970A54269AC3A0B6C397D2B4C</string>
-				<string>A724C31F9109F81507EFD0C3C0E28067</string>
-				<string>D425DE38F873E8A15271B60754626D0D</string>
-				<string>236B8A4655283A7D76AA880C8AB93386</string>
-				<string>D93DF74E69932FDC65CD189CDA4AB2EC</string>
-				<string>E4E6E519DEB1CE9C67D760D7ECE4A9BC</string>
-				<string>95ADDC936C6ED11131B3E654D18DA75B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Analytics</string>
-			<key>path</key>
-			<string>Analytics</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>E9479ADBE2B556F39A9CD0DE6F8EA328</key>
 		<dict>
 			<key>fileRef</key>
@@ -16674,7 +16707,7 @@
 		<key>EB4129EC6A3FB4C63CCC5CB334A439B5</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C700EBBDB07D9BC87D4DD5308D39D9EA</string>
+			<string>0DFDCF9C6897857CA8E9FF7E7D249842</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -16763,7 +16796,7 @@
 		<key>EBA0B90CFB382C14B4EF75FB87F92E7A</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C305C2E64299685E1E56B6B1F541BF9D</string>
+			<string>70EF67B8AE651399035C458D20AA94CB</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -16822,19 +16855,6 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>EBDDC98AF98848898D59975E421546CC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILURLComponents.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>EC1D1164B77713115CC92402B4705A05</key>
 		<dict>
 			<key>fileRef</key>
@@ -16849,6 +16869,19 @@
 				</array>
 			</dict>
 		</dict>
+		<key>EC1DDE73812E15CF083782A1730704D5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILPlaylist.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>EC2C3CD588B8D17525771B3E6AD43F80</key>
 		<dict>
 			<key>fileRef</key>
@@ -16862,19 +16895,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>EC565C2422BD4435131938818016AD5A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILAudio.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>EC5DEED0D51DD7A32F81B3E6DD210D6D</key>
 		<dict>
@@ -16932,6 +16952,19 @@
 				</array>
 			</dict>
 		</dict>
+		<key>ECC45C976EFC4F1781FDE70712F904F7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILTopic.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>ECC9441589021ACF5A4F450EDA7E223F</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -16985,19 +17018,6 @@
 			<string>KIF</string>
 			<key>path</key>
 			<string>KIF</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>ED3EE8F3690097174CBABC91453F14D0</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILDataProviderConstants.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -17160,7 +17180,7 @@
 		<key>EFD30AE33A78E6EB597E03F2E3443D70</key>
 		<dict>
 			<key>fileRef</key>
-			<string>A724C31F9109F81507EFD0C3C0E28067</string>
+			<string>49DE5D427A6270B1C1442C8BA690CED0</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -17195,19 +17215,6 @@
 			<string>12E2BC28C62976C425F4B71C2723F0B1</string>
 			<key>remoteInfo</key>
 			<string>CocoaLumberjack</string>
-		</dict>
-		<key>F025AFEEB2DD47E9C0E26E4F039ADE8A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILSocialCounts.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>F044F1471014ABE17EB4FDBA875BCF15</key>
 		<dict>
@@ -17334,19 +17341,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>F22CCFE4E054E683FCD733579CD49D64</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SRGILModelConstants.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>F22EEB62D7D5BA2EAD7BB7EC57B4CDCE</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -17370,26 +17364,6 @@
 			<string>RTSPeriodicTimeObserver.h</string>
 			<key>path</key>
 			<string>RTSMediaPlayer/RTSPeriodicTimeObserver.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F24DCB86E55DC880910127BCA4D33686</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>DF7062BB71F9596D21B77A6064DDCA19</string>
-				<string>08495F7CDC856FEB2BFD95631D9CF471</string>
-				<string>59C4ED11AC300ECE978C38C2E475173C</string>
-				<string>0A35516EAB91D118B89FE626A04C5153</string>
-				<string>B7A51FDE5C603D76B74BC18B6495E842</string>
-				<string>9DA7DEA63D43096DB7DB5D506055F0B3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Network</string>
-			<key>path</key>
-			<string>Network</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -17499,7 +17473,7 @@
 		<key>F44C96B1AA0140866EF7C8EC01BFDCD1</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C9C3A84CF4E2D577A272A1FADCD95E11</string>
+			<string>49D23A93EEB14E552AB16489446DB4AA</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -17575,7 +17549,7 @@
 		<key>F4EA437CCB45195EB1805646C8D723BF</key>
 		<dict>
 			<key>fileRef</key>
-			<string>236B8A4655283A7D76AA880C8AB93386</string>
+			<string>9F8FCA0B3981E8CF3532BAB007E53701</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -17629,7 +17603,7 @@
 		<key>F57CBD0683D2210A4FC6C4BCB0133E25</key>
 		<dict>
 			<key>fileRef</key>
-			<string>0A35516EAB91D118B89FE626A04C5153</string>
+			<string>4293CCCBF02EA1478F5D4848DA5AEA83</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -17637,6 +17611,19 @@
 				<key>COMPILER_FLAGS</key>
 				<string>-w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
+		</dict>
+		<key>F5CABD86075A5E27407429A6F3C72FD5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILEventConfig.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>F61CF95B3F8C5FDF9740FC51C5BD7A57</key>
 		<dict>
@@ -17650,6 +17637,19 @@
 			<string>73E27E04CDB3B780F9B78E2D8AB9475A</string>
 			<key>remoteInfo</key>
 			<string>KIF</string>
+		</dict>
+		<key>F6C18E61A08A152D4D6D008C41C0C4B4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILList.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>F6D0BBCB2FE101740CD3BF363F40C633</key>
 		<dict>
@@ -17876,19 +17876,6 @@
 			<key>remoteInfo</key>
 			<string>TransitionKit</string>
 		</dict>
-		<key>F836A3A4578B56FF165C0613F61423CF</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILTopic.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>F89A11F9FB9EAF000728A6D8E6435AF9</key>
 		<dict>
 			<key>isa</key>
@@ -17918,7 +17905,7 @@
 		<key>F8F2CE59AC1CFAA993DF098F40649823</key>
 		<dict>
 			<key>fileRef</key>
-			<string>92C1F6C7F783277ADFD28405DF2CBE3F</string>
+			<string>73422C502D85BF8EC3DB5268363D2183</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -17992,19 +17979,6 @@
 			<string>OCMVerifier.m</string>
 			<key>path</key>
 			<string>Source/OCMock/OCMVerifier.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>FA35498FA42F6B25E17842F4C43BD716</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILList.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -18111,19 +18085,6 @@
 			<string>XCBuildConfiguration</string>
 			<key>name</key>
 			<string>Release</string>
-		</dict>
-		<key>FBD63DDC099021C7E02EC1EFE9413F36</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>SRGILAudio.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>FBDBE59838278EBB0E7E1108AD0712B4</key>
 		<dict>
@@ -18241,7 +18202,7 @@
 		<key>FD26D8ECB0E0CDBD31A1B2B96EE49593</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C7A57739EA823F85CF7A4231F0B76222</string>
+			<string>EC1DDE73812E15CF083782A1730704D5</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -18251,6 +18212,19 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>FD42F049D7218F1974F9FC903246F4F0</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILSonglog.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>FD52CD16AE87D6E0C07006A087012555</key>
 		<dict>
@@ -18263,6 +18237,19 @@
 				<key>COMPILER_FLAGS</key>
 				<string>-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
+		</dict>
+		<key>FD69B964ED128C59E1E14AC779EA343E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRGILLiveHeaderData.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>FD8208CA5AB6AC18F48B1367D8FF4247</key>
 		<dict>
@@ -18299,6 +18286,19 @@
 			<string>thumb_timeline_slider.png</string>
 			<key>path</key>
 			<string>RTSMediaPlayer/thumb_timeline_slider.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FE0385D6517A6286727ABBB386B70383</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SRGILStreamSenseAnalyticsInfos.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>

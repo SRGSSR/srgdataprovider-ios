@@ -43,7 +43,7 @@ PODS:
   - SRGIntegrationLayerDataProvider/MediaPlayer/Analytics (4.0.0):
     - SRGAnalytics (~> 1.4.15)
     - SRGAnalytics/MediaPlayer (~> 1.4.15)
-    - SRGIntegrationLayerDataProvider/Core
+    - SRGIntegrationLayerDataProvider/MediaPlayer/Core
   - SRGIntegrationLayerDataProvider/MediaPlayer/Core (4.0.0):
     - SRGIntegrationLayerDataProvider/Core
     - SRGMediaPlayer (~> 1.7.0)
@@ -84,7 +84,7 @@ SPEC CHECKSUMS:
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
   SRGAnalytics: c5f1c4b4e0014ef109213366d49c2680151600c7
-  SRGIntegrationLayerDataProvider: 9d7243887e834c1055ff5f57ee9ee842e610c32f
+  SRGIntegrationLayerDataProvider: 4d4832297c310f295865b6f79ac13ff3b706b5da
   SRGMediaPlayer: e87513802ad40c204517e178261d200ca39075f0
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
 

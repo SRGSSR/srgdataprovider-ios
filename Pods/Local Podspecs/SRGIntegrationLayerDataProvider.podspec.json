@@ -86,7 +86,7 @@
             "UIKit"
           ],
           "dependencies": {
-            "SRGIntegrationLayerDataProvider/Core": [
+            "SRGIntegrationLayerDataProvider/MediaPlayer/Core": [
 
             ],
             "SRGAnalytics": [
