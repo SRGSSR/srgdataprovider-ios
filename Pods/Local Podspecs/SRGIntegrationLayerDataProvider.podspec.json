@@ -55,11 +55,10 @@
     {
       "name": "MediaPlayer",
       "source_files": [
-        "SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h",
         "SRGIntegrationLayerDataProvider/MediaPlayer/*.{h,m}",
         "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
       ],
-      "private_header_files": "SRGIntegrationLayerDataProvider/**/*+Private.h",
+      "private_header_files": "SRGIntegrationLayerDataProvider/MediaPlayer/Private.h",
       "frameworks": [
         "Foundation",
         "UIKit"
@@ -70,14 +69,27 @@
         ],
         "SRGMediaPlayer": [
           "~> 1.7.0"
-        ],
-        "SRGAnalytics": [
-          "~> 1.4.15"
-        ],
-        "SRGAnalytics/MediaPlayer": [
-          "~> 1.4.15"
         ]
-      }
+      },
+      "subspecs": [
+        {
+          "name": "Analytics",
+          "source_files": "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}",
+          "private_header_files": "SRGIntegrationLayerDataProvider/MediaPlayer/*+Private.h",
+          "frameworks": [
+            "Foundation",
+            "UIKit"
+          ],
+          "dependencies": {
+            "SRGAnalytics": [
+              "~> 1.4.15"
+            ],
+            "SRGAnalytics/MediaPlayer": [
+              "~> 1.4.15"
+            ]
+          }
+        }
+      ]
     }
   ]
 }
