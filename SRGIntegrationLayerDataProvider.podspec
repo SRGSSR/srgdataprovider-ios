@@ -47,6 +47,7 @@ DESC
     mp.subspec 'Analytics' do |an|
       an.source_files         = "SRGIntegrationLayerDataProvider/SRGILDataProviderAnalyticsDataSource.h", "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
       an.frameworks           = "Foundation", "UIKit"
+      an.dependency             "SRGIntegrationLayerDataProvider/Core"
       an.dependency             "SRGAnalytics", "~> 1.4.15"
       an.dependency             "SRGAnalytics/MediaPlayer", "~> 1.4.15"
     end

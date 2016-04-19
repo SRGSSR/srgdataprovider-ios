@@ -86,6 +86,9 @@
             "UIKit"
           ],
           "dependencies": {
+            "SRGIntegrationLayerDataProvider/Core": [
+
+            ],
             "SRGAnalytics": [
               "~> 1.4.15"
             ],
