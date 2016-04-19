@@ -62,7 +62,6 @@
             "SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h",
             "SRGIntegrationLayerDataProvider/MediaPlayer/*.{h,m}"
           ],
-          "private_header_files": "SRGIntegrationLayerDataProvider/MediaPlayer/*+Private.h",
           "frameworks": [
             "Foundation",
             "UIKit"
@@ -82,7 +81,6 @@
             "SRGIntegrationLayerDataProvider/SRGILDataProviderAnalyticsDataSource.h",
             "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
           ],
-          "private_header_files": "SRGIntegrationLayerDataProvider/Analytics/*+Private.h",
           "frameworks": [
             "Foundation",
             "UIKit"
