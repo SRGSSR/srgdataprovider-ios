@@ -281,6 +281,7 @@ static SGVReachability *reachability;
                 return;
             }
             
+            // JSON 1.0 or 2.0
             id JSONObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
             if (!JSONObject || ![JSONObject isKindOfClass:[NSDictionary class]]) {
                 dispatch_async(dispatch_get_main_queue(), ^{

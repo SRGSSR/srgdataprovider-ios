@@ -199,8 +199,8 @@
 - (BOOL)isLiveStream
 {
     // TODO: Still not have a definitive answer on the subject
-    return self.assetSetSubType == SRGILAssetSubSetTypeLivestream
-    || self.assetSet.subtype == SRGILAssetSubSetTypeLivestream
+    return self.assetSetSubType == SRGILAssetSubSetTypeLivestream || self.assetSetSubType == SRGILAssetSubSetTypeScheduledLivestream
+    || self.assetSet.subtype == SRGILAssetSubSetTypeLivestream || self.assetSet.subtype == SRGILAssetSubSetTypeScheduledLivestream
     || self.isLivestreamPlaylist;
 }
 

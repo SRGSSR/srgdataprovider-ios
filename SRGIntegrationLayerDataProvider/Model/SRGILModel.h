@@ -34,5 +34,6 @@
 #import "SRGILTopic.h"
 #import "SRGILURN.h"
 #import "SRGILVideo.h"
+#import "SRGILVideo2.h"
 
 #endif

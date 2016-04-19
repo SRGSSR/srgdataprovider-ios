@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		088055DD1CC51B8C00FAFFC8 /* SRGILVideo2.m in Sources */ = {isa = PBXBuildFile; fileRef = 088055DC1CC51B8C00FAFFC8 /* SRGILVideo2.m */; };
 		6643BD401B6B6C7100C32830 /* SRGILSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6643BD3F1B6B6C7100C32830 /* SRGILSearchResult.m */; };
 		9F13D5391AE9270700E4D897 /* SRGILComScoreAnalyticsInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5001AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.m */; };
 		9F13D53A1AE9270700E4D897 /* SRGILStreamSenseAnalyticsInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5021AE9270600E4D897 /* SRGILStreamSenseAnalyticsInfos.m */; };
@@ -107,6 +108,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		088055DB1CC51B8C00FAFFC8 /* SRGILVideo2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILVideo2.h; sourceTree = "<group>"; };
+		088055DC1CC51B8C00FAFFC8 /* SRGILVideo2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILVideo2.m; sourceTree = "<group>"; };
 		440E25A6651384A0E61A662D /* Pods.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.test.xcconfig; path = "Pods/Target Support Files/Pods/Pods.test.xcconfig"; sourceTree = "<group>"; };
 		6643BD3E1B6B6C7100C32830 /* SRGILSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILSearchResult.h; sourceTree = "<group>"; };
 		6643BD3F1B6B6C7100C32830 /* SRGILSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILSearchResult.m; sourceTree = "<group>"; };
@@ -356,6 +359,8 @@
 				9FCA04911B414935009937E2 /* SRGILURN.m */,
 				9F13D52E1AE9270700E4D897 /* SRGILVideo.h */,
 				9F13D52F1AE9270700E4D897 /* SRGILVideo.m */,
+				088055DB1CC51B8C00FAFFC8 /* SRGILVideo2.h */,
+				088055DC1CC51B8C00FAFFC8 /* SRGILVideo2.m */,
 			);
 			name = Model;
 			path = SRGIntegrationLayerDataProvider/Model;
@@ -786,6 +791,7 @@
 				9F13D54C1AE9270700E4D897 /* SRGILShow.m in Sources */,
 				9F13D5471AE9270700E4D897 /* SRGILModelConstants.m in Sources */,
 				6643BD401B6B6C7100C32830 /* SRGILSearchResult.m in Sources */,
+				088055DD1CC51B8C00FAFFC8 /* SRGILVideo2.m in Sources */,
 				9F4421001B0A109C00AD0613 /* SRGILDataProvider+MediaPlayer.m in Sources */,
 				9F13D5521AE9270700E4D897 /* SRGILTokenHandler.m in Sources */,
 				9FFDA47F1B8C769200EEF7DA /* SRGILDownload.m in Sources */,
