@@ -39,7 +39,6 @@ DESC
 
     mp.subspec 'Core' do |co|
       co.source_files         = "SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h", "SRGIntegrationLayerDataProvider/MediaPlayer/*.{h,m}"
-      co.private_header_files = "SRGIntegrationLayerDataProvider/MediaPlayer/*+Private.h"
       co.frameworks           = "Foundation", "UIKit"
       co.dependency             "SRGIntegrationLayerDataProvider/Core"
       co.dependency             "SRGMediaPlayer", "~> 1.7.0"
@@ -47,7 +46,6 @@ DESC
 
     mp.subspec 'Analytics' do |an|
       an.source_files         = "SRGIntegrationLayerDataProvider/SRGILDataProviderAnalyticsDataSource.h", "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
-      an.private_header_files = "SRGIntegrationLayerDataProvider/Analytics/*+Private.h"
       an.frameworks           = "Foundation", "UIKit"
       an.dependency             "SRGAnalytics", "~> 1.4.15"
       an.dependency             "SRGAnalytics/MediaPlayer", "~> 1.4.15"
