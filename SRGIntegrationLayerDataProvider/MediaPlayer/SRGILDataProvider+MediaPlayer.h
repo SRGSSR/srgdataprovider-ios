@@ -16,7 +16,7 @@
 
 @end
 
-#if __has_include("SRGILDataProviderMediaPlayerDataSource.h")
+#if __has_include("SRGILDataProviderAnalyticsDataSource.h")
 
 #import <SRGAnalytics/SRGAnalytics.h>
 
