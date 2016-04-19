@@ -81,7 +81,7 @@
 		E606D81D1C74511E003634AA /* UIColor+SRGILDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E606D81C1C74511E003634AA /* UIColor+SRGILDataProvider.m */; };
 		E67427211C73532400C15F94 /* SRGILEventConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E67427201C73532400C15F94 /* SRGILEventConfig.m */; };
 		E68E95E31B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E68E95E21B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m */; };
-		E6F8FF3E1CC6691200EC0793 /* SRGILAnalyticsExtendedData.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F8FF3C1CC6691200EC0793 /* SRGILAnalyticsExtendedData.m */; };
+		E6F8FF421CC6712F00EC0793 /* SRGILAnalyticsExtendedData.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F8FF411CC6712F00EC0793 /* SRGILAnalyticsExtendedData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -240,9 +240,9 @@
 		E68E95E11B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGILMedia+MediaPlayer.h"; sourceTree = "<group>"; };
 		E68E95E21B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGILMedia+MediaPlayer.m"; sourceTree = "<group>"; };
 		E6F8FF391CC6040400EC0793 /* SRGILDataProviderAnalyticsDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SRGILDataProviderAnalyticsDataSource.h; path = SRGIntegrationLayerDataProvider/SRGILDataProviderAnalyticsDataSource.h; sourceTree = SOURCE_ROOT; };
-		E6F8FF3B1CC6691200EC0793 /* SRGILAnalyticsExtendedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGILAnalyticsExtendedData.h; path = SRGIntegrationLayerDataProvider/Analytics/SRGILAnalyticsExtendedData.h; sourceTree = SOURCE_ROOT; };
-		E6F8FF3C1CC6691200EC0793 /* SRGILAnalyticsExtendedData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRGILAnalyticsExtendedData.m; path = SRGIntegrationLayerDataProvider/Analytics/SRGILAnalyticsExtendedData.m; sourceTree = SOURCE_ROOT; };
 		E6F8FF3D1CC6691200EC0793 /* SRGILAnalyticsInfosProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGILAnalyticsInfosProtocol.h; path = SRGIntegrationLayerDataProvider/Analytics/SRGILAnalyticsInfosProtocol.h; sourceTree = SOURCE_ROOT; };
+		E6F8FF401CC6712F00EC0793 /* SRGILAnalyticsExtendedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILAnalyticsExtendedData.h; sourceTree = "<group>"; };
+		E6F8FF411CC6712F00EC0793 /* SRGILAnalyticsExtendedData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILAnalyticsExtendedData.m; sourceTree = "<group>"; };
 		F4A90E42A0F98F5CE90DBD45 /* Pods-SRGIntegrationLayerDataProviderTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProviderTests.test.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProviderTests/Pods-SRGIntegrationLayerDataProviderTests.test.xcconfig"; sourceTree = "<group>"; };
 		F5D020938ACBE926372DE924 /* libPods-SRGIntegrationLayerDataProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProvider.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -303,6 +303,8 @@
 		9F13D5061AE9270600E4D897 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E6F8FF401CC6712F00EC0793 /* SRGILAnalyticsExtendedData.h */,
+				E6F8FF411CC6712F00EC0793 /* SRGILAnalyticsExtendedData.m */,
 				9FEE12661C10443100AD7A8B /* SRGILArtist.h */,
 				9FEE12671C10443100AD7A8B /* SRGILArtist.m */,
 				9F13D50A1AE9270600E4D897 /* SRGILAsset.h */,
@@ -523,8 +525,6 @@
 		E6F8FF3F1CC6691700EC0793 /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
-				E6F8FF3B1CC6691200EC0793 /* SRGILAnalyticsExtendedData.h */,
-				E6F8FF3C1CC6691200EC0793 /* SRGILAnalyticsExtendedData.m */,
 				E6F8FF3D1CC6691200EC0793 /* SRGILAnalyticsInfosProtocol.h */,
 				E6F8FF391CC6040400EC0793 /* SRGILDataProviderAnalyticsDataSource.h */,
 				9F4421011B0A116D00AD0613 /* SRGILDataProviderMediaPlayerDataSource.h */,
@@ -767,7 +767,7 @@
 				9F13D5461AE9270700E4D897 /* SRGILMedia.m in Sources */,
 				9F13D53F1AE9270700E4D897 /* SRGILAssetSet.m in Sources */,
 				9FF55F9A1B4B0F5900A99DA2 /* SRGILDataProviderConstants.m in Sources */,
-				E6F8FF3E1CC6691200EC0793 /* SRGILAnalyticsExtendedData.m in Sources */,
+				E6F8FF421CC6712F00EC0793 /* SRGILAnalyticsExtendedData.m in Sources */,
 				E68E95E31B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m in Sources */,
 				9F13D5451AE9270700E4D897 /* SRGILLiveHeaderData.m in Sources */,
 				E606D81D1C74511E003634AA /* UIColor+SRGILDataProvider.m in Sources */,
