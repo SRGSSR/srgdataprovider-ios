@@ -41,6 +41,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 @interface SRGILDataProvider (MediaPlayer_Analytics_Private)
 
 - (void)prepareAnalyticsInfosForMedia:(SRGILMedia *)media withContentURL:(NSURL *)contentURL;
+- (void)sendViewCountMetaDataUponMediaPlayerPlaybackStateChange:(NSNotification *)notification;
 
 @property(nonatomic, strong) NSMutableDictionary *analyticsInfos;
 @property(nonatomic, getter=isRegisteredAsObserver) BOOL registeredAsObserver;
