@@ -83,7 +83,7 @@ SPEC CHECKSUMS:
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
   SRGAnalytics: c5f1c4b4e0014ef109213366d49c2680151600c7
-  SRGIntegrationLayerDataProvider: fdb2ea834698fb3dd7f67aca7c73b4ee5782593f
+  SRGIntegrationLayerDataProvider: bf7ea336b172bda19f1a1b41b0668e16445dc64d
   SRGMediaPlayer: e87513802ad40c204517e178261d200ca39075f0
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
 

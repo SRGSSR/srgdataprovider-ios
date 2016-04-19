@@ -78,7 +78,10 @@
         },
         {
           "name": "Analytics",
-          "source_files": "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}",
+          "source_files": [
+            "SRGIntegrationLayerDataProvider/SRGILDataProviderAnalyticsDataSource.h",
+            "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
+          ],
           "private_header_files": "SRGIntegrationLayerDataProvider/Analytics/*+Private.h",
           "frameworks": [
             "Foundation",

@@ -44,9 +44,9 @@ DESC
       co.dependency             "SRGIntegrationLayerDataProvider/Core"
       co.dependency             "SRGMediaPlayer", "~> 1.7.0"
     end
-        
+
     mp.subspec 'Analytics' do |an|
-      an.source_files         = "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
+      an.source_files         = "SRGIntegrationLayerDataProvider/SRGILDataProviderAnalyticsDataSource.h", "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
       an.private_header_files = "SRGIntegrationLayerDataProvider/Analytics/*+Private.h"
       an.frameworks           = "Foundation", "UIKit"
       an.dependency             "SRGAnalytics", "~> 1.4.15"
