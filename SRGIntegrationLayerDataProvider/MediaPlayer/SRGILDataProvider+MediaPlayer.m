@@ -208,6 +208,8 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 
 @end
 
+#if __has_include("SRGILDataProviderAnalyticsDataSource.h")
+
 @implementation SRGILDataProvider (MediaPlayer_Analytics)
 
 #pragma mark - Analytics Infos
@@ -319,4 +321,6 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 }
 
 @end
+
+#endif
 
