@@ -43,7 +43,7 @@ DESC
     
     mp.subspec 'Analytics' do |an|
       an.source_files         = "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
-      an.private_header_files = "SRGIntegrationLayerDataProvider/MediaPlayer/*+Private.h"
+      an.private_header_files = "SRGIntegrationLayerDataProvider/Analytics/*+Private.h"
       an.frameworks           = "Foundation", "UIKit"
       an.dependency             "SRGAnalytics", "~> 1.4.15"
       an.dependency             "SRGAnalytics/MediaPlayer", "~> 1.4.15"
