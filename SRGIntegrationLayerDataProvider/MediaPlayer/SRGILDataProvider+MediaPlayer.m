@@ -15,10 +15,6 @@
 #import "SRGILRequestsManager.h"
 #import "SRGILTokenHandler.h"
 
-#import "SRGILComScoreAnalyticsInfos.h"
-#import "SRGILStreamSenseAnalyticsInfos.h"
-#import "SRGILAnalyticsInfosProtocol.h"
-
 #import "SRGILModel.h"
 #import "SRGILModelConstants.h"
 
@@ -30,16 +26,28 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 #endif
 
+#if __has_include("SRGILDataProviderAnalyticsDataSource.h")
+
+#import "SRGILComScoreAnalyticsInfos.h"
+#import "SRGILStreamSenseAnalyticsInfos.h"
+#import "SRGILAnalyticsInfosProtocol.h"
+
 static void *kAnalyticsInfosAssociatedObjectKey = &kAnalyticsInfosAssociatedObjectKey;
 static void *kRegisteredAsObserverKey = &kRegisteredAsObserverKey;
 
 static NSString * const comScoreKeyPathPrefix = @"SRGILComScoreAnalyticsInfos.";
 static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsInfos.";
 
-@interface SRGILDataProvider (MediaPlayerPrivate)
+@interface SRGILDataProvider (MediaPlayer_Analytics_Private)
+
+- (void)prepareAnalyticsInfosForMedia:(SRGILMedia *)media withContentURL:(NSURL *)contentURL;
+
 @property(nonatomic, strong) NSMutableDictionary *analyticsInfos;
 @property(nonatomic, getter=isRegisteredAsObserver) BOOL registeredAsObserver;
+
 @end
+
+#endif
 
 @implementation SRGILDataProvider (MediaPlayer)
 
@@ -51,6 +59,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 {
     NSAssert(urnString, @"Missing identifier to work with.");
     
+#if __has_include("SRGILDataProviderAnalyticsDataSource.h")
     // Register once. Since we are in a category, we cannot override initialization and deallocation methods (well, we could
     // swizzle them...). Instead, lazily register. The -[SRGILDataProvider dealloc] method has been implemented to properly
     // unregisters from the notification center
@@ -61,6 +70,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                                    object:nil];
         self.registeredAsObserver = YES;
     }
+#endif
     
     SRGILMedia *existingMedia = self.identifiedMedias[urnString];
     
@@ -80,7 +90,9 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
             
             if (media.defaultContentURL) {
                 DDLogDebug(@"Found default content URL %@ for identifier %@", media.defaultContentURL, urnString);
+#if __has_include("SRGILDataProviderAnalyticsDataSource.h")
                 [self prepareAnalyticsInfosForMedia:media withContentURL:media.defaultContentURL];
+#endif
                 
                 [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.defaultContentURL
                                                       completionBlock:^(NSURL *tokenizedURL, NSError *error) {
@@ -133,9 +145,11 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
      withCompletionHandler:(RTSMediaSegmentsCompletionHandler)completionHandler;
 {
     void (^segmentsAndAnalyticsBlock)(SRGILMedia *) = ^(SRGILMedia *parentMedia) {
+#if __has_include("SRGILDataProviderAnalyticsDataSource.h")
         if (parentMedia.defaultContentURL) {
             [self prepareAnalyticsInfosForMedia:parentMedia withContentURL:parentMedia.defaultContentURL];
         }
+#endif
         
         if (!parentMedia.fullLength || parentMedia.segments.count == 0) {
             SRGILAsset * asset = parentMedia.assetSet.assets.firstObject;
@@ -192,29 +206,11 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     }
 }
 
-#pragma mark - Analytics Infos
+@end
 
-- (void)prepareAnalyticsInfosForMedia:(SRGILMedia *)media withContentURL:(NSURL *)contentURL
-{
-    NSParameterAssert(media);
-    NSParameterAssert(contentURL);
-    NSParameterAssert(media.urnString);
-    
-    if (!self.analyticsInfos) {
-        self.analyticsInfos = [[NSMutableDictionary alloc] init];
-    }
-    
-    // Do not check for existing sources. Allow to override the sources with a freshly-(re)downloaded media.
-    
-    NSString *comScoreKeyPath = [comScoreKeyPathPrefix stringByAppendingString:media.urnString];
-    NSString *streamSenseKeyPath = [streamSenseKeyPathPrefix stringByAppendingString:media.urnString];
-    
-    SRGILComScoreAnalyticsInfos *comScoreDataSource = [[SRGILComScoreAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
-    SRGILStreamSenseAnalyticsInfos *streamSenseDataSource = [[SRGILStreamSenseAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
-    
-    self.analyticsInfos[comScoreKeyPath] = comScoreDataSource;
-    self.analyticsInfos[streamSenseKeyPath] = streamSenseDataSource;
-}
+@implementation SRGILDataProvider (MediaPlayer_Analytics)
+
+#pragma mark - Analytics Infos
 
 - (SRGILStreamSenseAnalyticsInfos *)streamSenseIndividualDataSourceForIdenfifier:(NSString *)identifier
 {
@@ -243,6 +239,32 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         [medataData addEntriesFromDictionary:[ds segmentClipMetadataForMedia:segment]];
     }
     return [medataData copy];
+}
+
+@end
+
+@implementation SRGILDataProvider (MediaPlayer_Analytics_Private)
+
+- (void)prepareAnalyticsInfosForMedia:(SRGILMedia *)media withContentURL:(NSURL *)contentURL
+{
+    NSParameterAssert(media);
+    NSParameterAssert(contentURL);
+    NSParameterAssert(media.urnString);
+    
+    if (!self.analyticsInfos) {
+        self.analyticsInfos = [[NSMutableDictionary alloc] init];
+    }
+    
+    // Do not check for existing sources. Allow to override the sources with a freshly-(re)downloaded media.
+    
+    NSString *comScoreKeyPath = [comScoreKeyPathPrefix stringByAppendingString:media.urnString];
+    NSString *streamSenseKeyPath = [streamSenseKeyPathPrefix stringByAppendingString:media.urnString];
+    
+    SRGILComScoreAnalyticsInfos *comScoreDataSource = [[SRGILComScoreAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
+    SRGILStreamSenseAnalyticsInfos *streamSenseDataSource = [[SRGILStreamSenseAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
+    
+    self.analyticsInfos[comScoreKeyPath] = comScoreDataSource;
+    self.analyticsInfos[streamSenseKeyPath] = streamSenseDataSource;
 }
 
 #pragma mark - View Count
@@ -276,10 +298,6 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     }
 }
 
-@end
-
-@implementation SRGILDataProvider (MediaPlayerPrivate)
-
 - (NSMutableDictionary *)analyticsInfos
 {
     return objc_getAssociatedObject(self, kAnalyticsInfosAssociatedObjectKey);
@@ -301,3 +319,4 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 }
 
 @end
+
