@@ -14,4 +14,9 @@
 #import "SRGILDataProviderMediaPlayerDataSource.h"
 #endif
 
+#if __has_include("SRGILDataProviderAnalyticsDataSource.h")
+#import "SRGILDataProviderAnalyticsDataSource.h"
+#endif
+
+
 
