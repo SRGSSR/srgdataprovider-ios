@@ -38,13 +38,13 @@ static NSString *const SRFRadioVirusChannelID = @"66815fe2-9008-4853-80a5-f9caaf
 {
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     
-    SRGILURLComponents *components = [self.dataProvider URLComponentsForFetchListIndex:SRGILFetchListVideoTopics
-                                                                         withIdentifier:nil
-                                                                                  error:nil];
+    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:SRGILFetchListVideoTopics
+                                                                      withIdentifier:nil
+                                                                               error:nil];
     
     [self.dataProvider fetchObjectsListWithURLComponents:components
                                                organised:SRGILModelDataOrganisationTypeFlat
-                                              progressBlock:nil
+                                           progressBlock:nil
                                             completionBlock:^(SRGILList * _Nullable items, Class  _Nullable __unsafe_unretained itemClass, NSError * _Nullable error) {
                                                 [expectation fulfill];
                                                 XCTAssertNil(error);
@@ -59,9 +59,9 @@ static NSString *const SRFRadioVirusChannelID = @"66815fe2-9008-4853-80a5-f9caaf
 {
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     
-    SRGILURLComponents *components = [self.dataProvider URLComponentsForFetchListIndex:SRGILFetchListSonglogPlaying
-                                                                         withIdentifier:SRFRadioVirusChannelID
-                                                                                  error:nil];
+    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:SRGILFetchListSonglogPlaying
+                                                                      withIdentifier:SRFRadioVirusChannelID
+                                                                               error:nil];
     
     [self.dataProvider fetchObjectsListWithURLComponents:components
                                                organised:SRGILModelDataOrganisationTypeFlat
@@ -80,9 +80,9 @@ static NSString *const SRFRadioVirusChannelID = @"66815fe2-9008-4853-80a5-f9caaf
 {
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     
-    SRGILURLComponents *components = [self.dataProvider URLComponentsForFetchListIndex:SRGILFetchListSonglogLatest
-                                                                         withIdentifier:SRFRadioVirusChannelID
-                                                                                  error:nil];
+    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:SRGILFetchListSonglogLatest
+                                                                      withIdentifier:SRFRadioVirusChannelID
+                                                                               error:nil];
     
     [self.dataProvider fetchObjectsListWithURLComponents:components
                                                organised:SRGILModelDataOrganisationTypeFlat

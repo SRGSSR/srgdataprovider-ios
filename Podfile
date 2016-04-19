@@ -22,6 +22,7 @@ target 'SRGIntegrationLayerDataProviderTests', :exclusive => true do
     pod 'OCMock', '3.1.2'
 	pod 'SRGIntegrationLayerDataProvider', :path => '.'
 	pod 'SRGIntegrationLayerDataProvider/MediaPlayer', :path => '.'
+    pod 'SRGIntegrationLayerDataProvider/MediaPlayer/Analytics', :path => '.'
 end
 
 ### Demo project
@@ -30,6 +31,7 @@ target 'SRGIntegrationLayerDataProvider Demo', :exclusive => true do
 	xcodeproj 'SRGIntegrationLayerDataProvider Demo/SRGIntegrationLayerDataProvider Demo'
 	pod 'SRGIntegrationLayerDataProvider', :path => '.'
 	pod 'SRGIntegrationLayerDataProvider/MediaPlayer', :path => '.'
+    pod 'SRGIntegrationLayerDataProvider/MediaPlayer/Analytics', :path => '.'
     pod 'SDWebImage', '3.7.0'
 end
 
