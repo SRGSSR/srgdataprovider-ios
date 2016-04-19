@@ -1,1 +1,0 @@
-../../../../SRGIntegrationLayerDataProvider/MediaPlayer/SRGILDataProviderAnalyticsDataSource.h
