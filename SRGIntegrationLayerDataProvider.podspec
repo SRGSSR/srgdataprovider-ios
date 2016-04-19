@@ -35,8 +35,8 @@ DESC
   end
 
   s.subspec 'MediaPlayer' do |mp|
-    mp.source_files         = "SRGIntegrationLayerDataProvider/MediaPlayer/*.{h,m}", "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
-    mp.private_header_files = "SRGIntegrationLayerDataProvider/MediaPlayer/Private.h"
+    mp.source_files         = "SRGIntegrationLayerDataProvider/MediaPlayer/*.{h,m}"
+    mp.private_header_files = "SRGIntegrationLayerDataProvider/MediaPlayer/*+Private.h"
     mp.frameworks           = "Foundation", "UIKit"
     mp.dependency             "SRGIntegrationLayerDataProvider/Core"
     mp.dependency             "SRGMediaPlayer", "~> 1.7.0"
