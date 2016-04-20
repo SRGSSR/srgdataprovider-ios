@@ -25,16 +25,17 @@ typedef void (^SRGILRequestListCompletionBlock)(NSDictionary * __nullable rawDic
 
 @property (nonatomic, null_resettable) NSURL *baseURL;
 
-- (BOOL)requestMediaWithURN:(SRGILURN *)URN completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
+- (id)requestMediaWithURN:(SRGILURN *)URN completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 
-- (BOOL)requestLiveMetaInfosWithChannelID:(NSString *)channelID livestreamID:(nullable NSString *)livestreamID completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
+- (id)requestLiveMetaInfosWithChannelID:(NSString *)channelID livestreamID:(nullable NSString *)livestreamID completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 
-- (BOOL)requestShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
+- (id)requestShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 
-- (BOOL)requestObjectsListWithURLComponents:(SRGILURLComponents *)components
+- (id)requestObjectsListWithURLComponents:(SRGILURLComponents *)components
                               progressBlock:(nullable SRGILFetchListDownloadProgressBlock)progressBlock
                             completionBlock:(SRGILRequestListCompletionBlock)completionBlock;
 
+- (void)cancelRequest:(id)request;
 - (void)cancelAllRequests;
 
 - (void)sendViewCountUpdate:(NSString *)identifier forMediaTypeName:(NSString *)mediaType;

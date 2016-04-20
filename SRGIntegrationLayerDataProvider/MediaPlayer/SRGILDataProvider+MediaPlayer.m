@@ -124,6 +124,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     
     if (existingMedia && existingMedia.defaultContentURL) {
         playBlock(existingMedia, nil);
+        return nil;
     }
     else {
         SRGILURN *urn = [SRGILURN URNWithString:urnString];
@@ -132,15 +133,17 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                                  code:SRGILDataProviderErrorCodeInvalidData
                                              userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The media cannot be played.", nil) }];
             completionHandler(nil, error);
-            return;
+            return nil;
         }
         
-        [self.requestManager requestMediaWithURN:urn completionBlock:playBlock];
+        return [self.requestManager requestMediaWithURN:urn completionBlock:playBlock];
     }
 }
 
 - (void)cancelContentURLRequest:(id)request
-{}
+{
+    [self.requestManager cancelRequest:request];
+}
 
 #pragma mark - RTSMediaSegmentsDataSource
 
@@ -183,6 +186,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     SRGILMedia *media = self.identifiedMedias[urnString];
     if (media.segments) {
         segmentsAndAnalyticsBlock(media);
+        return nil;
     }
     else {
         SRGILURN *urn = [SRGILURN URNWithString:urnString];
@@ -191,11 +195,11 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                                  code:SRGILDataProviderErrorCodeInvalidData
                                              userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The media cannot be played.", nil) }];
             completionHandler(nil, error);
-            return;
+            return nil;
         }
         
         @weakify(self)
-        [self.requestManager requestMediaWithURN:urn
+        return [self.requestManager requestMediaWithURN:urn
                                  completionBlock:^(SRGILMedia *media, NSError *error) {
                                      @strongify(self)
                                      if (error) {
@@ -211,7 +215,9 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 }
 
 - (void)cancelSegmentsRequest:(id)request
-{}
+{
+    [self.requestManager cancelRequest:request];
+}
 
 @end
 

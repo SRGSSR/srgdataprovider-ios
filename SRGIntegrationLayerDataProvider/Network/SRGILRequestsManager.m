@@ -67,14 +67,14 @@ static SGVReachability *reachability;
 
 #pragma mark - Requesting Media
 
-- (BOOL)requestMediaWithURN:(SRGILURN *)URN completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
+- (id)requestMediaWithURN:(SRGILURN *)URN completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
 {
     NSParameterAssert(URN);
     
     NSString *path = nil;
     Class objectClass = NULL;
     NSString *JSONKey = nil;
-
+    
     switch (URN.mediaType) {
         case SRGILMediaTypeVideo:
             path = [NSString stringWithFormat:@"video/play/%@.json", URN.identifier];
@@ -86,7 +86,7 @@ static SGVReachability *reachability;
             objectClass = [SRGILAudio class];
             JSONKey = @"Audio";
             break;
-
+            
         default: {
             NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                                  code:SRGILDataProviderErrorCodeInvalidRequest
@@ -96,7 +96,7 @@ static SGVReachability *reachability;
             break;
         }
     }
-
+    
     return [self requestModelObject:objectClass
                                path:path
                          identifier:URN.identifier
@@ -115,7 +115,7 @@ static SGVReachability *reachability;
     _baseURL = baseURL ?: [NSURL URLWithString:@"http://il.srgssr.ch/integrationlayer/"];
 }
 
-- (BOOL)requestLiveMetaInfosWithChannelID:(NSString *)channelID livestreamID:(NSString *)livestreamID completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
+- (id)requestLiveMetaInfosWithChannelID:(NSString *)channelID livestreamID:(NSString *)livestreamID completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
 {
     NSParameterAssert(channelID);
     
@@ -135,7 +135,7 @@ static SGVReachability *reachability;
                     completionBlock:completionBlock];
 }
 
-- (BOOL)requestShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
+- (id)requestShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
 {
     NSParameterAssert(identifier);
     return [self requestModelObject:SRGILShow.class
@@ -146,12 +146,12 @@ static SGVReachability *reachability;
                     completionBlock:completionBlock];
 }
 
-- (BOOL)requestModelObject:(Class)modelClass
-                      path:(NSString *)path
-                identifier:(NSString *)identifier
-            serviceVersion:(NSString *)serviceVersion
-                   JSONKey:(NSString *)JSONKey
-           completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
+- (id)requestModelObject:(Class)modelClass
+                    path:(NSString *)path
+              identifier:(NSString *)identifier
+          serviceVersion:(NSString *)serviceVersion
+                 JSONKey:(NSString *)JSONKey
+         completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
 {
     NSParameterAssert(modelClass);
     NSParameterAssert(path);
@@ -159,17 +159,17 @@ static SGVReachability *reachability;
     NSParameterAssert(JSONKey);
     NSParameterAssert(completionBlock);
     NSParameterAssert(serviceVersion);
-
+    
     __block SRGILOngoingRequest *ongoingRequest = self.ongoingRequests[identifier];
     if (ongoingRequest) {
         [ongoingRequest addCompletionBlock:completionBlock];
-        return YES;
+        return ongoingRequest;
     }
     
     @weakify(self)
     void (^completion)(NSData *data, NSURLResponse *response, NSError *error) = ^(NSData *data, NSURLResponse *response, NSError *error) {
         @strongify(self)
-
+        
         [self.ongoingRequests removeObjectForKey:identifier];
         if (self.ongoingRequests.count == 0) {
             [self.URLSession invalidateAndCancel];
@@ -232,18 +232,18 @@ static SGVReachability *reachability;
     
     ongoingRequest = [[SRGILOngoingRequest alloc] initWithTask:task];
     [ongoingRequest addCompletionBlock:completionBlock];
-
+    
     self.ongoingRequests[identifier] = ongoingRequest;
     [task resume];
     
-    return YES;
+    return ongoingRequest;
 }
 
 #pragma mark - Requesting Item Lists
 
-- (BOOL)requestObjectsListWithURLComponents:(SRGILURLComponents *)components
-                              progressBlock:(SRGILFetchListDownloadProgressBlock)progressBlock
-                            completionBlock:(SRGILRequestListCompletionBlock)completionBlock
+- (id)requestObjectsListWithURLComponents:(SRGILURLComponents *)components
+                            progressBlock:(SRGILFetchListDownloadProgressBlock)progressBlock
+                          completionBlock:(SRGILRequestListCompletionBlock)completionBlock
 {
     NSParameterAssert(components);
     NSParameterAssert(completionBlock);
@@ -304,7 +304,7 @@ static SGVReachability *reachability;
                                                         delegate:self
                                                    delegateQueue:nil];
     }
-
+    
     NSURLSessionTask *task = [self.URLSession dataTaskWithURL:components.URL completionHandler:completion];
     
     SRGILOngoingRequest *ongoingRequest = [[SRGILOngoingRequest alloc] initWithTask:task];
@@ -323,7 +323,7 @@ static SGVReachability *reachability;
     self.ongoingRequests[components.URL] = ongoingRequest;
     [task resume];
     
-    return YES;
+    return ongoingRequest;
 }
 
 - (void)URLSession:(NSURLSession *)session
@@ -349,7 +349,7 @@ static SGVReachability *reachability;
     NSParameterAssert(mediaType);
     
     // Mimicking AFNetworking JSON POST request
-
+    
     NSDictionary *parameters = nil;
     NSString *path = [NSString stringWithFormat:@"%@/%@/clicked.json", mediaType, identifier];
     NSURL *URL = [[[[self.baseURL URLByAppendingPathComponent:@"1.0"] URLByAppendingPathComponent:@"ue"] URLByAppendingPathComponent:self.businessUnit] URLByAppendingPathComponent:path];
@@ -361,7 +361,7 @@ static SGVReachability *reachability;
     [URLRequest setHTTPMethod:@"POST"];
     [URLRequest setValue:[NSString stringWithFormat:@"application/json; charset=%@", charset] forHTTPHeaderField:@"Content-Type"];
     [URLRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-
+    
     if (parameters) {
         [URLRequest setHTTPBody:[NSJSONSerialization dataWithJSONObject:parameters options:(NSJSONWritingOptions)0 error:&error]];
     }
@@ -380,6 +380,22 @@ static SGVReachability *reachability;
 }
 
 #pragma mark - Operations
+
+- (void)cancelRequest:(id)request
+{
+    if (!request) {
+        return;
+    }
+    
+    NSAssert([request isKindOfClass:[SRGILOngoingRequest class]], @"Expect an ongoing request");
+    SRGILOngoingRequest *ongoingRequest = request;
+    [ongoingRequest.task cancel];
+    
+    // Ugly, but to be able to remove the request we need its key (which can be anything). Since an object is referenced at most
+    // once, this will work, but this is fragile as hell
+    id key = [[self.ongoingRequests allKeysForObject:ongoingRequest] firstObject];
+    [self.ongoingRequests removeObjectForKey:key];
+}
 
 - (void)cancelAllRequests
 {
