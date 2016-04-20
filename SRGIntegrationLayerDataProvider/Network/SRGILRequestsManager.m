@@ -394,7 +394,9 @@ static SGVReachability *reachability;
     // Ugly, but to be able to remove the request we need its key (which can be anything). Since an object is referenced at most
     // once, this will work, but this is fragile as hell
     id key = [[self.ongoingRequests allKeysForObject:ongoingRequest] firstObject];
-    [self.ongoingRequests removeObjectForKey:key];
+    if (key) {
+        [self.ongoingRequests removeObjectForKey:key];
+    }
 }
 
 - (void)cancelAllRequests
