@@ -54,9 +54,9 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 
 #pragma mark - RTSMediaPlayerControllerDataSource
 
-- (void)mediaPlayerController:(RTSMediaPlayerController *)mediaPlayerController
-      contentURLForIdentifier:(NSString *)urnString
-            completionHandler:(void (^)(NSURL *contentURL, NSError *error))completionHandler
+- (id)mediaPlayerController:(RTSMediaPlayerController *)mediaPlayerController
+    contentURLForIdentifier:(NSString *)urnString
+          completionHandler:(void (^)(NSURL *contentURL, NSError *error))completionHandler
 {
     NSAssert(urnString, @"Missing identifier to work with.");
     
@@ -139,11 +139,14 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     }
 }
 
+- (void)cancelContentURLRequest:(id)request
+{}
+
 #pragma mark - RTSMediaSegmentsDataSource
 
-- (void)segmentsController:(RTSMediaSegmentsController *)controller
-     segmentsForIdentifier:(NSString *)urnString
-     withCompletionHandler:(RTSMediaSegmentsCompletionHandler)completionHandler;
+- (id)segmentsController:(RTSMediaSegmentsController *)controller
+   segmentsForIdentifier:(NSString *)urnString
+   withCompletionHandler:(RTSMediaSegmentsCompletionHandler)completionHandler;
 {
     void (^segmentsAndAnalyticsBlock)(SRGILMedia *) = ^(SRGILMedia *parentMedia) {
 #if __has_include("SRGILDataProviderAnalyticsDataSource.h")
@@ -206,6 +209,9 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                                  }];
     }
 }
+
+- (void)cancelSegmentsRequest:(id)request
+{}
 
 @end
 

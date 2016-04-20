@@ -12,7 +12,7 @@ xcodeproj 'SRGIntegrationLayerDataProvider'
 pod 'SRGAnalytics', '~> 1.4.15'
 pod 'SRGAnalytics/MediaPlayer'
 
-pod 'SRGMediaPlayer', '~> 1.7.0'
+pod 'SRGMediaPlayer', :path => '../srgmediaplayer-ios'
 
 pod 'SGVReachability', '~> 1.0.0'
 pod 'CocoaLumberjack', '~> 2.0.0'
