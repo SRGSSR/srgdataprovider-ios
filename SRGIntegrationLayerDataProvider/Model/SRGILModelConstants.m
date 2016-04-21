@@ -66,7 +66,8 @@ SRGILAssetSubSetType SRGILAssetSubSetTypeForString(NSString *subtypeString)
     dispatch_once(&onceToken, ^{
         subSetTypes = @{ @"EPISODE" : @(SRGILAssetSubSetTypeEpisode),
                          @"TRAILER" : @(SRGILAssetSubSetTypeTrailer),
-                         @"LIVESTREAM" : @(SRGILAssetSubSetTypeLivestream) };
+                         @"LIVESTREAM" : @(SRGILAssetSubSetTypeLivestream),
+                         @"SCHEDULED_LIVESTREAM" : @(SRGILAssetSubSetTypeScheduledLivestream)};
     });
     NSNumber *subSetType = subSetTypes[subtypeString.uppercaseString];
     return subSetType ? [subSetType integerValue] : SRGILAssetSubSetTypeUnknown;

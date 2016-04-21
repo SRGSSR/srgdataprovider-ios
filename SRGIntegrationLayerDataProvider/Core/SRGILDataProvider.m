@@ -146,73 +146,106 @@ static NSArray *validBusinessUnits = nil;
                                  organisationType:(SRGILModelDataOrganisationType)orgType
                               withCompletionBlock:(SRGILFetchListCompletionBlock)completionBlock
 {
-    // As for now, we will only extract items from a dictionary that has a single key/value pair.
-    if ([[rawDictionary allKeys] count] != 1) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                 code:SRGILDataProviderErrorCodeInvalidData
-                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
-            completionBlock(nil, nil, error);
-        });
-        return;
-    }
-    
-    // The only way to distinguish an array of items with the dictionary of a single item, is to parse the main
-    // dictionary and see if we can build an _array_ of the following class names. This is made necessary due to the
-    // change of semantics from XML to JSON.
-    NSArray *validItemClassKeys = @[@"Video", @"Show", @"AssetSet", @"Audio", @"SearchResult", @"Topic", @"Songlog", @"EventConfig"];
-    
-    NSString *mainKey = [[rawDictionary allKeys] lastObject];
-    id mainValue = [[rawDictionary allValues] lastObject];
-    if (![mainValue isKindOfClass:[NSDictionary class]]) {
-        completionBlock(nil, nil, nil);
-        return;
-    }
-    
-    NSDictionary *mainDictionary = mainValue;
-    
-    __block NSString *className = nil;
-    __block NSArray *itemsDictionaries = nil;
-    NSMutableDictionary *globalProperties = [NSMutableDictionary dictionary];
-    
-    [mainDictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
-        if (NSClassFromString([itemClassPrefix stringByAppendingString:key]) && // We have an Obj-C class to build with
-            [validItemClassKeys containsObject:key] && // It is among the known class keys
-            [obj isKindOfClass:[NSArray class]]) // Its value is an array of siblings.
+    if ([components.serviceVersion isEqualToString:@"2.0"])
+    {
+        if (components.index == SRGILFetchListVideoByEvent) {
+            NSMutableDictionary *mutableGlobalProperties = [NSMutableDictionary dictionaryWithDictionary:rawDictionary];
+            [mutableGlobalProperties removeObjectForKey:@"media"];
+            NSDictionary *globalProperties = [NSDictionary dictionaryWithDictionary:mutableGlobalProperties];
+            NSArray *itemsDictionaries = rawDictionary[@"media"];
+            
+            Class itemClass = NSClassFromString([itemClassPrefix stringByAppendingString:@"Video2"]);
+            
+            NSArray *organisedItems = [self organiseItemsWithGlobalProperties:globalProperties
+                                                              rawDictionaries:itemsDictionaries
+                                                             forURLComponents:components
+                                                             organisationType:SRGILModelDataOrganisationTypeFlat
+                                                                   modelClass:itemClass];
+            
+            if (!organisedItems) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                         code:SRGILDataProviderErrorCodeInvalidData
+                                                     userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
+                    completionBlock(nil, nil, error);
+                });
+            }
+            else {
+                DDLogInfo(@"[Info] Returning %tu organised data item for path %@", [organisedItems count], components.string);
+                
+                for (SRGILList *items in organisedItems) {
+                    _identifiedItemLists[items.URLComponents] = items;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completionBlock(items, itemClass, nil);
+                    });
+                }
+            }
+        }
+        else
         {
-            className = key;
-            itemsDictionaries = [mainDictionary objectForKey:className];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                     code:SRGILDataProviderErrorCodeInvalidData
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
+                completionBlock(nil, nil, error);
+            });
+            return;
         }
-        else if ([key length] > 1 && [key hasPrefix:@"@"]) {
-            [globalProperties setObject:obj forKey:[key substringFromIndex:1]];
+        
+    }
+    else // suppose API version 1.0
+    {
+        
+        // As for now, we will only extract items from a dictionary that has a single key/value pair.
+        if ([[rawDictionary allKeys] count] != 1) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                     code:SRGILDataProviderErrorCodeInvalidData
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
+                completionBlock(nil, nil, error);
+            });
+            return;
         }
-    }];
-    
-    
-    // We haven't found an array of items. The root object is probably what we are looking for.
-    if (!className && NSClassFromString([itemClassPrefix stringByAppendingString:mainKey])) {
-        className = mainKey;
-        itemsDictionaries = @[mainDictionary];
-    }
-    
-    if (!className) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                 code:SRGILDataProviderErrorCodeInvalidData
-                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
-            completionBlock(nil, nil, error);
-        });
-    }
-    else {
-        Class itemClass = NSClassFromString([itemClassPrefix stringByAppendingString:className]);
         
-        NSArray *organisedItems = [self organiseItemsWithGlobalProperties:globalProperties
-                                                          rawDictionaries:itemsDictionaries
-                                                         forURLComponents:components
-                                                         organisationType:orgType
-                                                               modelClass:itemClass];
+        // The only way to distinguish an array of items with the dictionary of a single item, is to parse the main
+        // dictionary and see if we can build an _array_ of the following class names. This is made necessary due to the
+        // change of semantics from XML to JSON.
+        NSArray *validItemClassKeys = @[@"Video", @"Show", @"AssetSet", @"Audio", @"SearchResult", @"Topic", @"Songlog", @"EventConfig"];
         
-        if (!organisedItems) {
+        NSString *mainKey = [[rawDictionary allKeys] lastObject];
+        id mainValue = [[rawDictionary allValues] lastObject];
+        if (![mainValue isKindOfClass:[NSDictionary class]]) {
+            completionBlock(nil, nil, nil);
+            return;
+        }
+        
+        NSDictionary *mainDictionary = mainValue;
+        
+        __block NSString *className = nil;
+        __block NSArray *itemsDictionaries = nil;
+        NSMutableDictionary *globalProperties = [NSMutableDictionary dictionary];
+        
+        [mainDictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+            if (NSClassFromString([itemClassPrefix stringByAppendingString:key]) && // We have an Obj-C class to build with
+                [validItemClassKeys containsObject:key] && // It is among the known class keys
+                [obj isKindOfClass:[NSArray class]]) // Its value is an array of siblings.
+            {
+                className = key;
+                itemsDictionaries = [mainDictionary objectForKey:className];
+            }
+            else if ([key length] > 1 && [key hasPrefix:@"@"]) {
+                [globalProperties setObject:obj forKey:[key substringFromIndex:1]];
+            }
+        }];
+        
+        
+        // We haven't found an array of items. The root object is probably what we are looking for.
+        if (!className && NSClassFromString([itemClassPrefix stringByAppendingString:mainKey])) {
+            className = mainKey;
+            itemsDictionaries = @[mainDictionary];
+        }
+        
+        if (!className) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                                      code:SRGILDataProviderErrorCodeInvalidData
@@ -221,13 +254,31 @@ static NSArray *validBusinessUnits = nil;
             });
         }
         else {
-            DDLogInfo(@"[Info] Returning %tu organised data item for path %@", [organisedItems count], components.string);
+            Class itemClass = NSClassFromString([itemClassPrefix stringByAppendingString:className]);
             
-            for (SRGILList *items in organisedItems) {
-                _identifiedItemLists[items.URLComponents] = items;
+            NSArray *organisedItems = [self organiseItemsWithGlobalProperties:globalProperties
+                                                              rawDictionaries:itemsDictionaries
+                                                             forURLComponents:components
+                                                             organisationType:orgType
+                                                                   modelClass:itemClass];
+            
+            if (!organisedItems) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock(items, itemClass, nil);
+                    NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                         code:SRGILDataProviderErrorCodeInvalidData
+                                                     userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
+                    completionBlock(nil, nil, error);
                 });
+            }
+            else {
+                DDLogInfo(@"[Info] Returning %tu organised data item for path %@", [organisedItems count], components.string);
+                
+                for (SRGILList *items in organisedItems) {
+                    _identifiedItemLists[items.URLComponents] = items;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completionBlock(items, itemClass, nil);
+                    });
+                }
             }
         }
     }
@@ -239,6 +290,29 @@ static NSArray *validBusinessUnits = nil;
                               organisationType:(SRGILModelDataOrganisationType)orgType
                                     modelClass:(Class)modelClass
 {
+    if ([components.serviceVersion isEqualToString:@"2.0"]) {
+        NSMutableArray *items = [[NSMutableArray alloc] init];
+        
+        [dictionaries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            id modelObject = [[modelClass alloc] initWithDictionary:obj];
+            if (modelObject) {
+                [items addObject:modelObject];
+                
+                if ([modelObject isKindOfClass:[SRGILMedia class]]) {
+                    NSString *urnString = [(SRGILMedia *)modelObject urnString];
+                    _identifiedMedias[urnString] = modelObject;
+                }
+            }
+        }];
+        
+        SRGILList *itemsList = [[SRGILList alloc] initWithArray:items];
+        itemsList.globalProperties = properties;
+        itemsList.URLComponents = components;
+        return @[itemsList];
+    }
+    else
+    {
+    
     NSMutableArray *items = [[NSMutableArray alloc] init];
     [dictionaries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         id modelObject = [[modelClass alloc] initWithDictionary:obj];
@@ -367,6 +441,7 @@ static NSArray *validBusinessUnits = nil;
     }
     else {
         return nil;
+    }
     }
 }
 

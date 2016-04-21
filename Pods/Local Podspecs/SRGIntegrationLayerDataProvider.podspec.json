@@ -1,6 +1,6 @@
 {
   "name": "SRGIntegrationLayerDataProvider",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "summary": "Data Provider using the Integration Layer for the SRG Media Player",
   "description": "This is the implementation of the Data Provider using the Integration Layer. It is a generic data provider and it\nis not mandatory to use or have the media player to use the data provider. When used with the media player, it is\nan easy drop in your project. Moreover, an optional module allow you to also use that provider for storing offline\nmetadatas from Medias and Shows. It can be used to implement a 'favorites' feature in an app.",
   "homepage": "http://rts.ch",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "git@bitbucket.org:rtsmb/srgintegrationlayerdataprovider-ios.git",
-    "tag": "4.0.0"
+    "tag": "4.0.1"
   },
   "platforms": {
     "ios": "8.0"
@@ -71,7 +71,7 @@
 
             ],
             "SRGMediaPlayer": [
-              "~> 1.7.0"
+              "~> 1.8.0"
             ]
           }
         },
@@ -90,10 +90,10 @@
 
             ],
             "SRGAnalytics": [
-              "~> 1.4.15"
+              "~> 1.4.16"
             ],
             "SRGAnalytics/MediaPlayer": [
-              "~> 1.4.15"
+              "~> 1.4.16"
             ]
           }
         }
