@@ -15,8 +15,8 @@
 #import "SRGILAsset.h"
 #import "SRGILAssetSet.h"
 #import "SRGILAssetMetadata.h"
+#import "SRGILRelatedContent.h"
 #import "SRGILSocialCounts.h"
-
 
 @interface SRGILMedia () {
     NSMutableDictionary *_cachedSegmentationFlags;
@@ -69,6 +69,16 @@
             }
         }
         _assetMetadatas = [NSArray arrayWithArray:tmp];
+        [tmp removeAllObjects];
+        
+        NSArray *relatedContentDictionaries = [dictionary valueForKeyPath:@"RelatedContents.RelatedContent"];
+        for (NSDictionary *relatedContentDict in relatedContentDictionaries) {
+            SRGILRelatedContent *relatedContent = [[SRGILRelatedContent alloc] initWithDictionary:relatedContentDict];
+            if (relatedContent) {
+                [tmp addObject:relatedContent];
+            }
+        }
+        _relatedContents = [NSArray arrayWithArray:tmp];
         [tmp removeAllObjects];
         
         _assetSet = [[SRGILAssetSet alloc] initWithDictionary:[dictionary objectForKey:@"AssetSet"]];
