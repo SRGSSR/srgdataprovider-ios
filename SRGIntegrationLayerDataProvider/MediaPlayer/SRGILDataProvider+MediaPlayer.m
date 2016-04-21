@@ -50,6 +50,19 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 
 #endif
 
+@interface SRGILDataProviderRequest : NSObject
+
+@property (nonatomic, strong) id contentURLRequest;
+@property (nonatomic, strong) NSURLSessionTask *tokenSessionTask;
+
+- (void)cancel;
+
+@end
+
+@implementation SRGILDataProviderRequest
+
+@end
+
 @implementation SRGILDataProvider (MediaPlayer)
 
 #pragma mark - RTSMediaPlayerControllerDataSource
@@ -73,6 +86,8 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     }
 #endif
     
+    SRGILDataProviderRequest *request = [[SRGILDataProviderRequest alloc] init];
+    
     SRGILMedia *existingMedia = self.identifiedMedias[urnString];
     
     void (^playBlock)(SRGILMedia *, NSError *) = ^(SRGILMedia *media, NSError *error) {
@@ -95,23 +110,22 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                 [self prepareAnalyticsInfosForMedia:media withContentURL:media.defaultContentURL];
 #endif
                 
-                [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.defaultContentURL
-                                                      completionBlock:^(NSURL *tokenizedURL, NSError *error) {
-                                                          if (error) {
-                                                              completionHandler(nil, error);
-                                                              return;
-                                                          }
-                                                          
-                                                          if ([media segmentationForURL:media.defaultContentURL] == SRGILPlaylistSegmentationLogical
-                                                              && (media.markIn > 0.f) && !media.isLiveStream) {
-                                                              NSURLComponents *components = [NSURLComponents componentsWithURL:tokenizedURL resolvingAgainstBaseURL:NO];
-                                                              components.query = [components.query stringByAppendingFormat:@"&start=%.0f&end=%.0f", round(media.markIn), round(media.markOut)];
-                                                              completionHandler(components.URL, nil);
-                                                          }
-                                                          else {
-                                                              completionHandler(tokenizedURL, nil);
-                                                          }
-                                                      }];
+                request.tokenSessionTask= [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.defaultContentURL completionBlock:^(NSURL *tokenizedURL, NSError *error) {
+                    if (error) {
+                        completionHandler(nil, error);
+                        return;
+                    }
+                    
+                    if ([media segmentationForURL:media.defaultContentURL] == SRGILPlaylistSegmentationLogical
+                        && (media.markIn > 0.f) && !media.isLiveStream) {
+                        NSURLComponents *components = [NSURLComponents componentsWithURL:tokenizedURL resolvingAgainstBaseURL:NO];
+                        components.query = [components.query stringByAppendingFormat:@"&start=%.0f&end=%.0f", round(media.markIn), round(media.markOut)];
+                        completionHandler(components.URL, nil);
+                    }
+                    else {
+                        completionHandler(tokenizedURL, nil);
+                    }
+                }];
             }
             else {
                 NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
@@ -124,7 +138,6 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     
     if (existingMedia && existingMedia.defaultContentURL) {
         playBlock(existingMedia, nil);
-        return nil;
     }
     else {
         SRGILURN *urn = [SRGILURN URNWithString:urnString];
@@ -136,13 +149,17 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
             return nil;
         }
         
-        return [self.requestManager requestMediaWithURN:urn completionBlock:playBlock];
+        request.contentURLRequest = [self.requestManager requestMediaWithURN:urn completionBlock:playBlock];
     }
+    
+    return request;
 }
 
 - (void)cancelContentURLRequest:(id)request
 {
-    [self.requestManager cancelRequest:request];
+    SRGILDataProviderRequest *dataProviderRequest = (SRGILDataProviderRequest *)request;
+    [self.requestManager cancelRequest:dataProviderRequest];
+    [dataProviderRequest.tokenSessionTask cancel];
 }
 
 #pragma mark - RTSMediaSegmentsDataSource
