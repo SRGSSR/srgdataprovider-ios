@@ -158,7 +158,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 - (void)cancelContentURLRequest:(id)request
 {
     SRGILDataProviderRequest *dataProviderRequest = (SRGILDataProviderRequest *)request;
-    [self.requestManager cancelRequest:dataProviderRequest];
+    [self.requestManager cancelRequest:dataProviderRequest.contentURLRequest];
     [dataProviderRequest.tokenSessionTask cancel];
 }
 
