@@ -42,45 +42,38 @@ static NSString *const SRGILTokenHandlerBaseURLString = @"http://tp.srgssr.ch/ak
     return [super init];
 }
 
-- (void)requestTokenForURL:(NSURL *)url
-           completionBlock:(SRGILTokenRequestCompletionBlock)completionBlock;
+- (NSURLSessionTask *)requestTokenForURL:(NSURL *)url
+                         completionBlock:(SRGILTokenRequestCompletionBlock)completionBlock
 {
     NSParameterAssert(url);
     
     DDLogDebug(@"Requesting token for URL: %@", url);
-
-    [[NSOperationQueue new] addOperationWithBlock:^{
-        NSError *error = nil;
-        NSString *JSONString = [NSString stringWithContentsOfURL:[self tokenRequestURLForURL:url]
-                                                        encoding:NSUTF8StringEncoding
-                                                           error:&error];
-        
+    
+    NSURLSessionTask *sessionTask = [[NSURLSession sharedSession] dataTaskWithURL:[self tokenRequestURLForURL:url] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
                 completionBlock ? completionBlock(nil, error) : nil;
-            }];
+            });
             return;
         }
         
         NSError *deserializationError = nil;
-        NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding]
-                                                             options:0
-                                                               error:&deserializationError];
-
-        if (deserializationError) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&deserializationError];
+        if (deserializationError || ![JSON isKindOfClass:[NSDictionary class]]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
                 completionBlock ? completionBlock(nil, deserializationError) : nil;
-            }];
+            });
             return;
         }
         
         NSString *tokenParameterString = [[JSON objectForKey:@"token"] objectForKey:@"authparams"];
         if (!tokenParameterString) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                completionBlock ? completionBlock(nil, [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                                           code:SRGILDataProviderErrorCodeInvalidData
-                                                                       userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The media cannot be played.", nil) }]) : nil;
-            }];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                     code:SRGILDataProviderErrorCodeInvalidData
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The media cannot be played.", nil) }];
+                completionBlock ? completionBlock(nil, error) : nil;
+            });
             return;
         }
         
@@ -100,15 +93,12 @@ static NSString *const SRGILTokenHandlerBaseURLString = @"http://tp.srgssr.ch/ak
         NSURL *finalURL = URLComponents.URL;
         DDLogDebug(@"Final Tokenized URL: %@", finalURL);
         
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            if (error) {
-                completionBlock ? completionBlock(nil, error) : nil;
-                return;
-            }
-            
+        dispatch_async(dispatch_get_main_queue(), ^{
             completionBlock ? completionBlock(finalURL, nil) : nil;
-        }];
+        });
     }];
+    [sessionTask resume];
+    return sessionTask;
 }
 
 - (NSURL *)tokenRequestURLForURL:(NSURL *)url

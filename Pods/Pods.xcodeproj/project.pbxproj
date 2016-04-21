@@ -4236,7 +4236,7 @@
 				<string>671ECC4A5C8416A4F3A8586F410C2CAC</string>
 				<string>46B16A02E886C80FE35DBDD89E9A316A</string>
 				<string>78A0665C9E5E3EAEB8C5266CDDB3A8AA</string>
-				<string>975A5A165C5146B75BD3715953AD9B84</string>
+				<string>AA7A4D052AD1B33861616F6916BE7215</string>
 				<string>18EFBD5E07C3BBAB364FFC62BE20F64E</string>
 				<string>44D69A869B5D710BA50889E0F50CD56D</string>
 				<string>8AA2195D345DD5CC9492EB6DA8D2DFEB</string>
@@ -8944,6 +8944,18 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>84158EB5F67DFA2F2394550D07287FD4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9573203C4873C1A467919AB7D48E7DCC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DRTS_ANALYTICS_VERSION=1.4.16 -w -Xanalyzer -analyzer-disable-all-checks</string>
+			</dict>
+		</dict>
 		<key>842BFEA54B836B2605E850EEAC749AF1</key>
 		<dict>
 			<key>fileRef</key>
@@ -10405,18 +10417,6 @@
 				<array>
 					<string>Public</string>
 				</array>
-			</dict>
-		</dict>
-		<key>975A5A165C5146B75BD3715953AD9B84</key>
-		<dict>
-			<key>fileRef</key>
-			<string>AAC7F274E557668D14C773FC28A5E1D8</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-w -Xanalyzer -analyzer-disable-all-checks -DRTS_MEDIA_PLAYER_VERSION=1.7.1 -w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
 		</dict>
 		<key>97AB4651EE43371D284BC636A2906528</key>
@@ -12007,6 +12007,18 @@
 			<dict>
 				<key>COMPILER_FLAGS</key>
 				<string>-w -Xanalyzer -analyzer-disable-all-checks</string>
+			</dict>
+		</dict>
+		<key>AA7A4D052AD1B33861616F6916BE7215</key>
+		<dict>
+			<key>fileRef</key>
+			<string>AAC7F274E557668D14C773FC28A5E1D8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-w -Xanalyzer -analyzer-disable-all-checks -DRTS_MEDIA_PLAYER_VERSION=1.8.0 -w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
 		</dict>
 		<key>AA8539B920A8C85B7F543E54613D12F1</key>
@@ -15387,7 +15399,7 @@
 				<string>AA6AFAAFB446154962B4452ED4E413E4</string>
 				<string>8B8F708595F60FD8A50C3A68F26B6B8B</string>
 				<string>671797D2F964A2283A25D37A4112A403</string>
-				<string>EED47747BDBC9093BA7604894855FAA2</string>
+				<string>84158EB5F67DFA2F2394550D07287FD4</string>
 				<string>988C775BB7CEFB3BE55232BB60C7C125</string>
 				<string>79A118774032084551F94433335D21C6</string>
 				<string>AD42D0CDE9D39270E35CCAD3E62B63D0</string>
@@ -17133,18 +17145,6 @@
 			<dict>
 				<key>COMPILER_FLAGS</key>
 				<string>-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks</string>
-			</dict>
-		</dict>
-		<key>EED47747BDBC9093BA7604894855FAA2</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9573203C4873C1A467919AB7D48E7DCC</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-DRTS_ANALYTICS_VERSION=1.4.15 -w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
 		</dict>
 		<key>EF2E84999DD07E77C10BEA4DBB1AAE59</key>
