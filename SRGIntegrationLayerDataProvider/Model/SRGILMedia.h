@@ -65,6 +65,11 @@
 @property (nonatomic, strong) NSArray *assetMetadatas;
 
 /**
+ * Related contents (URL links to other articles)
+ */
+@property (nonatomic, strong) NSArray *relatedContents;
+
+/**
  * Related asset (e.g. broadcast information)
  */
 @property (nonatomic, strong) SRGILAssetSet *assetSet;

@@ -80,6 +80,7 @@
 		C2E8B26471460B332CD298C5 /* libPods-SRGIntegrationLayerDataProviderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */; };
 		E604EAFC1B174254004A627D /* SRGILOngoingRequest+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */; };
 		E606D81D1C74511E003634AA /* UIColor+SRGILDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E606D81C1C74511E003634AA /* UIColor+SRGILDataProvider.m */; };
+		E6489ECC1CC91E64004914D9 /* SRGILRelatedContent.m in Sources */ = {isa = PBXBuildFile; fileRef = E6489ECB1CC91E64004914D9 /* SRGILRelatedContent.m */; };
 		E67427211C73532400C15F94 /* SRGILEventConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E67427201C73532400C15F94 /* SRGILEventConfig.m */; };
 		E68E95E31B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E68E95E21B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m */; };
 		E6F8FF421CC6712F00EC0793 /* SRGILAnalyticsExtendedData.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F8FF411CC6712F00EC0793 /* SRGILAnalyticsExtendedData.m */; };
@@ -238,6 +239,8 @@
 		E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGILOngoingRequest+Private.m"; sourceTree = "<group>"; };
 		E606D81B1C74511E003634AA /* UIColor+SRGILDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+SRGILDataProvider.h"; path = "SRGIntegrationLayerDataProvider/Core/UIColor+SRGILDataProvider.h"; sourceTree = "<group>"; };
 		E606D81C1C74511E003634AA /* UIColor+SRGILDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+SRGILDataProvider.m"; path = "SRGIntegrationLayerDataProvider/Core/UIColor+SRGILDataProvider.m"; sourceTree = "<group>"; };
+		E6489ECA1CC91E64004914D9 /* SRGILRelatedContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILRelatedContent.h; sourceTree = "<group>"; };
+		E6489ECB1CC91E64004914D9 /* SRGILRelatedContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILRelatedContent.m; sourceTree = "<group>"; };
 		E674271F1C73532400C15F94 /* SRGILEventConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILEventConfig.h; sourceTree = "<group>"; };
 		E67427201C73532400C15F94 /* SRGILEventConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILEventConfig.m; sourceTree = "<group>"; };
 		E68E95E11B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGILMedia+MediaPlayer.h"; sourceTree = "<group>"; };
@@ -341,6 +344,8 @@
 				9F13D5251AE9270700E4D897 /* SRGILPlaylist.m */,
 				9F13D5261AE9270700E4D897 /* SRGILPrimaryChannel.h */,
 				9F13D5271AE9270700E4D897 /* SRGILPrimaryChannel.m */,
+				E6489ECA1CC91E64004914D9 /* SRGILRelatedContent.h */,
+				E6489ECB1CC91E64004914D9 /* SRGILRelatedContent.m */,
 				9F13D5281AE9270700E4D897 /* SRGILRubric.h */,
 				9F13D5291AE9270700E4D897 /* SRGILRubric.m */,
 				6643BD3E1B6B6C7100C32830 /* SRGILSearchResult.h */,
@@ -771,6 +776,7 @@
 				9F13D5431AE9270700E4D897 /* SRGILList.m in Sources */,
 				9F13D5461AE9270700E4D897 /* SRGILMedia.m in Sources */,
 				9F13D53F1AE9270700E4D897 /* SRGILAssetSet.m in Sources */,
+				E6489ECC1CC91E64004914D9 /* SRGILRelatedContent.m in Sources */,
 				9FF55F9A1B4B0F5900A99DA2 /* SRGILDataProviderConstants.m in Sources */,
 				E6F8FF421CC6712F00EC0793 /* SRGILAnalyticsExtendedData.m in Sources */,
 				E68E95E31B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m in Sources */,
