@@ -150,9 +150,9 @@ static NSArray *validBusinessUnits = nil;
     {
         if (components.index == SRGILFetchListVideoByEvent) {
             NSMutableDictionary *mutableGlobalProperties = [NSMutableDictionary dictionaryWithDictionary:rawDictionary];
-            [mutableGlobalProperties removeObjectForKey:@"media"];
+            [mutableGlobalProperties removeObjectForKey:@"mediaList"];
             NSDictionary *globalProperties = [NSDictionary dictionaryWithDictionary:mutableGlobalProperties];
-            NSArray *itemsDictionaries = rawDictionary[@"media"];
+            NSArray *itemsDictionaries = rawDictionary[@"mediaList"];
             
             Class itemClass = NSClassFromString([itemClassPrefix stringByAppendingString:@"Video2"]);
             

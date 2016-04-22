@@ -90,7 +90,10 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     
     SRGILMedia *existingMedia = self.identifiedMedias[urnString];
     
+    @weakify(request)
     void (^playBlock)(SRGILMedia *, NSError *) = ^(SRGILMedia *media, NSError *error) {
+        @strongify(request)
+        
         if (!error && media.isBlocked) {
             error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                         code:SRGILDataProviderErrorCodeUnavailable
