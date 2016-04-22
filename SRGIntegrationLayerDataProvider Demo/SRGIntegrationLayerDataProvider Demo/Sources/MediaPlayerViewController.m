@@ -58,8 +58,9 @@
     _mediaPlayerController = mediaPlayerController;
     
     if (mediaPlayerController) {
+        __weak __typeof(self) weakSelf = self;
         self.playbackTimeObserver = [mediaPlayerController addPeriodicTimeObserverForInterval:CMTimeMake(1., 5.) queue:NULL usingBlock:^(CMTime time) {
-            [self updateAppearanceWithTime:time];
+            [weakSelf updateAppearanceWithTime:time];
         }];
     }
 }
