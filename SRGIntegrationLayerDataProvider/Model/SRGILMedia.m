@@ -148,7 +148,7 @@
 - (NSString *)description
 {
     NSMutableString *s = [[NSMutableString alloc] init];
-    [s appendFormat:@"<%@%@ (%@) : %.1f|%.1f|%.1f", self.fullLength ? @"[FULL] " : @"", NSStringFromClass([self class]), self.title, self.markIn, self.duration, self.markOut];
+    [s appendFormat:@"<%@%@ (%@) : %.1f|%.1f|%.1f|%@", self.fullLength ? @"[FULL] " : @"", NSStringFromClass([self class]), self.title, self.markIn, self.duration, self.markOut, self.urnString];
     if ([self.segments count]) {
         for (SRGILMedia *media in self.segments) {
             [s appendFormat:@"\n - %@", [media description]];
