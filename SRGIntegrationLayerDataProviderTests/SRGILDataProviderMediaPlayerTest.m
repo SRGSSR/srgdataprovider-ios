@@ -53,7 +53,7 @@
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
     [dataProvider mediaPlayerController:nil
                 contentURLForIdentifier:urnString
-                      completionHandler:^(NSURL *contentURL, NSError *error) {
+                      completionHandler:^(NSString *identifier, NSURL *contentURL, NSError *error) {
                           XCTAssertNotNil(contentURL, @"Content URL must be present.");
                           XCTAssertNil(error, @"Error must be nil.");
                           
@@ -86,7 +86,7 @@
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"srf"];
     [dataProvider mediaPlayerController:nil
                 contentURLForIdentifier:urnString
-                      completionHandler:^(NSURL *contentURL, NSError *error) {
+                      completionHandler:^(NSString *identifier, NSURL *contentURL, NSError *error) {
                           XCTAssertNotNil(contentURL, @"Content URL must be present.");
                           XCTAssertNil(error, @"Error must be nil.");
                           
@@ -119,7 +119,7 @@
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
     [dataProvider mediaPlayerController:nil
                 contentURLForIdentifier:urnString
-                      completionHandler:^(NSURL *contentURL, NSError *error) {
+                      completionHandler:^(NSString *identifier, NSURL *contentURL, NSError *error) {
                           XCTAssertNil(contentURL, @"Content URL must be nil.");
                           XCTAssertNotNil(error, @"Error must be present.");
                           XCTAssertNil([dataProvider streamSenseClipMetadataForIdentifier:urnString withSegment:nil]);
@@ -151,7 +151,7 @@
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
     [dataProvider segmentsController:nil
                segmentsForIdentifier:urnString
-               withCompletionHandler:^(NSArray *segments, NSError *error) {
+               withCompletionHandler:^(NSString *identifier, NSArray *segments, NSError *error) {
                    XCTAssertNil(error, @"Error must be nil");
                    
                    XCTAssertNotNil(segments, @"Missing segments");
@@ -189,7 +189,7 @@
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"rts"];
     [dataProvider mediaPlayerController:nil
                 contentURLForIdentifier:urnString
-                      completionHandler:^(NSURL *contentURL, NSError *error) {
+                      completionHandler:^(NSString *identifier, NSURL *contentURL, NSError *error) {
                           XCTAssertNotNil(contentURL, @"Content URL must be present.");
                           XCTAssertNil(error, @"Error must be nil.");
                           
@@ -225,7 +225,7 @@
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"srf"];
     [dataProvider mediaPlayerController:nil
                 contentURLForIdentifier:urnString
-                      completionHandler:^(NSURL *contentURL, NSError *error) {
+                      completionHandler:^(NSString *identifier, NSURL *contentURL, NSError *error) {
                           XCTAssertNotNil(contentURL, @"Content URL must be present.");
                           XCTAssertNil(error, @"Error must be nil.");
                           
