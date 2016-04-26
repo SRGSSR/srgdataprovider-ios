@@ -86,13 +86,18 @@ static SGVReachability *reachability;
             objectClass = [SRGILAudio class];
             JSONKey = @"Audio";
             break;
+        case SRGILMediaTypeVideoSet:
+            path = [NSString stringWithFormat:@"video/playByAssetSetId/%@.json", URN.identifier];
+            objectClass = [SRGILVideo class];
+            JSONKey = @"Video";
+            break;
             
         default: {
             NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                                  code:SRGILDataProviderErrorCodeInvalidRequest
                                              userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The request is invalid.", nil) }];
             completionBlock(nil, error);
-            return NO;
+            return nil;
             break;
         }
     }
@@ -250,7 +255,26 @@ static SGVReachability *reachability;
     
     components.host = self.baseURL.host;
     components.scheme = self.baseURL.scheme;
-    components.path = [[[[self.baseURL.path stringByAppendingPathComponent:components.serviceVersion] stringByAppendingPathComponent:@"ue"] stringByAppendingPathComponent:self.businessUnit] stringByAppendingPathComponent:components.path];
+    NSString *path = components.path;
+    if ([path containsString:@"/ue/"]) {
+        // We already have a contructed path, so remove it to rebuild it with current components properties (self.baseURL, serviceVersion, businessUnit)
+        // It arrives with a reused components object, like for a pull to refresh action.
+        // It works with only one /eu/ path component
+        NSArray *pathComponents = components.path.pathComponents;
+        NSUInteger euIndex = [pathComponents indexOfObject:@"ue"];
+        if (pathComponents.count > euIndex + 2) {
+            pathComponents = [pathComponents subarrayWithRange:NSMakeRange(euIndex + 2, pathComponents.count - euIndex - 2)];
+        }
+        else {
+            pathComponents = @[];
+        }
+        path = [NSString pathWithComponents:pathComponents];
+    }
+    components.path = [NSString pathWithComponents:@[self.baseURL.path,
+                                                     components.serviceVersion,
+                                                     @"ue",
+                                                     self.businessUnit,
+                                                     path]];
     
     // Fill dictionary with 0 numbers, as we need the count of requests for the total fraction
     NSNumber *downloadFraction = [self.ongoingVideoListDownloads objectForKey:components.string];

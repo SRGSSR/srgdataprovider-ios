@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		082672D11CCF9D3A00623707 /* SRGFetchPlayTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 082672D01CCF9D3A00623707 /* SRGFetchPlayTest.m */; };
 		088055DD1CC51B8C00FAFFC8 /* SRGILVideo2.m in Sources */ = {isa = PBXBuildFile; fileRef = 088055DC1CC51B8C00FAFFC8 /* SRGILVideo2.m */; };
 		6643BD401B6B6C7100C32830 /* SRGILSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6643BD3F1B6B6C7100C32830 /* SRGILSearchResult.m */; };
 		9F13D5391AE9270700E4D897 /* SRGILComScoreAnalyticsInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5001AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.m */; };
@@ -109,6 +110,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		082672D01CCF9D3A00623707 /* SRGFetchPlayTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGFetchPlayTest.m; sourceTree = "<group>"; };
 		088055DB1CC51B8C00FAFFC8 /* SRGILVideo2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILVideo2.h; sourceTree = "<group>"; };
 		088055DC1CC51B8C00FAFFC8 /* SRGILVideo2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILVideo2.m; sourceTree = "<group>"; };
 		440E25A6651384A0E61A662D /* Pods.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.test.xcconfig; path = "Pods/Target Support Files/Pods/Pods.test.xcconfig"; sourceTree = "<group>"; };
@@ -493,8 +495,9 @@
 		9F83AB141B29C09900D7D8BE /* Network Tests */ = {
 			isa = PBXGroup;
 			children = (
-				9F1A5B1D1ACD68E700C0E528 /* SRGTokenHandlerStubsTest.m */,
 				9FEE12691C105BF800AD7A8B /* SRGFetchListsTest.m */,
+				082672D01CCF9D3A00623707 /* SRGFetchPlayTest.m */,
+				9F1A5B1D1ACD68E700C0E528 /* SRGTokenHandlerStubsTest.m */,
 				9FEE126B1C10716800AD7A8B /* SRGURLComponentsTest.m */,
 			);
 			name = "Network Tests";
@@ -820,6 +823,7 @@
 				9F8B389D1B2ECE7E00F67FA5 /* SRGILDataProviderMediaPlayerTest.m in Sources */,
 				9F1A5B2C1ACD690C00C0E528 /* SRGILMediaTest.m in Sources */,
 				9FEE126C1C10716800AD7A8B /* SRGURLComponentsTest.m in Sources */,
+				082672D11CCF9D3A00623707 /* SRGFetchPlayTest.m in Sources */,
 				9F1A5B2B1ACD690C00C0E528 /* SRGLiveStreamVideoTest.m in Sources */,
 				9FEE126A1C105BF900AD7A8B /* SRGFetchListsTest.m in Sources */,
 				9F1A5B301ACD690C00C0E528 /* SRGTokenHandlerStubsTest.m in Sources */,

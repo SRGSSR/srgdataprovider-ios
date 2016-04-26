@@ -480,6 +480,7 @@ static NSArray *validBusinessUnits = nil;
 {
     [[NSUserDefaults standardUserDefaults] setInteger:[[NSDate date] timeIntervalSinceReferenceDate]
                                                forKey:[self fetchKeyForIndex:index]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 

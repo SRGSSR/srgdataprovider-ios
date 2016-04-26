@@ -15,7 +15,7 @@
 - (NSString *)segmentIdentifier
 {
     // Override segment identifiers with the one of their parent for logical video segments
-    if (self.type == SRGILMediaTypeVideo) {
+    if (self.type == SRGILMediaTypeVideo || self.type == SRGILMediaTypeVideoSet) {
         return self.parent.urnString ?: self.urnString;
     }
     else {
@@ -32,12 +32,12 @@
 - (BOOL)isLogical
 {
     // Only logical segments in audio
-    return self.type == SRGILMediaTypeVideo && !self.isFullLength;
+    return (self.type == SRGILMediaTypeVideo || self.type == SRGILMediaTypeVideoSet) && !self.isFullLength;
 }
 
 - (BOOL)isVisible
 {
-    if (self.type == SRGILMediaTypeVideo) {
+    if (self.type == SRGILMediaTypeVideo || self.type == SRGILMediaTypeVideoSet) {
         return self.displayable && !self.isFullLength;
     }
     else {

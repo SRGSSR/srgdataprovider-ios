@@ -40,7 +40,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 
 @interface SRGILDataProvider (MediaPlayer_Analytics_Private)
 
-- (void)prepareAnalyticsInfosForMedia:(SRGILMedia *)media withContentURL:(NSURL *)contentURL;
+- (void)prepareAnalyticsInfosForMedia:(SRGILMedia *)media forURNString:(NSString *)URNString withContentURL:(NSURL *)contentURL;
 - (void)sendViewCountMetaDataUponMediaPlayerPlaybackStateChange:(NSNotification *)notification;
 
 @property(nonatomic, strong) NSMutableDictionary *analyticsInfos;
@@ -110,7 +110,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
             if (media.defaultContentURL) {
                 DDLogDebug(@"Found default content URL %@ for identifier %@", media.defaultContentURL, urnString);
 #if __has_include("SRGILDataProviderAnalyticsDataSource.h")
-                [self prepareAnalyticsInfosForMedia:media withContentURL:media.defaultContentURL];
+                [self prepareAnalyticsInfosForMedia:media forURNString:urnString withContentURL:media.defaultContentURL];
 #endif
                 
                 request.tokenSessionTask= [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.defaultContentURL completionBlock:^(NSURL *tokenizedURL, NSError *error) {
@@ -174,7 +174,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
     void (^segmentsAndAnalyticsBlock)(SRGILMedia *) = ^(SRGILMedia *parentMedia) {
 #if __has_include("SRGILDataProviderAnalyticsDataSource.h")
         if (parentMedia.defaultContentURL) {
-            [self prepareAnalyticsInfosForMedia:parentMedia withContentURL:parentMedia.defaultContentURL];
+            [self prepareAnalyticsInfosForMedia:parentMedia forURNString:urnString withContentURL:parentMedia.defaultContentURL];
         }
 #endif
         
@@ -280,7 +280,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 
 @implementation SRGILDataProvider (MediaPlayer_Analytics_Private)
 
-- (void)prepareAnalyticsInfosForMedia:(SRGILMedia *)media withContentURL:(NSURL *)contentURL
+- (void)prepareAnalyticsInfosForMedia:(SRGILMedia *)media forURNString:(NSString *)URNString withContentURL:(NSURL *)contentURL
 {
     NSParameterAssert(media);
     NSParameterAssert(contentURL);
@@ -290,10 +290,11 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         self.analyticsInfos = [[NSMutableDictionary alloc] init];
     }
     
-    // Do not check for existing sources. Allow to override the sources with a freshly-(re)downloaded media.
+    // Do not check for existing sources. Allow to override the sources with a freshly-(re)downloaded media. Do not use the URN in the
+    // media since it might not correspond to the input URN (most notably if the input URN is a segment URN)
     
-    NSString *comScoreKeyPath = [comScoreKeyPathPrefix stringByAppendingString:media.urnString];
-    NSString *streamSenseKeyPath = [streamSenseKeyPathPrefix stringByAppendingString:media.urnString];
+    NSString *comScoreKeyPath = [comScoreKeyPathPrefix stringByAppendingString:URNString];
+    NSString *streamSenseKeyPath = [streamSenseKeyPathPrefix stringByAppendingString:URNString];
     
     SRGILComScoreAnalyticsInfos *comScoreDataSource = [[SRGILComScoreAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
     SRGILStreamSenseAnalyticsInfos *streamSenseDataSource = [[SRGILStreamSenseAnalyticsInfos alloc] initWithMedia:media usingURL:contentURL];
@@ -319,6 +320,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                     typeName = @"audio";
                     break;
                 case SRGILMediaTypeVideo:
+                case SRGILMediaTypeVideoSet:
                     typeName = @"video";
                     break;
                 default:

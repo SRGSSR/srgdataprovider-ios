@@ -54,6 +54,7 @@
     NSString *srg_n1 = @"UndefinedMediaType";
     switch ([self.media type]) {
         case SRGILMediaTypeVideo:
+        case SRGILMediaTypeVideoSet:
             srg_n1 = @"TV";
             break;
         case SRGILMediaTypeAudio:
