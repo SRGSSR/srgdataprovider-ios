@@ -56,7 +56,6 @@ static NSString *const SRFRadioVirusChannelID = @"66815fe2-9008-4853-80a5-f9caaf
 }
 
 // TODO: Does not work anymore. Disable for the moment
-#if 0
 - (void)testFetchListSonglogPlaying
 {
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -77,7 +76,6 @@ static NSString *const SRFRadioVirusChannelID = @"66815fe2-9008-4853-80a5-f9caaf
     
     [self waitForExpectationsWithTimeout:30.0 handler:nil];
 }
-#endif
 
 - (void)testFetchListSonglogLatest
 {
