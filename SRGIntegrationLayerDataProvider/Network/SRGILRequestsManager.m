@@ -97,7 +97,7 @@ static SGVReachability *reachability;
                                                  code:SRGILDataProviderErrorCodeInvalidRequest
                                              userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The request is invalid.", nil) }];
             completionBlock(nil, error);
-            return NO;
+            return nil;
             break;
         }
     }
