@@ -86,6 +86,11 @@ static SGVReachability *reachability;
             objectClass = [SRGILAudio class];
             JSONKey = @"Audio";
             break;
+        case SRGILMediaTypeVideoSet:
+            path = [NSString stringWithFormat:@"video/playByAssetSetId/%@.json", URN.identifier];
+            objectClass = [SRGILVideo class];
+            JSONKey = @"Video";
+            break;
             
         default: {
             NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain

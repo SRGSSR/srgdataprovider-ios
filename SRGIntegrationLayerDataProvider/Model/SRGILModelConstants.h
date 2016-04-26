@@ -15,6 +15,7 @@ typedef NS_ENUM (NSInteger, SRGILMediaType) {
     SRGILMediaTypeUndefined,
     SRGILMediaTypeVideo,
     SRGILMediaTypeAudio,
+    SRGILMediaTypeVideoSet,
 };
 
 typedef NS_ENUM(NSInteger, SRGILMediaImageUsage) {

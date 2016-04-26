@@ -38,6 +38,9 @@ NSString * const defaultURNStringSeparator = @":";
     else if ([mediaTypeString.lowercaseString isEqualToString:@"audio"]) {
         urn.mediaType = SRGILMediaTypeAudio;
     }
+    else if ([mediaTypeString.lowercaseString isEqualToString:@"videoset"]) {
+        urn.mediaType = SRGILMediaTypeVideoSet;
+    }
 
     urn.identifier = components[components.count-1];
     
@@ -76,7 +79,7 @@ NSString * const defaultURNStringSeparator = @":";
         [components addObject:self.prefix];
     }
     [components addObject:self.businessUnit];
-    [components addObject:(self.mediaType == SRGILMediaTypeVideo) ? @"video": @"audio"];
+    [components addObject:(self.mediaType == SRGILMediaTypeVideo || self.mediaType == SRGILMediaTypeVideoSet) ? @"video": @"audio"];
     [components addObject:self.identifier];
     
     if (!separator) {

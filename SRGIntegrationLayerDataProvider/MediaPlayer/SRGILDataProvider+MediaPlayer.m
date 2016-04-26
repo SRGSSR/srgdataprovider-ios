@@ -319,6 +319,7 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                     typeName = @"audio";
                     break;
                 case SRGILMediaTypeVideo:
+                case SRGILMediaTypeVideoSet:
                     typeName = @"video";
                     break;
                 default:
