@@ -1328,151 +1328,6 @@
 		<key>ns_ap_device</key>
 		<string>x86_64</string>
 		<key>ns_ap_ec</key>
-		<string>22</string>
-		<key>ns_ap_ev</key>
-		<string>hidden</string>
-		<key>ns_ap_id</key>
-		<string>1434380834311</string>
-		<key>ns_ap_lang</key>
-		<string>en</string>
-		<key>ns_ap_ot</key>
-		<string>pt</string>
-		<key>ns_ap_pfm</key>
-		<string>ios</string>
-		<key>ns_ap_pfv</key>
-		<string>8.3</string>
-		<key>ns_ap_pn</key>
-		<string>ios</string>
-		<key>ns_ap_pv</key>
-		<string>8.3</string>
-		<key>ns_ap_res</key>
-		<string>375x667</string>
-		<key>ns_ap_sv</key>
-		<string>3.1510.23</string>
-		<key>ns_ap_ver</key>
-		<string>1.0</string>
-		<key>ns_nc</key>
-		<string>1</string>
-		<key>ns_radio</key>
-		<string>wifi</string>
-		<key>ns_site</key>
-		<string>mainsite</string>
-		<key>ns_st_airplay</key>
-		<string>0</string>
-		<key>ns_st_bp</key>
-		<string>6061</string>
-		<key>ns_st_br</key>
-		<string>0</string>
-		<key>ns_st_bt</key>
-		<string>6061</string>
-		<key>ns_st_ci</key>
-		<string>6843761</string>
-		<key>ns_st_cl</key>
-		<string>418840</string>
-		<key>ns_st_cn</key>
-		<string>1</string>
-		<key>ns_st_cs</key>
-		<string>375x211</string>
-		<key>ns_st_cu</key>
-		<string>http://stream-i.rts.ch/i/la-1ere/programmes/le-journal-du-samedi/2015/le-journal-du-samedi_20150606_standard_JDS_2015-06-06T060900_Asset00_082430-,101,701,1201,k.mp4.csmil/master.m3u8</string>
-		<key>ns_st_dt</key>
-		<string>2015-06-06</string>
-		<key>ns_st_ec</key>
-		<string>1</string>
-		<key>ns_st_el</key>
-		<string>418840</string>
-		<key>ns_st_ep</key>
-		<string>Fa fuffit comme fa la FIFA!</string>
-		<key>ns_st_ev</key>
-		<string>play</string>
-		<key>ns_st_id</key>
-		<string>1434380878878_1</string>
-		<key>ns_st_it</key>
-		<string>c</string>
-		<key>ns_st_li</key>
-		<string>0</string>
-		<key>ns_st_mp</key>
-		<string>SRGMediaPlayer</string>
-		<key>ns_st_mv</key>
-		<string>0.0.2</string>
-		<key>ns_st_pb</key>
-		<string>1</string>
-		<key>ns_st_pl</key>
-		<string>Le journal du samedi</string>
-		<key>ns_st_pn</key>
-		<string>1</string>
-		<key>ns_st_po</key>
-		<string>104</string>
-		<key>ns_st_pr</key>
-		<string>Le journal du samedi on 06.06.2015</string>
-		<key>ns_st_sg</key>
-		<string>fit-a</string>
-		<key>ns_st_sp</key>
-		<string>1</string>
-		<key>ns_st_sq</key>
-		<string>1</string>
-		<key>ns_st_sv</key>
-		<string>4.1510.23</string>
-		<key>ns_st_tp</key>
-		<string>1</string>
-		<key>ns_st_ty</key>
-		<string>Video</string>
-		<key>ns_st_ub</key>
-		<string>0</string>
-		<key>ns_st_vo</key>
-		<string>100</string>
-		<key>ns_st_ws</key>
-		<string>norm</string>
-		<key>ns_ts</key>
-		<string>1434380884955</string>
-		<key>ns_type</key>
-		<string>hidden</string>
-		<key>ns_vsite</key>
-		<string>rts-app-test-v</string>
-		<key>srg_ap_push</key>
-		<string>0</string>
-		<key>srg_c1</key>
-		<string>standard</string>
-		<key>srg_c2</key>
-		<string>rts.ch_video_la-1ere_pascal-bernheim</string>
-		<key>srg_c3</key>
-		<string>LA 1ÈRE</string>
-		<key>srg_mgeobl</key>
-		<string>false</string>
-		<key>srg_mqual</key>
-		<string>hd</string>
-		<key>srg_plid</key>
-		<string>1423867</string>
-		<key>srg_pr_id</key>
-		<string>6780565</string>
-		<key>srg_ptype</key>
-		<string>p_app_ios</string>
-		<key>srg_unit</key>
-		<string>RTS</string>
-		<key>srg_unit_c</key>
-		<string>RTS</string>
-	</dict>
-	<key>indexPath-row-10-section-1</key>
-	<dict>
-		<key>c1</key>
-		<string>19</string>
-		<key>c12</key>
-		<string>23217ABF62CFD1A37B72E0221DBC1782-cs62</string>
-		<key>c2</key>
-		<string>6036016</string>
-		<key>name</key>
-		<string>UINavigationController</string>
-		<key>ns_ap_an</key>
-		<string>SRGIntegrationLayerDataProvider Demo iOS</string>
-		<key>ns_ap_ar</key>
-		<string>x86_64_h</string>
-		<key>ns_ap_bi</key>
-		<string>ch.srgssr.SRGIntegrationLayerDataProvider-Demo</string>
-		<key>ns_ap_cs</key>
-		<string>61</string>
-		<key>ns_ap_device</key>
-		<string>x86_64</string>
-		<key>ns_ap_ec</key>
 		<string>24</string>
 		<key>ns_ap_ev</key>
 		<string>hidden</string>
@@ -1597,7 +1452,7 @@
 		<key>srg_unit_c</key>
 		<string>RTS</string>
 	</dict>
-	<key>indexPath-row-11-section-1</key>
+	<key>indexPath-row-10-section-1</key>
 	<dict>
 		<key>c1</key>
 		<string>19</string>
@@ -1742,7 +1597,7 @@
 		<key>srg_unit_c</key>
 		<string>RTS</string>
 	</dict>
-	<key>indexPath-row-12-section-1</key>
+	<key>indexPath-row-11-section-1</key>
 	<dict>
 		<key>c1</key>
 		<string>19</string>
@@ -1887,7 +1742,7 @@
 		<key>srg_unit_c</key>
 		<string>RTS</string>
 	</dict>
-	<key>indexPath-row-13-section-1</key>
+	<key>indexPath-row-12-section-1</key>
 	<dict>
 		<key>c1</key>
 		<string>19</string>
@@ -2030,7 +1885,7 @@
 		<key>srg_unit_c</key>
 		<string>RTS</string>
 	</dict>
-	<key>indexPath-row-14-section-1</key>
+	<key>indexPath-row-13-section-1</key>
 	<dict>
 		<key>c1</key>
 		<string>19</string>
@@ -2175,7 +2030,7 @@
 		<key>srg_unit_c</key>
 		<string>RTS</string>
 	</dict>
-	<key>indexPath-row-15-section-1</key>
+	<key>indexPath-row-14-section-1</key>
 	<dict>
 		<key>c1</key>
 		<string>19</string>
@@ -2320,7 +2175,7 @@
 		<key>srg_unit_c</key>
 		<string>RTS</string>
 	</dict>
-	<key>indexPath-row-16-section-1</key>
+	<key>indexPath-row-15-section-1</key>
 	<dict>
 		<key>c1</key>
 		<string>19</string>
@@ -2465,7 +2320,7 @@
 		<key>srg_unit_c</key>
 		<string>RTS</string>
 	</dict>
-	<key>indexPath-row-17-section-1</key>
+	<key>indexPath-row-16-section-1</key>
 	<dict>
 		<key>c1</key>
 		<string>19</string>
@@ -2610,7 +2465,7 @@
 		<key>srg_unit_c</key>
 		<string>RTS</string>
 	</dict>
-	<key>indexPath-row-18-section-1</key>
+	<key>indexPath-row-17-section-1</key>
 	<dict>
 		<key>c1</key>
 		<string>19</string>
@@ -2755,7 +2610,7 @@
 		<key>srg_unit_c</key>
 		<string>RTS</string>
 	</dict>
-	<key>indexPath-row-19-section-1</key>
+	<key>indexPath-row-18-section-1</key>
 	<dict>
 		<key>c1</key>
 		<string>19</string>
@@ -2900,7 +2755,7 @@
 		<key>srg_unit_c</key>
 		<string>RTS</string>
 	</dict>
-	<key>indexPath-row-20-section-1</key>
+	<key>indexPath-row-19-section-1</key>
 	<dict>
 		<key>c1</key>
 		<string>19</string>

@@ -31,7 +31,7 @@ static NSArray *dynamicValueKeys = nil;
 {
     [KIFUITestActor setDefaultTimeout:60];
 
-    for (NSInteger i = 0; i < 22; i++) {
+    for (NSInteger i = 0; i < 20; i++) {
     
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:1];
         NSString *indexPathKey = [NSString stringWithFormat:@"indexPath-row-%@-section-1", @(i)];
