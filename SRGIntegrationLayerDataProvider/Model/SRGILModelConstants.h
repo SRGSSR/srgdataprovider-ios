@@ -53,6 +53,7 @@ typedef NS_ENUM(NSInteger, SRGILAssetSubSetType) {
     SRGILAssetSubSetTypeTrailer,
     SRGILAssetSubSetTypeLivestream,
     SRGILAssetSubSetTypeScheduledLivestream,
+    SRGILAssetSubSetTypeClip,
     SRGILAssetSubSetTypeUnknown,
 };
 
