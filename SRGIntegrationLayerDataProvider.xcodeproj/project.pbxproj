@@ -241,6 +241,7 @@
 		E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGILOngoingRequest+Private.m"; sourceTree = "<group>"; };
 		E606D81B1C74511E003634AA /* UIColor+SRGILDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+SRGILDataProvider.h"; path = "SRGIntegrationLayerDataProvider/Core/UIColor+SRGILDataProvider.h"; sourceTree = "<group>"; };
 		E606D81C1C74511E003634AA /* UIColor+SRGILDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+SRGILDataProvider.m"; path = "SRGIntegrationLayerDataProvider/Core/UIColor+SRGILDataProvider.m"; sourceTree = "<group>"; };
+		E63DEE3F1CDB960700BE935E /* SRGILRequestsManager+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGILRequestsManager+Private.h"; sourceTree = "<group>"; };
 		E6489ECA1CC91E64004914D9 /* SRGILRelatedContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILRelatedContent.h; sourceTree = "<group>"; };
 		E6489ECB1CC91E64004914D9 /* SRGILRelatedContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILRelatedContent.m; sourceTree = "<group>"; };
 		E674271F1C73532400C15F94 /* SRGILEventConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILEventConfig.h; sourceTree = "<group>"; };
@@ -382,6 +383,7 @@
 				E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */,
 				9F13D5351AE9270700E4D897 /* SRGILRequestsManager.h */,
 				9F13D5361AE9270700E4D897 /* SRGILRequestsManager.m */,
+				E63DEE3F1CDB960700BE935E /* SRGILRequestsManager+Private.h */,
 				9F13D5371AE9270700E4D897 /* SRGILTokenHandler.h */,
 				9F13D5381AE9270700E4D897 /* SRGILTokenHandler.m */,
 			);

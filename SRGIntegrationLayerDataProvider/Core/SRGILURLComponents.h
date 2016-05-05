@@ -9,7 +9,7 @@
 
 // Note: overriding host and scheme has no effect.
 
-@interface SRGILURLComponents : NSURLComponents
+@interface SRGILURLComponents : NSObject
 
 /**
  *  Create the URL Components object objects of a specific 'index';
@@ -23,6 +23,15 @@
 + (nullable SRGILURLComponents *)componentsForFetchListIndex:(SRGILFetchListIndex)index
                                               withIdentifier:(nullable NSString *)identifier
                                                        error:(NSError * __nullable __autoreleasing * __nullable)error;
+
+@property (nullable, readonly, copy) NSURL *URL;
+@property (nullable, readonly, copy) NSString *string;
+
+@property (nullable, readonly, copy) NSArray<NSURLQueryItem *> *queryItems;
+
+@property (nullable, copy) NSString *scheme;
+@property (nullable, copy) NSString *host;
+@property (nullable, copy) NSString *path;
 
 @property(nonatomic, assign, readonly) SRGILFetchListIndex index;
 @property(nonatomic, copy, readonly, nullable) NSString *identifier;

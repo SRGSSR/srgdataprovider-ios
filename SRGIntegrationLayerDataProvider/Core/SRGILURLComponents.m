@@ -385,79 +385,14 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
 
 #pragma mark - Accessors
 
-// Required. Otherwise, we get *** Terminating app due to uncaught exception 'NSInvalidArgumentException',
-// reason: '*** -setPath: only defined for abstract class.  Define -[SRGILURLComponents setPath:]!'
-// Basically, NSURLComponents cannot be subclassed without using a decorator pattern, as it is done here.
-// See also https://twitter.com/zadr/status/422482466394624000
-
-- (NSString *)fragment
+- (NSURL *)URL
 {
-    return self.wrapped.fragment;
+    return self.wrapped.URL;
 }
 
-- (void)setFragment:(NSString *)fragment
+- (NSString *)string
 {
-    self.wrapped.fragment = fragment;
-}
-
-- (NSString *)host
-{
-    return self.wrapped.host;
-}
-
-- (void)setHost:(NSString *)host
-{
-    self.wrapped.host = host;
-}
-
-- (NSString *)password
-{
-    return self.wrapped.password;
-}
-
-- (void)setPassword:(NSString *)password
-{
-    self.wrapped.password = password;
-}
-
-- (NSString *)path
-{
-    return self.wrapped.path;
-}
-
-- (void)setPath:(NSString *)path
-{
-    self.wrapped.path = path;
-}
-
-- (NSNumber *)port
-{
-    return self.wrapped.port;
-}
-
-- (void)setPort:(NSNumber *)port
-{
-    self.wrapped.port = port;
-}
-
-- (NSString *)query
-{
-    return self.wrapped.query;
-}
-
-- (void)setQuery:(NSString *)query
-{
-    self.wrapped.query = query;
-}
-
-- (NSArray<NSURLQueryItem *> *)queryItems
-{
-    return self.wrapped.queryItems;
-}
-
-- (void)setQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
-{
-    self.wrapped.queryItems = queryItems;
+    return self.wrapped.string;
 }
 
 - (NSString *)scheme
@@ -470,29 +405,34 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
     self.wrapped.scheme = scheme;
 }
 
-- (NSString *)user
+- (NSString *)host
 {
-    return self.wrapped.user;
+    return self.wrapped.host;
 }
 
-- (void)setUser:(NSString *)user
+- (void)setHost:(NSString *)host
 {
-    self.wrapped.user = user;
+    self.wrapped.host = host;
 }
 
-- (NSString *)string
+- (NSString *)path
 {
-    return self.wrapped.string;
+    return self.wrapped.path;
 }
 
-- (NSURL *)URL
+- (void)setPath:(NSString *)path
 {
-    return self.wrapped.URL;
+    self.wrapped.path = path;
 }
 
-- (NSURL *)URLRelativeToURL:(NSURL *)baseURL
+- (NSArray<NSURLQueryItem *> *)queryItems
 {
-    return [self.wrapped URLRelativeToURL:baseURL];
+    return self.wrapped.queryItems;
+}
+
+- (void)setQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
+{
+    self.wrapped.queryItems = queryItems;
 }
 
 #pragma mark - NSCopying
@@ -504,24 +444,6 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
     copy.index = self.index;
     copy.identifier = [self.identifier copyWithZone:zone];
     return copy;
-}
-
-#pragma mark - NSObject
-
-- (BOOL)isEqual:(id)anObject
-{
-    if ([anObject isKindOfClass:[SRGILURLComponents class]]) {
-        SRGILURLComponents *anOtherURLComponents = (SRGILURLComponents *)anObject;
-        return ([self.wrapped.URL isEqual:anOtherURLComponents.wrapped.URL] &&
-                self.index == anOtherURLComponents.index);
-    }
-    else
-        return NO;
-}
-
-- (NSUInteger)hash
-{
-    return self.wrapped.URL.hash ^ (self.index + 1);
 }
 
 #pragma mark Description

@@ -15,6 +15,7 @@
 
 #import "SRGILList.h"
 #import "SRGILRequestsManager.h"
+#import "SRGILRequestsManager+Private.h"
 #import "SRGILURLComponents.h"
 
 #import "NSBundle+SRGILDataProvider.h"
@@ -37,7 +38,6 @@ static NSArray *validBusinessUnits = nil;
 
 @interface SRGILDataProvider () {
     NSMutableDictionary *_identifiedItemLists;
-    NSMutableSet *_ongoingFetches;
     NSString *_UUID;
 }
 @end
@@ -75,7 +75,6 @@ static NSArray *validBusinessUnits = nil;
         _identifiedItemLists = [[NSMutableDictionary alloc] init];
         _identifiedMedias = [[NSMutableDictionary alloc] init];
         _identifiedShows = [[NSMutableDictionary alloc] init];
-        _ongoingFetches = [[NSMutableSet alloc] init];
         _requestManager = [[SRGILRequestsManager alloc] initWithBusinessUnit:businessUnit];
     }
     return self;
@@ -98,9 +97,9 @@ static NSArray *validBusinessUnits = nil;
     return _requestManager.businessUnit;
 }
 
-- (NSUInteger)ongoingFetchCount;
+- (NSUInteger)ongoingFetchCount
 {
-    return _ongoingFetches.count;
+    return _requestManager.ongoingRequests.count;
 }
 
 - (NSURL *)baseURL
@@ -121,12 +120,11 @@ static NSArray *validBusinessUnits = nil;
                           completionBlock:(nonnull SRGILFetchListCompletionBlock)completionBlock;
 {
     @weakify(self);
-    [_ongoingFetches addObject:components];
+    
     [self.requestManager requestObjectsListWithURLComponents:components
                                                progressBlock:progressBlock
                                              completionBlock:^(NSDictionary *rawDictionary, NSError *error) {
                                                  @strongify(self);
-                                                 [_ongoingFetches removeObject:components];
                                                  
                                                  if (error) {
                                                      completionBlock ? completionBlock(nil, Nil, error) : nil;
