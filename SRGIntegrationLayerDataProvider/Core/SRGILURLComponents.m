@@ -446,28 +446,6 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
     return copy;
 }
 
-#pragma mark - NSObject
-
-- (BOOL)isEqual:(id)anObject
-{
-    if (self == anObject) {
-        return YES;
-    }
-    else if ([anObject isKindOfClass:[SRGILURLComponents class]]) {
-        SRGILURLComponents *anOtherURLComponents = (SRGILURLComponents *)anObject;
-        return ([self.wrapped.URL isEqual:anOtherURLComponents.wrapped.URL] &&
-                self.index == anOtherURLComponents.index);
-    }
-    else {
-        return NO;
-    }
-}
-
-- (NSUInteger)hash
-{
-    return [NSString stringWithFormat:@"%@_%@", self.wrapped.URL.absoluteString, @(self.index)].hash;
-}
-
 #pragma mark Description
 
 - (NSString *)description

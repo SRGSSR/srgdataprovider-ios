@@ -126,6 +126,7 @@ static NSArray *validBusinessUnits = nil;
                                                progressBlock:progressBlock
                                              completionBlock:^(NSDictionary *rawDictionary, NSError *error) {
                                                  @strongify(self);
+                                                 NSAssert([_ongoingFetches containsObject:components], @"-isEqual: and -hash poorly implemented");
                                                  [_ongoingFetches removeObject:components];
                                                  
                                                  if (error) {
