@@ -31,7 +31,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 @property (nonatomic, copy) NSString *businessUnit;
 @property (nonatomic, strong) NSURLSession *URLSession;
 @property (nonatomic, strong) NSMutableDictionary *ongoingRequests;
-@property (nonatomic, strong) NSMutableDictionary *ongoingVideoListDownloads;
 @end
 
 @implementation SRGILRequestsManager
@@ -60,7 +59,6 @@ static SGVReachability *reachability;
         self.businessUnit = businessUnit;
         self.baseURL = nil;     // Set default base URL
         self.ongoingRequests = [NSMutableDictionary dictionary];
-        self.ongoingVideoListDownloads = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -181,9 +179,9 @@ static SGVReachability *reachability;
             self.URLSession = nil;
         }
         
-        void (^callCompletionBlocks)(SRGILMedia *, NSError *) = ^(SRGILMedia *media, NSError *error) {
+        void (^callCompletionBlocks)(id, NSError *) = ^(id object, NSError *error) {
             for (SRGILFetchObjectCompletionBlock completionBlock in ongoingRequest.completionBlocks) {
-                completionBlock(media, error);
+                completionBlock(object, error);
             }
         };
         
@@ -276,10 +274,10 @@ static SGVReachability *reachability;
                                                      self.businessUnit,
                                                      path]];
     
-    // Fill dictionary with 0 numbers, as we need the count of requests for the total fraction
-    NSNumber *downloadFraction = [self.ongoingVideoListDownloads objectForKey:components.string];
-    if (!downloadFraction) {
-        [self.ongoingVideoListDownloads setObject:@(0.0) forKey:components.string];
+    __block SRGILOngoingRequest *ongoingRequest = self.ongoingRequests[components.URL];
+    if (ongoingRequest) {
+        [ongoingRequest addCompletionBlock:completionBlock];
+        return ongoingRequest;
     }
     
     @weakify(self)
@@ -288,19 +286,22 @@ static SGVReachability *reachability;
         
         BOOL hasBeenCancelled = (![self.ongoingRequests objectForKey:components.URL]);
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.ongoingRequests removeObjectForKey:components.URL];
-            if (self.ongoingRequests.count == 0) {
-                [self.ongoingVideoListDownloads removeAllObjects];
-                [self.URLSession invalidateAndCancel];
-                self.URLSession = nil;
+        [self.ongoingRequests removeObjectForKey:components.URL];
+        if (self.ongoingRequests.count == 0) {
+            [self.URLSession invalidateAndCancel];
+            self.URLSession = nil;
+        }
+        
+        void (^callCompletionBlocks)(id, NSError *) = ^(id object, NSError *error) {
+            for (SRGILRequestListCompletionBlock completionBlock in ongoingRequest.completionBlocks) {
+                completionBlock(object, error);
             }
-        });
+        };
         
         if (!hasBeenCancelled) {
             if (error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock(nil, error);
+                    callCompletionBlocks(nil, error);
                 });
                 return;
             }
@@ -312,13 +313,13 @@ static SGVReachability *reachability;
                     NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                                          code:SRGILDataProviderErrorCodeInvalidData
                                                      userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
-                    completionBlock(nil, error);
+                    callCompletionBlocks(nil, error);
                 });
                 return;
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(JSONObject, nil);
+                callCompletionBlocks(JSONObject, nil);
             });
         }
     };
@@ -331,16 +332,12 @@ static SGVReachability *reachability;
     
     NSURLSessionTask *task = [self.URLSession dataTaskWithURL:components.URL completionHandler:completion];
     
-    SRGILOngoingRequest *ongoingRequest = [[SRGILOngoingRequest alloc] initWithTask:task];
+    ongoingRequest = [[SRGILOngoingRequest alloc] initWithTask:task];
+    [ongoingRequest addCompletionBlock:completionBlock];
     ongoingRequest.progressBlock = ^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-        if (totalBytesExpectedToRead >= 0) { // Will be -1 when unknown
-            float fraction = (float)bytesRead/(float)totalBytesRead;
-            [self.ongoingVideoListDownloads setObject:@(fraction) forKey:components.URL];
-        }
-        
         if (progressBlock) {
-            NSNumber *sumFractions = [[self.ongoingVideoListDownloads allValues] valueForKeyPath:@"@sum.self"];
-            progressBlock([sumFractions floatValue]/[self.ongoingVideoListDownloads count]);
+            NSNumber *sumFractions = [[self.ongoingRequests allValues] valueForKeyPath:@"@sum.self"];
+            progressBlock([sumFractions floatValue]/[self.ongoingRequests count]);
         }
     };
     
@@ -433,7 +430,6 @@ static SGVReachability *reachability;
     
     [self.URLSession invalidateAndCancel];
     [self.ongoingRequests removeAllObjects];
-    [self.ongoingVideoListDownloads removeAllObjects];
 }
 
 #pragma mark - Utilities

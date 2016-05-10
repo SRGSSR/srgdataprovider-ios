@@ -24,7 +24,7 @@
     return self;
 }
 
-- (void)addCompletionBlock:(void (^)(SRGILMedia *, NSError *))completionBlock
+- (void)addCompletionBlock:(void (^)(id, NSError *))completionBlock
 {
     NSParameterAssert(completionBlock);
     

@@ -6,8 +6,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class SRGILMedia;
-
 typedef void(^SRGILOngoingRequestProgressBlock)(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead);
 
 @interface SRGILOngoingRequest : NSObject
@@ -17,6 +15,6 @@ typedef void(^SRGILOngoingRequestProgressBlock)(NSUInteger bytesRead, long long 
 @property (nonatomic, copy) SRGILOngoingRequestProgressBlock progressBlock;
 
 - (instancetype)initWithTask:(NSURLSessionTask *)task;
-- (void)addCompletionBlock:(void (^)(SRGILMedia *, NSError *))completionBlock;
+- (void)addCompletionBlock:(void (^)(id, NSError *))completionBlock;
 
 @end
