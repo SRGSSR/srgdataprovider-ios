@@ -55,6 +55,7 @@ NSString * const RTSMediaPlayerPlaybackSeekingUponBlockingReasonInfoKey = @"Bloc
 @property (readwrite) TKState *playingState;
 @property (readwrite) TKState *seekingState;
 @property (readwrite) TKState *stalledState;
+@property (readwrite) TKState *endedState;
 
 @property (readwrite) TKEvent *loadEvent;
 @property (readwrite) TKEvent *loadSuccessEvent;
@@ -357,6 +358,7 @@ static NSDictionary * ErrorUserInfo(NSError *error, NSString *failureReason)
 	self.playingState = playing;
 	self.stalledState = stalled;
 	self.seekingState = seeking;
+	self.endedState = ended;
 	
 	self.loadEvent = load;
 	self.loadSuccessEvent = loadSuccess;
@@ -411,6 +413,10 @@ static NSDictionary * ErrorUserInfo(NSError *error, NSString *failureReason)
 
 - (void)play
 {
+	if ([self.stateMachine.currentState isEqual:self.endedState]) {
+		[self reset];
+	}
+	
 	if ([self.stateMachine.currentState isEqual:self.idleState]) {
 		[self loadPlayerAndAutoStartAtTime:[NSValue valueWithCMTime:kCMTimeZero]];
 	}
@@ -713,7 +719,7 @@ static const void * const AVPlayerItemLoadedTimeRangesContext = &AVPlayerItemLoa
 	@weakify(self)
 	self.playbackStartObserver = [self.player addBoundaryTimeObserverForTimes:@[[NSValue valueWithCMTime:resultTime]] queue:NULL usingBlock:^{
 		@strongify(self)
-		if (![self.stateMachine.currentState isEqual:self.playingState]) {
+		if (![self.stateMachine.currentState isEqual:self.playingState] && ![self.stateMachine.currentState isEqual:self.endedState]) {
 			[self fireEvent:self.playEvent userInfo:nil];
 		}
 		[self.player removeTimeObserver:self.playbackStartObserver];
@@ -736,11 +742,13 @@ static const void * const AVPlayerItemLoadedTimeRangesContext = &AVPlayerItemLoa
 			return;
 		}
 		
-		if (!CMTIME_IS_VALID(self.previousPlaybackTime)) {
-			return;
+		if ((self.player.rate == 1) && [self.stateMachine.currentState isEqual:self.pausedState]) {
+			[self fireEvent:self.playEvent userInfo:nil];
 		}
 		
-		if (CMTimeGetSeconds(self.previousPlaybackTime) > CMTimeGetSeconds(playbackTime)) {
+		if (CMTIME_IS_VALID(self.previousPlaybackTime) &&
+			(CMTIME_COMPARE_INLINE(self.previousPlaybackTime, >, playbackTime)))
+		{
 			if (![self.stateMachine.currentState isEqual:self.playingState]) {
 				[self fireEvent:self.playEvent userInfo:nil];
 			}
@@ -817,7 +825,7 @@ static const void * const AVPlayerItemLoadedTimeRangesContext = &AVPlayerItemLoa
 		switch (playerItem.status) {
 			case AVPlayerItemStatusReadyToPlay:
 				if (![self.stateMachine.currentState isEqual:self.playingState] && self.startTimeValue) {
-					if (CMTIME_COMPARE_INLINE([self.startTimeValue CMTimeValue], ==, kCMTimeZero)) {
+					if (CMTIME_COMPARE_INLINE([self.startTimeValue CMTimeValue], ==, kCMTimeZero) || CMTIME_IS_INVALID([self.startTimeValue CMTimeValue])) {
 						[self play];
 					}
 					else {
