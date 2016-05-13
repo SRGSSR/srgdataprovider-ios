@@ -12,6 +12,7 @@ NSString * const defaultURNStringSeparator = @":";
 @property(nonatomic, strong) NSString *prefix;
 @property(nonatomic, strong) NSString *businessUnit;
 @property(nonatomic, assign) SRGILMediaType mediaType;
+@property(nonatomic, assign) BOOL hasAISComponent;
 @property(nonatomic, strong) NSString *identifier;
 @end
 
@@ -28,6 +29,7 @@ NSString * const defaultURNStringSeparator = @":";
     urn.prefix = components[0];
     urn.businessUnit = components[1];
     urn.mediaType = SRGILMediaTypeUndefined;
+    urn.hasAISComponent = [components[2] isEqualToString:@"ais"];
     
     // Going backward because of the intermettitent presence of 'ais' component... (yes, we have a gang of winners over there...
     // did I told you about requests returning 200 with 404 in the body?...)
@@ -79,6 +81,9 @@ NSString * const defaultURNStringSeparator = @":";
         [components addObject:self.prefix];
     }
     [components addObject:self.businessUnit];
+    if (self.hasAISComponent) {
+        [components addObject:@"ais"];
+    }
     [components addObject:(self.mediaType == SRGILMediaTypeVideo || self.mediaType == SRGILMediaTypeVideoSet) ? @"video": @"audio"];
     [components addObject:self.identifier];
     
