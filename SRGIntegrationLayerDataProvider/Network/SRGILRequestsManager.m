@@ -236,7 +236,6 @@ static SGVReachability *reachability;
     NSString *key = [ongoingRequest addCompletionBlock:completionBlock];
     
     self.ongoingRequests[identifier] = ongoingRequest;
-    [task resume];
     
     return key;
 }
@@ -340,7 +339,6 @@ static SGVReachability *reachability;
     };
     
     self.ongoingRequests[components.URL] = ongoingRequest;
-    [task resume];
     
     return key;
 }
