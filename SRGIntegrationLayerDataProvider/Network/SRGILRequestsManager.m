@@ -165,8 +165,7 @@ static SGVReachability *reachability;
     
     __block SRGILOngoingRequest *ongoingRequest = self.ongoingRequests[identifier];
     if (ongoingRequest) {
-        [ongoingRequest addCompletionBlock:completionBlock];
-        return ongoingRequest;
+        return [ongoingRequest addCompletionBlock:completionBlock];
     }
     
     @weakify(self)
@@ -234,12 +233,12 @@ static SGVReachability *reachability;
     DDLogDebug(@"Requesting complete URL %@ for identifier %@", completeURL, identifier);
     
     ongoingRequest = [[SRGILOngoingRequest alloc] initWithTask:task];
-    [ongoingRequest addCompletionBlock:completionBlock];
+    NSString *key = [ongoingRequest addCompletionBlock:completionBlock];
     
     self.ongoingRequests[identifier] = ongoingRequest;
     [task resume];
     
-    return ongoingRequest;
+    return key;
 }
 
 #pragma mark - Requesting Item Lists
@@ -276,8 +275,7 @@ static SGVReachability *reachability;
     
     __block SRGILOngoingRequest *ongoingRequest = self.ongoingRequests[components.URL];
     if (ongoingRequest) {
-        [ongoingRequest addCompletionBlock:completionBlock];
-        return ongoingRequest;
+        return [ongoingRequest addCompletionBlock:completionBlock];
     }
     
     @weakify(self)
@@ -333,7 +331,7 @@ static SGVReachability *reachability;
     NSURLSessionTask *task = [self.URLSession dataTaskWithURL:components.URL completionHandler:completion];
     
     ongoingRequest = [[SRGILOngoingRequest alloc] initWithTask:task];
-    [ongoingRequest addCompletionBlock:completionBlock];
+    NSString *key = [ongoingRequest addCompletionBlock:completionBlock];
     ongoingRequest.progressBlock = ^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
         if (progressBlock) {
             NSNumber *sumFractions = [[self.ongoingRequests allValues] valueForKeyPath:@"@sum.self"];
@@ -344,7 +342,7 @@ static SGVReachability *reachability;
     self.ongoingRequests[components.URL] = ongoingRequest;
     [task resume];
     
-    return ongoingRequest;
+    return key;
 }
 
 - (void)URLSession:(NSURLSession *)session
@@ -408,28 +406,20 @@ static SGVReachability *reachability;
         return;
     }
     
-    NSAssert([request isKindOfClass:[SRGILOngoingRequest class]], @"Expect an ongoing request");
-    SRGILOngoingRequest *ongoingRequest = request;
-    [ongoingRequest.task cancel];
-    
-    // Ugly, but to be able to remove the request we need its key (which can be anything). Since an object is referenced at most
-    // once, this will work, but this is fragile as hell
-    id key = [[self.ongoingRequests allKeysForObject:ongoingRequest] firstObject];
-    if (key) {
-        [self.ongoingRequests removeObjectForKey:key];
-    }
-}
-
-- (void)cancelAllRequests
-{
-    if ([self.ongoingRequests count] == 0) {
+    NSAssert([request isKindOfClass:[NSString class]], @"Expect a string key");
+    for (NSString *identifier in self.ongoingRequests.allKeys) {
+        SRGILOngoingRequest *ongoingRequest = self.ongoingRequests[identifier];
+        
+        if ([ongoingRequest.keys containsObject:request]) {
+            [ongoingRequest removeCompletionBlockWithKey:request];
+        }
+        
+        if (ongoingRequest.empty) {
+            [self.ongoingRequests removeObjectForKey:identifier];
+        }
+        
         return;
     }
-    
-    DDLogInfo(@"Cancelling all (%lu) requests.", (unsigned long)[self.ongoingRequests count]);
-    
-    [self.URLSession invalidateAndCancel];
-    [self.ongoingRequests removeAllObjects];
 }
 
 #pragma mark - Utilities
