@@ -55,8 +55,6 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 @property (nonatomic, strong) id contentURLRequest;
 @property (nonatomic, strong) NSURLSessionTask *tokenSessionTask;
 
-- (void)cancel;
-
 @end
 
 @implementation SRGILDataProviderRequest

@@ -36,7 +36,6 @@ typedef void (^SRGILRequestListCompletionBlock)(NSDictionary * __nullable rawDic
                             completionBlock:(SRGILRequestListCompletionBlock)completionBlock;
 
 - (void)cancelRequest:(id)request;
-- (void)cancelAllRequests;
 
 - (void)sendViewCountUpdate:(NSString *)identifier forMediaTypeName:(NSString *)mediaType;
 

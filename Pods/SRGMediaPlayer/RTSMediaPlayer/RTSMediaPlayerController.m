@@ -89,6 +89,8 @@ NSString * const RTSMediaPlayerPlaybackSeekingUponBlockingReasonInfoKey = @"Bloc
 
 @property (nonatomic) id contentURLRequestHandle;
 
+@property (nonatomic, assign) BOOL playScheduled;
+
 @end
 
 @implementation RTSMediaPlayerController
@@ -298,7 +300,8 @@ static NSDictionary * ErrorUserInfo(NSError *error, NSString *failureReason)
 	[ready setDidEnterStateBlock:^(TKState *state, TKTransition *transition) {
 		@strongify(self)
 		
-		if (self.player.rate == 0) {
+		// Preparing to play, but starting paused
+		if (self.player.rate == 0 && !self.startTimeValue) {
 			[self fireEvent:self.pauseEvent userInfo:nil];
 		}
 	}];
@@ -413,6 +416,10 @@ static NSDictionary * ErrorUserInfo(NSError *error, NSString *failureReason)
 
 - (void)play
 {
+	if(!self.identifier) {
+		return;
+	}
+	
 	if ([self.stateMachine.currentState isEqual:self.endedState]) {
 		[self reset];
 	}
@@ -824,6 +831,11 @@ static const void * const AVPlayerItemLoadedTimeRangesContext = &AVPlayerItemLoa
 		AVPlayerItem *playerItem = player.currentItem;
 		switch (playerItem.status) {
 			case AVPlayerItemStatusReadyToPlay:
+                if (self.playScheduled) {
+                    self.playScheduled = NO;
+                    [self fireEvent:self.playEvent userInfo:nil];
+                }
+                
 				if (![self.stateMachine.currentState isEqual:self.playingState] && self.startTimeValue) {
 					if (CMTIME_COMPARE_INLINE([self.startTimeValue CMTimeValue], ==, kCMTimeZero) || CMTIME_IS_INVALID([self.startTimeValue CMTimeValue])) {
 						[self play];
@@ -893,7 +905,9 @@ static const void * const AVPlayerItemLoadedTimeRangesContext = &AVPlayerItemLoa
 			[self fireEvent:self.pauseEvent userInfo:nil];
 		}
 		else if (newRate == 1 && oldRate == 0 && self.stateMachine.currentState != self.playingState) {
-			[self fireEvent:self.playEvent userInfo:nil];
+			// Ugly trick. We do not want to emit play events before the player is ready to play, so we schedule the play
+			// to be sent when the player is really ready to play
+            self.playScheduled = YES;
 		}
 	}
 	else if (context == AVPlayerItemPlaybackLikelyToKeepUpContext) {

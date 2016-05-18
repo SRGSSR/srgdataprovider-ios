@@ -11,10 +11,16 @@ typedef void(^SRGILOngoingRequestProgressBlock)(NSUInteger bytesRead, long long 
 @interface SRGILOngoingRequest : NSObject
 
 @property (nonatomic, readonly) NSURLSessionTask *task;
+
+@property (nonatomic, readonly) NSArray *keys;
 @property (nonatomic, readonly) NSArray *completionBlocks;
+
 @property (nonatomic, copy) SRGILOngoingRequestProgressBlock progressBlock;
 
 - (instancetype)initWithTask:(NSURLSessionTask *)task;
-- (void)addCompletionBlock:(void (^)(id, NSError *))completionBlock;
+- (NSString *)addCompletionBlock:(void (^)(id, NSError *))completionBlock;
+- (void)removeCompletionBlockWithKey:(NSString *)key;
+
+@property (nonatomic, readonly, getter=isEmpty) BOOL empty;
 
 @end

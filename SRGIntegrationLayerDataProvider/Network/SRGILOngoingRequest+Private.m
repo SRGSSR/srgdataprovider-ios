@@ -9,7 +9,7 @@
 @interface SRGILOngoingRequest ()
 
 @property (nonatomic) NSURLSessionTask *task;
-@property (nonatomic) NSMutableArray *mutableCompletionBlocks;
+@property (nonatomic) NSMutableDictionary *completionBlockDictionary;
 
 @end
 
@@ -19,21 +19,47 @@
 {
     if (self = [super init]) {
         self.task = task;
-        self.mutableCompletionBlocks = [NSMutableArray array];
+        self.completionBlockDictionary = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
-- (void)addCompletionBlock:(void (^)(id, NSError *))completionBlock
+- (NSString *)addCompletionBlock:(void (^)(id, NSError *))completionBlock
 {
     NSParameterAssert(completionBlock);
     
-    [self.mutableCompletionBlocks addObject:[completionBlock copy]];
+    NSString *key = [NSUUID UUID].UUIDString;
+    self.completionBlockDictionary[key] = [completionBlock copy];
+    
+    if (self.completionBlockDictionary.count == 1) {
+        [self.task resume];
+    }
+    
+    return key;
+}
+
+- (void)removeCompletionBlockWithKey:(NSString *)key
+{
+    [self.completionBlockDictionary removeObjectForKey:key];
+    
+    if (self.completionBlockDictionary.count == 0) {
+        [self.task cancel];
+    }
+}
+
+- (NSArray *)keys
+{
+    return [self.completionBlockDictionary allKeys];
 }
 
 - (NSArray *)completionBlocks
 {
-    return [NSArray arrayWithArray:self.mutableCompletionBlocks];
+    return [self.completionBlockDictionary allValues];
+}
+
+- (BOOL)isEmpty
+{
+    return self.completionBlockDictionary.count == 0;
 }
 
 @end
