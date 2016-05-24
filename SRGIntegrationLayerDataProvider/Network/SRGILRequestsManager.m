@@ -192,14 +192,18 @@ static SGVReachability *reachability;
             return;
         }
         
+        void (^reportDataError)(void) = ^{
+            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                 code:SRGILDataProviderErrorCodeInvalidData
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
+            callCompletionBlocks(nil, error);
+        };
+        
         // Parsing errors
         id JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
         if (!JSON || ![JSON isKindOfClass:[NSDictionary class]]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                     code:SRGILDataProviderErrorCodeInvalidData
-                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
-                callCompletionBlocks(nil, error);
+                reportDataError();
             });
             return;
         }
@@ -208,10 +212,7 @@ static SGVReachability *reachability;
         id modelObject = [[modelClass alloc] initWithDictionary:[JSON valueForKey:JSONKey]];
         if (!modelObject) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                     code:SRGILDataProviderErrorCodeInvalidData
-                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
-                callCompletionBlocks(nil, error);
+                reportDataError();
             });
             return;
         }

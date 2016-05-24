@@ -57,11 +57,18 @@ static NSString *const SRGILTokenHandlerBaseURLString = @"http://tp.srgssr.ch/ak
             return;
         }
         
+        void (^reportPlaybackError)(void) = ^{
+            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                 code:SRGILDataProviderErrorCodeInvalidData
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The media cannot be played.", nil) }];
+            completionBlock ? completionBlock(nil, error) : nil;
+        };
+        
         NSError *deserializationError = nil;
         NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&deserializationError];
         if (deserializationError || ![JSON isKindOfClass:[NSDictionary class]]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock ? completionBlock(nil, deserializationError) : nil;
+                reportPlaybackError();
             });
             return;
         }
@@ -69,10 +76,7 @@ static NSString *const SRGILTokenHandlerBaseURLString = @"http://tp.srgssr.ch/ak
         NSString *tokenParameterString = [[JSON objectForKey:@"token"] objectForKey:@"authparams"];
         if (!tokenParameterString) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                     code:SRGILDataProviderErrorCodeInvalidData
-                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The media cannot be played.", nil) }];
-                completionBlock ? completionBlock(nil, error) : nil;
+                reportPlaybackError();
             });
             return;
         }
