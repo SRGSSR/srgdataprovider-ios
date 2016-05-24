@@ -27,6 +27,8 @@
     NSInteger _markOutMiliseconds;
     NSInteger _durationMiliseconds;
     BOOL _isLivestreamPlaylist;
+    NSDate *_validFromDate;
+    NSDate *_validToDate;
 }
 @property (nonatomic, assign, getter=isFullLength) BOOL fullLength;
 @end
@@ -126,6 +128,8 @@
 
         _blockingReason = SRGILMediaBlockingReasonForKey([dictionary objectForKey:@"block"]); // it handles missing key.
         _shouldBeGeoblocked = ([[dictionary objectForKey:@"staticGeoBlock"] boolValue]);
+        _validFromDate = [dateFormatter dateFromString:(NSString *)[dictionary objectForKey:@"validFrom"]];
+        _validToDate = [dateFormatter dateFromString:(NSString *)[dictionary objectForKey:@"validTo"]];
         _displayable = [dictionary valueForKey:@"displayable"] ? [[dictionary valueForKey:@"displayable"] boolValue] : YES;
         _assetSetSubType = SRGILAssetSubSetTypeForString([dictionary objectForKey:@"assetSubSetId"]);
         _isLivestreamPlaylist = [[[dictionary valueForKey:@"Playlists"] objectForKey:@"@availability"] isEqualToString:@"LIVE"];
