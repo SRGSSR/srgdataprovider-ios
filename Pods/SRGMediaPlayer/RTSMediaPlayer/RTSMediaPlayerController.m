@@ -90,6 +90,7 @@ NSString * const RTSMediaPlayerPlaybackSeekingUponBlockingReasonInfoKey = @"Bloc
 @property (nonatomic) id contentURLRequestHandle;
 
 @property (nonatomic, assign) BOOL playScheduled;
+@property (nonatomic, assign) BOOL pauseScheduled;
 
 @end
 
@@ -302,7 +303,9 @@ static NSDictionary * ErrorUserInfo(NSError *error, NSString *failureReason)
 		
 		// Preparing to play, but starting paused
 		if (self.player.rate == 0 && !self.startTimeValue) {
-			[self fireEvent:self.pauseEvent userInfo:nil];
+			// Ugly trick. We do not want to emit pause events before the player is ready to play, so we schedule the pause
+			// to be sent when the player is really ready to play
+			self.pauseScheduled = YES;
 		}
 	}];
 	
@@ -647,6 +650,8 @@ static const void * const AVPlayerRateContext = &AVPlayerRateContext;
 static const void * const AVPlayerItemPlaybackLikelyToKeepUpContext = &AVPlayerItemPlaybackLikelyToKeepUpContext;
 static const void * const AVPlayerItemLoadedTimeRangesContext = &AVPlayerItemLoadedTimeRangesContext;
 
+static const void * const AVPlayerItemBufferEmptyContext = &AVPlayerItemBufferEmptyContext;
+
 - (AVPlayer *)player
 {
 	@synchronized(self)
@@ -669,6 +674,7 @@ static const void * const AVPlayerItemLoadedTimeRangesContext = &AVPlayerItemLoa
 		[_player removeObserver:self forKeyPath:@"rate" context:(void *)AVPlayerRateContext];
 		[_player removeObserver:self forKeyPath:@"currentItem.playbackLikelyToKeepUp" context:(void *)AVPlayerItemPlaybackLikelyToKeepUpContext];
 		[_player removeObserver:self forKeyPath:@"currentItem.loadedTimeRanges" context:(void *)AVPlayerItemLoadedTimeRangesContext];
+        [_player removeObserver:self forKeyPath:@"currentItem.playbackBufferEmpty" context:(void *)AVPlayerItemBufferEmptyContext];
 		
 		[defaultCenter removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:_player.currentItem];
 		[defaultCenter removeObserver:self name:AVPlayerItemFailedToPlayToEndTimeNotification object:_player.currentItem];
@@ -697,6 +703,7 @@ static const void * const AVPlayerItemLoadedTimeRangesContext = &AVPlayerItemLoa
 			[player addObserver:self forKeyPath:@"rate" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:(void *)AVPlayerRateContext];
 			[player addObserver:self forKeyPath:@"currentItem.playbackLikelyToKeepUp" options:0 context:(void *)AVPlayerItemPlaybackLikelyToKeepUpContext];
 			[player addObserver:self forKeyPath:@"currentItem.loadedTimeRanges" options:NSKeyValueObservingOptionNew context:(void *)AVPlayerItemLoadedTimeRangesContext];
+            [player addObserver:self forKeyPath:@"currentItem.playbackBufferEmpty" options:NSKeyValueObservingOptionNew context:(void *)AVPlayerItemBufferEmptyContext];
 			
 			[defaultCenter addObserver:self selector:@selector(playerItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
 			[defaultCenter addObserver:self selector:@selector(playerItemFailedToPlayToEndTime:) name:AVPlayerItemFailedToPlayToEndTimeNotification object:playerItem];
@@ -875,8 +882,12 @@ static const void * const AVPlayerItemLoadedTimeRangesContext = &AVPlayerItemLoa
 		CMTimeRange timerange = [timeRanges.firstObject CMTimeRangeValue]; // Yes, subscripting with [0] may lead to a crash??
 		if (CMTimeGetSeconds(timerange.duration) >= bufferMinDuration && self.player.rate == 0) {
 			[self.player prerollAtRate:0.0 completionHandler:^(BOOL finished) {
-				if (![self.stateMachine.currentState isEqual:self.pausedState] &&
-					![self.stateMachine.currentState isEqual:self.seekingState])
+				if (self.pauseScheduled) {
+					self.pauseScheduled = NO;
+					[self fireEvent:self.pauseEvent userInfo:nil];
+				}
+				else if (![self.stateMachine.currentState isEqual:self.pausedState] &&
+						 ![self.stateMachine.currentState isEqual:self.seekingState])
 				{
 					[self play];
 				}
@@ -924,6 +935,9 @@ static const void * const AVPlayerItemLoadedTimeRangesContext = &AVPlayerItemLoa
 			[player play];
 		}
 	}
+    else if (context == AVPlayerItemBufferEmptyContext) {
+        [self fireEvent:self.stallEvent userInfo:nil];
+    }
 	else if (context == RTSMediaPlayerPictureInPicturePossibleContext || context == RTSMediaPlayerPictureInPictureActiveContext) {
 		[self postNotificationName:RTSMediaPlayerPictureInPictureStateChangeNotification userInfo:nil];
         
