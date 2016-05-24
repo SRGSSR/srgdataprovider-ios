@@ -113,6 +113,16 @@
 @property (nonatomic, assign, readonly) BOOL shouldBeGeoblocked;
 
 /**
+ * The valid from date, generaly used with the SRGILMediaBlockingReasonStartDate blocking reason
+ */
+@property (nonatomic, readonly, strong) NSDate *validFromDate;
+
+/**
+ * The valid to date, generaly used with the SRGILMediaBlockingReasonEndDate blocking reason
+ */
+@property (nonatomic, readonly, strong) NSDate *validToDate;
+
+/**
  * A flag indicating whether this media is part of a LiveStream playlist
  */
 @property (nonatomic, assign, readonly) BOOL isLivestreamPlaylist;
