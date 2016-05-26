@@ -105,7 +105,8 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
         else {
             self.identifiedMedias[urnString] = media;
             
-            if (media.defaultContentURL) {
+            // Check host and scheme as well to avoid returning malformed URLs
+            if (media.defaultContentURL && media.defaultContentURL.scheme && media.defaultContentURL.host) {
                 DDLogDebug(@"Found default content URL %@ for identifier %@", media.defaultContentURL, urnString);
 #if __has_include("SRGILDataProviderAnalyticsDataSource.h")
                 [self prepareAnalyticsInfosForMedia:media forURNString:urnString withContentURL:media.defaultContentURL];
