@@ -12,7 +12,7 @@
 
 - (id)initWithDictionary:(NSDictionary *)dictionary
 {
-    if ([super initWithDictionary:dictionary]) {
+    if (self = [super initWithDictionary:dictionary]) {
         _title = dictionary[@"title"];
         
         _backgroundColor = [UIColor srg_colorWithHexString:dictionary[@"bgColor"]];

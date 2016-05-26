@@ -9,7 +9,7 @@
 
 // Note: overriding host and scheme has no effect.
 
-@interface SRGILURLComponents : NSObject
+@interface SRGILURLComponents : NSObject <NSCopying>
 
 /**
  *  Create the URL Components object objects of a specific 'index';
