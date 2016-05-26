@@ -122,11 +122,11 @@ typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * _
  *  Fetch an individual media (Video or Audio) from the IL.
  *
  *  @param urn The URN of the media.
- *  @param completionBlock The block called on completion (with success or not).
+ *  @param completionBlock The block called on completion (with success or not)
  *
- *  @return A boolean indicating if the fetch is started or not. If not, the completion block is called immediately with an error.
+ * @return A handle to the request. You can use -cancelRequest: to cancel it
  */
-- (BOOL)fetchMediaWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
+- (nonnull id)fetchMediaWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
 
 /**
  *  Fetch the meta infos for the live streams.
@@ -135,9 +135,9 @@ typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * _
  *  @param livestreamID The identifier of the livestream
  *  @param completionBlock The block called on completion (with success or not).
  *
- *  @return A boolean indicating if the fetch is started or not. If not, the completion block is called immediately with an error.
+ * @return A handle to the request. You can use -cancelRequest: to cancel it
  */
-- (BOOL)fetchLiveMetaInfosWithChannelID:(nonnull NSString *)channelID livestreamID:(nullable NSString *)livestreamID completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
+- (nonnull id)fetchLiveMetaInfosWithChannelID:(nonnull NSString *)channelID livestreamID:(nullable NSString *)livestreamID completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
 
 /**
  * Fetch show with given identifier.
@@ -145,9 +145,16 @@ typedef void (^SRGILFetchObjectCompletionBlock)(id __nullable media, NSError * _
  * @param urnString URN of the show
  * @param completionBlock The block called on completion (with success or not).
  *
- *  @return A boolean indicating if the fetch is started or not. If not, the completion block is called immediately with an error.
+ * @return A handle to the request. You can use -cancelRequest: to cancel it
  */
-- (BOOL)fetchShowWithIdentifier:(nonnull NSString *)identifier completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
+- (nonnull id)fetchShowWithIdentifier:(nonnull NSString *)identifier completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock;
+
+/**
+ * Cancel a running request
+ *
+ *  @param request The request handle (see above)
+ */
+- (void)cancelRequest:(nonnull id)request;
 
 
 // ********* Data Accessors **********

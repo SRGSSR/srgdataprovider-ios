@@ -484,7 +484,7 @@ static NSArray *validBusinessUnits = nil;
 
 #pragma mark - Fetch Medias or Shows
 
-- (BOOL)fetchMediaWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock
+- (id)fetchMediaWithURN:(nonnull SRGILURN *)urn completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock
 {
     NSParameterAssert(completionBlock);
     NSAssert(urn.identifier.length != 0 && urn.mediaType != SRGILMediaTypeUndefined, @"The media must be valid");
@@ -501,7 +501,7 @@ static NSArray *validBusinessUnits = nil;
     return [self.requestManager requestMediaWithURN:urn completionBlock:wrappedCompletionBlock];
 }
 
-- (BOOL)fetchLiveMetaInfosWithChannelID:(nonnull NSString *)channelID livestreamID:(NSString *)livestreamID completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock
+- (id)fetchLiveMetaInfosWithChannelID:(nonnull NSString *)channelID livestreamID:(NSString *)livestreamID completionBlock:(nonnull SRGILFetchObjectCompletionBlock)completionBlock
 {
     NSParameterAssert(channelID);
     NSParameterAssert(completionBlock);
@@ -509,7 +509,7 @@ static NSArray *validBusinessUnits = nil;
     return [self.requestManager requestLiveMetaInfosWithChannelID:channelID livestreamID:livestreamID completionBlock:completionBlock];
 }
 
-- (BOOL)fetchShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
+- (id)fetchShowWithIdentifier:(NSString *)identifier completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock
 {
     NSParameterAssert(identifier);
     NSParameterAssert(completionBlock);
@@ -524,6 +524,11 @@ static NSArray *validBusinessUnits = nil;
     };
     
     return [self.requestManager requestShowWithIdentifier:identifier completionBlock:wrappedCompletionBlock];
+}
+
+- (void)cancelRequest:(id)request
+{
+    [self.requestManager cancelRequest:request];
 }
 
 #pragma mark - Data Accessors
