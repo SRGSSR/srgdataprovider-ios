@@ -134,7 +134,7 @@
     
     NSString *ns_st_ep = (mediaFullLengthOrSegment.isLiveStream) ? @"Livestream" : mediaFullLengthOrSegment.title ?: @""; // No need to truncate. See SPA-2226
     NSString *ns_st_ci = mediaFullLengthOrSegment.identifier;
-    NSString *ns_st_cl = (mediaFullLengthOrSegment.isLiveStream) ? @"0" : [NSString stringWithFormat:@"%ld", mediaFullLengthOrSegment.durationInMillisecond];
+    NSString *ns_st_cl = (mediaFullLengthOrSegment.isLiveStream) ? @"0" : [NSString stringWithFormat:@"%@", @(mediaFullLengthOrSegment.durationInMillisecond)];
 
     [metadata safeSetValue:ns_st_ep forKey:@"ns_st_ep"];
     [metadata safeSetValue:ns_st_ci forKey:@"ns_st_ci"];
