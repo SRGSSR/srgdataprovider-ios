@@ -89,6 +89,12 @@ static NSString *RTSTimeSliderFormatter(NSTimeInterval seconds)
 	[self setThumbImage:[self thumbImage] forState:UIControlStateHighlighted];
 	
 	self.seekingDuringTracking = YES;
+	self.knobLivePosition = RTSTimeSliderLiveKnobPositionLeft;
+}
+
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Setters and getters
@@ -160,7 +166,8 @@ static NSString *RTSTimeSliderFormatter(NSTimeInterval seconds)
 - (void) updateTimeRangeLabels
 {
 	AVPlayerItem *playerItem = self.mediaPlayerController.playerItem;
-	if (! playerItem || playerItem.status != AVPlayerItemStatusReadyToPlay) {
+	if (! playerItem || self.mediaPlayerController.playbackState == RTSMediaPlaybackStateIdle || self.mediaPlayerController.playbackState == RTSMediaPlaybackStateEnded
+			|| playerItem.status != AVPlayerItemStatusReadyToPlay) {
 		self.valueLabel.text = @"--:--";
 		self.timeLeftValueLabel.text = @"--:--";
 		return;
@@ -349,6 +356,11 @@ static NSString *RTSTimeSliderFormatter(NSTimeInterval seconds)
 					  CGRectGetHeight(trackFrame));
 }
 
+- (float)resetValue
+{
+    return (self.knobLivePosition == RTSTimeSliderLiveKnobPositionLeft) ? 0. : 1.;
+}
+
 - (void)willMoveToWindow:(UIWindow *)window
 {
 	[super willMoveToWindow:window];
@@ -361,17 +373,26 @@ static NSString *RTSTimeSliderFormatter(NSTimeInterval seconds)
 			if (!self.isTracking && self.mediaPlayerController.playbackState != RTSMediaPlaybackStateSeeking)
 			{
 				CMTimeRange timeRange = [self.mediaPlayerController timeRange];
-				if (!CMTIMERANGE_IS_EMPTY(timeRange) && !CMTIMERANGE_IS_INDEFINITE(timeRange) && !CMTIMERANGE_IS_INVALID(timeRange))
+                if (self.mediaPlayerController.streamType == RTSMediaStreamTypeOnDemand
+                        && (self.mediaPlayerController.playbackState == RTSMediaPlaybackStateIdle || self.mediaPlayerController.playbackState == RTSMediaPlaybackStateEnded)) {
+                    self.maximumValue = 0.f;
+                    self.value = 0.f;
+                    self.userInteractionEnabled = YES;
+                }
+                else if(!CMTIMERANGE_IS_EMPTY(timeRange) && !CMTIMERANGE_IS_INDEFINITE(timeRange) && !CMTIMERANGE_IS_INVALID(timeRange))
 				{
 					self.maximumValue = CMTimeGetSeconds(timeRange.duration);
 					
 					AVPlayerItem *playerItem = self.mediaPlayerController.playerItem;
 					self.value = CMTimeGetSeconds(CMTimeSubtract(playerItem.currentTime, timeRange.start));
+					self.userInteractionEnabled = YES;
 				}
 				else
 				{
-					self.maximumValue = 0.;
-					self.value = 0.;
+                    float value = [self resetValue];
+                    self.maximumValue = value;
+					self.value = value;
+					self.userInteractionEnabled = NO;
 				}
 				
 				RTSMediaPlayerLogTrace(@"Range min = %@ (value = %@) --- Current = %@ (value = %@) --- Range max = %@ (value = %@)",
@@ -388,9 +409,37 @@ static NSString *RTSTimeSliderFormatter(NSTimeInterval seconds)
 				[self updateTimeRangeLabels];
 			}
 		}];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(timesliderPlaybackStateDidChange:)
+													 name:RTSMediaPlayerPlaybackStateDidChangeNotification
+												   object:self.mediaPlayerController];
 	}
 	else {
 		[self.mediaPlayerController removePeriodicTimeObserver:self.periodicTimeObserver];
+		[[NSNotificationCenter defaultCenter] removeObserver:self
+														name:RTSMediaPlayerPlaybackStateDidChangeNotification
+													  object:self.mediaPlayerController];
+	}
+}
+
+#pragma mark Notifications
+
+- (void)timesliderPlaybackStateDidChange:(NSNotification *)notification
+{
+	if (self.mediaPlayerController.playbackState == RTSMediaPlaybackStateIdle
+			|| self.mediaPlayerController.playbackState == RTSMediaPlaybackStateEnded) {
+        float value = [self resetValue];
+		self.value = value;
+        self.maximumValue = value;
+		
+		[self.slidingDelegate timeSlider:self
+				  isMovingToPlaybackTime:self.time
+							   withValue:self.value
+							 interactive:NO];
+		
+		[self setNeedsDisplay];
+		[self updateTimeRangeLabels];
 	}
 }
 
