@@ -4498,7 +4498,7 @@
 				<string>671ECC4A5C8416A4F3A8586F410C2CAC</string>
 				<string>46B16A02E886C80FE35DBDD89E9A316A</string>
 				<string>78A0665C9E5E3EAEB8C5266CDDB3A8AA</string>
-				<string>88034A4A1F28451FCF4C460975647ED7</string>
+				<string>4C604F4642596F1F2DB8E6D41331C933</string>
 				<string>18EFBD5E07C3BBAB364FFC62BE20F64E</string>
 				<string>44D69A869B5D710BA50889E0F50CD56D</string>
 				<string>8AA2195D345DD5CC9492EB6DA8D2DFEB</string>
@@ -5130,6 +5130,18 @@
 			<string>libextobjc</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4C604F4642596F1F2DB8E6D41331C933</key>
+		<dict>
+			<key>fileRef</key>
+			<string>AAC7F274E557668D14C773FC28A5E1D8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-w -Xanalyzer -analyzer-disable-all-checks -DRTS_MEDIA_PLAYER_VERSION=1.8.15 -w -Xanalyzer -analyzer-disable-all-checks</string>
+			</dict>
 		</dict>
 		<key>4C6C861A1E57B0B9434299F31E14191A</key>
 		<dict>
@@ -9318,18 +9330,6 @@
 			<string>PBXSourcesBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
-		</dict>
-		<key>88034A4A1F28451FCF4C460975647ED7</key>
-		<dict>
-			<key>fileRef</key>
-			<string>AAC7F274E557668D14C773FC28A5E1D8</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-w -Xanalyzer -analyzer-disable-all-checks -DRTS_MEDIA_PLAYER_VERSION=1.8.10 -w -Xanalyzer -analyzer-disable-all-checks</string>
-			</dict>
 		</dict>
 		<key>881F1A8BE1A1A5149848D589BD2F3845</key>
 		<dict>
