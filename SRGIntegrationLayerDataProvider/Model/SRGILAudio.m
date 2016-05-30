@@ -15,23 +15,41 @@
 
 - (NSURL *)defaultContentURL
 {
-    NSURL *URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLSDVR withQuality:SRGILPlaylistURLQualityMQ];
+    // HLS DVR
+    NSURL *URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLSDVR withQuality:SRGILPlaylistURLQualityHD];
+    
+    if (!URL) {
+        URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLSDVR withQuality:SRGILPlaylistURLQualityHQ];
+    }
+    
+    if (!URL) {
+        URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLSDVR withQuality:SRGILPlaylistURLQualityMQ];
+    }
+    
+    // HLS
+    if (!URL) {
+        URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityHD];
+    }
+    
+    if (!URL) {
+        URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityHQ];
+    }
     
     if (!URL) {
         URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityMQ];
     }
     
+    // HTTP
     if (!URL) {
-        URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTP withQuality:SRGILPlaylistURLQualityMQ];
+        URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTP withQuality:SRGILPlaylistURLQualityHD];
     }
     
-    // Up to that point, that is the logic used for SRF (that we want to keep). But RTS audios are provided in HQ buckets...
-    
-    if (!URL) {
-        URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityHQ];
-    }
     if (!URL) {
         URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTP withQuality:SRGILPlaylistURLQualityHQ];
+    }
+    
+    if (!URL) {
+        URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTP withQuality:SRGILPlaylistURLQualityMQ];
     }
     
     return URL;

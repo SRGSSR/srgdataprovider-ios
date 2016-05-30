@@ -32,26 +32,26 @@ PODS:
   - SRGAnalytics/MediaPlayer (1.4.17):
     - SRGAnalytics/Core
     - SRGMediaPlayer (~> 1.8.0)
-  - SRGIntegrationLayerDataProvider (4.4.0):
-    - SRGIntegrationLayerDataProvider/Core (= 4.4.0)
-  - SRGIntegrationLayerDataProvider/Core (4.4.0):
+  - SRGIntegrationLayerDataProvider (4.4.1):
+    - SRGIntegrationLayerDataProvider/Core (= 4.4.1)
+  - SRGIntegrationLayerDataProvider/Core (4.4.1):
     - CocoaLumberjack (~> 2.0.0)
     - libextobjc/EXTScope (= 0.4.1)
     - SGVReachability (~> 1.0.0)
-  - SRGIntegrationLayerDataProvider/MediaPlayer (4.4.0):
-    - SRGIntegrationLayerDataProvider/MediaPlayer/Core (= 4.4.0)
-  - SRGIntegrationLayerDataProvider/MediaPlayer/Analytics (4.4.0):
+  - SRGIntegrationLayerDataProvider/MediaPlayer (4.4.1):
+    - SRGIntegrationLayerDataProvider/MediaPlayer/Core (= 4.4.1)
+  - SRGIntegrationLayerDataProvider/MediaPlayer/Analytics (4.4.1):
     - SRGAnalytics (~> 1.4.16)
     - SRGAnalytics/MediaPlayer (~> 1.4.16)
     - SRGIntegrationLayerDataProvider/MediaPlayer/Core
-  - SRGIntegrationLayerDataProvider/MediaPlayer/Core (4.4.0):
+  - SRGIntegrationLayerDataProvider/MediaPlayer/Core (4.4.1):
     - SRGIntegrationLayerDataProvider/Core
     - SRGMediaPlayer (~> 1.8.0)
-  - SRGMediaPlayer (1.8.10):
+  - SRGMediaPlayer (1.8.15):
     - libextobjc/EXTScope (~> 0.4.1)
-    - SRGMediaPlayer/Version (= 1.8.10)
+    - SRGMediaPlayer/Version (= 1.8.15)
     - TransitionKit (~> 2.2.0)
-  - SRGMediaPlayer/Version (1.8.10):
+  - SRGMediaPlayer/Version (1.8.15):
     - libextobjc/EXTScope (~> 0.4.1)
     - TransitionKit (~> 2.2.0)
   - TransitionKit (2.2.1)
@@ -84,8 +84,8 @@ SPEC CHECKSUMS:
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
   SGVReachability: e83dea159d93f6b4c61cab38bc8099005501bb83
   SRGAnalytics: c877a008f1348507358231cb74c15511b37cc6d6
-  SRGIntegrationLayerDataProvider: 704836fbe4ae53fd4fb9bfd5a379dbb03138d1af
-  SRGMediaPlayer: 470cb3546c2985587d501dd2c9823fcc03ade885
+  SRGIntegrationLayerDataProvider: b76f0a60d538338baf3da755a56f52d84014d43c
+  SRGMediaPlayer: 6407bc2671ed29d667efb7be371ba64268a55f87
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
 
 COCOAPODS: 0.39.0
