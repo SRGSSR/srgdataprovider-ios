@@ -88,10 +88,10 @@ Then perform the request by providing those components to the data provider:
 
 ```
 #!objective-c
-    [dataProvider fetchObjectsListWithURLComponents:components
-                                          organised:<SRGILModelDataOrganisationTypeFlat or SRGILModelDataOrganisationTypeAlphabetical>
-                                         onProgress:<an optional progress block>
-                                       onCompletion:<a completion block>];
+[dataProvider fetchObjectsListWithURLComponents:components
+                                      organised:<SRGILModelDataOrganisationTypeFlat or SRGILModelDataOrganisationTypeAlphabetical>
+                                     onProgress:<an optional progress block>
+                                   onCompletion:<a completion block>];
 ```
 
 The completion block is called with an array of objects, usually `SRGILAudio`, `SRGILVideo` or `SRGILShow` instances.
@@ -100,22 +100,36 @@ When you have a media to play, request its complete metadata using its URN (uniq
 
 ```
 #!objective-c
-   SRGILURN *mediaURN = [SRGILURN URNWithString:<a media URN string>];
-   [dataProvider fetchMediaWithURN:mediaURN
-                   completionBlock:<a completion block>];
+SRGILURN *mediaURN = [SRGILURN URNWithString:<a media URN string>];
+[dataProvider fetchMediaWithURN:mediaURN
+                completionBlock:<a completion block>];
 ```
 
 The completion block is called with an `SRGILAudio`, `SRGILVideo` or a `SRGILShow` object, from which you can extract the information you need.
 
 ## Media player integration
 
-Playback of a media requires an authorization token. If you add the `SRGIntegrationLayerDataProvider/MediaPlayer` subspec to your `Podfile`, the token is transparently retrieved for you when playing a media using its identifier. No additional work is required.
+Playback of a media requires an authorization token. If you add the `SRGIntegrationLayerDataProvider/MediaPlayer` subspec to your `Podfile`, the token is transparently retrieved for you when playing a media using its identifier, provided you use the data provider above as data source of the media player:
+
+* If you use `RTSMediaPlayerController`:
+
+```
+#!objective-c
+RTSMediaPlayerController *mediaPlayerController = [[RTSMediaPlayerController alloc] initWithContentIdentifier:<a media URN string> dataSource:dataProvider]
+```
+
+* If you use `RTSMediaPlayerViewController`:
+
+```
+#!objective-c
+RTSMediaPlayerViewController *mediaPlayerViewController = [[RTSMediaPlayerViewController alloc] initWithContentIdentifier:<a media URN string> dataSource:dataProvider]
+```
 
 ### Analytics integration
 
-Moreover, if you want to send comScore and StreamSense analytics labels transparently when playing a media, simply add the `SRGIntegrationLayerDataProvider/MediaPlayer/Analytics` subspec to your `Podfile`. 
+If you want to send comScore and StreamSense analytics labels when playing a media with either `RTSMediaPlayerController` or `RTSMediaPlayerViewController`, add the `SRGIntegrationLayerDataProvider/MediaPlayer/Analytics` subspec to your `Podfile`. 
 
-You only need to start tracking for your data provider, as described in the [SRG Analytics library](https://bitbucket.org/rtsmb/srganalytics-ios) readme file:
+You must start tracking for your data provider, as described in the [SRG Analytics library](https://bitbucket.org/rtsmb/srganalytics-ios) readme file:
 
 ```
 #!objective-c
@@ -123,7 +137,7 @@ You only need to start tracking for your data provider, as described in the [SRG
                                                       mediaDataSource:dataProvider];
 ```
 
-The rest will be completely handled transparently for you.
+Be sure that media players have been associated with a data source as described above.
 
 ## License
 
