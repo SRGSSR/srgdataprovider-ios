@@ -1,1 +1,1 @@
-../../../../SRGIntegrationLayerDataProvider/SRGILDataProviderAnalyticsDataSource.h
+../../../../SRGIntegrationLayerDataProvider/Analytics/SRGILDataProviderAnalyticsDataSource.h
