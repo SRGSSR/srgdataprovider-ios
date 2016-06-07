@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		082672D11CCF9D3A00623707 /* SRGFetchPlayTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 082672D01CCF9D3A00623707 /* SRGFetchPlayTest.m */; };
 		088055DD1CC51B8C00FAFFC8 /* SRGILVideo2.m in Sources */ = {isa = PBXBuildFile; fileRef = 088055DC1CC51B8C00FAFFC8 /* SRGILVideo2.m */; };
+		102A8F352D61A8D7DB00B61A /* libPods-SRGIntegrationLayerDataProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A0085E983CEBED0ED90684 /* libPods-SRGIntegrationLayerDataProvider.a */; };
+		2F0B66EBBE0AC4139F7BDFB5 /* libPods-SRGIntegrationLayerDataProviderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5EADCF86BC64D7EEF071EC1 /* libPods-SRGIntegrationLayerDataProviderTests.a */; };
 		6643BD401B6B6C7100C32830 /* SRGILSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6643BD3F1B6B6C7100C32830 /* SRGILSearchResult.m */; };
 		9F13D5391AE9270700E4D897 /* SRGILComScoreAnalyticsInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5001AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.m */; };
 		9F13D53A1AE9270700E4D897 /* SRGILStreamSenseAnalyticsInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D5021AE9270600E4D897 /* SRGILStreamSenseAnalyticsInfos.m */; };
@@ -77,8 +79,6 @@
 		9FF55F9A1B4B0F5900A99DA2 /* SRGILDataProviderConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF55F991B4B0F5900A99DA2 /* SRGILDataProviderConstants.m */; };
 		9FFDA47F1B8C769200EEF7DA /* SRGILDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDA47E1B8C769200EEF7DA /* SRGILDownload.m */; };
 		9FFDA4811B8C946F00EEF7DA /* video_download_srf_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 9FFDA4801B8C8ABC00EEF7DA /* video_download_srf_01.json */; };
-		AC01AA295800C7CDE4E23876 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F6EBD656367387D07A08A6 /* libPods.a */; };
-		C2E8B26471460B332CD298C5 /* libPods-SRGIntegrationLayerDataProviderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */; };
 		E604EAFC1B174254004A627D /* SRGILOngoingRequest+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */; };
 		E606D81D1C74511E003634AA /* UIColor+SRGILDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E606D81C1C74511E003634AA /* UIColor+SRGILDataProvider.m */; };
 		E6489ECC1CC91E64004914D9 /* SRGILRelatedContent.m in Sources */ = {isa = PBXBuildFile; fileRef = E6489ECB1CC91E64004914D9 /* SRGILRelatedContent.m */; };
@@ -113,15 +113,11 @@
 		082672D01CCF9D3A00623707 /* SRGFetchPlayTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGFetchPlayTest.m; sourceTree = "<group>"; };
 		088055DB1CC51B8C00FAFFC8 /* SRGILVideo2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILVideo2.h; sourceTree = "<group>"; };
 		088055DC1CC51B8C00FAFFC8 /* SRGILVideo2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILVideo2.m; sourceTree = "<group>"; };
-		440E25A6651384A0E61A662D /* Pods.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.test.xcconfig; path = "Pods/Target Support Files/Pods/Pods.test.xcconfig"; sourceTree = "<group>"; };
+		313824E6377EDACD1665E124 /* Pods-SRGIntegrationLayerDataProvider.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider.release.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider/Pods-SRGIntegrationLayerDataProvider.release.xcconfig"; sourceTree = "<group>"; };
 		6643BD3E1B6B6C7100C32830 /* SRGILSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILSearchResult.h; sourceTree = "<group>"; };
 		6643BD3F1B6B6C7100C32830 /* SRGILSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILSearchResult.m; sourceTree = "<group>"; };
 		6643BD421B6B6CEB00C32830 /* searchResult01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchResult01.json; sourceTree = "<group>"; };
-		79F6EBD656367387D07A08A6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B6FF59926E98E782269D426 /* Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProviderTests/Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig"; sourceTree = "<group>"; };
-		83089866E34A141E885FA2E9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		89BB786265D118894389B3BF /* Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProviderTests/Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig"; sourceTree = "<group>"; };
-		8CD0B5BFD54E1B38AC5F277D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		6948515A7B77DEBFE581A5D6 /* Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProviderTests/Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9F13D4FC1AE9238100E4D897 /* SRGIntegrationLayerDataProvider.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SRGIntegrationLayerDataProvider.podspec; sourceTree = "<group>"; };
 		9F13D4FF1AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGILComScoreAnalyticsInfos.h; path = ../Analytics/SRGILComScoreAnalyticsInfos.h; sourceTree = "<group>"; };
 		9F13D5001AE9270600E4D897 /* SRGILComScoreAnalyticsInfos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRGILComScoreAnalyticsInfos.m; path = ../Analytics/SRGILComScoreAnalyticsInfos.m; sourceTree = "<group>"; };
@@ -236,7 +232,9 @@
 		9FFDA47D1B8C769200EEF7DA /* SRGILDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILDownload.h; sourceTree = "<group>"; };
 		9FFDA47E1B8C769200EEF7DA /* SRGILDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILDownload.m; sourceTree = "<group>"; };
 		9FFDA4801B8C8ABC00EEF7DA /* video_download_srf_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = video_download_srf_01.json; sourceTree = "<group>"; };
-		A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProviderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD09C813617B144F612F95B0 /* Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProviderTests/Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig"; sourceTree = "<group>"; };
+		C0A0085E983CEBED0ED90684 /* libPods-SRGIntegrationLayerDataProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProvider.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5EADCF86BC64D7EEF071EC1 /* libPods-SRGIntegrationLayerDataProviderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProviderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E604EAFA1B174254004A627D /* SRGILOngoingRequest+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGILOngoingRequest+Private.h"; sourceTree = "<group>"; };
 		E604EAFB1B174254004A627D /* SRGILOngoingRequest+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGILOngoingRequest+Private.m"; sourceTree = "<group>"; };
 		E606D81B1C74511E003634AA /* UIColor+SRGILDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+SRGILDataProvider.h"; path = "SRGIntegrationLayerDataProvider/Core/UIColor+SRGILDataProvider.h"; sourceTree = "<group>"; };
@@ -252,18 +250,24 @@
 		E6F8FF3D1CC6691200EC0793 /* SRGILAnalyticsInfosProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGILAnalyticsInfosProtocol.h; path = SRGIntegrationLayerDataProvider/Analytics/SRGILAnalyticsInfosProtocol.h; sourceTree = SOURCE_ROOT; };
 		E6F8FF401CC6712F00EC0793 /* SRGILAnalyticsExtendedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGILAnalyticsExtendedData.h; sourceTree = "<group>"; };
 		E6F8FF411CC6712F00EC0793 /* SRGILAnalyticsExtendedData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGILAnalyticsExtendedData.m; sourceTree = "<group>"; };
-		F4A90E42A0F98F5CE90DBD45 /* Pods-SRGIntegrationLayerDataProviderTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProviderTests.test.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProviderTests/Pods-SRGIntegrationLayerDataProviderTests.test.xcconfig"; sourceTree = "<group>"; };
-		F5D020938ACBE926372DE924 /* libPods-SRGIntegrationLayerDataProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SRGIntegrationLayerDataProvider.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8858A1553031D062B8F4708 /* Pods-SRGIntegrationLayerDataProvider.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRGIntegrationLayerDataProvider.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider/Pods-SRGIntegrationLayerDataProvider.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7AFEF2602F99B1E621D24E44 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9F1519321AC5A7F200AE051D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				9F3C1CC21ADC0B26007C54AD /* MobileCoreServices.framework in Frameworks */,
 				9F3C1CC01ADC0B02007C54AD /* SystemConfiguration.framework in Frameworks */,
-				AC01AA295800C7CDE4E23876 /* libPods.a in Frameworks */,
+				102A8F352D61A8D7DB00B61A /* libPods-SRGIntegrationLayerDataProvider.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,22 +277,20 @@
 			files = (
 				9F3C1CC41ADC0B50007C54AD /* MobileCoreServices.framework in Frameworks */,
 				9F3C1CC31ADC0B4A007C54AD /* SystemConfiguration.framework in Frameworks */,
-				C2E8B26471460B332CD298C5 /* libPods-SRGIntegrationLayerDataProviderTests.a in Frameworks */,
+				2F0B66EBBE0AC4139F7BDFB5 /* libPods-SRGIntegrationLayerDataProviderTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		77070573698EDF5E66AA0B19 /* Pods */ = {
+		42E841B074E70EC63577B156 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8CD0B5BFD54E1B38AC5F277D /* Pods.debug.xcconfig */,
-				440E25A6651384A0E61A662D /* Pods.test.xcconfig */,
-				83089866E34A141E885FA2E9 /* Pods.release.xcconfig */,
-				7B6FF59926E98E782269D426 /* Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig */,
-				F4A90E42A0F98F5CE90DBD45 /* Pods-SRGIntegrationLayerDataProviderTests.test.xcconfig */,
-				89BB786265D118894389B3BF /* Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig */,
+				F8858A1553031D062B8F4708 /* Pods-SRGIntegrationLayerDataProvider.debug.xcconfig */,
+				313824E6377EDACD1665E124 /* Pods-SRGIntegrationLayerDataProvider.release.xcconfig */,
+				6948515A7B77DEBFE581A5D6 /* Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig */,
+				AD09C813617B144F612F95B0 /* Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -404,8 +406,8 @@
 				9FDA13C51BD518210073722D /* Resources */,
 				9F1519441AC5A7F200AE051D /* Unit Tests */,
 				9F1519361AC5A7F200AE051D /* Products */,
-				77070573698EDF5E66AA0B19 /* Pods */,
 				C234D6DD835E193A87DED721 /* Frameworks */,
+				42E841B074E70EC63577B156 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -530,9 +532,8 @@
 			children = (
 				9F3C1CC11ADC0B26007C54AD /* MobileCoreServices.framework */,
 				9F3C1CBF1ADC0B02007C54AD /* SystemConfiguration.framework */,
-				79F6EBD656367387D07A08A6 /* libPods.a */,
-				F5D020938ACBE926372DE924 /* libPods-SRGIntegrationLayerDataProvider.a */,
-				A075BD33C45843A59785A80D /* libPods-SRGIntegrationLayerDataProviderTests.a */,
+				C0A0085E983CEBED0ED90684 /* libPods-SRGIntegrationLayerDataProvider.a */,
+				E5EADCF86BC64D7EEF071EC1 /* libPods-SRGIntegrationLayerDataProviderTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -558,11 +559,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9F1519491AC5A7F200AE051D /* Build configuration list for PBXNativeTarget "SRGIntegrationLayerDataProvider" */;
 			buildPhases = (
-				B07018D5379C0A3A8120C0C9 /* Check Pods Manifest.lock */,
+				951AC68108A617AF919041B6 /* [CP] Check Pods Manifest.lock */,
 				9F1519311AC5A7F200AE051D /* Sources */,
 				9F1519321AC5A7F200AE051D /* Frameworks */,
 				9F1519331AC5A7F200AE051D /* CopyFiles */,
-				8C5B864E76EF03A80796708F /* Copy Pods Resources */,
+				F0D7FACD7072681CA7D7B47F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -578,12 +579,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9F15194C1AC5A7F200AE051D /* Build configuration list for PBXNativeTarget "SRGIntegrationLayerDataProviderTests" */;
 			buildPhases = (
-				67C9297B7548F32E3C01D630 /* Check Pods Manifest.lock */,
+				205739D37E64E3BBA8358B02 /* [CP] Check Pods Manifest.lock */,
 				9F15193C1AC5A7F200AE051D /* Sources */,
 				9F15193D1AC5A7F200AE051D /* Frameworks */,
 				9F15193E1AC5A7F200AE051D /* Resources */,
-				14E69FFD86316EEFC3FDC14C /* Copy Pods Resources */,
-				9CC8DD142CB91381CC654209 /* Embed Pods Frameworks */,
+				738F89C8B0CF32817EDF22B5 /* [CP] Embed Pods Frameworks */,
+				39E049F4A9FAE568199BC474 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -599,6 +600,7 @@
 			buildConfigurationList = 9FDA13CD1BD519920073722D /* Build configuration list for PBXNativeTarget "SRGILDataProvider Resources" */;
 			buildPhases = (
 				9FDA13C81BD519920073722D /* Resources */,
+				7AFEF2602F99B1E621D24E44 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -692,14 +694,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		14E69FFD86316EEFC3FDC14C /* Copy Pods Resources */ = {
+		205739D37E64E3BBA8358B02 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		39E049F4A9FAE568199BC474 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -707,44 +724,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SRGIntegrationLayerDataProviderTests/Pods-SRGIntegrationLayerDataProviderTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		67C9297B7548F32E3C01D630 /* Check Pods Manifest.lock */ = {
+		738F89C8B0CF32817EDF22B5 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		8C5B864E76EF03A80796708F /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9CC8DD142CB91381CC654209 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -752,19 +739,34 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SRGIntegrationLayerDataProviderTests/Pods-SRGIntegrationLayerDataProviderTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B07018D5379C0A3A8120C0C9 /* Check Pods Manifest.lock */ = {
+		951AC68108A617AF919041B6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F0D7FACD7072681CA7D7B47F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SRGIntegrationLayerDataProvider/Pods-SRGIntegrationLayerDataProvider-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -939,7 +941,7 @@
 		};
 		9F15194A1AC5A7F200AE051D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8CD0B5BFD54E1B38AC5F277D /* Pods.debug.xcconfig */;
+			baseConfigurationReference = F8858A1553031D062B8F4708 /* Pods-SRGIntegrationLayerDataProvider.debug.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -948,7 +950,7 @@
 		};
 		9F15194B1AC5A7F200AE051D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 83089866E34A141E885FA2E9 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 313824E6377EDACD1665E124 /* Pods-SRGIntegrationLayerDataProvider.release.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -957,7 +959,7 @@
 		};
 		9F15194D1AC5A7F200AE051D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B6FF59926E98E782269D426 /* Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig */;
+			baseConfigurationReference = 6948515A7B77DEBFE581A5D6 /* Pods-SRGIntegrationLayerDataProviderTests.debug.xcconfig */;
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -972,7 +974,7 @@
 		};
 		9F15194E1AC5A7F200AE051D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89BB786265D118894389B3BF /* Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig */;
+			baseConfigurationReference = AD09C813617B144F612F95B0 /* Pods-SRGIntegrationLayerDataProviderTests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = SRGIntegrationLayerDataProviderTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

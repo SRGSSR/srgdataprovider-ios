@@ -35,8 +35,6 @@ DESC
   end
 
   s.subspec 'MediaPlayer' do |mp|
-    mp.default_subspec = 'Core'
-
     mp.subspec 'Core' do |co|
       co.source_files         = "SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h", "SRGIntegrationLayerDataProvider/MediaPlayer/*.{h,m}"
       co.frameworks           = "Foundation", "UIKit"
