@@ -111,14 +111,14 @@ The completion block is called with an `SRGILAudio`, `SRGILVideo` or a `SRGILSho
 
 Playback of a media requires an authorization token. If you add the `SRGIntegrationLayerDataProvider/MediaPlayer` subspec to your `Podfile`, the token is transparently retrieved for you when playing a media using its identifier, provided you use the data provider above as data source of the media player:
 
-* If you use `RTSMediaPlayerController`:
+* If you use `RTSMediaPlayerController`, assign your data provider to its `dataSource` property. Alternatively, you can provide the data source at creation time:
 
 ```
 #!objective-c
 RTSMediaPlayerController *mediaPlayerController = [[RTSMediaPlayerController alloc] initWithContentIdentifier:<a media URN string> dataSource:dataProvider]
 ```
 
-* If you use `RTSMediaPlayerViewController`:
+* If you use `RTSMediaPlayerViewController`, provide the data source at creation time:
 
 ```
 #!objective-c
