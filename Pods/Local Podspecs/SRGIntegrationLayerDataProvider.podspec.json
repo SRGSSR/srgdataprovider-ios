@@ -57,10 +57,7 @@
       "subspecs": [
         {
           "name": "Core",
-          "source_files": [
-            "SRGIntegrationLayerDataProvider/SRGILDataProviderMediaPlayerDataSource.h",
-            "SRGIntegrationLayerDataProvider/MediaPlayer/*.{h,m}"
-          ],
+          "source_files": "SRGIntegrationLayerDataProvider/MediaPlayer/*.{h,m}",
           "frameworks": [
             "Foundation",
             "UIKit"
@@ -76,10 +73,7 @@
         },
         {
           "name": "Analytics",
-          "source_files": [
-            "SRGIntegrationLayerDataProvider/SRGILDataProviderAnalyticsDataSource.h",
-            "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}"
-          ],
+          "source_files": "SRGIntegrationLayerDataProvider/Analytics/*.{h,m}",
           "frameworks": [
             "Foundation",
             "UIKit"
