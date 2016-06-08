@@ -24,6 +24,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (self) {
         _title = [dictionary objectForKey:@"title"];
         
+        NSMutableArray *medias = [NSMutableArray array];
+        NSMutableArray *otherChildren = [NSMutableArray array];
+        
         [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             Class itemClass = NSClassFromString([@"SRGIL" stringByAppendingString:key]);
             
@@ -45,11 +48,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                     }];
                     
                     if (tmpSegments.count > 0) {
-                        _medias = [tmpSegments sortedArrayUsingSelector:@selector(compareMarkInTimes:)];
+                        [medias addObjectsFromArray:[tmpSegments sortedArrayUsingSelector:@selector(compareMarkInTimes:)]];
                     }
 
                     if (tmpChildren.count > 0) {
-                        _otherChildren = [tmpChildren copy];
+                        [otherChildren addObjectsFromArray:tmpChildren];
                     }
                 }
                 else {
@@ -60,6 +63,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 DDLogError(@"Unknown class %@ found inside asset. Ignored.", key);
             }
         }];
+        
+        _medias = [medias copy];
+        _otherChildren = [otherChildren copy];
     }
     return self;
 }
