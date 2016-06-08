@@ -17,10 +17,6 @@
         _contentReceptionDate = [NSDate date];
         _title = [dictionary[@"title"] length] ? dictionary[@"title"] : nil;
         _subtitle = [dictionary[@"subTitle"] length] ? dictionary[@"subTitle"] : nil;
-        #if DEBUG_LIVE_HEADER_DATA
-        _title = @"now and next title. This may take more than one line to be displayed, probably two, maybe more, let's see";
-        _subtitle = @"now and next subtitle. This may take more than one line to be displayed, probably two, maybe more, let's see";
-        #endif
         _programEpisodeURI = dictionary[@"programmEpisodeUri"];
         
         static NSDateFormatter *dateFormatter;
@@ -30,6 +26,7 @@
             [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
         });        
         _startTime = [dateFormatter dateFromString:dictionary[@"startTime"]];
+        _endTime = [dateFormatter dateFromString:dictionary[@"endTime"]];
         
         SRGILImage *image = [[SRGILImage alloc] initWithDictionary:dictionary[@"Image"]];
         _imageURL = [[image imageRepresentationForUsage:SRGILMediaImageUsageWeb] URL];
