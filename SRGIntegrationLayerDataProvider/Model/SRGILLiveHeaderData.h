@@ -10,6 +10,7 @@
 @interface SRGILLiveHeaderData : SRGILModelObject
 
 @property(nonatomic, strong) NSDate *startTime;
+@property(nonatomic, strong) NSDate *endTime;
 @property(nonatomic, strong) NSString *title;
 @property(nonatomic, strong) NSString *subtitle;
 @property(nonatomic, strong) NSString *programEpisodeURI;
