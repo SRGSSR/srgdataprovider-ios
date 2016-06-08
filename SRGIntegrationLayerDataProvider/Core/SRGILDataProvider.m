@@ -193,7 +193,6 @@ static NSArray *validBusinessUnits = nil;
     }
     else // suppose API version 1.0
     {
-        
         // As for now, we will only extract items from a dictionary that has a single key/value pair.
         if ([[rawDictionary allKeys] count] != 1) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -310,136 +309,135 @@ static NSArray *validBusinessUnits = nil;
     }
     else
     {
-    
-    NSMutableArray *items = [[NSMutableArray alloc] init];
-    [dictionaries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        id modelObject = [[modelClass alloc] initWithDictionary:obj];
-        if (modelObject) {
-            [items addObject:modelObject];
-            
-            if ([modelObject isKindOfClass:[SRGILMedia class]]) {
-                NSString *urnString = [(SRGILMedia *)modelObject urnString];
-                _identifiedMedias[urnString] = modelObject;
-            }
-            else if ([modelObject isKindOfClass:[SRGILAssetSet class]]) {
-                for (SRGILAsset *asset in [(SRGILAssetSet *)modelObject assets]) {
-                    SRGILMedia *media = asset.fullLengthMedia;
-                    if (media.urnString) {
-                        _identifiedMedias[media.urnString] = media;
+        NSMutableArray *items = [[NSMutableArray alloc] init];
+        [dictionaries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            id modelObject = [[modelClass alloc] initWithDictionary:obj];
+            if (modelObject) {
+                [items addObject:modelObject];
+                
+                if ([modelObject isKindOfClass:[SRGILMedia class]]) {
+                    NSString *urnString = [(SRGILMedia *)modelObject urnString];
+                    _identifiedMedias[urnString] = modelObject;
+                }
+                else if ([modelObject isKindOfClass:[SRGILAssetSet class]]) {
+                    for (SRGILAsset *asset in [(SRGILAssetSet *)modelObject assets]) {
+                        SRGILMedia *media = asset.fullLengthMedia;
+                        if (media.urnString) {
+                            _identifiedMedias[media.urnString] = media;
+                        }
                     }
                 }
+                else if ([modelObject isKindOfClass:[SRGILShow class]]) {
+                    NSString *identifier = [(SRGILShow *)modelObject identifier];
+                    _identifiedShows[identifier] = modelObject;
+                }
+                // FIXME: This does not deal with the new SRGILSearchResult possible model object class yet. In particular,
+                //        should those be cached as well in some _identifiedSearchResults dictionary?
             }
-            else if ([modelObject isKindOfClass:[SRGILShow class]]) {
-                NSString *identifier = [(SRGILShow *)modelObject identifier];
-                _identifiedShows[identifier] = modelObject;
-            }
-            // FIXME: This does not deal with the new SRGILSearchResult possible model object class yet. In particular,
-            //        should those be cached as well in some _identifiedSearchResults dictionary?
-        }
-    }];
-    
-    if ([dictionaries count] == 1 || modelClass == [SRGILAssetSet class] || modelClass == [SRGILAudio class]) {
-        SRGILList *itemsList = [[SRGILList alloc] initWithArray:items];
-        itemsList.globalProperties = properties;
-        itemsList.URLComponents = components;
-        return @[itemsList];
-    }
-    else if (modelClass == [SRGILVideo class]) {
-        NSArray *orderPositions = [items valueForKeyPath:@"@distinctUnionOfObjects.orderPosition"];
-        if (orderPositions.count == items.count) {
-            NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"orderPosition" ascending:YES];
-            items = [[items sortedArrayUsingDescriptors:@[desc]] mutableCopy];
-        }
-        SRGILList *itemsList = [[SRGILList alloc] initWithArray:items];
-        itemsList.globalProperties = properties;
-        itemsList.URLComponents = components;
-        return @[itemsList];
-    }
-    else if (modelClass == [SRGILShow class]) {
-        if (orgType == SRGILModelDataOrganisationTypeAlphabetical) {
-            // In order to produce sections in the collection view, we split the list of Shows according to their
-            // alphabetical order. Hence numbers and letters become the new section tags that will then be used used
-            // to build the collection view headers.
-            
-            NSComparator comparator = ^NSComparisonResult(id obj1, id obj2) {
-                return [(NSString *)obj1 compare:(NSString *)obj2
-                                         options:NSCaseInsensitiveSearch
-                                           range:NSMakeRange(0, ((NSString *)obj1).length)
-                                          locale:[NSLocale currentLocale]];
-            };
-            
-            NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES comparator:comparator];
-            NSArray *sortedShows = [items sortedArrayUsingDescriptors:@[desc]];
-            NSArray *letterCharacterSet = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M",
-                                            @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
-            
-            NSMutableDictionary *showsGroups = [NSMutableDictionary dictionary];
-            
-            [sortedShows enumerateObjectsUsingBlock:^(SRGILShow *show, NSUInteger idx, BOOL *stop) {
-                // Extract the first letter
-                NSMutableString *firstLetter = [[[show.title substringToIndex:1] uppercaseString] mutableCopy];
-                if (!firstLetter) {
-                    return;
-                }
-                
-                // Remove accents / diacritics
-                CFStringTransform((__bridge CFMutableStringRef)firstLetter, NULL, kCFStringTransformStripCombiningMarks, NO);
-                
-                // Put non alphanumeric characters in a common # section
-                unichar firstChar = [firstLetter characterAtIndex:0];
-                NSString *firstCharKey = [NSString stringWithCharacters:&firstChar length:1];
-                if (![letterCharacterSet containsObject:firstCharKey]) {
-                    firstCharKey = @"#";
-                }
-                
-                NSMutableArray *showsForLetter = showsGroups[firstCharKey];
-                if (!showsForLetter) {
-                    showsForLetter = [NSMutableArray array];
-                    showsGroups[firstCharKey] = showsForLetter;
-                }
-                [showsForLetter addObject:show];
-            }];
-            
-            NSMutableArray *splittedShows = [NSMutableArray array];
-            NSArray *sortedShowsGroupsKeys = [[showsGroups allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-            
-            
-            [sortedShowsGroupsKeys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
-                NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES comparator:^NSComparisonResult(NSString *title1, NSString *title2) {
-                    return [title1 localizedCaseInsensitiveCompare:title2];
-                }];
-                NSArray *sortedShows = [showsGroups[key] sortedArrayUsingDescriptors:@[sortDescriptor]];
-                
-                NSMutableDictionary *extendedProperties = [properties mutableCopy];
-                extendedProperties[@"tag"] = key;
-                
-                SRGILList *items = [[SRGILList alloc] initWithArray:sortedShows];
-                items.globalProperties = [extendedProperties copy];
-                items.URLComponents = components;
-                
-                [splittedShows addObject:items];
-            }];
-            
-            return [NSArray arrayWithArray:splittedShows];
-        }
-        else {
+        }];
+        
+        if ([dictionaries count] == 1 || modelClass == [SRGILAssetSet class] || modelClass == [SRGILAudio class]) {
             SRGILList *itemsList = [[SRGILList alloc] initWithArray:items];
             itemsList.globalProperties = properties;
             itemsList.URLComponents = components;
             return @[itemsList];
         }
-    }
-    else if (modelClass == SRGILSearchResult.class || modelClass == SRGILTopic.class || modelClass == SRGILSonglog.class || modelClass == SRGILEventConfig.class) {
-        // Did not include in first case, because we'll have to deal with different type of search results (video, audio, shows).
-        // We only process videos at the moment
-        SRGILList *itemsList = [[SRGILList alloc] initWithArray:items];
-        itemsList.globalProperties = properties;
-        itemsList.URLComponents = components;
-        return @[itemsList];
-    }
-    else {
-        return nil;
-    }
+        else if (modelClass == [SRGILVideo class]) {
+            NSArray *orderPositions = [items valueForKeyPath:@"@distinctUnionOfObjects.orderPosition"];
+            if (orderPositions.count == items.count) {
+                NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"orderPosition" ascending:YES];
+                items = [[items sortedArrayUsingDescriptors:@[desc]] mutableCopy];
+            }
+            SRGILList *itemsList = [[SRGILList alloc] initWithArray:items];
+            itemsList.globalProperties = properties;
+            itemsList.URLComponents = components;
+            return @[itemsList];
+        }
+        else if (modelClass == [SRGILShow class]) {
+            if (orgType == SRGILModelDataOrganisationTypeAlphabetical) {
+                // In order to produce sections in the collection view, we split the list of Shows according to their
+                // alphabetical order. Hence numbers and letters become the new section tags that will then be used used
+                // to build the collection view headers.
+                
+                NSComparator comparator = ^NSComparisonResult(id obj1, id obj2) {
+                    return [(NSString *)obj1 compare:(NSString *)obj2
+                                             options:NSCaseInsensitiveSearch
+                                               range:NSMakeRange(0, ((NSString *)obj1).length)
+                                              locale:[NSLocale currentLocale]];
+                };
+                
+                NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES comparator:comparator];
+                NSArray *sortedShows = [items sortedArrayUsingDescriptors:@[desc]];
+                NSArray *letterCharacterSet = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M",
+                                                @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
+                
+                NSMutableDictionary *showsGroups = [NSMutableDictionary dictionary];
+                
+                [sortedShows enumerateObjectsUsingBlock:^(SRGILShow *show, NSUInteger idx, BOOL *stop) {
+                    // Extract the first letter
+                    NSMutableString *firstLetter = [[[show.title substringToIndex:1] uppercaseString] mutableCopy];
+                    if (!firstLetter) {
+                        return;
+                    }
+                    
+                    // Remove accents / diacritics
+                    CFStringTransform((__bridge CFMutableStringRef)firstLetter, NULL, kCFStringTransformStripCombiningMarks, NO);
+                    
+                    // Put non alphanumeric characters in a common # section
+                    unichar firstChar = [firstLetter characterAtIndex:0];
+                    NSString *firstCharKey = [NSString stringWithCharacters:&firstChar length:1];
+                    if (![letterCharacterSet containsObject:firstCharKey]) {
+                        firstCharKey = @"#";
+                    }
+                    
+                    NSMutableArray *showsForLetter = showsGroups[firstCharKey];
+                    if (!showsForLetter) {
+                        showsForLetter = [NSMutableArray array];
+                        showsGroups[firstCharKey] = showsForLetter;
+                    }
+                    [showsForLetter addObject:show];
+                }];
+                
+                NSMutableArray *splittedShows = [NSMutableArray array];
+                NSArray *sortedShowsGroupsKeys = [[showsGroups allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+                
+                
+                [sortedShowsGroupsKeys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
+                    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES comparator:^NSComparisonResult(NSString *title1, NSString *title2) {
+                        return [title1 localizedCaseInsensitiveCompare:title2];
+                    }];
+                    NSArray *sortedShows = [showsGroups[key] sortedArrayUsingDescriptors:@[sortDescriptor]];
+                    
+                    NSMutableDictionary *extendedProperties = [properties mutableCopy];
+                    extendedProperties[@"tag"] = key;
+                    
+                    SRGILList *items = [[SRGILList alloc] initWithArray:sortedShows];
+                    items.globalProperties = [extendedProperties copy];
+                    items.URLComponents = components;
+                    
+                    [splittedShows addObject:items];
+                }];
+                
+                return [NSArray arrayWithArray:splittedShows];
+            }
+            else {
+                SRGILList *itemsList = [[SRGILList alloc] initWithArray:items];
+                itemsList.globalProperties = properties;
+                itemsList.URLComponents = components;
+                return @[itemsList];
+            }
+        }
+        else if (modelClass == SRGILSearchResult.class || modelClass == SRGILTopic.class || modelClass == SRGILSonglog.class || modelClass == SRGILEventConfig.class) {
+            // Did not include in first case, because we'll have to deal with different type of search results (video, audio, shows).
+            // We only process videos at the moment
+            SRGILList *itemsList = [[SRGILList alloc] initWithArray:items];
+            itemsList.globalProperties = properties;
+            itemsList.URLComponents = components;
+            return @[itemsList];
+        }
+        else {
+            return nil;
+        }
     }
 }
 
