@@ -16,7 +16,7 @@
 #import "RTSMediaPlayerView.h"
 #import "RTSPeriodicTimeObserver.h"
 #import "RTSActivityGestureRecognizer.h"
-#import "RTSMediaPlayerLogger.h"
+#import "RTSMediaPlayerLogger+Private.h"
 
 static const void * const RTSMediaPlayerPictureInPicturePossibleContext = &RTSMediaPlayerPictureInPicturePossibleContext;
 static const void * const RTSMediaPlayerPictureInPictureActiveContext = &RTSMediaPlayerPictureInPictureActiveContext;
@@ -840,9 +840,9 @@ static const void * const AVPlayerItemBufferEmptyContext = &AVPlayerItemBufferEm
                 if (self.playScheduled) {
                     self.playScheduled = NO;
                     [self fireEvent:self.playEvent userInfo:nil];
+					[self play];
                 }
-                
-				if (![self.stateMachine.currentState isEqual:self.playingState] && self.startTimeValue) {
+				else if (![self.stateMachine.currentState isEqual:self.playingState] && self.startTimeValue) {
 					if (CMTIME_COMPARE_INLINE([self.startTimeValue CMTimeValue], ==, kCMTimeZero) || CMTIME_IS_INVALID([self.startTimeValue CMTimeValue])) {
 						[self play];
 					}
