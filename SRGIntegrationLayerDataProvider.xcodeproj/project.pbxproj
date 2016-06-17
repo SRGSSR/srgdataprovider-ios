@@ -83,6 +83,7 @@
 		E606D81D1C74511E003634AA /* UIColor+SRGILDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E606D81C1C74511E003634AA /* UIColor+SRGILDataProvider.m */; };
 		E6489ECC1CC91E64004914D9 /* SRGILRelatedContent.m in Sources */ = {isa = PBXBuildFile; fileRef = E6489ECB1CC91E64004914D9 /* SRGILRelatedContent.m */; };
 		E67427211C73532400C15F94 /* SRGILEventConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E67427201C73532400C15F94 /* SRGILEventConfig.m */; };
+		E68013AA1D13CA0100FCAF22 /* SRGILDataProvider.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9FDA13CA1BD519920073722D /* SRGILDataProvider.bundle */; };
 		E68E95E31B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E68E95E21B15A21E00EBEA81 /* SRGILMedia+MediaPlayer.m */; };
 		E6F8FF421CC6712F00EC0793 /* SRGILAnalyticsExtendedData.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F8FF411CC6712F00EC0793 /* SRGILAnalyticsExtendedData.m */; };
 /* End PBXBuildFile section */
@@ -673,6 +674,7 @@
 				9FFDA4811B8C946F00EEF7DA /* video_download_srf_01.json in Resources */,
 				9F1A5B411ACD691700C0E528 /* video_01.json in Resources */,
 				9F1A5B3A1ACD691700C0E528 /* LiveStreams_RTS_reversed.json in Resources */,
+				E68013AA1D13CA0100FCAF22 /* SRGILDataProvider.bundle in Resources */,
 				9F1A5B341ACD691700C0E528 /* assetset_01.json in Resources */,
 				9F1A5B361ACD691700C0E528 /* imagerepresentation_01.json in Resources */,
 				9F1A5B3C1ACD691700C0E528 /* most_viewed_videos_01.json in Resources */,
