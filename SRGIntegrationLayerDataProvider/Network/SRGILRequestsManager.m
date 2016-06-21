@@ -5,7 +5,7 @@
 //
 
 #import <SystemConfiguration/CaptiveNetwork.h>
-#import <SGVReachability/SGVReachability.h>
+#import <FXReachability/FXReachability.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <libextobjc/EXTScope.h>
 
@@ -36,20 +36,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 @implementation SRGILRequestsManager
 
 @synthesize baseURL = _baseURL;
-
-static SGVReachability *reachability;
-
-+ (void)initialize
-{
-    if (self != [SRGILRequestsManager class]) {
-        return;
-    }
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        reachability = [SGVReachability mainQueueReachability];
-    });
-}
 
 - (id)initWithBusinessUnit:(NSString *)businessUnit
 {
@@ -425,12 +411,13 @@ static SGVReachability *reachability;
 
 + (BOOL)isUsingWIFI
 {
-    return [reachability isReachableViaWiFi];
+    return [FXReachability sharedInstance].status == FXReachabilityStatusReachableViaWiFi;
 }
 
 + (BOOL)isOnline
 {
-    return [reachability isReachable];
+    return [FXReachability sharedInstance].status == FXReachabilityStatusReachableViaWiFi
+        || [FXReachability sharedInstance].status == FXReachabilityStatusReachableViaWWAN;
 }
 
 + (NSString *)WIFISSID

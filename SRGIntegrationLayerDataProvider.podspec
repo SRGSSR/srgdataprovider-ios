@@ -30,7 +30,7 @@ DESC
     co.private_header_files = "SRGIntegrationLayerDataProvider/**/*+Private.h"
     co.frameworks           = "Foundation", "UIKit"
     co.dependency             "CocoaLumberjack",  "~> 2.0.0"
-    co.dependency             "SGVReachability", "~> 1.0.0"
+    co.dependency             "FXReachability", "~> 1.0.0"
     co.dependency             "libextobjc/EXTScope", "0.4.1"
   end
 

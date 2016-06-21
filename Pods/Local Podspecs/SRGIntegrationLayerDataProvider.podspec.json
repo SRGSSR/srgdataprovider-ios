@@ -44,7 +44,7 @@
         "CocoaLumberjack": [
           "~> 2.0.0"
         ],
-        "SGVReachability": [
+        "FXReachability": [
           "~> 1.0.0"
         ],
         "libextobjc/EXTScope": [
