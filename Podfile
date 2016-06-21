@@ -20,6 +20,7 @@ target 'SRGIntegrationLayerDataProvider' do
     # Target-specific dependencies
     pod 'OCMock', '3.1.2'
     pod 'SRGIntegrationLayerDataProvider/Core', :path => '.'
+    pod 'SRGIntegrationLayerDataProvider/MediaPlayer', :path => '.'
   end
 
   xcodeproj 'SRGIntegrationLayerDataProvider.xcodeproj'

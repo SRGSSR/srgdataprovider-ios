@@ -206,7 +206,7 @@
 		<key>ns_st_bt</key>
 		<string>6789</string>
 		<key>ns_st_ci</key>
-		<string>5944792</string>
+		<string>5840745</string>
 		<key>ns_st_cl</key>
 		<string>3142440</string>
 		<key>ns_st_cn</key>
@@ -222,7 +222,7 @@
 		<key>ns_st_el</key>
 		<string>3142440</string>
 		<key>ns_st_ep</key>
-		<string>Sport dimanche Test unitaire SRG Player</string>
+		<string>Sport dimanche</string>
 		<key>ns_st_ev</key>
 		<string>play</string>
 		<key>ns_st_id</key>
@@ -274,7 +274,7 @@
 		<key>srg_c1</key>
 		<string>full</string>
 		<key>srg_c2</key>
-		<string>flux_srg-player</string>
+		<string>video_sport_sport-dimanche</string>
 		<key>srg_c3</key>
 		<string>RTS Un</string>
 		<key>srg_mgeobl</key>
@@ -2157,7 +2157,7 @@
 		<key>srg_c1</key>
 		<string>full</string>
 		<key>srg_c2</key>
-		<string>rts.ch_video_couleur3_120-secondes</string>
+		<string>video_couleur3_120-secondes</string>
 		<key>srg_c3</key>
 		<string>RTS Un</string>
 		<key>srg_mgeobl</key>
@@ -2737,7 +2737,7 @@
 		<key>srg_c1</key>
 		<string>full</string>
 		<key>srg_c2</key>
-		<string>rts.ch_archives_tv_sports_avant-premiere-sportive</string>
+		<string>archives_tv_sports_avant-premiere-sportive</string>
 		<key>srg_c3</key>
 		<string>RTS.ch</string>
 		<key>srg_mgeobl</key>
