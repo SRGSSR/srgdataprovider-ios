@@ -236,14 +236,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     NSParameterAssert(components);
     NSParameterAssert(completionBlock);
     
-    components.host = self.baseURL.host;
-    components.scheme = self.baseURL.scheme;
-    NSString *path = components.path;
+    SRGILURLComponents *fullComponents = [components copy];
+    fullComponents.host = self.baseURL.host;
+    fullComponents.scheme = self.baseURL.scheme;
+    NSString *path = fullComponents.path;
     if ([path containsString:@"/ue/"]) {
         // We already have a contructed path, so remove it to rebuild it with current components properties (self.baseURL, serviceVersion, businessUnit)
         // It arrives with a reused components object, like for a pull to refresh action.
         // It works with only one /eu/ path component
-        NSArray *pathComponents = components.path.pathComponents;
+        NSArray *pathComponents = fullComponents.path.pathComponents;
         NSUInteger euIndex = [pathComponents indexOfObject:@"ue"];
         if (pathComponents.count > euIndex + 2) {
             pathComponents = [pathComponents subarrayWithRange:NSMakeRange(euIndex + 2, pathComponents.count - euIndex - 2)];
@@ -253,13 +254,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         }
         path = [NSString pathWithComponents:pathComponents];
     }
-    components.path = [NSString pathWithComponents:@[self.baseURL.path,
-                                                     components.serviceVersion,
-                                                     @"ue",
-                                                     self.businessUnit,
-                                                     path]];
+    fullComponents.path = [NSString pathWithComponents:@[self.baseURL.path,
+                                                         fullComponents.serviceVersion,
+                                                         @"ue",
+                                                         self.businessUnit,
+                                                         path]];
     
-    __block SRGILOngoingRequest *ongoingRequest = self.ongoingRequests[components.URL];
+    __block SRGILOngoingRequest *ongoingRequest = self.ongoingRequests[fullComponents.URL];
     if (ongoingRequest) {
         return [ongoingRequest addCompletionBlock:completionBlock];
     }
@@ -268,9 +269,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     void (^completion)(NSData *data, NSURLResponse *response, NSError *error) = ^(NSData *data, NSURLResponse *response, NSError *error) {
         @strongify(self)
         
-        BOOL hasBeenCancelled = (![self.ongoingRequests objectForKey:components.URL]);
+        BOOL hasBeenCancelled = (![self.ongoingRequests objectForKey:fullComponents.URL]);
         
-        [self.ongoingRequests removeObjectForKey:components.URL];
+        [self.ongoingRequests removeObjectForKey:fullComponents.URL];
         if (self.ongoingRequests.count == 0) {
             [self.URLSession invalidateAndCancel];
             self.URLSession = nil;
@@ -314,7 +315,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                    delegateQueue:nil];
     }
     
-    NSURLSessionTask *task = [self.URLSession dataTaskWithURL:components.URL completionHandler:completion];
+    NSURLSessionTask *task = [self.URLSession dataTaskWithURL:fullComponents.URL completionHandler:completion];
     
     ongoingRequest = [[SRGILOngoingRequest alloc] initWithTask:task];
     NSString *key = [ongoingRequest addCompletionBlock:completionBlock];
@@ -325,7 +326,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         }
     };
     
-    self.ongoingRequests[components.URL] = ongoingRequest;
+    self.ongoingRequests[fullComponents.URL] = ongoingRequest;
     
     return key;
 }
