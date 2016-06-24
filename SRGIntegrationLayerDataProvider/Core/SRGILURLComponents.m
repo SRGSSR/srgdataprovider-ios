@@ -443,6 +443,7 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
     copy.wrapped = [self.wrapped copyWithZone:zone];
     copy.index = self.index;
     copy.identifier = [self.identifier copyWithZone:zone];
+    copy.serviceVersion = self.serviceVersion;
     return copy;
 }
 
@@ -450,10 +451,11 @@ NSURLQueryItem *NSURLQueryItemForName(NSString *name, NSDate *date, BOOL withTim
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p; URL: %@>",
+    return [NSString stringWithFormat:@"<%@: %p; URL: %@; serviceVersion: %@>",
             [self class],
             self,
-            self.URL];
+            self.URL,
+            self.serviceVersion];
 }
 
 @end
