@@ -5,7 +5,7 @@ This application makes use of the following third party libraries:
 
 Software License Agreement (BSD License)
 
-Copyright (c) 2010-2015, Deusty, LLC
+Copyright (c) 2010-2016, Deusty, LLC
 All rights reserved.
 
 Redistribution and use of this software in source and binary forms,
@@ -31,7 +31,7 @@ FOR MORE INFORMATION, PLEASE VISIT DIRECT.COMSCORE.COM
 
 FXReachability
 
-Version 1.0, May 29th, 2013
+Version 1.3.2, February 22nd, 2016
 
 Copyright (C) 2013 Charcoal Design
 

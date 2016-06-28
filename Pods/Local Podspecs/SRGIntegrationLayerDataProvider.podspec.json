@@ -42,13 +42,13 @@
       ],
       "dependencies": {
         "CocoaLumberjack": [
-          "~> 2.0.0"
+          "~> 2.3.0"
         ],
         "FXReachability": [
-          "~> 1.0.0"
+          "~> 1.3.0"
         ],
         "libextobjc/EXTScope": [
-          "0.4.1"
+          "~> 0.4.1"
         ]
       }
     },
