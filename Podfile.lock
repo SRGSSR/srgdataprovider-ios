@@ -32,20 +32,20 @@ PODS:
   - SRGAnalytics/MediaPlayer (1.5.2):
     - SRGAnalytics/Core
     - SRGMediaPlayer (~> 1.9.0)
-  - SRGIntegrationLayerDataProvider (4.4.7):
-    - SRGIntegrationLayerDataProvider/Core (= 4.4.7)
-  - SRGIntegrationLayerDataProvider/Core (4.4.7):
+  - SRGIntegrationLayerDataProvider (4.4.8):
+    - SRGIntegrationLayerDataProvider/Core (= 4.4.8)
+  - SRGIntegrationLayerDataProvider/Core (4.4.8):
     - CocoaLumberjack (~> 2.3.0)
     - FXReachability (~> 1.3.0)
     - libextobjc/EXTScope (~> 0.4.1)
-  - SRGIntegrationLayerDataProvider/MediaPlayer (4.4.7):
-    - SRGIntegrationLayerDataProvider/MediaPlayer/Analytics (= 4.4.7)
-    - SRGIntegrationLayerDataProvider/MediaPlayer/Core (= 4.4.7)
-  - SRGIntegrationLayerDataProvider/MediaPlayer/Analytics (4.4.7):
+  - SRGIntegrationLayerDataProvider/MediaPlayer (4.4.8):
+    - SRGIntegrationLayerDataProvider/MediaPlayer/Analytics (= 4.4.8)
+    - SRGIntegrationLayerDataProvider/MediaPlayer/Core (= 4.4.8)
+  - SRGIntegrationLayerDataProvider/MediaPlayer/Analytics (4.4.8):
     - SRGAnalytics (~> 1.5.0)
     - SRGAnalytics/MediaPlayer (~> 1.5.0)
     - SRGIntegrationLayerDataProvider/MediaPlayer/Core
-  - SRGIntegrationLayerDataProvider/MediaPlayer/Core (4.4.7):
+  - SRGIntegrationLayerDataProvider/MediaPlayer/Core (4.4.8):
     - SRGIntegrationLayerDataProvider/Core
     - SRGMediaPlayer (~> 1.9.0)
   - SRGMediaPlayer (1.9.6):
@@ -80,7 +80,7 @@ SPEC CHECKSUMS:
   OCMock: d68685bde31f69cb61d518dcb39269080c78b5ed
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SRGAnalytics: a90627a795cbd99c07ab25f54a955be7c448dc40
-  SRGIntegrationLayerDataProvider: 427b8ffb1d223efefa60c528286818c264f08ff8
+  SRGIntegrationLayerDataProvider: 1109813f3c219add3867fb67624c5012d373f14c
   SRGMediaPlayer: a48df6a27ab749988b6eb7808d3fafb69790849b
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
 
