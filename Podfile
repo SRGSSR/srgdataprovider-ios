@@ -18,7 +18,7 @@ target 'SRGIntegrationLayerDataProvider' do
     inherit! :search_paths
 
     # Target-specific dependencies
-    pod 'OCMock', '3.1.2'
+    pod 'OCMock', '~> 3.3.0'
     pod 'SRGIntegrationLayerDataProvider/Core', :path => '.'
     pod 'SRGIntegrationLayerDataProvider/MediaPlayer', :path => '.'
   end
@@ -27,7 +27,7 @@ target 'SRGIntegrationLayerDataProvider' do
 end
 
 target 'SRGIntegrationLayerDataProvider Demo' do
-  pod 'SDWebImage', '3.7.0'
+  pod 'SDWebImage', '~> 3.8.0'
 
   target 'SRGIntegrationLayerDataProvider DemoTests' do
     # Test target, inherit search paths only, not linking
@@ -35,7 +35,7 @@ target 'SRGIntegrationLayerDataProvider Demo' do
     inherit! :search_paths
 
     # Target-specific dependencies
-    pod 'KIF', '3.4.1'
+    pod 'KIF', '~> 3.4.0'
   end
 
   xcodeproj 'SRGIntegrationLayerDataProvider Demo/SRGIntegrationLayerDataProvider Demo'

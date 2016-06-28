@@ -8,7 +8,7 @@ The library can optionally be combined with the media player and / or analytics 
 
 ## Compatibility
 
-The library is suitable for applications running on iOS 7 and above.
+The library is suitable for applications running on iOS 8 and above.
 
 ## Installation
 
