@@ -158,52 +158,46 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     void (^completion)(NSData *data, NSURLResponse *response, NSError *error) = ^(NSData *data, NSURLResponse *response, NSError *error) {
         @strongify(self)
         
-        [self.ongoingRequests removeObjectForKey:identifier];
-        if (self.ongoingRequests.count == 0) {
-            [self.URLSession invalidateAndCancel];
-            self.URLSession = nil;
-        }
-        
-        void (^callCompletionBlocks)(id, NSError *) = ^(id object, NSError *error) {
-            for (SRGILFetchObjectCompletionBlock completionBlock in ongoingRequest.completionBlocks) {
-                completionBlock(object, error);
-            }
-        };
-        
-        // Request errors
-        if (error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                callCompletionBlocks(nil, error);
-            });
-            return;
-        }
-        
-        void (^reportDataError)(void) = ^{
-            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                 code:SRGILDataProviderErrorCodeInvalidData
-                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
-            callCompletionBlocks(nil, error);
-        };
-        
-        // Parsing errors
-        id JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-        if (!JSON || ![JSON isKindOfClass:[NSDictionary class]]) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                reportDataError();
-            });
-            return;
-        }
-        
-        // Model errors
-        id modelObject = [[modelClass alloc] initWithDictionary:[JSON valueForKey:JSONKey]];
-        if (!modelObject) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                reportDataError();
-            });
-            return;
-        }
-        
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.ongoingRequests removeObjectForKey:identifier];
+            if (self.ongoingRequests.count == 0) {
+                [self.URLSession invalidateAndCancel];
+                self.URLSession = nil;
+            }
+            
+            void (^callCompletionBlocks)(id, NSError *) = ^(id object, NSError *error) {
+                for (SRGILFetchObjectCompletionBlock completionBlock in ongoingRequest.completionBlocks) {
+                    completionBlock(object, error);
+                }
+            };
+            
+            // Request errors
+            if (error) {
+                callCompletionBlocks(nil, error);
+                return;
+            }
+            
+            void (^reportDataError)(void) = ^{
+                NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                     code:SRGILDataProviderErrorCodeInvalidData
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
+                callCompletionBlocks(nil, error);
+            };
+            
+            // Parsing errors
+            id JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+            if (!JSON || ![JSON isKindOfClass:[NSDictionary class]]) {
+                reportDataError();
+                return;
+            }
+            
+            // Model errors
+            id modelObject = [[modelClass alloc] initWithDictionary:[JSON valueForKey:JSONKey]];
+            if (!modelObject) {
+                reportDataError();
+                return;
+            }
+            
             callCompletionBlocks(modelObject, nil);
         });
     };
@@ -269,44 +263,40 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     void (^completion)(NSData *data, NSURLResponse *response, NSError *error) = ^(NSData *data, NSURLResponse *response, NSError *error) {
         @strongify(self)
         
-        BOOL hasBeenCancelled = (![self.ongoingRequests objectForKey:fullComponents.URL]);
-        
-        [self.ongoingRequests removeObjectForKey:fullComponents.URL];
-        if (self.ongoingRequests.count == 0) {
-            [self.URLSession invalidateAndCancel];
-            self.URLSession = nil;
-        }
-        
-        void (^callCompletionBlocks)(id, NSError *) = ^(id object, NSError *error) {
-            for (SRGILRequestListCompletionBlock completionBlock in ongoingRequest.completionBlocks) {
-                completionBlock(object, error);
-            }
-        };
-        
-        if (!hasBeenCancelled) {
-            if (error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    callCompletionBlocks(nil, error);
-                });
-                return;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            BOOL hasBeenCancelled = (![self.ongoingRequests objectForKey:fullComponents.URL]);
+            
+            [self.ongoingRequests removeObjectForKey:fullComponents.URL];
+            if (self.ongoingRequests.count == 0) {
+                [self.URLSession invalidateAndCancel];
+                self.URLSession = nil;
             }
             
-            // JSON 1.0 or 2.0
-            id JSONObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-            if (!JSONObject || ![JSONObject isKindOfClass:[NSDictionary class]]) {
-                dispatch_async(dispatch_get_main_queue(), ^{
+            void (^callCompletionBlocks)(id, NSError *) = ^(id object, NSError *error) {
+                for (SRGILRequestListCompletionBlock completionBlock in ongoingRequest.completionBlocks) {
+                    completionBlock(object, error);
+                }
+            };
+            
+            if (!hasBeenCancelled) {
+                if (error) {
+                    callCompletionBlocks(nil, error);
+                    return;
+                }
+                
+                // JSON 1.0 or 2.0
+                id JSONObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+                if (!JSONObject || ![JSONObject isKindOfClass:[NSDictionary class]]) {
                     NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
                                                          code:SRGILDataProviderErrorCodeInvalidData
                                                      userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The data is invalid.", nil) }];
                     callCompletionBlocks(nil, error);
-                });
-                return;
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
+                    return;
+                }
+                
                 callCompletionBlocks(JSONObject, nil);
-            });
-        }
+            }
+        });
     };
     
     if (!self.URLSession) {
@@ -447,4 +437,5 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
     return NO;
 }
+
 @end
