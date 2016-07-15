@@ -15,6 +15,11 @@ typedef NS_ENUM(NSInteger, SRGType) {
     SRGTypeEpisode
 };
 
+typedef NS_ENUM(NSInteger, SRGCategory) {
+    SRGCategoryEditor,
+    SRGCategoryTrending
+};
+
 @interface SRGMedia : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, copy) NSString *URN;
@@ -27,6 +32,8 @@ typedef NS_ENUM(NSInteger, SRGType) {
 @property (nonatomic, copy) NSString *imageTitle;
 
 @property (nonatomic) SRGType type;
+@property (nonatomic) SRGCategory category;
+
 @property (nonatomic) NSDate *date;
 @property (nonatomic) NSTimeInterval duration;
 

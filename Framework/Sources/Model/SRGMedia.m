@@ -20,6 +20,7 @@
               @"imageURL" : @"imageUrl",
               @"imageTitle" : @"imageTitle",
               @"type" : @"type",
+              @"category" : @"assignedBy",
               @"date" : @"date",
               @"duration" : @"duration",
               @"podcastStandardDefinitionURL" : @"podcastSdUrl",
@@ -42,6 +43,12 @@
 + (NSValueTransformer *)typeJSONTransformer
 {
     return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"EPISODE": @(SRGTypeEpisode) }];
+}
+
++ (NSValueTransformer *)categoryJSONTransformer
+{
+    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"EDITOR": @(SRGCategoryEditor),
+                                                                            @"TRENDING" : @(SRGCategoryTrending) }];
 }
 
 + (NSValueTransformer *)dateJSONTransformer

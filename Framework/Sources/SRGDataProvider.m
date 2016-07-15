@@ -67,28 +67,51 @@ static SRGDataProvider *s_currentDataProvider;
 
 #pragma mark User requests
 
-- (NSURLSessionTask *)listTopicsWithCompletionBlock:(void (^)(NSArray<SRGTopic *> * _Nullable, NSError * _Nullable))completionBlock
+//http://il-test.srgssr.ch/integrationlayer/2.0/swi/mediaList/video/trending.json?maxCountEditorPicks=0
+
+- (NSURLSessionTask *)trendingMediasWithCompletionBlock:(void (^)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error))completionBlock
 {
-    NSURL *URL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"2.0/%@/topicList/tv.json", self.businessUnitIdentifier] relativeToURL:self.serviceURL];
-    return [self listObjectsForURL:URL withModelClass:[SRGTopic class] rootKey:@"topicList" completionBlock:completionBlock];
+    return [self trendingMediasWithEditorialLimit:nil completionBlock:completionBlock];
 }
 
-- (NSURLSessionTask *)listMediasForTopicWithUid:(NSString *)topicUid completionBlock:(void (^)(NSArray<SRGMedia *> * _Nullable, NSError * _Nullable))completionBlock
+- (NSURLSessionTask *)trendingMediasWithEditorialLimit:(nullable NSNumber *)editorialLimit completionBlock:(void (^)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error))completionBlock
 {
-    NSURL *URL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"2.0/%@/mediaList/video/latestByTopic/%@.json", self.businessUnitIdentifier, topicUid] relativeToURL:self.serviceURL];
-    return [self listObjectsForURL:URL withModelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/trending.json", self.businessUnitIdentifier];
+    
+    NSArray<NSURLQueryItem *> *queryItems = nil;
+    if (editorialLimit) {
+        editorialLimit = @(MAX(0, editorialLimit.integerValue));
+        queryItems = @[ [NSURLQueryItem queryItemWithName:@"maxCountEditorPicks" value:editorialLimit.stringValue] ];
+    }
+    return [self listObjectsForResourcePath:resourcePath withModelClass:[SRGMedia class] queryItems:queryItems rootKey:@"mediaList" completionBlock:completionBlock];
+}
+
+- (NSURLSessionTask *)topicsWithCompletionBlock:(void (^)(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error))completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/topicList/tv.json", self.businessUnitIdentifier];
+    return [self listObjectsForResourcePath:resourcePath withModelClass:[SRGTopic class] queryItems:nil rootKey:@"topicList" completionBlock:completionBlock];
+}
+
+- (NSURLSessionTask *)latestMediasForTopicWithUid:(NSString *)topicUid completionBlock:(void (^)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error))completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestByTopic/%@.json", self.businessUnitIdentifier, topicUid];
+    return [self listObjectsForResourcePath:resourcePath withModelClass:[SRGMedia class] queryItems:nil rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
 #pragma mark Request common implementation
 
-- (NSURLSessionTask *)listObjectsForURL:(NSURL *)URL withModelClass:(Class)modelClass rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, NSError * _Nullable error))completionBlock
+- (NSURLSessionTask *)listObjectsForResourcePath:(NSString *)resourcePath withModelClass:(Class)modelClass queryItems:(NSArray<NSURLQueryItem *> *)queryItems rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, NSError * _Nullable error))completionBlock
 {
-    NSParameterAssert(URL);
+    NSParameterAssert(resourcePath);
     NSParameterAssert(modelClass);
     NSParameterAssert(rootKey);
     NSParameterAssert(completionBlock);
     
-    return [self.session dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURL *URL = [NSURL URLWithString:resourcePath relativeToURL:self.serviceURL];
+    NSURLComponents *URLComponents = [NSURLComponents componentsWithString:URL.absoluteString];
+    URLComponents.queryItems = queryItems;
+    
+    return [self.session dataTaskWithURL:URLComponents.URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 completionBlock(nil, error);

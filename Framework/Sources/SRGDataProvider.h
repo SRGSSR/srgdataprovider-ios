@@ -27,8 +27,10 @@ OBJC_EXPORT NSString * const SRGBusinessIdentifierSWI;
 @property (nonatomic, readonly) NSURL *serviceURL;
 @property (nonatomic, readonly, copy) NSString *businessUnitIdentifier;
 
-- (NSURLSessionTask *)listTopicsWithCompletionBlock:(void (^)(NSArray<SRGTopic *> * __nullable topics, NSError * __nullable error))completionBlock;
-- (NSURLSessionTask *)listMediasForTopicWithUid:(NSString *)topicUid completionBlock:(void (^)(NSArray<SRGMedia *> * __nullable medias, NSError * __nullable error))completionBlock;
+- (NSURLSessionTask *)trendingMediasWithCompletionBlock:(void (^)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error))completionBlock;
+- (NSURLSessionTask *)trendingMediasWithEditorialLimit:(nullable NSNumber *)editorialLimit completionBlock:(void (^)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error))completionBlock;
+- (NSURLSessionTask *)topicsWithCompletionBlock:(void (^)(NSArray<SRGTopic *> * __nullable topics, NSError * __nullable error))completionBlock;
+- (NSURLSessionTask *)latestMediasForTopicWithUid:(NSString *)topicUid completionBlock:(void (^)(NSArray<SRGMedia *> * __nullable medias, NSError * __nullable error))completionBlock;
 
 @end
 

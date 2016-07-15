@@ -13,6 +13,7 @@ FOUNDATION_EXPORT double SRGIntegrationLayerDataProviderVersionNumber;
 FOUNDATION_EXPORT const unsigned char SRGIntegrationLayerDataProviderVersionString[];
 
 // Public headers
+#import "NSBundle+SRGIntegrationLayerDataProvider.h"
 #import "SRGDataProvider.h"
 #import "SRGDataProviderError.h"
 #import "SRGMedia.h"

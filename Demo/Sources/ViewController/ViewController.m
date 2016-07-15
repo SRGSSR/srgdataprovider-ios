@@ -12,15 +12,19 @@
 
 - (IBAction)request:(id)sender
 {
-    [[[SRGDataProvider currentDataProvider] listTopicsWithCompletionBlock:^(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] topicsWithCompletionBlock:^(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error) {
         NSLog(@"Topics: %@; error: %@", topics, error);
         
         SRGTopic *firstTopic = topics.firstObject;
         if (firstTopic) {
-            [[[SRGDataProvider currentDataProvider] listMediasForTopicWithUid:firstTopic.uid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+            [[[SRGDataProvider currentDataProvider] latestMediasForTopicWithUid:firstTopic.uid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
                 NSLog(@"Medias: %@; error: %@", medias, error);
             }] resume];
         }
+    }] resume];
+    
+    [[[SRGDataProvider currentDataProvider] trendingMediasWithEditorialLimit:@5 completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+        NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
 }
 
