@@ -67,14 +67,12 @@ static SRGDataProvider *s_currentDataProvider;
 
 #pragma mark User requests
 
-//http://il-test.srgssr.ch/integrationlayer/2.0/swi/mediaList/video/trending.json?maxCountEditorPicks=0
-
-- (NSURLSessionTask *)trendingMediasWithCompletionBlock:(void (^)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error))completionBlock
+- (NSURLSessionTask *)trendingMediasWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     return [self trendingMediasWithEditorialLimit:nil completionBlock:completionBlock];
 }
 
-- (NSURLSessionTask *)trendingMediasWithEditorialLimit:(nullable NSNumber *)editorialLimit completionBlock:(void (^)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error))completionBlock
+- (NSURLSessionTask *)trendingMediasWithEditorialLimit:(nullable NSNumber *)editorialLimit completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/trending.json", self.businessUnitIdentifier];
     
@@ -86,13 +84,13 @@ static SRGDataProvider *s_currentDataProvider;
     return [self listObjectsForResourcePath:resourcePath withModelClass:[SRGMedia class] queryItems:queryItems rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
-- (NSURLSessionTask *)topicsWithCompletionBlock:(void (^)(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error))completionBlock
+- (NSURLSessionTask *)topicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/topicList/tv.json", self.businessUnitIdentifier];
     return [self listObjectsForResourcePath:resourcePath withModelClass:[SRGTopic class] queryItems:nil rootKey:@"topicList" completionBlock:completionBlock];
 }
 
-- (NSURLSessionTask *)latestMediasForTopicWithUid:(NSString *)topicUid completionBlock:(void (^)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error))completionBlock
+- (NSURLSessionTask *)latestMediasForTopicWithUid:(NSString *)topicUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestByTopic/%@.json", self.businessUnitIdentifier, topicUid];
     return [self listObjectsForResourcePath:resourcePath withModelClass:[SRGMedia class] queryItems:nil rootKey:@"mediaList" completionBlock:completionBlock];
