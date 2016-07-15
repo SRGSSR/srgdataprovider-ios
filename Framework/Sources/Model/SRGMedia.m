@@ -12,7 +12,8 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    return @{ @"URN" : @"urn",
+    return @{ @"uid" : @"id",
+              @"URN" : @"urn",
               @"mediaType" : @"mediaType",
               @"title" : @"title",
               @"lead" : @"lead",

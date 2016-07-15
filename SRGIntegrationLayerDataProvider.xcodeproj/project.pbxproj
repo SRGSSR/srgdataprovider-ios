@@ -31,6 +31,12 @@
 		E6C2B3CD1D391EFD00B6250B /* NSBundle+SRGIntegrationLayerDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C2B3CB1D391EFD00B6250B /* NSBundle+SRGIntegrationLayerDataProvider.m */; };
 		E6C2B3D51D39239E00B6250B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E6C2B3CF1D39239E00B6250B /* Localizable.strings */; };
 		E6C2B3F11D39254100B6250B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E6C2B3EA1D39248900B6250B /* Localizable.strings */; };
+		E6C2B3F41D392F1200B6250B /* SRGEpisode.h in Headers */ = {isa = PBXBuildFile; fileRef = E6C2B3F21D392F1200B6250B /* SRGEpisode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E6C2B3F51D392F1200B6250B /* SRGEpisode.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C2B3F31D392F1200B6250B /* SRGEpisode.m */; };
+		E6C2B3F81D392F1A00B6250B /* SRGShow.h in Headers */ = {isa = PBXBuildFile; fileRef = E6C2B3F61D392F1A00B6250B /* SRGShow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E6C2B3F91D392F1A00B6250B /* SRGShow.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C2B3F71D392F1A00B6250B /* SRGShow.m */; };
+		E6C2B3FC1D392F2300B6250B /* SRGChapter.h in Headers */ = {isa = PBXBuildFile; fileRef = E6C2B3FA1D392F2300B6250B /* SRGChapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E6C2B3FD1D392F2300B6250B /* SRGChapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C2B3FB1D392F2300B6250B /* SRGChapter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +100,12 @@
 		E6C2B3EE1D39249400B6250B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E6C2B3EF1D39249A00B6250B /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E6C2B3F01D39249F00B6250B /* rm-CH */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "rm-CH"; path = "rm-CH.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		E6C2B3F21D392F1200B6250B /* SRGEpisode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGEpisode.h; sourceTree = "<group>"; };
+		E6C2B3F31D392F1200B6250B /* SRGEpisode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGEpisode.m; sourceTree = "<group>"; };
+		E6C2B3F61D392F1A00B6250B /* SRGShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGShow.h; sourceTree = "<group>"; };
+		E6C2B3F71D392F1A00B6250B /* SRGShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGShow.m; sourceTree = "<group>"; };
+		E6C2B3FA1D392F2300B6250B /* SRGChapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGChapter.h; sourceTree = "<group>"; };
+		E6C2B3FB1D392F2300B6250B /* SRGChapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGChapter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,10 +156,16 @@
 		E6391A981D38E92400E4CBB9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E6391A991D38E92400E4CBB9 /* SRGTopic.h */,
-				E6391A9A1D38E92400E4CBB9 /* SRGTopic.m */,
+				E6C2B3FA1D392F2300B6250B /* SRGChapter.h */,
+				E6C2B3FB1D392F2300B6250B /* SRGChapter.m */,
+				E6C2B3F21D392F1200B6250B /* SRGEpisode.h */,
+				E6C2B3F31D392F1200B6250B /* SRGEpisode.m */,
 				E6C2B3BD1D390EEF00B6250B /* SRGMedia.h */,
 				E6C2B3BE1D390EEF00B6250B /* SRGMedia.m */,
+				E6C2B3F61D392F1A00B6250B /* SRGShow.h */,
+				E6C2B3F71D392F1A00B6250B /* SRGShow.m */,
+				E6391A991D38E92400E4CBB9 /* SRGTopic.h */,
+				E6391A9A1D38E92400E4CBB9 /* SRGTopic.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -254,6 +272,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6C2B3CC1D391EFD00B6250B /* NSBundle+SRGIntegrationLayerDataProvider.h in Headers */,
+				E6C2B3F41D392F1200B6250B /* SRGEpisode.h in Headers */,
+				E6C2B3FC1D392F2300B6250B /* SRGChapter.h in Headers */,
+				E6C2B3F81D392F1A00B6250B /* SRGShow.h in Headers */,
 				E6391A9F1D38E92400E4CBB9 /* SRGTopic.h in Headers */,
 				E6391AA11D38E92400E4CBB9 /* SRGDataProvider.h in Headers */,
 				E6C2B3C31D391D5A00B6250B /* SRGDataProviderError.h in Headers */,
@@ -380,8 +401,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6C2B3F91D392F1A00B6250B /* SRGShow.m in Sources */,
 				E6C2B3C01D390EEF00B6250B /* SRGMedia.m in Sources */,
+				E6C2B3FD1D392F2300B6250B /* SRGChapter.m in Sources */,
 				E6391AA01D38E92400E4CBB9 /* SRGTopic.m in Sources */,
+				E6C2B3F51D392F1200B6250B /* SRGEpisode.m in Sources */,
 				E6391AA21D38E92400E4CBB9 /* SRGDataProvider.m in Sources */,
 				E6C2B3C41D391D5A00B6250B /* SRGDataProviderError.m in Sources */,
 				E6C2B3CD1D391EFD00B6250B /* NSBundle+SRGIntegrationLayerDataProvider.m in Sources */,

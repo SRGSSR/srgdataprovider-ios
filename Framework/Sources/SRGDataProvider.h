@@ -6,7 +6,10 @@
 
 #import <Foundation/Foundation.h>
 
+#import "SRGChapter.h"
+#import "SRGEpisode.h"
 #import "SRGMedia.h"
+#import "SRGShow.h"
 #import "SRGTopic.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -19,6 +22,7 @@ OBJC_EXPORT NSString * const SRGBusinessIdentifierSWI;
 
 typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * __nullable topics, NSError * __nullable error);
+typedef void (^SRGMediaCompositionCompletionBlock)(SRGShow * _Nullable show, SRGEpisode * _Nullable episode, NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error);
 
 @interface SRGDataProvider : NSObject
 
@@ -35,6 +39,8 @@ typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * __nullable top
 
 - (NSURLSessionTask *)topicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock;
 - (NSURLSessionTask *)latestMediasForTopicWithUid:(NSString *)topicUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+- (NSURLSessionTask *)compositionForMediaWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
 @end
 

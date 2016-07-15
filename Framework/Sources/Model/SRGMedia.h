@@ -22,6 +22,8 @@ typedef NS_ENUM(NSInteger, SRGCategory) {
 
 @interface SRGMedia : MTLModel <MTLJSONSerializing>
 
+@property (nonatomic, copy) NSString *uid;
+
 @property (nonatomic, copy) NSString *URN;
 @property (nonatomic) SRGMediaType mediaType;
 @property (nonatomic, copy) NSString *title;
