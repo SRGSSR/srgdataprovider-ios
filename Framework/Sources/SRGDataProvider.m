@@ -6,6 +6,7 @@
 
 #import "SRGDataProvider.h"
 
+#import "NSBundle+SRGIntegrationLayerDataProvider.h"
 #import "SRGDataProviderError.h"
 #import <Mantle/Mantle.h>
 
@@ -113,7 +114,7 @@ static SRGDataProvider *s_currentDataProvider;
         dispatch_async(dispatch_get_main_queue(), ^{
             completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
                                                      code:SRGDataProviderErrorCodeInvalidData
-                                                 userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"The data is invalid.", nil) }]);
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
         });
     }];
 }
