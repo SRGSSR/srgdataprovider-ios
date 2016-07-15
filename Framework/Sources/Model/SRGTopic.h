@@ -5,9 +5,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <JSONModel/JSONModel.h>
+#import <Mantle/Mantle.h>
 
-@interface SRGTopic : JSONModel
+@interface SRGTopic : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, copy) NSString *uid;
 @property (nonatomic, copy) NSString *title;

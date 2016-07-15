@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E6391A791D38E88000E4CBB9 /* JSONModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6391A781D38E88000E4CBB9 /* JSONModel.framework */; };
 		E6391A9F1D38E92400E4CBB9 /* SRGTopic.h in Headers */ = {isa = PBXBuildFile; fileRef = E6391A991D38E92400E4CBB9 /* SRGTopic.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6391AA01D38E92400E4CBB9 /* SRGTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = E6391A9A1D38E92400E4CBB9 /* SRGTopic.m */; };
 		E6391AA11D38E92400E4CBB9 /* SRGDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E6391A9B1D38E92400E4CBB9 /* SRGDataProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -21,8 +20,9 @@
 		E6391ABA1D38E93A00E4CBB9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6391AB31D38E93A00E4CBB9 /* ViewController.m */; };
 		E6391ABB1D38E96400E4CBB9 /* SRGIntegrationLayerDataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGIntegrationLayerDataProvider.framework */; };
 		E6391ABC1D38E96400E4CBB9 /* SRGIntegrationLayerDataProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGIntegrationLayerDataProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E6391AC11D38E9F400E4CBB9 /* JSONModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6391A781D38E88000E4CBB9 /* JSONModel.framework */; };
-		E6391AC21D38E9F400E4CBB9 /* JSONModel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6391A781D38E88000E4CBB9 /* JSONModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E6C2B3B91D3908AF00B6250B /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; };
+		E6C2B3BA1D3908B600B6250B /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; };
+		E6C2B3BB1D3908B600B6250B /* Mantle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,8 +42,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E6391AC21D38E9F400E4CBB9 /* JSONModel.framework in Embed Frameworks */,
 				E6391ABC1D38E96400E4CBB9 /* SRGIntegrationLayerDataProvider.framework in Embed Frameworks */,
+				E6C2B3BB1D3908B600B6250B /* Mantle.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -51,7 +51,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E6391A781D38E88000E4CBB9 /* JSONModel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSONModel.framework; path = Carthage/Build/iOS/JSONModel.framework; sourceTree = "<group>"; };
 		E6391A7E1D38E8F400E4CBB9 /* SRGIntegrationLayerDataProvider-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SRGIntegrationLayerDataProvider-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6391A961D38E92400E4CBB9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6391A991D38E92400E4CBB9 /* SRGTopic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGTopic.h; sourceTree = "<group>"; };
@@ -69,6 +68,8 @@
 		E6391AB21D38E93A00E4CBB9 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E6391AB31D38E93A00E4CBB9 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E6AF7EFD1D38B8BD00942ADA /* SRGIntegrationLayerDataProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SRGIntegrationLayerDataProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6C2B3B61D3907FF00B6250B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		E6C2B3B71D39089F00B6250B /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6391AC11D38E9F400E4CBB9 /* JSONModel.framework in Frameworks */,
 				E6391ABB1D38E96400E4CBB9 /* SRGIntegrationLayerDataProvider.framework in Frameworks */,
+				E6C2B3BA1D3908B600B6250B /* Mantle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,7 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6391A791D38E88000E4CBB9 /* JSONModel.framework in Frameworks */,
+				E6C2B3B91D3908AF00B6250B /* Mantle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +173,7 @@
 		E6AF7EF31D38B8BD00942ADA = {
 			isa = PBXGroup;
 			children = (
+				E6C2B3B61D3907FF00B6250B /* Cartfile */,
 				E6391A951D38E92400E4CBB9 /* Framework */,
 				E6391AA41D38E93A00E4CBB9 /* Demo */,
 				E6AF7F921D38D52300942ADA /* Frameworks */,
@@ -191,7 +193,7 @@
 		E6AF7F921D38D52300942ADA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E6391A781D38E88000E4CBB9 /* JSONModel.framework */,
+				E6C2B3B71D39089F00B6250B /* Mantle.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -239,7 +241,6 @@
 				E6AF7EF91D38B8BD00942ADA /* Frameworks */,
 				E6AF7EFA1D38B8BD00942ADA /* Headers */,
 				E6AF7EFB1D38B8BD00942ADA /* Resources */,
-				E6C2B3B51D39039300B6250B /* Copy Frameworks (see Carthage readme) */,
 			);
 			buildRules = (
 			);
@@ -306,24 +307,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		E6C2B3B51D39039300B6250B /* Copy Frameworks (see Carthage readme) */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/JSONModel.framework",
-			);
-			name = "Copy Frameworks (see Carthage readme)";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks ";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E6391A7A1D38E8F400E4CBB9 /* Sources */ = {

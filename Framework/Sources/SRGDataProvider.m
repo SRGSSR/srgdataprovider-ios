@@ -6,6 +6,8 @@
 
 #import "SRGDataProvider.h"
 
+#import <Mantle/Mantle.h>
+
 NSString * const SRGBusinessIdentifierRSI = @"rsi";
 NSString * const SRGBusinessIdentifierRTR = @"rtr";
 NSString * const SRGBusinessIdentifierRTS = @"rts";
@@ -68,12 +70,12 @@ static SRGDataProvider *s_currentDataProvider;
             return;
         }
         
-        // TODO: This is just a parsing / parser dependency test. Use better library and code for JSON mapping
-        NSArray *objectDictionaries = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"topicList"];
+        // TODO: Implement common safe top-level parsing
+        NSArray *JSONDictionaries = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"topicList"];
         
         NSMutableArray<SRGTopic *> *topics = [NSMutableArray array];
-        for (NSDictionary *objectDictionary in objectDictionaries) {
-            SRGTopic *topic = [[SRGTopic alloc] initWithDictionary:objectDictionary error:NULL];
+        for (NSDictionary *JSONDictionary in JSONDictionaries) {
+            SRGTopic *topic = [MTLJSONAdapter modelOfClass:[SRGTopic class] fromJSONDictionary:JSONDictionary error:NULL];
             [topics addObject:topic];
         }
         
