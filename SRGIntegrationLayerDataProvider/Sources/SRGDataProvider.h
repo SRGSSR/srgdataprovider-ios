@@ -8,6 +8,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+OBJC_EXPORT NSString * const SRGBusinessIdentifierRSI;
+OBJC_EXPORT NSString * const SRGBusinessIdentifierRTR;
+OBJC_EXPORT NSString * const SRGBusinessIdentifierRTS;
+OBJC_EXPORT NSString * const SRGBusinessIdentifierSRF;
+OBJC_EXPORT NSString * const SRGBusinessIdentifierSWI;
+
 @interface SRGDataProvider : NSObject
 
 + (nullable SRGDataProvider *)currentDataProvider;

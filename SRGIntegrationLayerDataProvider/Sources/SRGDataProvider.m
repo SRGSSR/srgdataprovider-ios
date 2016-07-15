@@ -6,6 +6,12 @@
 
 #import "SRGDataProvider.h"
 
+NSString * const SRGBusinessIdentifierRSI = @"rsi";
+NSString * const SRGBusinessIdentifierRTR = @"rtr";
+NSString * const SRGBusinessIdentifierRTS = @"rts";
+NSString * const SRGBusinessIdentifierSRF = @"srf";
+NSString * const SRGBusinessIdentifierSWI = @"swi";
+
 static SRGDataProvider *s_currentDataProvider;
 
 @interface SRGDataProvider ()

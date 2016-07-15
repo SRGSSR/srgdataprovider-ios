@@ -15,7 +15,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSURL *serviceURL = [NSURL URLWithString:@"http://il.srgssr.ch"];
-    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:@"srf"];
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGBusinessIdentifierSRF];
     [SRGDataProvider setCurrentDataProvider:dataProvider];
     
     SRGDataProvider *currentDataProvider = [SRGDataProvider currentDataProvider];
