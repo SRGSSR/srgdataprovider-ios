@@ -13,10 +13,10 @@
 		E6AF7F421D38B9A100942ADA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AF7F391D38B9A100942ADA /* AppDelegate.m */; };
 		E6AF7F431D38B9A100942ADA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AF7F3A1D38B9A100942ADA /* main.m */; };
 		E6AF7F441D38B9A100942ADA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AF7F3D1D38B9A100942ADA /* ViewController.m */; };
-		E6AF7FB01D38DEA000942ADA /* SRGIntegrationLayerDataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7FAF1D38DEA000942ADA /* SRGIntegrationLayerDataProvider.framework */; };
-		E6AF7FB11D38DEA000942ADA /* SRGIntegrationLayerDataProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7FAF1D38DEA000942ADA /* SRGIntegrationLayerDataProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E6AF7FB41D38DEBE00942ADA /* JSONModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7FB31D38DEBE00942ADA /* JSONModel.framework */; };
 		E6AF7FB51D38DEBE00942ADA /* JSONModel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7FB31D38DEBE00942ADA /* JSONModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E6AF7FB71D38E03900942ADA /* SRGIntegrationLayerDataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7FB61D38E03900942ADA /* SRGIntegrationLayerDataProvider.framework */; };
+		E6AF7FB81D38E03900942ADA /* SRGIntegrationLayerDataProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7FB61D38E03900942ADA /* SRGIntegrationLayerDataProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,7 +27,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E6AF7FB51D38DEBE00942ADA /* JSONModel.framework in Embed Frameworks */,
-				E6AF7FB11D38DEA000942ADA /* SRGIntegrationLayerDataProvider.framework in Embed Frameworks */,
+				E6AF7FB81D38E03900942ADA /* SRGIntegrationLayerDataProvider.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -45,8 +45,8 @@
 		E6AF7F3A1D38B9A100942ADA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E6AF7F3C1D38B9A100942ADA /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E6AF7F3D1D38B9A100942ADA /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		E6AF7FAF1D38DEA000942ADA /* SRGIntegrationLayerDataProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SRGIntegrationLayerDataProvider.framework; path = "/Users/samuel.defago/Library/Developer/Xcode/DerivedData/SRGIntegrationLayerDataProvider-amehbmtefytjmcgabvvsfrzpcapb/Build/Products/Debug-iphoneos/SRGIntegrationLayerDataProvider.framework"; sourceTree = "<absolute>"; };
 		E6AF7FB31D38DEBE00942ADA /* JSONModel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSONModel.framework; path = ../SRGIntegrationLayerDataProvider/Carthage/Build/iOS/JSONModel.framework; sourceTree = "<group>"; };
+		E6AF7FB61D38E03900942ADA /* SRGIntegrationLayerDataProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SRGIntegrationLayerDataProvider.framework; path = "/Users/samuel.defago/Library/Developer/Xcode/DerivedData/SRGIntegrationLayerDataProvider-amehbmtefytjmcgabvvsfrzpcapb/Build/Products/Debug-iphonesimulator/SRGIntegrationLayerDataProvider.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +55,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6AF7FB41D38DEBE00942ADA /* JSONModel.framework in Frameworks */,
-				E6AF7FB01D38DEA000942ADA /* SRGIntegrationLayerDataProvider.framework in Frameworks */,
+				E6AF7FB71D38E03900942ADA /* SRGIntegrationLayerDataProvider.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,8 +122,8 @@
 		E6AF7F551D38C2C100942ADA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E6AF7FB61D38E03900942ADA /* SRGIntegrationLayerDataProvider.framework */,
 				E6AF7FB31D38DEBE00942ADA /* JSONModel.framework */,
-				E6AF7FAF1D38DEA000942ADA /* SRGIntegrationLayerDataProvider.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

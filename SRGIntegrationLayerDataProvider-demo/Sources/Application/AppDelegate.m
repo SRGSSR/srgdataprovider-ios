@@ -14,12 +14,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSURL *serviceURL = [NSURL URLWithString:@"http://il-test.srgssr.ch/integrationlayer"];
-    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGBusinessIdentifierSRF];
+    NSURL *serviceURL = [NSURL URLWithString:@"http://il-test.srgssr.ch/integrationlayer/"];
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGBusinessIdentifierSWI];
     [SRGDataProvider setCurrentDataProvider:dataProvider];
     
     NSURLSessionTask *task = [[SRGDataProvider currentDataProvider] listTopicsWithCompletionBlock:^(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error) {
-        
+        NSLog(@"Topics: %@", topics);
     }];
     [task resume];
     

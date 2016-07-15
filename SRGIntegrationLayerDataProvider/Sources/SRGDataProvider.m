@@ -39,6 +39,9 @@ static SRGDataProvider *s_currentDataProvider;
 
 #pragma mark Object lifecycle
 
+// TODO: Improve: Service URL must be a proper base URL, ending with a slash if needed
+// See http://stackoverflow.com/questions/16582350/nsurl-urlwithstringrelativetourl-is-clipping-relative-url
+
 - (instancetype)initWithServiceURL:(NSURL *)serviceURL businessUnitIdentifier:(NSString *)businessUnitIdentifier
 {
     if (self = [super init]) {
