@@ -103,10 +103,71 @@ static SRGDataProvider *s_currentDataProvider;
 
 - (NSURLSessionTask *)compositionForMediaWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
-    return nil;
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaComposition/video/%@.json", self.businessUnitIdentifier, mediaUid];
+    NSURL *URL = [NSURL URLWithString:resourcePath relativeToURL:self.serviceURL];
+    
+    return [self.session dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil, nil, nil, error);
+            });
+            return;
+        }
+        
+        id JSONDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        if (JSONDictionary && [JSONDictionary isKindOfClass:[NSDictionary class]]) {
+            SRGShow *show = [self objectForRootKey:@"show" inJSONDictionary:JSONDictionary withModelClass:[SRGShow class]];
+            if (show) {
+                SRGEpisode *episode = [self objectForRootKey:@"episode" inJSONDictionary:JSONDictionary withModelClass:[SRGEpisode class]];
+                if (episode) {
+                    NSArray<SRGChapter *> *chapters = [self objectListForRootKey:@"chapterList" inJSONDictionary:JSONDictionary withModelClass:[SRGChapter class]];
+                    if (chapters) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completionBlock(show, episode, chapters, nil);
+                        });
+                    }
+                }
+            }
+        }
+        
+        // Couldn't parse
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionBlock(nil, nil, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                               code:SRGDataProviderErrorCodeInvalidData
+                                                           userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
+        });
+    }];
 }
 
-#pragma mark Request common implementation
+#pragma mark Common implementation
+
+- (id)objectForRootKey:(NSString *)rootKey inJSONDictionary:(NSDictionary *)JSONDictionary withModelClass:(Class)modelClass
+{
+    NSParameterAssert(rootKey);
+    NSParameterAssert(JSONDictionary);
+    NSParameterAssert(modelClass);
+    
+    id JSONObject = JSONDictionary[rootKey];
+    if (! JSONObject || ![JSONObject isKindOfClass:[NSDictionary class]]) {
+        return nil;
+    }
+    
+    return [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:JSONObject error:NULL];
+}
+
+- (NSArray *)objectListForRootKey:(NSString *)rootKey inJSONDictionary:(NSDictionary *)JSONDictionary withModelClass:(Class)modelClass
+{
+    NSParameterAssert(rootKey);
+    NSParameterAssert(JSONDictionary);
+    NSParameterAssert(modelClass);
+    
+    id JSONObjects = JSONDictionary[rootKey];
+    if (!JSONObjects || ![JSONObjects isKindOfClass:[NSArray class]]) {
+        return nil;
+    }
+    
+    return [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONObjects error:NULL];
+}
 
 - (NSURLSessionTask *)listObjectsForResourcePath:(NSString *)resourcePath withModelClass:(Class)modelClass queryItems:(NSArray<NSURLQueryItem *> *)queryItems rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, NSError * _Nullable error))completionBlock
 {
@@ -127,21 +188,18 @@ static SRGDataProvider *s_currentDataProvider;
             return;
         }
         
-        // Expect a root dictionary with an array of objects stored for the specified root key
-        id JSONRootObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-        if (JSONRootObject && [JSONRootObject isKindOfClass:[NSDictionary class]]) {
-            id JSONObjects = [JSONRootObject objectForKey:rootKey];
-            if (JSONObjects && [JSONObjects isKindOfClass:[NSArray class]]) {
-                NSArray *objects = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONObjects error:NULL];
-                if (objects) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completionBlock(objects, nil);
-                    });
-                    return;
-                }
+        id JSONDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        if (JSONDictionary && [JSONDictionary isKindOfClass:[NSDictionary class]]) {
+            NSArray *objects = [self objectListForRootKey:rootKey inJSONDictionary:JSONDictionary withModelClass:modelClass];
+            if (objects) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(objects, nil);
+                });
+                return;
             }
         }
         
+        // Couldn't parse
         dispatch_async(dispatch_get_main_queue(), ^{
             completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
                                                      code:SRGDataProviderErrorCodeInvalidData

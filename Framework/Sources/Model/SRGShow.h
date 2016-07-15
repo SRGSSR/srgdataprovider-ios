@@ -8,7 +8,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SRGShow : MTLModel
+@interface SRGShow : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, copy) NSString *uid;
 @property (nonatomic, copy) NSString *title;

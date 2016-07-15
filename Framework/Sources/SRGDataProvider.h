@@ -22,7 +22,7 @@ OBJC_EXPORT NSString * const SRGBusinessIdentifierSWI;
 
 typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * __nullable topics, NSError * __nullable error);
-typedef void (^SRGMediaCompositionCompletionBlock)(SRGShow * _Nullable show, SRGEpisode * _Nullable episode, NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error);
+typedef void (^SRGMediaCompositionCompletionBlock)(SRGShow * _Nullable show, SRGEpisode * _Nullable episode, NSArray<SRGChapter *> * _Nullable chapters, NSError * _Nullable error);
 
 @interface SRGDataProvider : NSObject
 
