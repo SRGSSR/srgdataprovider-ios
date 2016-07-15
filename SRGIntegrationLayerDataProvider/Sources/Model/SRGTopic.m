@@ -8,4 +8,10 @@
 
 @implementation SRGTopic
 
++ (JSONKeyMapper *)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{ @"id": @"uid",
+                                                        @"title" : @"title" }];
+}
+
 @end

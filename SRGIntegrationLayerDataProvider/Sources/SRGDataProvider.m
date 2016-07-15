@@ -60,7 +60,21 @@ static SRGDataProvider *s_currentDataProvider;
 {
     NSURL *URL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"2.0/%@/topicList/tv.json", self.businessUnitIdentifier] relativeToURL:self.serviceURL];
     return [[NSURLSession sharedSession] dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSLog(@"Response: %@; error: %@", data, error);
+        if (error) {
+            completionBlock(nil, error);
+            return;
+        }
+        
+        // TODO: This is just a parsing / parser dependency test. Use better library and code for JSON mapping
+        NSArray *objectDictionaries = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"topicList"];
+        
+        NSMutableArray<SRGTopic *> *topics = [NSMutableArray array];
+        for (NSDictionary *objectDictionary in objectDictionaries) {
+            SRGTopic *topic = [[SRGTopic alloc] initWithDictionary:objectDictionary error:NULL];
+            [topics addObject:topic];
+        }
+        
+        completionBlock([topics copy], nil);
     }];
 }
 

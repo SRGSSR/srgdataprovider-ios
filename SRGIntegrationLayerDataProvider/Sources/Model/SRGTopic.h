@@ -5,8 +5,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <JSONModel/JSONModel.h>
 
-@interface SRGTopic : NSObject
+@interface SRGTopic : JSONModel
 
 @property (nonatomic, copy) NSString *uid;
 @property (nonatomic, copy) NSString *title;
