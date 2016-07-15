@@ -83,6 +83,28 @@ static SRGDataProvider *s_currentDataProvider;
     }];
 }
 
+- (NSURLSessionTask *)listMediasForTopicWithUid:(NSString *)topicUid completionBlock:(void (^)(NSArray<SRGMedia *> * _Nullable, NSError * _Nullable))completionBlock
+{
+    NSURL *URL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"2.0/%@/mediaList/video/latestByTopic/%@.json", self.businessUnitIdentifier, topicUid] relativeToURL:self.serviceURL];
+    return [[NSURLSession sharedSession] dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            completionBlock(nil, error);
+            return;
+        }
+        
+        // TODO: Implement common safe top-level parsing
+        NSArray *JSONDictionaries = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"mediaList"];
+        
+        NSMutableArray<SRGMedia *> *medias = [NSMutableArray array];
+        for (NSDictionary *JSONDictionary in JSONDictionaries) {
+            SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:NULL];
+            [medias addObject:media];
+        }
+        
+        completionBlock([medias copy], nil);
+    }];
+}
+
 #pragma mark Description
 
 - (NSString *)description

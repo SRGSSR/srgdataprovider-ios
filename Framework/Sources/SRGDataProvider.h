@@ -6,6 +6,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "SRGMedia.h"
 #import "SRGTopic.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -27,6 +28,7 @@ OBJC_EXPORT NSString * const SRGBusinessIdentifierSWI;
 @property (nonatomic, readonly, copy) NSString *businessUnitIdentifier;
 
 - (NSURLSessionTask *)listTopicsWithCompletionBlock:(void (^)(NSArray<SRGTopic *> * __nullable topics, NSError * __nullable error))completionBlock;
+- (NSURLSessionTask *)listMediasForTopicWithUid:(NSString *)topicUid completionBlock:(void (^)(NSArray<SRGMedia *> * __nullable medias, NSError * __nullable error))completionBlock;
 
 @end
 
