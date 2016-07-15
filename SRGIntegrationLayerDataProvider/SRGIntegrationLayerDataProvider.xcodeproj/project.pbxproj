@@ -10,6 +10,8 @@
 		E6AF7F0B1D38B93B00942ADA /* SRGIntegrationLayerDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AF7F091D38B93B00942ADA /* SRGIntegrationLayerDataProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6AF7F4F1D38BB1600942ADA /* SRGDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AF7F4D1D38BB1600942ADA /* SRGDataProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6AF7F501D38BB1600942ADA /* SRGDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AF7F4E1D38BB1600942ADA /* SRGDataProvider.m */; };
+		E6AF7F891D38D03300942ADA /* SRGTopic.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AF7F871D38D03300942ADA /* SRGTopic.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E6AF7F8A1D38D03300942ADA /* SRGTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AF7F881D38D03300942ADA /* SRGTopic.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +20,8 @@
 		E6AF7F091D38B93B00942ADA /* SRGIntegrationLayerDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGIntegrationLayerDataProvider.h; path = SRGIntegrationLayerDataProvider/SRGIntegrationLayerDataProvider.h; sourceTree = "<group>"; };
 		E6AF7F4D1D38BB1600942ADA /* SRGDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGDataProvider.h; sourceTree = "<group>"; };
 		E6AF7F4E1D38BB1600942ADA /* SRGDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGDataProvider.m; sourceTree = "<group>"; };
+		E6AF7F871D38D03300942ADA /* SRGTopic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGTopic.h; sourceTree = "<group>"; };
+		E6AF7F881D38D03300942ADA /* SRGTopic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGTopic.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,10 +56,20 @@
 		E6AF7F4C1D38BAF200942ADA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				E6AF7F861D38D03300942ADA /* Model */,
 				E6AF7F4D1D38BB1600942ADA /* SRGDataProvider.h */,
 				E6AF7F4E1D38BB1600942ADA /* SRGDataProvider.m */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		E6AF7F861D38D03300942ADA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E6AF7F871D38D03300942ADA /* SRGTopic.h */,
+				E6AF7F881D38D03300942ADA /* SRGTopic.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -66,6 +80,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6AF7F0B1D38B93B00942ADA /* SRGIntegrationLayerDataProvider.h in Headers */,
+				E6AF7F891D38D03300942ADA /* SRGTopic.h in Headers */,
 				E6AF7F4F1D38BB1600942ADA /* SRGDataProvider.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,6 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6AF7F8A1D38D03300942ADA /* SRGTopic.m in Sources */,
 				E6AF7F501D38BB1600942ADA /* SRGDataProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

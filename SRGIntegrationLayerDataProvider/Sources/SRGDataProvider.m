@@ -54,6 +54,16 @@ static SRGDataProvider *s_currentDataProvider;
     return nil;
 }
 
+#pragma mark Requests
+
+- (NSURLSessionTask *)listTopicsWithCompletionBlock:(void (^)(NSArray<SRGTopic *> * _Nullable, NSError * _Nullable))completionBlock
+{
+    NSURL *URL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"2.0/%@/topicList/tv.json", self.businessUnitIdentifier] relativeToURL:self.serviceURL];
+    return [[NSURLSession sharedSession] dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSLog(@"Response: %@; error: %@", data, error);
+    }];
+}
+
 #pragma mark Description
 
 - (NSString *)description
