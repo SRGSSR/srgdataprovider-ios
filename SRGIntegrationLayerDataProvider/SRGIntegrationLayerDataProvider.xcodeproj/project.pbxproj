@@ -7,21 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E6AF7F0B1D38B93B00942ADA /* SRGIntegrationLayerDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AF7F091D38B93B00942ADA /* SRGIntegrationLayerDataProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6AF7F4F1D38BB1600942ADA /* SRGDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AF7F4D1D38BB1600942ADA /* SRGDataProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6AF7F501D38BB1600942ADA /* SRGDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AF7F4E1D38BB1600942ADA /* SRGDataProvider.m */; };
 		E6AF7F891D38D03300942ADA /* SRGTopic.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AF7F871D38D03300942ADA /* SRGTopic.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6AF7F8A1D38D03300942ADA /* SRGTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AF7F881D38D03300942ADA /* SRGTopic.m */; };
+		E6AF7F8E1D38D3F000942ADA /* SRGIntegrationLayerDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AF7F8C1D38D3F000942ADA /* SRGIntegrationLayerDataProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E6AF7EFD1D38B8BD00942ADA /* SRGIntegrationLayerDataProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SRGIntegrationLayerDataProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6AF7F081D38B93B00942ADA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SRGIntegrationLayerDataProvider/Info.plist; sourceTree = "<group>"; };
-		E6AF7F091D38B93B00942ADA /* SRGIntegrationLayerDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRGIntegrationLayerDataProvider.h; path = SRGIntegrationLayerDataProvider/SRGIntegrationLayerDataProvider.h; sourceTree = "<group>"; };
 		E6AF7F4D1D38BB1600942ADA /* SRGDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGDataProvider.h; sourceTree = "<group>"; };
 		E6AF7F4E1D38BB1600942ADA /* SRGDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGDataProvider.m; sourceTree = "<group>"; };
 		E6AF7F871D38D03300942ADA /* SRGTopic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGTopic.h; sourceTree = "<group>"; };
 		E6AF7F881D38D03300942ADA /* SRGTopic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGTopic.m; sourceTree = "<group>"; };
+		E6AF7F8B1D38D3F000942ADA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E6AF7F8C1D38D3F000942ADA /* SRGIntegrationLayerDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGIntegrationLayerDataProvider.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,8 +38,8 @@
 		E6AF7EF31D38B8BD00942ADA = {
 			isa = PBXGroup;
 			children = (
-				E6AF7F081D38B93B00942ADA /* Info.plist */,
-				E6AF7F091D38B93B00942ADA /* SRGIntegrationLayerDataProvider.h */,
+				E6AF7F8B1D38D3F000942ADA /* Info.plist */,
+				E6AF7F8C1D38D3F000942ADA /* SRGIntegrationLayerDataProvider.h */,
 				E6AF7F4C1D38BAF200942ADA /* Sources */,
 				E6AF7EFE1D38B8BD00942ADA /* Products */,
 			);
@@ -79,7 +79,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6AF7F0B1D38B93B00942ADA /* SRGIntegrationLayerDataProvider.h in Headers */,
+				E6AF7F8E1D38D3F000942ADA /* SRGIntegrationLayerDataProvider.h in Headers */,
 				E6AF7F891D38D03300942ADA /* SRGTopic.h in Headers */,
 				E6AF7F4F1D38BB1600942ADA /* SRGDataProvider.h in Headers */,
 			);
@@ -258,7 +258,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SRGIntegrationLayerDataProvider/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ch.srgssr.SRGIntegrationLayerDataProvider;
@@ -274,7 +274,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SRGIntegrationLayerDataProvider/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ch.srgssr.SRGIntegrationLayerDataProvider;

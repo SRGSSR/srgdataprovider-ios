@@ -14,3 +14,4 @@ FOUNDATION_EXPORT const unsigned char SRGIntegrationLayerDataProviderVersionStri
 
 // Public headers
 #import "SRGDataProvider.h"
+#import "SRGTopic.h"
