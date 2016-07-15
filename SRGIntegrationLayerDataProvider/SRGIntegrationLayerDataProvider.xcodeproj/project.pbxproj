@@ -12,6 +12,7 @@
 		E6AF7F891D38D03300942ADA /* SRGTopic.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AF7F871D38D03300942ADA /* SRGTopic.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6AF7F8A1D38D03300942ADA /* SRGTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AF7F881D38D03300942ADA /* SRGTopic.m */; };
 		E6AF7F8E1D38D3F000942ADA /* SRGIntegrationLayerDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AF7F8C1D38D3F000942ADA /* SRGIntegrationLayerDataProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E6AF7F901D38D51A00942ADA /* JSONModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7F8F1D38D51A00942ADA /* JSONModel.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		E6AF7F881D38D03300942ADA /* SRGTopic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGTopic.m; sourceTree = "<group>"; };
 		E6AF7F8B1D38D3F000942ADA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6AF7F8C1D38D3F000942ADA /* SRGIntegrationLayerDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGIntegrationLayerDataProvider.h; sourceTree = "<group>"; };
+		E6AF7F8F1D38D51A00942ADA /* JSONModel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSONModel.framework; path = Carthage/Build/iOS/JSONModel.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6AF7F901D38D51A00942ADA /* JSONModel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +44,7 @@
 				E6AF7F8B1D38D3F000942ADA /* Info.plist */,
 				E6AF7F8C1D38D3F000942ADA /* SRGIntegrationLayerDataProvider.h */,
 				E6AF7F4C1D38BAF200942ADA /* Sources */,
+				E6AF7F921D38D52300942ADA /* Frameworks */,
 				E6AF7EFE1D38B8BD00942ADA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,6 +74,14 @@
 				E6AF7F881D38D03300942ADA /* SRGTopic.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E6AF7F921D38D52300942ADA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E6AF7F8F1D38D51A00942ADA /* JSONModel.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,6 +270,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -274,6 +290,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
