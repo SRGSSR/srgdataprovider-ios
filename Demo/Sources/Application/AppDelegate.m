@@ -18,11 +18,6 @@
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGBusinessIdentifierSWI];
     [SRGDataProvider setCurrentDataProvider:dataProvider];
     
-    NSURLSessionTask *task = [[SRGDataProvider currentDataProvider] listTopicsWithCompletionBlock:^(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error) {
-        NSLog(@"Topics: %@", topics);
-    }];
-    [task resume];
-    
     return YES;
 }
 
