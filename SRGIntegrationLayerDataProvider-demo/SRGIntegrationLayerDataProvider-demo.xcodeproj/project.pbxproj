@@ -60,10 +60,10 @@
 		E6AF7F0C1D38B96C00942ADA = {
 			isa = PBXGroup;
 			children = (
-				E6AF7F511D38BD2A00942ADA /* SRGIntegrationLayerDataProvider.framework */,
 				E6AF7F2F1D38B9A100942ADA /* Info.plist */,
 				E6AF7F361D38B9A100942ADA /* Sources */,
 				E6AF7F301D38B9A100942ADA /* Resources */,
+				E6AF7F551D38C2C100942ADA /* Frameworks */,
 				E6AF7F161D38B96C00942ADA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +112,14 @@
 				E6AF7F3D1D38B9A100942ADA /* ViewController.m */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E6AF7F551D38C2C100942ADA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E6AF7F511D38BD2A00942ADA /* SRGIntegrationLayerDataProvider.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
