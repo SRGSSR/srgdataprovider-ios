@@ -6,6 +6,7 @@
 
 #import "SRGDataProvider.h"
 
+#import "SRGDataProviderError.h"
 #import <Mantle/Mantle.h>
 
 NSString * const SRGBusinessIdentifierRSI = @"rsi";
@@ -109,9 +110,10 @@ static SRGDataProvider *s_currentDataProvider;
             }
         }
         
-        // TODO: Return user-friendly data inconsistency error
         dispatch_async(dispatch_get_main_queue(), ^{
-            completionBlock(nil, [NSError errorWithDomain:@"domain" code:1012 userInfo:nil]);
+            completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                     code:SRGDataProviderErrorCodeInvalidData
+                                                 userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"The data is invalid.", nil) }]);
         });
     }];
 }
