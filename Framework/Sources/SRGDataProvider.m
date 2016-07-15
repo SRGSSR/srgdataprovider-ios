@@ -20,6 +20,7 @@ static SRGDataProvider *s_currentDataProvider;
 
 @property (nonatomic) NSURL *serviceURL;
 @property (nonatomic, copy) NSString *businessUnitIdentifier;
+@property (nonatomic) NSURLSession *session;
 
 @end
 
@@ -49,6 +50,9 @@ static SRGDataProvider *s_currentDataProvider;
     if (self = [super init]) {
         self.serviceURL = serviceURL;
         self.businessUnitIdentifier = businessUnitIdentifier;
+        
+        NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        self.session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
     }
     return self;
 }
@@ -59,49 +63,56 @@ static SRGDataProvider *s_currentDataProvider;
     return nil;
 }
 
-#pragma mark Requests
+#pragma mark User requests
 
 - (NSURLSessionTask *)listTopicsWithCompletionBlock:(void (^)(NSArray<SRGTopic *> * _Nullable, NSError * _Nullable))completionBlock
 {
     NSURL *URL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"2.0/%@/topicList/tv.json", self.businessUnitIdentifier] relativeToURL:self.serviceURL];
-    return [[NSURLSession sharedSession] dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error) {
-            completionBlock(nil, error);
-            return;
-        }
-        
-        // TODO: Implement common safe top-level parsing
-        NSArray *JSONDictionaries = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"topicList"];
-        
-        NSMutableArray<SRGTopic *> *topics = [NSMutableArray array];
-        for (NSDictionary *JSONDictionary in JSONDictionaries) {
-            SRGTopic *topic = [MTLJSONAdapter modelOfClass:[SRGTopic class] fromJSONDictionary:JSONDictionary error:NULL];
-            [topics addObject:topic];
-        }
-        
-        completionBlock([topics copy], nil);
-    }];
+    return [self listObjectsForURL:URL withModelClass:[SRGTopic class] rootKey:@"topicList" completionBlock:completionBlock];
 }
 
 - (NSURLSessionTask *)listMediasForTopicWithUid:(NSString *)topicUid completionBlock:(void (^)(NSArray<SRGMedia *> * _Nullable, NSError * _Nullable))completionBlock
 {
     NSURL *URL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"2.0/%@/mediaList/video/latestByTopic/%@.json", self.businessUnitIdentifier, topicUid] relativeToURL:self.serviceURL];
-    return [[NSURLSession sharedSession] dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    return [self listObjectsForURL:URL withModelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+}
+
+#pragma mark Request common implementation
+
+- (NSURLSessionTask *)listObjectsForURL:(NSURL *)URL withModelClass:(Class)modelClass rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, NSError * _Nullable error))completionBlock
+{
+    NSParameterAssert(URL);
+    NSParameterAssert(modelClass);
+    NSParameterAssert(rootKey);
+    NSParameterAssert(completionBlock);
+    
+    return [self.session dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            completionBlock(nil, error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil, error);
+            });
             return;
         }
         
-        // TODO: Implement common safe top-level parsing
-        NSArray *JSONDictionaries = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"mediaList"];
-        
-        NSMutableArray<SRGMedia *> *medias = [NSMutableArray array];
-        for (NSDictionary *JSONDictionary in JSONDictionaries) {
-            SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:NULL];
-            [medias addObject:media];
+        // Expect a root dictionary with an array of objects stored for the specified root key
+        id JSONRootObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        if (JSONRootObject && [JSONRootObject isKindOfClass:[NSDictionary class]]) {
+            id JSONObjects = [JSONRootObject objectForKey:rootKey];
+            if (JSONObjects && [JSONObjects isKindOfClass:[NSArray class]]) {
+                NSArray *objects = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONObjects error:NULL];
+                if (objects) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completionBlock(objects, nil);
+                    });
+                    return;
+                }
+            }
         }
         
-        completionBlock([medias copy], nil);
+        // TODO: Return user-friendly data inconsistency error
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionBlock(nil, [NSError errorWithDomain:@"domain" code:1012 userInfo:nil]);
+        });
     }];
 }
 
