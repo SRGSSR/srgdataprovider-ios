@@ -239,6 +239,7 @@
 				E6AF7EF91D38B8BD00942ADA /* Frameworks */,
 				E6AF7EFA1D38B8BD00942ADA /* Headers */,
 				E6AF7EFB1D38B8BD00942ADA /* Resources */,
+				E6C2B3B51D39039300B6250B /* Copy Frameworks (see Carthage readme) */,
 			);
 			buildRules = (
 			);
@@ -305,6 +306,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E6C2B3B51D39039300B6250B /* Copy Frameworks (see Carthage readme) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/JSONModel.framework",
+			);
+			name = "Copy Frameworks (see Carthage readme)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks ";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E6391A7A1D38E8F400E4CBB9 /* Sources */ = {
@@ -528,6 +547,7 @@
 				E6391A941D38E8F400E4CBB9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E6AF7EF71D38B8BD00942ADA /* Build configuration list for PBXProject "SRGIntegrationLayerDataProvider" */ = {
 			isa = XCConfigurationList;
