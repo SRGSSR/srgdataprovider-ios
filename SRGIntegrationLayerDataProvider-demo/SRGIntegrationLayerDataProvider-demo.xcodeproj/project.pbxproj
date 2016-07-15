@@ -13,7 +13,23 @@
 		E6AF7F421D38B9A100942ADA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AF7F391D38B9A100942ADA /* AppDelegate.m */; };
 		E6AF7F431D38B9A100942ADA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AF7F3A1D38B9A100942ADA /* main.m */; };
 		E6AF7F441D38B9A100942ADA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AF7F3D1D38B9A100942ADA /* ViewController.m */; };
+		E6AF7F521D38BD2A00942ADA /* SRGIntegrationLayerDataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7F511D38BD2A00942ADA /* SRGIntegrationLayerDataProvider.framework */; };
+		E6AF7F531D38BD2A00942ADA /* SRGIntegrationLayerDataProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7F511D38BD2A00942ADA /* SRGIntegrationLayerDataProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E6AF7F541D38BD2A00942ADA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E6AF7F531D38BD2A00942ADA /* SRGIntegrationLayerDataProvider.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		E6AF7F151D38B96C00942ADA /* SRGIntegrationLayerDataProvider-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SRGIntegrationLayerDataProvider-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,6 +42,7 @@
 		E6AF7F3A1D38B9A100942ADA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E6AF7F3C1D38B9A100942ADA /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E6AF7F3D1D38B9A100942ADA /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		E6AF7F511D38BD2A00942ADA /* SRGIntegrationLayerDataProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SRGIntegrationLayerDataProvider.framework; path = "/Users/samuel.defago/Library/Developer/Xcode/DerivedData/SRGIntegrationLayerDataProvider-amehbmtefytjmcgabvvsfrzpcapb/Build/Products/Debug-iphoneos/SRGIntegrationLayerDataProvider.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6AF7F521D38BD2A00942ADA /* SRGIntegrationLayerDataProvider.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,9 +60,10 @@
 		E6AF7F0C1D38B96C00942ADA = {
 			isa = PBXGroup;
 			children = (
+				E6AF7F511D38BD2A00942ADA /* SRGIntegrationLayerDataProvider.framework */,
 				E6AF7F2F1D38B9A100942ADA /* Info.plist */,
-				E6AF7F301D38B9A100942ADA /* Resources */,
 				E6AF7F361D38B9A100942ADA /* Sources */,
+				E6AF7F301D38B9A100942ADA /* Resources */,
 				E6AF7F161D38B96C00942ADA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -105,6 +124,7 @@
 				E6AF7F111D38B96C00942ADA /* Sources */,
 				E6AF7F121D38B96C00942ADA /* Frameworks */,
 				E6AF7F131D38B96C00942ADA /* Resources */,
+				E6AF7F541D38BD2A00942ADA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

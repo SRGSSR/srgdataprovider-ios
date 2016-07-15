@@ -13,3 +13,4 @@ FOUNDATION_EXPORT double SRGIntegrationLayerDataProviderVersionNumber;
 FOUNDATION_EXPORT const unsigned char SRGIntegrationLayerDataProviderVersionString[];
 
 // Public headers
+#import "SRGDataProvider.h"
