@@ -6,6 +6,8 @@
 
 #import <Mantle/Mantle.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SRGShow : MTLModel
 
 @property (nonatomic, copy) NSString *uid;
@@ -14,3 +16,5 @@
 @property (nonatomic) NSURL *homepageURL;
 
 @end
+
+NS_ASSUME_NONNULL_END

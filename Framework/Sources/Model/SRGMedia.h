@@ -6,6 +6,8 @@
 
 #import <Mantle/Mantle.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, SRGMediaType) {
     SRGMediaTypeVideo,
     SRGMediaTypeAudio
@@ -43,3 +45,5 @@ typedef NS_ENUM(NSInteger, SRGCategory) {
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
 
 @end
+
+NS_ASSUME_NONNULL_END
