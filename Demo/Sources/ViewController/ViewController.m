@@ -12,30 +12,30 @@
 
 - (IBAction)request:(id)sender
 {
-    [[[SRGDataProvider currentDataProvider] topicsWithCompletionBlock:^(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] videoTopicsWithCompletionBlock:^(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error) {
         NSLog(@"Topics: %@; error: %@", topics, error);
         
         SRGTopic *firstTopic = topics.firstObject;
         if (firstTopic) {
-            [[[SRGDataProvider currentDataProvider] latestMediasForTopicWithUid:firstTopic.uid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+            [[[SRGDataProvider currentDataProvider] latestVideosForTopicWithUid:firstTopic.uid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
                 NSLog(@"Medias: %@; error: %@", medias, error);
             }] resume];
         }
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] trendingMediasWithEditorialLimit:@5 completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] trendingVideosWithEditorialLimit:@5 completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] compositionForMediaWithUid:@"42241186" completionBlock:^(SRGShow * _Nullable show, SRGEpisode * _Nullable episode, NSArray<SRGChapter *> * _Nullable chapters, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] compositionForVideoWithUid:@"42241186" completionBlock:^(SRGShow * _Nullable show, SRGEpisode * _Nullable episode, NSArray<SRGChapter *> * _Nullable chapters, NSError * _Nullable error) {
         NSLog(@"Show: %@; episode: %@; chapters: %@; error: %@", show, episode, chapters, error);
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] mostPopularMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] mostPopularVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] latestMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] latestVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
 }
