@@ -34,6 +34,10 @@
     [[[SRGDataProvider currentDataProvider] mostPopularMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
+    
+    [[[SRGDataProvider currentDataProvider] latestMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+        NSLog(@"Medias: %@; error: %@", medias, error);
+    }] resume];
 }
 
 @end
