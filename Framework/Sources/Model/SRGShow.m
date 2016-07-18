@@ -18,7 +18,7 @@
               @"homepageURL" : @"homepageUrl" };
 }
 
-#pragma mark Parsers
+#pragma mark Transformers
 
 + (NSValueTransformer *)imageURLJSONTransformer
 {

@@ -17,7 +17,7 @@
               @"imageURL" : @"imageUrl" };
 }
 
-#pragma mark Parsers
+#pragma mark Transformers
 
 + (NSValueTransformer *)imageURLJSONTransformer
 {

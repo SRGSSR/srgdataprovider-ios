@@ -28,7 +28,7 @@
               @"podcastHighDefinitionURL" : @"podcastHdUrl" };
 }
 
-#pragma mark Parsers
+#pragma mark Transformers
 
 + (NSValueTransformer *)mediaTypeJSONTransformer
 {
