@@ -37,6 +37,8 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGShow * _Nullable show, SRG
 - (NSURLSessionTask *)trendingMediasWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 - (NSURLSessionTask *)trendingMediasWithEditorialLimit:(nullable NSNumber *)editorialLimit completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
+- (NSURLSessionTask *)mostPopularMediasWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
 - (NSURLSessionTask *)topicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock;
 - (NSURLSessionTask *)latestMediasForTopicWithUid:(NSString *)topicUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 

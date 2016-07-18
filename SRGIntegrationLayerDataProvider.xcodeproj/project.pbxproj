@@ -22,6 +22,8 @@
 		E6391ABC1D38E96400E4CBB9 /* SRGIntegrationLayerDataProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGIntegrationLayerDataProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E67BB6651D3D295E00E1FEA3 /* SRGResource.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6631D3D295E00E1FEA3 /* SRGResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E67BB6661D3D295E00E1FEA3 /* SRGResource.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6641D3D295E00E1FEA3 /* SRGResource.m */; };
+		E67BB6691D3D2FB600E1FEA3 /* SRGSocialCount.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6671D3D2FB600E1FEA3 /* SRGSocialCount.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E67BB66A1D3D2FB600E1FEA3 /* SRGSocialCount.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6681D3D2FB600E1FEA3 /* SRGSocialCount.m */; };
 		E6C2B3B91D3908AF00B6250B /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; };
 		E6C2B3BA1D3908B600B6250B /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; };
 		E6C2B3BB1D3908B600B6250B /* Mantle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -85,6 +87,8 @@
 		E6391AB31D38E93A00E4CBB9 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E67BB6631D3D295E00E1FEA3 /* SRGResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGResource.h; sourceTree = "<group>"; };
 		E67BB6641D3D295E00E1FEA3 /* SRGResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGResource.m; sourceTree = "<group>"; };
+		E67BB6671D3D2FB600E1FEA3 /* SRGSocialCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSocialCount.h; sourceTree = "<group>"; };
+		E67BB6681D3D2FB600E1FEA3 /* SRGSocialCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSocialCount.m; sourceTree = "<group>"; };
 		E6AF7EFD1D38B8BD00942ADA /* SRGIntegrationLayerDataProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SRGIntegrationLayerDataProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6C2B3B61D3907FF00B6250B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		E6C2B3B71D39089F00B6250B /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 				E67BB6641D3D295E00E1FEA3 /* SRGResource.m */,
 				E6C2B3F61D392F1A00B6250B /* SRGShow.h */,
 				E6C2B3F71D392F1A00B6250B /* SRGShow.m */,
+				E67BB6671D3D2FB600E1FEA3 /* SRGSocialCount.h */,
+				E67BB6681D3D2FB600E1FEA3 /* SRGSocialCount.m */,
 				E6391A991D38E92400E4CBB9 /* SRGTopic.h */,
 				E6391A9A1D38E92400E4CBB9 /* SRGTopic.m */,
 			);
@@ -286,6 +292,7 @@
 				E6C2B3C31D391D5A00B6250B /* SRGDataProviderError.h in Headers */,
 				E6C2B3BF1D390EEF00B6250B /* SRGMedia.h in Headers */,
 				E6391AA31D38E92400E4CBB9 /* SRGIntegrationLayerDataProvider.h in Headers */,
+				E67BB6691D3D2FB600E1FEA3 /* SRGSocialCount.h in Headers */,
 				E67BB6651D3D295E00E1FEA3 /* SRGResource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,6 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6C2B3F91D392F1A00B6250B /* SRGShow.m in Sources */,
+				E67BB66A1D3D2FB600E1FEA3 /* SRGSocialCount.m in Sources */,
 				E6C2B3C01D390EEF00B6250B /* SRGMedia.m in Sources */,
 				E6C2B3FD1D392F2300B6250B /* SRGChapter.m in Sources */,
 				E6391AA01D38E92400E4CBB9 /* SRGTopic.m in Sources */,

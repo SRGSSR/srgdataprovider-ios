@@ -4,6 +4,8 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGSocialCount.h"
+
 #import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -43,6 +45,8 @@ typedef NS_ENUM(NSInteger, SRGCategory) {
 
 @property (nonatomic) NSURL *podcastStandardDefinitionURL;
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
+
+@property (nonatomic) NSArray<SRGSocialCount *> *socialCounts;
 
 @end
 

@@ -25,7 +25,8 @@
               @"date" : @"date",
               @"duration" : @"duration",
               @"podcastStandardDefinitionURL" : @"podcastSdUrl",
-              @"podcastHighDefinitionURL" : @"podcastHdUrl" };
+              @"podcastHighDefinitionURL" : @"podcastHdUrl",
+              @"socialCounts" : @"socialCountList" };
 }
 
 #pragma mark Transformers
@@ -77,6 +78,11 @@
 + (NSValueTransformer *)podcastHighDefinitionURLJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)socialCountsJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSocialCount class]];
 }
 
 @end
