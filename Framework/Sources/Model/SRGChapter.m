@@ -19,10 +19,18 @@
         [mutableMapping addEntriesFromDictionary:@{ @"position" : @"position",
                                                     @"markIn" : @"markIn",
                                                     @"markOut" : @"markOut",
-                                                    @"eventInformation" : @"eventData" }];
+                                                    @"eventInformation" : @"eventData",
+                                                    @"resources" : @"resourceList" }];
         mapping = [mutableMapping copy];
     });
     return mapping;
+}
+
+#pragma mark Transformers
+
++ (NSValueTransformer *)resourcesJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGResource class]];
 }
 
 @end
