@@ -120,7 +120,7 @@ static SRGDataProvider *s_currentDataProvider;
 
 }
 
-- (NSURLSessionTask *)compositionForVideoWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
+- (NSURLSessionTask *)mediaCompositionForVideoWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaComposition/video/%@.json", self.businessUnitIdentifier, mediaUid];
     return [self objectForResourcePath:resourcePath withModelClass:[SRGMediaComposition class] queryItems:nil completionBlock:completionBlock];

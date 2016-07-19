@@ -27,7 +27,7 @@
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] compositionForVideoWithUid:@"42241186" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] mediaCompositionForVideoWithUid:@"42241186" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         NSLog(@"Media composition: %@; error: %@", mediaComposition, error);
     }] resume];
     
