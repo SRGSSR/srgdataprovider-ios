@@ -12,12 +12,12 @@
 
 @interface SRGMediaComposition : MTLModel <MTLJSONSerializing>
 
-@property (nonatomic, copy) NSString *chapterURN;
+@property (nonatomic, readonly, copy) NSString *chapterURN;
 
-@property (nonatomic) SRGShow *show;
-@property (nonatomic) SRGEpisode *episode;
-@property (nonatomic) NSArray<SRGChapter *> *chapters;
+@property (nonatomic, readonly) SRGShow *show;
+@property (nonatomic, readonly) SRGEpisode *episode;
+@property (nonatomic, readonly) NSArray<SRGChapter *> *chapters;
 
-@property (nonatomic, copy) NSString *event;
+@property (nonatomic, readonly, copy) NSString *event;
 
 @end

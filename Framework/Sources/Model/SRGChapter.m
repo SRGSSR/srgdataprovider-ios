@@ -6,6 +6,16 @@
 
 #import "SRGChapter.h"
 
+@interface SRGChapter ()
+
+@property (nonatomic) NSInteger position;
+@property (nonatomic) NSTimeInterval markIn;
+@property (nonatomic) NSTimeInterval markOut;
+
+@property (nonatomic) NSArray<SRGResource *> *resources;
+
+@end
+
 @implementation SRGChapter
 
 #pragma mark MTLJSONSerializing protocol

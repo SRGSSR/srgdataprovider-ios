@@ -6,6 +6,13 @@
 
 #import "SRGTopic.h"
 
+@interface SRGTopic ()
+
+@property (nonatomic, copy) NSString *uid;
+@property (nonatomic, copy) NSString *title;
+
+@end
+
 @implementation SRGTopic
 
 #pragma mark MTLJSONSerializing protocol

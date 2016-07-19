@@ -25,10 +25,10 @@ typedef NS_ENUM(NSInteger, SRGResourceEncoding) {
 
 @interface SRGResource : MTLModel <MTLJSONSerializing>
 
-@property (nonatomic) NSURL *URL;
-@property (nonatomic) SRGResourceQuality quality;
-@property (nonatomic) SRGResourceProtocol protocol;
-@property (nonatomic) SRGResourceEncoding encoding;
+@property (nonatomic, readonly) NSURL *URL;
+@property (nonatomic, readonly) SRGResourceQuality quality;
+@property (nonatomic, readonly) SRGResourceProtocol protocol;
+@property (nonatomic, readonly) SRGResourceEncoding encoding;
 
 @end
 

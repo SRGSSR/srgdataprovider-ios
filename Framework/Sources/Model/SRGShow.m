@@ -6,6 +6,15 @@
 
 #import "SRGShow.h"
 
+@interface SRGShow ()
+
+@property (nonatomic, copy) NSString *uid;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic) NSURL *imageURL;
+@property (nonatomic) NSURL *homepageURL;
+
+@end
+
 @implementation SRGShow
 
 #pragma mark MTLJSONSerializing protocol

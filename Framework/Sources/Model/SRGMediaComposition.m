@@ -6,6 +6,18 @@
 
 #import "SRGMediaComposition.h"
 
+@interface SRGMediaComposition ()
+
+@property (nonatomic, copy) NSString *chapterURN;
+
+@property (nonatomic) SRGShow *show;
+@property (nonatomic) SRGEpisode *episode;
+@property (nonatomic) NSArray<SRGChapter *> *chapters;
+
+@property (nonatomic, copy) NSString *event;
+
+@end
+
 @implementation SRGMediaComposition
 
 #pragma mark MTLJSONSerializing protocol

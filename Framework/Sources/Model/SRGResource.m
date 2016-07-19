@@ -6,6 +6,15 @@
 
 #import "SRGResource.h"
 
+@interface SRGResource ()
+
+@property (nonatomic) NSURL *URL;
+@property (nonatomic) SRGResourceQuality quality;
+@property (nonatomic) SRGResourceProtocol protocol;
+@property (nonatomic) SRGResourceEncoding encoding;
+
+@end
+
 @implementation SRGResource
 
 #pragma mark MTLJSONSerializing protocol

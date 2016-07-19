@@ -11,11 +11,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SRGChapter : SRGMedia
 
-@property (nonatomic) NSInteger position;
-@property (nonatomic) NSTimeInterval markIn;
-@property (nonatomic) NSTimeInterval markOut;
+@property (nonatomic, readonly) NSInteger position;
+@property (nonatomic, readonly) NSTimeInterval markIn;
+@property (nonatomic, readonly) NSTimeInterval markOut;
 
-@property (nonatomic) NSArray<SRGResource *> *resources;
+@property (nonatomic, readonly) NSArray<SRGResource *> *resources;
 
 @end
 

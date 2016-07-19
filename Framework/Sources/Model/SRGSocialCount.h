@@ -19,8 +19,8 @@ typedef NS_ENUM(NSInteger, SRGSocialCountType) {
 
 @interface SRGSocialCount : MTLModel <MTLJSONSerializing>
 
-@property (nonatomic) SRGSocialCountType type;
-@property (nonatomic) NSInteger value;
+@property (nonatomic, readonly) SRGSocialCountType type;
+@property (nonatomic, readonly) NSInteger value;
 
 @end
 

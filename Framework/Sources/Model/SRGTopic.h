@@ -11,8 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SRGTopic : MTLModel <MTLJSONSerializing>
 
-@property (nonatomic, copy) NSString *uid;
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, readonly, copy) NSString *uid;
+@property (nonatomic, readonly, copy) NSString *title;
 
 @end
 

@@ -6,6 +6,13 @@
 
 #import "SRGSocialCount.h"
 
+@interface SRGSocialCount ()
+
+@property (nonatomic) SRGSocialCountType type;
+@property (nonatomic) NSInteger value;
+
+@end
+
 @implementation SRGSocialCount
 
 #pragma mark MTLJSONSerializing protocol

@@ -6,6 +6,14 @@
 
 #import "SRGEpisode.h"
 
+@interface SRGEpisode ()
+
+@property (nonatomic, copy) NSString *uid;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic) NSURL *imageURL;
+
+@end
+
 @implementation SRGEpisode
 
 #pragma mark MTLJSONSerializing protocol
