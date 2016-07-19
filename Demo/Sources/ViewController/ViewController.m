@@ -27,8 +27,8 @@
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] compositionForVideoWithUid:@"42241186" completionBlock:^(SRGShow * _Nullable show, SRGEpisode * _Nullable episode, NSArray<SRGChapter *> * _Nullable chapters, NSError * _Nullable error) {
-        NSLog(@"Show: %@; episode: %@; chapters: %@; error: %@", show, episode, chapters, error);
+    [[[SRGDataProvider currentDataProvider] compositionForVideoWithUid:@"42241186" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        NSLog(@"Media composition: %@; error: %@", mediaComposition, error);
     }] resume];
     
     [[[SRGDataProvider currentDataProvider] mostPopularVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {

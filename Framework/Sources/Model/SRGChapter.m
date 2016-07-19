@@ -19,7 +19,6 @@
         [mutableMapping addEntriesFromDictionary:@{ @"position" : @"position",
                                                     @"markIn" : @"markIn",
                                                     @"markOut" : @"markOut",
-                                                    @"eventInformation" : @"eventData",
                                                     @"resources" : @"resourceList" }];
         mapping = [mutableMapping copy];
     });
