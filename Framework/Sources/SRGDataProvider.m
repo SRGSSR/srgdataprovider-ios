@@ -126,6 +126,12 @@ static SRGDataProvider *s_currentDataProvider;
     return [self objectForResourcePath:resourcePath withModelClass:[SRGMediaComposition class] queryItems:nil completionBlock:completionBlock];
 }
 
+- (NSURLSessionTask *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock
+{
+    // TODO:
+    return nil;
+}
+
 #pragma mark Common implementation. Completion blocks are called on the main thread
 
 - (NSURLSessionTask *)listObjectsForResourcePath:(NSString *)resourcePath withModelClass:(Class)modelClass queryItems:(NSArray<NSURLQueryItem *> *)queryItems rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, NSError * _Nullable error))completionBlock

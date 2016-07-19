@@ -1,0 +1,45 @@
+//
+//  Copyright (c) SRG. All rights reserved.
+//
+//  License information is available from the LICENSE file.
+//
+
+#import <Foundation/Foundation.h>
+
+typedef NS_ENUM(NSInteger, SRGMediaType) {
+    SRGMediaTypeVideo,
+    SRGMediaTypeAudio
+};
+
+typedef NS_ENUM(NSInteger, SRGType) {
+    SRGTypeEpisode
+};
+
+typedef NS_ENUM(NSInteger, SRGCategory) {
+    SRGCategoryEditor,
+    SRGCategoryTrending
+};
+
+typedef NS_ENUM(NSInteger, SRGEncoding) {
+    SRGEncodingMPEG4
+};
+
+typedef NS_ENUM(NSInteger, SRGProtocol) {
+    SRGProtocolHLS,
+    SRGProtocolHDS,
+    SRGProtocolHTTP
+};
+
+typedef NS_ENUM(NSInteger, SRGQuality) {
+    SRGQualityStandard,
+    SRGQualityHigh
+};
+
+typedef NS_ENUM(NSInteger, SRGSocialCountType) {
+    SRGSocialCountTypeSRGView,
+    SRGSocialCountTypeSRGLike,
+    SRGSocialCountTypeFacebookShare,
+    SRGSocialCountTypeTwitterShare,
+    SRGSocialCountTypeGooglePlusShare,
+    SRGSocialCountTypeWhatsAppShare
+};

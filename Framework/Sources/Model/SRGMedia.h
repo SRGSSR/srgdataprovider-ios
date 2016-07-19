@@ -5,24 +5,11 @@
 //
 
 #import "SRGSocialCount.h"
+#import "SRGTypes.h"
 
 #import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef NS_ENUM(NSInteger, SRGMediaType) {
-    SRGMediaTypeVideo,
-    SRGMediaTypeAudio
-};
-
-typedef NS_ENUM(NSInteger, SRGType) {
-    SRGTypeEpisode
-};
-
-typedef NS_ENUM(NSInteger, SRGCategory) {
-    SRGCategoryEditor,
-    SRGCategoryTrending
-};
 
 @interface SRGMedia : MTLModel <MTLJSONSerializing>
 

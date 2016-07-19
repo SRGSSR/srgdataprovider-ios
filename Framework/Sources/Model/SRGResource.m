@@ -9,9 +9,9 @@
 @interface SRGResource ()
 
 @property (nonatomic) NSURL *URL;
-@property (nonatomic) SRGResourceQuality quality;
-@property (nonatomic) SRGResourceProtocol protocol;
-@property (nonatomic) SRGResourceEncoding encoding;
+@property (nonatomic) SRGQuality quality;
+@property (nonatomic) SRGProtocol protocol;
+@property (nonatomic) SRGEncoding encoding;
 
 @end
 
@@ -31,20 +31,20 @@
 
 + (NSValueTransformer *)qualityJSONTransformer
 {
-    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"SD": @(SRGResourceQualityStandard),
-                                                                            @"HD": @(SRGResourceQualityHigh) }];
+    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"SD": @(SRGQualityStandard),
+                                                                            @"HD": @(SRGQualityHigh) }];
 }
 
 + (NSValueTransformer *)protocolJSONTransformer
 {
-    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"HLS": @(SRGResourceProtocolHLS),
-                                                                            @"HDS": @(SRGResourceProtocolHDS),
-                                                                            @"HTTP": @(SRGResourceProtocolHTTP) }];
+    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"HLS": @(SRGProtocolHLS),
+                                                                            @"HDS": @(SRGProtocolHDS),
+                                                                            @"HTTP": @(SRGProtocolHTTP) }];
 }
 
 + (NSValueTransformer *)encodingJSONTransformer
 {
-    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"MPEG4": @(SRGResourceEncodingMPEG4) }];
+    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"MPEG4": @(SRGEncodingMPEG4) }];
 }
 
 @end

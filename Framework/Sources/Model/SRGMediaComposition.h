@@ -4,11 +4,11 @@
 //  License information is available from the LICENSE file.
 //
 
-#import <Mantle/Mantle.h>
-
 #import "SRGChapter.h"
 #import "SRGEpisode.h"
 #import "SRGShow.h"
+
+#import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

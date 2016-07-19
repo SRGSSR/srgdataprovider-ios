@@ -4,18 +4,11 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGTypes.h"
+
 #import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef NS_ENUM(NSInteger, SRGSocialCountType) {
-    SRGSocialCountTypeSRGView,
-    SRGSocialCountTypeSRGLike,
-    SRGSocialCountTypeFacebookShare,
-    SRGSocialCountTypeTwitterShare,
-    SRGSocialCountTypeGooglePlusShare,
-    SRGSocialCountTypeWhatsAppShare
-};
 
 @interface SRGSocialCount : MTLModel <MTLJSONSerializing>
 
