@@ -25,7 +25,8 @@ NSValueTransformer *SRGEncodingJSONTransformer(void)
     static NSValueTransformer *transformer;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"MPEG4": @(SRGEncodingMPEG4) }];
+        transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"MPEG4": @(SRGEncodingMPEG4),
+                                                                                       @"H264" : @(SRGEncodingH264) }];
     });
     return transformer;
 }

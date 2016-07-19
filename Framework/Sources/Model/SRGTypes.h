@@ -21,7 +21,8 @@ typedef NS_ENUM(NSInteger, SRGSource) {
 };
 
 typedef NS_ENUM(NSInteger, SRGEncoding) {
-    SRGEncodingMPEG4
+    SRGEncodingMPEG4,
+    SRGEncodingH264
 };
 
 typedef NS_ENUM(NSInteger, SRGProtocol) {
