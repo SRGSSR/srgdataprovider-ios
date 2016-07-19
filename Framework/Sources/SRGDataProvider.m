@@ -113,6 +113,13 @@ static SRGDataProvider *s_currentDataProvider;
     return [self listObjectsForResourcePath:resourcePath withModelClass:[SRGMedia class] queryItems:nil rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
+- (NSURLSessionTask *)videoShowsWithCompletionBlock:(SRGShowListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/showList/tv/alphabetical.json", self.businessUnitIdentifier];
+    return [self listObjectsForResourcePath:resourcePath withModelClass:[SRGShow class] queryItems:nil rootKey:@"showList" completionBlock:completionBlock];
+
+}
+
 - (NSURLSessionTask *)compositionForVideoWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaComposition/video/%@.json", self.businessUnitIdentifier, mediaUid];
