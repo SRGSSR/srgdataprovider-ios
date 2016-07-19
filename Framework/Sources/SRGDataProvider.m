@@ -7,6 +7,7 @@
 #import "SRGDataProvider.h"
 
 #import "NSBundle+SRGIntegrationLayerDataProvider.h"
+#import "NSURLSession+SRGIntegrationLayerDataProvider.h"
 #import "SRGDataProviderError.h"
 #import <Mantle/Mantle.h>
 
@@ -135,11 +136,15 @@ static SRGDataProvider *s_currentDataProvider;
 
 - (NSURLSessionTask *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock
 {
-    // Just assertions here. If some of this data is missing, the request will be malformed and end with an error
-    NSAssert(mediaComposition.event, @"Event data must be available");
-    
     SRGChapter *mainChapter = mediaComposition.mainChapter;
-    NSAssert(mainChapter, @"The main chapter must be available from the composition");
+    if (!mediaComposition.event || !mainChapter) {
+        NSError *error = [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                             code:SRGDataProviderErrorCodeInvalidRequest
+                                         userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The request is invalid.", nil) }];
+        return [self reportError:error withCompletionBlock:^(NSError * _Nullable error) {
+            completionBlock(nil, error);
+        }];
+    }
     
     NSString *mediaTypeString = (mainChapter.mediaType == SRGMediaTypeAudio) ? @"audio" : @"video";
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaStatistic/%@/%@/liked.json", self.businessUnitIdentifier, mediaTypeString, mainChapter.uid];
@@ -171,6 +176,15 @@ static SRGDataProvider *s_currentDataProvider;
     return [self asynchronouslyFetchObjectWithRequest:request modelClass:modelClass completionBlock:^(id  _Nullable object, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             completionBlock(object, error);
+        });
+    }];
+}
+
+- (NSURLSessionTask *)reportError:(NSError *)error withCompletionBlock:(void (^)(NSError * _Nullable error))completionBlock
+{
+    return [self.session srg_taskForError:error withCompletionHandler:^(NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionBlock(error);
         });
     }];
 }

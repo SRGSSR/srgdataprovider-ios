@@ -32,6 +32,8 @@
 		E67BB6761D3E01C900E1FEA3 /* SRGTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6741D3E01C900E1FEA3 /* SRGTypes.m */; };
 		E67BB6791D3E041900E1FEA3 /* SRGJSONTransformers.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6771D3E041900E1FEA3 /* SRGJSONTransformers.h */; };
 		E67BB67A1D3E041900E1FEA3 /* SRGJSONTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6781D3E041900E1FEA3 /* SRGJSONTransformers.m */; };
+		E67BB6901D3E564400E1FEA3 /* NSURLSession+SRGIntegrationLayerDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB68E1D3E564400E1FEA3 /* NSURLSession+SRGIntegrationLayerDataProvider.h */; };
+		E67BB6911D3E564400E1FEA3 /* NSURLSession+SRGIntegrationLayerDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB68F1D3E564400E1FEA3 /* NSURLSession+SRGIntegrationLayerDataProvider.m */; };
 		E6C2B3B91D3908AF00B6250B /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; };
 		E6C2B3BA1D3908B600B6250B /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; };
 		E6C2B3BB1D3908B600B6250B /* Mantle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -105,6 +107,8 @@
 		E67BB6741D3E01C900E1FEA3 /* SRGTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGTypes.m; sourceTree = "<group>"; };
 		E67BB6771D3E041900E1FEA3 /* SRGJSONTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGJSONTransformers.h; sourceTree = "<group>"; };
 		E67BB6781D3E041900E1FEA3 /* SRGJSONTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGJSONTransformers.m; sourceTree = "<group>"; };
+		E67BB68E1D3E564400E1FEA3 /* NSURLSession+SRGIntegrationLayerDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+SRGIntegrationLayerDataProvider.h"; sourceTree = "<group>"; };
+		E67BB68F1D3E564400E1FEA3 /* NSURLSession+SRGIntegrationLayerDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+SRGIntegrationLayerDataProvider.m"; sourceTree = "<group>"; };
 		E6AF7EFD1D38B8BD00942ADA /* SRGIntegrationLayerDataProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SRGIntegrationLayerDataProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6C2B3B61D3907FF00B6250B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		E6C2B3B71D39089F00B6250B /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
@@ -288,6 +292,8 @@
 			children = (
 				E6C2B3CA1D391EFD00B6250B /* NSBundle+SRGIntegrationLayerDataProvider.h */,
 				E6C2B3CB1D391EFD00B6250B /* NSBundle+SRGIntegrationLayerDataProvider.m */,
+				E67BB68E1D3E564400E1FEA3 /* NSURLSession+SRGIntegrationLayerDataProvider.h */,
+				E67BB68F1D3E564400E1FEA3 /* NSURLSession+SRGIntegrationLayerDataProvider.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -315,6 +321,7 @@
 				E6391AA11D38E92400E4CBB9 /* SRGDataProvider.h in Headers */,
 				E6C2B3C31D391D5A00B6250B /* SRGDataProviderError.h in Headers */,
 				E6C2B3BF1D390EEF00B6250B /* SRGMedia.h in Headers */,
+				E67BB6901D3E564400E1FEA3 /* NSURLSession+SRGIntegrationLayerDataProvider.h in Headers */,
 				E67BB6711D3E011500E1FEA3 /* SRGLike.h in Headers */,
 				E67BB66D1D3DF13800E1FEA3 /* SRGMediaComposition.h in Headers */,
 				E67BB6751D3E01C900E1FEA3 /* SRGTypes.h in Headers */,
@@ -456,6 +463,7 @@
 				E6C2B3C41D391D5A00B6250B /* SRGDataProviderError.m in Sources */,
 				E67BB6721D3E011500E1FEA3 /* SRGLike.m in Sources */,
 				E6C2B3CD1D391EFD00B6250B /* NSBundle+SRGIntegrationLayerDataProvider.m in Sources */,
+				E67BB6911D3E564400E1FEA3 /* NSURLSession+SRGIntegrationLayerDataProvider.m in Sources */,
 				E67BB6661D3D295E00E1FEA3 /* SRGResource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
