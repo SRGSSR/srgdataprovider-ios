@@ -86,44 +86,51 @@ static SRGDataProvider *s_currentDataProvider;
         editorialLimit = @(MAX(0, editorialLimit.integerValue));
         queryItems = @[ [NSURLQueryItem queryItemWithName:@"maxCountEditorPicks" value:editorialLimit.stringValue] ];
     }
-    return [self listObjectsForResourcePath:resourcePath withModelClass:[SRGMedia class] queryItems:queryItems rootKey:@"mediaList" completionBlock:completionBlock];
+    
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
 - (NSURLSessionTask *)latestVideosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latest.json", self.businessUnitIdentifier];
-    return [self listObjectsForResourcePath:resourcePath withModelClass:[SRGMedia class] queryItems:nil rootKey:@"mediaList" completionBlock:completionBlock];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL]modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
 - (NSURLSessionTask *)mostPopularVideosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/mostClicked.json", self.businessUnitIdentifier];
-    return [self listObjectsForResourcePath:resourcePath withModelClass:[SRGMedia class] queryItems:nil rootKey:@"mediaList" completionBlock:completionBlock];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
 - (NSURLSessionTask *)videoTopicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/topicList/tv.json", self.businessUnitIdentifier];
-    return [self listObjectsForResourcePath:resourcePath withModelClass:[SRGTopic class] queryItems:nil rootKey:@"topicList" completionBlock:completionBlock];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGTopic class] rootKey:@"topicList" completionBlock:completionBlock];
 }
 
 - (NSURLSessionTask *)latestVideosForTopicWithUid:(NSString *)topicUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestByTopic/%@.json", self.businessUnitIdentifier, topicUid];
-    return [self listObjectsForResourcePath:resourcePath withModelClass:[SRGMedia class] queryItems:nil rootKey:@"mediaList" completionBlock:completionBlock];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
 - (NSURLSessionTask *)videoShowsWithCompletionBlock:(SRGShowListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/showList/tv/alphabetical.json", self.businessUnitIdentifier];
-    return [self listObjectsForResourcePath:resourcePath withModelClass:[SRGShow class] queryItems:nil rootKey:@"showList" completionBlock:completionBlock];
-
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:completionBlock];
 }
 
 - (NSURLSessionTask *)mediaCompositionForVideoWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaComposition/video/%@.json", self.businessUnitIdentifier, mediaUid];
-    return [self objectForResourcePath:resourcePath withModelClass:[SRGMediaComposition class] queryItems:nil completionBlock:completionBlock];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMediaComposition class] completionBlock:completionBlock];
 }
 
 - (NSURLSessionTask *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock
@@ -141,18 +148,18 @@ static SRGDataProvider *s_currentDataProvider;
 
 #pragma mark Common implementation. Completion blocks are called on the main thread
 
-- (NSURLSessionTask *)listObjectsForResourcePath:(NSString *)resourcePath withModelClass:(Class)modelClass queryItems:(NSArray<NSURLQueryItem *> *)queryItems rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, NSError * _Nullable error))completionBlock
+- (NSURLSessionTask *)listObjectsWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, NSError * _Nullable error))completionBlock
 {
-    return [self asynchronouslyListObjectsForResourcePath:resourcePath withModelClass:modelClass queryItems:queryItems rootKey:rootKey completionBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+    return [self asynchronouslyListObjectsWithRequest:request modelClass:modelClass rootKey:rootKey completionBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             completionBlock(objects, error);
         });
     }];
 }
 
-- (NSURLSessionTask *)objectForResourcePath:(NSString *)resourcePath withModelClass:(Class)modelClass queryItems:(NSArray<NSURLQueryItem *> *)queryItems completionBlock:(void (^)(id _Nullable object, NSError * _Nullable error))completionBlock
+- (NSURLSessionTask *)fetchObjectWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass completionBlock:(void (^)(id _Nullable object, NSError * _Nullable error))completionBlock
 {
-    return [self asynchronouslyFetchObjectForResourcePath:resourcePath withModelClass:modelClass queryItems:queryItems completionBlock:^(id  _Nullable object, NSError * _Nullable error) {
+    return [self asynchronouslyFetchObjectWithRequest:request modelClass:modelClass completionBlock:^(id  _Nullable object, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             completionBlock(object, error);
         });
@@ -161,16 +168,20 @@ static SRGDataProvider *s_currentDataProvider;
 
 #pragma mark Asynchronous requests and processing. The completion block will be called on a background thread
 
-- (NSURLSessionTask *)asynchronouslyRequestResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems completionBlock:(void (^)(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error))completionBlock
+- (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
 {
-    NSParameterAssert(resourcePath);
-    NSParameterAssert(completionBlock);
-    
     NSURL *URL = [NSURL URLWithString:resourcePath relativeToURL:self.serviceURL];
     NSURLComponents *URLComponents = [NSURLComponents componentsWithString:URL.absoluteString];
     URLComponents.queryItems = queryItems;
+    return URLComponents.URL;
+}
+
+- (NSURLSessionTask *)asynchronouslyFetchJSONDictionaryWithRequest:(NSURLRequest *)request withCompletionBlock:(void (^)(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error))completionBlock
+{
+    NSParameterAssert(request);
+    NSParameterAssert(completionBlock);
     
-    return [self.session dataTaskWithURL:URLComponents.URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    return [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             completionBlock(nil, error);
             return;
@@ -188,14 +199,14 @@ static SRGDataProvider *s_currentDataProvider;
     }];
 }
 
-- (NSURLSessionTask *)asynchronouslyListObjectsForResourcePath:(NSString *)resourcePath withModelClass:(Class)modelClass queryItems:(NSArray<NSURLQueryItem *> *)queryItems rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, NSError * _Nullable error))completionBlock
+- (NSURLSessionTask *)asynchronouslyListObjectsWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, NSError * _Nullable error))completionBlock
 {
-    NSParameterAssert(resourcePath);
+    NSParameterAssert(request);
     NSParameterAssert(modelClass);
     NSParameterAssert(rootKey);
     NSParameterAssert(completionBlock);
     
-    return [self asynchronouslyRequestResourcePath:resourcePath withQueryItems:queryItems completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
+    return [self asynchronouslyFetchJSONDictionaryWithRequest:request withCompletionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
         if (error) {
             completionBlock(nil, error);
             return;
@@ -217,13 +228,13 @@ static SRGDataProvider *s_currentDataProvider;
     }];
 }
 
-- (NSURLSessionTask *)asynchronouslyFetchObjectForResourcePath:(NSString *)resourcePath withModelClass:(Class)modelClass queryItems:(NSArray<NSURLQueryItem *> *)queryItems completionBlock:(void (^)(id _Nullable object, NSError * _Nullable error))completionBlock
+- (NSURLSessionTask *)asynchronouslyFetchObjectWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass completionBlock:(void (^)(id _Nullable object, NSError * _Nullable error))completionBlock
 {
-    NSParameterAssert(resourcePath);
+    NSParameterAssert(request);
     NSParameterAssert(modelClass);
     NSParameterAssert(completionBlock);
     
-    return [self asynchronouslyRequestResourcePath:resourcePath withQueryItems:queryItems completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
+    return [self asynchronouslyFetchJSONDictionaryWithRequest:request withCompletionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
         if (error) {
             completionBlock(nil, error);
             return;
