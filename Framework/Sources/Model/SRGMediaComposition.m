@@ -53,4 +53,13 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGChapter class]];
 }
 
+#pragma mark Getters and setters
+
+- (SRGChapter *)mainChapter
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uid == %@", self.chapterURN];
+    return [self.chapters filteredArrayUsingPredicate:predicate].firstObject;
+}
+
 @end
+

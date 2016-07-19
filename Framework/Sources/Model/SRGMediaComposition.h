@@ -24,4 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface SRGMediaComposition (Helpers)
+
+@property (nonatomic, readonly) SRGChapter *mainChapter;
+
+@end
+
 NS_ASSUME_NONNULL_END

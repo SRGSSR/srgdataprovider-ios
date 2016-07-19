@@ -128,7 +128,14 @@ static SRGDataProvider *s_currentDataProvider;
 
 - (NSURLSessionTask *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock
 {
-    // TODO:
+    SRGChapter *mainChapter = mediaComposition.mainChapter;
+    if (!mainChapter) {
+        return nil;
+    }
+    
+    NSString *mediaTypeString = (mainChapter.mediaType == SRGMediaTypeAudio) ? @"audio" : @"video";
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaStatistic/%@/%@/liked.json", self.businessUnitIdentifier, mediaTypeString, mainChapter.uid];
+    
     return nil;
 }
 
