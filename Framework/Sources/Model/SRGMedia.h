@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, copy) NSString *uid;
 
 @property (nonatomic, readonly, copy) NSString *URN;
+@property (nonatomic, readonly, copy) NSString *vendor;
 @property (nonatomic, readonly) SRGMediaType mediaType;
 @property (nonatomic, readonly, copy) NSString *title;
 @property (nonatomic, readonly, copy) NSString *lead;

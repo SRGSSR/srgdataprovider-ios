@@ -13,6 +13,7 @@
 @property (nonatomic, copy) NSString *uid;
 
 @property (nonatomic, copy) NSString *URN;
+@property (nonatomic, copy) NSString *vendor;
 @property (nonatomic) SRGMediaType mediaType;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
@@ -45,6 +46,7 @@
     dispatch_once(&onceToken, ^{
         mapping = @{ @"uid" : @"id",
                      @"URN" : @"urn",
+                     @"vendor" : @"vendor",
                      @"mediaType" : @"mediaType",
                      @"title" : @"title",
                      @"lead" : @"lead",
