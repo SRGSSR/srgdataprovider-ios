@@ -135,6 +135,10 @@ static SRGDataProvider *s_currentDataProvider;
 
 - (NSURLSessionTask *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock
 {
+    if (!mediaComposition.event) {
+        return nil;
+    }
+    
     SRGChapter *mainChapter = mediaComposition.mainChapter;
     if (!mainChapter) {
         return nil;
@@ -142,8 +146,16 @@ static SRGDataProvider *s_currentDataProvider;
     
     NSString *mediaTypeString = (mainChapter.mediaType == SRGMediaTypeAudio) ? @"audio" : @"video";
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaStatistic/%@/%@/liked.json", self.businessUnitIdentifier, mediaTypeString, mainChapter.uid];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     
-    return nil;
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+    request.HTTPMethod = @"POST";
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSDictionary *bodyJSONDictionary = @{ @"eventData" : mediaComposition.event };
+    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyJSONDictionary options:0 error:NULL];
+    
+    return [self fetchObjectWithRequest:request modelClass:[SRGLike class] completionBlock:completionBlock];
 }
 
 #pragma mark Common implementation. Completion blocks are called on the main thread
@@ -185,6 +197,19 @@ static SRGDataProvider *s_currentDataProvider;
         if (error) {
             completionBlock(nil, error);
             return;
+        }
+        
+        // Properly handle HTTP error codes >= 400 as real errors
+        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+            NSHTTPURLResponse *HTTPURLResponse = (NSHTTPURLResponse *)response;
+            NSInteger HTTPStatusCode = HTTPURLResponse.statusCode;
+            if (HTTPStatusCode >= 400) {
+                completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                         code:SRGDataProviderErrorHTTP
+                                                     userInfo:@{ NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:HTTPStatusCode],
+                                                                 NSURLErrorKey : response.URL }]);
+                return;
+            }
         }
         
         id JSONDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];

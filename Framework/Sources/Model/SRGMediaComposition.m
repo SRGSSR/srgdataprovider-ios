@@ -57,7 +57,7 @@
 
 - (SRGChapter *)mainChapter
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uid == %@", self.chapterURN];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"URN == %@", self.chapterURN];
     return [self.chapters filteredArrayUsingPredicate:predicate].firstObject;
 }
 

@@ -29,6 +29,10 @@
     
     [[[SRGDataProvider currentDataProvider] mediaCompositionForVideoWithUid:@"42241186" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         NSLog(@"Media composition: %@; error: %@", mediaComposition, error);
+        
+        [[[SRGDataProvider currentDataProvider] likeMediaComposition:mediaComposition withCompletionBlock:^(SRGLike * _Nullable like, NSError * _Nullable error) {
+            NSLog(@"Like: %@; error: %@", like, error);
+        }] resume];
     }] resume];
     
     [[[SRGDataProvider currentDataProvider] mostPopularVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
