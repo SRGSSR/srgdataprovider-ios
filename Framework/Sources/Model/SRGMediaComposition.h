@@ -10,6 +10,8 @@
 #import "SRGEpisode.h"
 #import "SRGShow.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SRGMediaComposition : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, readonly, copy) NSString *chapterURN;
@@ -21,3 +23,5 @@
 @property (nonatomic, readonly, copy) NSString *event;
 
 @end
+
+NS_ASSUME_NONNULL_END
