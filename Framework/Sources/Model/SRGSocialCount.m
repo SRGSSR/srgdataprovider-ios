@@ -19,8 +19,13 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    return @{ @"type" : @"key",
-              @"value" : @"value" };
+    static NSDictionary *mapping;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        mapping = @{ @"type" : @"key",
+                     @"value" : @"value" };
+    });
+    return mapping;
 }
 
 #pragma mark Parsers

@@ -19,8 +19,13 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    return @{ @"uid" : @"id",
-              @"title" : @"title" };
+    static NSDictionary *mapping;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        mapping = @{ @"uid" : @"id",
+                     @"title" : @"title" };
+    });
+    return mapping;
 }
 
 @end

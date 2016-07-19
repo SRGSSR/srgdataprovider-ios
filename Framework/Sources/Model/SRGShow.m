@@ -21,10 +21,15 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    return @{ @"uid" : @"id",
-              @"title" : @"title",
-              @"imageURL" : @"imageUrl",
-              @"homepageURL" : @"homepageUrl" };
+    static NSDictionary *mapping;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        mapping = @{ @"uid" : @"id",
+                     @"title" : @"title",
+                     @"imageURL" : @"imageUrl",
+                     @"homepageURL" : @"homepageUrl" };
+    });
+    return mapping;
 }
 
 #pragma mark Transformers

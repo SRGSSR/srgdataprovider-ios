@@ -11,13 +11,13 @@ typedef NS_ENUM(NSInteger, SRGMediaType) {
     SRGMediaTypeAudio
 };
 
-typedef NS_ENUM(NSInteger, SRGType) {
-    SRGTypeEpisode
+typedef NS_ENUM(NSInteger, SRGContentType) {
+    SRGContentTypeEpisode
 };
 
-typedef NS_ENUM(NSInteger, SRGCategory) {
-    SRGCategoryEditor,
-    SRGCategoryTrending
+typedef NS_ENUM(NSInteger, SRGSource) {
+    SRGSourceEditor,
+    SRGSourceTrending
 };
 
 typedef NS_ENUM(NSInteger, SRGEncoding) {

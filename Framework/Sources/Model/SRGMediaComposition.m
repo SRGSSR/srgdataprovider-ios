@@ -24,11 +24,16 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    return @{ @"chapterURN" : @"chapterUrn",
-              @"show" : @"show",
-              @"episode" : @"episode",
-              @"chapters" : @"chapterList",
-              @"event" : @"eventData" };
+    static NSDictionary *mapping;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        mapping = @{ @"chapterURN" : @"chapterUrn",
+                     @"show" : @"show",
+                     @"episode" : @"episode",
+                     @"chapters" : @"chapterList",
+                     @"event" : @"eventData" };
+    });
+    return mapping;
 }
 
 #pragma mark Transformers

@@ -24,8 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSURL *imageURL;
 @property (nonatomic, readonly, copy) NSString *imageTitle;
 
-@property (nonatomic, readonly) SRGType type;
-@property (nonatomic, readonly) SRGCategory category;
+@property (nonatomic, readonly) SRGContentType contentType;
+@property (nonatomic, readonly) SRGSource source;
 
 @property (nonatomic, readonly) NSDate *date;
 @property (nonatomic, readonly) NSTimeInterval duration;
