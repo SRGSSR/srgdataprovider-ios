@@ -9,6 +9,7 @@
 #import "NSBundle+SRGIntegrationLayerDataProvider.h"
 #import "NSURLSession+SRGIntegrationLayerDataProvider.h"
 #import "SRGDataProviderError.h"
+
 #import <Mantle/Mantle.h>
 
 NSString * const SRGBusinessIdentifierRSI = @"rsi";
