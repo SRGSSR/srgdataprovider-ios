@@ -6,6 +6,7 @@
 
 #import <Foundation/Foundation.h>
 
+OBJC_EXPORT NSValueTransformer *SRGBlockingReasonJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGContentTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGEncodingJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGMediaTypeJSONTransformer(void);

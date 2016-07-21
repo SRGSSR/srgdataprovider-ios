@@ -6,34 +6,62 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, SRGBlockingReason) {
+    SRGBlockingReasonGeoblocking,
+    SRGBlockingReasonLegal,
+    SRGBlockingReasonCommercial,
+    SRGBlockingReasonAgeRating18,
+    SRGBlockingReasonAgeRating12,
+    SRGBlockingReasonStartDate,
+    SRGBlockingReasonEndDate,
+    SRGBlockingReasonUnknown
+};
+
 typedef NS_ENUM(NSInteger, SRGMediaType) {
     SRGMediaTypeVideo,
     SRGMediaTypeAudio
 };
 
 typedef NS_ENUM(NSInteger, SRGContentType) {
-    SRGContentTypeEpisode
+    SRGContentTypeEpisode,
+    SRGContentTypeTrailer,
+    SRGContentTypeClip,
+    SRGContentTypeLivestream,
+    SRGContentTypeScheduledLivestream
 };
 
 typedef NS_ENUM(NSInteger, SRGSource) {
     SRGSourceEditor,
-    SRGSourceTrending
+    SRGSourceTrending,
+    SRGSourceRecommendation
 };
 
 typedef NS_ENUM(NSInteger, SRGEncoding) {
+    // Video
+    SRGEncodingH264,
+    SRGEncodingVP6F,
+    SRGEncodingMPEG2,
+    SRGEncodingWMV3,
     SRGEncodingMPEG4,
-    SRGEncodingH264
+    // Audio
+    SRGEncodingAAC,
+    SRGEncodingAAC_HE,
+    SRGEncodingMP3,
+    SRGEncodingMP2,
+    SRGEncodingWMAV2,
 };
 
 typedef NS_ENUM(NSInteger, SRGProtocol) {
     SRGProtocolHLS,
     SRGProtocolHDS,
+    SRGProtocolRTMP,
     SRGProtocolHTTP
 };
 
 typedef NS_ENUM(NSInteger, SRGQuality) {
-    SRGQualityStandard,
-    SRGQualityHigh
+    SRGQualitySD,
+    SRGQualityHD,
+    SRGQualityHQ,
 };
 
 typedef NS_ENUM(NSInteger, SRGSocialCountType) {
@@ -46,5 +74,6 @@ typedef NS_ENUM(NSInteger, SRGSocialCountType) {
 };
 
 typedef NS_ENUM(NSInteger, SRGSubtitleFormat) {
-    SRGSubtitleFormatTTML
+    SRGSubtitleFormatTTML,
+    SRGSubtitleFormatVTT
 };
