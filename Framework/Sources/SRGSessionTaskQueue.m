@@ -105,6 +105,9 @@ static void *s_kvoContext = &s_kvoContext;
     if (_wasFinished != self.finished) {
         NSError *error = [self consolidatedError];
         self.stateChangeBlock ? self.stateChangeBlock(self.finished, error) : nil;
+        
+        // Reset error list when finished
+        [self.errors removeAllObjects];
         _wasFinished = self.finished;
     }
 }
