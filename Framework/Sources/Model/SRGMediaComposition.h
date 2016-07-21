@@ -4,7 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGAnalyticsInfo.h"
+#import "SRGEntry.h"
 #import "SRGChannel.h"
 #import "SRGChapter.h"
 #import "SRGEpisode.h"
@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) SRGShow *show;
 @property (nonatomic, readonly, nullable) SRGChannel *channel;
 @property (nonatomic, readonly) NSArray<SRGChapter *> *chapters;
-@property (nonatomic, readonly, nullable) NSArray<SRGAnalyticsInfo *> *analyticsInfos;
+@property (nonatomic, readonly, nullable) NSArray<SRGEntry *> *analyticsEntries;
 @property (nonatomic, readonly, copy, nullable) NSString *event;
 
 @end

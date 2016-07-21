@@ -134,6 +134,19 @@ NSValueTransformer *SRGSubtitleFormatJSONTransformer(void)
     return s_transformer;
 }
 
+OBJC_EXPORT NSValueTransformer *SRGTransmissionJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"TV" : @(SRGTransmissionTV),
+                                                                                         @"RADIO" : @(SRGTransmissionRadio),
+                                                                                         @"ONLINE" : @(SRGTransmissionOnline),
+                                                                                         @"UNKNOWN" : @(SRGTransmissionUnknown) }];
+    });
+    return s_transformer;
+}
+
 NSValueTransformer *SRGVendorJSONTransformer(void)
 {
     static NSValueTransformer *s_transformer;

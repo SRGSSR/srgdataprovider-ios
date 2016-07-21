@@ -42,8 +42,12 @@
 		E68598B51D40CEEE0010000A /* SRGMediaMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = E68598B41D40CEEE0010000A /* SRGMediaMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E68598B81D40F30B0010000A /* SRGChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = E68598B61D40F30B0010000A /* SRGChannel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E68598B91D40F30B0010000A /* SRGChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = E68598B71D40F30B0010000A /* SRGChannel.m */; };
-		E68598BC1D40F3160010000A /* SRGAnalyticsInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = E68598BA1D40F3160010000A /* SRGAnalyticsInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E68598BD1D40F3160010000A /* SRGAnalyticsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E68598BB1D40F3160010000A /* SRGAnalyticsInfo.m */; };
+		E68598BC1D40F3160010000A /* SRGEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = E68598BA1D40F3160010000A /* SRGEntry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E68598BD1D40F3160010000A /* SRGEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = E68598BB1D40F3160010000A /* SRGEntry.m */; };
+		E68598C01D40FF950010000A /* SRGProgram.h in Headers */ = {isa = PBXBuildFile; fileRef = E68598BE1D40FF950010000A /* SRGProgram.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E68598C11D40FF950010000A /* SRGProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = E68598BF1D40FF950010000A /* SRGProgram.m */; };
+		E68598C41D41029F0010000A /* SRGPresenter.h in Headers */ = {isa = PBXBuildFile; fileRef = E68598C21D41029F0010000A /* SRGPresenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E68598C51D41029F0010000A /* SRGPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = E68598C31D41029F0010000A /* SRGPresenter.m */; };
 		E6AE513A1D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AE51381D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.h */; };
 		E6AE513B1D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AE51391D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.m */; };
 		E6AE513E1D40A1FA00572CE4 /* SRGSessionTaskQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AE513C1D40A1FA00572CE4 /* SRGSessionTaskQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -135,8 +139,12 @@
 		E68598B41D40CEEE0010000A /* SRGMediaMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGMediaMetadata.h; sourceTree = "<group>"; };
 		E68598B61D40F30B0010000A /* SRGChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGChannel.h; sourceTree = "<group>"; };
 		E68598B71D40F30B0010000A /* SRGChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGChannel.m; sourceTree = "<group>"; };
-		E68598BA1D40F3160010000A /* SRGAnalyticsInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGAnalyticsInfo.h; sourceTree = "<group>"; };
-		E68598BB1D40F3160010000A /* SRGAnalyticsInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGAnalyticsInfo.m; sourceTree = "<group>"; };
+		E68598BA1D40F3160010000A /* SRGEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGEntry.h; sourceTree = "<group>"; };
+		E68598BB1D40F3160010000A /* SRGEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGEntry.m; sourceTree = "<group>"; };
+		E68598BE1D40FF950010000A /* SRGProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGProgram.h; sourceTree = "<group>"; };
+		E68598BF1D40FF950010000A /* SRGProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGProgram.m; sourceTree = "<group>"; };
+		E68598C21D41029F0010000A /* SRGPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGPresenter.h; sourceTree = "<group>"; };
+		E68598C31D41029F0010000A /* SRGPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGPresenter.m; sourceTree = "<group>"; };
 		E6AE51381D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+SRGIntegrationLayerDataProvider.h"; sourceTree = "<group>"; };
 		E6AE51391D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+SRGIntegrationLayerDataProvider.m"; sourceTree = "<group>"; };
 		E6AE513C1D40A1FA00572CE4 /* SRGSessionTaskQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSessionTaskQueue.h; sourceTree = "<group>"; };
@@ -223,12 +231,12 @@
 			isa = PBXGroup;
 			children = (
 				E68598AD1D40CEA70010000A /* Contracts */,
-				E68598BA1D40F3160010000A /* SRGAnalyticsInfo.h */,
-				E68598BB1D40F3160010000A /* SRGAnalyticsInfo.m */,
 				E68598B61D40F30B0010000A /* SRGChannel.h */,
 				E68598B71D40F30B0010000A /* SRGChannel.m */,
 				E6C2B3FA1D392F2300B6250B /* SRGChapter.h */,
 				E6C2B3FB1D392F2300B6250B /* SRGChapter.m */,
+				E68598BA1D40F3160010000A /* SRGEntry.h */,
+				E68598BB1D40F3160010000A /* SRGEntry.m */,
 				E6C2B3F21D392F1200B6250B /* SRGEpisode.h */,
 				E6C2B3F31D392F1200B6250B /* SRGEpisode.m */,
 				E67BB6771D3E041900E1FEA3 /* SRGJSONTransformers.h */,
@@ -239,6 +247,10 @@
 				E6C2B3BE1D390EEF00B6250B /* SRGMedia.m */,
 				E67BB66B1D3DF13800E1FEA3 /* SRGMediaComposition.h */,
 				E67BB66C1D3DF13800E1FEA3 /* SRGMediaComposition.m */,
+				E68598C21D41029F0010000A /* SRGPresenter.h */,
+				E68598C31D41029F0010000A /* SRGPresenter.m */,
+				E68598BE1D40FF950010000A /* SRGProgram.h */,
+				E68598BF1D40FF950010000A /* SRGProgram.m */,
 				E6AE51401D40A66C00572CE4 /* SRGRelatedContent.h */,
 				E6AE51411D40A66C00572CE4 /* SRGRelatedContent.m */,
 				E67BB6631D3D295E00E1FEA3 /* SRGResource.h */,
@@ -392,11 +404,13 @@
 				E68598B81D40F30B0010000A /* SRGChannel.h in Headers */,
 				E67BB66D1D3DF13800E1FEA3 /* SRGMediaComposition.h in Headers */,
 				E67BB6751D3E01C900E1FEA3 /* SRGTypes.h in Headers */,
-				E68598BC1D40F3160010000A /* SRGAnalyticsInfo.h in Headers */,
+				E68598BC1D40F3160010000A /* SRGEntry.h in Headers */,
 				E67BB6791D3E041900E1FEA3 /* SRGJSONTransformers.h in Headers */,
 				E6AE51421D40A66C00572CE4 /* SRGRelatedContent.h in Headers */,
+				E68598C41D41029F0010000A /* SRGPresenter.h in Headers */,
 				E6AE513E1D40A1FA00572CE4 /* SRGSessionTaskQueue.h in Headers */,
 				E6AE51461D40AA0100572CE4 /* SRGSubtitle.h in Headers */,
+				E68598C01D40FF950010000A /* SRGProgram.h in Headers */,
 				E68598AA1D40CC750010000A /* SRGSegment.h in Headers */,
 				E6391AA31D38E92400E4CBB9 /* SRGIntegrationLayerDataProvider.h in Headers */,
 				E6AE513A1D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.h in Headers */,
@@ -528,7 +542,8 @@
 				E6C2B3F91D392F1A00B6250B /* SRGShow.m in Sources */,
 				E6AE513B1D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.m in Sources */,
 				E67BB66A1D3D2FB600E1FEA3 /* SRGSocialCount.m in Sources */,
-				E68598BD1D40F3160010000A /* SRGAnalyticsInfo.m in Sources */,
+				E68598C11D40FF950010000A /* SRGProgram.m in Sources */,
+				E68598BD1D40F3160010000A /* SRGEntry.m in Sources */,
 				E6C2B3C01D390EEF00B6250B /* SRGMedia.m in Sources */,
 				E6C2B3FD1D392F2300B6250B /* SRGChapter.m in Sources */,
 				E6391AA01D38E92400E4CBB9 /* SRGTopic.m in Sources */,
@@ -543,6 +558,7 @@
 				E67BB6721D3E011500E1FEA3 /* SRGLike.m in Sources */,
 				E6AE513F1D40A1FA00572CE4 /* SRGSessionTaskQueue.m in Sources */,
 				E6C2B3CD1D391EFD00B6250B /* NSBundle+SRGIntegrationLayerDataProvider.m in Sources */,
+				E68598C51D41029F0010000A /* SRGPresenter.m in Sources */,
 				E67BB6911D3E564400E1FEA3 /* NSURLSession+SRGIntegrationLayerDataProvider.m in Sources */,
 				E67BB6661D3D295E00E1FEA3 /* SRGResource.m in Sources */,
 			);

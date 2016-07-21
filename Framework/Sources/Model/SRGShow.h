@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SRGShow : MTLModel <SRGMetadata, SRGImageMetadata, MTLJSONSerializing>
+@interface SRGShow : MTLModel <SRGImageMetadata, SRGMetadata, MTLJSONSerializing>
 
 @property (nonatomic, readonly, copy) NSString *uid;
 @property (nonatomic, readonly, nullable) NSURL *homepageURL;

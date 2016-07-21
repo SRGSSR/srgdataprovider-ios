@@ -87,6 +87,14 @@ typedef NS_ENUM(NSInteger, SRGSubtitleFormat) {
     SRGSubtitleFormatVTT
 };
 
+typedef NS_ENUM(NSInteger, SRGTransmission) {
+    SRGTransmissionNone,
+    SRGTransmissionTV,
+    SRGTransmissionRadio,
+    SRGTransmissionOnline,
+    SRGTransmissionUnknown
+};
+
 typedef NS_ENUM(NSInteger, SRGVendor) {
     SRGVendorNone = 0,
     SRGVendorRSI,

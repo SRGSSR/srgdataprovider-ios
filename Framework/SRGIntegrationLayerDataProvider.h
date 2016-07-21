@@ -14,11 +14,11 @@ FOUNDATION_EXPORT const unsigned char SRGIntegrationLayerDataProviderVersionStri
 
 // Public headers
 #import "NSBundle+SRGIntegrationLayerDataProvider.h"
-#import "SRGAnalyticsInfo.h"
 #import "SRGChannel.h"
 #import "SRGChapter.h"
 #import "SRGDataProvider.h"
 #import "SRGDataProviderError.h"
+#import "SRGEntry.h"
 #import "SRGEpisode.h"
 #import "SRGImageMetadata.h"
 #import "SRGLike.h"
@@ -27,6 +27,8 @@ FOUNDATION_EXPORT const unsigned char SRGIntegrationLayerDataProviderVersionStri
 #import "SRGMediaIdentifierMetadata.h"
 #import "SRGMediaMetadata.h"
 #import "SRGMetadata.h"
+#import "SRGPresenter.h"
+#import "SRGProgram.h"
 #import "SRGRelatedContent.h"
 #import "SRGResource.h"
 #import "SRGSegment.h"

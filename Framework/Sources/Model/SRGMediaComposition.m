@@ -14,7 +14,7 @@
 @property (nonatomic) SRGShow *show;
 @property (nonatomic) SRGChannel *channel;
 @property (nonatomic) NSArray<SRGChapter *> *chapters;
-@property (nonatomic) NSArray<SRGAnalyticsInfo *> *analyticsInfos;
+@property (nonatomic) NSArray<SRGEntry *> *analyticsEntries;
 @property (nonatomic, copy) NSString *event;
 
 @end
@@ -34,7 +34,7 @@
                        @"show" : @"show",
                        @"channel" : @"channel",
                        @"chapters" : @"chapterList",
-                       @"analyticsInfos" : @"analyticsList",
+                       @"analyticsEntries" : @"analyticsList",
                        @"event" : @"eventData" };
     });
     return s_mapping;
@@ -62,9 +62,9 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGChapter class]];
 }
 
-+ (NSValueTransformer *)analyticsInfosJSONTransformer
++ (NSValueTransformer *)analyticsEntriesJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGAnalyticsInfo class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGEntry class]];
 }
 
 #pragma mark Getters and setters

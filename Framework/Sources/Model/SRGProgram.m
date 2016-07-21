@@ -4,18 +4,17 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGChannel.h"
+#import "SRGProgram.h"
 
-#import "SRGJSONTransformers.h"
 #import "NSURL+SRGIntegrationLayerDataProvider.h"
 
-@interface SRGChannel ()
+@interface SRGProgram ()
 
-@property (nonatomic, copy) NSString *uid;
-@property (nonatomic) SRGTransmission transmission;
-@property (nonatomic) NSURL *timetableURL;
-@property (nonatomic) SRGProgram *currentProgram;
-@property (nonatomic) SRGProgram *nextProgram;
+@property (nonatomic) NSDate *startDate;
+@property (nonatomic) NSDate *endDate;
+@property (nonatomic) NSURL *URL;
+@property (nonatomic) SRGShow *show;
+@property (nonatomic) SRGPresenter *presenter;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
@@ -27,7 +26,7 @@
 
 @end
 
-@implementation SRGChannel
+@implementation SRGProgram
 
 #pragma mark MTLJSONSerializing protocol
 
@@ -36,11 +35,11 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"uid" : @"id",
-                       @"transmission" : @"transmission",
-                       @"timetableURL" : @"timeTableUrl",
-                       @"currentProgram" : @"now",
-                       @"nextProgram" : @"next",
+        s_mapping = @{ @"startDate" : @"startTime",
+                       @"endDate" : @"endDate",
+                       @"URL" : @"url",
+                       @"show" : @"show",
+                       @"presenter" : @"presenter",
                        
                        @"title" : @"title",
                        @"lead" : @"lead",
@@ -55,24 +54,19 @@
 
 #pragma mark Transformers
 
-+ (NSValueTransformer *)transmissionJSONTransformer
-{
-    return SRGTransmissionJSONTransformer();
-}
-
-+ (NSValueTransformer *)timetableURLJSONTransformer
++ (NSValueTransformer *)URLJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (NSValueTransformer *)currentProgramJSONTransformer
++ (NSValueTransformer *)showJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGProgram class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGShow class]];
 }
 
-+ (NSValueTransformer *)nextProgramJSONTransformer
++ (NSValueTransformer *)presenterJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGProgram class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGPresenter class]];
 }
 
 + (NSValueTransformer *)imageURLJSONTransformer
