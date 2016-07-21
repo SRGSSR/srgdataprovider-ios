@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, copy) NSString *lead;
 @property (nonatomic, readonly, copy) NSString *summary;
 
-@property (nonatomic, readonly) NSURL *imageURL;
 @property (nonatomic, readonly, copy) NSString *imageTitle;
 
 @property (nonatomic, readonly) SRGContentType contentType;

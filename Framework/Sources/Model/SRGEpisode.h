@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly, copy) NSString *uid;
 @property (nonatomic, readonly, copy) NSString *title;
-@property (nonatomic, readonly) NSURL *imageURL;
 
 @end
 
