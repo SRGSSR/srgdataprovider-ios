@@ -11,14 +11,16 @@
 @interface SRGEpisode ()
 
 @property (nonatomic, copy) NSString *uid;
+
+@property (nonatomic) NSArray<SRGMedia *> *medias;
+
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
 @property (nonatomic, copy) NSString *summary;
+
 @property (nonatomic) NSURL *imageURL;
 @property (nonatomic, copy) NSString *imageTitle;
 @property (nonatomic, copy) NSString *imageCopyright;
-
-@property (nonatomic) NSArray<SRGMedia *> *medias;
 
 @end
 
@@ -28,31 +30,33 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    static NSDictionary *mapping;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        mapping = @{ @"uid" : @"id",
-                     @"title" : @"title",
-                     @"lead" : @"lead",
-                     @"summary" : @"description",
-                     @"imageURL" : @"imageUrl",
-                     @"imageTitle" : @"imageTitle",
-                     @"imageCopyright" : @"imageCopyright",
-                     @"medias" : @"mediaList" };
+    static NSDictionary *s_mapping;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_mapping = @{ @"uid" : @"id",
+                       @"medias" : @"mediaList",
+                       
+                       @"title" : @"title",
+                       @"lead" : @"lead",
+                       @"summary" : @"description",
+                       
+                       @"imageURL" : @"imageUrl",
+                       @"imageTitle" : @"imageTitle",
+                       @"imageCopyright" : @"imageCopyright" };
     });
-    return mapping;
+    return s_mapping;
 }
 
 #pragma mark Transformers
 
-+ (NSValueTransformer *)imageURLJSONTransformer
-{
-    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
-}
-
 + (NSValueTransformer *)mediasJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGMedia class]];
+}
+
++ (NSValueTransformer *)imageURLJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
 #pragma mark SRGImage protocol

@@ -4,15 +4,16 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGContracts.h"
+#import "SRGImageMetadata.h"
 #import "SRGMedia.h"
+#import "SRGMetadata.h"
 
 #import <CoreGraphics/CoreGraphics.h>
 #import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SRGEpisode : MTLModel <SRGMetaData, SRGImage, MTLJSONSerializing>
+@interface SRGEpisode : MTLModel <SRGMetadata, SRGImageMetadata, MTLJSONSerializing>
 
 @property (nonatomic, readonly, copy) NSString *uid;
 

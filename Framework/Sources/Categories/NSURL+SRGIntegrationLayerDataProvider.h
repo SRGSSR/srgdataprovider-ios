@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGImageMetadata.h"
 #import "SRGTypes.h"
 
 #import <Foundation/Foundation.h>

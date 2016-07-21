@@ -4,6 +4,8 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGAnalyticsInfo.h"
+#import "SRGChannel.h"
 #import "SRGChapter.h"
 #import "SRGEpisode.h"
 #import "SRGShow.h"
@@ -15,18 +17,20 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGMediaComposition : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, readonly, copy) NSString *chapterURN;
-
-@property (nonatomic, readonly) SRGShow *show;
-@property (nonatomic, readonly) SRGEpisode *episode;
+@property (nonatomic, readonly, copy, nullable) NSString *segmentURN;
+@property (nonatomic, readonly, nullable) SRGEpisode *episode;
+@property (nonatomic, readonly, nullable) SRGShow *show;
+@property (nonatomic, readonly, nullable) SRGChannel *channel;
 @property (nonatomic, readonly) NSArray<SRGChapter *> *chapters;
-
-@property (nonatomic, readonly, copy) NSString *event;
+@property (nonatomic, readonly, nullable) NSArray<SRGAnalyticsInfo *> *analyticsInfos;
+@property (nonatomic, readonly, copy, nullable) NSString *event;
 
 @end
 
 @interface SRGMediaComposition (Helpers)
 
 @property (nonatomic, readonly) SRGChapter *mainChapter;
+@property (nonatomic, readonly) SRGChapter *mainSegment;
 
 @end
 

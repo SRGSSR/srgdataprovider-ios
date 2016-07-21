@@ -9,6 +9,7 @@
 @interface SRGTopic ()
 
 @property (nonatomic, copy) NSString *uid;
+
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
 @property (nonatomic, copy) NSString *summary;
@@ -21,15 +22,16 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    static NSDictionary *mapping;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        mapping = @{ @"uid" : @"id",
-                     @"title" : @"title",
-                     @"lead" : @"lead",
-                     @"summary" : @"description" };
+    static NSDictionary *s_mapping;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_mapping = @{ @"uid" : @"id",
+                       
+                       @"title" : @"title",
+                       @"lead" : @"lead",
+                       @"summary" : @"description" };
     });
-    return mapping;
+    return s_mapping;
 }
 
 @end

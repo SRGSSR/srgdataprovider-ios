@@ -21,13 +21,13 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    static NSDictionary *mapping;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        mapping = @{ @"format" : @"format",
-                     @"URL" : @"url" };
+    static NSDictionary *s_mapping;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_mapping = @{ @"format" : @"format",
+                       @"URL" : @"url" };
     });
-    return mapping;
+    return s_mapping;
 }
 
 + (NSValueTransformer *)formatJSONTransformer

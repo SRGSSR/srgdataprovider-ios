@@ -9,11 +9,12 @@
 @interface SRGMediaComposition ()
 
 @property (nonatomic, copy) NSString *chapterURN;
-
-@property (nonatomic) SRGShow *show;
+@property (nonatomic, copy) NSString *segmentURN;
 @property (nonatomic) SRGEpisode *episode;
+@property (nonatomic) SRGShow *show;
+@property (nonatomic) SRGChannel *channel;
 @property (nonatomic) NSArray<SRGChapter *> *chapters;
-
+@property (nonatomic) NSArray<SRGAnalyticsInfo *> *analyticsInfos;
 @property (nonatomic, copy) NSString *event;
 
 @end
@@ -24,33 +25,46 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    static NSDictionary *mapping;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        mapping = @{ @"chapterURN" : @"chapterUrn",
-                     @"show" : @"show",
-                     @"episode" : @"episode",
-                     @"chapters" : @"chapterList",
-                     @"event" : @"eventData" };
+    static NSDictionary *s_mapping;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_mapping = @{ @"chapterURN" : @"chapterUrn",
+                       @"segmentURN" : @"segmentUrn",
+                       @"episode" : @"episode",
+                       @"show" : @"show",
+                       @"channel" : @"channel",
+                       @"chapters" : @"chapterList",
+                       @"analyticsInfos" : @"analyticsList",
+                       @"event" : @"eventData" };
     });
-    return mapping;
+    return s_mapping;
 }
 
 #pragma mark Transformers
-
-+ (NSValueTransformer *)showJSONTransformer
-{
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGShow class]];
-}
 
 + (NSValueTransformer *)episodeJSONTransformer
 {
     return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGEpisode class]];
 }
 
++ (NSValueTransformer *)showJSONTransformer
+{
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGShow class]];
+}
+
++ (NSValueTransformer *)channelJSONTransformer
+{
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGChannel class]];
+}
+
 + (NSValueTransformer *)chaptersJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGChapter class]];
+}
+
++ (NSValueTransformer *)analyticsInfosJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGAnalyticsInfo class]];
 }
 
 #pragma mark Getters and setters
@@ -59,6 +73,12 @@
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"URN == %@", self.chapterURN];
     return [self.chapters filteredArrayUsingPredicate:predicate].firstObject;
+}
+
+- (SRGSegment *)mainSegment
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"URN == %@", self.segmentURN];
+    return [self.mainChapter.segments filteredArrayUsingPredicate:predicate].firstObject;
 }
 
 @end

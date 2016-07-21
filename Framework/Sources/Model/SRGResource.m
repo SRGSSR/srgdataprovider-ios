@@ -24,16 +24,16 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    static NSDictionary *mapping;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        mapping = @{ @"URL" : @"url",
-                     @"quality" : @"quality",
-                     @"protocol" : @"protocol",
-                     @"encoding" : @"encoding",
-                     @"MIMEType" : @"mimeType" };
+    static NSDictionary *s_mapping;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_mapping = @{ @"URL" : @"url",
+                       @"quality" : @"quality",
+                       @"protocol" : @"protocol",
+                       @"encoding" : @"encoding",
+                       @"MIMEType" : @"mimeType" };
     });
-    return mapping;
+    return s_mapping;
 }
 
 #pragma mark Parsers

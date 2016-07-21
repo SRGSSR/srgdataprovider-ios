@@ -12,12 +12,12 @@
 
 + (NSBundle *)srg_integrationLayerDataProviderBundle
 {
-    static dispatch_once_t onceToken;
-    static NSBundle *bundle;
-    dispatch_once(&onceToken, ^{
-        bundle = [NSBundle bundleForClass:[SRGDataProvider class]];
+    static dispatch_once_t s_onceToken;
+    static NSBundle *s_bundle;
+    dispatch_once(&s_onceToken, ^{
+        s_bundle = [NSBundle bundleForClass:[SRGDataProvider class]];
     });
-    return bundle;
+    return s_bundle;
 }
 
 @end

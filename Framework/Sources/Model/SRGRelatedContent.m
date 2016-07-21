@@ -9,10 +9,11 @@
 @interface SRGRelatedContent ()
 
 @property (nonatomic, copy) NSString *uid;
+@property (nonatomic) NSURL *URL;
+
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
 @property (nonatomic, copy) NSString *summary;
-@property (nonatomic) NSURL *URL;
 
 @end
 
@@ -22,16 +23,17 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    static NSDictionary *mapping;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        mapping = @{ @"uid" : @"id",
-                     @"title" : @"title",
-                     @"lead" : @"lead",
-                     @"summary" : @"description",
-                     @"URL" : @"url" };
+    static NSDictionary *s_mapping;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_mapping = @{ @"uid" : @"id",
+                       @"URL" : @"url",
+                       
+                       @"title" : @"title",
+                       @"lead" : @"lead",
+                       @"summary" : @"description" };
     });
-    return mapping;
+    return s_mapping;
 }
 
 #pragma mark Transformers

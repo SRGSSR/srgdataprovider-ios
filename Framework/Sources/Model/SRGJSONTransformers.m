@@ -12,142 +12,156 @@
 
 NSValueTransformer *SRGBlockingReasonJSONTransformer(void)
 {
-    static NSValueTransformer *transformer;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"GEOBLOCK" : @(SRGBlockingReasonGeoblocking),
-                                                                                       @"LEGAL" : @(SRGBlockingReasonLegal),
-                                                                                       @"COMMERCIAL" : @(SRGBlockingReasonCommercial),
-                                                                                       @"AGERATING18" : @(SRGBlockingReasonAgeRating18),
-                                                                                       @"AGERATING12" : @(SRGBlockingReasonAgeRating12),
-                                                                                       @"STARTDATE" : @(SRGBlockingReasonStartDate),
-                                                                                       @"ENDDATE" : @(SRGBlockingReasonEndDate),
-                                                                                       @"UNKNOWN" : @(SRGBlockingReasonUnknown) }];
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"GEOBLOCK" : @(SRGBlockingReasonGeoblocking),
+                                                                                         @"LEGAL" : @(SRGBlockingReasonLegal),
+                                                                                         @"COMMERCIAL" : @(SRGBlockingReasonCommercial),
+                                                                                         @"AGERATING18" : @(SRGBlockingReasonAgeRating18),
+                                                                                         @"AGERATING12" : @(SRGBlockingReasonAgeRating12),
+                                                                                         @"STARTDATE" : @(SRGBlockingReasonStartDate),
+                                                                                         @"ENDDATE" : @(SRGBlockingReasonEndDate),
+                                                                                         @"UNKNOWN" : @(SRGBlockingReasonUnknown) }];
     });
-    return transformer;
+    return s_transformer;
 }
 
 NSValueTransformer *SRGContentTypeJSONTransformer(void)
 {
-    static NSValueTransformer *transformer;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"EPISODE" : @(SRGContentTypeEpisode),
-                                                                                       @"TRAILER" : @(SRGContentTypeTrailer),
-                                                                                       @"CLIP" : @(SRGContentTypeClip),
-                                                                                       @"LIVESTREAM" : @(SRGContentTypeLivestream),
-                                                                                       @"SCHEDULED_LIVESTREAM" : @(SRGContentTypeScheduledLivestream) }];
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"EPISODE" : @(SRGContentTypeEpisode),
+                                                                                         @"TRAILER" : @(SRGContentTypeTrailer),
+                                                                                         @"CLIP" : @(SRGContentTypeClip),
+                                                                                         @"LIVESTREAM" : @(SRGContentTypeLivestream),
+                                                                                         @"SCHEDULED_LIVESTREAM" : @(SRGContentTypeScheduledLivestream) }];
     });
-    return transformer;
+    return s_transformer;
 }
 
 NSValueTransformer *SRGEncodingJSONTransformer(void)
 {
-    static NSValueTransformer *transformer;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"H264" : @(SRGEncodingH264),
-                                                                                       @"VP6F" : @(SRGEncodingVP6F),
-                                                                                       @"MPEG2" : @(SRGEncodingMPEG2),
-                                                                                       @"WMV3" : @(SRGEncodingWMV3),
-                                                                                       @"MPEG4" : @(SRGEncodingMPEG4),
-                                                                                       @"AAC" : @(SRGEncodingAAC),
-                                                                                       @"AAC-HE" : @(SRGEncodingAAC_HE),
-                                                                                       @"MP3" : @(SRGEncodingMP3),
-                                                                                       @"MP2" : @(SRGEncodingMP2),
-                                                                                       @"WMAV2" : @(SRGEncodingWMAV2) }];
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"H264" : @(SRGEncodingH264),
+                                                                                         @"VP6F" : @(SRGEncodingVP6F),
+                                                                                         @"MPEG2" : @(SRGEncodingMPEG2),
+                                                                                         @"WMV3" : @(SRGEncodingWMV3),
+                                                                                         @"MPEG4" : @(SRGEncodingMPEG4),
+                                                                                         @"AAC" : @(SRGEncodingAAC),
+                                                                                         @"AAC-HE" : @(SRGEncodingAAC_HE),
+                                                                                         @"MP3" : @(SRGEncodingMP3),
+                                                                                         @"MP2" : @(SRGEncodingMP2),
+                                                                                         @"WMAV2" : @(SRGEncodingWMAV2) }];
     });
-    return transformer;
+    return s_transformer;
 }
 
 NSValueTransformer *SRGMediaTypeJSONTransformer(void)
 {
-    static NSValueTransformer *transformer;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"VIDEO" : @(SRGMediaTypeVideo),
-                                                                                       @"AUDIO" : @(SRGMediaTypeAudio) }];
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"VIDEO" : @(SRGMediaTypeVideo),
+                                                                                         @"AUDIO" : @(SRGMediaTypeAudio) }];
     });
-    return transformer;
+    return s_transformer;
 }
 
 NSValueTransformer *SRGProtocolJSONTransformer(void)
 {
-    static NSValueTransformer *transformer;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"HLS" : @(SRGProtocolHLS),
-                                                                                       @"HDS" : @(SRGProtocolHDS),
-                                                                                       @"RTMP" : @(SRGProtocolRTMP),
-                                                                                       @"HTTP" : @(SRGProtocolHTTP) }];
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"HLS" : @(SRGProtocolHLS),
+                                                                                         @"HDS" : @(SRGProtocolHDS),
+                                                                                         @"RTMP" : @(SRGProtocolRTMP),
+                                                                                         @"HTTP" : @(SRGProtocolHTTP) }];
         
     });
-    return transformer;
+    return s_transformer;
 }
 
 NSValueTransformer *SRGQualityJSONTransformer(void)
 {
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"SD" : @(SRGQualitySD),
+                                                                                         @"HD" : @(SRGQualityHD),
+                                                                                         @"HQ" : @(SRGQualityHQ) }];
+    });
+    return s_transformer;
+}
+
+NSValueTransformer *SRGSocialCountTypeJSONTransformer(void)
+{
     static NSValueTransformer *transformer;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"SD" : @(SRGQualitySD),
-                                                                                       @"HD" : @(SRGQualityHD),
-                                                                                       @"HQ" : @(SRGQualityHQ) }];
-    });
+        transformer =  [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"srgView": @(SRGSocialCountTypeSRGView),
+                                                                                        @"srgLike": @(SRGSocialCountTypeSRGLike),
+                                                                                        @"fbShare": @(SRGSocialCountTypeFacebookShare),
+                                                                                        @"twitterShare": @(SRGSocialCountTypeTwitterShare),
+                                                                                        @"googleShare": @(SRGSocialCountTypeGooglePlusShare),
+                                                                                        @"whatsAppShare": @(SRGSocialCountTypeWhatsAppShare) }];    });
     return transformer;
 }
 
 NSValueTransformer *SRGSourceJSONTransformer(void)
 {
-    static NSValueTransformer *transformer;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"EDITOR" : @(SRGSourceEditor),
-                                                                                       @"TRENDING" : @(SRGSourceTrending),
-                                                                                       @"RECOMMENDATION" : @(SRGSourceRecommendation) }];
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"EDITOR" : @(SRGSourceEditor),
+                                                                                         @"TRENDING" : @(SRGSourceTrending),
+                                                                                         @"RECOMMENDATION" : @(SRGSourceRecommendation) }];
     });
-    return transformer;
+    return s_transformer;
 }
 
 NSValueTransformer *SRGSubtitleFormatJSONTransformer(void)
 {
-    static NSValueTransformer *transformer;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"TTML" : @(SRGSubtitleFormatTTML),
-                                                                                       @"VTT" : @(SRGSubtitleFormatVTT) }];
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"TTML" : @(SRGSubtitleFormatTTML),
+                                                                                         @"VTT" : @(SRGSubtitleFormatVTT) }];
     });
-    return transformer;
+    return s_transformer;
 }
 
 NSValueTransformer *SRGVendorJSONTransformer(void)
 {
-    static NSValueTransformer *transformer;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"RSI" : @(SRGVendorRSI),
-                                                                                       @"RTR" : @(SRGVendorRTR),
-                                                                                       @"RTS" : @(SRGVendorRTS),
-                                                                                       @"SRF" : @(SRGVendorSRF),
-                                                                                       @"SWI" : @(SRGVendorSWI) }];
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"RSI" : @(SRGVendorRSI),
+                                                                                         @"RTR" : @(SRGVendorRTR),
+                                                                                         @"RTS" : @(SRGVendorRTS),
+                                                                                         @"SRF" : @(SRGVendorSRF),
+                                                                                         @"SWI" : @(SRGVendorSWI) }];
     });
-    return transformer;
+    return s_transformer;
 }
 
 NSValueTransformer *SRGISO8601DateJSONTransformer(void)
 {
-    static NSValueTransformer *transformer;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
         [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
         
-        transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *dateString, BOOL *success, NSError *__autoreleasing *error) {
+        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *dateString, BOOL *success, NSError *__autoreleasing *error) {
             return [dateFormatter dateFromString:dateString];
         } reverseBlock:^id(NSDate *date, BOOL *success, NSError *__autoreleasing *error) {
             return [dateFormatter stringFromDate:date];
         }];
     });
-    return transformer;
+    return s_transformer;
 }

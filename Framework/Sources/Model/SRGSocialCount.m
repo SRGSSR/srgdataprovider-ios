@@ -6,6 +6,8 @@
 
 #import "SRGSocialCount.h"
 
+#import "SRGJSONTransformers.h"
+
 @interface SRGSocialCount ()
 
 @property (nonatomic) SRGSocialCountType type;
@@ -19,25 +21,20 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    static NSDictionary *mapping;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        mapping = @{ @"type" : @"key",
-                     @"value" : @"value" };
+    static NSDictionary *s_mapping;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_mapping = @{ @"type" : @"key",
+                       @"value" : @"value" };
     });
-    return mapping;
+    return s_mapping;
 }
 
 #pragma mark Parsers
 
 + (NSValueTransformer *)typeJSONTransformer
 {
-    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"srgView": @(SRGSocialCountTypeSRGView),
-                                                                            @"srgLike": @(SRGSocialCountTypeSRGLike),
-                                                                            @"fbShare": @(SRGSocialCountTypeFacebookShare),
-                                                                            @"twitterShare": @(SRGSocialCountTypeTwitterShare),
-                                                                            @"googleShare": @(SRGSocialCountTypeGooglePlusShare),
-                                                                            @"whatsAppShare": @(SRGSocialCountTypeWhatsAppShare) }];
+    return SRGSocialCountTypeJSONTransformer();
 }
 
 @end

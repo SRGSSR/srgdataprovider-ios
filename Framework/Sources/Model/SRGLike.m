@@ -10,12 +10,12 @@
 
 @interface SRGLike ()
 
-@property (nonatomic, copy) NSString *uid;
-@property (nonatomic) SRGMediaType mediaType;
-@property (nonatomic, copy) NSString *vendor;
-@property (nonatomic, copy) NSString *URN;
-
 @property (nonatomic) NSArray<SRGSocialCount *> *socialCounts;
+
+@property (nonatomic, copy) NSString *uid;
+@property (nonatomic, copy) NSString *URN;
+@property (nonatomic) SRGMediaType mediaType;
+@property (nonatomic) SRGVendor vendor;
 
 @end
 
@@ -25,28 +25,34 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    static NSDictionary *mapping;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        mapping = @{ @"uid" : @"id",
-                     @"mediaType" : @"mediaType",
-                     @"vendor" : @"vendor",
-                     @"URN" : @"urn",
-                     @"socialCounts" : @"socialCountList" };
+    static NSDictionary *s_mapping;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_mapping = @{ @"socialCounts" : @"socialCountList",
+                       
+                       @"uid" : @"id",
+                       @"URN" : @"urn",
+                       @"mediaType" : @"mediaType",
+                       @"vendor" : @"vendor" };
     });
-    return mapping;
+    return s_mapping;
 }
 
 #pragma mark Transformers
+
++ (NSValueTransformer *)socialCountsJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSocialCount class]];
+}
 
 + (NSValueTransformer *)mediaTypeJSONTransformer
 {
     return SRGMediaTypeJSONTransformer();
 }
 
-+ (NSValueTransformer *)socialCountsJSONTransformer
++ (NSValueTransformer *)vendorJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSocialCount class]];
+    return SRGVendorJSONTransformer();
 }
 
 @end

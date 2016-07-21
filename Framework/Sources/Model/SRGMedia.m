@@ -42,27 +42,27 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    static NSDictionary *mapping;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        mapping = @{ @"uid" : @"id",
-                     @"URN" : @"urn",
-                     @"vendor" : @"vendor",
-                     @"mediaType" : @"mediaType",
-                     @"title" : @"title",
-                     @"lead" : @"lead",
-                     @"summary" : @"description",
-                     @"imageURL" : @"imageUrl",
-                     @"imageTitle" : @"imageTitle",
-                     @"contentType" : @"type",
-                     @"source" : @"assignedBy",
-                     @"date" : @"date",
-                     @"duration" : @"duration",
-                     @"podcastStandardDefinitionURL" : @"podcastSdUrl",
-                     @"podcastHighDefinitionURL" : @"podcastHdUrl",
-                     @"socialCounts" : @"socialCountList" };
+    static NSDictionary *s_mapping;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_mapping = @{ @"uid" : @"id",
+                       @"URN" : @"urn",
+                       @"vendor" : @"vendor",
+                       @"mediaType" : @"mediaType",
+                       @"title" : @"title",
+                       @"lead" : @"lead",
+                       @"summary" : @"description",
+                       @"imageURL" : @"imageUrl",
+                       @"imageTitle" : @"imageTitle",
+                       @"contentType" : @"type",
+                       @"source" : @"assignedBy",
+                       @"date" : @"date",
+                       @"duration" : @"duration",
+                       @"podcastStandardDefinitionURL" : @"podcastSdUrl",
+                       @"podcastHighDefinitionURL" : @"podcastHdUrl",
+                       @"socialCounts" : @"socialCountList" };
     });
-    return mapping;
+    return s_mapping;
 }
 
 #pragma mark Transformers

@@ -6,12 +6,8 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, SRGImageDimension) {
-    SRGImageDimensionWidth,
-    SRGImageDimensionHeight
-};
-
 typedef NS_ENUM(NSInteger, SRGBlockingReason) {
+    SRGBlockingReasonNone = 0,
     SRGBlockingReasonGeoblocking,
     SRGBlockingReasonLegal,
     SRGBlockingReasonCommercial,
@@ -22,12 +18,8 @@ typedef NS_ENUM(NSInteger, SRGBlockingReason) {
     SRGBlockingReasonUnknown
 };
 
-typedef NS_ENUM(NSInteger, SRGMediaType) {
-    SRGMediaTypeVideo,
-    SRGMediaTypeAudio
-};
-
 typedef NS_ENUM(NSInteger, SRGContentType) {
+    SRGContentTypeNone = 0,
     SRGContentTypeEpisode,
     SRGContentTypeTrailer,
     SRGContentTypeClip,
@@ -35,13 +27,8 @@ typedef NS_ENUM(NSInteger, SRGContentType) {
     SRGContentTypeScheduledLivestream
 };
 
-typedef NS_ENUM(NSInteger, SRGSource) {
-    SRGSourceEditor,
-    SRGSourceTrending,
-    SRGSourceRecommendation
-};
-
 typedef NS_ENUM(NSInteger, SRGEncoding) {
+    SRGEncodingNone = 0,
     // Video
     SRGEncodingH264,
     SRGEncodingVP6F,
@@ -56,7 +43,14 @@ typedef NS_ENUM(NSInteger, SRGEncoding) {
     SRGEncodingWMAV2,
 };
 
+typedef NS_ENUM(NSInteger, SRGMediaType) {
+    SRGMediaTypeNone = 0,
+    SRGMediaTypeVideo,
+    SRGMediaTypeAudio
+};
+
 typedef NS_ENUM(NSInteger, SRGProtocol) {
+    SRGProtocolNone = 0,
     SRGProtocolHLS,
     SRGProtocolHDS,
     SRGProtocolRTMP,
@@ -64,12 +58,14 @@ typedef NS_ENUM(NSInteger, SRGProtocol) {
 };
 
 typedef NS_ENUM(NSInteger, SRGQuality) {
+    SRGQualityNone = 0,
     SRGQualitySD,
     SRGQualityHD,
     SRGQualityHQ,
 };
 
 typedef NS_ENUM(NSInteger, SRGSocialCountType) {
+    SRGSocialCountTypeNone = 0,
     SRGSocialCountTypeSRGView,
     SRGSocialCountTypeSRGLike,
     SRGSocialCountTypeFacebookShare,
@@ -78,12 +74,21 @@ typedef NS_ENUM(NSInteger, SRGSocialCountType) {
     SRGSocialCountTypeWhatsAppShare
 };
 
+typedef NS_ENUM(NSInteger, SRGSource) {
+    SRGSourceNone = 0,
+    SRGSourceEditor,
+    SRGSourceTrending,
+    SRGSourceRecommendation
+};
+
 typedef NS_ENUM(NSInteger, SRGSubtitleFormat) {
+    SRGSubtitleFormatNone = 0,
     SRGSubtitleFormatTTML,
     SRGSubtitleFormatVTT
 };
 
 typedef NS_ENUM(NSInteger, SRGVendor) {
+    SRGVendorNone = 0,
     SRGVendorRSI,
     SRGVendorRTR,
     SRGVendorRTS,

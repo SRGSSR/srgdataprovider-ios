@@ -11,15 +11,17 @@
 @interface SRGShow ()
 
 @property (nonatomic, copy) NSString *uid;
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *lead;
-@property (nonatomic, copy) NSString *summary;
-@property (nonatomic) NSURL *imageURL;
-@property (nonatomic, copy) NSString *imageTitle;
-@property (nonatomic, copy) NSString *imageCopyright;
 @property (nonatomic) NSURL *homepageURL;
 @property (nonatomic) NSURL *podcastSubscriptionURL;
 @property (nonatomic, copy) NSString *primaryChannelUid;
+
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *lead;
+@property (nonatomic, copy) NSString *summary;
+
+@property (nonatomic) NSURL *imageURL;
+@property (nonatomic, copy) NSString *imageTitle;
+@property (nonatomic, copy) NSString *imageCopyright;
 
 @end
 
@@ -29,21 +31,23 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    static NSDictionary *mapping;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        mapping = @{ @"uid" : @"id",
-                     @"title" : @"title",
-                     @"lead" : @"lead",
-                     @"summary" : @"description",
-                     @"imageURL" : @"imageUrl",
-                     @"imageTitle" : @"imageTitle",
-                     @"imageCopyright" : @"imageCopyright",
-                     @"homepageURL" : @"homepageUrl",
-                     @"podcastSubscriptionURL" : @"podcastSubscriptionUrl",
-                     @"primaryChannelUid" : @"primaryChannelId" };
+    static NSDictionary *s_mapping;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_mapping = @{ @"uid" : @"id",
+                       @"homepageURL" : @"homepageUrl",
+                       @"podcastSubscriptionURL" : @"podcastSubscriptionUrl",
+                       @"primaryChannelUid" : @"primaryChannelId",
+                       
+                       @"title" : @"title",
+                       @"lead" : @"lead",
+                       @"summary" : @"description",
+                       
+                       @"imageURL" : @"imageUrl",
+                       @"imageTitle" : @"imageTitle",
+                       @"imageCopyright" : @"imageCopyright" };
     });
-    return mapping;
+    return s_mapping;
 }
 
 #pragma mark Transformers
