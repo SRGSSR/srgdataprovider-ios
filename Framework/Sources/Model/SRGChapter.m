@@ -37,7 +37,7 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGResource class]];
 }
 
-+ (NSValueTransformer *)segmentsSONTransformer
++ (NSValueTransformer *)segmentsJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSegment class]];
 }
