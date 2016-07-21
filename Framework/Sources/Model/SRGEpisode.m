@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy) NSString *uid;
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *imageTitle;
 @property (nonatomic) NSURL *imageURL;
 
 @end
@@ -27,7 +28,8 @@
     dispatch_once(&onceToken, ^{
         mapping = @{ @"uid" : @"id",
                      @"title" : @"title",
-                     @"imageURL" : @"imageUrl" };
+                     @"imageURL" : @"imageUrl",
+                     @"imageTitle" : @"imageTitle" };
     });
     return mapping;
 }

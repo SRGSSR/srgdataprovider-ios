@@ -13,7 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly, copy) NSString *uid;
 @property (nonatomic, readonly, copy) NSString *title;
+@property (nonatomic, readonly, copy) NSString *lead;
+@property (nonatomic, readonly, copy) NSString *summary;
+@property (nonatomic, readonly, copy) NSString *primaryChannelUid;
 @property (nonatomic, readonly) NSURL *homepageURL;
+@property (nonatomic, readonly) NSURL *podcastSubscriptionURL;
 
 @end
 

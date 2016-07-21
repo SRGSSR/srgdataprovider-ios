@@ -12,8 +12,12 @@
 
 @property (nonatomic, copy) NSString *uid;
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *lead;
+@property (nonatomic, copy) NSString *summary;
+@property (nonatomic, copy) NSString *primaryChannelUid;
 @property (nonatomic) NSURL *imageURL;
 @property (nonatomic) NSURL *homepageURL;
+@property (nonatomic) NSURL *podcastSubscriptionURL;
 
 @end
 
@@ -28,8 +32,12 @@
     dispatch_once(&onceToken, ^{
         mapping = @{ @"uid" : @"id",
                      @"title" : @"title",
+                     @"lead" : @"lead",
+                     @"summary" : @"description",
+                     @"primaryChannelUid" : @"primaryChannelId",
                      @"imageURL" : @"imageUrl",
-                     @"homepageURL" : @"homepageUrl" };
+                     @"homepageURL" : @"homepageUrl",
+                     @"podcastSubscriptionURL" : @"podcastSubscriptionUrl" };
     });
     return mapping;
 }
@@ -42,6 +50,11 @@
 }
 
 + (NSValueTransformer *)homepageURLJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)podcastSubscriptionURLJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
