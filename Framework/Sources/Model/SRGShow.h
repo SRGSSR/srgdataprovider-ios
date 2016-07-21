@@ -4,27 +4,19 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGContracts.h"
+
 #import <CoreGraphics/CoreGraphics.h>
 #import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SRGShow : MTLModel <MTLJSONSerializing>
+@interface SRGShow : MTLModel <SRGMetaData, SRGImage, MTLJSONSerializing>
 
 @property (nonatomic, readonly, copy) NSString *uid;
-@property (nonatomic, readonly, copy) NSString *title;
-@property (nonatomic, readonly, copy) NSString *lead;
-@property (nonatomic, readonly, copy) NSString *summary;
-@property (nonatomic, readonly, copy) NSString *primaryChannelUid;
-@property (nonatomic, readonly) NSURL *homepageURL;
-@property (nonatomic, readonly) NSURL *podcastSubscriptionURL;
-
-@end
-
-@interface SRGShow (SRGImageResizing)
-
-- (NSURL *)imageURLForWidth:(CGFloat)width;
-- (NSURL *)imageURLForHeight:(CGFloat)height;
+@property (nonatomic, readonly, nullable) NSURL *homepageURL;
+@property (nonatomic, readonly, nullable) NSURL *podcastSubscriptionURL;
+@property (nonatomic, readonly, copy, nullable) NSString *primaryChannelUid;
 
 @end
 

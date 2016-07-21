@@ -8,22 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger, SRGImageDimension) {
-    SRGImageDimensionWidth,
-    SRGImageDimensionHeight
-};
-
 @implementation NSURL (SRGUtils)
-
-- (NSURL *)srg_URLForWidth:(CGFloat)width
-{
-    return [self srg_URLForDimension:SRGImageDimensionWidth withValue:width];
-}
-
-- (NSURL *)srg_URLForHeight:(CGFloat)height
-{
-    return [self srg_URLForDimension:SRGImageDimensionHeight withValue:height];
-}
 
 - (NSURL *)srg_URLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
 {

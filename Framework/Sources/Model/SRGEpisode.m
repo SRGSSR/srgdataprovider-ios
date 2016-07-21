@@ -12,8 +12,13 @@
 
 @property (nonatomic, copy) NSString *uid;
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *imageTitle;
+@property (nonatomic, copy) NSString *lead;
+@property (nonatomic, copy) NSString *summary;
 @property (nonatomic) NSURL *imageURL;
+@property (nonatomic, copy) NSString *imageTitle;
+@property (nonatomic, copy) NSString *imageCopyright;
+
+@property (nonatomic) NSArray<SRGMedia *> *medias;
 
 @end
 
@@ -28,8 +33,12 @@
     dispatch_once(&onceToken, ^{
         mapping = @{ @"uid" : @"id",
                      @"title" : @"title",
+                     @"lead" : @"lead",
+                     @"summary" : @"description",
                      @"imageURL" : @"imageUrl",
-                     @"imageTitle" : @"imageTitle" };
+                     @"imageTitle" : @"imageTitle",
+                     @"imageCopyright" : @"imageCopyright",
+                     @"medias" : @"mediaList" };
     });
     return mapping;
 }
@@ -41,18 +50,16 @@
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-@end
-
-@implementation SRGEpisode (SRGImageResizing)
-
-- (NSURL *)imageURLForWidth:(CGFloat)width
++ (NSValueTransformer *)mediasJSONTransformer
 {
-    return [self.imageURL srg_URLForWidth:width];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGMedia class]];
 }
 
-- (NSURL *)imageURLForHeight:(CGFloat)height
+#pragma mark SRGImage protocol
+
+- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
 {
-    return [self.imageURL srg_URLForHeight:height];
+    return [self.imageURL srg_URLForDimension:dimension withValue:value];
 }
 
 @end

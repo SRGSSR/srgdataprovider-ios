@@ -4,23 +4,19 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGContracts.h"
+#import "SRGMedia.h"
+
 #import <CoreGraphics/CoreGraphics.h>
 #import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SRGEpisode : MTLModel <MTLJSONSerializing>
+@interface SRGEpisode : MTLModel <SRGMetaData, SRGImage, MTLJSONSerializing>
 
 @property (nonatomic, readonly, copy) NSString *uid;
-@property (nonatomic, readonly, copy) NSString *title;
-@property (nonatomic, readonly, copy) NSString *imageTitle;
 
-@end
-
-@interface SRGEpisode (SRGImageResizing)
-
-- (NSURL *)imageURLForWidth:(CGFloat)width;
-- (NSURL *)imageURLForHeight:(CGFloat)height;
+@property (nonatomic, readonly, nullable) NSArray<SRGMedia *> *medias;
 
 @end
 

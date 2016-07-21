@@ -14,6 +14,7 @@
 @property (nonatomic) SRGQuality quality;
 @property (nonatomic) SRGProtocol protocol;
 @property (nonatomic) SRGEncoding encoding;
+@property (nonatomic, copy) NSString *MIMEType;
 
 @end
 
@@ -29,7 +30,8 @@
         mapping = @{ @"URL" : @"url",
                      @"quality" : @"quality",
                      @"protocol" : @"protocol",
-                     @"encoding" : @"encoding" };
+                     @"encoding" : @"encoding",
+                     @"MIMEType" : @"mimeType" };
     });
     return mapping;
 }

@@ -120,6 +120,20 @@ NSValueTransformer *SRGSubtitleFormatJSONTransformer(void)
     return transformer;
 }
 
+NSValueTransformer *SRGVendorJSONTransformer(void)
+{
+    static NSValueTransformer *transformer;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"RSI" : @(SRGVendorRSI),
+                                                                                       @"RTR" : @(SRGVendorRTR),
+                                                                                       @"RTS" : @(SRGVendorRTS),
+                                                                                       @"SRF" : @(SRGVendorSRF),
+                                                                                       @"SWI" : @(SRGVendorSWI) }];
+    });
+    return transformer;
+}
+
 NSValueTransformer *SRGISO8601DateJSONTransformer(void)
 {
     static NSValueTransformer *transformer;

@@ -4,15 +4,16 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGContracts.h"
+
 #import <Foundation/Foundation.h>
 #import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SRGTopic : MTLModel <MTLJSONSerializing>
+@interface SRGTopic : MTLModel <SRGMetaData, MTLJSONSerializing>
 
 @property (nonatomic, readonly, copy) NSString *uid;
-@property (nonatomic, readonly, copy) NSString *title;
 
 @end
 

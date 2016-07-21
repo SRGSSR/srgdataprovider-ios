@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGQuality quality;
 @property (nonatomic, readonly) SRGProtocol protocol;
 @property (nonatomic, readonly) SRGEncoding encoding;
+@property (nonatomic, readonly, copy, nullable) NSString *MIMEType;
 
 @end
 

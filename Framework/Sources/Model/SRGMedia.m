@@ -108,17 +108,3 @@
 }
 
 @end
-
-@implementation SRGMedia (SRGImageResizing)
-
-- (NSURL *)imageURLForWidth:(CGFloat)width
-{
-    return [self.imageURL srg_URLForWidth:width];
-}
-
-- (NSURL *)imageURLForHeight:(CGFloat)height
-{
-    return [self.imageURL srg_URLForHeight:height];
-}
-
-@end

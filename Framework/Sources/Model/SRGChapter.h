@@ -45,11 +45,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface SRGChapter (SRGImageResizing)
-
-- (NSURL *)imageURLForWidth:(CGFloat)width;
-- (NSURL *)imageURLForHeight:(CGFloat)height;
-
-@end
-
 NS_ASSUME_NONNULL_END

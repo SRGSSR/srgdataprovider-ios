@@ -14,10 +14,12 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
 @property (nonatomic, copy) NSString *summary;
-@property (nonatomic, copy) NSString *primaryChannelUid;
 @property (nonatomic) NSURL *imageURL;
+@property (nonatomic, copy) NSString *imageTitle;
+@property (nonatomic, copy) NSString *imageCopyright;
 @property (nonatomic) NSURL *homepageURL;
 @property (nonatomic) NSURL *podcastSubscriptionURL;
+@property (nonatomic, copy) NSString *primaryChannelUid;
 
 @end
 
@@ -34,10 +36,12 @@
                      @"title" : @"title",
                      @"lead" : @"lead",
                      @"summary" : @"description",
-                     @"primaryChannelUid" : @"primaryChannelId",
                      @"imageURL" : @"imageUrl",
+                     @"imageTitle" : @"imageTitle",
+                     @"imageCopyright" : @"imageCopyright",
                      @"homepageURL" : @"homepageUrl",
-                     @"podcastSubscriptionURL" : @"podcastSubscriptionUrl" };
+                     @"podcastSubscriptionURL" : @"podcastSubscriptionUrl",
+                     @"primaryChannelUid" : @"primaryChannelId" };
     });
     return mapping;
 }
@@ -59,18 +63,11 @@
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-@end
+#pragma mark SRGImage protocol
 
-@implementation SRGShow (SRGImageResizing)
-
-- (NSURL *)imageURLForWidth:(CGFloat)width
+- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
 {
-    return [self.imageURL srg_URLForWidth:width];
-}
-
-- (NSURL *)imageURLForHeight:(CGFloat)height
-{
-    return [self.imageURL srg_URLForHeight:height];
+    return [self.imageURL srg_URLForDimension:dimension withValue:value];
 }
 
 @end

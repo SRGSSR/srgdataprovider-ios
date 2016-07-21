@@ -6,6 +6,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, SRGImageDimension) {
+    SRGImageDimensionWidth,
+    SRGImageDimensionHeight
+};
+
 typedef NS_ENUM(NSInteger, SRGBlockingReason) {
     SRGBlockingReasonGeoblocking,
     SRGBlockingReasonLegal,
@@ -76,4 +81,12 @@ typedef NS_ENUM(NSInteger, SRGSocialCountType) {
 typedef NS_ENUM(NSInteger, SRGSubtitleFormat) {
     SRGSubtitleFormatTTML,
     SRGSubtitleFormatVTT
+};
+
+typedef NS_ENUM(NSInteger, SRGVendor) {
+    SRGVendorRSI,
+    SRGVendorRTR,
+    SRGVendorRTS,
+    SRGVendorSRF,
+    SRGVendorSWI
 };

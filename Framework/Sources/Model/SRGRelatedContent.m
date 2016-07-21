@@ -10,6 +10,7 @@
 
 @property (nonatomic, copy) NSString *uid;
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *lead;
 @property (nonatomic, copy) NSString *summary;
 @property (nonatomic) NSURL *URL;
 
@@ -26,6 +27,7 @@
     dispatch_once(&onceToken, ^{
         mapping = @{ @"uid" : @"id",
                      @"title" : @"title",
+                     @"lead" : @"lead",
                      @"summary" : @"description",
                      @"URL" : @"url" };
     });
