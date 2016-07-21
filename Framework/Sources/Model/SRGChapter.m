@@ -38,6 +38,7 @@
 
 @property (nonatomic) NSArray<SRGResource *> *resources;
 @property (nonatomic) NSArray<SRGRelatedContent *> *relatedContents;
+@property (nonatomic) NSArray<SRGSubtitle *> *subtitles;
 
 @end
 
@@ -69,7 +70,8 @@
                      @"markIn" : @"markIn",
                      @"markOut" : @"markOut",
                      @"resources" : @"resourceList",
-                     @"relatedContents" : @"relatedContentList" };
+                     @"relatedContents" : @"relatedContentList",
+                     @"subtitles" : @"subtitleList" };
     });
     return mapping;
 }
@@ -119,6 +121,11 @@
 + (NSValueTransformer *)relatedContentsJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGRelatedContent class]];
+}
+
++ (NSValueTransformer *)subtitlesJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSubtitle class]];
 }
 
 @end

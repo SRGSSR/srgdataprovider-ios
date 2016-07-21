@@ -44,3 +44,7 @@ typedef NS_ENUM(NSInteger, SRGSocialCountType) {
     SRGSocialCountTypeGooglePlusShare,
     SRGSocialCountTypeWhatsAppShare
 };
+
+typedef NS_ENUM(NSInteger, SRGSubtitleFormat) {
+    SRGSubtitleFormatTTML
+};

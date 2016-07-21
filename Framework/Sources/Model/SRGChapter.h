@@ -6,6 +6,7 @@
 
 #import "SRGRelatedContent.h"
 #import "SRGResource.h"
+#import "SRGSubtitle.h"
 #import "SRGTypes.h"
 
 #import <CoreGraphics/CoreGraphics.h>
@@ -40,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) NSArray<SRGResource *> *resources;
 @property (nonatomic, readonly) NSArray<SRGRelatedContent *> *relatedContents;
+@property (nonatomic, readonly) NSArray<SRGSubtitle *> *subtitles;
 
 @end
 

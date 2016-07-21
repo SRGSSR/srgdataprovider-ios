@@ -77,6 +77,16 @@ NSValueTransformer *SRGSourceJSONTransformer(void)
     return transformer;
 }
 
+NSValueTransformer *SRGSubtitleFormatJSONTransformer(void)
+{
+    static NSValueTransformer *transformer;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"TTML": @(SRGSubtitleFormatTTML) }];
+    });
+    return transformer;
+}
+
 NSValueTransformer *SRGISO8601DateJSONTransformer(void)
 {
     static NSValueTransformer *transformer;
