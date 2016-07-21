@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGEpisode : MTLModel <SRGImageMetadata, SRGMetadata, MTLJSONSerializing>
 
 @property (nonatomic, readonly, copy) NSString *uid;
-
 @property (nonatomic, readonly, nullable) NSArray<SRGMedia *> *medias;
 
 @end

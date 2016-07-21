@@ -11,8 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SRGChapter : SRGSegment
 
-@property (nonatomic, readonly) NSArray<SRGResource *> *resources;
-@property (nonatomic, readonly) NSArray<SRGSegment *> *segments;
+@property (nonatomic, readonly, nullable) NSArray<SRGResource *> *resources;
+@property (nonatomic, readonly, nullable) NSArray<SRGSegment *> *segments;
 
 @end
 

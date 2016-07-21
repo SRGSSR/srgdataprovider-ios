@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, SRGImageDimension) {
     SRGImageDimensionHeight
 };
 
-// Match group definitions from IL xsd files
+// Matches imageGroup in IL XSD files
 
 @protocol SRGImageMetadata <NSObject>
 

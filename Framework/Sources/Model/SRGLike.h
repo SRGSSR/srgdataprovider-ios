@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SRGLike : MTLModel <SRGMediaIdentifierMetadata, MTLJSONSerializing>
 
-@property (nonatomic, readonly) NSArray<SRGSocialCount *> *socialCounts;
+@property (nonatomic, readonly, nullable) NSArray<SRGSocialCount *> *socialCounts;
 
 @end
 

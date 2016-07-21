@@ -7,6 +7,7 @@
 #import "SRGProgram.h"
 
 #import "NSURL+SRGIntegrationLayerDataProvider.h"
+#import "SRGJSONTransformers.h"
 
 @interface SRGProgram ()
 
@@ -36,7 +37,7 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @"startDate" : @"startTime",
-                       @"endDate" : @"endDate",
+                       @"endDate" : @"endTime",
                        @"URL" : @"url",
                        @"show" : @"show",
                        @"presenter" : @"presenter",
@@ -53,6 +54,16 @@
 }
 
 #pragma mark Transformers
+
++ (NSValueTransformer *)startDateTransformer
+{
+    return SRGISO8601DateJSONTransformer();
+}
+
++ (NSValueTransformer *)endDateTransformer
+{
+    return SRGISO8601DateJSONTransformer();
+}
 
 + (NSValueTransformer *)URLJSONTransformer
 {

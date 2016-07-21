@@ -30,6 +30,8 @@
     return s_mapping;
 }
 
+#pragma mark Transformers
+
 + (NSValueTransformer *)formatJSONTransformer
 {
     return SRGSubtitleFormatJSONTransformer();

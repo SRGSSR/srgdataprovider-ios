@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// Match group definitions from IL xsd files
+// Matches mediaIdentifierGroup in IL XSD files
 
 @protocol SRGMediaIdentifierMetadata <NSObject>
 

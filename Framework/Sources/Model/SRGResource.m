@@ -38,6 +38,11 @@
 
 #pragma mark Parsers
 
++ (NSValueTransformer *)URLJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
 + (NSValueTransformer *)qualityJSONTransformer
 {
     return SRGQualityJSONTransformer();

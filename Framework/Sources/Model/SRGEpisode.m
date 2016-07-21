@@ -11,7 +11,6 @@
 @interface SRGEpisode ()
 
 @property (nonatomic, copy) NSString *uid;
-
 @property (nonatomic) NSArray<SRGMedia *> *medias;
 
 @property (nonatomic, copy) NSString *title;

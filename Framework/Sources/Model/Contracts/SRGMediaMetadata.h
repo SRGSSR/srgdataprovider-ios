@@ -15,7 +15,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// Match group definitions from IL xsd files
+// Matches mediaGroup in IL XSD files
 
 @protocol SRGMediaMetadata <SRGMetadata, SRGMediaIdentifierMetadata, SRGImageMetadata>
 
