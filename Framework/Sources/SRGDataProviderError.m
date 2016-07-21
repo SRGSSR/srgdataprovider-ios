@@ -7,3 +7,4 @@
 #import "SRGDataProviderError.h"
 
 NSString * const SRGDataProviderErrorDomain = @"ch.srgssr.integrationlayer.SRGILDataProviderErrorDomain";
+NSString * const SRGDataProviderErrorsKey = @"SRGDataProviderErrorsKey";
