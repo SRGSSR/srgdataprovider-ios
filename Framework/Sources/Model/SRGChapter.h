@@ -7,6 +7,8 @@
 #import "SRGResource.h"
 #import "SRGTypes.h"
 
+#import <CoreGraphics/CoreGraphics.h>
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SRGChapter : MTLModel <MTLJSONSerializing>
@@ -37,6 +39,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSTimeInterval markOut;
 
 @property (nonatomic, readonly) NSArray<SRGResource *> *resources;
+
+@end
+
+@interface SRGChapter (SRGImageResizing)
+
+- (NSURL *)imageURLForWidth:(CGFloat)width;
+- (NSURL *)imageURLForHeight:(CGFloat)height;
 
 @end
 

@@ -7,6 +7,7 @@
 #import "SRGSocialCount.h"
 #import "SRGTypes.h"
 
+#import <CoreGraphics/CoreGraphics.h>
 #import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -35,6 +36,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSURL *podcastHighDefinitionURL;
 
 @property (nonatomic, readonly) NSArray<SRGSocialCount *> *socialCounts;
+
+@end
+
+@interface SRGMedia (SRGImageResizing)
+
+- (NSURL *)imageURLForWidth:(CGFloat)width;
+- (NSURL *)imageURLForHeight:(CGFloat)height;
 
 @end
 

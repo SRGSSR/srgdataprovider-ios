@@ -7,6 +7,7 @@
 #import "SRGChapter.h"
 
 #import "SRGJSONTransformers.h"
+#import "NSURL+SRGIntegrationLayerDataProvider.h"
 
 @interface SRGChapter ()
 
@@ -111,6 +112,20 @@
 + (NSValueTransformer *)resourcesJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGResource class]];
+}
+
+@end
+
+@implementation SRGChapter (SRGImageResizing)
+
+- (NSURL *)imageURLForWidth:(CGFloat)width
+{
+    return [self.imageURL srg_URLForWidth:width];
+}
+
+- (NSURL *)imageURLForHeight:(CGFloat)height
+{
+    return [self.imageURL srg_URLForHeight:height];
 }
 
 @end

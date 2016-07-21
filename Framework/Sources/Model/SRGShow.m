@@ -6,6 +6,8 @@
 
 #import "SRGShow.h"
 
+#import "NSURL+SRGIntegrationLayerDataProvider.h"
+
 @interface SRGShow ()
 
 @property (nonatomic, copy) NSString *uid;
@@ -42,6 +44,20 @@
 + (NSValueTransformer *)homepageURLJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
+@end
+
+@implementation SRGShow (SRGImageResizing)
+
+- (NSURL *)imageURLForWidth:(CGFloat)width
+{
+    return [self.imageURL srg_URLForWidth:width];
+}
+
+- (NSURL *)imageURLForHeight:(CGFloat)height
+{
+    return [self.imageURL srg_URLForHeight:height];
 }
 
 @end
