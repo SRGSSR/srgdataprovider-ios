@@ -17,7 +17,7 @@
     }
     
     // The audio SRG image resizing service (also used for RTR) does not support resizing
-    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:nil];
+    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     if ([URLComponents.host isEqualToString:@"www.srfcdn.ch"]) {
         return self;
     }
