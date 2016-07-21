@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGRelatedContent.h"
 #import "SRGResource.h"
 #import "SRGTypes.h"
 
@@ -38,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSTimeInterval markOut;
 
 @property (nonatomic, readonly) NSArray<SRGResource *> *resources;
+@property (nonatomic, readonly) NSArray<SRGRelatedContent *> *relatedContents;
 
 @end
 

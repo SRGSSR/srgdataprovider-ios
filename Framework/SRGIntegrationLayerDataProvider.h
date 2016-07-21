@@ -21,6 +21,7 @@ FOUNDATION_EXPORT const unsigned char SRGIntegrationLayerDataProviderVersionStri
 #import "SRGLike.h"
 #import "SRGMedia.h"
 #import "SRGMediaComposition.h"
+#import "SRGRelatedContent.h"
 #import "SRGResource.h"
 #import "SRGSessionTaskQueue.h"
 #import "SRGShow.h"

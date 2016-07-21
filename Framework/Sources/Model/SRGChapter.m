@@ -37,6 +37,7 @@
 @property (nonatomic) NSTimeInterval markOut;
 
 @property (nonatomic) NSArray<SRGResource *> *resources;
+@property (nonatomic) NSArray<SRGRelatedContent *> *relatedContents;
 
 @end
 
@@ -67,7 +68,8 @@
                      @"position" : @"position",
                      @"markIn" : @"markIn",
                      @"markOut" : @"markOut",
-                     @"resources" : @"resourceList" };
+                     @"resources" : @"resourceList",
+                     @"relatedContents" : @"relatedContentList" };
     });
     return mapping;
 }
@@ -112,6 +114,11 @@
 + (NSValueTransformer *)resourcesJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGResource class]];
+}
+
++ (NSValueTransformer *)relatedContentsJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGRelatedContent class]];
 }
 
 @end
