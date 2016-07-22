@@ -5,11 +5,12 @@
 //
 
 #import "SRGImageMetadata.h"
-#import "SRGMedia.h"
 #import "SRGMetadata.h"
 
 #import <CoreGraphics/CoreGraphics.h>
 #import <Mantle/Mantle.h>
+
+@class SRGMedia;
 
 NS_ASSUME_NONNULL_BEGIN
 

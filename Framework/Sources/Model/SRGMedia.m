@@ -11,16 +11,9 @@
 
 @interface SRGMedia ()
 
-@property (nonatomic) SRGContentType contentType;
-@property (nonatomic) NSDate *date;
-@property (nonatomic) NSTimeInterval duration;
-@property (nonatomic) NSURL *podcastStandardDefinitionURL;
-@property (nonatomic) NSURL *podcastHighDefinitionURL;
-@property (nonatomic) NSDate *startDate;
-@property (nonatomic) NSDate *endDate;
-@property (nonatomic) SRGSource source;
-@property (nonatomic) NSArray<SRGRelatedContent *> *relatedContents;
-@property (nonatomic) NSArray<SRGSocialCount *> *socialCounts;
+@property (nonatomic, nullable) SRGChannel *channel;
+@property (nonatomic, nullable) SRGEpisode *episode;
+@property (nonatomic, nullable) SRGShow *show;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
@@ -35,6 +28,17 @@
 @property (nonatomic, copy) NSString *imageTitle;
 @property (nonatomic, copy) NSString *imageCopyright;
 
+@property (nonatomic) SRGContentType contentType;
+@property (nonatomic) SRGSource source;
+@property (nonatomic) NSDate *date;
+@property (nonatomic) NSTimeInterval duration;
+@property (nonatomic) NSURL *podcastStandardDefinitionURL;
+@property (nonatomic) NSURL *podcastHighDefinitionURL;
+@property (nonatomic) NSDate *startDate;
+@property (nonatomic) NSDate *endDate;
+@property (nonatomic) NSArray<SRGRelatedContent *> *relatedContents;
+@property (nonatomic) NSArray<SRGSocialCount *> *socialCounts;
+
 @end
 
 @implementation SRGMedia
@@ -46,17 +50,10 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"contentType" : @"type",
-                       @"date" : @"date",
-                       @"duration" : @"duration",
-                       @"podcastStandardDefinitionURL" : @"podcastSdUrl",
-                       @"podcastHighDefinitionURL" : @"podcastHdUrl",
-                       @"startDate" : @"validFrom",
-                       @"endDate" : @"validTo",
-                       @"source" : @"assignedBy",
-                       @"relatedContents" : @"relatedContentList",
-                       @"socialCounts" : @"socialCountList",
-                       
+        s_mapping = @{ @"channel" : @"channel",
+                       @"episode" : @"episode",
+                       @"show" : @"show",
+                      
                        @"title" : @"title",
                        @"lead" : @"lead",
                        @"summary" : @"description",
@@ -68,12 +65,53 @@
                        
                        @"imageURL" : @"imageUrl",
                        @"imageTitle" : @"imageTitle",
-                       @"imageCopyright" : @"imageCopyright" };
+                       @"imageCopyright" : @"imageCopyright",
+                       
+                       @"contentType" : @"type",
+                       @"date" : @"date",
+                       @"duration" : @"duration",
+                       @"podcastStandardDefinitionURL" : @"podcastSdUrl",
+                       @"podcastHighDefinitionURL" : @"podcastHdUrl",
+                       @"startDate" : @"validFrom",
+                       @"endDate" : @"validTo",
+                       @"source" : @"assignedBy",
+                       @"relatedContents" : @"relatedContentList",
+                       @"socialCounts" : @"socialCountList" };
     });
     return s_mapping;
 }
 
 #pragma mark Transformers
+
++ (NSValueTransformer *)channelJSONTransformer
+{
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGChannel class]];
+}
+
++ (NSValueTransformer *)episodeJSONTransformer
+{
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGEpisode class]];
+}
+
++ (NSValueTransformer *)showJSONTransformer
+{
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGShow class]];
+}
+
++ (NSValueTransformer *)mediaTypeJSONTransformer
+{
+    return SRGMediaTypeJSONTransformer();
+}
+
++ (NSValueTransformer *)vendorJSONTransformer
+{
+    return SRGVendorJSONTransformer();
+}
+
++ (NSValueTransformer *)imageURLJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
 
 + (NSValueTransformer *)contentTypeJSONTransformer
 {
@@ -118,21 +156,6 @@
 + (NSValueTransformer *)socialCountsJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSocialCount class]];
-}
-
-+ (NSValueTransformer *)mediaTypeJSONTransformer
-{
-    return SRGMediaTypeJSONTransformer();
-}
-
-+ (NSValueTransformer *)vendorJSONTransformer
-{
-    return SRGVendorJSONTransformer();
-}
-
-+ (NSValueTransformer *)imageURLJSONTransformer
-{
-    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
 #pragma mark SRGImageMetadata protocol
