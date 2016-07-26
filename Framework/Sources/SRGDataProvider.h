@@ -23,7 +23,7 @@ OBJC_EXPORT NSString * const SRGBusinessIdentifierRTS;
 OBJC_EXPORT NSString * const SRGBusinessIdentifierSRF;
 OBJC_EXPORT NSString * const SRGBusinessIdentifierSWI;
 
-typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error);
+typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, SRGPagination * _Nullable nextPagination, NSError * _Nullable error);
 typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error);
 

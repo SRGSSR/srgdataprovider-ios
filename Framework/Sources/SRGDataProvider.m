@@ -111,7 +111,9 @@ static SRGDataProvider *s_currentDataProvider;
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/topicList/tv.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:nil];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGTopic class] rootKey:@"topicList" completionBlock:completionBlock];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGTopic class] rootKey:@"topicList" completionBlock:^(NSArray * _Nullable objects, SRGPagination * _Nullable nextPagination, NSError * _Nullable error) {
+        completionBlock(objects, error);
+    }];
 }
 
 - (NSURLSessionTask *)latestVideosForTopicWithUid:(NSString *)topicUid pagination:(SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock
@@ -125,7 +127,9 @@ static SRGDataProvider *s_currentDataProvider;
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/showList/tv/alphabetical.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:nil];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:completionBlock];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, SRGPagination * _Nullable nextPagination, NSError * _Nullable error) {
+        completionBlock(objects, error);
+    }];
 }
 
 - (NSURLSessionTask *)mediaCompositionForVideoWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
@@ -163,11 +167,11 @@ static SRGDataProvider *s_currentDataProvider;
 
 #pragma mark Common implementation. Completion blocks are called on the main thread
 
-- (NSURLSessionTask *)listObjectsWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, NSError * _Nullable error))completionBlock
+- (NSURLSessionTask *)listObjectsWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, SRGPagination * _Nullable nextPagination, NSError * _Nullable error))completionBlock
 {
-    return [self asynchronouslyListObjectsWithRequest:request modelClass:modelClass rootKey:rootKey completionBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+    return [self asynchronouslyListObjectsWithRequest:request modelClass:modelClass rootKey:rootKey completionBlock:^(NSArray * _Nullable objects, SRGPagination * _Nullable nextPagination, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            completionBlock(objects, error);
+            completionBlock(objects, nextPagination, error);
         });
     }];
 }
@@ -243,7 +247,7 @@ static SRGDataProvider *s_currentDataProvider;
     }];
 }
 
-- (NSURLSessionTask *)asynchronouslyListObjectsWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, NSError * _Nullable error))completionBlock
+- (NSURLSessionTask *)asynchronouslyListObjectsWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, SRGPagination * _Nullable nextPagination, NSError * _Nullable error))completionBlock
 {
     NSParameterAssert(request);
     NSParameterAssert(modelClass);
@@ -252,7 +256,7 @@ static SRGDataProvider *s_currentDataProvider;
     
     return [self asynchronouslyFetchJSONDictionaryWithRequest:request withCompletionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
         if (error) {
-            completionBlock(nil, error);
+            completionBlock(nil, nil, error);
             return;
         }
         
@@ -260,15 +264,21 @@ static SRGDataProvider *s_currentDataProvider;
         if (JSONArray && [JSONArray isKindOfClass:[NSArray class]]) {
             NSArray *objects = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:NULL];
             if (objects) {
-                completionBlock(objects, nil);
+                if ([JSONDictionary[@"hasMoreItems"] boolValue]) {
+                    NSInteger size = [JSONDictionary[@"pageSize"] integerValue];
+                    NSInteger page = [JSONDictionary[@"pageNumber"] integerValue];
+                    completionBlock(objects, [[SRGPagination paginationForPage:page ofSize:size] paginationForNextPage], nil);
+                }
+                else {
+                    completionBlock(objects, nil, nil);
+                }
                 return;
             }
-            
         }
         
-        completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                 code:SRGDataProviderErrorCodeInvalidData
-                                             userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
+        completionBlock(nil, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                      code:SRGDataProviderErrorCodeInvalidData
+                                                  userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
     }];
 }
 

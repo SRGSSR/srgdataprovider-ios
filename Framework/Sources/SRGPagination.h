@@ -15,8 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSInteger page;
 @property (nonatomic, readonly) NSInteger size;
 
-- (nullable SRGPagination *)previousPage;
-- (SRGPagination *)nextPage;
+- (nullable SRGPagination *)paginationForPreviousPage;
+- (SRGPagination *)paginationForNextPage;
 
 @end
 

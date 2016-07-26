@@ -35,7 +35,7 @@
 
 #pragma mark Helpers
 
-- (SRGPagination *)previousPage
+- (SRGPagination *)paginationForPreviousPage
 {
     if (self.page == 1) {
         return nil;
@@ -44,7 +44,7 @@
     return [[self class] paginationForPage:self.page - 1 ofSize:self.size];
 }
 
-- (SRGPagination *)nextPage
+- (SRGPagination *)paginationForNextPage
 {
     return [[self class] paginationForPage:self.page + 1 ofSize:self.size];
 }
