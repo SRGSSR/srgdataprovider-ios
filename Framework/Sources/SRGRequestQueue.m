@@ -12,7 +12,7 @@ static void *s_kvoContext = &s_kvoContext;
 
 @interface SRGRequestQueue () {
 @private
-    BOOL _wasFinished;
+    BOOL _wasRunnning;
 }
 
 @property (nonatomic) NSMutableArray<SRGRequest *> *requests;
@@ -29,7 +29,6 @@ static void *s_kvoContext = &s_kvoContext;
         self.requests = [NSMutableArray array];
         self.errors = [NSMutableArray array];
         self.stateChangeBlock = stateChangeBlock;
-        _wasFinished = YES;         // No task at creation, considered as finished
     }
     return self;
 }
@@ -93,21 +92,24 @@ static void *s_kvoContext = &s_kvoContext;
     }
 }
 
-- (BOOL)isFinished
+- (BOOL)isRunning
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"running == YES"];
-    return [self.requests filteredArrayUsingPredicate:predicate].count == 0;
+    return [self.requests filteredArrayUsingPredicate:predicate].count != 0;
 }
 
 - (void)checkStateChange
 {
-    if (_wasFinished != self.finished) {
-        NSError *error = [self consolidatedError];
-        self.stateChangeBlock ? self.stateChangeBlock(self.finished, error) : nil;
-        
-        // Reset error list when finished
-        [self.errors removeAllObjects];
-        _wasFinished = self.finished;
+    if (_wasRunnning != self.running) {
+        if (self.running) {
+            [self.errors removeAllObjects];
+            self.stateChangeBlock ? self.stateChangeBlock(NO, nil) : nil;
+        }
+        else {
+            NSError *error = [self consolidatedError];
+            self.stateChangeBlock ? self.stateChangeBlock(YES, error) : nil;
+        }
+        _wasRunnning = self.running;
     }
 }
 
@@ -127,11 +129,11 @@ static void *s_kvoContext = &s_kvoContext;
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p; requests: %@; finished: %@>",
+    return [NSString stringWithFormat:@"<%@: %p; requests: %@; running: %@>",
             [self class],
             self,
             self.requests,
-            self.finished ? @"YES" : @"NO"];
+            self.running ? @"YES" : @"NO"];
 }
 
 @end

@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)reportError:(nullable NSError *)error;
 
-@property (nonatomic, readonly, getter=isFinished) BOOL finished;
+@property (nonatomic, readonly, getter=isRunning) BOOL running;
 
 @end
 

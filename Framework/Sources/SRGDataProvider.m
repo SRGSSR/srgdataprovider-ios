@@ -170,7 +170,7 @@ static SRGDataProvider *s_currentDataProvider;
 - (SRGRequest *)listObjectsWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, SRGPagination * _Nullable nextPagination, NSError * _Nullable error))completionBlock
 {
     return [self asynchronouslyListObjectsWithRequest:request modelClass:modelClass rootKey:rootKey completionBlock:^(NSArray * _Nullable objects, SRGPagination * _Nullable nextPagination, NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_sync(dispatch_get_main_queue(), ^{
             completionBlock(objects, nextPagination, error);
         });
     }];
@@ -179,7 +179,7 @@ static SRGDataProvider *s_currentDataProvider;
 - (SRGRequest *)fetchObjectWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass completionBlock:(void (^)(id _Nullable object, NSError * _Nullable error))completionBlock
 {
     return [self asynchronouslyFetchObjectWithRequest:request modelClass:modelClass completionBlock:^(id  _Nullable object, NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_sync(dispatch_get_main_queue(), ^{
             completionBlock(object, error);
         });
     }];
@@ -188,7 +188,7 @@ static SRGDataProvider *s_currentDataProvider;
 - (SRGRequest *)reportError:(NSError *)error withCompletionBlock:(void (^)(NSError * _Nullable error))completionBlock
 {
     return [self.session srg_taskForError:error withCompletionHandler:^(NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_sync(dispatch_get_main_queue(), ^{
             completionBlock(error);
         });
     }];
