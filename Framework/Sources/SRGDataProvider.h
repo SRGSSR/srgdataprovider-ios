@@ -12,6 +12,7 @@
 #import "SRGMedia.h"
 #import "SRGMediaComposition.h"
 #import "SRGPagination.h"
+#import "SRGRequest.h"
 #import "SRGShow.h"
 #import "SRGTopic.h"
 
@@ -40,20 +41,20 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 @property (nonatomic, readonly) NSURL *serviceURL;
 @property (nonatomic, readonly, copy) NSString *businessUnitIdentifier;
 
-- (NSURLSessionTask *)trendingVideosWithPagination:(nullable SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock;
-- (NSURLSessionTask *)trendingVideosWithEditorialLimit:(nullable NSNumber *)editorialLimit pagination:(nullable SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)trendingVideosWithPagination:(nullable SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)trendingVideosWithEditorialLimit:(nullable NSNumber *)editorialLimit pagination:(nullable SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
-- (NSURLSessionTask *)latestVideosWithPagination:(nullable SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock;
-- (NSURLSessionTask *)mostPopularVideosWithPagination:(nullable SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)latestVideosWithPagination:(nullable SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)mostPopularVideosWithPagination:(nullable SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
-- (NSURLSessionTask *)videoTopicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock;
-- (NSURLSessionTask *)latestVideosForTopicWithUid:(NSString *)topicUid pagination:(nullable SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)videoTopicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock;
+- (SRGRequest *)latestVideosForTopicWithUid:(NSString *)topicUid pagination:(nullable SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
-- (NSURLSessionTask *)videoShowsWithCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
+- (SRGRequest *)videoShowsWithCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
 
-- (NSURLSessionTask *)mediaCompositionForVideoWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
+- (SRGRequest *)mediaCompositionForVideoWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
-- (NSURLSessionTask *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock;
+- (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock;
 
 @end
 

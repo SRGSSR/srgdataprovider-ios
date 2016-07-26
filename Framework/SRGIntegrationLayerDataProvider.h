@@ -31,6 +31,7 @@ FOUNDATION_EXPORT const unsigned char SRGIntegrationLayerDataProviderVersionStri
 #import "SRGPresenter.h"
 #import "SRGProgram.h"
 #import "SRGRelatedContent.h"
+#import "SRGRequest.h"
 #import "SRGResource.h"
 #import "SRGSegment.h"
 #import "SRGSessionTaskQueue.h"

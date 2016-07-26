@@ -6,6 +6,8 @@
 
 #import "NSURLSession+SRGIntegrationLayerDataProvider.h"
 
+#import "SRGRequest+Private.h"
+
 static NSString * const SRGIntegrationLayerDataProviderErrorScheme = @"srgilerror";
 
 /**
@@ -47,7 +49,20 @@ static NSString * const SRGIntegrationLayerDataProviderErrorScheme = @"srgilerro
 // See http://stackoverflow.com/a/24428137/760435
 @implementation NSObject /*NSURLSession*/ (SRGIntegrationLayerDataProvider)
 
-- (NSURLSessionTask *)srg_taskForError:(NSError *)error withCompletionHandler:(void (^)(NSError *))completionHandler
+- (SRGRequest *)srg_dataTaskWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error))completionHandler;
+{
+    NSURLSession *realSelf = (NSURLSession *)self;
+    
+    __block SRGRequest *srgRequest = nil;
+    NSURLSessionTask *sessionTask = [realSelf dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionHandler(data, response, error);
+        srgRequest.running = NO;
+    }];
+    srgRequest = [[SRGRequest alloc] initWithSessionTask:sessionTask];
+    return srgRequest;
+}
+
+- (SRGRequest *)srg_taskForError:(NSError *)error withCompletionHandler:(void (^)(NSError *))completionHandler
 {
     // Register the error protocol on the fly
     NSURLSession *realSelf = (NSURLSession *)self;
@@ -56,7 +71,8 @@ static NSString * const SRGIntegrationLayerDataProviderErrorScheme = @"srgilerro
     }
     
     NSString *URLString = [NSString stringWithFormat:@"%@://error", SRGIntegrationLayerDataProviderErrorScheme];
-    return [realSelf dataTaskWithURL:[NSURL URLWithString:URLString] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable dummyError) {
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
+    return [realSelf srg_dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable dummyError) {
         completionHandler(error);
     }];
 }

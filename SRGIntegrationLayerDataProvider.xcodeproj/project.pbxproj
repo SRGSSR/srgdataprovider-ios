@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E62459B81D47828D00482BE9 /* SRGRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = E62459B61D47828D00482BE9 /* SRGRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E62459B91D47828D00482BE9 /* SRGRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E62459B71D47828D00482BE9 /* SRGRequest.m */; };
+		E62459BC1D4787CE00482BE9 /* SRGRequest+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = E62459BB1D4787CE00482BE9 /* SRGRequest+Private.h */; };
 		E6391A9F1D38E92400E4CBB9 /* SRGTopic.h in Headers */ = {isa = PBXBuildFile; fileRef = E6391A991D38E92400E4CBB9 /* SRGTopic.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6391AA01D38E92400E4CBB9 /* SRGTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = E6391A9A1D38E92400E4CBB9 /* SRGTopic.m */; };
 		E6391AA11D38E92400E4CBB9 /* SRGDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E6391A9B1D38E92400E4CBB9 /* SRGDataProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -103,6 +106,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E62459B61D47828D00482BE9 /* SRGRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGRequest.h; sourceTree = "<group>"; };
+		E62459B71D47828D00482BE9 /* SRGRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGRequest.m; sourceTree = "<group>"; };
+		E62459BB1D4787CE00482BE9 /* SRGRequest+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGRequest+Private.h"; sourceTree = "<group>"; };
 		E6391A7E1D38E8F400E4CBB9 /* SRGIntegrationLayerDataProvider-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SRGIntegrationLayerDataProvider-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6391A961D38E92400E4CBB9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6391A991D38E92400E4CBB9 /* SRGTopic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGTopic.h; sourceTree = "<group>"; };
@@ -227,6 +233,9 @@
 				E6C2B3C21D391D5A00B6250B /* SRGDataProviderError.m */,
 				E688C4EF1D4756D60084DE4D /* SRGPagination.h */,
 				E688C4F01D4756D60084DE4D /* SRGPagination.m */,
+				E62459B61D47828D00482BE9 /* SRGRequest.h */,
+				E62459B71D47828D00482BE9 /* SRGRequest.m */,
+				E62459BB1D4787CE00482BE9 /* SRGRequest+Private.h */,
 				E6AE513C1D40A1FA00572CE4 /* SRGSessionTaskQueue.h */,
 				E6AE513D1D40A1FA00572CE4 /* SRGSessionTaskQueue.m */,
 			);
@@ -398,6 +407,7 @@
 				E6C2B3FC1D392F2300B6250B /* SRGChapter.h in Headers */,
 				E6C2B3F81D392F1A00B6250B /* SRGShow.h in Headers */,
 				E6391A9F1D38E92400E4CBB9 /* SRGTopic.h in Headers */,
+				E62459BC1D4787CE00482BE9 /* SRGRequest+Private.h in Headers */,
 				E6391AA11D38E92400E4CBB9 /* SRGDataProvider.h in Headers */,
 				E6C2B3C31D391D5A00B6250B /* SRGDataProviderError.h in Headers */,
 				E68598B11D40CEC30010000A /* SRGImageMetadata.h in Headers */,
@@ -418,6 +428,7 @@
 				E6AE513E1D40A1FA00572CE4 /* SRGSessionTaskQueue.h in Headers */,
 				E6AE51461D40AA0100572CE4 /* SRGSubtitle.h in Headers */,
 				E68598C01D40FF950010000A /* SRGProgram.h in Headers */,
+				E62459B81D47828D00482BE9 /* SRGRequest.h in Headers */,
 				E68598AA1D40CC750010000A /* SRGSegment.h in Headers */,
 				E6391AA31D38E92400E4CBB9 /* SRGIntegrationLayerDataProvider.h in Headers */,
 				E6AE513A1D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.h in Headers */,
@@ -562,6 +573,7 @@
 				E68598B91D40F30B0010000A /* SRGChannel.m in Sources */,
 				E6AE51431D40A66C00572CE4 /* SRGRelatedContent.m in Sources */,
 				E67BB6761D3E01C900E1FEA3 /* SRGTypes.m in Sources */,
+				E62459B91D47828D00482BE9 /* SRGRequest.m in Sources */,
 				E6C2B3C41D391D5A00B6250B /* SRGDataProviderError.m in Sources */,
 				E67BB6721D3E011500E1FEA3 /* SRGLike.m in Sources */,
 				E6AE513F1D40A1FA00572CE4 /* SRGSessionTaskQueue.m in Sources */,
