@@ -8,7 +8,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SRGPagination : NSObject
+@interface SRGPagination : NSObject <NSCopying>
 
 + (SRGPagination *)paginationForPage:(NSInteger)page ofSize:(NSInteger)size;
 

@@ -66,6 +66,13 @@
     return [NSString stringWithFormat:@"%@_%@", @(self.page), @(self.size)].hash;
 }
 
+#pragma mark NSCopying protocol
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    return [[SRGPagination allocWithZone:zone] initForPage:self.page ofSize:self.size];
+}
+
 #pragma mark Description
 
 - (NSString *)description
