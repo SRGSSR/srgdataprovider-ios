@@ -209,7 +209,7 @@ static SRGDataProvider *s_currentDataProvider;
         [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:@(pagination.size).stringValue]];
         [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"pageNumber" value:@(pagination.page).stringValue]];
     }
-    URLComponents.queryItems = [fullQueryItems copy];
+    URLComponents.queryItems = fullQueryItems.count != 0 ? [fullQueryItems copy] : nil;
     
     return URLComponents.URL;
 }
