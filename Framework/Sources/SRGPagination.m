@@ -49,6 +49,23 @@
     return [[self class] paginationForPage:self.page + 1 ofSize:self.size];
 }
 
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (!object || ![object isKindOfClass:[SRGPagination class]]) {
+        return NO;
+    }
+    
+    SRGPagination *otherPagination = object;
+    return self.page == otherPagination.page && self.size == otherPagination.size;
+}
+
+- (NSUInteger)hash
+{
+    return [NSString stringWithFormat:@"%@_%@", @(self.page), @(self.size)].hash;
+}
+
 #pragma mark Description
 
 - (NSString *)description
