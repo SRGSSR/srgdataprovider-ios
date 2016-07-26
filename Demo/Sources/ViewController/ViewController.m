@@ -8,6 +8,12 @@
 
 @import SRGIntegrationLayerDataProvider;
 
+@interface ViewController ()
+
+@property (nonatomic) SRGRequestQueue *requestQueue;
+
+@end
+
 @implementation ViewController
 
 - (IBAction)request:(id)sender
@@ -46,6 +52,27 @@
     [[[SRGDataProvider currentDataProvider] videoShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
         NSLog(@"Shows: %@; error: %@", shows, error);
     }] resume];
+}
+
+- (IBAction)requestQueue:(id)sender
+{
+    self.requestQueue = [[SRGRequestQueue alloc] initWithStateChangeBlock:^(BOOL finished, NSError * _Nullable error) {
+        if (finished) {
+            NSLog(@"Queue finished!");
+        }
+        else {
+            NSLog(@"Queue started!");
+        }
+    }];
+    
+    SRGRequest *request1 = [[SRGDataProvider currentDataProvider] videoTopicsWithCompletionBlock:^(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error) {
+        NSLog(@"Request 1 finished!");
+    }];
+    [self.requestQueue addRequest:request1 resume:YES];
+    SRGRequest *request2 = [[SRGDataProvider currentDataProvider] videoShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        NSLog(@"Request 2 finished!");
+    }];
+    [self.requestQueue addRequest:request2 resume:YES];
 }
 
 @end

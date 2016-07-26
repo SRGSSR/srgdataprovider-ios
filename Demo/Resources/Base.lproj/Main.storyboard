@@ -24,11 +24,20 @@
                                     <action selector="request:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8q9-b5-d2T"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gy-Y5-sHZ">
+                                <rect key="frame" x="249" y="350" width="103" height="30"/>
+                                <state key="normal" title="Request queue"/>
+                                <connections>
+                                    <action selector="requestQueue:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q6s-qt-ZBJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="r7k-g2-zQf" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="2io-YQ-Tz5"/>
                             <constraint firstItem="r7k-g2-zQf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LXQ-87-Szw"/>
+                            <constraint firstItem="5gy-Y5-sHZ" firstAttribute="top" secondItem="r7k-g2-zQf" secondAttribute="bottom" constant="35.5" id="U2m-rz-E7v"/>
+                            <constraint firstItem="5gy-Y5-sHZ" firstAttribute="centerX" secondItem="r7k-g2-zQf" secondAttribute="centerX" id="dmi-KN-Vt0"/>
                         </constraints>
                     </view>
                 </viewController>

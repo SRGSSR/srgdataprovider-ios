@@ -55,8 +55,8 @@
 		E688C4F21D4756D60084DE4D /* SRGPagination.m in Sources */ = {isa = PBXBuildFile; fileRef = E688C4F01D4756D60084DE4D /* SRGPagination.m */; };
 		E6AE513A1D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AE51381D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.h */; };
 		E6AE513B1D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AE51391D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.m */; };
-		E6AE513E1D40A1FA00572CE4 /* SRGSessionTaskQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AE513C1D40A1FA00572CE4 /* SRGSessionTaskQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E6AE513F1D40A1FA00572CE4 /* SRGSessionTaskQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AE513D1D40A1FA00572CE4 /* SRGSessionTaskQueue.m */; };
+		E6AE513E1D40A1FA00572CE4 /* SRGRequestQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AE513C1D40A1FA00572CE4 /* SRGRequestQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E6AE513F1D40A1FA00572CE4 /* SRGRequestQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AE513D1D40A1FA00572CE4 /* SRGRequestQueue.m */; };
 		E6AE51421D40A66C00572CE4 /* SRGRelatedContent.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AE51401D40A66C00572CE4 /* SRGRelatedContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6AE51431D40A66C00572CE4 /* SRGRelatedContent.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AE51411D40A66C00572CE4 /* SRGRelatedContent.m */; };
 		E6AE51461D40AA0100572CE4 /* SRGSubtitle.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AE51441D40AA0100572CE4 /* SRGSubtitle.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -157,8 +157,8 @@
 		E688C4F01D4756D60084DE4D /* SRGPagination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGPagination.m; sourceTree = "<group>"; };
 		E6AE51381D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+SRGIntegrationLayerDataProvider.h"; sourceTree = "<group>"; };
 		E6AE51391D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+SRGIntegrationLayerDataProvider.m"; sourceTree = "<group>"; };
-		E6AE513C1D40A1FA00572CE4 /* SRGSessionTaskQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSessionTaskQueue.h; sourceTree = "<group>"; };
-		E6AE513D1D40A1FA00572CE4 /* SRGSessionTaskQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSessionTaskQueue.m; sourceTree = "<group>"; };
+		E6AE513C1D40A1FA00572CE4 /* SRGRequestQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGRequestQueue.h; sourceTree = "<group>"; };
+		E6AE513D1D40A1FA00572CE4 /* SRGRequestQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGRequestQueue.m; sourceTree = "<group>"; };
 		E6AE51401D40A66C00572CE4 /* SRGRelatedContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGRelatedContent.h; sourceTree = "<group>"; };
 		E6AE51411D40A66C00572CE4 /* SRGRelatedContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGRelatedContent.m; sourceTree = "<group>"; };
 		E6AE51441D40AA0100572CE4 /* SRGSubtitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSubtitle.h; sourceTree = "<group>"; };
@@ -236,8 +236,8 @@
 				E62459B61D47828D00482BE9 /* SRGRequest.h */,
 				E62459B71D47828D00482BE9 /* SRGRequest.m */,
 				E62459BB1D4787CE00482BE9 /* SRGRequest+Private.h */,
-				E6AE513C1D40A1FA00572CE4 /* SRGSessionTaskQueue.h */,
-				E6AE513D1D40A1FA00572CE4 /* SRGSessionTaskQueue.m */,
+				E6AE513C1D40A1FA00572CE4 /* SRGRequestQueue.h */,
+				E6AE513D1D40A1FA00572CE4 /* SRGRequestQueue.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -425,7 +425,7 @@
 				E67BB6791D3E041900E1FEA3 /* SRGJSONTransformers.h in Headers */,
 				E6AE51421D40A66C00572CE4 /* SRGRelatedContent.h in Headers */,
 				E68598C41D41029F0010000A /* SRGPresenter.h in Headers */,
-				E6AE513E1D40A1FA00572CE4 /* SRGSessionTaskQueue.h in Headers */,
+				E6AE513E1D40A1FA00572CE4 /* SRGRequestQueue.h in Headers */,
 				E6AE51461D40AA0100572CE4 /* SRGSubtitle.h in Headers */,
 				E68598C01D40FF950010000A /* SRGProgram.h in Headers */,
 				E62459B81D47828D00482BE9 /* SRGRequest.h in Headers */,
@@ -576,7 +576,7 @@
 				E62459B91D47828D00482BE9 /* SRGRequest.m in Sources */,
 				E6C2B3C41D391D5A00B6250B /* SRGDataProviderError.m in Sources */,
 				E67BB6721D3E011500E1FEA3 /* SRGLike.m in Sources */,
-				E6AE513F1D40A1FA00572CE4 /* SRGSessionTaskQueue.m in Sources */,
+				E6AE513F1D40A1FA00572CE4 /* SRGRequestQueue.m in Sources */,
 				E6C2B3CD1D391EFD00B6250B /* NSBundle+SRGIntegrationLayerDataProvider.m in Sources */,
 				E68598C51D41029F0010000A /* SRGPresenter.m in Sources */,
 				E67BB6911D3E564400E1FEA3 /* NSURLSession+SRGIntegrationLayerDataProvider.m in Sources */,

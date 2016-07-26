@@ -4,15 +4,17 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGRequest.h"
+
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SRGSessionTaskQueue : NSObject
+@interface SRGRequestQueue : NSObject
 
 - (instancetype)initWithStateChangeBlock:(nullable void (^)(BOOL finished, NSError * _Nullable error))stateChangeBlock;
 
-- (void)addSessionTask:(NSURLSessionTask *)sessionTask resume:(BOOL)resume;
+- (void)addRequest:(SRGRequest *)request resume:(BOOL)resume;
 
 - (void)resume;
 - (void)cancel;

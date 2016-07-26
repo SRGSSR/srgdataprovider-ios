@@ -4,29 +4,29 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGSessionTaskQueue.h"
+#import "SRGRequestQueue.h"
 
 #import "SRGDataProviderError.h"
 
 static void *s_kvoContext = &s_kvoContext;
 
-@interface SRGSessionTaskQueue () {
+@interface SRGRequestQueue () {
 @private
     BOOL _wasFinished;
 }
 
-@property (nonatomic) NSMutableArray<NSURLSessionTask *> *sessionTasks;
+@property (nonatomic) NSMutableArray<SRGRequest *> *requests;
 @property (nonatomic, copy) void (^stateChangeBlock)(BOOL running, NSError *error);
 @property (nonatomic) NSMutableArray<NSError *> *errors;
 
 @end
 
-@implementation SRGSessionTaskQueue
+@implementation SRGRequestQueue
 
 - (instancetype)initWithStateChangeBlock:(void (^)(BOOL, NSError *))stateChangeBlock
 {
     if (self = [super init]) {
-        self.sessionTasks = [NSMutableArray array];
+        self.requests = [NSMutableArray array];
         self.errors = [NSMutableArray array];
         self.stateChangeBlock = stateChangeBlock;
         _wasFinished = YES;         // No task at creation, considered as finished
@@ -41,34 +41,35 @@ static void *s_kvoContext = &s_kvoContext;
 
 - (void)dealloc
 {
-    for (NSURLSessionTask *sessionTask in self.sessionTasks) {
-        [sessionTask removeObserver:self forKeyPath:@"state" context:s_kvoContext];
+    for (SRGRequest *request in self.requests) {
+        [request removeObserver:self forKeyPath:@"running" context:s_kvoContext];
     }
     [self checkStateChange];
 }
 
-- (void)addSessionTask:(NSURLSessionTask *)sessionTask resume:(BOOL)resume
+- (void)addRequest:(SRGRequest *)request resume:(BOOL)resume
 {
+    [request addObserver:self forKeyPath:@"running" options:NSKeyValueObservingOptionNew context:s_kvoContext];
+    [self.requests addObject:request];
+    
     if (resume) {
-        [sessionTask resume];
+        [request resume];
     }
     
-    [sessionTask addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:s_kvoContext];
-    [self.sessionTasks addObject:sessionTask];
     [self checkStateChange];
 }
 
 - (void)resume
 {
-    for (NSURLSessionTask *sessionTask in self.sessionTasks) {
-        [sessionTask resume];
+    for (SRGRequest *request in self.requests) {
+        [request resume];
     }
 }
 
 - (void)cancel
 {
-    for (NSURLSessionTask *sessionTask in self.sessionTasks) {
-        [sessionTask cancel];
+    for (SRGRequest *request in self.requests) {
+        [request cancel];
     }
 }
 
@@ -94,10 +95,8 @@ static void *s_kvoContext = &s_kvoContext;
 
 - (BOOL)isFinished
 {
-    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSURLSessionTask * _Nonnull sessionTask, NSDictionary<NSString *,id> * _Nullable bindings) {
-        return sessionTask.state == NSURLSessionTaskStateCompleted;
-    }];
-    return [self.sessionTasks filteredArrayUsingPredicate:predicate].count == self.sessionTasks.count;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"running == YES"];
+    return [self.requests filteredArrayUsingPredicate:predicate].count == 0;
 }
 
 - (void)checkStateChange
@@ -114,7 +113,7 @@ static void *s_kvoContext = &s_kvoContext;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
-    if (context == s_kvoContext && [keyPath isEqualToString:@"state"]) {
+    if (context == s_kvoContext && [keyPath isEqualToString:@"running"]) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self checkStateChange];
         });
@@ -128,10 +127,10 @@ static void *s_kvoContext = &s_kvoContext;
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p; sessionTasks: %@; finished: %@>",
+    return [NSString stringWithFormat:@"<%@: %p; requests: %@; finished: %@>",
             [self class],
             self,
-            self.sessionTasks,
+            self.requests,
             self.finished ? @"YES" : @"NO"];
 }
 
