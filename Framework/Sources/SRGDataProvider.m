@@ -201,13 +201,16 @@ static SRGDataProvider *s_currentDataProvider;
     NSURL *URL = [NSURL URLWithString:resourcePath relativeToURL:self.serviceURL];
     NSURLComponents *URLComponents = [NSURLComponents componentsWithString:URL.absoluteString];
     
-    NSMutableArray *fullQueryItems = [queryItems mutableCopy];
+    NSMutableArray<NSURLQueryItem *> *fullQueryItems = [NSMutableArray array];
+    if (queryItems) {
+        [fullQueryItems addObjectsFromArray:queryItems];
+    }
     if (pagination) {
         [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:@(pagination.size).stringValue]];
         [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"pageNumber" value:@(pagination.page).stringValue]];
     }
+    URLComponents.queryItems = [fullQueryItems copy];
     
-    URLComponents.queryItems = [queryItems copy];
     return URLComponents.URL;
 }
 
