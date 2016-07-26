@@ -74,12 +74,12 @@ static SRGDataProvider *s_currentDataProvider;
 
 #pragma mark User requests
 
-- (NSURLSessionTask *)trendingVideosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (NSURLSessionTask *)trendingVideosWithPagination:(SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
-    return [self trendingVideosWithEditorialLimit:nil completionBlock:completionBlock];
+    return [self trendingVideosWithEditorialLimit:nil pagination:pagination completionBlock:completionBlock];
 }
 
-- (NSURLSessionTask *)trendingVideosWithEditorialLimit:(nullable NSNumber *)editorialLimit completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (NSURLSessionTask *)trendingVideosWithEditorialLimit:(NSNumber *)editorialLimit pagination:(SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/trending.json", self.businessUnitIdentifier];
     
@@ -89,49 +89,49 @@ static SRGDataProvider *s_currentDataProvider;
         queryItems = @[ [NSURLQueryItem queryItemWithName:@"maxCountEditorPicks" value:editorialLimit.stringValue] ];
     }
     
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems pagination:pagination];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
-- (NSURLSessionTask *)latestVideosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (NSURLSessionTask *)latestVideosWithPagination:(SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latest.json", self.businessUnitIdentifier];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:pagination];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL]modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
-- (NSURLSessionTask *)mostPopularVideosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (NSURLSessionTask *)mostPopularVideosWithPagination:(SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/mostClicked.json", self.businessUnitIdentifier];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:pagination];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
 - (NSURLSessionTask *)videoTopicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/topicList/tv.json", self.businessUnitIdentifier];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:nil];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGTopic class] rootKey:@"topicList" completionBlock:completionBlock];
 }
 
-- (NSURLSessionTask *)latestVideosForTopicWithUid:(NSString *)topicUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (NSURLSessionTask *)latestVideosForTopicWithUid:(NSString *)topicUid pagination:(SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestByTopic/%@.json", self.businessUnitIdentifier, topicUid];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:pagination];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
 - (NSURLSessionTask *)videoShowsWithCompletionBlock:(SRGShowListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/showList/tv/alphabetical.json", self.businessUnitIdentifier];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:nil];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:completionBlock];
 }
 
 - (NSURLSessionTask *)mediaCompositionForVideoWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaComposition/video/%@.json", self.businessUnitIdentifier, mediaUid];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:nil];
     return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMediaComposition class] completionBlock:completionBlock];
 }
 
@@ -149,7 +149,7 @@ static SRGDataProvider *s_currentDataProvider;
     
     NSString *mediaTypeString = (mainChapter.mediaType == SRGMediaTypeAudio) ? @"audio" : @"video";
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaStatistic/%@/%@/liked.json", self.businessUnitIdentifier, mediaTypeString, mainChapter.uid];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:nil];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
     request.HTTPMethod = @"POST";
@@ -192,11 +192,18 @@ static SRGDataProvider *s_currentDataProvider;
 
 #pragma mark Asynchronous requests and processing. The completion block will be called on a background thread
 
-- (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
+- (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems pagination:(SRGPagination *)pagination
 {
     NSURL *URL = [NSURL URLWithString:resourcePath relativeToURL:self.serviceURL];
     NSURLComponents *URLComponents = [NSURLComponents componentsWithString:URL.absoluteString];
-    URLComponents.queryItems = queryItems;
+    
+    NSMutableArray *fullQueryItems = [queryItems mutableCopy];
+    if (pagination) {
+        [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:@(pagination.size).stringValue]];
+        [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"pageNumber" value:@(pagination.page).stringValue]];
+    }
+    
+    URLComponents.queryItems = [queryItems copy];
     return URLComponents.URL;
 }
 

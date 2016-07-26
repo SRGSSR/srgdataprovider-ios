@@ -27,6 +27,7 @@ FOUNDATION_EXPORT const unsigned char SRGIntegrationLayerDataProviderVersionStri
 #import "SRGMediaIdentifierMetadata.h"
 #import "SRGMediaMetadata.h"
 #import "SRGMetadata.h"
+#import "SRGPagination.h"
 #import "SRGPresenter.h"
 #import "SRGProgram.h"
 #import "SRGRelatedContent.h"
