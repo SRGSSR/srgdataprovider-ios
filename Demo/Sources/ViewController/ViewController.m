@@ -23,13 +23,13 @@
         
         SRGTopic *firstTopic = topics.firstObject;
         if (firstTopic) {
-            [[[SRGDataProvider currentDataProvider] latestVideosForTopicWithUid:firstTopic.uid pagination:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPagination * _Nullable nextPagination, NSError * _Nullable error) {
+            [[[SRGDataProvider currentDataProvider] latestVideosForTopicWithUid:firstTopic.uid page:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
                 NSLog(@"Medias: %@; error: %@", medias, error);
             }] resume];
         }
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] trendingVideosWithEditorialLimit:@5 pagination:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPagination * _Nullable nextPagination, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] trendingVideosWithEditorialLimit:@5 page:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     
@@ -41,11 +41,11 @@
         }] resume];
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] mostPopularVideosWithPagination:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPagination * _Nullable nextPagination, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] mostPopularVideosWithPage:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] latestVideosWithPagination:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPagination * _Nullable nextPagination, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] latestVideosWithPage:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     

@@ -74,12 +74,12 @@ static SRGDataProvider *s_currentDataProvider;
 
 #pragma mark User requests
 
-- (SRGRequest *)trendingVideosWithPagination:(SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)trendingVideosWithPage:(SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
-    return [self trendingVideosWithEditorialLimit:nil pagination:pagination completionBlock:completionBlock];
+    return [self trendingVideosWithEditorialLimit:nil page:page completionBlock:completionBlock];
 }
 
-- (SRGRequest *)trendingVideosWithEditorialLimit:(NSNumber *)editorialLimit pagination:(SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)trendingVideosWithEditorialLimit:(NSNumber *)editorialLimit page:(SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/trending.json", self.businessUnitIdentifier];
     
@@ -89,45 +89,45 @@ static SRGDataProvider *s_currentDataProvider;
         queryItems = @[ [NSURLQueryItem queryItemWithName:@"maxCountEditorPicks" value:editorialLimit.stringValue] ];
     }
     
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems pagination:pagination];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems page:page];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)latestVideosWithPagination:(SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)latestVideosWithPage:(SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latest.json", self.businessUnitIdentifier];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:pagination];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil page:page];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL]modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)mostPopularVideosWithPagination:(SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)mostPopularVideosWithPage:(SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/mostClicked.json", self.businessUnitIdentifier];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:pagination];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil page:page];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
 - (SRGRequest *)videoTopicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/topicList/tv.json", self.businessUnitIdentifier];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:nil];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGTopic class] rootKey:@"topicList" completionBlock:^(NSArray * _Nullable objects, SRGPagination * _Nullable nextPagination, NSError * _Nullable error) {
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil page:nil];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGTopic class] rootKey:@"topicList" completionBlock:^(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(objects, error);
     }];
 }
 
-- (SRGRequest *)latestVideosForTopicWithUid:(NSString *)topicUid pagination:(SRGPagination *)pagination completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)latestVideosForTopicWithUid:(NSString *)topicUid page:(SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestByTopic/%@.json", self.businessUnitIdentifier, topicUid];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:pagination];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil page:page];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
 - (SRGRequest *)videoShowsWithCompletionBlock:(SRGShowListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/showList/tv/alphabetical.json", self.businessUnitIdentifier];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:nil];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, SRGPagination * _Nullable nextPagination, NSError * _Nullable error) {
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil page:nil];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(objects, error);
     }];
 }
@@ -135,7 +135,7 @@ static SRGDataProvider *s_currentDataProvider;
 - (SRGRequest *)mediaCompositionForVideoWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaComposition/video/%@.json", self.businessUnitIdentifier, mediaUid];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:nil];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil page:nil];
     return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMediaComposition class] completionBlock:completionBlock];
 }
 
@@ -153,7 +153,7 @@ static SRGDataProvider *s_currentDataProvider;
     
     NSString *mediaTypeString = (mainChapter.mediaType == SRGMediaTypeAudio) ? @"audio" : @"video";
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaStatistic/%@/%@/liked.json", self.businessUnitIdentifier, mediaTypeString, mainChapter.uid];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil pagination:nil];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil page:nil];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
     request.HTTPMethod = @"POST";
@@ -167,11 +167,11 @@ static SRGDataProvider *s_currentDataProvider;
 
 #pragma mark Common implementation. Completion blocks are called on the main thread
 
-- (SRGRequest *)listObjectsWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, SRGPagination * _Nullable nextPagination, NSError * _Nullable error))completionBlock
+- (SRGRequest *)listObjectsWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error))completionBlock
 {
-    return [self asynchronouslyListObjectsWithRequest:request modelClass:modelClass rootKey:rootKey completionBlock:^(NSArray * _Nullable objects, SRGPagination * _Nullable nextPagination, NSError * _Nullable error) {
+    return [self asynchronouslyListObjectsWithRequest:request modelClass:modelClass rootKey:rootKey completionBlock:^(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         dispatch_sync(dispatch_get_main_queue(), ^{
-            completionBlock(objects, nextPagination, error);
+            completionBlock(objects, nextPage, error);
         });
     }];
 }
@@ -196,7 +196,7 @@ static SRGDataProvider *s_currentDataProvider;
 
 #pragma mark Asynchronous requests and processing. The completion block will be called on a background thread
 
-- (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems pagination:(SRGPagination *)pagination
+- (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems page:(SRGPage *)page
 {
     NSURL *URL = [NSURL URLWithString:resourcePath relativeToURL:self.serviceURL];
     NSURLComponents *URLComponents = [NSURLComponents componentsWithString:URL.absoluteString];
@@ -205,9 +205,9 @@ static SRGDataProvider *s_currentDataProvider;
     if (queryItems) {
         [fullQueryItems addObjectsFromArray:queryItems];
     }
-    if (pagination) {
-        [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:@(pagination.size).stringValue]];
-        [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"pageNumber" value:@(pagination.page).stringValue]];
+    if (page) {
+        [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:@(page.size).stringValue]];
+        [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"pageNumber" value:@(page.number).stringValue]];
     }
     URLComponents.queryItems = fullQueryItems.count != 0 ? [fullQueryItems copy] : nil;
     
@@ -250,7 +250,7 @@ static SRGDataProvider *s_currentDataProvider;
     }];
 }
 
-- (SRGRequest *)asynchronouslyListObjectsWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, SRGPagination * _Nullable nextPagination, NSError * _Nullable error))completionBlock
+- (SRGRequest *)asynchronouslyListObjectsWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error))completionBlock
 {
     NSParameterAssert(request);
     NSParameterAssert(modelClass);
@@ -268,9 +268,9 @@ static SRGDataProvider *s_currentDataProvider;
             NSArray *objects = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:NULL];
             if (objects) {
                 if ([JSONDictionary[@"hasMoreItems"] boolValue]) {
+                    NSInteger number = [JSONDictionary[@"pageNumber"] integerValue];
                     NSInteger size = [JSONDictionary[@"pageSize"] integerValue];
-                    NSInteger page = [JSONDictionary[@"pageNumber"] integerValue];
-                    completionBlock(objects, [[SRGPagination paginationForPage:page ofSize:size] paginationForNextPage], nil);
+                    completionBlock(objects, [[SRGPage pageWithNumber:number size:size] nextPage], nil);
                 }
                 else {
                     completionBlock(objects, nil, nil);
