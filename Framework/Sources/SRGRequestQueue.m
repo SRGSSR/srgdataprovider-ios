@@ -6,6 +6,7 @@
 
 #import "SRGRequestQueue.h"
 
+#import "NSBundle+SRGIntegrationLayerDataProvider.h"
 #import "SRGDataProviderError.h"
 
 static void *s_kvoContext = &s_kvoContext;
@@ -88,7 +89,8 @@ static void *s_kvoContext = &s_kvoContext;
     else {
         return [NSError errorWithDomain:SRGDataProviderErrorDomain
                                    code:SRGDataProviderErrorMultiple
-                               userInfo:@{ SRGDataProviderErrorsKey : self.errors }];
+                               userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"Several errors have been encountered", nil),
+                                           SRGDataProviderErrorsKey : self.errors }];
     }
 }
 
