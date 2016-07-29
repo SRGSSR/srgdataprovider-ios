@@ -16,4 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface SRGChapter (Resources)
+
+// Return matching resources from the highest to the lowest available quality 
+- (NSArray<SRGResource *> *)resourcesForProtocol:(SRGProtocol)protocol;
+
+@end
+
 NS_ASSUME_NONNULL_END

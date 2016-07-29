@@ -43,3 +43,14 @@
 }
 
 @end
+
+@implementation SRGChapter (Resources)
+
+- (NSArray<SRGResource *> *)resourcesForProtocol:(SRGProtocol)protocol
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"protocol == %@", @(protocol)];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"quality" ascending:NO];
+    return [[self.resources filteredArrayUsingPredicate:predicate] sortedArrayUsingDescriptors:@[sortDescriptor]];
+}
+
+@end
