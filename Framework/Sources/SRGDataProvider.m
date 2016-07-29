@@ -18,6 +18,8 @@ NSString * const SRGBusinessIdentifierRTS = @"rts";
 NSString * const SRGBusinessIdentifierSRF = @"srf";
 NSString * const SRGBusinessIdentifierSWI = @"swi";
 
+static NSString * const SRGTokenServiceURLString = @"http://tp.srgssr.ch/akahd/token";
+
 static SRGDataProvider *s_currentDataProvider;
 
 @interface SRGDataProvider ()
@@ -165,6 +167,15 @@ static SRGDataProvider *s_currentDataProvider;
     return [self fetchObjectWithRequest:request modelClass:[SRGLike class] completionBlock:completionBlock];
 }
 
+- (SRGRequest *)tokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock
+{
+    return [self asynchronouslyTokenizeURL:URL withCompletionBlock:^(NSURL * _Nullable URL, NSError * _Nullable error) {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            completionBlock(URL, error);
+        });
+    }];
+}
+
 #pragma mark Common implementation. Completion blocks are called on the main thread
 
 - (SRGRequest *)listObjectsWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass rootKey:(NSString *)rootKey completionBlock:(void (^)(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error))completionBlock
@@ -214,7 +225,7 @@ static SRGDataProvider *s_currentDataProvider;
     return URLComponents.URL;
 }
 
-- (SRGRequest *)asynchronouslyFetchJSONDictionaryWithRequest:(NSURLRequest *)request withCompletionBlock:(void (^)(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error))completionBlock
+- (SRGRequest *)asynchronouslyFetchJSONDictionaryWithRequest:(NSURLRequest *)request completionBlock:(void (^)(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error))completionBlock
 {
     NSParameterAssert(request);
     NSParameterAssert(completionBlock);
@@ -257,7 +268,7 @@ static SRGDataProvider *s_currentDataProvider;
     NSParameterAssert(rootKey);
     NSParameterAssert(completionBlock);
     
-    return [self asynchronouslyFetchJSONDictionaryWithRequest:request withCompletionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
+    return [self asynchronouslyFetchJSONDictionaryWithRequest:request completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
         if (error) {
             completionBlock(nil, nil, error);
             return;
@@ -291,7 +302,7 @@ static SRGDataProvider *s_currentDataProvider;
     NSParameterAssert(modelClass);
     NSParameterAssert(completionBlock);
     
-    return [self asynchronouslyFetchJSONDictionaryWithRequest:request withCompletionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
+    return [self asynchronouslyFetchJSONDictionaryWithRequest:request completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
         if (error) {
             completionBlock(nil, error);
             return;
@@ -306,6 +317,55 @@ static SRGDataProvider *s_currentDataProvider;
         }
         
         completionBlock(object, nil);
+    }];
+}
+
+- (SRGRequest *)asynchronouslyTokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock
+{
+    NSParameterAssert(URL);
+    NSParameterAssert(completionBlock);
+    
+    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
+    NSString *acl = [URLComponents.path.stringByDeletingLastPathComponent stringByAppendingPathComponent:@"*"];
+    
+    NSURLComponents *tokenServiceURLComponents = [NSURLComponents componentsWithURL:[NSURL URLWithString:SRGTokenServiceURLString] resolvingAgainstBaseURL:NO];
+    tokenServiceURLComponents.queryItems = @[ [NSURLQueryItem queryItemWithName:@"acl" value:acl] ];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:tokenServiceURLComponents.URL];
+    return [self asynchronouslyFetchJSONDictionaryWithRequest:request completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
+        if (error) {
+            completionBlock(nil, error);
+            return;
+        }
+        
+        NSString *token = nil;
+        
+        id tokenDictionary = JSONDictionary[@"token"];
+        if ([tokenDictionary isKindOfClass:[NSDictionary class]]) {
+            token = [tokenDictionary objectForKey:@"authparams"];
+        }
+        
+        if (!token) {
+            completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                     code:SRGDataProviderErrorCodeInvalidData
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The stream could not be secured.", nil) }]);
+            return;
+        }
+        
+        // Use components to properly extract the token as query items
+        NSURLComponents *tokenURLComponents = [[NSURLComponents alloc] init];
+        tokenURLComponents.query = token;
+        
+        // Build the tokenized URL, merging token components with existing ones
+        NSURLComponents *tokenizedURLComponents = [[NSURLComponents alloc] initWithURL:URL resolvingAgainstBaseURL:NO];
+        
+        NSMutableArray *queryItems = [tokenizedURLComponents.queryItems mutableCopy] ?: [NSMutableArray array];
+        if (tokenURLComponents.queryItems) {
+            [queryItems addObjectsFromArray:tokenURLComponents.queryItems];
+        }
+        tokenizedURLComponents.queryItems = [queryItems copy];
+        
+        completionBlock(tokenizedURLComponents.URL, nil);
     }];
 }
 

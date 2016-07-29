@@ -69,10 +69,16 @@
         NSLog(@"Request 1 finished!");
     }];
     [self.requestQueue addRequest:request1 resume:YES];
+    
     SRGRequest *request2 = [[SRGDataProvider currentDataProvider] videoShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
         NSLog(@"Request 2 finished!");
     }];
     [self.requestQueue addRequest:request2 resume:YES];
+    
+    SRGRequest *request3 = [[SRGDataProvider currentDataProvider] tokenizeURL:[NSURL URLWithString:@"http://srfvodhd-vh.akamaihd.net/i/vod/ts20/2016/07/ts20_20160728_193000_v_webcast_h264_,q10,q20,q30,q40,q50,q60,.mp4.csmil/master.m3u8"] withCompletionBlock:^(NSURL * _Nullable URL, NSError * _Nullable error) {
+        NSLog(@"Request 3 finished, tokenizedURL = %@", URL);
+    }];
+    [self.requestQueue addRequest:request3 resume:YES];
 }
 
 @end
