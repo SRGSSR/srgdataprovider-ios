@@ -32,7 +32,7 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 typedef void (^SRGLikeCompletionBlock)(SRGLike * _Nullable like, NSError * _Nullable error);
 typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error);
 
-@interface SRGDataProvider : NSObject
+@interface SRGDataProvider : NSObject <NSURLSessionTaskDelegate>
 
 + (nullable SRGDataProvider *)currentDataProvider;
 + (nullable SRGDataProvider *)setCurrentDataProvider:(nullable SRGDataProvider *)currentDataProvider;

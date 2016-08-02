@@ -63,7 +63,7 @@ static SRGDataProvider *s_currentDataProvider;
         self.businessUnitIdentifier = businessUnitIdentifier;
         
         NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        self.session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
+        self.session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
     }
     return self;
 }
@@ -236,15 +236,32 @@ static SRGDataProvider *s_currentDataProvider;
             return;
         }
         
-        // Properly handle HTTP error codes >= 400 as real errors
         if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
             NSHTTPURLResponse *HTTPURLResponse = (NSHTTPURLResponse *)response;
             NSInteger HTTPStatusCode = HTTPURLResponse.statusCode;
+            
+            // Properly handle HTTP error codes >= 400 as real errors
             if (HTTPStatusCode >= 400) {
                 completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
                                                          code:SRGDataProviderErrorHTTP
                                                      userInfo:@{ NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:HTTPStatusCode],
                                                                  NSURLErrorKey : response.URL }]);
+                return;
+            }
+            // Block redirects and return an error with URL information
+            else if (HTTPStatusCode >= 300) {
+                NSMutableDictionary *userInfo = [@{ NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:HTTPStatusCode],
+                                                    NSURLErrorKey : response.URL } mutableCopy];
+                
+                NSString *redirectionURLString = HTTPURLResponse.allHeaderFields[@"Location"];
+                if (redirectionURLString) {
+                    NSURL *redirectionURL = [NSURL URLWithString:redirectionURLString];
+                    userInfo[SRGDataProviderRedirectionURLKey] = redirectionURL;
+                }
+                
+                completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                         code:SRGDataProviderErrorRedirect
+                                                     userInfo:[userInfo copy]]);
                 return;
             }
         }
@@ -367,6 +384,14 @@ static SRGDataProvider *s_currentDataProvider;
         
         completionBlock(tokenizedURLComponents.URL, nil);
     }];
+}
+
+#pragma mark NSURLSessionDelegate protocol
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task willPerformHTTPRedirection:(NSHTTPURLResponse *)response newRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest * _Nullable))completionHandler
+{
+    // Refuse the redirection and return the redirection response (with the proper HTTP status code)
+    completionHandler(nil);
 }
 
 #pragma mark Description
