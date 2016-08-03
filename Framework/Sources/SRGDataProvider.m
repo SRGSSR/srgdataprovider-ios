@@ -248,9 +248,10 @@ static SRGDataProvider *s_currentDataProvider;
                                                                  NSURLErrorKey : response.URL }]);
                 return;
             }
-            // Block redirects and return an error with URL information
+            // Block redirects and return an error with URL information. Currently no redirection is expected for IL services, this
+            // means redirection is probably related to a public hotspot with login page (e.g. SBB)
             else if (HTTPStatusCode >= 300) {
-                NSMutableDictionary *userInfo = [@{ NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:HTTPStatusCode],
+                NSMutableDictionary *userInfo = [@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"You are likely connected to a public wifi network with no Internet access", nil),
                                                     NSURLErrorKey : response.URL } mutableCopy];
                 
                 NSString *redirectionURLString = HTTPURLResponse.allHeaderFields[@"Location"];
