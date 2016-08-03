@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly, getter=isRunning) BOOL running;
 
+// Defaults to YES. Changing this value when a connection is running is a no-op
+@property (nonatomic, getter=isManagingNetworkActivityIndicator) BOOL managingNetworkActivityIndicator;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -6,6 +6,10 @@
 
 #import "SRGRequest.h"
 
+#import <UIKit/UIKit.h>
+
+static NSInteger s_numberOfRunningRequests = 0;
+
 @interface SRGRequest ()
 
 @property (nonatomic) NSURLSessionTask *sessionTask;
@@ -21,8 +25,44 @@
 {
     if (self = [super init]) {
         self.sessionTask = sessionTask;
+        self.managingNetworkActivityIndicator = YES;
     }
     return self;
+}
+
+#pragma mark Getters and setters
+
+- (void)setManagingNetworkActivityIndicator:(BOOL)managingNetworkActivityIndicator
+{
+    if (self.running) {
+        return;
+    }
+    
+    _managingNetworkActivityIndicator = managingNetworkActivityIndicator;
+}
+
+- (void)setRunning:(BOOL)running
+{
+    if (running != _running && self.managingNetworkActivityIndicator) {
+        if (running) {
+            if (s_numberOfRunningRequests == 0) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+                });
+            }
+            ++s_numberOfRunningRequests;
+        }
+        else {
+            --s_numberOfRunningRequests;
+            if (s_numberOfRunningRequests == 0) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                });
+            }
+        }
+    }
+    
+    _running = running;
 }
 
 #pragma mark Session task management
