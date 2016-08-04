@@ -307,13 +307,20 @@ static SRGDataProvider *s_currentDataProvider;
             return;
         }
         
+        NSInteger size = [JSONDictionary[@"pageSize"] integerValue];
+        
+        // No results, no error, no additional results
+        if (size == 0) {
+            completionBlock(nil, nil, nil);
+            return;
+        }
+        
         id JSONArray = JSONDictionary[rootKey];
         if (JSONArray && [JSONArray isKindOfClass:[NSArray class]]) {
             NSArray *objects = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:NULL];
             if (objects) {
                 if ([JSONDictionary[@"hasMoreItems"] boolValue]) {
                     NSInteger number = [JSONDictionary[@"pageNumber"] integerValue];
-                    NSInteger size = [JSONDictionary[@"pageSize"] integerValue];
                     completionBlock(objects, [[SRGPage pageWithNumber:number size:size] nextPage], nil);
                 }
                 else {
