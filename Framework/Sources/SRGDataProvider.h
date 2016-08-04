@@ -59,6 +59,8 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 
 - (SRGRequest *)mediaCompositionForVideoWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
+- (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withPage:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
 - (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock;
 
 - (SRGRequest *)tokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock;

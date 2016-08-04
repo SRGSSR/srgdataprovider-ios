@@ -148,6 +148,14 @@ static SRGDataProvider *s_currentDataProvider;
     return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMediaComposition class] completionBlock:completionBlock];
 }
 
+- (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withPage:(SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/search.json", self.businessUnitIdentifier];
+    NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems page:page];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+}
+
 - (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock
 {
     SRGChapter *mainChapter = mediaComposition.mainChapter;

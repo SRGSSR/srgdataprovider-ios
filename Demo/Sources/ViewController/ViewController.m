@@ -56,6 +56,10 @@
     [[[SRGDataProvider currentDataProvider] videoShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
         NSLog(@"Shows: %@; error: %@", shows, error);
     }] resume];
+    
+    [[[SRGDataProvider currentDataProvider] searchVideosMatchingQuery:@"roger" withPage:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        NSLog(@"Medias: %@; error: %@", medias, error);
+    }] resume];
 }
 
 - (IBAction)requestQueue:(id)sender
