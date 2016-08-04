@@ -76,6 +76,13 @@ static SRGDataProvider *s_currentDataProvider;
 
 #pragma mark User requests
 
+- (SRGRequest *)editorialVideosWithPage:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/editorial.json", self.businessUnitIdentifier];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil page:page];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+}
+
 - (SRGRequest *)trendingVideosWithPage:(SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     return [self trendingVideosWithEditorialLimit:nil page:page completionBlock:completionBlock];
@@ -99,7 +106,7 @@ static SRGDataProvider *s_currentDataProvider;
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latest.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil page:page];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL]modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
 - (SRGRequest *)mostPopularVideosWithPage:(SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock

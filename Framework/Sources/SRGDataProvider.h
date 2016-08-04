@@ -42,6 +42,10 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 @property (nonatomic, readonly) NSURL *serviceURL;
 @property (nonatomic, readonly, copy) NSString *businessUnitIdentifier;
 
+// TODO: Maybe have an audio / video enum parameter for each method available for audio & videos
+
+- (SRGRequest *)editorialVideosWithPage:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
 - (SRGRequest *)trendingVideosWithPage:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 - (SRGRequest *)trendingVideosWithEditorialLimit:(nullable NSNumber *)editorialLimit page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
