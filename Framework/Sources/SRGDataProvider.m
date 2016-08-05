@@ -311,7 +311,7 @@ static SRGDataProvider *s_currentDataProvider;
         
         // No results, no error, no additional results
         if (size == 0) {
-            completionBlock(nil, nil, nil);
+            completionBlock(@[], nil, nil);
             return;
         }
         
