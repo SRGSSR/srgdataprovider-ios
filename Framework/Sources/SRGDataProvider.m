@@ -246,13 +246,11 @@ static SRGDataProvider *s_currentDataProvider;
     NSParameterAssert(completionBlock);
     
     return [self.session srg_dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error) {
-            completionBlock(nil, error);
-            return;
-        }
-        
         // Don't call completion block for cancelled requests
-        if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
+        if (error) {
+            if (![error.domain isEqualToString:NSURLErrorDomain] || error.code != NSURLErrorCancelled) {
+                completionBlock(nil, error);
+            }
             return;
         }
         
