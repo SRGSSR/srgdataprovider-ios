@@ -43,6 +43,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 @property (nonatomic, readonly, copy) NSString *businessUnitIdentifier;
 
 // TODO: Maybe have an audio / video enum parameter for each method available for audio & videos
+// TODO: Document: completion block never called for cancelled requests
 
 - (SRGRequest *)editorialVideosWithPage:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 

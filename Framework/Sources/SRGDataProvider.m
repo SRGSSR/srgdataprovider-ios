@@ -251,6 +251,11 @@ static SRGDataProvider *s_currentDataProvider;
             return;
         }
         
+        // Don't call completion block for cancelled requests
+        if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
+            return;
+        }
+        
         if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
             NSHTTPURLResponse *HTTPURLResponse = (NSHTTPURLResponse *)response;
             NSInteger HTTPStatusCode = HTTPURLResponse.statusCode;
