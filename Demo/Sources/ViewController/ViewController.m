@@ -6,7 +6,7 @@
 
 #import "ViewController.h"
 
-@import SRGIntegrationLayerDataProvider;
+@import SRGDataProvider;
 
 @interface ViewController ()
 

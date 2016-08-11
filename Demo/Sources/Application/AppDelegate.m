@@ -6,7 +6,7 @@
 
 #import "AppDelegate.h"
 
-@import SRGIntegrationLayerDataProvider;
+@import SRGDataProvider;
 
 @implementation AppDelegate
 

@@ -4,13 +4,13 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "NSBundle+SRGIntegrationLayerDataProvider.h"
+#import "NSBundle+SRGDataProvider.h"
 
 #import "SRGDataProvider.h"
 
-@implementation NSBundle (SRGIntegrationLayerDataProvider)
+@implementation NSBundle (SRGDataProvider)
 
-+ (NSBundle *)srg_integrationLayerDataProviderBundle
++ (NSBundle *)srg_dataProviderBundle
 {
     static dispatch_once_t s_onceToken;
     static NSBundle *s_bundle;

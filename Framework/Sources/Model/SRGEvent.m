@@ -6,7 +6,7 @@
 
 #import "SRGEvent.h"
 
-#import "NSURL+SRGIntegrationLayerDataProvider.h"
+#import "NSURL+SRGDataProvider.h"
 #import "SRGJSONTransformers.h"
 
 @interface SRGEvent ()

@@ -8,7 +8,7 @@
 
 #import "SRGMedia.h"
 
-#import "NSURL+SRGIntegrationLayerDataProvider.h"
+#import "NSURL+SRGDataProvider.h"
 
 @interface SRGEpisode ()
 

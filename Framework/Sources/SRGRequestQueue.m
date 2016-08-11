@@ -6,7 +6,7 @@
 
 #import "SRGRequestQueue.h"
 
-#import "NSBundle+SRGIntegrationLayerDataProvider.h"
+#import "NSBundle+SRGDataProvider.h"
 #import "SRGDataProviderError.h"
 
 static void *s_kvoContext = &s_kvoContext;

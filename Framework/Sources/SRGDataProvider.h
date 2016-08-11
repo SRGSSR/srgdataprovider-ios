@@ -6,18 +6,43 @@
 
 #import <Foundation/Foundation.h>
 
+// Public framework imports
+#import "SRGChannel.h"
 #import "SRGChapter.h"
+#import "SRGDataProvider.h"
+#import "SRGDataProviderError.h"
+#import "SRGEntry.h"
 #import "SRGEpisode.h"
+#import "SRGEvent.h"
+#import "SRGImageMetadata.h"
 #import "SRGLike.h"
 #import "SRGMedia.h"
 #import "SRGMediaComposition.h"
+#import "SRGMediaIdentifierMetadata.h"
+#import "SRGMediaMetadata.h"
+#import "SRGMetadata.h"
 #import "SRGPage.h"
+#import "SRGPresenter.h"
+#import "SRGProgram.h"
+#import "SRGRelatedContent.h"
 #import "SRGRequest.h"
+#import "SRGRequestQueue.h"
+#import "SRGResource.h"
+#import "SRGSection.h"
+#import "SRGSegment.h"
 #import "SRGShow.h"
+#import "SRGSocialCount.h"
+#import "SRGSubtitle.h"
 #import "SRGTopic.h"
+#import "SRGTypes.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+// Project version information
+OBJC_EXPORT double SRGDataProviderVersionNumber;
+OBJC_EXPORT const unsigned char SRGDataProviderVersionString[];
+
+// Official business identifiers
 OBJC_EXPORT NSString * const SRGBusinessIdentifierRSI;
 OBJC_EXPORT NSString * const SRGBusinessIdentifierRTR;
 OBJC_EXPORT NSString * const SRGBusinessIdentifierRTS;

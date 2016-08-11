@@ -4,7 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "NSURL+SRGIntegrationLayerDataProvider.h"
+#import "NSURL+SRGDataProvider.h"
 
 #import <UIKit/UIKit.h>
 

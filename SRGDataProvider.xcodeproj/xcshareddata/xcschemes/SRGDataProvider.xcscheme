@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E6AF7EFC1D38B8BD00942ADA"
-               BuildableName = "SRGIntegrationLayerDataProvider.framework"
-               BlueprintName = "SRGIntegrationLayerDataProvider"
-               ReferencedContainer = "container:SRGIntegrationLayerDataProvider.xcodeproj">
+               BuildableName = "SRGDataProvider.framework"
+               BlueprintName = "SRGDataProvider"
+               ReferencedContainer = "container:SRGDataProvider.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,9 +46,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E6AF7EFC1D38B8BD00942ADA"
-            BuildableName = "SRGIntegrationLayerDataProvider.framework"
-            BlueprintName = "SRGIntegrationLayerDataProvider"
-            ReferencedContainer = "container:SRGIntegrationLayerDataProvider.xcodeproj">
+            BuildableName = "SRGDataProvider.framework"
+            BlueprintName = "SRGDataProvider"
+            ReferencedContainer = "container:SRGDataProvider.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -64,9 +64,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E6AF7EFC1D38B8BD00942ADA"
-            BuildableName = "SRGIntegrationLayerDataProvider.framework"
-            BlueprintName = "SRGIntegrationLayerDataProvider"
-            ReferencedContainer = "container:SRGIntegrationLayerDataProvider.xcodeproj">
+            BuildableName = "SRGDataProvider.framework"
+            BlueprintName = "SRGDataProvider"
+            ReferencedContainer = "container:SRGDataProvider.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

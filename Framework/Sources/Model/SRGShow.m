@@ -6,7 +6,7 @@
 
 #import "SRGShow.h"
 
-#import "NSURL+SRGIntegrationLayerDataProvider.h"
+#import "NSURL+SRGDataProvider.h"
 
 @interface SRGShow ()
 

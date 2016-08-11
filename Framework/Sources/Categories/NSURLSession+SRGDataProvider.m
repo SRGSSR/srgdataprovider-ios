@@ -4,11 +4,11 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "NSURLSession+SRGIntegrationLayerDataProvider.h"
+#import "NSURLSession+SRGDataProvider.h"
 
 #import "SRGRequest+Private.h"
 
-static NSString * const SRGIntegrationLayerDataProviderErrorScheme = @"srgilerror";
+static NSString * const SRGDataProviderErrorScheme = @"srgilerror";
 
 /**
  * Special protocol registered on the fly, simply to use standard NSURLSessionTask logic to propagate errors. This makes
@@ -26,7 +26,7 @@ static NSString * const SRGIntegrationLayerDataProviderErrorScheme = @"srgilerro
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request
 {
-    return [request.URL.scheme isEqualToString:SRGIntegrationLayerDataProviderErrorScheme];
+    return [request.URL.scheme isEqualToString:SRGDataProviderErrorScheme];
 }
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request
@@ -47,7 +47,7 @@ static NSString * const SRGIntegrationLayerDataProviderErrorScheme = @"srgilerro
 
 // Required identity hack, direct categories on NSURLSession are not possible.
 // See http://stackoverflow.com/a/24428137/760435
-@implementation NSObject /*NSURLSession*/ (SRGIntegrationLayerDataProvider)
+@implementation NSObject /*NSURLSession*/ (SRGDataProvider)
 
 - (SRGRequest *)srg_dataTaskWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error))completionHandler;
 {
@@ -70,7 +70,7 @@ static NSString * const SRGIntegrationLayerDataProviderErrorScheme = @"srgilerro
         realSelf.configuration.protocolClasses = [realSelf.configuration.protocolClasses arrayByAddingObject:[SRGDataProviderErrorURLProtocol class]];
     }
     
-    NSString *URLString = [NSString stringWithFormat:@"%@://error", SRGIntegrationLayerDataProviderErrorScheme];
+    NSString *URLString = [NSString stringWithFormat:@"%@://error", SRGDataProviderErrorScheme];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
     return [realSelf srg_dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable dummyError) {
         completionHandler(error);

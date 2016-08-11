@@ -7,7 +7,7 @@
 #import "SRGChannel.h"
 
 #import "SRGJSONTransformers.h"
-#import "NSURL+SRGIntegrationLayerDataProvider.h"
+#import "NSURL+SRGDataProvider.h"
 
 @interface SRGChannel ()
 

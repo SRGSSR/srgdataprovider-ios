@@ -6,7 +6,7 @@
 
 #import "SRGProgram.h"
 
-#import "NSURL+SRGIntegrationLayerDataProvider.h"
+#import "NSURL+SRGDataProvider.h"
 #import "SRGJSONTransformers.h"
 
 @interface SRGProgram ()

@@ -6,8 +6,8 @@
 
 #import "SRGDataProvider.h"
 
-#import "NSBundle+SRGIntegrationLayerDataProvider.h"
-#import "NSURLSession+SRGIntegrationLayerDataProvider.h"
+#import "NSBundle+SRGDataProvider.h"
+#import "NSURLSession+SRGDataProvider.h"
 #import "SRGDataProviderError.h"
 
 #import <Mantle/Mantle.h>
