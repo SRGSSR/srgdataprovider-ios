@@ -23,6 +23,10 @@
 		E6391ABA1D38E93A00E4CBB9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6391AB31D38E93A00E4CBB9 /* ViewController.m */; };
 		E6391ABB1D38E96400E4CBB9 /* SRGIntegrationLayerDataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGIntegrationLayerDataProvider.framework */; };
 		E6391ABC1D38E96400E4CBB9 /* SRGIntegrationLayerDataProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGIntegrationLayerDataProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E63DA7251D5C554A0053060E /* SRGEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = E63DA7231D5C554A0053060E /* SRGEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E63DA7261D5C554A0053060E /* SRGEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E63DA7241D5C554A0053060E /* SRGEvent.m */; };
+		E63DA7291D5C5A390053060E /* SRGSection.h in Headers */ = {isa = PBXBuildFile; fileRef = E63DA7271D5C5A390053060E /* SRGSection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E63DA72A1D5C5A390053060E /* SRGSection.m in Sources */ = {isa = PBXBuildFile; fileRef = E63DA7281D5C5A390053060E /* SRGSection.m */; };
 		E67BB6651D3D295E00E1FEA3 /* SRGResource.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6631D3D295E00E1FEA3 /* SRGResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E67BB6661D3D295E00E1FEA3 /* SRGResource.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6641D3D295E00E1FEA3 /* SRGResource.m */; };
 		E67BB6691D3D2FB600E1FEA3 /* SRGSocialCount.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6671D3D2FB600E1FEA3 /* SRGSocialCount.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -125,6 +129,10 @@
 		E6391AB01D38E93A00E4CBB9 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E6391AB21D38E93A00E4CBB9 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E6391AB31D38E93A00E4CBB9 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		E63DA7231D5C554A0053060E /* SRGEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGEvent.h; sourceTree = "<group>"; };
+		E63DA7241D5C554A0053060E /* SRGEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGEvent.m; sourceTree = "<group>"; };
+		E63DA7271D5C5A390053060E /* SRGSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSection.h; sourceTree = "<group>"; };
+		E63DA7281D5C5A390053060E /* SRGSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSection.m; sourceTree = "<group>"; };
 		E67BB6631D3D295E00E1FEA3 /* SRGResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGResource.h; sourceTree = "<group>"; };
 		E67BB6641D3D295E00E1FEA3 /* SRGResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGResource.m; sourceTree = "<group>"; };
 		E67BB6671D3D2FB600E1FEA3 /* SRGSocialCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSocialCount.h; sourceTree = "<group>"; };
@@ -254,6 +262,8 @@
 				E68598BB1D40F3160010000A /* SRGEntry.m */,
 				E6C2B3F21D392F1200B6250B /* SRGEpisode.h */,
 				E6C2B3F31D392F1200B6250B /* SRGEpisode.m */,
+				E63DA7231D5C554A0053060E /* SRGEvent.h */,
+				E63DA7241D5C554A0053060E /* SRGEvent.m */,
 				E67BB6771D3E041900E1FEA3 /* SRGJSONTransformers.h */,
 				E67BB6781D3E041900E1FEA3 /* SRGJSONTransformers.m */,
 				E67BB66F1D3E011500E1FEA3 /* SRGLike.h */,
@@ -270,6 +280,8 @@
 				E6AE51411D40A66C00572CE4 /* SRGRelatedContent.m */,
 				E67BB6631D3D295E00E1FEA3 /* SRGResource.h */,
 				E67BB6641D3D295E00E1FEA3 /* SRGResource.m */,
+				E63DA7271D5C5A390053060E /* SRGSection.h */,
+				E63DA7281D5C5A390053060E /* SRGSection.m */,
 				E68598A81D40CC750010000A /* SRGSegment.h */,
 				E68598A91D40CC750010000A /* SRGSegment.m */,
 				E6C2B3F61D392F1A00B6250B /* SRGShow.h */,
@@ -409,6 +421,8 @@
 				E6391A9F1D38E92400E4CBB9 /* SRGTopic.h in Headers */,
 				E62459BC1D4787CE00482BE9 /* SRGRequest+Private.h in Headers */,
 				E6391AA11D38E92400E4CBB9 /* SRGDataProvider.h in Headers */,
+				E63DA7291D5C5A390053060E /* SRGSection.h in Headers */,
+				E63DA7251D5C554A0053060E /* SRGEvent.h in Headers */,
 				E6C2B3C31D391D5A00B6250B /* SRGDataProviderError.h in Headers */,
 				E68598B11D40CEC30010000A /* SRGImageMetadata.h in Headers */,
 				E68598B51D40CEEE0010000A /* SRGMediaMetadata.h in Headers */,
@@ -559,7 +573,9 @@
 				E6AE51471D40AA0100572CE4 /* SRGSubtitle.m in Sources */,
 				E6C2B3F91D392F1A00B6250B /* SRGShow.m in Sources */,
 				E6AE513B1D4093B700572CE4 /* NSURL+SRGIntegrationLayerDataProvider.m in Sources */,
+				E63DA72A1D5C5A390053060E /* SRGSection.m in Sources */,
 				E688C4F21D4756D60084DE4D /* SRGPage.m in Sources */,
+				E63DA7261D5C554A0053060E /* SRGEvent.m in Sources */,
 				E67BB66A1D3D2FB600E1FEA3 /* SRGSocialCount.m in Sources */,
 				E68598C11D40FF950010000A /* SRGProgram.m in Sources */,
 				E68598BD1D40F3160010000A /* SRGEntry.m in Sources */,

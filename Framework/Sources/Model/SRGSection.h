@@ -10,9 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SRGTopic : MTLModel <SRGMetadata, MTLJSONSerializing>
+@interface SRGSection : MTLModel <SRGMetadata, MTLJSONSerializing>
 
 @property (nonatomic, readonly, copy) NSString *uid;
+@property (nonatomic, readonly) NSDate *startDate;
+@property (nonatomic, readonly) NSDate *endDate;
 
 @end
 

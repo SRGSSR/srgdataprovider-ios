@@ -6,6 +6,10 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ * Native Integration Layer types
+ */
+
 typedef NS_ENUM(NSInteger, SRGBlockingReason) {
     SRGBlockingReasonNone = 0,
     SRGBlockingReasonGeoblocking,
@@ -102,4 +106,14 @@ typedef NS_ENUM(NSInteger, SRGVendor) {
     SRGVendorRTS,
     SRGVendorSRF,
     SRGVendorSWI
+};
+
+
+/**
+ * Other types
+ */
+
+typedef NS_ENUM(NSInteger, SRGImageDimension) {
+    SRGImageDimensionWidth,
+    SRGImageDimensionHeight
 };

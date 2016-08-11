@@ -11,9 +11,9 @@
 
 @interface SRGMedia ()
 
-@property (nonatomic, nullable) SRGChannel *channel;
-@property (nonatomic, nullable) SRGEpisode *episode;
-@property (nonatomic, nullable) SRGShow *show;
+@property (nonatomic) SRGChannel *channel;
+@property (nonatomic) SRGEpisode *episode;
+@property (nonatomic) SRGShow *show;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;

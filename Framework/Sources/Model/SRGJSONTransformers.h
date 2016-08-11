@@ -19,3 +19,4 @@ OBJC_EXPORT NSValueTransformer *SRGTransmissionJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGVendorJSONTransformer(void);
 
 OBJC_EXPORT NSValueTransformer *SRGISO8601DateJSONTransformer(void);
+OBJC_EXPORT NSValueTransformer *SRGHexColorJSONTransformer(void);

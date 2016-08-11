@@ -9,6 +9,7 @@
 #import "SRGTypes.h"
 
 #import <Mantle/Mantle.h>
+#import <UIKit/UIKit.h>
 
 NSValueTransformer *SRGBlockingReasonJSONTransformer(void)
 {
@@ -175,6 +176,29 @@ NSValueTransformer *SRGISO8601DateJSONTransformer(void)
         } reverseBlock:^id(NSDate *date, BOOL *success, NSError *__autoreleasing *error) {
             return [dateFormatter stringFromDate:date];
         }];
+    });
+    return s_transformer;
+}
+
+NSValueTransformer *SRGHexColorJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *hexColorString, BOOL *success, NSError *__autoreleasing *error) {
+            NSScanner *scanner = [NSScanner scannerWithString:hexColorString];
+            if ([hexColorString hasPrefix:@"#"]) {
+                [scanner setScanLocation:1];
+            }
+            
+            unsigned rgbValue = 0;
+            [scanner scanHexInt:&rgbValue];
+            
+            CGFloat red = ((rgbValue & 0xFF0000) >> 16) / 255.f;
+            CGFloat green = ((rgbValue & 0x00FF00) >> 8) / 255.f;
+            CGFloat blue = (rgbValue & 0x0000FF) / 255.f;
+            return [UIColor colorWithRed:red green:green blue:blue alpha:1.f];
+        } reverseBlock:nil];
     });
     return s_transformer;
 }

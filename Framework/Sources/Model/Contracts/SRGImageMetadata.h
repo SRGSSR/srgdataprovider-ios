@@ -11,11 +11,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSInteger, SRGImageDimension) {
-    SRGImageDimensionWidth,
-    SRGImageDimensionHeight
-};
-
 // Matches imageGroup in IL XSD files
 
 @protocol SRGImageMetadata <NSObject>
