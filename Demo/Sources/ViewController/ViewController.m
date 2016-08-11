@@ -66,7 +66,7 @@
         
         SRGEvent *firstEvent = events.firstObject;
         if (firstEvent) {
-            [[[SRGDataProvider currentDataProvider] latestVideosForEventWithUid:firstEvent.uid page:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+            [[[SRGDataProvider currentDataProvider] latestVideosForEventWithUid:firstEvent.uid sectionUid:nil page:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
                 NSLog(@"Medias for event: %@; error: %@", medias, error);
             }] resume];
         }

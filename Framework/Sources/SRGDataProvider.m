@@ -141,9 +141,9 @@ static SRGDataProvider *s_currentDataProvider;
     }];
 }
 
-- (SRGRequest *)latestVideosForEventWithUid:(NSString *)eventUid page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)latestVideosForEventWithUid:(NSString *)eventUid sectionUid:(NSString *)sectionUid page:(SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestByEventId/%@.json", self.businessUnitIdentifier, eventUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestByEventId/%@%@.json", self.businessUnitIdentifier, eventUid, sectionUid ? [NSString stringWithFormat:@"/sectionId/%@", sectionUid] : @""];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil page:page];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
