@@ -24,7 +24,7 @@
         SRGTopic *firstTopic = topics.firstObject;
         if (firstTopic) {
             [[[SRGDataProvider currentDataProvider] latestVideosForTopicWithUid:firstTopic.uid page:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-                NSLog(@"Medias: %@; error: %@", medias, error);
+                NSLog(@"Medias for topic: %@; error: %@", medias, error);
             }] resume];
         }
     }] resume];
@@ -59,6 +59,17 @@
     
     [[[SRGDataProvider currentDataProvider] searchVideosMatchingQuery:@"roger" withPage:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
+    }] resume];
+    
+    [[[SRGDataProvider currentDataProvider] eventsWithCompletionBlock:^(NSArray<SRGEvent *> * _Nullable events, NSError * _Nullable error) {
+        NSLog(@"Events: %@; error: %@", events, error);
+        
+        SRGEvent *firstEvent = events.firstObject;
+        if (firstEvent) {
+            [[[SRGDataProvider currentDataProvider] latestVideosForEventWithUid:firstEvent.uid page:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+                NSLog(@"Medias for event: %@; error: %@", medias, error);
+            }] resume];
+        }
     }] resume];
 }
 

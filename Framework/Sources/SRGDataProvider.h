@@ -49,6 +49,7 @@ OBJC_EXPORT NSString * const SRGBusinessIdentifierRTS;
 OBJC_EXPORT NSString * const SRGBusinessIdentifierSRF;
 OBJC_EXPORT NSString * const SRGBusinessIdentifierSWI;
 
+typedef void (^SRGEeventListCompletionBlock)(NSArray<SRGEvent *> * _Nullable events, NSError * _Nullable error);
 typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error);
@@ -80,6 +81,9 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 
 - (SRGRequest *)videoTopicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock;
 - (SRGRequest *)latestVideosForTopicWithUid:(NSString *)topicUid page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+- (SRGRequest *)eventsWithCompletionBlock:(SRGEeventListCompletionBlock)completionBlock;
+- (SRGRequest *)latestVideosForEventWithUid:(NSString *)eventUid page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 - (SRGRequest *)videoShowsWithCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
 
