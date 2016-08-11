@@ -76,11 +76,10 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 - (SRGRequest *)trendingVideosWithPage:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 - (SRGRequest *)trendingVideosWithEditorialLimit:(nullable NSNumber *)editorialLimit page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
-- (SRGRequest *)latestVideosWithPage:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
-- (SRGRequest *)mostPopularVideosWithPage:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
-
 - (SRGRequest *)videoTopicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock;
-- (SRGRequest *)latestVideosForTopicWithUid:(NSString *)topicUid page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+- (SRGRequest *)latestVideosWithTopicUid:(nullable NSString *)topicUid page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)mostPopularVideosWithTopicUid:(nullable NSString *)topicUid page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 - (SRGRequest *)eventsWithCompletionBlock:(SRGEeventListCompletionBlock)completionBlock;
 - (SRGRequest *)latestVideosForEventWithUid:(NSString *)eventUid sectionUid:(nullable NSString *)sectionUid page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
