@@ -8,10 +8,10 @@ Pod::Spec.new do |s|
     an easy drop in your project. Moreover, an optional module allow you to also use that provider for storing offline
     metadatas from Medias and Shows. It can be used to implement a 'favorites' feature in an app.
 DESC
-  s.homepage = "http://rts.ch"
+  s.homepage = "https://github.com/SRGSSR/srgdataprovider-ios"
   s.license = { :type => "N/A" }
   s.authors = { "Cédric Foellmi" => "cedric@onekilopars.ec", "Cédric Luthi" => "cedric.luthi@rts.ch", "Pierre-Yves bertholon" => "py.bertholon@gmail.com" }
-  s.source = { :git => "git@bitbucket.org:rtsmb/srgintegrationlayerdataprovider-ios.git", :tag => s.version.to_s }
+  s.source = { :git => "git@github.com:SRGSSR/srgdataprovider-ios.git", :tag => s.version.to_s }
 
   # Platform setup
   s.platform = :ios
