@@ -18,7 +18,7 @@ The library can be added to a project through [CocoaPods](http://cocoapods.org/)
     
 ```
 #!ruby
-    source 'ssh://git@github.com:SRGSSR/srgdataprovider-ios.git'
+    source 'https://github.com/SRGSSR/srgpodspecs-ios.git'
 ```
     
 * The `SRGIntegrationLayerDataProvider` dependency:
