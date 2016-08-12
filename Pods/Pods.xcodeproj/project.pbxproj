@@ -162,7 +162,6 @@
 		4C841F4ED2A5826AD132E29EDC50ED14 /* RTSPictureInPictureButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 56F89F405B6E93A30462877B6F9599C1 /* RTSPictureInPictureButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CA7BCDCF3CBD8F34D2E19A53FFBA21C /* SRGILDataProvider+MediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ED66F85675474CB138B236E255FA47E /* SRGILDataProvider+MediaPlayer.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		4CAAFD85FC04FBFFB61A22F14C8D4684 /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C36D374076C7561B5A538E083219DCE /* DDContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4CC681AB9B7DFB79AA732A8552C71B32 /* RTSAnalyticsVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 074414D48D3D7BFBC7F71661135A4093 /* RTSAnalyticsVersion.m */; settings = {COMPILER_FLAGS = "-DRTS_ANALYTICS_VERSION=1.5.3 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		4CC6E07AE509A63FAC5F79B2E4C7EE2E /* SRGILURN.h in Headers */ = {isa = PBXBuildFile; fileRef = F6E5EE8460DF1D0E165CE0E270C3023D /* SRGILURN.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D8CE02B88A4519ECA4CDF3E92B5A8D0 /* UIView-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = E6F5DFC3CCC9B42E4CD5E7B964E71811 /* UIView-KIFAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E07F0587D64C5EE62ACC32FE5AFDA0F /* KIFTestActor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C11D8A4A6D9D86DC2F4DF210E5B5E83 /* KIFTestActor.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -480,6 +479,7 @@
 		DC73EB6B24E3BC2029B2F76CDD622AB3 /* SRGILMedia+MediaPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = C47B0E5FB033D0ABECA99E1969B4FE76 /* SRGILMedia+MediaPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCE722073CCF569456CFC5F0F18600B3 /* SRGILVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F587BDE76486BB02A68D878D79E4C6 /* SRGILVideo.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		DCEFAABCADCD2BC62F148D5AE9A12EBC /* SRGILSonglog.h in Headers */ = {isa = PBXBuildFile; fileRef = 32E2416579AEAE00934B4915ED5A2486 /* SRGILSonglog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DD00632616E7821438A68DD1F59EAFE4 /* RTSAnalyticsVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 074414D48D3D7BFBC7F71661135A4093 /* RTSAnalyticsVersion.m */; settings = {COMPILER_FLAGS = "-DRTS_ANALYTICS_VERSION=1.5.5 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		DD084F971244AAF623A88DB9E7025B62 /* SRGILPrimaryChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = DE14073B4E5D2780AF53B5B4DBAEBFCC /* SRGILPrimaryChannel.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		DD43F4CD5C310FAF2307E71732BFA7CD /* SRGILVideo2.m in Sources */ = {isa = PBXBuildFile; fileRef = A2519E787A1D4814F6A2683AF7BBEA47 /* SRGILVideo2.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		DE0912A53EFF0CCD312DBFFE50299502 /* RTSMediaSegmentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1762FB87B57E40F6032EC3D85C274 /* RTSMediaSegmentsController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -3665,7 +3665,7 @@
 				74CB65AE23CF84E1D86211CF82CFAA7D /* RTSAnalyticsNetmetrixTracker.m in Sources */,
 				33D7E3BA9C573E28EBD1021FE023C61B /* RTSAnalyticsTracker+Logging.m in Sources */,
 				156FA4F513951903072BC799F0C8B9D3 /* RTSAnalyticsTracker.m in Sources */,
-				4CC681AB9B7DFB79AA732A8552C71B32 /* RTSAnalyticsVersion.m in Sources */,
+				DD00632616E7821438A68DD1F59EAFE4 /* RTSAnalyticsVersion.m in Sources */,
 				2885EB526A5F9E4B578134F705042138 /* RTSMediaPlayerController+RTSAnalytics.m in Sources */,
 				8C3CEAF2C4C8EFA4595CB2C71320CF9F /* RTSMediaPlayerControllerStreamSenseTracker.m in Sources */,
 				7EF993E88554EEEE12CC646CEDBDDCD7 /* RTSMediaPlayerControllerTracker.m in Sources */,
