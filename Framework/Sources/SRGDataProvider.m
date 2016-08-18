@@ -85,20 +85,23 @@ static SRGDataProvider *s_currentDataProvider;
 
 - (SRGRequest *)trendingVideosWithPage:(SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
-    return [self trendingVideosWithEditorialLimit:nil page:page completionBlock:completionBlock];
+    return [self trendingVideosWithEditorialLimit:nil episodesOnly:NO page:page completionBlock:completionBlock];
 }
 
-- (SRGRequest *)trendingVideosWithEditorialLimit:(NSNumber *)editorialLimit page:(SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)trendingVideosWithEditorialLimit:(NSNumber *)editorialLimit episodesOnly:(BOOL)episodesOnly page:(SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/trending.json", self.businessUnitIdentifier];
     
-    NSArray<NSURLQueryItem *> *queryItems = nil;
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
     if (editorialLimit) {
         editorialLimit = @(MAX(0, editorialLimit.integerValue));
-        queryItems = @[ [NSURLQueryItem queryItemWithName:@"maxCountEditorPicks" value:editorialLimit.stringValue] ];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"maxCountEditorPicks" value:editorialLimit.stringValue]];
+    }
+    if (episodesOnly) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"onlyEpisodes" value:@"true"]];
     }
     
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems page:page];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy] page:page];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 

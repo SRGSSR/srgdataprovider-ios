@@ -33,7 +33,7 @@
         }
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] trendingVideosWithEditorialLimit:@5 page:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] trendingVideosWithEditorialLimit:@5 episodesOnly:YES page:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     
