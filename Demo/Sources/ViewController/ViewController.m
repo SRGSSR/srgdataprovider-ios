@@ -79,6 +79,10 @@
     [[[SRGDataProvider currentDataProvider] videoChannelsWithCompletionBlock:^(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error) {
         NSLog(@"Channels: %@; error: %@", channels, error);
     }] resume];
+    
+    [[[SRGDataProvider currentDataProvider] soonExpiringVideosWithPage:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        NSLog(@"Medias: %@; error: %@", medias, error);
+    }] resume];
 }
 
 - (IBAction)requestQueue:(id)sender
