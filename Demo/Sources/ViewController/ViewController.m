@@ -83,6 +83,15 @@
     [[[SRGDataProvider currentDataProvider] soonExpiringVideosWithPage:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
+    
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    dateComponents.day = 12;
+    dateComponents.month = 5;
+    dateComponents.year = 2016;
+    NSDate *date = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
+    [[[SRGDataProvider currentDataProvider] videosForDate:date withPage:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        NSLog(@"Medias: %@; error: %@", medias, error);
+    }] resume];
 }
 
 - (IBAction)requestQueue:(id)sender
