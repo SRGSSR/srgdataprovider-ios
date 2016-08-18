@@ -49,7 +49,8 @@ OBJC_EXPORT NSString * const SRGBusinessIdentifierRTS;
 OBJC_EXPORT NSString * const SRGBusinessIdentifierSRF;
 OBJC_EXPORT NSString * const SRGBusinessIdentifierSWI;
 
-typedef void (^SRGEeventListCompletionBlock)(NSArray<SRGEvent *> * _Nullable events, NSError * _Nullable error);
+typedef void (^SRGChannelListCompletionBlock)(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error);
+typedef void (^SRGEventListCompletionBlock)(NSArray<SRGEvent *> * _Nullable events, NSError * _Nullable error);
 typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error);
@@ -76,12 +77,15 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 - (SRGRequest *)trendingVideosWithPage:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 - (SRGRequest *)trendingVideosWithEditorialLimit:(nullable NSNumber *)editorialLimit page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
+// TODO: There is an error with the page size returned from this service (as a result, the list is empty). See AIS-12002 comments
+- (SRGRequest *)videoChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
+
 - (SRGRequest *)videoTopicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock;
 
 - (SRGRequest *)latestVideosWithTopicUid:(nullable NSString *)topicUid page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 - (SRGRequest *)mostPopularVideosWithTopicUid:(nullable NSString *)topicUid page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
-- (SRGRequest *)eventsWithCompletionBlock:(SRGEeventListCompletionBlock)completionBlock;
+- (SRGRequest *)eventsWithCompletionBlock:(SRGEventListCompletionBlock)completionBlock;
 - (SRGRequest *)latestVideosForEventWithUid:(NSString *)eventUid sectionUid:(nullable NSString *)sectionUid page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 - (SRGRequest *)videoShowsWithCompletionBlock:(SRGShowListCompletionBlock)completionBlock;

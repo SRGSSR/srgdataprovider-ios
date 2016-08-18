@@ -75,6 +75,10 @@
             }] resume];
         }
     }] resume];
+    
+    [[[SRGDataProvider currentDataProvider] videoChannelsWithCompletionBlock:^(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error) {
+        NSLog(@"Channels: %@; error: %@", channels, error);
+    }] resume];
 }
 
 - (IBAction)requestQueue:(id)sender
