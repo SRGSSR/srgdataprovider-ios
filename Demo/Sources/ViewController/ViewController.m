@@ -92,6 +92,10 @@
     [[[SRGDataProvider currentDataProvider] videosForDate:date withPage:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
+    
+    [[[SRGDataProvider currentDataProvider] videoShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        NSLog(@"Shows: %@; error: %@", shows, error);
+    }] resume];
 }
 
 - (IBAction)requestQueue:(id)sender
