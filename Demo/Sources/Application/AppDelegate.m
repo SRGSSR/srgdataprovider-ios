@@ -15,7 +15,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSURL *serviceURL = [NSURL URLWithString:@"http://il-test.srgssr.ch/integrationlayer"];
-    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGBusinessIdentifierSWI];
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSWI];
     [SRGDataProvider setCurrentDataProvider:dataProvider];
     
     return YES;

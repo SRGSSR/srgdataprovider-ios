@@ -43,11 +43,11 @@ OBJC_EXPORT double SRGDataProviderVersionNumber;
 OBJC_EXPORT const unsigned char SRGDataProviderVersionString[];
 
 // Official business identifiers
-OBJC_EXPORT NSString * const SRGBusinessIdentifierRSI;
-OBJC_EXPORT NSString * const SRGBusinessIdentifierRTR;
-OBJC_EXPORT NSString * const SRGBusinessIdentifierRTS;
-OBJC_EXPORT NSString * const SRGBusinessIdentifierSRF;
-OBJC_EXPORT NSString * const SRGBusinessIdentifierSWI;
+OBJC_EXPORT NSString * const SRGDataProviderBusinessUnitIdentifierRSI;
+OBJC_EXPORT NSString * const SRGDataProviderBusinessUnitIdentifierRTR;
+OBJC_EXPORT NSString * const SRGDataProviderBusinessUnitIdentifierRTS;
+OBJC_EXPORT NSString * const SRGDataProviderBusinessUnitIdentifierSRF;
+OBJC_EXPORT NSString * const SRGDataProviderBusinessUnitIdentifierSWI;
 
 typedef void (^SRGChannelListCompletionBlock)(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error);
 typedef void (^SRGEventListCompletionBlock)(NSArray<SRGEvent *> * _Nullable events, NSError * _Nullable error);

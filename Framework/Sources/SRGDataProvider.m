@@ -12,11 +12,11 @@
 
 #import <Mantle/Mantle.h>
 
-NSString * const SRGBusinessIdentifierRSI = @"rsi";
-NSString * const SRGBusinessIdentifierRTR = @"rtr";
-NSString * const SRGBusinessIdentifierRTS = @"rts";
-NSString * const SRGBusinessIdentifierSRF = @"srf";
-NSString * const SRGBusinessIdentifierSWI = @"swi";
+NSString * const SRGDataProviderBusinessUnitIdentifierRSI = @"rsi";
+NSString * const SRGDataProviderBusinessUnitIdentifierRTR = @"rtr";
+NSString * const SRGDataProviderBusinessUnitIdentifierRTS = @"rts";
+NSString * const SRGDataProviderBusinessUnitIdentifierSRF = @"srf";
+NSString * const SRGDataProviderBusinessUnitIdentifierSWI = @"swi";
 
 static NSString * const SRGTokenServiceURLString = @"http://tp.srgssr.ch/akahd/token";
 
