@@ -492,6 +492,7 @@ static NSArray *validBusinessUnits = nil;
             completionBlock(nil, error);
         }
         else {
+            _identifiedMedias[media.urnString] = media;
             completionBlock(media, nil);
         }
     };
