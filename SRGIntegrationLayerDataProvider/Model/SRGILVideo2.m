@@ -54,7 +54,7 @@
             [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
         });
         
-        self.date = [dateFormatter dateFromString:(NSString *)[dictionary objectForKey:@"date"]];
+        self.date = (dictionary[@"date"] && [dictionary[@"date"] isKindOfClass:[NSString class]]) ? [dateFormatter dateFromString:dictionary[@"date"]] : nil;
     }
     return self;
 }

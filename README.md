@@ -18,7 +18,7 @@ The library can be added to a project through [CocoaPods](http://cocoapods.org/)
     
 ```
 #!ruby
-    source 'ssh://git@bitbucket.org/rtsmb/srgpodspecs.git'
+    source 'https://github.com/SRGSSR/srgpodspecs-ios.git'
 ```
     
 * The `SRGIntegrationLayerDataProvider` dependency:
@@ -28,14 +28,14 @@ The library can be added to a project through [CocoaPods](http://cocoapods.org/)
     pod 'SRGIntegrationLayerDataProvider', '<version>'
 ```
 
-* To add optional support for the [SRG Media Player library](https://bitbucket.org/rtsmb/srgmediaplayer-ios), add the corresponding subspec (it is preferable not to provide an explicit version number for subspecs):
+* To add optional support for the [SRG Media Player library](https://github.com/SRGSSR/SRGMediaPlayer-iOS), add the corresponding subspec (it is preferable not to provide an explicit version number for subspecs):
 
 ```
 #!ruby
     pod 'SRGIntegrationLayerDataProvider/MediaPlayer'
 ```
 
-* To add optional support for the [SRG Analytics library](https://bitbucket.org/rtsmb/srganalytics-ios) when playing media, add the corresponding subspec (it is preferable not to provide an explicit version number for subspecs):
+* To add optional support for the [SRG Analytics library](https://github.com/SRGSSR/srganalytics-ios) when playing media, add the corresponding subspec (it is preferable not to provide an explicit version number for subspecs):
 
 ```
 #!ruby
@@ -129,7 +129,7 @@ RTSMediaPlayerViewController *mediaPlayerViewController = [[RTSMediaPlayerViewCo
 
 If you want to send comScore and StreamSense analytics labels when playing a media with either `RTSMediaPlayerController` or `RTSMediaPlayerViewController`, add the `SRGIntegrationLayerDataProvider/MediaPlayer/Analytics` subspec to your `Podfile`. 
 
-You must start tracking for your data provider, as described in the [SRG Analytics library](https://bitbucket.org/rtsmb/srganalytics-ios) readme file:
+You must start tracking for your data provider, as described in the [SRG Analytics library](https://github.com/SRGSSR/srganalytics-ios) readme file:
 
 ```
 #!objective-c
