@@ -294,13 +294,8 @@ static SRGDataProvider *s_currentDataProvider;
     if (queryItems) {
         [fullQueryItems addObjectsFromArray:queryItems];
     }
-    if (page) {
-        if (page.uid) {
-            [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"next" value:page.uid]];
-        }
-        else {
-            [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:@(page.size).stringValue]];
-        }
+    if (page.queryItem) {
+        [fullQueryItems addObject:page.queryItem];
     }
     URLComponents.queryItems = fullQueryItems.count != 0 ? [fullQueryItems copy] : nil;
     
@@ -376,6 +371,10 @@ static SRGDataProvider *s_currentDataProvider;
     NSParameterAssert(rootKey);
     NSParameterAssert(completionBlock);
     
+    if (! page) {
+        page = [SRGPage firstPageWithDefaultSize];
+    }
+    
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems page:page];
     return [self asynchronouslyFetchJSONDictionaryWithRequest:[NSURLRequest requestWithURL:URL] completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
         if (error) {
@@ -389,6 +388,7 @@ static SRGDataProvider *s_currentDataProvider;
         if (JSONArray && [JSONArray isKindOfClass:[NSArray class]]) {
             NSArray *objects = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:NULL];
             if (objects) {
+                // FIXME: Incorrect extraction
                 NSString *nextPageUid = JSONDictionary[@"next"];
                 if (nextPageUid) {
                     SRGPage *nextPage = [page nextPageWithUid:nextPageUid];

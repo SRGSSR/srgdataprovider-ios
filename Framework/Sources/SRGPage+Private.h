@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable SRGPage *)previousPageWithUid:(NSString *)uid;
 - (SRGPage *)nextPageWithUid:(NSString *)uid;
 
+@property (nonatomic, readonly, nullable) NSURLQueryItem *queryItem;
+
 @end
 
 NS_ASSUME_NONNULL_END

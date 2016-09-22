@@ -6,6 +6,8 @@
 
 #import "SRGPage.h"
 
+static const NSInteger SRGPageDefaultSize = NSIntegerMax;
+
 @interface SRGPage ()
 
 @property (nonatomic) NSInteger size;
@@ -17,6 +19,11 @@
 @implementation SRGPage
 
 #pragma mark Class methods
+
++ (SRGPage *)firstPageWithDefaultSize
+{
+    return [self firstPageWithSize:SRGPageDefaultSize];
+}
 
 + (SRGPage *)firstPageWithSize:(NSUInteger)size
 {
@@ -33,6 +40,21 @@
         self.uid = uid;
     }
     return self;
+}
+
+#pragma mark Getters and setters
+
+- (NSURLQueryItem *)queryItem
+{
+    if (self.uid) {
+        return [NSURLQueryItem queryItemWithName:@"next" value:self.uid];
+    }
+    else if (self.size != SRGPageDefaultSize) {
+        return [NSURLQueryItem queryItemWithName:@"pageSize" value:@(self.size).stringValue];
+    }
+    else {
+        return nil;
+    }
 }
 
 #pragma mark Helpers
@@ -82,7 +104,7 @@
     return [NSString stringWithFormat:@"<%@: %p; size: %@; number: %@; uid: %@>",
             [self class],
             self,
-            @(self.size),
+            self.size == SRGPageDefaultSize ? @"default" : @(self.size),
             @(self.number),
             self.uid];
 }
