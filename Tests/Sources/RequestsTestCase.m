@@ -6,15 +6,48 @@
 
 #import <XCTest/XCTest.h>
 
+#import <SRGDataProvider/SRGDataProvider.h>
+
 @interface RequestsTestCase : XCTestCase
+
+@property (nonatomic) SRGDataProvider *dataProvider;
 
 @end
 
+// Other things to test:
+//  - data provider creation, global data provider
+//  - request creation and management
+//  - request queue
+//  - model objects
+
 @implementation RequestsTestCase
+
+#pragma mark Setup and teardown
+
+- (void)setUp
+{
+    NSURL *serviceURL = [NSURL URLWithString:@"http://il-test.srgssr.ch/integrationlayer"];
+    self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSWI];
+}
+
+- (void)tearDown
+{
+    self.dataProvider = nil;
+}
+
+#pragma mark Test
 
 - (void)testEditorialVideos
 {
-    XCTFail(@"TODO");
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Editorial video request succeeded"];
+    
+    [[self.dataProvider editorialVideosWithPage:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
 }
 
 - (void)testCancelledRequest
