@@ -86,7 +86,6 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
                 [self prepareAnalyticsInfosForMedia:media withContentURL:media.defaultContentURL];
                 
                 [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.defaultContentURL
-                                            appendLogicalSegmentation:nil
                                                       completionBlock:^(NSURL *tokenizedURL, NSError *error) {
                                                           if (error) {
                                                               completionHandler(nil, error);

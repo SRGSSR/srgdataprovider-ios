@@ -42,65 +42,67 @@ static NSString *const SRGILTokenHandlerBaseURLString = @"http://tp.srgssr.ch/ak
     return [super init];
 }
 
-- (void)requestTokenForURL:(NSURL *)url
- appendLogicalSegmentation:(NSString *)segmentation
-           completionBlock:(SRGILTokenRequestCompletionBlock)completionBlock;
+- (NSURLSessionTask *)requestTokenForURL:(NSURL *)url
+                         completionBlock:(SRGILTokenRequestCompletionBlock)completionBlock
 {
-    NSAssert(url, @"One needs an URL here.");
+    NSParameterAssert(url);
     
     DDLogDebug(@"Requesting token for URL: %@", url);
-
-    [[NSOperationQueue new] addOperationWithBlock:^{
-        NSError *error = nil;
-        NSString *JSONString = [NSString stringWithContentsOfURL:[self tokenRequestURLForURL:url]
-                                                        encoding:NSUTF8StringEncoding
-                                                           error:&error];
-        
+    
+    NSURLSessionTask *sessionTask = [[NSURLSession sharedSession] dataTaskWithURL:[self tokenRequestURLForURL:url] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                completionBlock(nil, error);
-            }];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock ? completionBlock(nil, error) : nil;
+            });
             return;
         }
+        
+        void (^reportPlaybackError)(void) = ^{
+            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
+                                                 code:SRGILDataProviderErrorCodeInvalidData
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The media cannot be played.", nil) }];
+            completionBlock ? completionBlock(nil, error) : nil;
+        };
         
         NSError *deserializationError = nil;
-        NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding]
-                                                             options:0
-                                                               error:&deserializationError];
-
-        if (deserializationError) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                completionBlock(nil, deserializationError);
-            }];
+        NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&deserializationError];
+        if (deserializationError || ![JSON isKindOfClass:[NSDictionary class]]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                reportPlaybackError();
+            });
             return;
         }
         
-        if (![[JSON objectForKey:@"token"] objectForKey:@"authparams"]) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                completionBlock(nil, [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                         code:SRGILDataProviderErrorCodeInvalidData
-                                                     userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The media cannot be played.", nil) }]);
-            }];
+        NSString *tokenParameterString = [[JSON objectForKey:@"token"] objectForKey:@"authparams"];
+        if (!tokenParameterString) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                reportPlaybackError();
+            });
             return;
         }
-
-        NSMutableString *finalURLString = [[url absoluteString] mutableCopy];
-        [finalURLString appendString:@"?"];
-        [finalURLString appendString:[JSON[@"token"] objectForKey:@"authparams"]];
-
-        if ([segmentation length] > 0) {
-            if (![segmentation hasPrefix:@"&"]) {
-                [finalURLString appendString:@"&"];
-            }
-            [finalURLString appendString:segmentation];
-        }
-       
-        DDLogDebug(@"Final Tokenized URL: %@", finalURLString);
         
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            completionBlock(!!error ? nil : [NSURL URLWithString:finalURLString], error);
-        }];
+        // The value we receive is a parameter string. Build query components from it
+        NSURLComponents *tokenURLComponents = [[NSURLComponents alloc] init];
+        tokenURLComponents.query = tokenParameterString;
+        
+        NSURLComponents *URLComponents = [[NSURLComponents alloc] initWithURL:url resolvingAgainstBaseURL:NO];
+        
+        // Merge with existing components, if any
+        NSMutableArray *queryItems = URLComponents.queryItems ? [URLComponents.queryItems mutableCopy] : [NSMutableArray array];
+        if (tokenURLComponents.queryItems) {
+            [queryItems addObjectsFromArray:tokenURLComponents.queryItems];
+        }
+        URLComponents.queryItems = [queryItems copy];
+        
+        NSURL *finalURL = URLComponents.URL;
+        DDLogDebug(@"Final Tokenized URL: %@", finalURL);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionBlock ? completionBlock(finalURL, nil) : nil;
+        });
     }];
+    [sessionTask resume];
+    return sessionTask;
 }
 
 - (NSURL *)tokenRequestURLForURL:(NSURL *)url

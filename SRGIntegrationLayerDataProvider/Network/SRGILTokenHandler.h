@@ -15,8 +15,7 @@ typedef void (^SRGILTokenRequestCompletionBlock) (NSURL *tokenizedURL, NSError *
 /**
  * Perform an async operation to return a tokenized URL
  */
-- (void)requestTokenForURL:(NSURL *)url
- appendLogicalSegmentation:(NSString *)segmentation
-           completionBlock:(SRGILTokenRequestCompletionBlock)completionBlock;
+- (NSURLSessionTask *)requestTokenForURL:(NSURL *)url
+                         completionBlock:(SRGILTokenRequestCompletionBlock)completionBlock;
 
 @end
