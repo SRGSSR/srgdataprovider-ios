@@ -12,4 +12,15 @@
 
 @implementation RequestsTestCase
 
+- (void)testEditorialVideos
+{
+    XCTFail(@"TODO");
+}
+
+- (void)testCancelledRequest
+{
+    // Cancel block must not be called
+    XCTFail(@"TODO");
+}
+
 @end
