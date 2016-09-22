@@ -8,8 +8,9 @@
 
 @interface SRGPage ()
 
-@property (nonatomic) NSInteger number;
 @property (nonatomic) NSInteger size;
+@property (nonatomic) NSInteger number;
+@property (nonatomic, copy) NSString *uid;
 
 @end
 
@@ -17,36 +18,37 @@
 
 #pragma mark Class methods
 
-+ (SRGPage *)pageWithNumber:(NSInteger)number size:(NSInteger)size
++ (SRGPage *)firstPageWithSize:(NSUInteger)size
 {
-    return [[[self class] alloc] initWithNumber:number size:size];
+    return [[[self class] alloc] initWithSize:size number:0 uid:nil];
 }
 
 #pragma mark Object lifecycle
 
-- (SRGPage *)initWithNumber:(NSInteger)number size:(NSInteger)size
+- (SRGPage *)initWithSize:(NSInteger)size number:(NSInteger)number uid:(NSString *)uid
 {
     if (self = [super init]) {
-        self.number = MAX(number, 1);
         self.size = MAX(size, 1);
+        self.number = MAX(number, 0);
+        self.uid = uid;
     }
     return self;
 }
 
 #pragma mark Helpers
 
-- (SRGPage *)previousPage
+- (SRGPage *)previousPageWithUid:(NSString *)uid
 {
-    if (self.number == 1) {
+    if (self.number == 0) {
         return nil;
     }
     
-    return [[self class] pageWithNumber:self.number - 1 size:self.size];
+    return [[[self class] alloc] initWithSize:self.size number:self.number - 1 uid:uid];
 }
 
-- (SRGPage *)nextPage
+- (SRGPage *)nextPageWithUid:(NSString *)uid
 {
-    return [[self class] pageWithNumber:self.number + 1 size:self.size];
+    return [[[self class] alloc] initWithSize:self.size number:self.number + 1 uid:uid];
 }
 
 #pragma mark Equality
@@ -58,30 +60,31 @@
     }
     
     SRGPage *otherPage = object;
-    return self.number == otherPage.number && self.size == otherPage.size;
+    return [self.uid isEqualToString:otherPage.uid];
 }
 
 - (NSUInteger)hash
 {
-    return [NSString stringWithFormat:@"%@_%@", @(self.number), @(self.size)].hash;
+    return self.uid.hash;
 }
 
 #pragma mark NSCopying protocol
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    return [[SRGPage allocWithZone:zone] initWithNumber:self.number size:self.size];
+    return [[SRGPage allocWithZone:zone] initWithSize:self.size number:self.number uid:self.uid];
 }
 
 #pragma mark Description
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p; number: %@; size: %@>",
+    return [NSString stringWithFormat:@"<%@: %p; size: %@; number: %@; uid: %@>",
             [self class],
             self,
+            @(self.size),
             @(self.number),
-            @(self.size)];
+            self.uid];
 }
 
 @end

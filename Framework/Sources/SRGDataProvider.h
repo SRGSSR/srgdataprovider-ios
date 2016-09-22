@@ -71,6 +71,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 
 // TODO: Maybe have an audio / video enum parameter for each method available for audio & videos
 // TODO: Document: completion block never called for cancelled requests
+// TODO: Add page support for requests which now support it (all?)
 
 - (SRGRequest *)editorialVideosWithPage:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 

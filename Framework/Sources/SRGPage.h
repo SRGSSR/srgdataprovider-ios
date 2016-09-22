@@ -10,13 +10,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SRGPage : NSObject <NSCopying>
 
-+ (SRGPage *)pageWithNumber:(NSInteger)number size:(NSInteger)size;
++ (SRGPage *)firstPageWithSize:(NSUInteger)size;
 
-@property (nonatomic, readonly) NSInteger number;
 @property (nonatomic, readonly) NSInteger size;
-
-- (nullable SRGPage *)previousPage;
-- (SRGPage *)nextPage;
+@property (nonatomic, readonly) NSInteger number;
+@property (nonatomic, readonly, copy, nullable) NSString *uid;
 
 @end
 
