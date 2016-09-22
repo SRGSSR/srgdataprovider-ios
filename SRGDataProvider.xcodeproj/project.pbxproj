@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E600FE681D942348000B8A1D /* SRGDataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGDataProvider.framework */; };
+		E600FE721D9423C3000B8A1D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E600FE711D9423C3000B8A1D /* Info.plist */; };
+		E600FE731D94242F000B8A1D /* RequestsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = E600FE6F1D9423BC000B8A1D /* RequestsTestCase.m */; };
 		E62459B81D47828D00482BE9 /* SRGRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = E62459B61D47828D00482BE9 /* SRGRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E62459B91D47828D00482BE9 /* SRGRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E62459B71D47828D00482BE9 /* SRGRequest.m */; };
 		E62459BC1D4787CE00482BE9 /* SRGRequest+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = E62459BB1D4787CE00482BE9 /* SRGRequest+Private.h */; };
@@ -84,6 +87,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		E600FE691D942348000B8A1D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E6AF7EF41D38B8BD00942ADA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E6AF7EFC1D38B8BD00942ADA;
+			remoteInfo = SRGDataProvider;
+		};
 		E6391ABD1D38E96400E4CBB9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E6AF7EF41D38B8BD00942ADA /* Project object */;
@@ -109,6 +119,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E600FE631D942348000B8A1D /* SRGDataProvider-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SRGDataProvider-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E600FE6F1D9423BC000B8A1D /* RequestsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestsTestCase.m; sourceTree = "<group>"; };
+		E600FE711D9423C3000B8A1D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E62459B61D47828D00482BE9 /* SRGRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGRequest.h; sourceTree = "<group>"; };
 		E62459B71D47828D00482BE9 /* SRGRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGRequest.m; sourceTree = "<group>"; };
 		E62459BB1D4787CE00482BE9 /* SRGRequest+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGRequest+Private.h"; sourceTree = "<group>"; };
@@ -197,6 +210,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E600FE601D942348000B8A1D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E600FE681D942348000B8A1D /* SRGDataProvider.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E6391A7B1D38E8F400E4CBB9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -217,6 +238,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E600FE5E1D942260000B8A1D /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				E600FE711D9423C3000B8A1D /* Info.plist */,
+				E600FE6E1D9423BC000B8A1D /* Sources */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		E600FE6E1D9423BC000B8A1D /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E600FE6F1D9423BC000B8A1D /* RequestsTestCase.m */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 		E6391A951D38E92400E4CBB9 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +399,7 @@
 				E6C2B3B61D3907FF00B6250B /* Cartfile */,
 				E6391A951D38E92400E4CBB9 /* Framework */,
 				E6391AA41D38E93A00E4CBB9 /* Demo */,
+				E600FE5E1D942260000B8A1D /* Tests */,
 				E6AF7F921D38D52300942ADA /* Frameworks */,
 				E6AF7EFE1D38B8BD00942ADA /* Products */,
 			);
@@ -371,6 +410,7 @@
 			children = (
 				E6AF7EFD1D38B8BD00942ADA /* SRGDataProvider.framework */,
 				E6391A7E1D38E8F400E4CBB9 /* SRGDataProvider.app */,
+				E600FE631D942348000B8A1D /* SRGDataProvider-tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -450,6 +490,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		E600FE621D942348000B8A1D /* SRGDataProvider-tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E600FE6B1D942348000B8A1D /* Build configuration list for PBXNativeTarget "SRGDataProvider-tests" */;
+			buildPhases = (
+				E600FE5F1D942348000B8A1D /* Sources */,
+				E600FE601D942348000B8A1D /* Frameworks */,
+				E600FE611D942348000B8A1D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E600FE6A1D942348000B8A1D /* PBXTargetDependency */,
+			);
+			name = "SRGDataProvider-tests";
+			productName = "SRGDataProvider-tests";
+			productReference = E600FE631D942348000B8A1D /* SRGDataProvider-tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		E6391A7D1D38E8F400E4CBB9 /* SRGDataProvider-demo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E6391A921D38E8F400E4CBB9 /* Build configuration list for PBXNativeTarget "SRGDataProvider-demo" */;
@@ -497,6 +555,10 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = SRG;
 				TargetAttributes = {
+					E600FE621D942348000B8A1D = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
 					E6391A7D1D38E8F400E4CBB9 = {
 						CreatedOnToolsVersion = 7.3.1;
 					};
@@ -524,11 +586,19 @@
 			targets = (
 				E6AF7EFC1D38B8BD00942ADA /* SRGDataProvider */,
 				E6391A7D1D38E8F400E4CBB9 /* SRGDataProvider-demo */,
+				E600FE621D942348000B8A1D /* SRGDataProvider-tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E600FE611D942348000B8A1D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E6391A7C1D38E8F400E4CBB9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -544,6 +614,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E600FE721D9423C3000B8A1D /* Info.plist in Resources */,
 				E6C2B3D51D39239E00B6250B /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -551,6 +622,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E600FE5F1D942348000B8A1D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E600FE731D94242F000B8A1D /* RequestsTestCase.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E6391A7A1D38E8F400E4CBB9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -599,6 +678,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		E600FE6A1D942348000B8A1D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E6AF7EFC1D38B8BD00942ADA /* SRGDataProvider */;
+			targetProxy = E600FE691D942348000B8A1D /* PBXContainerItemProxy */;
+		};
 		E6391ABE1D38E96400E4CBB9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E6AF7EFC1D38B8BD00942ADA /* SRGDataProvider */;
@@ -650,6 +734,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E600FE6C1D942348000B8A1D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.srgssr.SRGDataProvider-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E600FE6D1D942348000B8A1D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.srgssr.SRGDataProvider-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		E6391A931D38E8F400E4CBB9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -817,6 +929,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E600FE6B1D942348000B8A1D /* Build configuration list for PBXNativeTarget "SRGDataProvider-tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E600FE6C1D942348000B8A1D /* Debug */,
+				E600FE6D1D942348000B8A1D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		E6391A921D38E8F400E4CBB9 /* Build configuration list for PBXNativeTarget "SRGDataProvider-demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
