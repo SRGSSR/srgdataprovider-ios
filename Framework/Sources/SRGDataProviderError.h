@@ -11,7 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger, SRGDataProviderErrorCode) {
     SRGDataProviderErrorHTTP,
     SRGDataProviderErrorRedirect,                   // Use the SRGDataProviderRedirectionURLKey info key to retrieve the redirection URL (NSURL)
-    SRGDataProviderErrorCodeInvalidRequest,
     SRGDataProviderErrorCodeInvalidData,
     SRGDataProviderErrorMultiple                    // Use the SRGDataProviderErrorsKey info key to retrieve the error list (NSArray<NSError *>)
 };

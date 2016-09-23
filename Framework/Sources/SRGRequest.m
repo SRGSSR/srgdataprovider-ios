@@ -6,11 +6,16 @@
 
 #import "SRGRequest.h"
 
+#import "SRGRequest+Private.h"
+
 #import <UIKit/UIKit.h>
 
 static NSInteger s_numberOfRunningRequests = 0;
 
 @interface SRGRequest ()
+
+@property (nonatomic) NSURLRequest *request;
+@property (nonatomic, copy) SRGRequestCompletionHandler completionHandler;
 
 @property (nonatomic) NSURLSessionTask *sessionTask;
 @property (nonatomic, getter=isRunning) BOOL running;
@@ -21,10 +26,16 @@ static NSInteger s_numberOfRunningRequests = 0;
 
 #pragma mark Object lifecycle
 
-- (instancetype)initWithSessionTask:(NSURLSessionTask *)sessionTask
+- (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session completionHandler:(SRGRequestCompletionHandler)completionHandler
 {
     if (self = [super init]) {
-        self.sessionTask = sessionTask;
+        self.request = request;
+        self.completionHandler = completionHandler;
+        
+        self.sessionTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            self.completionHandler(data, response, error);
+            self.running = NO;
+        }];
         self.managingNetworkActivityIndicator = YES;
     }
     return self;
@@ -78,14 +89,22 @@ static NSInteger s_numberOfRunningRequests = 0;
     [self.sessionTask cancel];
 }
 
+#pragma mark Page management
+
+- (SRGRequest *)requestWithPage:(SRGPage *)page session:(NSURLSession *)session
+{
+    // TODO: Build new request with page information
+    return [[[self class] alloc] initWithRequest:self.request session:session completionHandler:self.completionHandler];
+}
+
 #pragma mark Description
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p; sessionTask: %@; running: %@>",
+    return [NSString stringWithFormat:@"<%@: %p; request: %@; running: %@>",
             [self class],
             self,
-            self.sessionTask,
+            self.request,
             self.running ? @"YES" : @"NO"];
 }
 

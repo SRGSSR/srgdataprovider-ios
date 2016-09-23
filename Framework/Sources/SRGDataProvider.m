@@ -7,9 +7,9 @@
 #import "SRGDataProvider.h"
 
 #import "NSBundle+SRGDataProvider.h"
-#import "NSURLSession+SRGDataProvider.h"
 #import "SRGDataProviderError.h"
 #import "SRGPage+Private.h"
+#import "SRGRequest+Private.h"
 
 #import <Mantle/Mantle.h>
 
@@ -228,15 +228,10 @@ static SRGDataProvider *s_currentDataProvider;
 
 - (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock
 {
+    // Assert request parameters. Won't crash in release builds, but the request will most likely fails
     SRGChapter *mainChapter = mediaComposition.mainChapter;
-    if (!mediaComposition.event || !mainChapter) {
-        NSError *error = [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                             code:SRGDataProviderErrorCodeInvalidRequest
-                                         userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The request is invalid.", nil) }];
-        return [self reportError:error withCompletionBlock:^(NSError * _Nullable error) {
-            completionBlock(nil, error);
-        }];
-    }
+    NSAssert(mainChapter, @"Expect a chapter");
+    NSAssert(mediaComposition.event, @"Expect event information");
     
     NSString *mediaTypeString = (mainChapter.mediaType == SRGMediaTypeAudio) ? @"audio" : @"video";
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaStatistic/%@/%@/liked.json", self.businessUnitIdentifier, mediaTypeString, mainChapter.uid];
@@ -246,7 +241,7 @@ static SRGDataProvider *s_currentDataProvider;
     request.HTTPMethod = @"POST";
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-    NSDictionary *bodyJSONDictionary = @{ @"eventData" : mediaComposition.event };
+    NSDictionary *bodyJSONDictionary = mediaComposition.event ? @{ @"eventData" : mediaComposition.event } : @{};
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyJSONDictionary options:0 error:NULL];
     
     return [self fetchObjectWithRequest:request modelClass:[SRGLike class] completionBlock:completionBlock];
@@ -259,6 +254,13 @@ static SRGDataProvider *s_currentDataProvider;
             completionBlock(URL, error);
         });
     }];
+}
+
+#pragma mark Page support
+
+- (SRGRequest *)request:(SRGRequest *)request withPage:(nullable SRGPage *)page
+{
+    return [request requestWithPage:page session:self.session];
 }
 
 #pragma mark Common implementation. Completion blocks are called on the main thread
@@ -287,15 +289,6 @@ static SRGDataProvider *s_currentDataProvider;
     }];
 }
 
-- (SRGRequest *)reportError:(NSError *)error withCompletionBlock:(void (^)(NSError * _Nullable error))completionBlock
-{
-    return [self.session srg_requestForError:error withCompletionHandler:^(NSError * _Nullable error) {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            completionBlock(error);
-        });
-    }];
-}
-
 #pragma mark Asynchronous requests and processing. The completion block will be called on a background thread
 
 - (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
@@ -318,7 +311,7 @@ static SRGDataProvider *s_currentDataProvider;
     NSParameterAssert(request);
     NSParameterAssert(completionBlock);
     
-    return [self.session srg_requestWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    return [[SRGRequest alloc] initWithRequest:request session:self.session completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         // Don't call completion block for cancelled requests
         if (error) {
             if (![error.domain isEqualToString:NSURLErrorDomain] || error.code != NSURLErrorCancelled) {

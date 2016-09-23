@@ -98,6 +98,8 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 
 - (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock;
 
+- (SRGRequest *)request:(SRGRequest *)request withPage:(nullable SRGPage *)page;
+
 - (SRGRequest *)tokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock;
 
 @end

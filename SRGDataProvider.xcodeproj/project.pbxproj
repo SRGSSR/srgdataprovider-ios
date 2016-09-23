@@ -44,8 +44,6 @@
 		E67BB6761D3E01C900E1FEA3 /* SRGTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6741D3E01C900E1FEA3 /* SRGTypes.m */; };
 		E67BB6791D3E041900E1FEA3 /* SRGJSONTransformers.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6771D3E041900E1FEA3 /* SRGJSONTransformers.h */; };
 		E67BB67A1D3E041900E1FEA3 /* SRGJSONTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6781D3E041900E1FEA3 /* SRGJSONTransformers.m */; };
-		E67BB6901D3E564400E1FEA3 /* NSURLSession+SRGDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB68E1D3E564400E1FEA3 /* NSURLSession+SRGDataProvider.h */; };
-		E67BB6911D3E564400E1FEA3 /* NSURLSession+SRGDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB68F1D3E564400E1FEA3 /* NSURLSession+SRGDataProvider.m */; };
 		E68598AA1D40CC750010000A /* SRGSegment.h in Headers */ = {isa = PBXBuildFile; fileRef = E68598A81D40CC750010000A /* SRGSegment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E68598AB1D40CC750010000A /* SRGSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = E68598A91D40CC750010000A /* SRGSegment.m */; };
 		E68598AF1D40CEB90010000A /* SRGMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = E68598AE1D40CEB90010000A /* SRGMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -170,8 +168,6 @@
 		E67BB6741D3E01C900E1FEA3 /* SRGTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGTypes.m; sourceTree = "<group>"; };
 		E67BB6771D3E041900E1FEA3 /* SRGJSONTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGJSONTransformers.h; sourceTree = "<group>"; };
 		E67BB6781D3E041900E1FEA3 /* SRGJSONTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGJSONTransformers.m; sourceTree = "<group>"; };
-		E67BB68E1D3E564400E1FEA3 /* NSURLSession+SRGDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+SRGDataProvider.h"; sourceTree = "<group>"; };
-		E67BB68F1D3E564400E1FEA3 /* NSURLSession+SRGDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+SRGDataProvider.m"; sourceTree = "<group>"; };
 		E68598A81D40CC750010000A /* SRGSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSegment.h; sourceTree = "<group>"; };
 		E68598A91D40CC750010000A /* SRGSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSegment.m; sourceTree = "<group>"; };
 		E68598AE1D40CEB90010000A /* SRGMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGMetadata.h; sourceTree = "<group>"; };
@@ -446,8 +442,6 @@
 				E6C2B3CB1D391EFD00B6250B /* NSBundle+SRGDataProvider.m */,
 				E6AE51381D4093B700572CE4 /* NSURL+SRGDataProvider.h */,
 				E6AE51391D4093B700572CE4 /* NSURL+SRGDataProvider.m */,
-				E67BB68E1D3E564400E1FEA3 /* NSURLSession+SRGDataProvider.h */,
-				E67BB68F1D3E564400E1FEA3 /* NSURLSession+SRGDataProvider.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -483,7 +477,6 @@
 				E68598AF1D40CEB90010000A /* SRGMetadata.h in Headers */,
 				E6C2B3BF1D390EEF00B6250B /* SRGMedia.h in Headers */,
 				E68598B31D40CEDA0010000A /* SRGMediaIdentifierMetadata.h in Headers */,
-				E67BB6901D3E564400E1FEA3 /* NSURLSession+SRGDataProvider.h in Headers */,
 				E67BB6711D3E011500E1FEA3 /* SRGLike.h in Headers */,
 				E68598B81D40F30B0010000A /* SRGChannel.h in Headers */,
 				E67BB66D1D3DF13800E1FEA3 /* SRGMediaComposition.h in Headers */,
@@ -688,7 +681,6 @@
 				E6AE513F1D40A1FA00572CE4 /* SRGRequestQueue.m in Sources */,
 				E6C2B3CD1D391EFD00B6250B /* NSBundle+SRGDataProvider.m in Sources */,
 				E68598C51D41029F0010000A /* SRGPresenter.m in Sources */,
-				E67BB6911D3E564400E1FEA3 /* NSURLSession+SRGDataProvider.m in Sources */,
 				E67BB6661D3D295E00E1FEA3 /* SRGResource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

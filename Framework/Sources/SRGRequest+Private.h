@@ -8,11 +8,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^SRGRequestCompletionHandler)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error);
+
 @interface SRGRequest (Private)
 
-- (instancetype)initWithSessionTask:(NSURLSessionTask *)sessionTask;
+- (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session completionHandler:(SRGRequestCompletionHandler)completionHandler;
 
-@property (nonatomic, getter=isRunning) BOOL running;
+- (SRGRequest *)requestWithPage:(nullable SRGPage *)page session:(NSURLSession *)session;
 
 @end
 
