@@ -16,7 +16,8 @@
 
 // Other things to test:
 //  - data provider creation, global data provider
-//  - request creation and management. Reusing requests and trying to start requests several times
+//  - request creation and management. Reusing requests and trying to start requests several times. Cancelling requests (no completion
+//    block call)
 //  - request queue (especiall block ordering)
 //  - model objects
 
