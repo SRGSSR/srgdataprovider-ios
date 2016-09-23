@@ -19,6 +19,8 @@ static NSInteger s_numberOfRunningRequests = 0;
 @property (nonatomic, copy) SRGRequestCompletionHandler completionHandler;
 
 @property (nonatomic) NSURLSessionTask *sessionTask;
+@property (nonatomic, weak) NSURLSession *session;
+
 @property (nonatomic, getter=isRunning) BOOL running;
 
 @end
@@ -37,6 +39,8 @@ static NSInteger s_numberOfRunningRequests = 0;
             self.completionHandler(data, response, error);
             self.running = NO;
         }];
+        self.session = session;
+        
         self.managingNetworkActivityIndicator = YES;
     }
     return self;
@@ -92,10 +96,16 @@ static NSInteger s_numberOfRunningRequests = 0;
 
 #pragma mark Page management
 
-- (SRGRequest *)requestWithPage:(SRGPage *)page session:(NSURLSession *)session
+- (SRGRequest *)withPageSize:(NSInteger)pageSize
+{
+    NSURLRequest *request = [SRGPage request:self.request withPageSize:pageSize];
+    return [[[self class] alloc] initWithRequest:request session:self.session completionHandler:self.completionHandler];
+}
+
+- (SRGRequest *)atPage:(nullable SRGPage *)page
 {
     NSURLRequest *request = [SRGPage request:self.request withPage:page];
-    return [[[self class] alloc] initWithRequest:request session:session completionHandler:self.completionHandler];
+    return [[[self class] alloc] initWithRequest:request session:self.session completionHandler:self.completionHandler];
 }
 
 #pragma mark Description

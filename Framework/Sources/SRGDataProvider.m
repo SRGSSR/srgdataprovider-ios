@@ -256,13 +256,6 @@ static SRGDataProvider *s_currentDataProvider;
     }];
 }
 
-#pragma mark Page support
-
-- (SRGRequest *)request:(SRGRequest *)request withPage:(nullable SRGPage *)page
-{
-    return [request requestWithPage:page session:self.session];
-}
-
 #pragma mark Common implementation. Completion blocks are called on the main thread
 
 - (SRGRequest *)listObjectsWithRequest:(NSURLRequest *)request
@@ -270,7 +263,6 @@ static SRGDataProvider *s_currentDataProvider;
                                rootKey:(NSString *)rootKey
                        completionBlock:(void (^)(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error))completionBlock
 {
-    // FIXME: Page parameter!
     return [self asynchronouslyListObjectsWithRequest:request page:nil modelClass:modelClass rootKey:rootKey completionBlock:^(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         dispatch_sync(dispatch_get_main_queue(), ^{
             completionBlock(objects, nextPage, error);

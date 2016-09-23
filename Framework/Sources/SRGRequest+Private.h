@@ -14,8 +14,6 @@ typedef void (^SRGRequestCompletionHandler)(NSData * _Nullable data, NSURLRespon
 
 - (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session completionHandler:(SRGRequestCompletionHandler)completionHandler;
 
-- (SRGRequest *)requestWithPage:(nullable SRGPage *)page session:(NSURLSession *)session;
-
 @end
 
 NS_ASSUME_NONNULL_END

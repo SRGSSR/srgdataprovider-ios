@@ -52,7 +52,15 @@
 
 - (void)testEditorialVideosWithPageSize
 {
-
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Editorial video request succeeded"];
+    
+    [[[self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertEqual(medias.count, 2);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] withPageSize:2] resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
 }
 
 - (void)testCancelledRequest

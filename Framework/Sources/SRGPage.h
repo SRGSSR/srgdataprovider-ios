@@ -10,9 +10,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SRGPage : NSObject <NSCopying>
 
-+ (SRGPage *)firstPageWithDefaultSize;
-+ (SRGPage *)firstPageWithSize:(NSUInteger)size;
-
 @property (nonatomic, readonly) NSInteger size;
 @property (nonatomic, readonly) NSInteger number;
 

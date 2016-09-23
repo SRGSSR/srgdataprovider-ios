@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SRGRequest : NSObject
 
+- (SRGRequest *)withPageSize:(NSInteger)pageSize;
+- (SRGRequest *)atPage:(nullable SRGPage *)page;
+
 - (void)resume;
 - (void)cancel;
 
