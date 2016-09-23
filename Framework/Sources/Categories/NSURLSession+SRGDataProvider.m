@@ -49,7 +49,7 @@ static NSString * const SRGDataProviderErrorScheme = @"srgilerror";
 // See http://stackoverflow.com/a/24428137/760435
 @implementation NSObject /*NSURLSession*/ (SRGDataProvider)
 
-- (SRGRequest *)srg_dataTaskWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error))completionHandler;
+- (SRGRequest *)srg_requestWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error))completionHandler;
 {
     NSURLSession *realSelf = (NSURLSession *)self;
     
@@ -62,7 +62,7 @@ static NSString * const SRGDataProviderErrorScheme = @"srgilerror";
     return srgRequest;
 }
 
-- (SRGRequest *)srg_taskForError:(NSError *)error withCompletionHandler:(void (^)(NSError *))completionHandler
+- (SRGRequest *)srg_requestForError:(NSError *)error withCompletionHandler:(void (^)(NSError *))completionHandler
 {
     // Register the error protocol on the fly
     NSURLSession *realSelf = (NSURLSession *)self;
@@ -72,7 +72,7 @@ static NSString * const SRGDataProviderErrorScheme = @"srgilerror";
     
     NSString *URLString = [NSString stringWithFormat:@"%@://error", SRGDataProviderErrorScheme];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
-    return [realSelf srg_dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable dummyError) {
+    return [realSelf srg_requestWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable dummyError) {
         completionHandler(error);
     }];
 }

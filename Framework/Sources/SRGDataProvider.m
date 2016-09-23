@@ -276,7 +276,9 @@ static SRGDataProvider *s_currentDataProvider;
     }];
 }
 
-- (SRGRequest *)fetchObjectWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass completionBlock:(void (^)(id _Nullable object, NSError * _Nullable error))completionBlock
+- (SRGRequest *)fetchObjectWithRequest:(NSURLRequest *)request
+                            modelClass:(Class)modelClass
+                       completionBlock:(void (^)(id _Nullable object, NSError * _Nullable error))completionBlock
 {
     return [self asynchronouslyFetchObjectWithRequest:request modelClass:modelClass completionBlock:^(id  _Nullable object, NSError * _Nullable error) {
         dispatch_sync(dispatch_get_main_queue(), ^{
@@ -287,7 +289,7 @@ static SRGDataProvider *s_currentDataProvider;
 
 - (SRGRequest *)reportError:(NSError *)error withCompletionBlock:(void (^)(NSError * _Nullable error))completionBlock
 {
-    return [self.session srg_taskForError:error withCompletionHandler:^(NSError * _Nullable error) {
+    return [self.session srg_requestForError:error withCompletionHandler:^(NSError * _Nullable error) {
         dispatch_sync(dispatch_get_main_queue(), ^{
             completionBlock(error);
         });
@@ -310,12 +312,13 @@ static SRGDataProvider *s_currentDataProvider;
     return URLComponents.URL;
 }
 
-- (SRGRequest *)asynchronouslyFetchJSONDictionaryWithRequest:(NSURLRequest *)request completionBlock:(void (^)(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error))completionBlock
+- (SRGRequest *)asynchronouslyFetchJSONDictionaryWithRequest:(NSURLRequest *)request
+                                             completionBlock:(void (^)(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error))completionBlock
 {
     NSParameterAssert(request);
     NSParameterAssert(completionBlock);
     
-    return [self.session srg_dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    return [self.session srg_requestWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         // Don't call completion block for cancelled requests
         if (error) {
             if (![error.domain isEqualToString:NSURLErrorDomain] || error.code != NSURLErrorCancelled) {
@@ -406,7 +409,9 @@ static SRGDataProvider *s_currentDataProvider;
     }];
 }
 
-- (SRGRequest *)asynchronouslyFetchObjectWithRequest:(NSURLRequest *)request modelClass:(Class)modelClass completionBlock:(void (^)(id _Nullable object, NSError * _Nullable error))completionBlock
+- (SRGRequest *)asynchronouslyFetchObjectWithRequest:(NSURLRequest *)request
+                                          modelClass:(Class)modelClass
+                                     completionBlock:(void (^)(id _Nullable object, NSError * _Nullable error))completionBlock
 {
     NSParameterAssert(request);
     NSParameterAssert(modelClass);
