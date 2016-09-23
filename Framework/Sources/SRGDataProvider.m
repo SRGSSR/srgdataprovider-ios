@@ -391,7 +391,7 @@ static SRGDataProvider *s_currentDataProvider;
         tokenURLComponents.query = token;
         
         // Build the tokenized URL, merging token components with existing ones
-        NSURLComponents *tokenizedURLComponents = [[NSURLComponents alloc] initWithURL:URL resolvingAgainstBaseURL:NO];
+        NSURLComponents *tokenizedURLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
         
         NSMutableArray *queryItems = [tokenizedURLComponents.queryItems mutableCopy] ?: [NSMutableArray array];
         if (tokenURLComponents.queryItems) {
