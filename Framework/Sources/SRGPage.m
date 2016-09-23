@@ -23,9 +23,8 @@ static const NSInteger SRGPageDefaultSize = NSIntegerMax;
 + (NSURLRequest *)request:(NSURLRequest *)request withPage:(SRGPage *)page
 {
     if (page.path) {
-        NSMutableURLRequest *nextRequest = [request mutableCopy];
-        nextRequest.URL = [NSURL URLWithString:page.path relativeToURL:request.URL.baseURL];
-        return [nextRequest copy];
+        NSAssert(@"Not implemented yet. Waiting for an answer whether we can receive a full URL instead of a path here", nil);
+        return nil;
     }
     else if (page && page.size != SRGPageDefaultSize) {
         NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:NO];
