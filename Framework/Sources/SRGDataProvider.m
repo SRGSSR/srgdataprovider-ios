@@ -263,7 +263,7 @@ static SRGDataProvider *s_currentDataProvider;
                                rootKey:(NSString *)rootKey
                        completionBlock:(void (^)(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error))completionBlock
 {
-    return [self asynchronouslyListObjectsWithRequest:request page:nil modelClass:modelClass rootKey:rootKey completionBlock:^(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    return [self asynchronouslyListObjectsWithRequest:request modelClass:modelClass rootKey:rootKey completionBlock:^(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         dispatch_sync(dispatch_get_main_queue(), ^{
             completionBlock(objects, nextPage, error);
         });
@@ -297,66 +297,7 @@ static SRGDataProvider *s_currentDataProvider;
     return URLComponents.URL;
 }
 
-- (SRGRequest *)asynchronouslyFetchJSONDictionaryWithRequest:(NSURLRequest *)request
-                                             completionBlock:(void (^)(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error))completionBlock
-{
-    NSParameterAssert(request);
-    NSParameterAssert(completionBlock);
-    
-    return [[SRGRequest alloc] initWithRequest:request session:self.session completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        // Don't call completion block for cancelled requests
-        if (error) {
-            if (![error.domain isEqualToString:NSURLErrorDomain] || error.code != NSURLErrorCancelled) {
-                completionBlock(nil, error);
-            }
-            return;
-        }
-        
-        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-            NSHTTPURLResponse *HTTPURLResponse = (NSHTTPURLResponse *)response;
-            NSInteger HTTPStatusCode = HTTPURLResponse.statusCode;
-            
-            // Properly handle HTTP error codes >= 400 as real errors
-            if (HTTPStatusCode >= 400) {
-                completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                         code:SRGDataProviderErrorHTTP
-                                                     userInfo:@{ NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:HTTPStatusCode],
-                                                                 NSURLErrorKey : response.URL }]);
-                return;
-            }
-            // Block redirects and return an error with URL information. Currently no redirection is expected for IL services, this
-            // means redirection is probably related to a public hotspot with login page (e.g. SBB)
-            else if (HTTPStatusCode >= 300) {
-                NSMutableDictionary *userInfo = [@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"You are likely connected to a public wifi network with no Internet access", nil),
-                                                    NSURLErrorKey : response.URL } mutableCopy];
-                
-                NSString *redirectionURLString = HTTPURLResponse.allHeaderFields[@"Location"];
-                if (redirectionURLString) {
-                    NSURL *redirectionURL = [NSURL URLWithString:redirectionURLString];
-                    userInfo[SRGDataProviderRedirectionURLKey] = redirectionURL;
-                }
-                
-                completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                         code:SRGDataProviderErrorRedirect
-                                                     userInfo:[userInfo copy]]);
-                return;
-            }
-        }
-        
-        id JSONDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-        if (!JSONDictionary || ![JSONDictionary isKindOfClass:[NSDictionary class]]) {
-            completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                     code:SRGDataProviderErrorCodeInvalidData
-                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
-            return;
-        }
-        
-        completionBlock(JSONDictionary, nil);
-    }];
-}
-
 - (SRGRequest *)asynchronouslyListObjectsWithRequest:(NSURLRequest *)request
-                                                page:(SRGPage *)page
                                           modelClass:(Class)modelClass
                                              rootKey:(NSString *)rootKey
                                      completionBlock:(void (^)(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error))completionBlock
@@ -366,7 +307,7 @@ static SRGDataProvider *s_currentDataProvider;
     NSParameterAssert(rootKey);
     NSParameterAssert(completionBlock);
     
-    return [self asynchronouslyFetchJSONDictionaryWithRequest:request completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
+    return [[SRGRequest alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
             completionBlock(nil, nil, error);
             return;
@@ -376,14 +317,7 @@ static SRGDataProvider *s_currentDataProvider;
         if (JSONArray && [JSONArray isKindOfClass:[NSArray class]]) {
             NSArray *objects = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:NULL];
             if (objects) {
-                NSString *nextPath = JSONDictionary[@"next"];
-                if (nextPath) {
-                    SRGPage *nextPage = [page nextPageWithPath:nextPath];
-                    completionBlock(objects, nextPage, nil);
-                }
-                else {
-                    completionBlock(objects, nil, nil);
-                }
+                completionBlock(objects, nextPage, nil);
                 return;
             }
         }
@@ -402,7 +336,7 @@ static SRGDataProvider *s_currentDataProvider;
     NSParameterAssert(modelClass);
     NSParameterAssert(completionBlock);
     
-    return [self asynchronouslyFetchJSONDictionaryWithRequest:request completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
+    return [[SRGRequest alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
             completionBlock(nil, error);
             return;
@@ -432,7 +366,7 @@ static SRGDataProvider *s_currentDataProvider;
     tokenServiceURLComponents.queryItems = @[ [NSURLQueryItem queryItemWithName:@"acl" value:acl] ];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:tokenServiceURLComponents.URL];
-    return [self asynchronouslyFetchJSONDictionaryWithRequest:request completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
+    return [[SRGRequest alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
             completionBlock(nil, error);
             return;

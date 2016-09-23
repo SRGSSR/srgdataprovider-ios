@@ -6,6 +6,8 @@
 
 #import "SRGPage.h"
 
+static const NSInteger SRGPageDefaultSize = NSIntegerMax;
+
 @interface SRGPage ()
 
 @property (nonatomic) NSInteger size;
@@ -25,26 +27,31 @@
         nextRequest.URL = [NSURL URLWithString:page.path relativeToURL:request.URL.baseURL];
         return [nextRequest copy];
     }
-    else if (page) {
-        return [self request:request withPageSize:page.size];
+    else if (page && page.size != SRGPageDefaultSize) {
+        NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:NO];
+        NSMutableArray *queryItems = [NSMutableArray arrayWithObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:@(page.size).stringValue]];
+        if (URLComponents.queryItems) {
+            [queryItems addObjectsFromArray:URLComponents.queryItems];
+        }
+        URLComponents.queryItems = [queryItems copy];
+        
+        NSMutableURLRequest *sizeRequest = [request mutableCopy];
+        sizeRequest.URL = URLComponents.URL;
+        return [sizeRequest copy];
     }
     else {
         return [request copy];
     }
 }
 
-+ (NSURLRequest *)request:(NSURLRequest *)request withPageSize:(NSInteger)pageSize
++ (SRGPage *)firstPageWithDefaultSize
 {
-    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:NO];
-    NSMutableArray *queryItems = [NSMutableArray arrayWithObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:@(pageSize).stringValue]];
-    if (URLComponents.queryItems) {
-        [queryItems addObjectsFromArray:URLComponents.queryItems];
-    }
-    URLComponents.queryItems = [queryItems copy];
-    
-    NSMutableURLRequest *sizeRequest = [request mutableCopy];
-    sizeRequest.URL = URLComponents.URL;
-    return [sizeRequest copy];
+    return [self firstPageWithSize:SRGPageDefaultSize];
+}
+
++ (SRGPage *)firstPageWithSize:(NSInteger)size
+{
+    return [[[self class] alloc] initWithSize:size number:0 path:nil];
 }
 
 #pragma mark Object lifecycle
@@ -97,7 +104,7 @@
     return [NSString stringWithFormat:@"<%@: %p; size: %@; number: %@; path: %@>",
             [self class],
             self,
-            @(self.size),
+            self.size == SRGPageDefaultSize ? @"default" : @(self.size),
             @(self.number),
             self.path];
 }

@@ -17,7 +17,7 @@
 // Other things to test:
 //  - data provider creation, global data provider
 //  - request creation and management. Reusing requests and trying to start requests several times
-//  - request queue
+//  - request queue (especiall block ordering)
 //  - model objects
 
 @implementation RequestsTestCase

@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (SRGRequest *)withPageSize:(NSInteger)pageSize;
 - (SRGRequest *)atPage:(nullable SRGPage *)page;
 
+@property (nonatomic, readonly) SRGPage *page;
+
 - (void)resume;
 - (void)cancel;
 

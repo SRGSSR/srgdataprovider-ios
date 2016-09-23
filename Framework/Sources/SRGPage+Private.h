@@ -11,11 +11,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGPage (Private)
 
 + (NSURLRequest *)request:(NSURLRequest *)request withPage:(nullable SRGPage *)page;
-+ (NSURLRequest *)request:(NSURLRequest *)request withPageSize:(NSInteger)pageSize;
+
++ (SRGPage *)firstPageWithDefaultSize;
++ (SRGPage *)firstPageWithSize:(NSInteger)size;
 
 - (SRGPage *)nextPageWithPath:(NSString *)path;
-
-@property (nonatomic, readonly, copy, nullable) NSString *path;
 
 @end
 
