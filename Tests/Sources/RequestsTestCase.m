@@ -16,7 +16,7 @@
 
 // Other things to test:
 //  - data provider creation, global data provider
-//  - request creation and management
+//  - request creation and management. Reusing requests and trying to start requests several times
 //  - request queue
 //  - model objects
 
@@ -26,7 +26,7 @@
 
 - (void)setUp
 {
-    NSURL *serviceURL = [NSURL URLWithString:@"http://il-test.srgssr.ch/integrationlayer"];
+    NSURL *serviceURL = [NSURL URLWithString:@"http://il-test.srgssr.ch"];
     self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSWI];
 }
 
@@ -41,7 +41,7 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Editorial video request succeeded"];
     
-    [[self.dataProvider editorialVideosWithPage:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];

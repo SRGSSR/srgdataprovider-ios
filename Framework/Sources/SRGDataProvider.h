@@ -73,30 +73,29 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 // TODO: Document: completion block never called for cancelled requests
 // TODO: Add page support for requests which now support it (all?)
 
-- (SRGRequest *)editorialVideosWithPage:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)editorialVideosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
-- (SRGRequest *)soonExpiringVideosWithPage:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
-- (SRGRequest *)videosForDate:(nullable NSDate *)date withPage:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)soonExpiringVideosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)videosForDate:(nullable NSDate *)date withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
-- (SRGRequest *)trendingVideosWithPage:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
-- (SRGRequest *)trendingVideosWithEditorialLimit:(nullable NSNumber *)editorialLimit episodesOnly:(BOOL)episodesOnly page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)trendingVideosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)trendingVideosWithEditorialLimit:(nullable NSNumber *)editorialLimit episodesOnly:(BOOL)episodesOnly completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
-// TODO: There is an error with the page size returned from this service (as a result, the list is empty). See AIS-12002 comments
 - (SRGRequest *)videoChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
 
 - (SRGRequest *)videoTopicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock;
 
-- (SRGRequest *)latestVideosWithTopicUid:(nullable NSString *)topicUid page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
-- (SRGRequest *)mostPopularVideosWithTopicUid:(nullable NSString *)topicUid page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)latestVideosWithTopicUid:(nullable NSString *)topicUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)mostPopularVideosWithTopicUid:(nullable NSString *)topicUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 - (SRGRequest *)eventsWithCompletionBlock:(SRGEventListCompletionBlock)completionBlock;
-- (SRGRequest *)latestVideosForEventWithUid:(NSString *)eventUid sectionUid:(nullable NSString *)sectionUid page:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)latestVideosForEventWithUid:(NSString *)eventUid sectionUid:(nullable NSString *)sectionUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 - (SRGRequest *)videoShowsWithCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
 
 - (SRGRequest *)mediaCompositionForVideoWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
-- (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withPage:(nullable SRGPage *)page completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 - (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock;
 
