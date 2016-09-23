@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) NSInteger size;
 @property (nonatomic, readonly) NSInteger number;
-@property (nonatomic, readonly, copy, nullable) NSString *path;
 
 @end
 

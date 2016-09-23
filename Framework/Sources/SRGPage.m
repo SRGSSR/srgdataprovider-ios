@@ -30,6 +30,26 @@ static const NSInteger SRGPageDefaultSize = NSIntegerMax;
     return [[[self class] alloc] initWithSize:size number:0 path:nil];
 }
 
++ (NSURLRequest *)request:(NSURLRequest *)request withPage:(SRGPage *)page
+{
+    if (page.path) {
+        NSMutableURLRequest *nextRequest = [request mutableCopy];
+        nextRequest.URL = [NSURL URLWithString:page.path relativeToURL:request.URL.baseURL];
+        return [nextRequest copy];
+    }
+    else if (page.size != SRGPageDefaultSize) {
+        NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:NO];
+        URLComponents.queryItems = [URLComponents.queryItems arrayByAddingObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:@(page.size).stringValue]];
+        
+        NSMutableURLRequest *sizeRequest = [request mutableCopy];
+        sizeRequest.URL = URLComponents.URL;
+        return [sizeRequest copy];
+    }
+    else {
+        return [request copy];
+    }
+}
+
 #pragma mark Object lifecycle
 
 - (SRGPage *)initWithSize:(NSInteger)size number:(NSInteger)number path:(NSString *)path

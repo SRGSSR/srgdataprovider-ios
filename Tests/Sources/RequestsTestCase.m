@@ -50,6 +50,11 @@
     [self waitForExpectationsWithTimeout:5. handler:nil];
 }
 
+- (void)testEditorialVideosWithPageSize
+{
+
+}
+
 - (void)testCancelledRequest
 {
     // Cancel block must not be called

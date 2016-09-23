@@ -6,6 +6,7 @@
 
 #import "SRGRequest.h"
 
+#import "SRGPage+Private.h"
 #import "SRGRequest+Private.h"
 
 #import <UIKit/UIKit.h>
@@ -93,8 +94,8 @@ static NSInteger s_numberOfRunningRequests = 0;
 
 - (SRGRequest *)requestWithPage:(SRGPage *)page session:(NSURLSession *)session
 {
-    // TODO: Build new request with page information
-    return [[[self class] alloc] initWithRequest:self.request session:session completionHandler:self.completionHandler];
+    NSURLRequest *request = [SRGPage request:self.request withPage:page];
+    return [[[self class] alloc] initWithRequest:request session:session completionHandler:self.completionHandler];
 }
 
 #pragma mark Description
