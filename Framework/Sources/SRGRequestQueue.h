@@ -28,7 +28,14 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  A request queue is instantiated with an optional state change block, which is called when the running status
  *  of the queue changes. This makes it possible to capture the state of all associated requests without additional
- *  manual management (e.g. without counting finished requests).
+ *  manual management (e.g. without counting finished requests). The call order of the involved blocks is always as
+ *  follows:
+ *
+ *    - queue state change block call, `finished` = `NO`
+ *    - request 1 completion block (if not cancelled)
+ *    - .....
+ *    - request N completion block (if not cancelled)
+ *    - queue state change block call, `finished` = `YES`
  *
  *  As requests finish, you can report back the errors they encounter to the queue by calling `-reportError:`
  *  on it. These errors are made available to the status change block when it is called.
@@ -41,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Create a request queue with an optional block to respond to its status change
  *
- *  @param stateChangeBlock The block which will be called when the queue status changes
+ *  @param stateChangeBlock The block which will be called when the queue status changes.
  *
  *  @discussion When `running` changes from `NO` to `YES`, the block is called with `finished` = `NO` and no error. This
  *              is e.g. the perfect time to update your UI to tell your user data is being requested. Conversely, when 

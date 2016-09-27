@@ -38,6 +38,10 @@
 
 - (void)testParallelRequests
 {
+    __block BOOL request1Finished = NO;
+    __block BOOL request2Finished = NO;
+    __block BOOL requestQueueFinished = NO;
+    
     XCTestExpectation *queueStartedExpectation = [self expectationWithDescription:@"Queue started"];
     XCTestExpectation *queueFinishedExpectation = [self expectationWithDescription:@"Queue finished"];
     
@@ -52,12 +56,19 @@
             [queueStartedExpectation fulfill];
         }
         else {
+            XCTAssertTrue(request1Finished);
+            XCTAssertTrue(request2Finished);
+            
+            requestQueueFinished = YES;
             [queueFinishedExpectation fulfill];
         }
     }];
     
     SRGRequest *request1 = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertFalse(requestQueueFinished);
         [requestQueue reportError:error];
+        
+        request1Finished = YES;
         [request1CompletionExpectation fulfill];
     }];
     [requestQueue addRequest:request1 resume:YES];
@@ -66,7 +77,10 @@
     XCTAssertTrue(requestQueue.running);
     
     SRGRequest *request2 = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertFalse(requestQueueFinished);
         [requestQueue reportError:error];
+        
+        request2Finished = YES;
         [request2CompletionExpectation fulfill];
     }];
     [requestQueue addRequest:request2 resume:YES];
