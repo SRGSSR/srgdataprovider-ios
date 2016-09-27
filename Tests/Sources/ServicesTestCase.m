@@ -36,6 +36,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Editorial video request succeeded"];
     
     [[self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertTrue([NSThread isMainThread]);
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];

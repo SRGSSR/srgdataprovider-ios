@@ -58,7 +58,11 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @discussion The request is considered running from the time it has been started to right after the associated
  *              completion block (@see `SRGDataProvider`) has been executed. It is immediately reset to `NO`
- *              when the request is cancelled
+ *              when the request is cancelled.
+ *
+ *              This property is KVO-observable, but can be changed from any thread (including from the main thread). 
+ *              If you want to use KVO, do not forget to dispatch the work onto the main queue when needed (e.g. for
+ *              UI-related stuff)
  */
 @property (nonatomic, readonly, getter=isRunning) BOOL running;
 

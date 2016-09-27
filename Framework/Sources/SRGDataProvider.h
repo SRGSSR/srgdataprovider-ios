@@ -158,7 +158,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 @end
 
 /**
- *  List of the requests supported by the data provider
+ *  List of the requests supported by the data provider. Completion blocks will always be called on the main thread
  */
 // TODO: Document: completion block never called for cancelled requests
 // TODO: Maybe have an audio / video enum parameter for each method available for audio & videos
