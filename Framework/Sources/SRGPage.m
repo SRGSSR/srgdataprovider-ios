@@ -6,7 +6,7 @@
 
 #import "SRGPage.h"
 
-static const NSInteger SRGPageDefaultSize = NSIntegerMax;
+const NSInteger SRGPageDefaultSize = NSIntegerMax;
 
 @interface SRGPage ()
 

@@ -44,19 +44,37 @@
 
 - (void)testConstruction
 {
+    // Default page size
     SRGRequest *request1 = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing
     }];
     XCTAssertFalse(request1.running);
     XCTAssertEqual(request1.page.number, 0);
-    XCTAssertEqual(request1.page.size, NSIntegerMax);
+    XCTAssertEqual(request1.page.size, SRGPageDefaultSize);
     
+    // Specific page size
     SRGRequest *request2 = [[self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing
     }] withPageSize:10];
     XCTAssertFalse(request2.running);
     XCTAssertEqual(request2.page.number, 0);
     XCTAssertEqual(request2.page.size, 10);
+    
+    // Override with nil page
+    __block SRGRequest *request3 = [[self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // Nothing
+    }] atPage:nil];
+    XCTAssertFalse(request3.running);
+    XCTAssertEqual(request3.page.number, 0);
+    XCTAssertEqual(request3.page.size, SRGPageDefaultSize);
+    
+    // Incorrect page size
+    SRGRequest *request4 = [[self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // Nothing
+    }] withPageSize:0];
+    XCTAssertFalse(request4.running);
+    XCTAssertEqual(request4.page.number, 0);
+    XCTAssertEqual(request4.page.size, 1);
 }
 
 - (void)testStatus
@@ -194,21 +212,6 @@
     [self waitForExpectationsWithTimeout:5. handler:nil];
     
     XCTAssertFalse(request.running);
-}
-
-- (void)testActivityIndicator
-{
-
-}
-
-- (void)testFirstPageAgain
-{
-
-}
-
-- (void)testIncorrectPageSize
-{
-
 }
 
 - (void)testPages

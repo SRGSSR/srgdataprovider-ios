@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+OBJC_EXTERN const NSInteger SRGPageDefaultSize;
+
 /**
  *  Describe a page of content. You never instantiate such objects, they are merely returned from requests when a
  *  next page of content is available.
