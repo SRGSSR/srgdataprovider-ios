@@ -42,8 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Create a request queue with an optional block to respond to its status change
  *
- *  @param stateChangeBlock The block which will be called when the queue status changes. No guarantee is made regarding
- *                          the thread onto which the block will be called.
+ *  @param stateChangeBlock The block which will be called when the queue status changes. The block is guaranteed to be
+ *                          called on the main thread
  *
  *  @discussion When `running` changes from `NO` to `YES`, the block is called with `finished` = `NO` and no error. This
  *              is e.g. the perfect time to update your UI to tell your user data is being requested. Conversely, when 
@@ -54,8 +54,6 @@ NS_ASSUME_NONNULL_BEGIN
  *              If several errors have been reported, the error code is `SRGDataProviderErrorMultiple`. You can obtain
  *              the error list from the associated user info. If a single error is reported, it is reported as is
  *
- *              Since the thread onto which the block is called is not guaranteed, there is no guarantee as in which order
- *              the state change block vs. the individual request completion blocks (@see `SRGDataProvider`) are called.
  *              Moreover, unlike completion blocks, state change blocks are called when the queue state changes, whether
  *              this results as connections are added, normally complete or are cancelled.
  */
