@@ -133,13 +133,40 @@
     [self waitForExpectationsWithTimeout:5. handler:nil];
 }
 
-- (void)testError
+- (void)testReuseAfterCancel
+{
+    SRGRequest *request = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // Nothing
+    }];
+    
+    // Wait until the request is not running anymore
+    [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+    }];
+    
+    [request resume];
+    [request cancel];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+    
+    // Restart it
+    [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+    }];
+    
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+}
+
+- (void)testHTTPError
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
     
     SRGRequest *request = [self.dataProvider mediaCompositionForVideoWithUid:@"bad_id" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         XCTAssertNil(mediaComposition);
-        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(error.domain, SRGDataProviderErrorDomain);
+        XCTAssertEqual(error.code, SRGDataProviderErrorHTTP);
         
         [expectation fulfill];
     }];
@@ -170,6 +197,16 @@
 }
 
 - (void)testActivityIndicator
+{
+
+}
+
+- (void)testFirstPageAgain
+{
+
+}
+
+- (void)testIncorrectPageSize
 {
 
 }
