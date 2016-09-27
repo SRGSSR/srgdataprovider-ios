@@ -82,7 +82,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
  *
  *  ## Requesting data
  *
- *  To request data, use the methods from the `Requests` category. These methods return an `SRGRequest` object, which
+ *  To request data, use the methods from the `Services` category. These methods return an `SRGRequest` object, which
  *  lets you manage the request process itself (starting or cancelling data retrieval). Requests expect a completion
  *  block, which is called when the request finishes (either normally or with an error). The completion block will not
  *  be called if the request is cancelled.
@@ -140,7 +140,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
  */
 // TODO: Document: completion block never called for cancelled requests
 // TODO: Maybe have an audio / video enum parameter for each method available for audio & videos
-@interface SRGDataProvider (Requests)
+@interface SRGDataProvider (Services)
 
 - (SRGRequest *)editorialVideosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 

@@ -4,9 +4,8 @@
 //  License information is available from the LICENSE file.
 //
 
-#import <XCTest/XCTest.h>
-
 #import <SRGDataProvider/SRGDataProvider.h>
+#import <XCTest/XCTest.h>
 
 @interface RequestsTestCase : XCTestCase
 
@@ -14,14 +13,19 @@
 
 @end
 
-// Other things to test:
-//  - data provider creation, global data provider
-//  - request creation and management. Reusing requests and trying to start requests several times. Cancelling requests (no completion
-//    block call)
-//  - request queue (especiall block ordering)
-//  - model objects
-
 @implementation RequestsTestCase
+
+#pragma mark Helpers
+
+- (XCTestExpectation *)expectationForElapsedTimeInterval:(NSTimeInterval)timeInterval withHandler:(void (^)(void))handler
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:[NSString stringWithFormat:@"Wait for %@ seconds", @(timeInterval)]];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [expectation fulfill];
+        handler ? handler() : nil;
+    });
+    return expectation;
+}
 
 #pragma mark Setup and teardown
 
@@ -36,47 +40,63 @@
     self.dataProvider = nil;
 }
 
-#pragma mark Test
+#pragma mark Tests
 
-- (void)testEditorialVideos
+- (void)testConstruction
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Editorial video request succeeded"];
+    SRGRequest *request1 = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // Nothing
+    }];
+    XCTAssertFalse(request1.running);
+    XCTAssertEqual(request1.page.number, 0);
+    XCTAssertEqual(request1.page.size, NSIntegerMax);
     
-    [[self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(medias);
-        XCTAssertNil(error);
-        [expectation fulfill];
-    }] resume];
-    
-    [self waitForExpectationsWithTimeout:30. handler:nil];
+    SRGRequest *request2 = [[self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // Nothing
+    }] withPageSize:10];
+    XCTAssertFalse(request2.running);
+    XCTAssertEqual(request2.page.number, 0);
+    XCTAssertEqual(request2.page.size, 10);
 }
 
-- (void)testEditorialVideosWithPages
+- (void)testStatus
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Editorial video requests succeeded"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
     
-    // Use a small page size to be sure we get two full pages of results (and more to come)
-    __block SRGRequest *request = [[self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertEqual(medias.count, 2);
-        XCTAssertNil(error);
-        XCTAssertNotNil(nextPage);
+    __block SRGRequest *request = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // The request is considered running until after the completion block has been executed
+        XCTAssertTrue(request.running);
         
-        if (request.page.number == 0) {
-            [[request atPage:nextPage] resume];
-        }
-        else {
-            [expectation fulfill];
-        }
-    }] withPageSize:2];
-    [request resume];
+        [expectation fulfill];
+    }];
+    XCTAssertFalse(request.running);
     
-    [self waitForExpectationsWithTimeout:30. handler:nil];
+    [request resume];
+    XCTAssertTrue(request.running);
+    
+    [self waitForExpectationsWithTimeout:20. handler:nil];
+    
+    XCTAssertFalse(request.running);
 }
 
-- (void)testCancelledRequest
+- (void)testError
 {
-    // Cancel block must not be called
-    XCTFail(@"TODO");
+
+}
+
+- (void)testCancellation
+{
+
+}
+
+- (void)testActivityIndicator
+{
+
+}
+
+- (void)testPage
+{
+
 }
 
 @end
