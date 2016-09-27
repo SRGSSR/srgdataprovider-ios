@@ -8,12 +8,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// Matches metaDataGroup in IL XSD files
-
+/**
+ *  Protocol for standard metadata association
+ */
 @protocol SRGMetadata <NSObject>
 
+/**
+ *  The title of the content
+ */
 @property (nonatomic, readonly, copy) NSString *title;
+
+/**
+ *  A short introductory text
+ */
 @property (nonatomic, readonly, copy, nullable) NSString *lead;
+
+/**
+ *  A more comprehensive description of the content
+ */
 @property (nonatomic, readonly, copy, nullable) NSString *summary;
 
 @end

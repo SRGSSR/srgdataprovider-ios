@@ -10,13 +10,29 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// Matches mediaIdentifierGroup in IL XSD files
-
+/**
+ *  Protocol for media identification information association
+ */
 @protocol SRGMediaIdentifierMetadata <NSObject>
 
+/**
+ *  The unique media identifier
+ */
 @property (nonatomic, readonly, copy) NSString *uid;
+
+/**
+ *  The Uniform Resource Name idenfying the media
+ */
 @property (nonatomic, readonly, copy) NSString *URN;
+
+/**
+ *  The media type
+ */
 @property (nonatomic, readonly) SRGMediaType mediaType;
+
+/**
+ *  The business unit which supplied the media
+ */
 @property (nonatomic, readonly) SRGVendor vendor;
 
 @end
