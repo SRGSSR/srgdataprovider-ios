@@ -44,32 +44,4 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testEditorialVideosWithPages
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Editorial video requests succeeded"];
-    
-    // Use a small page size to be sure we get two full pages of results (and more to come)
-    __block SRGRequest *request = [[self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertEqual(medias.count, 2);
-        XCTAssertNil(error);
-        XCTAssertNotNil(nextPage);
-        
-        if (request.page.number == 0) {
-            [[request atPage:nextPage] resume];
-        }
-        else {
-            [expectation fulfill];
-        }
-    }] withPageSize:2];
-    [request resume];
-    
-    [self waitForExpectationsWithTimeout:30. handler:nil];
-}
-
-- (void)testCancelledRequest
-{
-    // Cancel block must not be called
-    XCTFail(@"TODO");
-}
-
 @end
