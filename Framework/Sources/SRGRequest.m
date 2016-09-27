@@ -39,7 +39,6 @@ static NSInteger s_numberOfRunningRequests = 0;
         self.completionBlock = completionBlock;
         self.page = page ?: [SRGPage firstPageWithDefaultSize];
         self.session = session;
-        
         self.managingNetworkActivityIndicator = YES;
     }
     return self;
