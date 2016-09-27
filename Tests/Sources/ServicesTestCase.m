@@ -4,9 +4,8 @@
 //  License information is available from the LICENSE file.
 //
 
-#import <XCTest/XCTest.h>
-
 #import <SRGDataProvider/SRGDataProvider.h>
+#import <XCTest/XCTest.h>
 
 @interface ServicesTestCase : XCTestCase
 
@@ -44,5 +43,7 @@
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
+
+// TODO: Add tests for other services
 
 @end

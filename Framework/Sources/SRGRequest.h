@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)cancel;
 
 /**
- *  Return `YES` iff the connection is running. 
+ *  Return `YES` iff the request is running. 
  *
  *  @discussion The request is considered running from the time it has been started to right after the associated
  *              completion block (@see `SRGDataProvider`) has been executed. It is immediately reset to `NO`

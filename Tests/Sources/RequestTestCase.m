@@ -7,13 +7,13 @@
 #import <SRGDataProvider/SRGDataProvider.h>
 #import <XCTest/XCTest.h>
 
-@interface RequestsTestCase : XCTestCase
+@interface RequestTestCase : XCTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
 
 @end
 
-@implementation RequestsTestCase
+@implementation RequestTestCase
 
 #pragma mark Helpers
 
@@ -236,26 +236,6 @@
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 #endif
-}
-
-- (void)testParallelRequestQueue
-{
-    
-}
-
-- (void)testCascadingQueue
-{
-
-}
-
-- (void)testQueueStatus
-{
-    // Also test status block and call order
-}
-
-- (void)testQueueCancellation
-{
-
 }
 
 @end

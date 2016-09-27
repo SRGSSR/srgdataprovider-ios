@@ -15,8 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  serially. 
  *  
  *  A request queue is simply a collection of requests, which is running iff at least one of the requests added to
- *  it is running. The state of the queue automatically adjusts when you add requests or run them. You are
- *  therefore not forced to add all requests to the queue before starting it:
+ *  it is running. The state of the queue automatically adjusts when you add requests, whether immediately or on the 
+ *  fly to an existing queue. You are therefore not forced to add all requests to the queue before starting it:
  *
  *  - You can for example add a request to a queue, wait until you get an answer, and use this answer to make another
  *    request (which depended on it), added to the same queue
@@ -31,8 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  of the queue changes. This makes it possible to capture the state of all associated requests without additional
  *  manual management (e.g. without counting finished requests).
  *
- *  As connections finish, you can report back the errors they encounter to the queue by calling `-reportError:`
+ *  As requests finish, you can report back the errors they encounter to the queue by calling `-reportError:`
  *  on it. These errors are made available to the status change block when it is called.
+ *
+ *  By design, a request queue is not intended to be reused. If you need another queue for the same requests,
+ *  create a new one.
  */
 @interface SRGRequestQueue : NSObject
 
@@ -40,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Create a request queue with an optional block to respond to its status change
  *
  *  @param stateChangeBlock The block which will be called when the queue status changes. No guarantee is made regarding
- *                          the thread onto which the block will be called
+ *                          the thread onto which the block will be called.
  *
  *  @discussion When `running` changes from `NO` to `YES`, the block is called with `finished` = `NO` and no error. This
  *              is e.g. the perfect time to update your UI to tell your user data is being requested. Conversely, when 
@@ -49,7 +52,12 @@ NS_ASSUME_NONNULL_BEGIN
  *              display errors, if any.
  *
  *              If several errors have been reported, the error code is `SRGDataProviderErrorMultiple`. You can obtain
- *              the error list from the associated user info.
+ *              the error list from the associated user info. If a single error is reported, it is reported as is
+ *
+ *              Since the thread onto which the block is called is not guaranteed, there is no guarantee as in which order
+ *              the state change block vs. the individual request completion blocks (@see `SRGDataProvider`) are called.
+ *              Moreover, unlike completion blocks, state change blocks are called when the queue state changes, whether
+ *              this results as connections are added, normally complete or are cancelled.
  */
 - (instancetype)initWithStateChangeBlock:(nullable void (^)(BOOL finished, NSError * _Nullable error))stateChangeBlock;
 

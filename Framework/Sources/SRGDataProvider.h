@@ -113,7 +113,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
  *  again with the first request. If results have not changed in the meantime, pages will load in a snap thanks to the
  *  URL cache.
  *
- *  ## Connection queues
+ *  ## Request queues
  *
  *  
  */

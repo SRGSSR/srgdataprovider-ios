@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6F8201DD1D9A3FAC001DA4DA /* DataProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8201DC1D9A3FAC001DA4DA /* DataProviderTests.m */; };
-		6F8201E01D9A62D2001DA4DA /* RequestsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8201DF1D9A62D2001DA4DA /* RequestsTestCase.m */; };
+		6F8201E01D9A62D2001DA4DA /* RequestTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8201DF1D9A62D2001DA4DA /* RequestTestCase.m */; };
+		6F8201E31D9AA087001DA4DA /* RequestQueueTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8201E21D9AA087001DA4DA /* RequestQueueTestCase.m */; };
 		E600FE681D942348000B8A1D /* SRGDataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGDataProvider.framework */; };
 		E600FE721D9423C3000B8A1D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E600FE711D9423C3000B8A1D /* Info.plist */; };
 		E600FE731D94242F000B8A1D /* ServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */; };
@@ -133,7 +134,8 @@
 
 /* Begin PBXFileReference section */
 		6F8201DC1D9A3FAC001DA4DA /* DataProviderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataProviderTests.m; sourceTree = "<group>"; };
-		6F8201DF1D9A62D2001DA4DA /* RequestsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestsTestCase.m; sourceTree = "<group>"; };
+		6F8201DF1D9A62D2001DA4DA /* RequestTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestTestCase.m; sourceTree = "<group>"; };
+		6F8201E21D9AA087001DA4DA /* RequestQueueTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestQueueTestCase.m; sourceTree = "<group>"; };
 		E600FE631D942348000B8A1D /* SRGDataProvider-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SRGDataProvider-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServicesTestCase.m; sourceTree = "<group>"; };
 		E600FE711D9423C3000B8A1D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -266,8 +268,9 @@
 			isa = PBXGroup;
 			children = (
 				6F8201DC1D9A3FAC001DA4DA /* DataProviderTests.m */,
+				6F8201E21D9AA087001DA4DA /* RequestQueueTestCase.m */,
+				6F8201DF1D9A62D2001DA4DA /* RequestTestCase.m */,
 				E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */,
-				6F8201DF1D9A62D2001DA4DA /* RequestsTestCase.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -643,9 +646,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6F8201E01D9A62D2001DA4DA /* RequestsTestCase.m in Sources */,
+				6F8201E01D9A62D2001DA4DA /* RequestTestCase.m in Sources */,
 				6F8201DD1D9A3FAC001DA4DA /* DataProviderTests.m in Sources */,
 				E600FE731D94242F000B8A1D /* ServicesTestCase.m in Sources */,
+				6F8201E31D9AA087001DA4DA /* RequestQueueTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
