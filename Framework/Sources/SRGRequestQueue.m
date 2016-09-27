@@ -11,14 +11,12 @@
 
 static void *s_kvoContext = &s_kvoContext;
 
-@interface SRGRequestQueue () {
-@private
-    BOOL _wasRunnning;
-}
+@interface SRGRequestQueue ()
 
 @property (nonatomic) NSMutableArray<SRGRequest *> *requests;
 @property (nonatomic, copy) void (^stateChangeBlock)(BOOL running, NSError *error);
 @property (nonatomic) NSMutableArray<NSError *> *errors;
+@property (nonatomic, getter=isRunning) BOOL running;
 
 @end
 
@@ -94,16 +92,14 @@ static void *s_kvoContext = &s_kvoContext;
     }
 }
 
-- (BOOL)isRunning
-{
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"running == YES"];
-    return [self.requests filteredArrayUsingPredicate:predicate].count != 0;
-}
-
 - (void)checkStateChange
 {
-    if (_wasRunnning != self.running) {
-        if (self.running) {
+    // Running iff at least one request is running
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"running == YES"];
+    BOOL running = ([self.requests filteredArrayUsingPredicate:predicate].count != 0);
+    
+    if (running != self.running) {
+        if (running) {
             [self.errors removeAllObjects];
             self.stateChangeBlock ? self.stateChangeBlock(NO, nil) : nil;
         }
@@ -111,7 +107,7 @@ static void *s_kvoContext = &s_kvoContext;
             NSError *error = [self consolidatedError];
             self.stateChangeBlock ? self.stateChangeBlock(YES, error) : nil;
         }
-        _wasRunnning = self.running;
+        self.running = running;
     }
 }
 
