@@ -278,14 +278,35 @@
     XCTAssertFalse(requestQueue.running);
 }
 
-- (void)testStateChanges
+- (void)testKVOStateChanges
 {
-
-}
-
-- (void)testRuningKVO
-{
+    SRGRequestQueue *requestQueue = [[SRGRequestQueue alloc] init];
     
+    // Add a request to the queue and run it. Wait until the queue does not run anymore
+    [self keyValueObservingExpectationForObject:requestQueue keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+    }];
+    
+    SRGRequest *request1 = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // Nothing
+    }];
+    [requestQueue addRequest:request1 resume:YES];
+    XCTAssertTrue(requestQueue.running);
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+    
+    // Add a second request. The queue must run again
+    [self keyValueObservingExpectationForObject:requestQueue keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+    }];
+    
+    SRGRequest *request2 = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // Nothing
+    }];
+    [requestQueue addRequest:request2 resume:YES];
+    XCTAssertTrue(requestQueue.running);
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
 }
 
 @end
