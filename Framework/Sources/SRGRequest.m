@@ -153,6 +153,7 @@ static NSInteger s_numberOfRunningRequests = 0;
 
 - (void)cancel
 {
+    self.running = NO;
     [self.sessionTask cancel];
 }
 
