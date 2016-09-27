@@ -423,3 +423,10 @@ static SRGDataProvider *s_currentDataProvider;
 }
 
 @end
+
+#pragma mark Functions
+
+NSString *SRGDataProviderMarketingVersion(void)
+{
+    return [NSBundle srg_dataProviderBundle].infoDictionary[@"CFBundleShortVersionString"];
+}

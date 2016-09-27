@@ -42,6 +42,9 @@ NS_ASSUME_NONNULL_BEGIN
 OBJC_EXPORT double SRGDataProviderVersionNumber;
 OBJC_EXPORT const unsigned char SRGDataProviderVersionString[];
 
+// Official version number
+OBJC_EXPORT NSString *SRGDataProviderMarketingVersion(void);
+
 // Official business identifiers
 OBJC_EXPORT NSString * const SRGDataProviderBusinessUnitIdentifierRSI;
 OBJC_EXPORT NSString * const SRGDataProviderBusinessUnitIdentifierRTR;
