@@ -66,6 +66,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 
 - (instancetype)initWithServiceURL:(NSURL *)serviceURL businessUnitIdentifier:(NSString *)businessUnitIdentifier NS_DESIGNATED_INITIALIZER;
 
+// Always ends with a slash
 @property (nonatomic, readonly) NSURL *serviceURL;
 @property (nonatomic, readonly, copy) NSString *businessUnitIdentifier;
 
