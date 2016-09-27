@@ -10,6 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * Request objects provide a way to manage the data retrieval process
+ */
 @interface SRGRequest : NSObject
 
 - (SRGRequest *)withPageSize:(NSInteger)pageSize;

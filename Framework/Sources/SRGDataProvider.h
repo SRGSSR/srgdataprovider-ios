@@ -83,9 +83,13 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
  *  ## Requesting data
  *
  *  To request data, use the methods from the `Services` category. These methods return an `SRGRequest` object, which
- *  lets you manage the request process itself (starting or cancelling data retrieval). Requests expect a completion
- *  block, which is called when the request finishes (either normally or with an error). The completion block will not
- *  be called if the request is cancelled.
+ *  lets you manage the request process itself (starting or cancelling data retrieval). 
+ *
+ *  Requests must be started when needed by calling the `-resume` method, and expect a mandatory completion block, 
+ *  called when the request finishes (either normally or with an error).
+ *
+ *  You can keep a reference to an `SRGRequest` you have started. This can be useful if you later need to cancel the
+ *  request, or to start it again. Note that the completion block will not be called if a request is cancelled.
  *
  *  ## Page management
  *
@@ -93,7 +97,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
  *
  *  ## Connection queues
  *
- *
+ *  TODO: Write later
  */
 @interface SRGDataProvider : NSObject <NSURLSessionTaskDelegate>
 

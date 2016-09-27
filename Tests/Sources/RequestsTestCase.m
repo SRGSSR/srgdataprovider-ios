@@ -81,7 +81,19 @@
 
 - (void)testError
 {
-
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
+    
+    SRGRequest *request = [self.dataProvider mediaCompositionForVideoWithUid:@"bad_id" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNil(mediaComposition);
+        XCTAssertNotNil(error);
+        
+        [expectation fulfill];
+    }];
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:20. handler:nil];
+    
+    XCTAssertFalse(request.running);
 }
 
 - (void)testCancellation
