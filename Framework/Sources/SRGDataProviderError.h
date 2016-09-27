@@ -9,7 +9,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Data provider error constants. More information is available from the `userInfo` associated with such errors
+ *  Data provider error constants. More information is available from the `userInfo` associated with these errors
  */
 typedef NS_ENUM(NSInteger, SRGDataProviderErrorCode) {
     /**

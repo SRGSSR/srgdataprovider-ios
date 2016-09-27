@@ -12,13 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Request queues provide a convenient way to manage related requests, whether these requests occur in parallel or
- *  serially. 
+ *  in cascade.
  *  
  *  A request queue is simply a collection of requests, which is running iff at least one of the requests added to
- *  it is running. The state of the queue automatically adjusts when you add requests, whether immediately or on the 
- *  fly to an existing queue. You are therefore not forced to add all requests to the queue before starting it:
+ *  it is running. The state of the queue automatically adjusts when you add requests, whether immediately, or
+ *  to an existing queue (on the fly). You are therefore not forced to add all requests to the queue before starting it:
  *  - You can for example add a request to a queue, wait until you get an answer, and use this answer to make another
- *    request (which depended on it), added to the same queue
+ *    request (probably using some data you received), added to the same queue
  *  - You can also pass a queue around so that subsets of your applications can add their own request set to them
  *
  *  As a general rule, you should use a request queue to group requests for which you want a common behavior when
@@ -38,29 +38,30 @@ NS_ASSUME_NONNULL_BEGIN
  *    - queue state change block call, `finished` = `YES`
  *
  *  As requests finish, you can report back the errors they encounter to the queue by calling `-reportError:`
- *  on it. These errors are made available to the status change block when it is called.
+ *  on it. These errors are then made available to the status change block when it is called at the end.
  *
  *  By design, a request queue is not intended to be reused. If you need another queue for the same requests,
- *  create a new one.
+ *  start with a fresh one.
  */
 @interface SRGRequestQueue : NSObject
 
 /**
- *  Create a request queue with an optional block to respond to its status change
+ *  Create a request queue with an optional block to respond to its status changes
  *
- *  @param stateChangeBlock The block which will be called when the queue status changes.
+ *  @param stateChangeBlock The block which will be called when the queue status changes. The block can be called
+ *                          several times during the queue lifetime
  *
  *  @discussion When `running` changes from `NO` to `YES`, the block is called with `finished` = `NO` and no error. This
  *              is e.g. the perfect time to update your UI to tell your user data is being requested. Conversely, when 
  *              `running` changes from `YES` to `NO`, the block is called with `finished` = `YES` and an optional error
  *              (if errors have been reported to the queue using). This is e.g. the perfect time to update your UI and 
- *              display errors, if any.
+ *              display errors if any.
  *
  *              If several errors have been reported, the error code is `SRGDataProviderErrorMultiple`. You can obtain
  *              the error list from the associated user info. If a single error is reported, it is reported as is
  *
  *              Moreover, unlike completion blocks, state change blocks are called when the queue state changes, whether
- *              this results as connections are added, normally complete or are cancelled.
+ *              this happens because connections are added, normally complete or are cancelled.
  */
 - (instancetype)initWithStateChangeBlock:(nullable void (^)(BOOL finished, NSError * _Nullable error))stateChangeBlock;
 
@@ -84,8 +85,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)cancel;
 
 /**
- *  Report an error to the queue. Nothing happens if the error is nil (but this eliminates the need to check whether
- *  an error is nil before attempting to report it)
+ *  Report an error to the queue. Nothing happens if the error is nil (this eliminates the need to check whether an
+ *  error is nil before reporting it)
  */
 - (void)reportError:(nullable NSError *)error;
 

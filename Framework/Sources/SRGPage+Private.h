@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Return the `SRGPage` for the first page of content, with the default size supported by the service. This
- *  default size is Integration Layer specific
+ *  default size is Integration Layer specific and may vary depending on the service
  */
 + (SRGPage *)firstPageWithDefaultSize;
 
@@ -35,9 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (SRGPage *)firstPageWithSize:(NSInteger)size;
 
 /**
- *  Build the page which immediately follows the received, associating it the path where content will be retrieved
+ *  Build the page which immediately follows the received, associating it the path where more content can be retrieved
  *
- *  @param path The path were the next page of result will be retrieved
+ *  @param path The path were the next page of result can be retrieved
  */
 - (SRGPage *)nextPageWithPath:(NSString *)path;
 

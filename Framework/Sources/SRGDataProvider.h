@@ -73,7 +73,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
  *  ## Instantiation
  * 
  *  You instantiate a data provider with a service base URL and a business unit identifier. The service URL must expose
- *  services whose endpoints start with 'integrationlayer/...', corresponding to a working Integration Layer installation.
+ *  services whose endpoints start with 'integrationlayer/', corresponding to a working Integration Layer installation.
  *
  *  If your application only requires data from a single business unit, you can use the data provider you need like a singleton
  *  by instantiating it early in your application lifecycle (e.g. in your `-applicationDidFinishLaunching:withOptions:`
@@ -83,12 +83,12 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
  *  ## Thread-safety
  *
  *  The data provider library does not make any guarantees regarding thread safety. Though highly asynchronous in nature
- *  during data retrieval and parsing, the library public interface is meant to be used from the main thread. Data providers
- *  and requests must be created from the main thread. Completion blocks are guaranteed to be called on the main thread
- *  as well.
+ *  during data retrieval and parsing, the library public interface is meant to be used from the main thread only. Data 
+ *  provider creation and requests must be performed from the main thread. Accordingly, completion blocks are guaranteed 
+ *  to be called on the main thread as well.
  *
  *  This choice was made to prevent programming errors, since requests will usually be triggered by user interactions,
- *  and result in the UI being updated. Trying to this library from any other thread except the main one will result 
+ *  and result in the UI being updated. Trying to use this library from any other thread except the main one will result
  *  in undefined behavior (i.e. it may work or not, and may or not break in the future).
  *
  *  ## Requesting data
@@ -104,36 +104,40 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
  *
  *  ## Page management
  *
- *  Some services support pagination (retrieving results in pages with a limited number of them for each). Such requests
- *  must always start with the first page of content and proceed by successively retrieving further pages:
+ *  Some services support pagination (retrieving results in pages with a bound number of results for each). Such requests
+ *  must always start with the first page of content and proceed by successively retrieving further pages, as follows:
  *
- *  1. Get the `SRGRequest` for a service supporting pagination. Those services are easily found by looking at their
- *     completion block signature, which contains a `nextPage` parameter
- *  1. Once the request completes, you obtain a `nextPage` parameter. If this parameter is not `nil`, you can use
- *     it to generate the request for the next page of content, by calling `[request atPage:nextPage]` and starting
- *     this new request
+ *  1. Get the `SRGRequest` for a service supporting pagination by calling the associated method from the `Services`
+ *     category. Services supporting pagination are easily recognized by looking at their completion block signature, 
+ *     which contains a `nextPage` parameter
+ *  1. Once the request completes, you obtain a `nextPage` parameter from the completion block. If this parameter is 
+ *     not `nil`, you can use it to generate the request for the next page of content, by calling `[request atPage:nextPage]` 
+ *     on your previous request, and starting it when needed
  *  1. You can continue requesting further pages until `nil` is returned as `nextPage`, at which point you have
  *     retrieved all available pages of results
  *
  *  Most applications will not directly request the next page of content from the completion block, though. In general,
- *  the `nextPage` should be stored by your application, so that it is readily available when the next request needs
- *  to be generated (e.g. when scrolling reaches the bottom of a result table).
+ *  the `nextPage` could be stored by your application, so that it is readily available when the next request needs
+ *  to be generated (e.g. when scrolling reaches the bottom of a result table). You can also directly generate the
+ *  next request and store it instead.
  *
- *  You cannot generate arbitrary pages (e.g. you can ask to get the 4th page of content with a page size of 20 items),
- *  as this use case is not supported by Integration Layer services. If you need to reload the whole result set, start
- *  again with the first request. If results have not changed in the meantime, pages will load in a snap thanks to the
- *  URL cache.
+ *  Note that you cannot generate arbitrary pages (e.g. you can ask to get the 4th page of content with a page size of 
+ *  20 items), as this use case is not supported by Integration Layer services. If you need to reload the whole result 
+ *  set, start again with the first request. If results have not changed in the meantime, pages will load in a snap 
+ *  thanks to the URL caching mechanism.
  *
  *  ## Request queues
  *
- *
- *  This choice was made to prevent programming errors, since work performed from such blocks will likely
- *  be UI-related.
+ *  Managing parallel or cascading requests is usually tricky to get right. To make this process as easy as possible,
+ *  the data provider library provides a request queue class (`SRGRequestQueue`). Queues group requests and call a
+ *  completion block to notify when some of their requests start, or when all requests have ended. Queues let you
+ *  manage parallel or cascading requests with a unified formalism, and provide a way to report errors along the way.
+ *  For more information, @see `SRGRequestQueue`.
  */
 @interface SRGDataProvider : NSObject <NSURLSessionTaskDelegate>
 
 /**
- *  The data provider currently optionally set as shared instance, if any
+ *  The data provider currently set as shared instance, if any
  *
  *  @see `-setCurrentDataProvider:`
  */
@@ -150,7 +154,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
  *  Instantiate a data provider
  *
  *  @param serviceURL             The Integration Layer service base URL (which must expose service endpoints
- *                                starting with /integrationlayer)
+ *                                starting with '/integrationlayer')
  *  @param businessUnitIdentifier The identifier of the SRG SSR business unit to retrieve data for. Use constants
  *                                available at the top of this file for the officially supported values
  */
@@ -159,7 +163,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 /**
  *  The service URL which has been set
  *
- *  @discussion Always ends with a slash
+ *  @discussion Always ends with a slash, even if the service URL set at creatoon wasn't
  */
 @property (nonatomic, readonly) NSURL *serviceURL;
 

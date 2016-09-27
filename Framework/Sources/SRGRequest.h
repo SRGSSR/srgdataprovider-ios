@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  `SRGRequest` objects provide a way to manage the data retrieval process associated with a data provider 
  *  service request. You never instantiate `SRGRequest` objects directly, you merely use the ones returned 
  *  when calling `SRGDataProvider` service methods.
+ *
+ *  Requests are not started by default. Once you have an `SRGRequest` instance, call the `-resume` method
+ *  to start the request. If you need to manage several related requests, use an `SRGRequestQueue`.
  */
 @interface SRGRequest : NSObject
 
