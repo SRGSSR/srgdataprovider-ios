@@ -93,11 +93,29 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
  *
  *  ## Page management
  *
- *  TODO: Write when we know whether all requests support page management or not
+ *  Some services support pagination (retrieving results in pages with a limited number of them for each). Such requests
+ *  must always start with the first page of content and proceed by successively retrieving further pages:
+ *
+ *  1. Get the `SRGRequest` for a service supporting pagination. Those services are easily found by looking at their
+ *     completion block signature, which contains a `nextPage` parameter
+ *  1. Once the request completes, you obtain a `nextPage` parameter. If this parameter is not `nil`, you can use
+ *     it to generate the request for the next page of content, by calling `[request atPage:nextPage]` and starting
+ *     this new request
+ *  1. You can continue requesting further pages until `nil` is returned as `nextPage`, at which point you have
+ *     retrieved all available pages of results
+ *
+ *  Most applications will not directly request the next page of content from the completion block, though. In general,
+ *  the `nextPage` should be stored by your application, so that it is readily available when the next request needs
+ *  to be generated (e.g. when scrolling reaches the bottom of a result table).
+ *
+ *  You cannot generate arbitrary pages (e.g. you can ask to get the 4th page of content with a page size of 20 items),
+ *  as this use case is not supported by Integration Layer services. If you need to reload the whole result set, start
+ *  again with the first request. If results have not changed in the meantime, pages will load in a snap thanks to the
+ *  URL cache.
  *
  *  ## Connection queues
  *
- *  TODO: Write later
+ *  
  */
 @interface SRGDataProvider : NSObject <NSURLSessionTaskDelegate>
 
