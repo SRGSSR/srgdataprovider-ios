@@ -38,64 +38,6 @@ static NSInteger s_numberOfRunningRequests = 0;
         self.request = request;
         self.completionBlock = completionBlock;
         self.page = page ?: [SRGPage firstPageWithDefaultSize];
-        
-        SRGRequestCompletionBlock requestCompletionBlock = ^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-            completionBlock(JSONDictionary, nextPage, error);
-            self.running = NO;
-        };
-        
-        self.sessionTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            // Don't call the completion block for cancelled requests
-            if (error) {
-                if (![error.domain isEqualToString:NSURLErrorDomain] || error.code != NSURLErrorCancelled) {
-                    requestCompletionBlock(nil, nil, error);
-                }
-                return;
-            }
-            
-            if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                NSHTTPURLResponse *HTTPURLResponse = (NSHTTPURLResponse *)response;
-                NSInteger HTTPStatusCode = HTTPURLResponse.statusCode;
-                
-                // Properly handle HTTP error codes >= 400 as real errors
-                if (HTTPStatusCode >= 400) {
-                    requestCompletionBlock(nil, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                                         code:SRGDataProviderErrorHTTP
-                                                                     userInfo:@{ NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:HTTPStatusCode],
-                                                                                 NSURLErrorKey : response.URL }]);
-                    return;
-                }
-                // Block redirects and return an error with URL information. Currently no redirection is expected for IL services, this
-                // means redirection is probably related to a public hotspot with login page (e.g. SBB)
-                else if (HTTPStatusCode >= 300) {
-                    NSMutableDictionary *userInfo = [@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"You are likely connected to a public wifi network with no Internet access", nil),
-                                                        NSURLErrorKey : response.URL } mutableCopy];
-                    
-                    NSString *redirectionURLString = HTTPURLResponse.allHeaderFields[@"Location"];
-                    if (redirectionURLString) {
-                        NSURL *redirectionURL = [NSURL URLWithString:redirectionURLString];
-                        userInfo[SRGDataProviderRedirectionURLKey] = redirectionURL;
-                    }
-                    
-                    requestCompletionBlock(nil, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                                         code:SRGDataProviderErrorRedirect
-                                                                     userInfo:[userInfo copy]]);
-                    return;
-                }
-            }
-            
-            id JSONDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-            if (!JSONDictionary || ![JSONDictionary isKindOfClass:[NSDictionary class]]) {
-                requestCompletionBlock(nil, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                                     code:SRGDataProviderErrorCodeInvalidData
-                                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
-                return;
-            }
-            
-            NSString *nextPath = JSONDictionary[@"next"];
-            SRGPage *nextPage = nextPath ? [page nextPageWithPath:nextPath] : nil;
-            requestCompletionBlock(JSONDictionary, nextPage, nil);
-        }];
         self.session = session;
         
         self.managingNetworkActivityIndicator = YES;
@@ -147,6 +89,69 @@ static NSInteger s_numberOfRunningRequests = 0;
 
 - (void)resume
 {
+    if (self.running) {
+        return;
+    }
+    
+    SRGRequestCompletionBlock requestCompletionBlock = ^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        self.completionBlock(JSONDictionary, nextPage, error);
+        self.running = NO;
+    };
+    
+    // Session tasks cannot be reused. To provide SRGRequest reuse, we need to instantiate another task
+    self.sessionTask = [self.session dataTaskWithRequest:self.request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        // Don't call the completion block for cancelled requests
+        if (error) {
+            if (![error.domain isEqualToString:NSURLErrorDomain] || error.code != NSURLErrorCancelled) {
+                requestCompletionBlock(nil, nil, error);
+            }
+            return;
+        }
+        
+        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+            NSHTTPURLResponse *HTTPURLResponse = (NSHTTPURLResponse *)response;
+            NSInteger HTTPStatusCode = HTTPURLResponse.statusCode;
+            
+            // Properly handle HTTP error codes >= 400 as real errors
+            if (HTTPStatusCode >= 400) {
+                requestCompletionBlock(nil, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                                     code:SRGDataProviderErrorHTTP
+                                                                 userInfo:@{ NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:HTTPStatusCode],
+                                                                             NSURLErrorKey : response.URL }]);
+                return;
+            }
+            // Block redirects and return an error with URL information. Currently no redirection is expected for IL services, this
+            // means redirection is probably related to a public hotspot with login page (e.g. SBB)
+            else if (HTTPStatusCode >= 300) {
+                NSMutableDictionary *userInfo = [@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"You are likely connected to a public wifi network with no Internet access", nil),
+                                                    NSURLErrorKey : response.URL } mutableCopy];
+                
+                NSString *redirectionURLString = HTTPURLResponse.allHeaderFields[@"Location"];
+                if (redirectionURLString) {
+                    NSURL *redirectionURL = [NSURL URLWithString:redirectionURLString];
+                    userInfo[SRGDataProviderRedirectionURLKey] = redirectionURL;
+                }
+                
+                requestCompletionBlock(nil, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                                     code:SRGDataProviderErrorRedirect
+                                                                 userInfo:[userInfo copy]]);
+                return;
+            }
+        }
+        
+        id JSONDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        if (!JSONDictionary || ![JSONDictionary isKindOfClass:[NSDictionary class]]) {
+            requestCompletionBlock(nil, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                                 code:SRGDataProviderErrorCodeInvalidData
+                                                             userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
+            return;
+        }
+        
+        NSString *nextPath = JSONDictionary[@"next"];
+        SRGPage *nextPage = nextPath ? [self.page nextPageWithPath:nextPath] : nil;
+        requestCompletionBlock(JSONDictionary, nextPage, nil);
+    }];
+    
     self.running = YES;
     [self.sessionTask resume];
 }
