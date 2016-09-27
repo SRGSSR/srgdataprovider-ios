@@ -80,15 +80,24 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
  *  implementation) and setting it as global shared instance by calling `-[SRGDataProvider setCurrentDataProvider:]`.
  *  You can then conveniently retrieve this shared instance with `-[SRGDataProvider currentDataProvider]`.
  *
+ *  ## Thread-safety
+ *
+ *  The data provider library does not make any guarantees regarding thread safety. Though highly asynchronous in nature
+ *  during data retrieval and parsing, the library public interface is meant to be used from the main thread. Data providers
+ *  and requests must be created from the main thread. Completion blocks are guaranteed to be called on the main thread
+ *  as well.
+ *
+ *  This choice was made to prevent programming errors, since requests will usually be triggered by user interactions,
+ *  and result in the UI being updated. Trying to this library from any other thread except the main one will result 
+ *  in undefined behavior (i.e. it may work or not, and may or not break in the future).
+ *
  *  ## Requesting data
  *
  *  To request data, use the methods from the `Services` category. These methods return an `SRGRequest` object, which
  *  lets you manage the request process itself (starting or cancelling data retrieval). 
  *
  *  Requests must be started when needed by calling the `-resume` method, and expect a mandatory completion block, 
- *  called when the request finishes (either normally or with an error). Blocks are always called on the main
- *  thread. This choice was made to prevent programming errors, since work performed from such blocks will likely
- *  be UI-related.
+ *  called when the request finishes (either normally or with an error).
  *
  *  You can keep a reference to an `SRGRequest` you have started. This can be useful if you later need to cancel the
  *  request, or to start it again. Note that the completion block will not be called if a request is cancelled.
@@ -162,7 +171,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 @end
 
 /**
- *  List of the requests supported by the data provider. Completion blocks will always be called on the main thread
+ *  List of the requests supported by the data provider
  */
 // TODO: Document: completion block never called for cancelled requests
 // TODO: Maybe have an audio / video enum parameter for each method available for audio & videos
