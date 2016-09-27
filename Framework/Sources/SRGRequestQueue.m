@@ -118,9 +118,7 @@ static void *s_kvoContext = &s_kvoContext;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
     if (context == s_kvoContext && [keyPath isEqualToString:@"running"]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self checkStateChange];
-        });
+        [self checkStateChange];
     }
     else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];

@@ -65,18 +65,14 @@ static NSInteger s_numberOfRunningRequests = 0;
     if (running != _running && self.managingNetworkActivityIndicator) {
         if (running) {
             if (s_numberOfRunningRequests == 0) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-                });
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
             }
             ++s_numberOfRunningRequests;
         }
         else {
             --s_numberOfRunningRequests;
             if (s_numberOfRunningRequests == 0) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                });
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             }
         }
     }
@@ -93,8 +89,10 @@ static NSInteger s_numberOfRunningRequests = 0;
     }
     
     SRGRequestCompletionBlock requestCompletionBlock = ^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        self.completionBlock(JSONDictionary, nextPage, error);
-        self.running = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.completionBlock(JSONDictionary, nextPage, error);
+            self.running = NO;
+        });
     };
     
     // Session tasks cannot be reused. To provide SRGRequest reuse, we need to instantiate another task

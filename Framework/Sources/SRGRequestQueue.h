@@ -17,7 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  A request queue is simply a collection of requests, which is running iff at least one of the requests added to
  *  it is running. The state of the queue automatically adjusts when you add requests, whether immediately or on the 
  *  fly to an existing queue. You are therefore not forced to add all requests to the queue before starting it:
- *
  *  - You can for example add a request to a queue, wait until you get an answer, and use this answer to make another
  *    request (which depended on it), added to the same queue
  *  - You can also pass a queue around so that subsets of your applications can add their own request set to them
@@ -42,8 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Create a request queue with an optional block to respond to its status change
  *
- *  @param stateChangeBlock The block which will be called when the queue status changes. The block is guaranteed to be
- *                          called on the main thread
+ *  @param stateChangeBlock The block which will be called when the queue status changes
  *
  *  @discussion When `running` changes from `NO` to `YES`, the block is called with `finished` = `NO` and no error. This
  *              is e.g. the perfect time to update your UI to tell your user data is being requested. Conversely, when 
@@ -87,9 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Return `YES` iff the queue is running.
  *
- *  @discussion This property is KVO-observable, but can be changed from any thread (including from the main thread).
- *              If you want to use KVO, do not forget to dispatch the work onto the main queue when needed (e.g. for
- *              UI-related stuff)
+ *  @discussion This property is KVO-observable
  */
 @property (nonatomic, readonly, getter=isRunning) BOOL running;
 

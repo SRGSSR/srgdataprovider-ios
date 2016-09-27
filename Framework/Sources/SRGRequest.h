@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Return an equivalent request, but for the specified page. You never instantiate pages yourself, you receive them
- *  from the service requests supporting pagination
+ *  from service requests supporting pagination
  *
  *  @param page The page to request. If nil, the first page with default size will be requested
  */
@@ -60,9 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
  *              completion block (@see `SRGDataProvider`) has been executed. It is immediately reset to `NO`
  *              when the request is cancelled.
  *
- *              This property is KVO-observable, but can be changed from any thread (including from the main thread). 
- *              If you want to use KVO, do not forget to dispatch the work onto the main queue when needed (e.g. for
- *              UI-related stuff)
+ *              This property is KVO-observable
  */
 @property (nonatomic, readonly, getter=isRunning) BOOL running;
 

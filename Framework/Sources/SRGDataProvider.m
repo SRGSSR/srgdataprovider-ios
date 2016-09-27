@@ -249,113 +249,6 @@ static SRGDataProvider *s_currentDataProvider;
 
 - (SRGRequest *)tokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock
 {
-    return [self asynchronouslyTokenizeURL:URL withCompletionBlock:^(NSURL * _Nullable URL, NSError * _Nullable error) {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            completionBlock(URL, error);
-        });
-    }];
-}
-
-#pragma mark Common implementation. Completion blocks are called on the main thread
-
-- (SRGRequest *)listObjectsWithRequest:(NSURLRequest *)request
-                            modelClass:(Class)modelClass
-                               rootKey:(NSString *)rootKey
-                       completionBlock:(void (^)(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error))completionBlock
-{
-    return [self asynchronouslyListObjectsWithRequest:request modelClass:modelClass rootKey:rootKey completionBlock:^(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            completionBlock(objects, nextPage, error);
-        });
-    }];
-}
-
-- (SRGRequest *)fetchObjectWithRequest:(NSURLRequest *)request
-                            modelClass:(Class)modelClass
-                       completionBlock:(void (^)(id _Nullable object, NSError * _Nullable error))completionBlock
-{
-    return [self asynchronouslyFetchObjectWithRequest:request modelClass:modelClass completionBlock:^(id  _Nullable object, NSError * _Nullable error) {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            completionBlock(object, error);
-        });
-    }];
-}
-
-#pragma mark Asynchronous requests and processing. The completion block will be called on a background thread
-
-- (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
-{
-    NSURL *URL = [NSURL URLWithString:resourcePath relativeToURL:self.serviceURL];
-    NSURLComponents *URLComponents = [NSURLComponents componentsWithString:URL.absoluteString];
-    
-    NSMutableArray<NSURLQueryItem *> *fullQueryItems = [NSMutableArray array];
-    if (queryItems) {
-        [fullQueryItems addObjectsFromArray:queryItems];
-    }
-    URLComponents.queryItems = fullQueryItems.count != 0 ? [fullQueryItems copy] : nil;
-    
-    return URLComponents.URL;
-}
-
-- (SRGRequest *)asynchronouslyListObjectsWithRequest:(NSURLRequest *)request
-                                          modelClass:(Class)modelClass
-                                             rootKey:(NSString *)rootKey
-                                     completionBlock:(void (^)(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error))completionBlock
-{
-    NSParameterAssert(request);
-    NSParameterAssert(modelClass);
-    NSParameterAssert(rootKey);
-    NSParameterAssert(completionBlock);
-    
-    return [[SRGRequest alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        if (error) {
-            completionBlock(nil, nil, error);
-            return;
-        }
-        
-        id JSONArray = JSONDictionary[rootKey];
-        if (JSONArray && [JSONArray isKindOfClass:[NSArray class]]) {
-            NSArray *objects = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:NULL];
-            if (objects) {
-                completionBlock(objects, nextPage, nil);
-                return;
-            }
-        }
-        
-        completionBlock(nil, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                      code:SRGDataProviderErrorCodeInvalidData
-                                                  userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
-    }];
-}
-
-- (SRGRequest *)asynchronouslyFetchObjectWithRequest:(NSURLRequest *)request
-                                          modelClass:(Class)modelClass
-                                     completionBlock:(void (^)(id _Nullable object, NSError * _Nullable error))completionBlock
-{
-    NSParameterAssert(request);
-    NSParameterAssert(modelClass);
-    NSParameterAssert(completionBlock);
-    
-    return [[SRGRequest alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        if (error) {
-            completionBlock(nil, error);
-            return;
-        }
-        
-        id object = [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:JSONDictionary error:NULL];
-        if (!object) {
-            completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                     code:SRGDataProviderErrorCodeInvalidData
-                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
-            return;
-        }
-        
-        completionBlock(object, nil);
-    }];
-}
-
-- (SRGRequest *)asynchronouslyTokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock
-{
     NSParameterAssert(URL);
     NSParameterAssert(completionBlock);
     
@@ -400,6 +293,79 @@ static SRGDataProvider *s_currentDataProvider;
         tokenizedURLComponents.queryItems = [queryItems copy];
         
         completionBlock(tokenizedURLComponents.URL, nil);
+    }];
+}
+
+#pragma mark Common implementation
+
+- (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
+{
+    NSURL *URL = [NSURL URLWithString:resourcePath relativeToURL:self.serviceURL];
+    NSURLComponents *URLComponents = [NSURLComponents componentsWithString:URL.absoluteString];
+    
+    NSMutableArray<NSURLQueryItem *> *fullQueryItems = [NSMutableArray array];
+    if (queryItems) {
+        [fullQueryItems addObjectsFromArray:queryItems];
+    }
+    URLComponents.queryItems = fullQueryItems.count != 0 ? [fullQueryItems copy] : nil;
+    
+    return URLComponents.URL;
+}
+
+- (SRGRequest *)listObjectsWithRequest:(NSURLRequest *)request
+                            modelClass:(Class)modelClass
+                               rootKey:(NSString *)rootKey
+                       completionBlock:(void (^)(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error))completionBlock
+{
+    NSParameterAssert(request);
+    NSParameterAssert(modelClass);
+    NSParameterAssert(rootKey);
+    NSParameterAssert(completionBlock);
+    
+    return [[SRGRequest alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        if (error) {
+            completionBlock(nil, nil, error);
+            return;
+        }
+        
+        id JSONArray = JSONDictionary[rootKey];
+        if (JSONArray && [JSONArray isKindOfClass:[NSArray class]]) {
+            NSArray *objects = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:NULL];
+            if (objects) {
+                completionBlock(objects, nextPage, nil);
+                return;
+            }
+        }
+        
+        completionBlock(nil, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                      code:SRGDataProviderErrorCodeInvalidData
+                                                  userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
+    }];
+}
+
+- (SRGRequest *)fetchObjectWithRequest:(NSURLRequest *)request
+                            modelClass:(Class)modelClass
+                       completionBlock:(void (^)(id _Nullable object, NSError * _Nullable error))completionBlock
+{
+    NSParameterAssert(request);
+    NSParameterAssert(modelClass);
+    NSParameterAssert(completionBlock);
+    
+    return [[SRGRequest alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        if (error) {
+            completionBlock(nil, error);
+            return;
+        }
+        
+        id object = [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:JSONDictionary error:NULL];
+        if (!object) {
+            completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                     code:SRGDataProviderErrorCodeInvalidData
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
+            return;
+        }
+        
+        completionBlock(object, nil);
     }];
 }
 
