@@ -12,8 +12,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ *  Information returned as the result of a request increasing social media counters
+ */
 @interface SRGLike : MTLModel <SRGMediaIdentifierMetadata, MTLJSONSerializing>
 
+/**
+ *  The update social media and popularity information
+ */
 @property (nonatomic, readonly, nullable) NSArray<SRGSocialCount *> *socialCounts;
 
 @end

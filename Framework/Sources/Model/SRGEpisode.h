@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) NSArray<SRGMedia *> *medias;
 
 /**
- *  Social network information
+ *  Social network and popularity information
  */
 @property (nonatomic, readonly, nullable) SRGSocialCount *socialCount;
 

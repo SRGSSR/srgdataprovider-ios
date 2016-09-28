@@ -16,7 +16,7 @@
 @property (nonatomic) NSDate *endDate;
 @property (nonatomic) NSURL *backgroundImageURL;
 @property (nonatomic) UIColor *headerBackgroundColor;
-@property (nonatomic) UIColor *headerTitleColor;
+@property (nonatomic) UIColor *headerTextColor;
 @property (nonatomic) UIColor *backgroundColor;
 @property (nonatomic) UIColor *textColor;
 @property (nonatomic) UIColor *linkColor;
@@ -46,7 +46,7 @@
                        @"endDate" : @"publishEndTimestamp",
                        @"backgroundImageURL" : @"bgImageUrl",
                        @"headerBackgroundColor" : @"headerBackgroundColor",
-                       @"headerTitleColor" : @"headerTitleColor",
+                       @"headerTextColor" : @"headerTitleColor",
                        @"backgroundColor" : @"bgColor",
                        @"textColor" : @"textColor",
                        @"linkColor" : @"linkColor",
@@ -85,7 +85,7 @@
     return SRGHexColorJSONTransformer();
 }
 
-+ (NSValueTransformer *)headerTitleColorJSONTransformer
++ (NSValueTransformer *)headerTextColorJSONTransformer
 {
     return SRGHexColorJSONTransformer();
 }
