@@ -23,6 +23,7 @@ const NSInteger SRGPageDefaultSize = NSIntegerMax;
 + (NSURLRequest *)request:(NSURLRequest *)request withPage:(SRGPage *)page
 {
     if (page.path) {
+        // TODO: Completely replace the request
         NSAssert(@"Not implemented yet. Waiting for an answer whether we can receive a full URL instead of a path here", nil);
         return nil;
     }

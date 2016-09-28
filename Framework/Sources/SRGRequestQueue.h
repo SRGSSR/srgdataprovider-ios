@@ -86,7 +86,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Report an error to the queue. Nothing happens if the error is nil (this eliminates the need to check whether an
- *  error is nil before reporting it)
+ *  error is nil before reporting it). Errors are collecting during running sessions, and cleaned up when the queue
+ *  has returned to the non-running state
  */
 - (void)reportError:(nullable NSError *)error;
 
