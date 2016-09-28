@@ -6,6 +6,9 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  Standard transformers for use with Mantle
+ */
 OBJC_EXPORT NSValueTransformer *SRGBlockingReasonJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGContentTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGEncodingJSONTransformer(void);

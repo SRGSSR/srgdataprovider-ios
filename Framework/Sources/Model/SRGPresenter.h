@@ -10,8 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ *  Presenter (of a show)
+ */
 @interface SRGPresenter : MTLModel <SRGImageMetadata, MTLJSONSerializing>
 
+/**
+ *  The name of the presenter
+ */
 @property (nonatomic, readonly, copy) NSString *name;
 
 @end

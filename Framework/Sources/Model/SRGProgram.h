@@ -13,12 +13,34 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ *  Program information (information about what is currently on air or what will be)
+ */
 @interface SRGProgram : MTLModel <SRGImageMetadata, SRGMetadata, MTLJSONSerializing>
 
+/**
+ *  The date at which the content starts or started
+ */
 @property (nonatomic, readonly) NSDate *startDate;
+
+/**
+ *  The date at which the content ends
+ */
 @property (nonatomic, readonly) NSDate *endDate;
+
+/**
+ *  A URL page associated with the content
+ */
 @property (nonatomic, readonly, nullable) NSURL *URL;
+
+/**
+ *  The show to which the content belongs
+ */
 @property (nonatomic, readonly, nullable) SRGShow *show;
+
+/**
+ *  The presenter information
+ */
 @property (nonatomic, readonly, nullable) SRGPresenter *presenter;
 
 @end

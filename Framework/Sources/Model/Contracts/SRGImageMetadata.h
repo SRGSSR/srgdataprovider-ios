@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Common protocol for model objects having an image
+ *  Common protocol for model objects having an optional image
  */
 @protocol SRGImageMetadata <NSObject>
 
@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param dimension The dimension (horizontal or vertical)
  *  @param value     The value along the specified dimensions, in points (independent of the device scale)
  */
-- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value;
+- (nullable NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value;
 
 /**
  *  The image title

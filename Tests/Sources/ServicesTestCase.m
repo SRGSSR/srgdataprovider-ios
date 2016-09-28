@@ -49,7 +49,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider mediaCompositionForVideoWithUid:@"42297626" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
-        NSLog(@"Media composition: %@; error: %@", mediaComposition, error);
+        XCTFail(@"TODO");
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
