@@ -176,36 +176,102 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 /**
  *  List of the requests supported by the data provider
  */
-// TODO: Document: completion block never called for cancelled requests
-// TODO: Maybe have an audio / video enum parameter for each method available for audio & videos
 @interface SRGDataProvider (Services)
 
+/**
+ *  List videos which have been picked by editors
+ */
 - (SRGRequest *)editorialVideosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
+/**
+ *  List videos which will soon expire
+ */
 - (SRGRequest *)soonExpiringVideosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  List videos available for the day containing the given date
+ *
+ *  @param date The date. If nil, today is used
+ */
 - (SRGRequest *)videosForDate:(nullable NSDate *)date withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
+/**
+ *  List trending videos (with all editorial recommendations)
+ */
 - (SRGRequest *)trendingVideosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  List trending videos. A limit can be set on editorial recommendations and results can be limited to episodes
+ *
+ *  @param editorialLimit The maximum number of editorial recommendations returned (if nil, all are returned)
+ *  @param episodesOnly   Whether only episodes must be returned
+ */
 - (SRGRequest *)trendingVideosWithEditorialLimit:(nullable NSNumber *)editorialLimit episodesOnly:(BOOL)episodesOnly completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
+/**
+ *  List video channels
+ */
 - (SRGRequest *)videoChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
 
+/**
+ *  List video topics
+ */
 - (SRGRequest *)videoTopicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock;
 
+/**
+ *  List latest videos for a specific topic
+ *
+ *  @param topicUid The unique topic identifier
+ */
 - (SRGRequest *)latestVideosWithTopicUid:(nullable NSString *)topicUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  List most popular videos for a specific topic
+ *
+ *  @param topicUid The unique topic identifier
+ */
 - (SRGRequest *)mostPopularVideosWithTopicUid:(nullable NSString *)topicUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
+/**
+ *  List events
+ */
 - (SRGRequest *)eventsWithCompletionBlock:(SRGEventListCompletionBlock)completionBlock;
+
+/**
+ *  List videos for a specific event (optionally for a specific section)
+ *
+ *  @param eventUid   The unique event
+ *  @param sectionUid An optional unique section identifier
+ */
 - (SRGRequest *)latestVideosForEventWithUid:(NSString *)eventUid sectionUid:(nullable NSString *)sectionUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
+/**
+ *  List video shows
+ */
 - (SRGRequest *)videoShowsWithCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
 
+/**
+ *  Retrieve the full media information needed to play a media
+ */
 - (SRGRequest *)mediaCompositionForVideoWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
+/**
+ *  Search videos matching a specific criterium
+ *
+ *  @discussion Some business units only support full-text search, not partial matching
+ */
 - (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
+/**
+ *  Increase the SRG popularity like counter from 1 unit for the specified media
+ */
 - (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock;
 
+/**
+ *  Return the original URN, tokenized for playback
+ *
+ *  @discussion The token is valid for a small amount of time, be sure to use the tokenized URL as soon as possible
+ */
 - (SRGRequest *)tokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock;
 
 @end

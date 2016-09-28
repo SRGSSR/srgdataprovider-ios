@@ -13,6 +13,9 @@
 
 #import <Mantle/Mantle.h>
 
+// TODO: Empty result lists: Should never happen (return nil instead with no error)?
+// TODO: Prevent requesting atPage: if the page is not related to the request as receiver
+
 NSString * const SRGDataProviderBusinessUnitIdentifierRSI = @"rsi";
 NSString * const SRGDataProviderBusinessUnitIdentifierRTR = @"rtr";
 NSString * const SRGDataProviderBusinessUnitIdentifierRTS = @"rts";
