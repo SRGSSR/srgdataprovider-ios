@@ -11,7 +11,6 @@
 #import "SRGChapter.h"
 #import "SRGDataProvider.h"
 #import "SRGDataProviderError.h"
-#import "SRGEntry.h"
 #import "SRGEpisode.h"
 #import "SRGEvent.h"
 #import "SRGImageMetadata.h"

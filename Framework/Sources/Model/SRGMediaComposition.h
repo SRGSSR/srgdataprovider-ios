@@ -4,7 +4,6 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGEntry.h"
 #import "SRGChannel.h"
 #import "SRGChapter.h"
 #import "SRGEpisode.h"
@@ -14,23 +13,58 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ *  Full information used when playing a media. A media composition provides the full playback context:
+ *    - list of chapters and segments, and which one should be played first
+ *    - complete media information
+ *    - analytics information
+ */
 @interface SRGMediaComposition : MTLModel <MTLJSONSerializing>
 
-@property (nonatomic, readonly, copy) NSString *chapterURN;
-@property (nonatomic, readonly, copy, nullable) NSString *segmentURN;
-@property (nonatomic, readonly, nullable) SRGEpisode *episode;
-@property (nonatomic, readonly, nullable) SRGShow *show;
+/**
+ *  The channel the media belongs to
+ */
 @property (nonatomic, readonly, nullable) SRGChannel *channel;
+
+/**
+ *  The episode the media belongs to
+ */
+@property (nonatomic, readonly, nullable) SRGEpisode *episode;
+
+/**
+ *  The show the media belongs to
+ */
+@property (nonatomic, readonly, nullable) SRGShow *show;
+
+/**
+ *  The list of chapters available for the media
+ */
 @property (nonatomic, readonly) NSArray<SRGChapter *> *chapters;
-@property (nonatomic, readonly, nullable) NSArray<SRGEntry *> *analyticsEntries;
+
+/**
+ *  The list of analytics labels which should be supplied in SRG Analytics events
+ *  (https://github.com/SRGSSR/srganalytics-ios)
+ */
+@property (nonatomic, readonly, nullable) NSDictionary<NSString *, NSString *> *analyticsLabels;
+
+/**
+ *  An opaque event information to be sent when liking an event
+ */
 @property (nonatomic, readonly, copy, nullable) NSString *event;
 
 @end
 
 @interface SRGMediaComposition (Helpers)
 
+/**
+ *  The chapter which should be initially played
+ */
 @property (nonatomic, readonly) SRGChapter *mainChapter;
-@property (nonatomic, readonly) SRGChapter *mainSegment;
+
+/**
+ *  The segment from the main chapter which should be initially played
+ */
+@property (nonatomic, readonly) SRGSegment *mainSegment;
 
 @end
 

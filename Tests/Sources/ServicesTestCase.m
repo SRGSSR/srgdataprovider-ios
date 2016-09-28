@@ -32,13 +32,24 @@
 
 - (void)testEditorialVideos
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Editorial video request succeeded"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertTrue([NSThread isMainThread]);
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testMediaComposition
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider mediaCompositionForVideoWithUid:@"42297626" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        NSLog(@"Media composition: %@; error: %@", mediaComposition, error);
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
