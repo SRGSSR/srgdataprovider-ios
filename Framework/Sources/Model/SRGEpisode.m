@@ -6,9 +6,9 @@
 
 #import "SRGEpisode.h"
 
-#import "SRGMedia.h"
-
 #import "NSURL+SRGDataProvider.h"
+#import "SRGJSONTransformers.h"
+#import "SRGMedia.h"
 
 @interface SRGEpisode ()
 
@@ -57,6 +57,11 @@
 + (NSValueTransformer *)mediasJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGMedia class]];
+}
+
++ (NSValueTransformer *)dateJSONTransformer
+{
+    return SRGISO8601DateJSONTransformer();
 }
 
 + (NSValueTransformer *)socialCountJSONTransformer
