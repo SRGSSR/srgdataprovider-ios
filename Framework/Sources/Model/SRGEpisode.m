@@ -13,7 +13,9 @@
 @interface SRGEpisode ()
 
 @property (nonatomic, copy) NSString *uid;
+@property (nonatomic) NSDate *date;
 @property (nonatomic) NSArray<SRGMedia *> *medias;
+@property (nonatomic) SRGSocialCount *socialCount;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
@@ -35,7 +37,9 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @"uid" : @"id",
+                       @"date" : @"publishedDate",
                        @"medias" : @"mediaList",
+                       @"socialCount" : @"socialCount",
                        
                        @"title" : @"title",
                        @"lead" : @"lead",
@@ -53,6 +57,11 @@
 + (NSValueTransformer *)mediasJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGMedia class]];
+}
+
++ (NSValueTransformer *)socialCountJSONTransformer
+{
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGSocialCount class]];
 }
 
 + (NSValueTransformer *)imageURLJSONTransformer
