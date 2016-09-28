@@ -15,6 +15,7 @@
 @property (nonatomic) SRGProtocol protocol;
 @property (nonatomic) SRGEncoding encoding;
 @property (nonatomic, copy) NSString *MIMEType;
+@property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
 
 @end
 
@@ -31,7 +32,8 @@
                        @"quality" : @"quality",
                        @"protocol" : @"protocol",
                        @"encoding" : @"encoding",
-                       @"MIMEType" : @"mimeType" };
+                       @"MIMEType" : @"mimeType",
+                       @"analyticsLabels" : @"analyticsData" };
     });
     return s_mapping;
 }

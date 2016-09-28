@@ -22,6 +22,20 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGMediaComposition : MTLModel <MTLJSONSerializing>
 
 /**
+ *  The URN of the chapter which should initially be played
+ *
+ *  For convenient direct retrieval of the `SRGChapter` object, use the `mainChapter` property directly
+ */
+@property (nonatomic, readonly, copy) NSString *chapterURN;
+
+/**
+ *  The URN of the segment which should initially be played
+ *
+ *  For convenient direct retrieval of the `SRGSegment` object, use the `mainChapter` property directly
+ */
+@property (nonatomic, readonly, copy) NSString *segmentURN;
+
+/**
  *  The channel the media belongs to
  */
 @property (nonatomic, readonly, nullable) SRGChannel *channel;

@@ -10,9 +10,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ *  Content related to a media (e.g. articles providing more information about a subject). Related contents are
+ *  simple links to external web pages
+ */
 @interface SRGRelatedContent : MTLModel <SRGMetadata, MTLJSONSerializing>
 
+/**
+ *  The unique identifier of the content
+ */
 @property (nonatomic, readonly, copy) NSString *uid;
+
+/**
+ *  The URL where the content resides
+ */
 @property (nonatomic, readonly) NSURL *URL;
 
 @end

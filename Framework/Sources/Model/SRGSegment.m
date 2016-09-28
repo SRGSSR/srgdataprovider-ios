@@ -17,6 +17,7 @@
 @property (nonatomic) NSTimeInterval markOut;
 @property (nonatomic) SRGBlockingReason blockingReason;
 @property (nonatomic) NSArray<SRGSubtitle *> *subtitles;
+@property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
@@ -58,6 +59,7 @@
                        @"markIn" : @"markIn",
                        @"markOut" : @"markOut",
                        @"blockingReason" : @"blockReason",
+                       @"analyticsLabels" : @"analyticsData",
                        @"subtitles" : @"subtitleList",
                        
                        @"title" : @"title",
