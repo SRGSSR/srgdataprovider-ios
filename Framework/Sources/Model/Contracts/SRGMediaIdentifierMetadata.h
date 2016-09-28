@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Protocol for media identification information association
+ *  Common protocol for media identification
  */
 @protocol SRGMediaIdentifierMetadata <NSObject>
 

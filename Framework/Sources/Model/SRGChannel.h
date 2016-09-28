@@ -13,12 +13,34 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ *  Channel (TV, radio or online)
+ */
 @interface SRGChannel : MTLModel <SRGImageMetadata, SRGMetadata, MTLJSONSerializing>
 
+/**
+ *  The unique channel identifier
+ */
 @property (nonatomic, readonly, copy) NSString *uid;
+
+/**
+ *  Describes whether the channel is a TV, radio or online channel
+ */
 @property (nonatomic, readonly) SRGTransmission transmission;
+
+/**
+ *  The URL at which the schedule can be retrieved
+ */
 @property (nonatomic, readonly, nullable) NSURL *timetableURL;
+
+/**
+ *  Information about the program currently on air
+ */
 @property (nonatomic, readonly, nullable) SRGProgram *currentProgram;
+
+/**
+ *  Information about the next program to be on air
+ */
 @property (nonatomic, readonly, nullable) SRGProgram *nextProgram;
 
 @end

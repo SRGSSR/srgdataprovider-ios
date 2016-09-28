@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Protocol for image information association
+ *  Common protocol for model objects having an image
  */
 @protocol SRGImageMetadata <NSObject>
 

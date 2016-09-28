@@ -9,7 +9,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Protocol for standard metadata association
+ *  *  Common protocol for standard metadata
  */
 @protocol SRGMetadata <NSObject>
 
