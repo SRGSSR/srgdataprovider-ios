@@ -250,7 +250,9 @@ static SRGDataProvider *s_currentDataProvider;
     return [self fetchObjectWithRequest:request modelClass:[SRGLike class] completionBlock:completionBlock];
 }
 
-- (SRGRequest *)tokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock
+#pragma mark Tokenization
+
++ (SRGRequest *)tokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock
 {
     NSParameterAssert(URL);
     NSParameterAssert(completionBlock);
@@ -262,7 +264,7 @@ static SRGDataProvider *s_currentDataProvider;
     tokenServiceURLComponents.queryItems = @[ [NSURLQueryItem queryItemWithName:@"acl" value:acl] ];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:tokenServiceURLComponents.URL];
-    return [[SRGRequest alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    return [[SRGRequest alloc] initWithRequest:request session:[NSURLSession sharedSession] completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
             completionBlock(nil, error);
             return;

@@ -267,12 +267,19 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
  */
 - (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock;
 
+@end
+
 /**
- *  Return the original URN, tokenized for playback
+ *  Media URL tokenization (common for all business units)
+ */
+@interface SRGDataProvider (Tonekizer)
+
+/**
+ *  Return the provided URL, tokenized for playback
  *
  *  @discussion The token is valid for a small amount of time, be sure to use the tokenized URL as soon as possible
  */
-- (SRGRequest *)tokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock;
++ (SRGRequest *)tokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock;
 
 @end
 
