@@ -10,6 +10,10 @@
 		6F8201DD1D9A3FAC001DA4DA /* DataProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8201DC1D9A3FAC001DA4DA /* DataProviderTests.m */; };
 		6F8201E01D9A62D2001DA4DA /* RequestTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8201DF1D9A62D2001DA4DA /* RequestTestCase.m */; };
 		6F8201E31D9AA087001DA4DA /* RequestQueueTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8201E21D9AA087001DA4DA /* RequestQueueTestCase.m */; };
+		6FA09D821D9EB37600EDCA64 /* SRGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; };
+		6FA09D831D9EB37D00EDCA64 /* SRGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; };
+		6FA09D841D9EB37D00EDCA64 /* SRGLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6FA09D851D9EB39000EDCA64 /* SRGLogger.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E600FE681D942348000B8A1D /* SRGDataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGDataProvider.framework */; };
 		E600FE721D9423C3000B8A1D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E600FE711D9423C3000B8A1D /* Info.plist */; };
 		E600FE731D94242F000B8A1D /* ServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */; };
@@ -112,6 +116,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				6FA09D851D9EB39000EDCA64 /* SRGLogger.framework in CopyFiles */,
 				E600FE801D943FB7000B8A1D /* Mantle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,6 +129,7 @@
 			files = (
 				E6391ABC1D38E96400E4CBB9 /* SRGDataProvider.framework in Embed Frameworks */,
 				E6C2B3BB1D3908B600B6250B /* Mantle.framework in Embed Frameworks */,
+				6FA09D841D9EB37D00EDCA64 /* SRGLogger.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,6 +140,7 @@
 		6F8201DC1D9A3FAC001DA4DA /* DataProviderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataProviderTests.m; sourceTree = "<group>"; };
 		6F8201DF1D9A62D2001DA4DA /* RequestTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestTestCase.m; sourceTree = "<group>"; };
 		6F8201E21D9AA087001DA4DA /* RequestQueueTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestQueueTestCase.m; sourceTree = "<group>"; };
+		6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SRGLogger.framework; path = Carthage/Build/iOS/SRGLogger.framework; sourceTree = "<group>"; };
 		E600FE631D942348000B8A1D /* SRGDataProvider-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SRGDataProvider-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServicesTestCase.m; sourceTree = "<group>"; };
 		E600FE711D9423C3000B8A1D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -195,7 +202,6 @@
 		E6AE51441D40AA0100572CE4 /* SRGSubtitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSubtitle.h; sourceTree = "<group>"; };
 		E6AE51451D40AA0100572CE4 /* SRGSubtitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSubtitle.m; sourceTree = "<group>"; };
 		E6AF7EFD1D38B8BD00942ADA /* SRGDataProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SRGDataProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6C2B3B61D3907FF00B6250B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		E6C2B3B71D39089F00B6250B /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
 		E6C2B3BD1D390EEF00B6250B /* SRGMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGMedia.h; sourceTree = "<group>"; };
 		E6C2B3BE1D390EEF00B6250B /* SRGMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGMedia.m; sourceTree = "<group>"; };
@@ -237,6 +243,7 @@
 			files = (
 				E6391ABB1D38E96400E4CBB9 /* SRGDataProvider.framework in Frameworks */,
 				E6C2B3BA1D3908B600B6250B /* Mantle.framework in Frameworks */,
+				6FA09D831D9EB37D00EDCA64 /* SRGLogger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +251,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FA09D821D9EB37600EDCA64 /* SRGLogger.framework in Frameworks */,
 				E6C2B3B91D3908AF00B6250B /* Mantle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,7 +419,6 @@
 		E6AF7EF31D38B8BD00942ADA = {
 			isa = PBXGroup;
 			children = (
-				E6C2B3B61D3907FF00B6250B /* Cartfile */,
 				E6391A951D38E92400E4CBB9 /* Framework */,
 				E6391AA41D38E93A00E4CBB9 /* Demo */,
 				E600FE5E1D942260000B8A1D /* Tests */,
@@ -433,6 +440,7 @@
 		E6AF7F921D38D52300942ADA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */,
 				E6C2B3B71D39089F00B6250B /* Mantle.framework */,
 			);
 			name = Frameworks;

@@ -1,1 +1,2 @@
 github "Mantle/Mantle" ~> 2.0.0
+github "SRGSSR/srglogger-ios" "develop"

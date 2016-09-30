@@ -27,6 +27,7 @@ github "SRGSSR/srgdataprovider-ios"
 Then run `carthage update` to update the dependencies. You will need to manually add the following `.framework`s generated in the `Carthage/Build/iOS` folder to your projet:
 
 * `SRGDataProvider.framework`: The main data provider framework
+* `SRGLogger.framework`: The framework used for internal logging
 * `Mantle.framework`: The framework which is used to parse the data
 
 For more information about Carthage and its use, refer to the [official documentation](https://github.com/Carthage/Carthage).
@@ -60,6 +61,10 @@ import SRGDataProvider
 ### Working with the library
 
 To learn about how the library can be used, have a look at the [getting started guide](Documentation/Getting-started.md).
+
+### Logging
+
+The library internally uses the [SRG Logger](https://github.com/SRGSSR/srglogger-ios) library for logging. This logger either automatically integrates with your own logger, or can be easily integrated with it. Refer to the SRG Logger documentation for more information.
 
 ## Demo project
 
