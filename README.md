@@ -28,7 +28,7 @@ Then run `carthage update` to update the dependencies. You will need to manually
 
 * `SRGDataProvider.framework`: The main data provider framework
 * `SRGLogger.framework`: The framework used for internal logging
-* `Mantle.framework`: The framework which is used to parse the data
+* `Mantle.framework`: The framework used to parse the data
 
 For more information about Carthage and its use, refer to the [official documentation](https://github.com/Carthage/Carthage).
 

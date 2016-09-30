@@ -210,3 +210,14 @@ to call it later:
 ```
 
 It is not possible to create page objects directly, i.e. there is no way to ask for the `N`th page of content. The reason is that services do not support random access for pages, but merely work in a linked list fashion. To go through the list of available pages, you must therefore start from the first page and follow the links to next pages as returned by the server.
+
+## Token
+
+To play media URLs received in `SRGMediaComposition` objects, you need to retrieve a token, otherwise you will receive an unauthorized error. A special class method is provided on `SRGDataProvider` for this very special purpose:
+
+```objective-c
+NSURL *mediaURL = ...;   // For example retrieved from an `SRGMediaComposition`
+[[SRGDataProvider tokenizeURL:mediaURL withCompletionBlock:^(NSURL * _Nullable URL, NSError * _Nullable error) {
+    // Play the URL with a media player
+}] resume];
+```
