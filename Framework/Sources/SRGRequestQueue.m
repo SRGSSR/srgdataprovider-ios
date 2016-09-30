@@ -8,6 +8,7 @@
 
 #import "NSBundle+SRGDataProvider.h"
 #import "SRGDataProviderError.h"
+#import "SRGDataProviderLogger.h"
 
 static void *s_kvoContext = &s_kvoContext;
 
@@ -101,10 +102,12 @@ static void *s_kvoContext = &s_kvoContext;
     if (running != self.running) {
         if (running) {
             [self.errors removeAllObjects];
+            SRGDataProviderLogDebug(@"Request Queue", @"Started %@", self);
             self.stateChangeBlock ? self.stateChangeBlock(NO, nil) : nil;
         }
         else {
             NSError *error = [self consolidatedError];
+            SRGDataProviderLogDebug(@"Request Queue", @"Ended %@ with error: %@", self, error);
             self.stateChangeBlock ? self.stateChangeBlock(YES, error) : nil;
         }
         self.running = running;

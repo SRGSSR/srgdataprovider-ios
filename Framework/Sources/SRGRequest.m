@@ -8,6 +8,7 @@
 
 #import "NSBundle+SRGDataProvider.h"
 #import "SRGDataProviderError.h"
+#import "SRGDataProviderLogger.h"
 #import "SRGPage+Private.h"
 #import "SRGRequest+Private.h"
 
@@ -95,11 +96,17 @@ static NSInteger s_numberOfRunningRequests = 0;
         });
     };
     
+    SRGDataProviderLogDebug(@"Request", @"Started %@ with page %@", self.request.URL, self.page);
+    
     // Session tasks cannot be reused. To provide SRGRequest reuse, we need to instantiate another task
     self.sessionTask = [self.session dataTaskWithRequest:self.request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         // Don't call the completion block for cancelled requests
         if (error) {
-            if (![error.domain isEqualToString:NSURLErrorDomain] || error.code != NSURLErrorCancelled) {
+            if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
+                SRGDataProviderLogDebug(@"Request", @"Cancelled %@", self.request.URL);
+            }
+            else {
+                SRGDataProviderLogDebug(@"Request", @"Ended %@ with an error: %@", self.request.URL, error);
                 requestCompletionBlock(nil, nil, error);
             }
             return;
@@ -111,10 +118,12 @@ static NSInteger s_numberOfRunningRequests = 0;
             
             // Properly handle HTTP error codes >= 400 as real errors
             if (HTTPStatusCode >= 400) {
-                requestCompletionBlock(nil, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                                     code:SRGDataProviderErrorHTTP
-                                                                 userInfo:@{ NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:HTTPStatusCode],
-                                                                             NSURLErrorKey : response.URL }]);
+                NSError *HTTPError = [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                         code:SRGDataProviderErrorHTTP
+                                                     userInfo:@{ NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:HTTPStatusCode],
+                                                                 NSURLErrorKey : response.URL }];
+                SRGDataProviderLogDebug(@"Request", @"Ended %@ with an HTTP error: %@", self.request.URL, HTTPError);
+                requestCompletionBlock(nil, nil, HTTPError);
                 return;
             }
             // Block redirects and return an error with URL information. Currently no redirection is expected for IL services, this
@@ -129,23 +138,28 @@ static NSInteger s_numberOfRunningRequests = 0;
                     userInfo[SRGDataProviderRedirectionURLKey] = redirectionURL;
                 }
                 
-                requestCompletionBlock(nil, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                                     code:SRGDataProviderErrorRedirect
-                                                                 userInfo:[userInfo copy]]);
+                NSError *redirectError = [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                             code:SRGDataProviderErrorRedirect
+                                                         userInfo:[userInfo copy]];
+                SRGDataProviderLogDebug(@"Request", @"Ended %@ with a redirect error: %@", self.request.URL, redirectError);
+                requestCompletionBlock(nil, nil, redirectError);
                 return;
             }
         }
         
         id JSONDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
         if (!JSONDictionary || ![JSONDictionary isKindOfClass:[NSDictionary class]]) {
-            requestCompletionBlock(nil, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                                 code:SRGDataProviderErrorCodeInvalidData
-                                                             userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
+            NSError *dataFormatError = [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                           code:SRGDataProviderErrorCodeInvalidData
+                                                       userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }];
+            SRGDataProviderLogDebug(@"Request", @"Ended %@ with a data format error: %@", self.request.URL, dataFormatError);
+            requestCompletionBlock(nil, nil, dataFormatError);
             return;
         }
         
         NSString *nextPath = JSONDictionary[@"next"];
         SRGPage *nextPage = nextPath ? [self.page nextPageWithPath:nextPath] : nil;
+        SRGDataProviderLogDebug(@"Request", @"Ended %@ successfully with JSON %@ and next page %@", self.request.URL, JSONDictionary, nextPage);
         requestCompletionBlock(JSONDictionary, nextPage, nil);
     }];
     
