@@ -1,1 +1,0 @@
-../../../../SRGIntegrationLayerDataProvider/Model/SRGILSearchResult.h

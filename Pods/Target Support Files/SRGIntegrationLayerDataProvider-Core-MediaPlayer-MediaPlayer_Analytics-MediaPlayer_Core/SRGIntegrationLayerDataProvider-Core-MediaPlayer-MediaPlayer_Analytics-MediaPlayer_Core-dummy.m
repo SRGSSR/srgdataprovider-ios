@@ -1,5 +1,0 @@
-#import <Foundation/Foundation.h>
-@interface PodsDummy_SRGIntegrationLayerDataProvider_Core_MediaPlayer_MediaPlayer_Analytics_MediaPlayer_Core : NSObject
-@end
-@implementation PodsDummy_SRGIntegrationLayerDataProvider_Core_MediaPlayer_MediaPlayer_Analytics_MediaPlayer_Core
-@end
