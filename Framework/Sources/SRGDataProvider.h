@@ -37,10 +37,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// Project version information
-OBJC_EXPORT double SRGDataProviderVersionNumber;
-OBJC_EXPORT const unsigned char SRGDataProviderVersionString[];
-
 // Official version number
 OBJC_EXPORT NSString *SRGDataProviderMarketingVersion(void);
 
