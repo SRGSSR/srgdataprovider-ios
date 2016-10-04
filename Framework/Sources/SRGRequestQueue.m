@@ -10,6 +10,8 @@
 #import "SRGDataProviderError.h"
 #import "SRGDataProviderLogger.h"
 
+// TODO: Question: Should we cancel all requests when the queue is dealloced?? Test and document
+
 static void *s_kvoContext = &s_kvoContext;
 
 @interface SRGRequestQueue ()
