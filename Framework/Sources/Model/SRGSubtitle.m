@@ -8,6 +8,8 @@
 
 #import "SRGJSONTransformers.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGSubtitle ()
 
 @property (nonatomic) SRGSubtitleFormat format;
@@ -26,10 +28,10 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"format" : @"format",
-                       @"language" : @"language",
-                       @"locale" : @"locale",
-                       @"URL" : @"url" };
+        s_mapping = @{ @keypath(SRGSubtitle.new, format) : @"format",
+                       @keypath(SRGSubtitle.new, language) : @"language",
+                       @keypath(SRGSubtitle.new, locale) : @"locale",
+                       @keypath(SRGSubtitle.new, URL) : @"url" };
     });
     return s_mapping;
 }

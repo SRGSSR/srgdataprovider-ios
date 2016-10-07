@@ -8,6 +8,8 @@
 
 #import "SRGJSONTransformers.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGLike ()
 
 @property (nonatomic) NSArray<SRGSocialCount *> *socialCounts;
@@ -28,12 +30,12 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"socialCounts" : @"socialCountList",
+        s_mapping = @{ @keypath(SRGLike.new, socialCounts) : @"socialCountList",
                        
-                       @"uid" : @"id",
-                       @"URN" : @"urn",
-                       @"mediaType" : @"mediaType",
-                       @"vendor" : @"vendor" };
+                       @keypath(SRGLike.new, uid) : @"id",
+                       @keypath(SRGLike.new, URN) : @"urn",
+                       @keypath(SRGLike.new, mediaType) : @"mediaType",
+                       @keypath(SRGLike.new, vendor) : @"vendor" };
     });
     return s_mapping;
 }

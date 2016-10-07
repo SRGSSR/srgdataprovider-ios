@@ -8,6 +8,8 @@
 
 #import "NSURL+SRGDataProvider.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGShow ()
 
 @property (nonatomic, copy) NSString *uid;
@@ -34,18 +36,18 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"uid" : @"id",
-                       @"homepageURL" : @"homepageUrl",
-                       @"podcastSubscriptionURL" : @"podcastSubscriptionUrl",
-                       @"primaryChannelUid" : @"primaryChannelId",
+        s_mapping = @{ @keypath(SRGShow.new, uid) : @"id",
+                       @keypath(SRGShow.new, homepageURL) : @"homepageUrl",
+                       @keypath(SRGShow.new, podcastSubscriptionURL) : @"podcastSubscriptionUrl",
+                       @keypath(SRGShow.new, primaryChannelUid) : @"primaryChannelId",
                        
-                       @"title" : @"title",
-                       @"lead" : @"lead",
-                       @"summary" : @"description",
+                       @keypath(SRGShow.new, title) : @"title",
+                       @keypath(SRGShow.new, lead) : @"lead",
+                       @keypath(SRGShow.new, summary) : @"description",
                        
-                       @"imageURL" : @"imageUrl",
-                       @"imageTitle" : @"imageTitle",
-                       @"imageCopyright" : @"imageCopyright" };
+                       @keypath(SRGShow.new, imageURL) : @"imageUrl",
+                       @keypath(SRGShow.new, imageTitle) : @"imageTitle",
+                       @keypath(SRGShow.new, imageCopyright) : @"imageCopyright" };
     });
     return s_mapping;
 }

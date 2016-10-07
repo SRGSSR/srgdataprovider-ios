@@ -9,6 +9,8 @@
 #import "SRGJSONTransformers.h"
 #import "NSURL+SRGDataProvider.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGSegment ()
 
 @property (nonatomic, copy) NSString *fullLengthURN;
@@ -54,37 +56,37 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"fullLengthURN" : @"fullLengthUrn",
-                       @"position" : @"position",
-                       @"markIn" : @"markIn",
-                       @"markOut" : @"markOut",
-                       @"blockingReason" : @"blockReason",
-                       @"analyticsLabels" : @"analyticsData",
-                       @"subtitles" : @"subtitleList",
+        s_mapping = @{ @keypath(SRGSegment.new, fullLengthURN) : @"fullLengthUrn",
+                       @keypath(SRGSegment.new, position) : @"position",
+                       @keypath(SRGSegment.new, markIn) : @"markIn",
+                       @keypath(SRGSegment.new, markOut) : @"markOut",
+                       @keypath(SRGSegment.new, blockingReason) : @"blockReason",
+                       @keypath(SRGSegment.new, analyticsLabels) : @"analyticsData",
+                       @keypath(SRGSegment.new, subtitles) : @"subtitleList",
                        
-                       @"title" : @"title",
-                       @"lead" : @"lead",
-                       @"summary" : @"description",
+                       @keypath(SRGSegment.new, title) : @"title",
+                       @keypath(SRGSegment.new, lead) : @"lead",
+                       @keypath(SRGSegment.new, summary) : @"description",
                        
-                       @"uid" : @"id",
-                       @"URN" : @"urn",
-                       @"mediaType" : @"mediaType",
-                       @"vendor" : @"vendor",
+                       @keypath(SRGSegment.new, uid) : @"id",
+                       @keypath(SRGSegment.new, URN) : @"urn",
+                       @keypath(SRGSegment.new, mediaType) : @"mediaType",
+                       @keypath(SRGSegment.new, vendor) : @"vendor",
                        
-                       @"imageURL" : @"imageUrl",
-                       @"imageTitle" : @"imageTitle",
-                       @"imageCopyright" : @"imageCopyright",
+                       @keypath(SRGSegment.new, imageURL) : @"imageUrl",
+                       @keypath(SRGSegment.new, imageTitle) : @"imageTitle",
+                       @keypath(SRGSegment.new, imageCopyright) : @"imageCopyright",
                        
-                       @"contentType" : @"type",
-                       @"source" : @"assignedBy",
-                       @"date" : @"date",
-                       @"duration" : @"duration",
-                       @"podcastStandardDefinitionURL" : @"podcastSdUrl",
-                       @"podcastHighDefinitionURL" : @"podcastHdUrl",
-                       @"startDate" : @"validFrom",
-                       @"endDate" : @"validTo",
-                       @"relatedContents" : @"relatedContentList",
-                       @"socialCounts" : @"socialCountList" };
+                       @keypath(SRGSegment.new, contentType) : @"type",
+                       @keypath(SRGSegment.new, source) : @"assignedBy",
+                       @keypath(SRGSegment.new, date) : @"date",
+                       @keypath(SRGSegment.new, duration) : @"duration",
+                       @keypath(SRGSegment.new, podcastStandardDefinitionURL) : @"podcastSdUrl",
+                       @keypath(SRGSegment.new, podcastHighDefinitionURL) : @"podcastHdUrl",
+                       @keypath(SRGSegment.new, startDate) : @"validFrom",
+                       @keypath(SRGSegment.new, endDate) : @"validTo",
+                       @keypath(SRGSegment.new, relatedContents) : @"relatedContentList",
+                       @keypath(SRGSegment.new, socialCounts) : @"socialCountList" };
     });
     return s_mapping;
 }

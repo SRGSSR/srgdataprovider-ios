@@ -6,6 +6,8 @@
 
 #import "SRGChapter.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGChapter ()
 
 @property (nonatomic) NSArray<SRGResource *> *resources;
@@ -23,8 +25,8 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
-        [mapping addEntriesFromDictionary:@{ @"resources" : @"resourceList",
-                                             @"segments" : @"segmentList" }];
+        [mapping addEntriesFromDictionary:@{ @keypath(SRGChapter.new, resources) : @"resourceList",
+                                             @keypath(SRGChapter.new, segments) : @"segmentList" }];
         s_mapping = [mapping copy];
     });
     return s_mapping;
@@ -48,8 +50,8 @@
 
 - (NSArray<SRGResource *> *)resourcesForProtocol:(SRGProtocol)protocol
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"protocol == %@", @(protocol)];
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"quality" ascending:NO];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGResource.new, protocol), @(protocol)];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@keypath(SRGResource.new, quality) ascending:NO];
     return [[self.resources filteredArrayUsingPredicate:predicate] sortedArrayUsingDescriptors:@[sortDescriptor]];
 }
 

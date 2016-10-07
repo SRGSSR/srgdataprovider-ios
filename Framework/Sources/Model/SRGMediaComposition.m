@@ -6,6 +6,8 @@
 
 #import "SRGMediaComposition.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGMediaComposition ()
 
 @property (nonatomic, copy) NSString *chapterURN;
@@ -28,14 +30,14 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"chapterURN" : @"chapterUrn",
-                       @"segmentURN" : @"segmentUrn",
-                       @"channel" : @"channel",
-                       @"episode" : @"episode",
-                       @"show" : @"show",
-                       @"chapters" : @"chapterList",
-                       @"analyticsLabels" : @"analyticsData",
-                       @"event" : @"eventData" };
+        s_mapping = @{ @keypath(SRGMediaComposition.new, chapterURN) : @"chapterUrn",
+                       @keypath(SRGMediaComposition.new, segmentURN) : @"segmentUrn",
+                       @keypath(SRGMediaComposition.new, channel) : @"channel",
+                       @keypath(SRGMediaComposition.new, episode) : @"episode",
+                       @keypath(SRGMediaComposition.new, show) : @"show",
+                       @keypath(SRGMediaComposition.new, chapters) : @"chapterList",
+                       @keypath(SRGMediaComposition.new, analyticsLabels) : @"analyticsData",
+                       @keypath(SRGMediaComposition.new, event) : @"eventData" };
     });
     return s_mapping;
 }
@@ -66,13 +68,13 @@
 
 - (SRGChapter *)mainChapter
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"URN == %@", self.chapterURN];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGChapter.new, URN), self.chapterURN];
     return [self.chapters filteredArrayUsingPredicate:predicate].firstObject;
 }
 
 - (SRGSegment *)mainSegment
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"URN == %@", self.segmentURN];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGChapter.new, URN), self.segmentURN];
     return [self.mainChapter.segments filteredArrayUsingPredicate:predicate].firstObject;
 }
 

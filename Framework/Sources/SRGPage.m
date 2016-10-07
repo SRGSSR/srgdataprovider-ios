@@ -6,6 +6,8 @@
 
 #import "SRGPage.h"
 
+#import <libextobjc/libextobjc.h>
+
 const NSInteger SRGPageDefaultSize = NSIntegerMax;
 
 @interface SRGPage ()

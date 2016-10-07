@@ -8,6 +8,8 @@
 
 #import "SRGJSONTransformers.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGSocialCount ()
 
 @property (nonatomic) SRGSocialCountType type;
@@ -24,8 +26,8 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"type" : @"key",
-                       @"value" : @"value" };
+        s_mapping = @{ @keypath(SRGSocialCount.new, type) : @"key",
+                       @keypath(SRGSocialCount.new, value) : @"value" };
     });
     return s_mapping;
 }

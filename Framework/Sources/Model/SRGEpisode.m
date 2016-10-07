@@ -10,6 +10,8 @@
 #import "SRGJSONTransformers.h"
 #import "SRGMedia.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGEpisode ()
 
 @property (nonatomic, copy) NSString *uid;
@@ -36,18 +38,18 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"uid" : @"id",
-                       @"date" : @"publishedDate",
-                       @"medias" : @"mediaList",
-                       @"socialCount" : @"socialCount",
+        s_mapping = @{ @keypath(SRGEpisode.new, uid) : @"id",
+                       @keypath(SRGEpisode.new, date) : @"publishedDate",
+                       @keypath(SRGEpisode.new, medias) : @"mediaList",
+                       @keypath(SRGEpisode.new, socialCount) : @"socialCount",
                        
-                       @"title" : @"title",
-                       @"lead" : @"lead",
-                       @"summary" : @"description",
+                       @keypath(SRGEpisode.new, title) : @"title",
+                       @keypath(SRGEpisode.new, lead) : @"lead",
+                       @keypath(SRGEpisode.new, summary) : @"description",
                        
-                       @"imageURL" : @"imageUrl",
-                       @"imageTitle" : @"imageTitle",
-                       @"imageCopyright" : @"imageCopyright" };
+                       @keypath(SRGEpisode.new, imageURL) : @"imageUrl",
+                       @keypath(SRGEpisode.new, imageTitle) : @"imageTitle",
+                       @keypath(SRGEpisode.new, imageCopyright) : @"imageCopyright" };
     });
     return s_mapping;
 }

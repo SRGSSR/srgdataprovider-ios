@@ -54,7 +54,6 @@
 		E67BB6711D3E011500E1FEA3 /* SRGLike.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB66F1D3E011500E1FEA3 /* SRGLike.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E67BB6721D3E011500E1FEA3 /* SRGLike.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6701D3E011500E1FEA3 /* SRGLike.m */; };
 		E67BB6751D3E01C900E1FEA3 /* SRGTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6731D3E01C900E1FEA3 /* SRGTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E67BB6761D3E01C900E1FEA3 /* SRGTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6741D3E01C900E1FEA3 /* SRGTypes.m */; };
 		E67BB6791D3E041900E1FEA3 /* SRGJSONTransformers.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6771D3E041900E1FEA3 /* SRGJSONTransformers.h */; };
 		E67BB67A1D3E041900E1FEA3 /* SRGJSONTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6781D3E041900E1FEA3 /* SRGJSONTransformers.m */; };
 		E68598AA1D40CC750010000A /* SRGSegment.h in Headers */ = {isa = PBXBuildFile; fileRef = E68598A81D40CC750010000A /* SRGSegment.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -186,7 +185,6 @@
 		E67BB66F1D3E011500E1FEA3 /* SRGLike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGLike.h; sourceTree = "<group>"; };
 		E67BB6701D3E011500E1FEA3 /* SRGLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGLike.m; sourceTree = "<group>"; };
 		E67BB6731D3E01C900E1FEA3 /* SRGTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGTypes.h; sourceTree = "<group>"; };
-		E67BB6741D3E01C900E1FEA3 /* SRGTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGTypes.m; sourceTree = "<group>"; };
 		E67BB6771D3E041900E1FEA3 /* SRGJSONTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGJSONTransformers.h; sourceTree = "<group>"; };
 		E67BB6781D3E041900E1FEA3 /* SRGJSONTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGJSONTransformers.m; sourceTree = "<group>"; };
 		E68598A81D40CC750010000A /* SRGSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSegment.h; sourceTree = "<group>"; };
@@ -365,7 +363,6 @@
 				E6391A991D38E92400E4CBB9 /* SRGTopic.h */,
 				E6391A9A1D38E92400E4CBB9 /* SRGTopic.m */,
 				E67BB6731D3E01C900E1FEA3 /* SRGTypes.h */,
-				E67BB6741D3E01C900E1FEA3 /* SRGTypes.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -702,7 +699,6 @@
 				E6391AA21D38E92400E4CBB9 /* SRGDataProvider.m in Sources */,
 				E68598B91D40F30B0010000A /* SRGChannel.m in Sources */,
 				E6AE51431D40A66C00572CE4 /* SRGRelatedContent.m in Sources */,
-				E67BB6761D3E01C900E1FEA3 /* SRGTypes.m in Sources */,
 				E62459B91D47828D00482BE9 /* SRGRequest.m in Sources */,
 				E6C2B3C41D391D5A00B6250B /* SRGDataProviderError.m in Sources */,
 				E67BB6721D3E011500E1FEA3 /* SRGLike.m in Sources */,

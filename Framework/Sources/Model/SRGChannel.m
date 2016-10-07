@@ -9,6 +9,8 @@
 #import "SRGJSONTransformers.h"
 #import "NSURL+SRGDataProvider.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGChannel ()
 
 @property (nonatomic, copy) NSString *uid;
@@ -36,19 +38,19 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"uid" : @"id",
-                       @"transmission" : @"transmission",
-                       @"timetableURL" : @"timeTableUrl",
-                       @"currentProgram" : @"now",
-                       @"nextProgram" : @"next",
+        s_mapping = @{ @keypath(SRGChannel.new, uid) : @"id",
+                       @keypath(SRGChannel.new, transmission) : @"transmission",
+                       @keypath(SRGChannel.new, timetableURL) : @"timeTableUrl",
+                       @keypath(SRGChannel.new, currentProgram) : @"now",
+                       @keypath(SRGChannel.new, nextProgram) : @"next",
                        
-                       @"title" : @"title",
-                       @"lead" : @"lead",
-                       @"summary" : @"description",
+                       @keypath(SRGChannel.new, title) : @"title",
+                       @keypath(SRGChannel.new, lead) : @"lead",
+                       @keypath(SRGChannel.new, summary) : @"description",
                        
-                       @"imageURL" : @"imageUrl",
-                       @"imageTitle" : @"imageTitle",
-                       @"imageCopyright" : @"imageCopyright" };
+                       @keypath(SRGChannel.new, imageURL) : @"imageUrl",
+                       @keypath(SRGChannel.new, imageTitle) : @"imageTitle",
+                       @keypath(SRGChannel.new, imageCopyright) : @"imageCopyright" };
     });
     return s_mapping;
 }

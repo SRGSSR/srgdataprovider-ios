@@ -6,6 +6,8 @@
 
 #import "SRGTopic.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGTopic ()
 
 @property (nonatomic, copy) NSString *uid;
@@ -25,11 +27,11 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"uid" : @"id",
+        s_mapping = @{ @keypath(SRGTopic.new, uid) : @"id",
                        
-                       @"title" : @"title",
-                       @"lead" : @"lead",
-                       @"summary" : @"description" };
+                       @keypath(SRGTopic.new, title) : @"title",
+                       @keypath(SRGTopic.new, lead) : @"lead",
+                       @keypath(SRGTopic.new, summary) : @"description" };
     });
     return s_mapping;
 }

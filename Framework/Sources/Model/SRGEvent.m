@@ -9,6 +9,8 @@
 #import "NSURL+SRGDataProvider.h"
 #import "SRGJSONTransformers.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGEvent ()
 
 @property (nonatomic, copy) NSString *uid;
@@ -41,24 +43,24 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"uid" : @"id",
-                       @"startDate" : @"publishStartTimestamp",
-                       @"endDate" : @"publishEndTimestamp",
-                       @"backgroundImageURL" : @"bgImageUrl",
-                       @"headerBackgroundColor" : @"headerBackgroundColor",
-                       @"headerTextColor" : @"headerTitleColor",
-                       @"backgroundColor" : @"bgColor",
-                       @"textColor" : @"textColor",
-                       @"linkColor" : @"linkColor",
-                       @"logoImageURL" : @"logoImageUrl",
-                       @"keyVisualImageURL" : @"keyVisualImageUrl",
-                       @"websiteTitle" : @"microSiteTitle",
-                       @"websiteURL" : @"microSiteUrl",
-                       @"sections" : @"sectionList",
+        s_mapping = @{ @keypath(SRGEvent.new, uid) : @"id",
+                       @keypath(SRGEvent.new, startDate) : @"publishStartTimestamp",
+                       @keypath(SRGEvent.new, endDate) : @"publishEndTimestamp",
+                       @keypath(SRGEvent.new, backgroundImageURL) : @"bgImageUrl",
+                       @keypath(SRGEvent.new, headerBackgroundColor) : @"headerBackgroundColor",
+                       @keypath(SRGEvent.new, headerTextColor) : @"headerTitleColor",
+                       @keypath(SRGEvent.new, backgroundColor) : @"bgColor",
+                       @keypath(SRGEvent.new, textColor) : @"textColor",
+                       @keypath(SRGEvent.new, linkColor) : @"linkColor",
+                       @keypath(SRGEvent.new, logoImageURL) : @"logoImageUrl",
+                       @keypath(SRGEvent.new, keyVisualImageURL) : @"keyVisualImageUrl",
+                       @keypath(SRGEvent.new, websiteTitle) : @"microSiteTitle",
+                       @keypath(SRGEvent.new, websiteURL) : @"microSiteUrl",
+                       @keypath(SRGEvent.new, sections) : @"sectionList",
                        
-                       @"title" : @"title",
-                       @"lead" : @"lead",
-                       @"summary" : @"description" };
+                       @keypath(SRGEvent.new, title) : @"title",
+                       @keypath(SRGEvent.new, lead) : @"lead",
+                       @keypath(SRGEvent.new, summary) : @"description" };
     });
     return s_mapping;
 }

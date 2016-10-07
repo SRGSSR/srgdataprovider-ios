@@ -8,6 +8,8 @@
 
 #import "SRGJSONTransformers.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGResource ()
 
 @property (nonatomic) NSURL *URL;
@@ -28,12 +30,12 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"URL" : @"url",
-                       @"quality" : @"quality",
-                       @"protocol" : @"protocol",
-                       @"encoding" : @"encoding",
-                       @"MIMEType" : @"mimeType",
-                       @"analyticsLabels" : @"analyticsData" };
+        s_mapping = @{ @keypath(SRGResource.new, URL) : @"url",
+                       @keypath(SRGResource.new, quality) : @"quality",
+                       @keypath(SRGResource.new, protocol) : @"protocol",
+                       @keypath(SRGResource.new, encoding) : @"encoding",
+                       @keypath(SRGResource.new, MIMEType) : @"mimeType",
+                       @keypath(SRGResource.new, analyticsLabels) : @"analyticsData" };
     });
     return s_mapping;
 }

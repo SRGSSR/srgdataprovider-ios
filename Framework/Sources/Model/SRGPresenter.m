@@ -8,6 +8,8 @@
 
 #import "NSURL+SRGDataProvider.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGPresenter ()
 
 @property (nonatomic, copy) NSString *name;
@@ -27,11 +29,11 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"name" : @"name",
+        s_mapping = @{ @keypath(SRGPresenter.new, name) : @"name",
                        
-                       @"imageURL" : @"imageUrl",
-                       @"imageTitle" : @"imageTitle",
-                       @"imageCopyright" : @"imageCopyright" };
+                       @keypath(SRGPresenter.new, imageURL) : @"imageUrl",
+                       @keypath(SRGPresenter.new, imageTitle) : @"imageTitle",
+                       @keypath(SRGPresenter.new, imageCopyright) : @"imageCopyright" };
     });
     return s_mapping;
 }

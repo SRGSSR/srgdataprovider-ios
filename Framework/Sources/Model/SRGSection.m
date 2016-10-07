@@ -8,6 +8,8 @@
 
 #import "SRGJSONTransformers.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGSection ()
 
 @property (nonatomic, copy) NSString *uid;
@@ -27,13 +29,13 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"uid" : @"id",
-                       @"startDate" : @"publishStartTimestamp",
-                       @"endDate" : @"publishEndTimestamp",
+        s_mapping = @{ @keypath(SRGSection.new, uid) : @"id",
+                       @keypath(SRGSection.new, startDate) : @"publishStartTimestamp",
+                       @keypath(SRGSection.new, endDate) : @"publishEndTimestamp",
                        
-                       @"title" : @"title",
-                       @"lead" : @"lead",
-                       @"summary" : @"description" };
+                       @keypath(SRGSection.new, title) : @"title",
+                       @keypath(SRGSection.new, lead) : @"lead",
+                       @keypath(SRGSection.new, summary) : @"description" };
     });
     return s_mapping;
 }

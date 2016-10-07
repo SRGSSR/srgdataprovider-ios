@@ -9,6 +9,8 @@
 #import "NSURL+SRGDataProvider.h"
 #import "SRGJSONTransformers.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGMedia ()
 
 @property (nonatomic) SRGChannel *channel;
@@ -50,33 +52,33 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"channel" : @"channel",
-                       @"episode" : @"episode",
-                       @"show" : @"show",
+        s_mapping = @{ @keypath(SRGMedia.new, channel) : @"channel",
+                       @keypath(SRGMedia.new, episode) : @"episode",
+                       @keypath(SRGMedia.new, show) : @"show",
                       
-                       @"title" : @"title",
-                       @"lead" : @"lead",
-                       @"summary" : @"description",
+                       @keypath(SRGMedia.new, title) : @"title",
+                       @keypath(SRGMedia.new, lead) : @"lead",
+                       @keypath(SRGMedia.new, summary) : @"description",
                        
-                       @"uid" : @"id",
-                       @"URN" : @"urn",
-                       @"mediaType" : @"mediaType",
-                       @"vendor" : @"vendor",
+                       @keypath(SRGMedia.new, uid) : @"id",
+                       @keypath(SRGMedia.new, URN) : @"urn",
+                       @keypath(SRGMedia.new, mediaType) : @"mediaType",
+                       @keypath(SRGMedia.new, vendor) : @"vendor",
                        
-                       @"imageURL" : @"imageUrl",
-                       @"imageTitle" : @"imageTitle",
-                       @"imageCopyright" : @"imageCopyright",
+                       @keypath(SRGMedia.new, imageURL) : @"imageUrl",
+                       @keypath(SRGMedia.new, imageTitle) : @"imageTitle",
+                       @keypath(SRGMedia.new, imageCopyright) : @"imageCopyright",
                        
-                       @"contentType" : @"type",
-                       @"date" : @"date",
-                       @"duration" : @"duration",
-                       @"podcastStandardDefinitionURL" : @"podcastSdUrl",
-                       @"podcastHighDefinitionURL" : @"podcastHdUrl",
-                       @"startDate" : @"validFrom",
-                       @"endDate" : @"validTo",
-                       @"source" : @"assignedBy",
-                       @"relatedContents" : @"relatedContentList",
-                       @"socialCounts" : @"socialCountList" };
+                       @keypath(SRGMedia.new, contentType) : @"type",
+                       @keypath(SRGMedia.new, date) : @"date",
+                       @keypath(SRGMedia.new, duration) : @"duration",
+                       @keypath(SRGMedia.new, podcastStandardDefinitionURL) : @"podcastSdUrl",
+                       @keypath(SRGMedia.new, podcastHighDefinitionURL) : @"podcastHdUrl",
+                       @keypath(SRGMedia.new, startDate) : @"validFrom",
+                       @keypath(SRGMedia.new, endDate) : @"validTo",
+                       @keypath(SRGMedia.new, source) : @"assignedBy",
+                       @keypath(SRGMedia.new, relatedContents) : @"relatedContentList",
+                       @keypath(SRGMedia.new, socialCounts) : @"socialCountList" };
     });
     return s_mapping;
 }

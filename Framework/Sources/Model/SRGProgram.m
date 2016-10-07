@@ -9,6 +9,8 @@
 #import "NSURL+SRGDataProvider.h"
 #import "SRGJSONTransformers.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGProgram ()
 
 @property (nonatomic) NSDate *startDate;
@@ -36,19 +38,19 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"startDate" : @"startTime",
-                       @"endDate" : @"endTime",
-                       @"URL" : @"url",
-                       @"show" : @"show",
-                       @"presenter" : @"presenter",
+        s_mapping = @{ @keypath(SRGProgram.new, startDate) : @"startTime",
+                       @keypath(SRGProgram.new, endDate) : @"endTime",
+                       @keypath(SRGProgram.new, URL) : @"url",
+                       @keypath(SRGProgram.new, show) : @"show",
+                       @keypath(SRGProgram.new, presenter) : @"presenter",
                        
-                       @"title" : @"title",
-                       @"lead" : @"lead",
-                       @"summary" : @"description",
+                       @keypath(SRGProgram.new, title) : @"title",
+                       @keypath(SRGProgram.new, lead) : @"lead",
+                       @keypath(SRGProgram.new, summary) : @"description",
                        
-                       @"imageURL" : @"imageUrl",
-                       @"imageTitle" : @"imageTitle",
-                       @"imageCopyright" : @"imageCopyright" };
+                       @keypath(SRGProgram.new, imageURL) : @"imageUrl",
+                       @keypath(SRGProgram.new, imageTitle) : @"imageTitle",
+                       @keypath(SRGProgram.new, imageCopyright) : @"imageCopyright" };
     });
     return s_mapping;
 }

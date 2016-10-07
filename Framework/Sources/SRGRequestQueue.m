@@ -10,6 +10,8 @@
 #import "SRGDataProviderError.h"
 #import "SRGDataProviderLogger.h"
 
+#import <libextobjc/libextobjc.h>
+
 // TODO: Question: Should we cancel all requests when the queue is dealloced?? Test and document
 
 static void *s_kvoContext = &s_kvoContext;
@@ -43,14 +45,14 @@ static void *s_kvoContext = &s_kvoContext;
 - (void)dealloc
 {
     for (SRGRequest *request in self.requests) {
-        [request removeObserver:self forKeyPath:@"running" context:s_kvoContext];
+        [request removeObserver:self forKeyPath:@keypath(request, running) context:s_kvoContext];
     }
     [self checkStateChange];
 }
 
 - (void)addRequest:(SRGRequest *)request resume:(BOOL)resume
 {
-    [request addObserver:self forKeyPath:@"running" options:NSKeyValueObservingOptionNew context:s_kvoContext];
+    [request addObserver:self forKeyPath:@keypath(request, running) options:NSKeyValueObservingOptionNew context:s_kvoContext];
     [self.requests addObject:request];
     
     if (resume) {
@@ -98,7 +100,7 @@ static void *s_kvoContext = &s_kvoContext;
 - (void)checkStateChange
 {
     // Running iff at least one request is running
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"running == YES"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == YES", @keypath(SRGRequest.new, running)];
     BOOL running = ([self.requests filteredArrayUsingPredicate:predicate].count != 0);
     
     if (running != self.running) {
@@ -118,7 +120,7 @@ static void *s_kvoContext = &s_kvoContext;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
-    if (context == s_kvoContext && [keyPath isEqualToString:@"running"]) {
+    if (context == s_kvoContext && [keyPath isEqualToString:@keypath(SRGRequest.new, running)]) {
         [self checkStateChange];
     }
     else {

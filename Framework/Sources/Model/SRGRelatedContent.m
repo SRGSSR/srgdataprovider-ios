@@ -6,6 +6,8 @@
 
 #import "SRGRelatedContent.h"
 
+#import <libextobjc/libextobjc.h>
+
 @interface SRGRelatedContent ()
 
 @property (nonatomic, copy) NSString *uid;
@@ -26,12 +28,12 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @"uid" : @"id",
-                       @"URL" : @"url",
+        s_mapping = @{ @keypath(SRGRelatedContent.new, uid) : @"id",
+                       @keypath(SRGRelatedContent.new, URL) : @"url",
                        
-                       @"title" : @"title",
-                       @"lead" : @"lead",
-                       @"summary" : @"description" };
+                       @keypath(SRGRelatedContent.new, title) : @"title",
+                       @keypath(SRGRelatedContent.new, lead) : @"lead",
+                       @keypath(SRGRelatedContent.new, summary) : @"description" };
     });
     return s_mapping;
 }
