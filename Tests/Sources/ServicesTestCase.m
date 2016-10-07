@@ -171,7 +171,7 @@ static NSURL *ServiceTestURL(void)
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
-    [[dataProvider videoShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+    [[dataProvider videoShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(shows);
         XCTAssertNil(error);
         [expectation fulfill];

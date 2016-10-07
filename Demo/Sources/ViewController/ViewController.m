@@ -57,7 +57,7 @@
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] videoShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] videoShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Shows: %@; error: %@", shows, error);
     }] resume];
     
@@ -93,7 +93,7 @@
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] videoShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] videoShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Shows: %@; error: %@", shows, error);
     }] resume];
 }
@@ -114,7 +114,7 @@
     }];
     [self.requestQueue addRequest:request1 resume:YES];
     
-    SRGRequest *request2 = [[SRGDataProvider currentDataProvider] videoShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+    SRGRequest *request2 = [[SRGDataProvider currentDataProvider] videoShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Request 2 finished!");
     }];
     [self.requestQueue addRequest:request2 resume:YES];
