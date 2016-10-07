@@ -1,2 +1,3 @@
+github "ashaman/libextobjc" "e24f2be3af2cf7fc88a78295f116ef98d0832bcf"
 github "Mantle/Mantle" ~> 2.0.0
 github "SRGSSR/srglogger-ios" "develop"

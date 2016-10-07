@@ -12,6 +12,7 @@
 #import "SRGPage+Private.h"
 #import "SRGRequest+Private.h"
 
+#import <libextobjc/libextobjc.h>
 #import <UIKit/UIKit.h>
 
 static NSInteger s_numberOfRunningRequests = 0;
@@ -99,7 +100,10 @@ static NSInteger s_numberOfRunningRequests = 0;
     SRGDataProviderLogDebug(@"Request", @"Started %@ with page %@", self.request.URL, self.page);
     
     // Session tasks cannot be reused. To provide SRGRequest reuse, we need to instantiate another task
+    @weakify(self)
     self.sessionTask = [self.session dataTaskWithRequest:self.request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        @strongify(self)
+        
         // Don't call the completion block for cancelled requests
         if (error) {
             if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {

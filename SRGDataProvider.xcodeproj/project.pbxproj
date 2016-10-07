@@ -40,6 +40,11 @@
 		E63DA7261D5C554A0053060E /* SRGEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E63DA7241D5C554A0053060E /* SRGEvent.m */; };
 		E63DA7291D5C5A390053060E /* SRGSection.h in Headers */ = {isa = PBXBuildFile; fileRef = E63DA7271D5C5A390053060E /* SRGSection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E63DA72A1D5C5A390053060E /* SRGSection.m in Sources */ = {isa = PBXBuildFile; fileRef = E63DA7281D5C5A390053060E /* SRGSection.m */; };
+		E66BEC061DA7F08B00AD4450 /* libextobjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E66BEC051DA7F08B00AD4450 /* libextobjc.framework */; };
+		E66BEC071DA7F09100AD4450 /* libextobjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E66BEC051DA7F08B00AD4450 /* libextobjc.framework */; };
+		E66BEC081DA7F09100AD4450 /* libextobjc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E66BEC051DA7F08B00AD4450 /* libextobjc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E66BEC091DA7F0A500AD4450 /* libextobjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E66BEC051DA7F08B00AD4450 /* libextobjc.framework */; };
+		E66BEC0A1DA7F0AD00AD4450 /* libextobjc.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E66BEC051DA7F08B00AD4450 /* libextobjc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E67BB6651D3D295E00E1FEA3 /* SRGResource.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6631D3D295E00E1FEA3 /* SRGResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E67BB6661D3D295E00E1FEA3 /* SRGResource.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6641D3D295E00E1FEA3 /* SRGResource.m */; };
 		E67BB6691D3D2FB600E1FEA3 /* SRGSocialCount.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6671D3D2FB600E1FEA3 /* SRGSocialCount.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -117,6 +122,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				E66BEC0A1DA7F0AD00AD4450 /* libextobjc.framework in CopyFiles */,
 				6FA09D851D9EB39000EDCA64 /* SRGLogger.framework in CopyFiles */,
 				E600FE801D943FB7000B8A1D /* Mantle.framework in CopyFiles */,
 			);
@@ -130,6 +136,7 @@
 			files = (
 				E6391ABC1D38E96400E4CBB9 /* SRGDataProvider.framework in Embed Frameworks */,
 				E6C2B3BB1D3908B600B6250B /* Mantle.framework in Embed Frameworks */,
+				E66BEC081DA7F09100AD4450 /* libextobjc.framework in Embed Frameworks */,
 				6FA09D841D9EB37D00EDCA64 /* SRGLogger.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -169,6 +176,7 @@
 		E63DA7241D5C554A0053060E /* SRGEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGEvent.m; sourceTree = "<group>"; };
 		E63DA7271D5C5A390053060E /* SRGSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSection.h; sourceTree = "<group>"; };
 		E63DA7281D5C5A390053060E /* SRGSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSection.m; sourceTree = "<group>"; };
+		E66BEC051DA7F08B00AD4450 /* libextobjc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libextobjc.framework; path = Carthage/Build/iOS/libextobjc.framework; sourceTree = "<group>"; };
 		E67BB6631D3D295E00E1FEA3 /* SRGResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGResource.h; sourceTree = "<group>"; };
 		E67BB6641D3D295E00E1FEA3 /* SRGResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGResource.m; sourceTree = "<group>"; };
 		E67BB6671D3D2FB600E1FEA3 /* SRGSocialCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSocialCount.h; sourceTree = "<group>"; };
@@ -234,6 +242,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E66BEC091DA7F0A500AD4450 /* libextobjc.framework in Frameworks */,
 				E600FE811D943FCD000B8A1D /* Mantle.framework in Frameworks */,
 				E600FE681D942348000B8A1D /* SRGDataProvider.framework in Frameworks */,
 			);
@@ -245,6 +254,7 @@
 			files = (
 				E6391ABB1D38E96400E4CBB9 /* SRGDataProvider.framework in Frameworks */,
 				E6C2B3BA1D3908B600B6250B /* Mantle.framework in Frameworks */,
+				E66BEC071DA7F09100AD4450 /* libextobjc.framework in Frameworks */,
 				6FA09D831D9EB37D00EDCA64 /* SRGLogger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,6 +263,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E66BEC061DA7F08B00AD4450 /* libextobjc.framework in Frameworks */,
 				6FA09D821D9EB37600EDCA64 /* SRGLogger.framework in Frameworks */,
 				E6C2B3B91D3908AF00B6250B /* Mantle.framework in Frameworks */,
 			);
@@ -443,8 +454,9 @@
 		E6AF7F921D38D52300942ADA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */,
+				E66BEC051DA7F08B00AD4450 /* libextobjc.framework */,
 				E6C2B3B71D39089F00B6250B /* Mantle.framework */,
+				6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
