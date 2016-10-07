@@ -27,7 +27,7 @@ For simplicity, this getting started guide assumes that a shared data provider h
 To request data, use the methods available from the `SRGDataProvider (Services)` category. For example, to get the list of editorially picked videos from the shared data provider, simply call:
 
 ```objective-c
-SRGRequest *request = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+SRGRequest *request = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
     if (error) {
     	// Deal with the error
     	return;
@@ -89,7 +89,7 @@ SRGRequestQueue *requestQueue = [[SRGRequestQueue alloc] initWithStateChangeBloc
 	}
 }];
 
-SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
 	// Report errors to the queue
 	[requestQueue reportError:error];
 	
@@ -98,7 +98,7 @@ SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] editorialV
 }];
 [requestQueue addRequest:editorialRequest resume:YES];
 
-SRGRequest *trendingRequest = [[SRGDataProvider currentDataProvider] trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+SRGRequest *trendingRequest = [[SRGDataProvider currentDataProvider] trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
 	// Report errors to the queue
 	[requestQueue reportError:error];
 	
@@ -121,7 +121,7 @@ SRGRequestQueue *requestQueue = [[SRGRequestQueue alloc] initWithStateChangeBloc
 	// ...
 }];
 
-SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
 	if (error) {
 		[requestQueue reportError:error];
 		return;
@@ -164,7 +164,7 @@ When another page of content is available, the request completion block returns 
 Usually, you do not want to perform the request for the next page immediately from the first request completion block, but wait until an appropriate time, e.g. when the user has scrolled through the results of the first page. One way is to store the next page information:
 
 ```objective-c
-self.request = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+self.request = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
 	// Deal with objects and errors
 	// ...
 	
@@ -187,7 +187,7 @@ and to use it later when needed:
 Another possibility would be not to store the page information, but rather to generate the new request directly:
 
 ```objective-c
-self.request = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+self.request = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
 	// Deal with objects and errors
 	// ...
 	

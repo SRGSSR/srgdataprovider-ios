@@ -139,7 +139,7 @@ static SRGDataProvider *s_currentDataProvider;
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channelList/tv.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGChannel class] rootKey:@"channelList" completionBlock:^(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGChannel class] rootKey:@"channelList" completionBlock:^(NSArray * _Nullable objects,  SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(objects, nil);
     }];
 }
@@ -148,7 +148,7 @@ static SRGDataProvider *s_currentDataProvider;
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/topicList/tv.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGTopic class] rootKey:@"topicList" completionBlock:^(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGTopic class] rootKey:@"topicList" completionBlock:^(NSArray * _Nullable objects, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(objects, error);
     }];
 }
@@ -185,7 +185,7 @@ static SRGDataProvider *s_currentDataProvider;
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/eventConfigList.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGEvent class] rootKey:@"eventConfigList" completionBlock:^(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGEvent class] rootKey:@"eventConfigList" completionBlock:^(NSArray * _Nullable objects, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(objects, error);
     }];
 }
@@ -209,7 +209,7 @@ static SRGDataProvider *s_currentDataProvider;
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/tv/alphabetical.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(objects, error);
     }];
 }
@@ -264,7 +264,7 @@ static SRGDataProvider *s_currentDataProvider;
     tokenServiceURLComponents.queryItems = @[ [NSURLQueryItem queryItemWithName:@"acl" value:acl] ];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:tokenServiceURLComponents.URL];
-    return [[SRGRequest alloc] initWithRequest:request session:[NSURLSession sharedSession] completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    return [[SRGRequest alloc] initWithRequest:request session:[NSURLSession sharedSession] completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
             completionBlock(nil, error);
             return;
@@ -320,16 +320,16 @@ static SRGDataProvider *s_currentDataProvider;
 - (SRGRequest *)listObjectsWithRequest:(NSURLRequest *)request
                             modelClass:(Class)modelClass
                                rootKey:(NSString *)rootKey
-                       completionBlock:(void (^)(NSArray * _Nullable objects, SRGPage * _Nullable nextPage, NSError * _Nullable error))completionBlock
+                       completionBlock:(void (^)(NSArray * _Nullable objects, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error))completionBlock
 {
     NSParameterAssert(request);
     NSParameterAssert(modelClass);
     NSParameterAssert(rootKey);
     NSParameterAssert(completionBlock);
     
-    return [[SRGRequest alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    return [[SRGRequest alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
-            completionBlock(nil, nil, error);
+            completionBlock(nil, page, nil, error);
             return;
         }
         
@@ -337,14 +337,14 @@ static SRGDataProvider *s_currentDataProvider;
         if (JSONArray && [JSONArray isKindOfClass:[NSArray class]]) {
             NSArray *objects = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:NULL];
             if (objects) {
-                completionBlock(objects, nextPage, nil);
+                completionBlock(objects, page, nextPage, nil);
                 return;
             }
         }
         
-        completionBlock(nil, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                      code:SRGDataProviderErrorCodeInvalidData
-                                                  userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
+        completionBlock(nil, page, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                            code:SRGDataProviderErrorCodeInvalidData
+                                                        userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
     }];
 }
 
@@ -356,7 +356,7 @@ static SRGDataProvider *s_currentDataProvider;
     NSParameterAssert(modelClass);
     NSParameterAssert(completionBlock);
     
-    return [[SRGRequest alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    return [[SRGRequest alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
             completionBlock(nil, error);
             return;

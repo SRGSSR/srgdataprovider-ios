@@ -64,7 +64,7 @@
         }
     }];
     
-    SRGRequest *request1 = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request1 = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertFalse(requestQueueFinished);
         [requestQueue reportError:error];
         
@@ -76,7 +76,7 @@
     // The queue is immediately running
     XCTAssertTrue(requestQueue.running);
     
-    SRGRequest *request2 = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request2 = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertFalse(requestQueueFinished);
         [requestQueue reportError:error];
         
@@ -111,7 +111,7 @@
         }
     }];
     
-    SRGRequest *videosRequest = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *videosRequest = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         [requestQueue reportError:error];
         
         SRGMedia *firstMedia = medias.firstObject;
@@ -231,7 +231,7 @@
         }
     }];
     
-    SRGRequest *request1 = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request1 = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         [requestQueue reportError:error];
         [request1CompletionExpectation fulfill];
     }];
@@ -240,7 +240,7 @@
     // The queue is not running yet
     XCTAssertFalse(requestQueue.running);
     
-    SRGRequest *request2 = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request2 = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         [requestQueue reportError:error];
         [request2CompletionExpectation fulfill];
     }];
@@ -277,7 +277,7 @@
         }
     }];
     
-    SRGRequest *request1 = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request1 = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTFail(@"Completion block must not be called when the request has been cancelled");
     }];
     [requestQueue addRequest:request1 resume:YES];
@@ -285,7 +285,7 @@
     // The queue is immediately running
     XCTAssertTrue(requestQueue.running);
     
-    SRGRequest *request2 = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request2 = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTFail(@"Completion block must not be called when the request has been cancelled");
     }];
     [requestQueue addRequest:request2 resume:YES];
@@ -309,7 +309,7 @@
         return [change[NSKeyValueChangeNewKey] isEqual:@NO];
     }];
     
-    SRGRequest *request1 = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request1 = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing
     }];
     [requestQueue addRequest:request1 resume:YES];
@@ -322,7 +322,7 @@
         return [change[NSKeyValueChangeNewKey] isEqual:@NO];
     }];
     
-    SRGRequest *request2 = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request2 = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing
     }];
     [requestQueue addRequest:request2 resume:YES];

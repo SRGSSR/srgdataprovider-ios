@@ -23,17 +23,17 @@
         
         SRGTopic *firstTopic = topics.firstObject;
         if (firstTopic) {
-            [[[SRGDataProvider currentDataProvider] mostPopularVideosWithTopicUid:firstTopic.uid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+            [[[SRGDataProvider currentDataProvider] mostPopularVideosWithTopicUid:firstTopic.uid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
                 NSLog(@"Medias for topic: %@; error: %@", medias, error);
             }] resume];
             
-            [[[SRGDataProvider currentDataProvider] latestVideosWithTopicUid:firstTopic.uid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+            [[[SRGDataProvider currentDataProvider] latestVideosWithTopicUid:firstTopic.uid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
                 NSLog(@"Medias for topic: %@; error: %@", medias, error);
             }] resume];
         }
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] trendingVideosWithEditorialLimit:@5 episodesOnly:YES completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] trendingVideosWithEditorialLimit:@5 episodesOnly:YES completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     
@@ -45,15 +45,15 @@
         }] resume];
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] mostPopularVideosWithTopicUid:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] mostPopularVideosWithTopicUid:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] latestVideosWithTopicUid:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] latestVideosWithTopicUid:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     
@@ -61,7 +61,7 @@
         NSLog(@"Shows: %@; error: %@", shows, error);
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] searchVideosMatchingQuery:@"roger" withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] searchVideosMatchingQuery:@"roger" withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     
@@ -70,7 +70,7 @@
         
         SRGEvent *firstEvent = events.firstObject;
         if (firstEvent) {
-            [[[SRGDataProvider currentDataProvider] latestVideosForEventWithUid:firstEvent.uid sectionUid:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+            [[[SRGDataProvider currentDataProvider] latestVideosForEventWithUid:firstEvent.uid sectionUid:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
                 NSLog(@"Medias for event: %@; error: %@", medias, error);
             }] resume];
         }
@@ -80,7 +80,7 @@
         NSLog(@"Channels: %@; error: %@", channels, error);
     }] resume];
     
-    [[[SRGDataProvider currentDataProvider] soonExpiringVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] soonExpiringVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     
@@ -89,7 +89,7 @@
     dateComponents.month = 5;
     dateComponents.year = 2016;
     NSDate *date = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
-    [[[SRGDataProvider currentDataProvider] videosForDate:date withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[[SRGDataProvider currentDataProvider] videosForDate:date withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         NSLog(@"Medias: %@; error: %@", medias, error);
     }] resume];
     

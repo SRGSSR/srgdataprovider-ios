@@ -89,9 +89,9 @@ static NSInteger s_numberOfRunningRequests = 0;
         return;
     }
     
-    SRGRequestCompletionBlock requestCompletionBlock = ^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    void (^requestCompletionBlock)(NSDictionary * _Nullable, SRGPage * _Nullable, NSError * _Nullable) = ^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.completionBlock(JSONDictionary, nextPage, error);
+            self.completionBlock(JSONDictionary, self.page, nextPage, error);
             self.running = NO;
         });
     };
