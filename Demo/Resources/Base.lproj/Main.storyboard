@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -14,30 +15,20 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r7k-g2-zQf">
-                                <rect key="frame" x="272" y="284.5" width="57" height="30"/>
                                 <state key="normal" title="Request"/>
                                 <connections>
                                     <action selector="request:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8q9-b5-d2T"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gy-Y5-sHZ">
-                                <rect key="frame" x="249" y="350" width="103" height="30"/>
-                                <state key="normal" title="Request queue"/>
-                                <connections>
-                                    <action selector="requestQueue:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q6s-qt-ZBJ"/>
-                                </connections>
-                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="r7k-g2-zQf" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="2io-YQ-Tz5"/>
                             <constraint firstItem="r7k-g2-zQf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LXQ-87-Szw"/>
-                            <constraint firstItem="5gy-Y5-sHZ" firstAttribute="top" secondItem="r7k-g2-zQf" secondAttribute="bottom" constant="35.5" id="U2m-rz-E7v"/>
-                            <constraint firstItem="5gy-Y5-sHZ" firstAttribute="centerX" secondItem="r7k-g2-zQf" secondAttribute="centerX" id="dmi-KN-Vt0"/>
                         </constraints>
                     </view>
                 </viewController>
