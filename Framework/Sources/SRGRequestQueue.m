@@ -104,6 +104,8 @@ static void *s_kvoContext = &s_kvoContext;
     BOOL running = ([self.requests filteredArrayUsingPredicate:predicate].count != 0);
     
     if (running != self.running) {
+        self.running = running;
+        
         if (running) {
             [self.errors removeAllObjects];
             SRGDataProviderLogDebug(@"Request Queue", @"Started %@", self);
@@ -114,7 +116,6 @@ static void *s_kvoContext = &s_kvoContext;
             SRGDataProviderLogDebug(@"Request Queue", @"Ended %@ with error: %@", self, error);
             self.stateChangeBlock ? self.stateChangeBlock(YES, error) : nil;
         }
-        self.running = running;
     }
 }
 

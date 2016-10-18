@@ -57,6 +57,10 @@ NS_ASSUME_NONNULL_BEGIN
  *              (if errors have been reported to the queue using). This is e.g. the perfect time to update your UI and 
  *              display errors if any.
  *
+ *              When the state change block is called, the queue state is already in the correct state. This means
+ *              `running` is YES within the state change block when it is called because the queue started, and `NO`
+ *              if it is called if the queue finished.
+ *
  *              If several errors have been reported, the error code is `SRGDataProviderErrorMultiple`. You can obtain
  *              the error list from the associated user info. If a single error is reported, it is reported as is
  *
