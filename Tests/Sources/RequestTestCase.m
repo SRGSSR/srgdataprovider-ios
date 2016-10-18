@@ -225,7 +225,6 @@
 
 - (void)testPages
 {
-#if 0
     XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
     
     // Use a small page size to be sure we get two full pages of results (and more to come)
@@ -234,17 +233,19 @@
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
         
-        if (request.page.number == 0) {
+        if (page.number == 0) {
             [[request atPage:nextPage] resume];
         }
-        else {
+        else if (page.number == 1) {
             [expectation fulfill];
+        }
+        else {
+            XCTFail(@"Only first two pages are expected");
         }
     }] withPageSize:2];
     [request resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
-#endif
 }
 
 @end

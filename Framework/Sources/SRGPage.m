@@ -14,7 +14,7 @@ const NSInteger SRGPageDefaultSize = NSIntegerMax;
 
 @property (nonatomic) NSInteger size;
 @property (nonatomic) NSInteger number;
-@property (nonatomic, copy) NSString *path;
+@property (nonatomic) NSURL *URL;
 
 @end
 
@@ -24,10 +24,8 @@ const NSInteger SRGPageDefaultSize = NSIntegerMax;
 
 + (NSURLRequest *)request:(NSURLRequest *)request withPage:(SRGPage *)page
 {
-    if (page.path) {
-        // TODO: Completely replace the request
-        NSAssert(@"Not implemented yet. Waiting for an answer whether we can receive a full URL instead of a path here", nil);
-        return nil;
+    if (page.URL) {
+        return [NSURLRequest requestWithURL:page.URL];
     }
     else if (page && page.size != SRGPageDefaultSize) {
         NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:NO];
@@ -53,26 +51,26 @@ const NSInteger SRGPageDefaultSize = NSIntegerMax;
 
 + (SRGPage *)firstPageWithSize:(NSInteger)size
 {
-    return [[[self class] alloc] initWithSize:size number:0 path:nil];
+    return [[[self class] alloc] initWithSize:size number:0 URL:nil];
 }
 
 #pragma mark Object lifecycle
 
-- (SRGPage *)initWithSize:(NSInteger)size number:(NSInteger)number path:(NSString *)path
+- (SRGPage *)initWithSize:(NSInteger)size number:(NSInteger)number URL:(NSURL *)URL
 {
     if (self = [super init]) {
         self.size = MAX(size, 1);
         self.number = MAX(number, 0);
-        self.path = path;
+        self.URL = URL;
     }
     return self;
 }
 
 #pragma mark Helpers
 
-- (SRGPage *)nextPageWithPath:(NSString *)path
+- (SRGPage *)nextPageWithURL:(NSURL *)URL
 {
-    return [[[self class] alloc] initWithSize:self.size number:self.number + 1 path:path];
+    return [[[self class] alloc] initWithSize:self.size number:self.number + 1 URL:URL];
 }
 
 #pragma mark Equality
@@ -84,31 +82,31 @@ const NSInteger SRGPageDefaultSize = NSIntegerMax;
     }
     
     SRGPage *otherPage = object;
-    return self.size == otherPage.size && self.number == otherPage.number && [self.path isEqualToString:otherPage.path];
+    return self.size == otherPage.size && self.number == otherPage.number && [self.URL isEqual:otherPage.URL];
 }
 
 - (NSUInteger)hash
 {
-    return [NSString stringWithFormat:@"%@_%@_%@", @(self.size), @(self.number), self.path].hash;
+    return [NSString stringWithFormat:@"%@_%@_%@", @(self.size), @(self.number), self.URL.absoluteString].hash;
 }
 
 #pragma mark NSCopying protocol
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    return [[SRGPage allocWithZone:zone] initWithSize:self.size number:self.number path:self.path];
+    return [[SRGPage allocWithZone:zone] initWithSize:self.size number:self.number URL:self.URL];
 }
 
 #pragma mark Description
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p; size: %@; number: %@; path: %@>",
+    return [NSString stringWithFormat:@"<%@: %p; size: %@; number: %@; URL: %@>",
             [self class],
             self,
             self.size == SRGPageDefaultSize ? @"default" : @(self.size),
             @(self.number),
-            self.path];
+            self.URL];
 }
 
 @end

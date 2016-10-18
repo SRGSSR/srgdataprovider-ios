@@ -161,11 +161,8 @@ static NSInteger s_numberOfRunningRequests = 0;
             return;
         }
         
-        NSString *nextPath = JSONDictionary[@"next"];
-        
-#warning Next links will be updated server-side. Until then, no next pages
-        SRGPage *nextPage = nil;
-        // SRGPage *nextPage = nextPath ? [self.page nextPageWithPath:nextPath] : nil;
+        NSString *nextURLString = JSONDictionary[@"next"];
+        SRGPage *nextPage = nextURLString ? [self.page nextPageWithURL:[NSURL URLWithString:nextURLString]] : nil;
         
         SRGDataProviderLogDebug(@"Request", @"Ended %@ successfully with JSON %@ and next page %@", self.request.URL, JSONDictionary, nextPage);
         requestCompletionBlock(JSONDictionary, nextPage, nil);

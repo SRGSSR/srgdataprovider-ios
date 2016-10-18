@@ -37,9 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Build the page which immediately follows the received, associating it the path where more content can be retrieved
  *
- *  @param path The path were the next page of result can be retrieved
+ *  @param path The URL were the next page of result can be retrieved
  */
-- (SRGPage *)nextPageWithPath:(NSString *)path;
+- (SRGPage *)nextPageWithURL:(NSURL *)URL;
 
 @end
 
