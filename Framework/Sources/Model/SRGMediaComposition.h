@@ -4,10 +4,8 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGChannel.h"
+#import "SRGMediaParentMetadata.h"
 #import "SRGChapter.h"
-#import "SRGEpisode.h"
-#import "SRGShow.h"
 
 #import <Mantle/Mantle.h>
 
@@ -19,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  *    - complete media information
  *    - analytics information
  */
-@interface SRGMediaComposition : MTLModel <MTLJSONSerializing>
+@interface SRGMediaComposition : MTLModel <SRGMediaParentMetadata, MTLJSONSerializing>
 
 /**
  *  The URN of the chapter which should initially be played
@@ -34,21 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  For convenient direct retrieval of the `SRGSegment` object, use the `mainChapter` property directly
  */
 @property (nonatomic, readonly, copy) NSString *segmentURN;
-
-/**
- *  The channel the media belongs to
- */
-@property (nonatomic, readonly, nullable) SRGChannel *channel;
-
-/**
- *  The episode the media belongs to
- */
-@property (nonatomic, readonly, nullable) SRGEpisode *episode;
-
-/**
- *  The show the media belongs to
- */
-@property (nonatomic, readonly, nullable) SRGShow *show;
 
 /**
  *  The list of chapters available for the media
