@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The segment from the main chapter which should be initially played
  */
-@property (nonatomic, readonly) SRGSegment *mainSegment;
+@property (nonatomic, readonly, nullable) SRGSegment *mainSegment;
 
 @end
 
