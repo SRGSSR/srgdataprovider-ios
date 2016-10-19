@@ -338,14 +338,6 @@ static SRGDataProvider *s_currentDataProvider;
             return;
         }
         
-        // Special case when the number of results is a multiple of the page size. When retrieved, the last link will
-        // return an empty dictionary. In such cases, finish silently with no results
-        // See https://srfmmz.atlassian.net/wiki/display/SRGPLAY/Developer+Meeting+2016-10-05
-        if (! nextPage && JSONDictionary.count == 0) {
-            completionBlock(@[], page, nil, nil);
-            return;
-        }
-        
         id JSONArray = JSONDictionary[rootKey];
         if (JSONArray && [JSONArray isKindOfClass:[NSArray class]]) {
             NSArray *objects = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:NULL];
@@ -354,10 +346,12 @@ static SRGDataProvider *s_currentDataProvider;
                 return;
             }
         }
-        
-        completionBlock(nil, page, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                            code:SRGDataProviderErrorCodeInvalidData
-                                                        userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
+        else {
+            // This also correctly handles the special case where the number of results is a multiple of the page size. When retrieved,
+            // the last link will return an empty dictionary
+            // See https://srfmmz.atlassian.net/wiki/display/SRGPLAY/Developer+Meeting+2016-10-05
+            completionBlock(@[], page, nil, nil);
+        }
     }];
 }
 
