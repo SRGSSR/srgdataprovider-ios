@@ -61,6 +61,17 @@ NSValueTransformer *SRGEncodingJSONTransformer(void)
     return s_transformer;
 }
 
+NSValueTransformer *SRGHiddenJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @(YES) : @(NO),
+                                                                                         @(NO) : @(YES) }];
+    });
+    return s_transformer;
+}
+
 NSValueTransformer *SRGMediaTypeJSONTransformer(void)
 {
     static NSValueTransformer *s_transformer;

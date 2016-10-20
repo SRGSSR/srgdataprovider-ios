@@ -18,6 +18,7 @@
 @property (nonatomic) NSTimeInterval markIn;
 @property (nonatomic) NSTimeInterval markOut;
 @property (nonatomic) SRGBlockingReason blockingReason;
+@property (nonatomic, assign, getter=isHidden) BOOL hidden;
 @property (nonatomic) NSArray<SRGSubtitle *> *subtitles;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
 
@@ -61,6 +62,7 @@
                        @keypath(SRGSegment.new, markIn) : @"markIn",
                        @keypath(SRGSegment.new, markOut) : @"markOut",
                        @keypath(SRGSegment.new, blockingReason) : @"blockReason",
+                       @keypath(SRGSegment.new, hidden) : @"displayable",
                        @keypath(SRGSegment.new, analyticsLabels) : @"analyticsData",
                        @keypath(SRGSegment.new, subtitles) : @"subtitleList",
                        
@@ -96,6 +98,11 @@
 + (NSValueTransformer *)blockingReasonJSONTransformer
 {
     return SRGBlockingReasonJSONTransformer();
+}
+
++ (NSValueTransformer *)hiddenJSONTransformer
+{
+    return SRGHiddenJSONTransformer();
 }
 
 + (NSValueTransformer *)subtitlesJSONTransformer
