@@ -18,7 +18,7 @@
 @property (nonatomic) NSTimeInterval markIn;
 @property (nonatomic) NSTimeInterval markOut;
 @property (nonatomic) SRGBlockingReason blockingReason;
-@property (nonatomic, assign, getter=isHidden) BOOL hidden;
+@property (nonatomic, getter=isHidden) BOOL hidden;
 @property (nonatomic) NSArray<SRGSubtitle *> *subtitles;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
 
@@ -102,7 +102,7 @@
 
 + (NSValueTransformer *)hiddenJSONTransformer
 {
-    return SRGHiddenJSONTransformer();
+    return SRGBooleanInversionJSONTransformer();
 }
 
 + (NSValueTransformer *)subtitlesJSONTransformer

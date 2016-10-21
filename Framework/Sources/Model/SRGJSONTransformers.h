@@ -9,10 +9,10 @@
 /**
  *  Standard transformers for use with Mantle
  */
+OBJC_EXPORT NSValueTransformer *SRGBooleanInversionJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGBlockingReasonJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGContentTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGEncodingJSONTransformer(void);
-OBJC_EXPORT NSValueTransformer *SRGHiddenJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGMediaTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGProtocolJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGQualityJSONTransformer(void);

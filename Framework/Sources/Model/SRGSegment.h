@@ -45,10 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGBlockingReason blockingReason;
 
 /**
- *  Return whether segment playback should be displayed client-side. The server has a displayable logic,
- *  this object an hidden logic. If this propertie isn't in the server response, the object is displayable.
+ *  Return whether segment playback should be displayed client-side
  */
-@property (nonatomic, assign, getter=isHidden, readonly) BOOL hidden;
+@property (nonatomic, readonly, getter=isHidden) BOOL hidden;
 
 /**
  *  The list of analytics labels which should be supplied in SRG Analytics events

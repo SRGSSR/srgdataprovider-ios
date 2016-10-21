@@ -28,6 +28,17 @@ NSValueTransformer *SRGBlockingReasonJSONTransformer(void)
     return s_transformer;
 }
 
+NSValueTransformer *SRGBooleanInversionJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @(YES) : @(NO),
+                                                                                         @(NO) : @(YES) }];
+    });
+    return s_transformer;
+}
+
 NSValueTransformer *SRGContentTypeJSONTransformer(void)
 {
     static NSValueTransformer *s_transformer;
@@ -57,17 +68,6 @@ NSValueTransformer *SRGEncodingJSONTransformer(void)
                                                                                          @"MP3" : @(SRGEncodingMP3),
                                                                                          @"MP2" : @(SRGEncodingMP2),
                                                                                          @"WMAV2" : @(SRGEncodingWMAV2) }];
-    });
-    return s_transformer;
-}
-
-NSValueTransformer *SRGHiddenJSONTransformer(void)
-{
-    static NSValueTransformer *s_transformer;
-    static dispatch_once_t s_onceToken;
-    dispatch_once(&s_onceToken, ^{
-        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @(YES) : @(NO),
-                                                                                         @(NO) : @(YES) }];
     });
     return s_transformer;
 }
