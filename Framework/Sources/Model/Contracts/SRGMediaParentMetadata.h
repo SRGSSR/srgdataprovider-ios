@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Common protocol for media parent informations
+ *  Common protocol for media parent information
  */
 @protocol SRGMediaParentMetadata <NSObject>
 
