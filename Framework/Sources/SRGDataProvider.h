@@ -42,11 +42,13 @@ NS_ASSUME_NONNULL_BEGIN
 OBJC_EXPORT NSString *SRGDataProviderMarketingVersion(void);
 
 // Official business identifiers
-OBJC_EXPORT NSString * const SRGDataProviderBusinessUnitIdentifierRSI;
-OBJC_EXPORT NSString * const SRGDataProviderBusinessUnitIdentifierRTR;
-OBJC_EXPORT NSString * const SRGDataProviderBusinessUnitIdentifierRTS;
-OBJC_EXPORT NSString * const SRGDataProviderBusinessUnitIdentifierSRF;
-OBJC_EXPORT NSString * const SRGDataProviderBusinessUnitIdentifierSWI;
+typedef NSString * SRGDataProviderBusinessUnitIdentifier NS_STRING_ENUM;
+
+OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierRSI;
+OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierRTR;
+OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierRTS;
+OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierSRF;
+OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierSWI;
 
 // Completion block signatures
 typedef void (^SRGChannelListCompletionBlock)(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error);
