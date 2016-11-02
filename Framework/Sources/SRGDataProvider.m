@@ -22,7 +22,7 @@ SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifie
 SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierSRF = @"srf";
 SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierSWI = @"swi";
 
-static NSString * const SRGTokenServiceURLString = @"http://tp.srgssr.ch/akahd/token";
+static NSString * const SRGTokenServiceURLString = @"https://tp.srgssr.ch/akahd/token";
 
 static SRGDataProvider *s_currentDataProvider;
 
