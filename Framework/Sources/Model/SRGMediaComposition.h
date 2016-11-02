@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  For convenient direct retrieval of the `SRGSegment` object, use the `mainChapter` property directly
  */
-@property (nonatomic, readonly, copy) NSString *segmentURN;
+@property (nonatomic, readonly, copy, nullable) NSString *segmentURN;
 
 /**
  *  The list of chapters available for the media
