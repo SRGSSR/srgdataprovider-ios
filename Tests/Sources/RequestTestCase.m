@@ -248,4 +248,7 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+// TODO: Test what happens with page size added to a request not supporting it, or to page size chained after atPage:. Document
+// and maybe add warnings (e.g. topics)
+
 @end
