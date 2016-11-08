@@ -23,7 +23,7 @@
     }
     
     NSString *dimensionString = (dimension == SRGImageDimensionWidth) ? @"width" : @"height";
-    NSString *sizeComponent = [NSString stringWithFormat:@"scale/%@/%@", dimensionString, @(value * [UIScreen mainScreen].scale)];
+    NSString *sizeComponent = [NSString stringWithFormat:@"scale/%@/%@", dimensionString, @(value)];
     URLComponents.path = [URLComponents.path stringByAppendingPathComponent:sizeComponent];
     
     return URLComponents.URL;

@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  determined by the intrinsic image aspect ratio, which cannot be altered
  *
  *  @param dimension The dimension (horizontal or vertical)
- *  @param value     The value along the specified dimensions, in points (independent of the device scale)
+ *  @param value     The value along the specified dimensions, in points
  */
 - (NSURL *)srg_URLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value;
 
