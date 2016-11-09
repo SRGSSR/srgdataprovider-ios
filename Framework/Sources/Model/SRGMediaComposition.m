@@ -78,4 +78,31 @@
     return [self.mainChapter.segments filteredArrayUsingPredicate:predicate].firstObject;
 }
 
+#pragma mark Chapter generation
+
+- (SRGMediaComposition *)mediaCompositionForSegment:(SRGSegment *)segment
+{
+    for (SRGChapter *chapter in self.chapters) {
+        if (chapter == segment) {
+            SRGMediaComposition *mediaComposition = [self copy];
+            mediaComposition.chapterURN = chapter.URN;
+            return mediaComposition;
+        }
+        else {
+            for (SRGSegment *chapterSegment in chapter.segments) {
+                if (chapterSegment == segment) {
+                    SRGMediaComposition *mediaComposition = [self copy];
+                    mediaComposition.chapterURN = chapter.URN;
+                    mediaComposition.segmentURN = chapterSegment.URN;
+                    return mediaComposition;
+                }
+                
+            }
+        }
+    }
+    
+    // No match found
+    return nil;
+}
+
 @end
