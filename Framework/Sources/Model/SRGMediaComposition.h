@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGMedia.h"
 #import "SRGMediaParentMetadata.h"
 #import "SRGChapter.h"
 
@@ -65,15 +66,43 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface SRGMediaComposition (RelatedMediaCompositions)
+@interface SRGMediaComposition (Generators)
 
 /**
- *  Return the media composition corresponding to a segment or chapter belonging to the receiver. This makes it possible 
- *  to get a media composition directly related to the receiver without the need for a network request
+ *  Return the media corresponding to a segment belonging to the receiver.
  *
- *  @discussion If the specified segment or chapter does not belong to the media composition, the method returns `nil`
+ *  @param segment The segment which the media must be returned for. If the segment does not belong to the receiver, 
+ *                 the method returns `nil`
+ *
+ *  @discussion Since `SRGChapter` is a subclass of `SRGSegment`, this method works for chapters as well
+ */
+- (nullable SRGMedia *)mediaForSegment:(SRGSegment *)segment;
+
+/**
+ *  Return the media corresponding to a chapter belonging to the receiver.
+ *
+ *  @param chapter The chapter which the media must be returned for. If the chapter does not belong to the receiver,
+ *                 the method returns `nil`
+ */
+- (nullable SRGMedia *)mediaForChapter:(SRGChapter *)chapter;
+
+/**
+ *  Return the media composition corresponding to a segment belonging to the receiver.
+ *
+ *  @param segment The segment which the composition must be generated for. If the specified segment does not belong 
+ *                 to the media composition, the method returns `nil`
  */
 - (nullable SRGMediaComposition *)mediaCompositionForSegment:(SRGSegment *)segment;
+
+/**
+ *  Return the media composition corresponding to a chapter belonging to the receiver.
+ *
+ *  @param chapter The chapter which the composition must be generated for. If the specified chapter does not belong 
+ *                 to the media composition, the method returns `nil`
+ *
+ *  @discussion Since `SRGChapter` is a subclass of `SRGSegment`, this method works for chapters as well
+ */
+- (nullable SRGMediaComposition *)mediaCompositionForChapter:(SRGChapter *)chapter;
 
 @end
 

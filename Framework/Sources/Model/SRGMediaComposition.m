@@ -80,6 +80,62 @@
 
 #pragma mark Chapter generation
 
+- (BOOL)containsSegment:(SRGSegment *)segment
+{
+    for (SRGChapter *chapter in self.chapters) {
+        if (chapter == segment) {
+            return YES;
+        }
+        else {
+            for (SRGSegment *chapterSegment in chapter.segments) {
+                if (chapterSegment == segment) {
+                    return YES;
+                }
+            }
+        }
+    }
+    
+    return NO;
+}
+
+- (SRGMedia *)mediaForSegment:(SRGSegment *)segment
+{
+    if (! [self containsSegment:segment]) {
+        return nil;
+    }
+    
+    SRGMedia *media = [[SRGMedia alloc] init];
+    
+    // Start from existing segment values
+    NSMutableDictionary *values = [segment.dictionaryValue mutableCopy];
+    
+    // Merge with parent metadata available at the media composition level
+    if (self.channel) {
+        values[@keypath(media.channel)] = self.channel;
+    }
+    if (self.episode) {
+        values[@keypath(media.episode)] = self.episode;
+    }
+    if (self.show) {
+        values[@keypath(media.show)] = self.show;
+    }
+    
+    // Fill the media object
+    for (NSString *key in [SRGMedia propertyKeys]) {
+        id value = values[key];
+        if (value) {
+            [media setValue:value forKey:key];
+        }
+    }
+    
+    return media;
+}
+
+- (SRGMedia *)mediaForChapter:(SRGChapter *)chapter
+{
+    return [self mediaForSegment:chapter];
+}
+
 - (SRGMediaComposition *)mediaCompositionForSegment:(SRGSegment *)segment
 {
     for (SRGChapter *chapter in self.chapters) {
@@ -96,13 +152,17 @@
                     mediaComposition.segmentURN = chapterSegment.URN;
                     return mediaComposition;
                 }
-                
             }
         }
     }
     
     // No match found
     return nil;
+}
+
+- (SRGMediaComposition *)mediaCompositionForChapter:(SRGChapter *)chapter
+{
+    return [self mediaCompositionForChapter:chapter];
 }
 
 @end
