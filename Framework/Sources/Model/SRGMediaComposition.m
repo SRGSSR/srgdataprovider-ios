@@ -123,7 +123,7 @@
     // Fill the media object
     for (NSString *key in [SRGMedia propertyKeys]) {
         id value = values[key];
-        if (value) {
+        if (value && value != [NSNull null]) {
             [media setValue:value forKey:key];
         }
     }
