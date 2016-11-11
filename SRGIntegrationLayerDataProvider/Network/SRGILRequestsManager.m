@@ -101,7 +101,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)setBaseURL:(NSURL *)baseURL
 {
-    _baseURL = baseURL ?: [NSURL URLWithString:@"http://il.srgssr.ch/integrationlayer/"];
+    _baseURL = baseURL ?: [NSURL URLWithString:@"https://il.srgssr.ch/integrationlayer/"];
 }
 
 - (id)requestLiveMetaInfosWithChannelID:(NSString *)channelID livestreamID:(NSString *)livestreamID completionBlock:(SRGILFetchObjectCompletionBlock)completionBlock;
