@@ -56,7 +56,7 @@ Every request to the IL is made through a data provider, instantiated with a bus
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:<business unit string>];
 ```
 
-The default URL is `http://il.srgssr.ch` and you need to check which business unit is supported. Currently, the `sfr`, `rts`, `rsi`, `rtr` and `swi` business unit identifiers are supported.
+The default URL is `https://il.srgssr.ch` and you need to check which business unit is supported. Currently, the `sfr`, `rts`, `rsi`, `rtr` and `swi` business unit identifiers are supported.
 
 Usually, you only need a single data provider instance for your application. This instance must be kept somewhere for reuse. A convenient approach is to have a singleton instance returned from a function, as follows:
 
