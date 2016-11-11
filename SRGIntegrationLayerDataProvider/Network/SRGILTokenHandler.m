@@ -17,7 +17,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 #endif
 
 // Keep the trailing slash
-static NSString *const SRGILTokenHandlerBaseURLString = @"http://tp.srgssr.ch/akahd/token?acl=/";
+static NSString *const SRGILTokenHandlerBaseURLString = @"https://tp.srgssr.ch/akahd/token?acl=/";
 
 @implementation SRGILTokenHandler
 

@@ -5927,7 +5927,7 @@
 				<string>74CB65AE23CF84E1D86211CF82CFAA7D</string>
 				<string>33D7E3BA9C573E28EBD1021FE023C61B</string>
 				<string>156FA4F513951903072BC799F0C8B9D3</string>
-				<string>DD00632616E7821438A68DD1F59EAFE4</string>
+				<string>B0301F7859E8C140B4BA3A9FA7E72ED7</string>
 				<string>2885EB526A5F9E4B578134F705042138</string>
 				<string>8C3CEAF2C4C8EFA4595CB2C71320CF9F</string>
 				<string>7EF993E88554EEEE12CC646CEDBDDCD7</string>
@@ -14026,6 +14026,18 @@
 				</array>
 			</dict>
 		</dict>
+		<key>B0301F7859E8C140B4BA3A9FA7E72ED7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>074414D48D3D7BFBC7F71661135A4093</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DRTS_ANALYTICS_VERSION=1.5.7 -w -Xanalyzer -analyzer-disable-all-checks</string>
+			</dict>
+		</dict>
 		<key>B07FCC24ECE4C12C064864457AB0ECD0</key>
 		<dict>
 			<key>explicitFileType</key>
@@ -18125,18 +18137,6 @@
 				<array>
 					<string>Public</string>
 				</array>
-			</dict>
-		</dict>
-		<key>DD00632616E7821438A68DD1F59EAFE4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>074414D48D3D7BFBC7F71661135A4093</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-DRTS_ANALYTICS_VERSION=1.5.5 -w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
 		</dict>
 		<key>DD084F971244AAF623A88DB9E7025B62</key>
