@@ -499,6 +499,48 @@ static NSURL *ServiceTestURL(void)
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testVideoNowAndNext
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
+    [[dataProvider nowAndNextForVideoChannelWithUid:@"3608506" completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
+        XCTAssertNotNil(channel);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testAudioNowAndNext
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
+    [[dataProvider nowAndNextForAudioChannelWithUid:@"3262320" livestreamUid:nil completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
+        XCTAssertNotNil(channel);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testAudioNowAndNextRegional
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSRF];
+    [[dataProvider nowAndNextForAudioChannelWithUid:@"69e8ac16-4327-4af4-b873-fd5cd6e895a7" livestreamUid:@"4f2c4d4a-03d6-4916-9060-412e0abdc88d" completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
+        XCTAssertNotNil(channel);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testTokenizeURL
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];

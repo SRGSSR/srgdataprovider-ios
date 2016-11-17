@@ -8,6 +8,7 @@
 
 #import "NSBundle+SRGDataProvider.h"
 #import "SRGDataProviderError.h"
+#import "SRGDataProviderLogger.h"
 #import "SRGPage+Private.h"
 #import "SRGRequest+Private.h"
 
@@ -387,6 +388,30 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
+- (SRGRequest *)nowAndNextForVideoChannelWithUid:(NSString *)channelUid completionBlock:(SRGChannelCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channel/%@/tv/nowAndNext.json", self.businessUnitIdentifier, channelUid];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGChannel class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(object, error);
+    }];
+}
+
+- (SRGRequest *)nowAndNextForAudioChannelWithUid:(NSString *)channelUid livestreamUid:(NSString *)livestreamUid completionBlock:(nonnull SRGChannelCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channel/%@/radio/nowAndNext.json", self.businessUnitIdentifier, channelUid];
+    
+    NSArray<NSURLQueryItem *> *queryItems = nil;
+    if (livestreamUid) {
+        queryItems = @[ [NSURLQueryItem queryItemWithName:@"livestreamId" value:livestreamUid] ];
+    }
+    
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGChannel class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(object, error);
+    }];
+}
+
 #pragma mark Tokenization
 
 + (SRGRequest *)tokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock
@@ -470,12 +495,16 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
             return;
         }
         
+        NSError *modelError = nil;
         id JSONArray = JSONDictionary[rootKey];
         if (JSONArray && [JSONArray isKindOfClass:[NSArray class]]) {
             NSArray *objects = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:NULL];
             if (objects) {
                 completionBlock(objects, page, nextPage, nil);
                 return;
+            }
+            else {
+                SRGDataProviderLogError(@"DataProvider", @"Could not build model object of %@. Reason: %@", modelClass, modelError);
             }
         }
         else {
@@ -501,8 +530,11 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
             return;
         }
         
-        id object = [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:JSONDictionary error:NULL];
+        NSError *modelError = nil;
+        id object = [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:JSONDictionary error:&modelError];
         if (!object) {
+            SRGDataProviderLogError(@"DataProvider", @"Could not build model object of %@. Reason: %@", modelClass, modelError);
+            
             completionBlock(nil, page, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
                                                                 code:SRGDataProviderErrorCodeInvalidData
                                                             userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);

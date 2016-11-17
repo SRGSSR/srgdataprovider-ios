@@ -57,12 +57,12 @@
 
 #pragma mark Transformers
 
-+ (NSValueTransformer *)startDateTransformer
++ (NSValueTransformer *)startDateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
 }
 
-+ (NSValueTransformer *)endDateTransformer
++ (NSValueTransformer *)endDateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
 }

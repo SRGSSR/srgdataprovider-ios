@@ -161,8 +161,13 @@ static NSInteger s_numberOfRunningRequests = 0;
             return;
         }
         
-        NSString *nextURLString = JSONDictionary[@"next"];
-        SRGPage *nextPage = nextURLString ? [self.page nextPageWithURL:[NSURL URLWithString:nextURLString]] : nil;
+        id next = JSONDictionary[@"next"];
+        
+        // Ensure the next field is a string. In now and next requests, it might be a dictionary
+        SRGPage *nextPage = nil;
+        if ([next isKindOfClass:[NSString class]]) {
+            nextPage = [self.page nextPageWithURL:[NSURL URLWithString:next]];
+        }
         
         SRGDataProviderLogDebug(@"Request", @"Ended %@ successfully with JSON %@ and next page %@", self.request.URL, JSONDictionary, nextPage);
         requestCompletionBlock(JSONDictionary, nextPage, nil);

@@ -52,6 +52,7 @@ OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessU
 OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierSWI;
 
 // Completion block signatures
+typedef void (^SRGChannelCompletionBlock)(SRGChannel * _Nullable channel, NSError * _Nullable error);
 typedef void (^SRGChannelListCompletionBlock)(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error);
 typedef void (^SRGEpisodeCompositionCompletionBlock)(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGEventListCompletionBlock)(NSArray<SRGEvent *> * _Nullable events, NSError * _Nullable error);
@@ -361,6 +362,19 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
  *  Increase the SRG popularity like counter from 1 unit for the specified media
  */
 - (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock;
+
+/**
+ *  Return current and next program information for the specified video channel
+ */
+- (SRGRequest *)nowAndNextForVideoChannelWithUid:(NSString *)channelUid completionBlock:(SRGChannelCompletionBlock)completionBlock;
+
+/**
+ *  Return current and next program information for the specified audio channel
+ *
+ *  @param livestreamUid An optional radio channel unique identifier (usually regional, but might be the main one). If provided, 
+ *                       the program of the specified live stream is used, otherwise the one of the main channel
+ */
+- (SRGRequest *)nowAndNextForAudioChannelWithUid:(NSString *)channelUid livestreamUid:(nullable NSString *)livestreamUid completionBlock:(SRGChannelCompletionBlock)completionBlock;
 
 @end
 
