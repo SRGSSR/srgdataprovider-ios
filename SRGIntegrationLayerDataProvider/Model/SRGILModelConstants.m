@@ -84,7 +84,9 @@ SRGILPlaylistProtocol SRGILPlayListProtocolForString(NSString *protocolString)
                        @"HTTP-HDS-DVR" : @(SRGILPlaylistProtocolHDSDVR),
                        @"HTTP-HLS-DVR" : @(SRGILPlaylistProtocolHLSDVR),
                        @"HTTP" : @(SRGILPlaylistProtocolHTTP),
-                       @"RTMP" : @(SRGILPlaylistProtocolRTMP) };
+                       @"HTTPS" : @(SRGILPlaylistProtocolHTTPS),
+                       @"RTMP" : @(SRGILPlaylistProtocolRTMP),
+                       @"M3U" : @(SRGILPlaylistProtocolM3U) };
     });
     NSNumber *protocol = protocols[protocolString.uppercaseString];
     return protocol ? [protocol integerValue] : SRGILPlaylistProtocolUnknown;
