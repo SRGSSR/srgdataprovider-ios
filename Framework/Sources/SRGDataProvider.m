@@ -291,6 +291,13 @@ static SRGDataProvider *s_currentDataProvider;
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:completionBlock];
 }
 
+- (SRGRequest *)latestMediasForShowWithUid:(NSString *)showUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/episodeComposition/latestByShow/%@.json", self.businessUnitIdentifier, showUid];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+}
+
 - (SRGRequest *)showWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/show/%@.json", self.businessUnitIdentifier, showUid];

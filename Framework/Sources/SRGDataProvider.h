@@ -298,6 +298,13 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 - (SRGRequest *)audioShowsForChannelWithUid:(NSString *)channelUid completionBlock:(SRGShowListCompletionBlock)completionBlock;
 
 /**
+ *  List medias for a specific show
+ *
+ *  @discussion The show can be a video or audio show
+ */
+- (SRGRequest *)latestMediasForShowWithUid:(NSString *)showUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
  *  Specific show
  */
 - (SRGRequest *)showWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock;
