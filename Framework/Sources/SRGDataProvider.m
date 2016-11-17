@@ -302,14 +302,18 @@ static SRGDataProvider *s_currentDataProvider;
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/show/%@.json", self.businessUnitIdentifier, showUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
-    return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] completionBlock:completionBlock];
+    return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(object, error);
+    }];
 }
 
 - (SRGRequest *)mediaCompositionForVideoWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaComposition/video/%@.json", self.businessUnitIdentifier, mediaUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
-    return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMediaComposition class] completionBlock:completionBlock];
+    return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMediaComposition class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(object, error);
+    }];
 }
 
 - (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
@@ -338,7 +342,9 @@ static SRGDataProvider *s_currentDataProvider;
     NSDictionary *bodyJSONDictionary = mediaComposition.event ? @{ @"eventData" : mediaComposition.event } : @{};
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyJSONDictionary options:0 error:NULL];
     
-    return [self fetchObjectWithRequest:request modelClass:[SRGLike class] completionBlock:completionBlock];
+    return [self fetchObjectWithRequest:request modelClass:[SRGLike class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(object, error);
+    }];
 }
 
 #pragma mark Tokenization
@@ -443,7 +449,7 @@ static SRGDataProvider *s_currentDataProvider;
 
 - (SRGRequest *)fetchObjectWithRequest:(NSURLRequest *)request
                             modelClass:(Class)modelClass
-                       completionBlock:(void (^)(id _Nullable object, NSError * _Nullable error))completionBlock
+                       completionBlock:(void (^)(id _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error))completionBlock
 {
     NSParameterAssert(request);
     NSParameterAssert(modelClass);
@@ -451,19 +457,19 @@ static SRGDataProvider *s_currentDataProvider;
     
     return [[SRGRequest alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
-            completionBlock(nil, error);
+            completionBlock(nil, page, nil, error);
             return;
         }
         
         id object = [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:JSONDictionary error:NULL];
         if (!object) {
-            completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                     code:SRGDataProviderErrorCodeInvalidData
-                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
+            completionBlock(nil, page, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                                code:SRGDataProviderErrorCodeInvalidData
+                                                            userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
             return;
         }
         
-        completionBlock(object, nil);
+        completionBlock(object, page, nextPage, nil);
     }];
 }
 
