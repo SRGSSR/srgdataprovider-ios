@@ -23,6 +23,8 @@ static NSString * const SRGTokenServiceURLString = @"https://tp.srgssr.ch/akahd/
 
 static SRGDataProvider *s_currentDataProvider;
 
+static NSString *SRGDataProviderRequestDateString(NSDate *date);
+
 @interface SRGDataProvider ()
 
 @property (nonatomic) NSURL *serviceURL;
@@ -91,20 +93,13 @@ static SRGDataProvider *s_currentDataProvider;
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)videosForDate:(NSDate *)date withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)videoEpisodesForDate:(NSDate *)date withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     if (!date) {
         date = [NSDate date];
     }
     
-    static NSDateFormatter *dateFormatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"yyyy-MM-dd";
-    });
-    
-    NSString *dateString = [dateFormatter stringFromDate:date];
+    NSString *dateString = SRGDataProviderRequestDateString(date);
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/episodesByDate/%@.json", self.businessUnitIdentifier, dateString];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
@@ -296,6 +291,18 @@ static SRGDataProvider *s_currentDataProvider;
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/episodeComposition/latestByShow/%@.json", self.businessUnitIdentifier, showUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGEpisodeComposition class] completionBlock:completionBlock];
+}
+
+- (SRGRequest *)audioEpisodesForDate:(NSDate *)date withChannelUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
+{
+    if (!date) {
+        date = [NSDate date];
+    }
+    
+    NSString *dateString = SRGDataProviderRequestDateString(date);
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/episodesByDateAndChannel/%@/%@.json", self.businessUnitIdentifier, channelUid, dateString];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
 - (SRGRequest *)showWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock
@@ -499,4 +506,17 @@ static SRGDataProvider *s_currentDataProvider;
 NSString *SRGDataProviderMarketingVersion(void)
 {
     return [NSBundle srg_dataProviderBundle].infoDictionary[@"CFBundleShortVersionString"];
+}
+
+static NSString *SRGDataProviderRequestDateString(NSDate *date)
+{
+    NSCAssert(date, @"Expect a date");
+    
+    static NSDateFormatter *dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd";
+    });
+    return [dateFormatter stringFromDate:date];
 }

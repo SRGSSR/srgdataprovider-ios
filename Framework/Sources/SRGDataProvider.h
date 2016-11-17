@@ -195,7 +195,7 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
  *
  *  @param date The date. If nil, today is used
  */
-- (SRGRequest *)videosForDate:(nullable NSDate *)date withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)videoEpisodesForDate:(nullable NSDate *)date withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List trending videos (with all editorial recommendations)
@@ -300,12 +300,19 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)audioShowsForChannelWithUid:(NSString *)channelUid completionBlock:(SRGShowListCompletionBlock)completionBlock;
 
 /**
- *  List medias for a specific show
+ *  List episodes for a specific show
  *
  *  @discussion The show can be a video or audio show. Though the completion block does not return an array directly, this request 
  *              supports paging (for episodes returned in the episode composition)
  */
 - (SRGRequest *)latestEpisodesForShowWithUid:(NSString *)showUid completionBlock:(SRGEpisodeCompositionCompletionBlock)completionBlock;
+
+/**
+ *  List audio episodess available for the day containing the given date, for the specified channel
+ *
+ *  @param date The date. If nil, today is used
+ */
+- (SRGRequest *)audioEpisodesForDate:(nullable NSDate *)date withChannelUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  Specific show

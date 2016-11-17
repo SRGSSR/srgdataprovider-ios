@@ -48,7 +48,7 @@ static NSURL *ServiceTestURL(void)
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testVideosForDate
+- (void)testvideoEpisodesForDate
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
@@ -58,7 +58,7 @@ static NSURL *ServiceTestURL(void)
     dateComponents.day = 12;
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRSI];
-    [[dataProvider videosForDate:dateComponents.date withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[dataProvider videoEpisodesForDate:dateComponents.date withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -358,6 +358,26 @@ static NSURL *ServiceTestURL(void)
         XCTAssertNotNil(episodeComposition);
         XCTAssertNotNil(page);
         XCTAssertNotNil(nextPage);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// FIXME: Service does not work yet
+- (void)testAudioEpisodesForDate
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    dateComponents.year = 2016;
+    dateComponents.month = 5;
+    dateComponents.day = 12;
+    
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSRF];
+    [[dataProvider audioEpisodesForDate:dateComponents.date withChannelUid:@"23FFBE1B-65CE-4188-ADD2-C724186C2C9F" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];
