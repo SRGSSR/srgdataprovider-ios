@@ -246,9 +246,14 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 /**
  *  List most popular videos for a specific topic
  *
- *  @param topicUid The unique topic identifier
+ *  @param topicUid The unique topic identifier. If none is specified, videos for any topic will be returned
  */
 - (SRGRequest *)mostPopularVideosWithTopicUid:(nullable NSString *)topicUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  List most popular audios
+ */
+- (SRGRequest *)mostPopularAudiosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List events
