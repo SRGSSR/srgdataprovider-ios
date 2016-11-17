@@ -219,7 +219,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
  *  @param channelUid The channel uid for which audio live streams (main and regional) must be retrieved. If not specified,
  *                    all main live streams are returned
  */
-- (SRGRequest *)audioLivestreamsForChannelWithUid:(nullable NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)audioLivestreamsWithChannelUid:(nullable NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List video channels
