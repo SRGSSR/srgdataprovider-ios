@@ -253,7 +253,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 /**
  *  List most popular audios
  *
- *  @param channelUid The channel which medias must be listed for. If none is specified, audios for all channels will be returned
+ *  @param channelUid The channel which medias must be listed for. If none is specified, medias for all channels will be returned
  */
 - (SRGRequest *)mostPopularAudiosWithChannelUid:(nullable NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
@@ -271,9 +271,11 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 - (SRGRequest *)latestVideosWithEventUid:(NSString *)eventUid sectionUid:(nullable NSString *)sectionUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  List latest episodes for a specific channel
+ *  List latest episodes
+ *
+ *  @param channelUid The channel which medias must be listed for. If none is specified, medias for all channels will be returned
  */
-- (SRGRequest *)latestEpisodesWithChannelUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)latestVideoEpisodesWithChannelUid:(nullable NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List video shows
