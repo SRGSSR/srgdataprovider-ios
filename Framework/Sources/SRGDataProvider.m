@@ -331,6 +331,30 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
+- (SRGRequest *)searchAudiosMatchingQuery:(NSString *)query withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/search.json", self.businessUnitIdentifier];
+    NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+}
+
+- (SRGRequest *)searchVideoShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGShowListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/tv/search.json", self.businessUnitIdentifier];
+    NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:completionBlock];
+}
+
+- (SRGRequest *)searchAudioShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGShowListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/radio/search.json", self.businessUnitIdentifier];
+    NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"showList" completionBlock:completionBlock];
+}
+
 - (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock
 {
     // Assert request parameters. Won't crash in release builds, but the request will most likely fails

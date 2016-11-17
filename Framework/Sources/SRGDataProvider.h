@@ -332,6 +332,27 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
+ *  Search audios matching a specific criterium
+ *
+ *  @discussion Some business units only support full-text search, not partial matching
+ */
+- (SRGRequest *)searchAudiosMatchingQuery:(NSString *)query withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  Search video shows matching a specific criterium
+ *
+ *  @discussion Some business units only support full-text search, not partial matching
+ */
+- (SRGRequest *)searchVideoShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
+
+/**
+ *  Search audio shows matching a specific criterium
+ *
+ *  @discussion Some business units only support full-text search, not partial matching
+ */
+- (SRGRequest *)searchAudioShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
+
+/**
  *  Increase the SRG popularity like counter from 1 unit for the specified media
  */
 - (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock;
