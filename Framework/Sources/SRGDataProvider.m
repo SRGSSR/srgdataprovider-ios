@@ -260,10 +260,10 @@ static SRGDataProvider *s_currentDataProvider;
     NSString *resourcePath = nil;
     
     if (channelUid) {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestEpisodes.json", self.businessUnitIdentifier];
+        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestEpisodesByChannel/%@.json", self.businessUnitIdentifier, channelUid];
     }
     else {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestEpisodesByChannel/%@.json", self.businessUnitIdentifier, channelUid];
+        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestEpisodes.json", self.businessUnitIdentifier];
     }
     
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
@@ -291,11 +291,11 @@ static SRGDataProvider *s_currentDataProvider;
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)latestMediasForShowWithUid:(NSString *)showUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)latestEpisodesForShowWithUid:(NSString *)showUid completionBlock:(SRGEpisodeCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/episodeComposition/latestByShow/%@.json", self.businessUnitIdentifier, showUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+    return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGEpisodeComposition class] completionBlock:completionBlock];
 }
 
 - (SRGRequest *)showWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock

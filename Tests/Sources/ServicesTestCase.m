@@ -348,13 +348,14 @@ static NSURL *ServiceTestURL(void)
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testLatestMediasForShow
+// TODO: Should also test paging support
+- (void)testLatestEpisodesForShow
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSRF];
-    [[dataProvider latestMediasForShowWithUid:@"6fd27ab0-d10f-450f-aaa9-836f1cac97bd" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(medias);
+    [[dataProvider latestEpisodesForShowWithUid:@"6fd27ab0-d10f-450f-aaa9-836f1cac97bd" completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(episodeComposition);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];

@@ -12,6 +12,7 @@
 #import "SRGDataProvider.h"
 #import "SRGDataProviderError.h"
 #import "SRGEpisode.h"
+#import "SRGEpisodeComposition.h"
 #import "SRGEvent.h"
 #import "SRGImageMetadata.h"
 #import "SRGLike.h"
@@ -52,14 +53,15 @@ OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessU
 
 // Completion block signatures
 typedef void (^SRGChannelListCompletionBlock)(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error);
+typedef void (^SRGEpisodeCompositionCompletionBlock)(SRGEpisodeComposition * _Nullable episodeComposition, NSError * _Nullable error);
 typedef void (^SRGEventListCompletionBlock)(NSArray<SRGEvent *> * _Nullable events, NSError * _Nullable error);
+typedef void (^SRGLikeCompletionBlock)(SRGLike * _Nullable like, NSError * _Nullable error);
+typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error);
 typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGShowCompletionBlock)(SRGShow * _Nullable show, NSError * _Nullable error);
 typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error);
 typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable error);
-typedef void (^SRGLikeCompletionBlock)(SRGLike * _Nullable like, NSError * _Nullable error);
-typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error);
 
 /**
  *  A data provider supplies metadata for an SRG SSR business unit (media and show lists, mostly). Several data providers 
@@ -300,9 +302,10 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 /**
  *  List medias for a specific show
  *
- *  @discussion The show can be a video or audio show
+ *  @discussion The show can be a video or audio show. Though the completion block does not return an array directly, this request 
+ *              supports paging (for episodes returned in the episode composition)
  */
-- (SRGRequest *)latestMediasForShowWithUid:(NSString *)showUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)latestEpisodesForShowWithUid:(NSString *)showUid completionBlock:(SRGEpisodeCompositionCompletionBlock)completionBlock;
 
 /**
  *  Specific show
