@@ -93,7 +93,6 @@ typedef NS_ENUM(NSInteger, SRGEncoding) {
     SRGEncodingVP6F,
     SRGEncodingMPEG2,
     SRGEncodingWMV3,
-    SRGEncodingMPEG4,
     /**
      *  Audio encodings
      */
@@ -135,9 +134,17 @@ typedef NS_ENUM(NSInteger, SRGProtocol) {
      */
     SRGProtocolHLS,
     /**
+     *  HTTP DVR Live Streaming
+     */
+    SRGProtocolHLS_DVR,
+    /**
      *  HTTP Dynamic Streaming
      */
     SRGProtocolHDS,
+    /**
+     *  HTTP DVR Dynamic Streaming
+     */
+    SRGProtocolHDS_DVR,
     /**
      *  Real Time Messaging Protocol
      */
@@ -145,7 +152,19 @@ typedef NS_ENUM(NSInteger, SRGProtocol) {
     /**
      *  HTTP
      */
-    SRGProtocolHTTP
+    SRGProtocolHTTP,
+    /**
+     *  HTTPS
+     */
+    SRGProtocolHTTPS,
+    /**
+     *  HTTP M3U
+     */
+    SRGProtocolHTTP_M3U,
+    /**
+     *  HTTP MP3 stream
+     */
+    SRGProtocolHTTP_MP3Stream
 };
 
 /**

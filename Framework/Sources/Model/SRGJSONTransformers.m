@@ -62,7 +62,6 @@ NSValueTransformer *SRGEncodingJSONTransformer(void)
                                                                                          @"VP6F" : @(SRGEncodingVP6F),
                                                                                          @"MPEG2" : @(SRGEncodingMPEG2),
                                                                                          @"WMV3" : @(SRGEncodingWMV3),
-                                                                                         @"MPEG4" : @(SRGEncodingMPEG4),
                                                                                          @"AAC" : @(SRGEncodingAAC),
                                                                                          @"AAC-HE" : @(SRGEncodingAAC_HE),
                                                                                          @"MP3" : @(SRGEncodingMP3),
@@ -89,9 +88,14 @@ NSValueTransformer *SRGProtocolJSONTransformer(void)
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"HLS" : @(SRGProtocolHLS),
+                                                                                         @"HLS-DVR" : @(SRGProtocolHLS_DVR),
                                                                                          @"HDS" : @(SRGProtocolHDS),
+                                                                                         @"HDS-DVR" : @(SRGProtocolHDS_DVR),
                                                                                          @"RTMP" : @(SRGProtocolRTMP),
-                                                                                         @"HTTP" : @(SRGProtocolHTTP) }];
+                                                                                         @"HTTP" : @(SRGProtocolHTTP),
+                                                                                         @"HTTPS" : @(SRGProtocolHTTPS),
+                                                                                         @"HTTP-M3U" : @(SRGProtocolHTTP_M3U),
+                                                                                         @"HTTP-MP3-STREAM" : @(SRGProtocolHTTP_MP3Stream) }];
         
     });
     return s_transformer;
