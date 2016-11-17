@@ -233,7 +233,7 @@ static SRGDataProvider *s_currentDataProvider;
     }];
 }
 
-- (SRGRequest *)latestVideosForEventWithUid:(NSString *)eventUid sectionUid:(NSString *)sectionUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)latestVideosWithEventUid:(NSString *)eventUid sectionUid:(NSString *)sectionUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = nil;
     
@@ -244,6 +244,13 @@ static SRGDataProvider *s_currentDataProvider;
         resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestByEventId/%@.json", self.businessUnitIdentifier, eventUid];
     }
     
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+}
+
+- (SRGRequest *)latestEpisodesWithChannelUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestEpisodesByChannel/%@.json", self.businessUnitIdentifier, channelUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }

@@ -268,7 +268,12 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
  *  @param eventUid   The unique event
  *  @param sectionUid An optional unique section identifier
  */
-- (SRGRequest *)latestVideosForEventWithUid:(NSString *)eventUid sectionUid:(nullable NSString *)sectionUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)latestVideosWithEventUid:(NSString *)eventUid sectionUid:(nullable NSString *)sectionUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  List latest episodes for a specific channel
+ */
+- (SRGRequest *)latestEpisodesWithChannelUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List video shows
