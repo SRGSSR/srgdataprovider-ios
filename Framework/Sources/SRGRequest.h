@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  from service requests supporting pagination
  *
  *  @param page The page to request. If nil, the first page with default size will be requested
+ *
+ *  @discussion The `-atPage:` method must be called on a related request, otherwise the behavior is undefined
  */
 - (SRGRequest *)atPage:(nullable SRGPage *)page;
 
