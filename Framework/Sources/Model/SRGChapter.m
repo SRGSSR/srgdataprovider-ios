@@ -48,6 +48,27 @@
 
 @implementation SRGChapter (Resources)
 
+- (SRGProtocol)recommendedProtocol
+{
+    NSArray *recommendedProtocols = nil;
+    
+    if (self.mediaType == SRGMediaTypeVideo) {
+        recommendedProtocols = @[ @(SRGProtocolHLS_DVR), @(SRGProtocolHLS) ];
+    }
+    else {
+        recommendedProtocols = @[ @(SRGProtocolHTTPS), @(SRGProtocolHTTP) ];
+    }
+    
+    for (NSNumber *protocolNumber in recommendedProtocols) {
+        SRGProtocol protocol = protocolNumber.integerValue;
+        if ([self resourcesForProtocol:protocol].count != 0) {
+            return protocol;
+        }
+    }
+    
+    return SRGProtocolNone;
+}
+
 - (NSArray<SRGResource *> *)resourcesForProtocol:(SRGProtocol)protocol
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGResource.new, protocol), @(protocol)];

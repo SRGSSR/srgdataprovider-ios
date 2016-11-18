@@ -29,6 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGChapter (Resources)
 
 /**
+ *  The recommended protocol to use. Might return `SRGProtocolNone` if no good match is found
+ */
+@property (nonatomic, readonly) SRGProtocol recommendedProtocol;
+
+/**
  *  Return resources matching the specified protocol, from the highest to the lowest available qualities
  */
 - (nullable NSArray<SRGResource *> *)resourcesForProtocol:(SRGProtocol)protocol;
