@@ -45,7 +45,7 @@
 - (void)testConstruction
 {
     // Default page size
-    SRGRequest *request1 = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request1 = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertEqual(page.number, 0);
         XCTAssertEqual(page.size, SRGPageDefaultSize);
     }];
@@ -54,7 +54,7 @@
     XCTAssertEqual(request1.page.size, SRGPageDefaultSize);
     
     // Specific page size
-    SRGRequest *request2 = [[self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request2 = [[self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertEqual(page.number, 0);
         XCTAssertEqual(page.size, 10);
     }] withPageSize:10];
@@ -63,7 +63,7 @@
     XCTAssertEqual(request2.page.size, 10);
     
     // Override with nil page
-    __block SRGRequest *request3 = [[self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    __block SRGRequest *request3 = [[self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertEqual(page.number, 0);
         XCTAssertEqual(page.size, SRGPageDefaultSize);
     }] atPage:nil];
@@ -72,7 +72,7 @@
     XCTAssertEqual(request3.page.size, SRGPageDefaultSize);
     
     // Incorrect page size
-    SRGRequest *request4 = [[self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request4 = [[self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertEqual(page.number, 0);
         XCTAssertEqual(page.size, 1);
     }] withPageSize:0];
@@ -85,7 +85,7 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
     
-    __block SRGRequest *request = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    __block SRGRequest *request = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // The request is considered running until after the completion block has been executed
         XCTAssertTrue(request.running);
         
@@ -103,7 +103,7 @@
 
 - (void)testRunningKVO
 {
-    SRGRequest *request = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing
     }];
     
@@ -133,7 +133,7 @@
 
 - (void)testReuse
 {
-    SRGRequest *request = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing
     }];
     
@@ -160,7 +160,7 @@
 
 - (void)testReuseAfterCancel
 {
-    SRGRequest *request = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing
     }];
     
@@ -208,7 +208,7 @@
 {
     [self expectationForElapsedTimeInterval:3. withHandler:nil];
     
-    SRGRequest *request = [self.dataProvider editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTFail(@"Completion block must not be called");
     }];
     
@@ -233,7 +233,7 @@
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
         
-        if (page.number == 0) {
+        if (page.number == 0 && nextPage) {
             [[request atPage:nextPage] resume];
         }
         else if (page.number == 1) {
