@@ -17,7 +17,6 @@
 @property (nonatomic) SRGShow *show;
 @property (nonatomic) NSArray<SRGChapter *> *chapters;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
-@property (nonatomic, copy) NSString *event;
 
 @end
 
@@ -36,8 +35,7 @@
                        @keypath(SRGMediaComposition.new, episode) : @"episode",
                        @keypath(SRGMediaComposition.new, show) : @"show",
                        @keypath(SRGMediaComposition.new, chapters) : @"chapterList",
-                       @keypath(SRGMediaComposition.new, analyticsLabels) : @"analyticsData",
-                       @keypath(SRGMediaComposition.new, event) : @"eventData" };
+                       @keypath(SRGMediaComposition.new, analyticsLabels) : @"analyticsData" };
     });
     return s_mapping;
 }

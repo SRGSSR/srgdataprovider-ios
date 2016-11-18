@@ -45,11 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly, nullable) NSDictionary<NSString *, NSString *> *analyticsLabels;
 
-/**
- *  An opaque event information to be sent when liking an event
- */
-@property (nonatomic, readonly, copy, nullable) NSString *event;
-
 @end
 
 @interface SRGMediaComposition (Helpers)

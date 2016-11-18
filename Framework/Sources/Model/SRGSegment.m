@@ -19,6 +19,7 @@
 @property (nonatomic) NSTimeInterval markOut;
 @property (nonatomic) SRGBlockingReason blockingReason;
 @property (nonatomic, getter=isHidden) BOOL hidden;
+@property (nonatomic, copy) NSString *event;
 @property (nonatomic) NSArray<SRGSubtitle *> *subtitles;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
 
@@ -63,6 +64,7 @@
                        @keypath(SRGSegment.new, markOut) : @"markOut",
                        @keypath(SRGSegment.new, blockingReason) : @"blockReason",
                        @keypath(SRGSegment.new, hidden) : @"displayable",
+                       @keypath(SRGSegment.new, event) : @"eventData",
                        @keypath(SRGSegment.new, analyticsLabels) : @"analyticsData",
                        @keypath(SRGSegment.new, subtitles) : @"subtitleList",
                        

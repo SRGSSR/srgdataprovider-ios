@@ -50,6 +50,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, getter=isHidden) BOOL hidden;
 
 /**
+ *  An opaque event information to be sent when liking an event
+ */
+@property (nonatomic, readonly, copy, nullable) NSString *event;
+
+/**
  *  The list of analytics labels which should be supplied in SRG Analytics events
  *  (https://github.com/SRGSSR/srganalytics-ios)
  */
