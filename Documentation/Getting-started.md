@@ -221,3 +221,39 @@ NSURL *mediaURL = ...;   // For example retrieved from an `SRGMediaComposition`
     // Play the URL with a media player
 }] resume];
 ```
+## App Transport Security (ATS)
+
+Starting on January 2017, Apple will impose to every developer to explicit declare insecure connection on iOS mobile applications.
+We work hard to move all requests to HTTPS support, but be prepare to have some exception domains. To better understand ATS, please refer to the [Apple Technical documentation for iOS](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW33).
+
+
+The key `NSAllowsArbitraryLoads` in the `Ìnfo.plist` application is under you responsability.
+For IL requests, we help you with an update table for each BU on [the release github page](https://github.com/SRGSSR/srgdataprovider-ios/releases). Look below for a configuration example.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSAllowsArbitraryLoads</key>
+	<false/>
+	<key>NSExceptionDomains</key>
+	<dict>
+		<key>[domain1]</key>
+		<dict>
+			<key>NSIncludesSubdomains</key>
+			<true/>
+			<key>NSExceptionAllowsInsecureHTTPLoads</key>
+			<true/>
+		</dict>
+		<key>[domain2]</key>
+		<dict>
+			<key>NSIncludesSubdomains</key>
+			<true/>
+			<key>NSExceptionAllowsInsecureHTTPLoads</key>
+			<true/>
+		</dict>				
+	</dict>
+</dict>
+</plist>
+```
