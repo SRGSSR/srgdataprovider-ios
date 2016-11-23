@@ -16,29 +16,25 @@ The library can be added to a project through [CocoaPods](http://cocoapods.org/)
 
 * The SRG specification repository:
     
-```
-#!ruby
+```ruby
     source 'https://github.com/SRGSSR/srgpodspecs-ios.git'
 ```
     
 * The `SRGIntegrationLayerDataProvider` dependency:
 
-```
-#!ruby
+```ruby
     pod 'SRGIntegrationLayerDataProvider', '<version>'
 ```
 
 * To add optional support for the [SRG Media Player library](https://github.com/SRGSSR/SRGMediaPlayer-iOS), add the corresponding subspec (it is preferable not to provide an explicit version number for subspecs):
 
-```
-#!ruby
+```ruby
     pod 'SRGIntegrationLayerDataProvider/MediaPlayer'
 ```
 
 * To add optional support for the [SRG Analytics library](https://github.com/SRGSSR/srganalytics-ios) when playing media, add the corresponding subspec (it is preferable not to provide an explicit version number for subspecs):
 
-```
-#!ruby
+```ruby
     pod 'SRGIntegrationLayerDataProvider/MediaPlayer/Analytics'
 ```
 
@@ -51,8 +47,7 @@ For more information about CocoaPods and the `Podfile`, please refer to the [off
 
 Every request to the IL is made through a data provider, instantiated with a business uit identifier as follows:
 
-```
-#!objective-c
+```objective-c
     SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:<business unit string>];
 ```
 
@@ -60,8 +55,7 @@ The default URL is `https://il.srgssr.ch` and you need to check which business u
 
 Usually, you only need a single data provider instance for your application. This instance must be kept somewhere for reuse. A convenient approach is to have a singleton instance returned from a function, as follows:
 
-```
-#!objective-c
+```objective-c
 SRGILDataProvider *SRFDataProvider(void)
 {
 	static SRGILDataProvider *dataProvider;
@@ -77,8 +71,7 @@ You can then access this provider by simply calling `SRFDataProvider()`.
 
 To fetch a list of items, create an URL component object with the desired fetch list index (the type of request) and, optionally, an identifier:
 
-```
-#!objective-c
+```objective-c
     SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:<fetch list index>
                                                                       withIdentifier:<an optional identifier relevant for that fetch index>
                                                                                error:<an optional error>];
@@ -86,8 +79,7 @@ To fetch a list of items, create an URL component object with the desired fetch 
 
 Then perform the request by providing those components to the data provider:
 
-```
-#!objective-c
+```objective-c
 [dataProvider fetchObjectsListWithURLComponents:components
                                       organised:<SRGILModelDataOrganisationTypeFlat or SRGILModelDataOrganisationTypeAlphabetical>
                                      onProgress:<an optional progress block>
@@ -98,8 +90,7 @@ The completion block is called with an array of objects, usually `SRGILAudio`, `
 
 When you have a media to play, request its complete metadata using its URN (unique identifier):
 
-```
-#!objective-c
+```objective-c
 SRGILURN *mediaURN = [SRGILURN URNWithString:<a media URN string>];
 [dataProvider fetchMediaWithURN:mediaURN
                 completionBlock:<a completion block>];
@@ -113,15 +104,13 @@ Playback of a media requires an authorization token. If you add the `SRGIntegrat
 
 * If you use `RTSMediaPlayerController`, assign your data provider to its `dataSource` property. Alternatively, you can provide the data source at creation time:
 
-```
-#!objective-c
+```objective-c
 RTSMediaPlayerController *mediaPlayerController = [[RTSMediaPlayerController alloc] initWithContentIdentifier:<a media URN string> dataSource:dataProvider]
 ```
 
 * If you use `RTSMediaPlayerViewController`, provide the data source at creation time:
 
-```
-#!objective-c
+```objective-c
 RTSMediaPlayerViewController *mediaPlayerViewController = [[RTSMediaPlayerViewController alloc] initWithContentIdentifier:<a media URN string> dataSource:dataProvider]
 ```
 
@@ -131,8 +120,7 @@ If you want to send comScore and StreamSense analytics labels when playing a med
 
 You must start tracking for your data provider, as described in the [SRG Analytics library](https://github.com/SRGSSR/srganalytics-ios) readme file:
 
-```
-#!objective-c
+```objective-c
     [[RTSAnalyticsTracker sharedTracker] startTrackingForBusinessUnit:<business unit>
                                                       mediaDataSource:dataProvider];
 ```
@@ -148,9 +136,7 @@ We work hard to move all requests to HTTPS support, but be prepare to have some 
 The key `NSAllowsArbitraryLoads` in the `Ìnfo.plist` application is under you responsability.
 For IL requests, we help you with an update table for each BU on [the release github page](https://github.com/SRGSSR/srgdataprovider-ios/releases). Look below for a configuration example.
 
-
-```
-#!xml
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -176,7 +162,6 @@ For IL requests, we help you with an update table for each BU on [the release gi
 	</dict>
 </dict>
 </plist>
-
 ```
 
 ## License
