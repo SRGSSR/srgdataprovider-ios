@@ -21,14 +21,27 @@
     BOOL takeHDVideo = [[NSUserDefaults standardUserDefaults] boolForKey:SRGILVideoUseHighQualityOverCellularNetworkKey];
     BOOL usingTrueWIFINetwork = [SRGILRequestsManager isUsingWIFI] && ![SRGILRequestsManager isUsingSwisscomWIFI];
     
-    // HLS DVR first, HLS otherwise
+    // In order, HLS-DVR, HLS, HTTPS, HTTP
     NSURL *qualityHDURL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLSDVR withQuality:SRGILPlaylistURLQualityHD];
     if (!qualityHDURL) {
         qualityHDURL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityHD];
     }
+    if (!qualityHDURL) {
+        qualityHDURL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTPS withQuality:SRGILPlaylistURLQualityHD];
+    }
+    if (!qualityHDURL) {
+        qualityHDURL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTP withQuality:SRGILPlaylistURLQualityHD];
+    }
+    
     NSURL *qualitySDURL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLSDVR withQuality:SRGILPlaylistURLQualitySD];
     if (!qualitySDURL) {
         qualitySDURL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualitySD];
+    }
+    if (!qualitySDURL) {
+        qualitySDURL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTPS withQuality:SRGILPlaylistURLQualitySD];
+    }
+    if (!qualitySDURL) {
+        qualitySDURL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTP withQuality:SRGILPlaylistURLQualitySD];
     }
     
     if (usingTrueWIFINetwork || takeHDVideo) {

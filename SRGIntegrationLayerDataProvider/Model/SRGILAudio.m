@@ -39,6 +39,19 @@
         URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHLS withQuality:SRGILPlaylistURLQualityMQ];
     }
     
+    // HTTPS
+    if (!URL) {
+        URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTPS withQuality:SRGILPlaylistURLQualityHD];
+    }
+    
+    if (!URL) {
+        URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTPS withQuality:SRGILPlaylistURLQualityHQ];
+    }
+    
+    if (!URL) {
+        URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTPS withQuality:SRGILPlaylistURLQualityMQ];
+    }
+    
     // HTTP
     if (!URL) {
         URL = [self contentURLForPlaylistWithProtocol:SRGILPlaylistProtocolHTTP withQuality:SRGILPlaylistURLQualityHD];
