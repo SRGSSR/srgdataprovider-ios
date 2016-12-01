@@ -31,7 +31,7 @@
 
 - (void)setUp
 {
-    NSURL *serviceURL = [NSURL URLWithString:@"http://il-test.srgssr.ch"];
+    NSURL *serviceURL = [NSURL URLWithString:@"https://il-test.srgssr.ch"];
     self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSWI];
 }
 

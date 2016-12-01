@@ -15,10 +15,10 @@
 
 - (void)testCreation
 {
-    NSURL *serviceURL = [NSURL URLWithString:@"http://il-test.srgssr.ch"];
+    NSURL *serviceURL = [NSURL URLWithString:@"https://il-test.srgssr.ch"];
     
     SRGDataProvider *dataProvider1 = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
-    XCTAssertEqualObjects(dataProvider1.serviceURL, [NSURL URLWithString:@"http://il-test.srgssr.ch/"]);
+    XCTAssertEqualObjects(dataProvider1.serviceURL, [NSURL URLWithString:@"https://il-test.srgssr.ch/"]);
     XCTAssertEqualObjects(dataProvider1.businessUnitIdentifier, SRGDataProviderBusinessUnitIdentifierRTS);
     
     XCTAssertNil([SRGDataProvider currentDataProvider]);
