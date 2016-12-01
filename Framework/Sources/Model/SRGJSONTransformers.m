@@ -23,8 +23,9 @@ NSValueTransformer *SRGBlockingReasonJSONTransformer(void)
                                                                                          @"AGERATING12" : @(SRGBlockingReasonAgeRating12),
                                                                                          @"STARTDATE" : @(SRGBlockingReasonStartDate),
                                                                                          @"ENDDATE" : @(SRGBlockingReasonEndDate),
-                                                                                         @"UNKNOWN" : @(SRGBlockingReasonUnknown),
-                                                                                         NSNull.null : @(SRGBlockingReasonNone) }];
+                                                                                         @"UNKNOWN" : @(SRGBlockingReasonUnknown) }
+                                                                         defaultValue:@(SRGBlockingReasonNone)
+                                                                  reverseDefaultValue:nil];
     });
     return s_transformer;
 }
@@ -35,7 +36,9 @@ NSValueTransformer *SRGBooleanInversionJSONTransformer(void)
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @(YES) : @(NO),
-                                                                                         @(NO) : @(YES) }];
+                                                                                         @(NO) : @(YES) }
+                                                                         defaultValue:@(YES)
+                                                                  reverseDefaultValue:nil];
     });
     return s_transformer;
 }
@@ -49,8 +52,9 @@ NSValueTransformer *SRGContentTypeJSONTransformer(void)
                                                                                          @"TRAILER" : @(SRGContentTypeTrailer),
                                                                                          @"CLIP" : @(SRGContentTypeClip),
                                                                                          @"LIVESTREAM" : @(SRGContentTypeLivestream),
-                                                                                         @"SCHEDULED_LIVESTREAM" : @(SRGContentTypeScheduledLivestream),
-                                                                                         NSNull.null : @(SRGContentTypeNone) }];
+                                                                                         @"SCHEDULED_LIVESTREAM" : @(SRGContentTypeScheduledLivestream) }
+                                                                         defaultValue:@(SRGContentTypeNone)
+                                                                  reverseDefaultValue:nil];
     });
     return s_transformer;
 }
@@ -68,8 +72,9 @@ NSValueTransformer *SRGEncodingJSONTransformer(void)
                                                                                          @"AAC-HE" : @(SRGEncodingAAC_HE),
                                                                                          @"MP3" : @(SRGEncodingMP3),
                                                                                          @"MP2" : @(SRGEncodingMP2),
-                                                                                         @"WMAV2" : @(SRGEncodingWMAV2),
-                                                                                         NSNull.null : @(SRGEncodingNone) }];
+                                                                                         @"WMAV2" : @(SRGEncodingWMAV2) }
+                                                                         defaultValue:@(SRGEncodingNone)
+                                                                  reverseDefaultValue:nil];
     });
     return s_transformer;
 }
@@ -80,8 +85,9 @@ NSValueTransformer *SRGMediaTypeJSONTransformer(void)
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"VIDEO" : @(SRGMediaTypeVideo),
-                                                                                         @"AUDIO" : @(SRGMediaTypeAudio),
-                                                                                         NSNull.null : @(SRGMediaTypeNone) }];
+                                                                                         @"AUDIO" : @(SRGMediaTypeAudio) }
+                                                                         defaultValue:@(SRGMediaTypeNone)
+                                                                  reverseDefaultValue:nil];
     });
     return s_transformer;
 }
@@ -99,9 +105,9 @@ NSValueTransformer *SRGProtocolJSONTransformer(void)
                                                                                          @"HTTP" : @(SRGProtocolHTTP),
                                                                                          @"HTTPS" : @(SRGProtocolHTTPS),
                                                                                          @"HTTP-M3U" : @(SRGProtocolHTTP_M3U),
-                                                                                         @"HTTP-MP3-STREAM" : @(SRGProtocolHTTP_MP3Stream),
-                                                                                         NSNull.null : @(SRGProtocolNone) }];
-        
+                                                                                         @"HTTP-MP3-STREAM" : @(SRGProtocolHTTP_MP3Stream) }
+                                                                         defaultValue:@(SRGProtocolNone)
+                                                                  reverseDefaultValue:nil];
     });
     return s_transformer;
 }
@@ -113,8 +119,9 @@ NSValueTransformer *SRGQualityJSONTransformer(void)
     dispatch_once(&s_onceToken, ^{
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"SD" : @(SRGQualitySD),
                                                                                          @"HD" : @(SRGQualityHD),
-                                                                                         @"HQ" : @(SRGQualityHQ),
-                                                                                         NSNull.null : @(SRGQualityNone) }];
+                                                                                         @"HQ" : @(SRGQualityHQ) }
+                                                                         defaultValue:@(SRGQualityNone)
+                                                                  reverseDefaultValue:nil];
     });
     return s_transformer;
 }
@@ -129,8 +136,9 @@ NSValueTransformer *SRGSocialCountTypeJSONTransformer(void)
                                                                                         @"fbShare": @(SRGSocialCountTypeFacebookShare),
                                                                                         @"twitterShare": @(SRGSocialCountTypeTwitterShare),
                                                                                         @"googleShare": @(SRGSocialCountTypeGooglePlusShare),
-                                                                                        @"whatsAppShare": @(SRGSocialCountTypeWhatsAppShare),
-                                                                                        NSNull.null : @(SRGSocialCountTypeNone) }];
+                                                                                        @"whatsAppShare": @(SRGSocialCountTypeWhatsAppShare) }
+                                                                        defaultValue:@(SRGSocialCountTypeNone)
+                                                                 reverseDefaultValue:nil];
     });
     return transformer;
 }
@@ -142,8 +150,9 @@ NSValueTransformer *SRGSourceJSONTransformer(void)
     dispatch_once(&s_onceToken, ^{
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"EDITOR" : @(SRGSourceEditor),
                                                                                          @"TRENDING" : @(SRGSourceTrending),
-                                                                                         @"RECOMMENDATION" : @(SRGSourceRecommendation),
-                                                                                         NSNull.null : @(SRGSourceNone) }];
+                                                                                         @"RECOMMENDATION" : @(SRGSourceRecommendation) }
+                                                                         defaultValue:@(SRGSourceNone)
+                                                                  reverseDefaultValue:nil];
     });
     return s_transformer;
 }
@@ -154,8 +163,9 @@ NSValueTransformer *SRGSubtitleFormatJSONTransformer(void)
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"TTML" : @(SRGSubtitleFormatTTML),
-                                                                                         @"VTT" : @(SRGSubtitleFormatVTT),
-                                                                                         NSNull.null : @(SRGSubtitleFormatNone) }];
+                                                                                         @"VTT" : @(SRGSubtitleFormatVTT) }
+                                                                         defaultValue:@(SRGSubtitleFormatNone)
+                                                                  reverseDefaultValue:nil];
     });
     return s_transformer;
 }
@@ -168,8 +178,9 @@ OBJC_EXPORT NSValueTransformer *SRGTransmissionJSONTransformer(void)
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"TV" : @(SRGTransmissionTV),
                                                                                          @"RADIO" : @(SRGTransmissionRadio),
                                                                                          @"ONLINE" : @(SRGTransmissionOnline),
-                                                                                         @"UNKNOWN" : @(SRGTransmissionUnknown),
-                                                                                         NSNull.null : @(SRGTransmissionNone) }];
+                                                                                         @"UNKNOWN" : @(SRGTransmissionUnknown) }
+                                                                         defaultValue:@(SRGTransmissionNone)
+                                                                  reverseDefaultValue:nil];
     });
     return s_transformer;
 }
@@ -183,8 +194,9 @@ NSValueTransformer *SRGVendorJSONTransformer(void)
                                                                                          @"RTR" : @(SRGVendorRTR),
                                                                                          @"RTS" : @(SRGVendorRTS),
                                                                                          @"SRF" : @(SRGVendorSRF),
-                                                                                         @"SWI" : @(SRGVendorSWI),
-                                                                                         NSNull.null : @(SRGVendorNone) }];
+                                                                                         @"SWI" : @(SRGVendorSWI) }
+                                                                         defaultValue:@(SRGVendorNone)
+                                                                  reverseDefaultValue:nil];
     });
     return s_transformer;
 }
