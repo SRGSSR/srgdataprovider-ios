@@ -23,7 +23,8 @@ NSValueTransformer *SRGBlockingReasonJSONTransformer(void)
                                                                                          @"AGERATING12" : @(SRGBlockingReasonAgeRating12),
                                                                                          @"STARTDATE" : @(SRGBlockingReasonStartDate),
                                                                                          @"ENDDATE" : @(SRGBlockingReasonEndDate),
-                                                                                         @"UNKNOWN" : @(SRGBlockingReasonUnknown) }];
+                                                                                         @"UNKNOWN" : @(SRGBlockingReasonUnknown),
+                                                                                         NSNull.null : @(SRGBlockingReasonNone) }];
     });
     return s_transformer;
 }
@@ -34,7 +35,8 @@ NSValueTransformer *SRGBooleanInversionJSONTransformer(void)
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @(YES) : @(NO),
-                                                                                         @(NO) : @(YES) }];
+                                                                                         @(NO) : @(YES),
+                                                                                         NSNull.null : @(YES) }];
     });
     return s_transformer;
 }
@@ -48,7 +50,8 @@ NSValueTransformer *SRGContentTypeJSONTransformer(void)
                                                                                          @"TRAILER" : @(SRGContentTypeTrailer),
                                                                                          @"CLIP" : @(SRGContentTypeClip),
                                                                                          @"LIVESTREAM" : @(SRGContentTypeLivestream),
-                                                                                         @"SCHEDULED_LIVESTREAM" : @(SRGContentTypeScheduledLivestream) }];
+                                                                                         @"SCHEDULED_LIVESTREAM" : @(SRGContentTypeScheduledLivestream),
+                                                                                         NSNull.null : @(SRGContentTypeNone) }];
     });
     return s_transformer;
 }
@@ -66,7 +69,8 @@ NSValueTransformer *SRGEncodingJSONTransformer(void)
                                                                                          @"AAC-HE" : @(SRGEncodingAAC_HE),
                                                                                          @"MP3" : @(SRGEncodingMP3),
                                                                                          @"MP2" : @(SRGEncodingMP2),
-                                                                                         @"WMAV2" : @(SRGEncodingWMAV2) }];
+                                                                                         @"WMAV2" : @(SRGEncodingWMAV2),
+                                                                                         NSNull.null : @(SRGEncodingNone) }];
     });
     return s_transformer;
 }
@@ -77,7 +81,8 @@ NSValueTransformer *SRGMediaTypeJSONTransformer(void)
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"VIDEO" : @(SRGMediaTypeVideo),
-                                                                                         @"AUDIO" : @(SRGMediaTypeAudio) }];
+                                                                                         @"AUDIO" : @(SRGMediaTypeAudio),
+                                                                                         NSNull.null : @(SRGMediaTypeNone) }];
     });
     return s_transformer;
 }
@@ -95,7 +100,8 @@ NSValueTransformer *SRGProtocolJSONTransformer(void)
                                                                                          @"HTTP" : @(SRGProtocolHTTP),
                                                                                          @"HTTPS" : @(SRGProtocolHTTPS),
                                                                                          @"HTTP-M3U" : @(SRGProtocolHTTP_M3U),
-                                                                                         @"HTTP-MP3-STREAM" : @(SRGProtocolHTTP_MP3Stream) }];
+                                                                                         @"HTTP-MP3-STREAM" : @(SRGProtocolHTTP_MP3Stream),
+                                                                                         NSNull.null : @(SRGProtocolNone) }];
         
     });
     return s_transformer;
@@ -108,7 +114,8 @@ NSValueTransformer *SRGQualityJSONTransformer(void)
     dispatch_once(&s_onceToken, ^{
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"SD" : @(SRGQualitySD),
                                                                                          @"HD" : @(SRGQualityHD),
-                                                                                         @"HQ" : @(SRGQualityHQ) }];
+                                                                                         @"HQ" : @(SRGQualityHQ),
+                                                                                         NSNull.null : @(SRGQualityNone) }];
     });
     return s_transformer;
 }
@@ -123,7 +130,9 @@ NSValueTransformer *SRGSocialCountTypeJSONTransformer(void)
                                                                                         @"fbShare": @(SRGSocialCountTypeFacebookShare),
                                                                                         @"twitterShare": @(SRGSocialCountTypeTwitterShare),
                                                                                         @"googleShare": @(SRGSocialCountTypeGooglePlusShare),
-                                                                                        @"whatsAppShare": @(SRGSocialCountTypeWhatsAppShare) }];    });
+                                                                                        @"whatsAppShare": @(SRGSocialCountTypeWhatsAppShare),
+                                                                                        NSNull.null : @(SRGSocialCountTypeNone) }];
+    });
     return transformer;
 }
 
@@ -134,7 +143,8 @@ NSValueTransformer *SRGSourceJSONTransformer(void)
     dispatch_once(&s_onceToken, ^{
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"EDITOR" : @(SRGSourceEditor),
                                                                                          @"TRENDING" : @(SRGSourceTrending),
-                                                                                         @"RECOMMENDATION" : @(SRGSourceRecommendation) }];
+                                                                                         @"RECOMMENDATION" : @(SRGSourceRecommendation),
+                                                                                         NSNull.null : @(SRGSourceNone) }];
     });
     return s_transformer;
 }
@@ -145,7 +155,8 @@ NSValueTransformer *SRGSubtitleFormatJSONTransformer(void)
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"TTML" : @(SRGSubtitleFormatTTML),
-                                                                                         @"VTT" : @(SRGSubtitleFormatVTT) }];
+                                                                                         @"VTT" : @(SRGSubtitleFormatVTT),
+                                                                                         NSNull.null : @(SRGSubtitleFormatNone) }];
     });
     return s_transformer;
 }
@@ -158,7 +169,8 @@ OBJC_EXPORT NSValueTransformer *SRGTransmissionJSONTransformer(void)
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"TV" : @(SRGTransmissionTV),
                                                                                          @"RADIO" : @(SRGTransmissionRadio),
                                                                                          @"ONLINE" : @(SRGTransmissionOnline),
-                                                                                         @"UNKNOWN" : @(SRGTransmissionUnknown) }];
+                                                                                         @"UNKNOWN" : @(SRGTransmissionUnknown),
+                                                                                         NSNull.null : @(SRGTransmissionNone) }];
     });
     return s_transformer;
 }
@@ -172,7 +184,8 @@ NSValueTransformer *SRGVendorJSONTransformer(void)
                                                                                          @"RTR" : @(SRGVendorRTR),
                                                                                          @"RTS" : @(SRGVendorRTS),
                                                                                          @"SRF" : @(SRGVendorSRF),
-                                                                                         @"SWI" : @(SRGVendorSWI) }];
+                                                                                         @"SWI" : @(SRGVendorSWI),
+                                                                                         NSNull.null : @(SRGVendorNone) }];
     });
     return s_transformer;
 }
