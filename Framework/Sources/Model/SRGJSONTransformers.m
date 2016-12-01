@@ -35,8 +35,7 @@ NSValueTransformer *SRGBooleanInversionJSONTransformer(void)
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @(YES) : @(NO),
-                                                                                         @(NO) : @(YES),
-                                                                                         NSNull.null : @(YES) }];
+                                                                                         @(NO) : @(YES) }];
     });
     return s_transformer;
 }
