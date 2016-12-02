@@ -82,7 +82,7 @@ const NSInteger SRGPageDefaultSize = NSIntegerMax;
     }
     
     SRGPage *otherPage = object;
-    return self.size == otherPage.size && self.number == otherPage.number && [self.URL isEqual:otherPage.URL];
+    return self.size == otherPage.size && self.number == otherPage.number && (self.URL == otherPage.URL || [self.URL isEqual:otherPage.URL]);
 }
 
 - (NSUInteger)hash
