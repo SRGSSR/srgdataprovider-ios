@@ -2068,7 +2068,7 @@
 				<string>2F23C533CEC64227711ECDB846CC7D5D</string>
 				<string>3A853BDBA9BD58A86D039DA56238BA40</string>
 				<string>6010266EBC38E3F842AB0D9AF260029E</string>
-				<string>402CAE3F46037ACBB1619DCF3D89C50D</string>
+				<string>B479F82416339958FE706E495EDA7E35</string>
 				<string>CBC2EC61AA4D7BBEF7146EA952884A95</string>
 				<string>1B82F788E85CC74CD819A2EBAA2991AD</string>
 				<string>DE0912A53EFF0CCD312DBFFE50299502</string>
@@ -5134,18 +5134,6 @@
 			<string>FXReachability.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>402CAE3F46037ACBB1619DCF3D89C50D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8F37944069DF1558892D061B0FE3AAD8</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-w -Xanalyzer -analyzer-disable-all-checks -DRTS_MEDIA_PLAYER_VERSION=1.9.11 -w -Xanalyzer -analyzer-disable-all-checks</string>
-			</dict>
 		</dict>
 		<key>4040F566822405F9A947A9B103D0C940</key>
 		<dict>
@@ -14266,6 +14254,18 @@
 			<dict>
 				<key>COMPILER_FLAGS</key>
 				<string>-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks</string>
+			</dict>
+		</dict>
+		<key>B479F82416339958FE706E495EDA7E35</key>
+		<dict>
+			<key>fileRef</key>
+			<string>8F37944069DF1558892D061B0FE3AAD8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-w -Xanalyzer -analyzer-disable-all-checks -DRTS_MEDIA_PLAYER_VERSION=1.9.12 -w -Xanalyzer -analyzer-disable-all-checks</string>
 			</dict>
 		</dict>
 		<key>B492277E773571611FDD476242793328</key>

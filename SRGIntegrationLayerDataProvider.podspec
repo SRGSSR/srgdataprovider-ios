@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SRGIntegrationLayerDataProvider"
-  s.version = "4.4.14"
+  s.version = "4.4.15"
   s.summary = "Data Provider using the Integration Layer for the SRG Media Player"
   s.description = <<-DESC
     This is the implementation of the Data Provider using the Integration Layer. It is a generic data provider and it
@@ -11,7 +11,7 @@ DESC
   s.homepage = "https://github.com/SRGSSR/srgdataprovider-ios"
   s.license = { :type => "N/A" }
   s.authors = { "Cédric Foellmi" => "cedric@onekilopars.ec", "Cédric Luthi" => "cedric.luthi@rts.ch", "Pierre-Yves bertholon" => "py.bertholon@gmail.com" }
-  s.source = { :git => "git@github.com:SRGSSR/srgdataprovider-ios.git", :tag => s.version.to_s }
+  s.source = { :git => "https://github.com/SRGSSR/srgdataprovider-ios.git", :tag => s.version.to_s }
 
   # Platform setup
   s.platform = :ios
