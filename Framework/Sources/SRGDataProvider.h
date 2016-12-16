@@ -42,6 +42,11 @@ NS_ASSUME_NONNULL_BEGIN
 // Official version number
 OBJC_EXPORT NSString *SRGDataProviderMarketingVersion(void);
 
+// Official service URLs
+OBJC_EXPORT NSURL *SRGIntegrationLayerProductionServiceURL(void);
+OBJC_EXPORT NSURL *SRGIntegrationLayerStagingServiceURL(void);
+OBJC_EXPORT NSURL *SRGIntegrationLayerTestServiceURL(void);
+
 // Official business identifiers
 typedef NSString * SRGDataProviderBusinessUnitIdentifier NS_STRING_ENUM;
 
@@ -156,7 +161,9 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
  *  Instantiate a data provider
  *
  *  @param serviceURL             The Integration Layer service base URL (which must expose service endpoints
- *                                starting with '/integrationlayer')
+ *                                starting with '/integrationlayer'). Official service URLs are available at
+ *                                the top of this header file
+ *
  *  @param businessUnitIdentifier The identifier of the SRG SSR business unit to retrieve data for. Use constants
  *                                available at the top of this file for the officially supported values
  */

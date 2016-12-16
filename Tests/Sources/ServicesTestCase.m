@@ -9,7 +9,7 @@
 
 static NSURL *ServiceTestURL(void)
 {
-    return [NSURL URLWithString:@"https://il-test.srgssr.ch"];
+    return SRGIntegrationLayerTestServiceURL();
 }
 
 @interface ServicesTestCase : XCTestCase

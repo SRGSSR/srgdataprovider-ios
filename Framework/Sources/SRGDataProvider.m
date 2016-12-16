@@ -15,6 +15,21 @@
 
 #import <Mantle/Mantle.h>
 
+NSURL *SRGIntegrationLayerProductionServiceURL(void)
+{
+    return [NSURL URLWithString:@"https://il.srgssr.ch"];
+}
+
+NSURL *SRGIntegrationLayerStagingServiceURL(void)
+{
+    return [NSURL URLWithString:@"https://il-stage.srgssr.ch"];
+}
+
+NSURL *SRGIntegrationLayerTestServiceURL(void)
+{
+    return [NSURL URLWithString:@"https://il-test.srgssr.ch"];
+}
+
 SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierRSI = @"rsi";
 SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierRTR = @"rtr";
 SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierRTS = @"rts";

@@ -19,8 +19,7 @@
 
 - (void)setUp
 {
-    NSURL *serviceURL = [NSURL URLWithString:@"https://il-test.srgssr.ch"];
-    self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSWI];
+    self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerTestServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSWI];
 }
 
 - (void)tearDown
