@@ -50,55 +50,37 @@ static NSString *const SRGILTokenHandlerBaseURLString = @"https://tp.srgssr.ch/a
     DDLogDebug(@"Requesting token for URL: %@", url);
     
     NSURLSessionTask *sessionTask = [[NSURLSession sharedSession] dataTaskWithURL:[self tokenRequestURLForURL:url] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock ? completionBlock(nil, error) : nil;
-            });
-            return;
-        }
-        
-        void (^reportPlaybackError)(void) = ^{
-            NSError *error = [NSError errorWithDomain:SRGILDataProviderErrorDomain
-                                                 code:SRGILDataProviderErrorCodeInvalidData
-                                             userInfo:@{ NSLocalizedDescriptionKey : SRGILDataProviderLocalizedString(@"The media cannot be played.", nil) }];
-            completionBlock ? completionBlock(nil, error) : nil;
-        };
-        
         NSError *deserializationError = nil;
         NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&deserializationError];
-        if (deserializationError || ![JSON isKindOfClass:[NSDictionary class]]) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                reportPlaybackError();
-            });
-            return;
-        }
-        
         NSString *tokenParameterString = [[JSON objectForKey:@"token"] objectForKey:@"authparams"];
-        if (!tokenParameterString) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                reportPlaybackError();
-            });
-            return;
+        
+        NSURL *finalURL = nil;
+        
+        if (tokenParameterString) {
+            // The value we receive is a parameter string. Build query components from it
+            NSURLComponents *tokenURLComponents = [[NSURLComponents alloc] init];
+            tokenURLComponents.query = tokenParameterString;
+            
+            NSURLComponents *URLComponents = [[NSURLComponents alloc] initWithURL:url resolvingAgainstBaseURL:NO];
+            
+            // Merge with existing components, if any
+            NSMutableArray *queryItems = URLComponents.queryItems ? [URLComponents.queryItems mutableCopy] : [NSMutableArray array];
+            if (tokenURLComponents.queryItems) {
+                [queryItems addObjectsFromArray:tokenURLComponents.queryItems];
+            }
+            URLComponents.queryItems = [queryItems copy];
+            
+            finalURL = URLComponents.URL;
+            DDLogDebug(@"Final Tokenized URL: %@", finalURL);
         }
         
-        // The value we receive is a parameter string. Build query components from it
-        NSURLComponents *tokenURLComponents = [[NSURLComponents alloc] init];
-        tokenURLComponents.query = tokenParameterString;
-        
-        NSURLComponents *URLComponents = [[NSURLComponents alloc] initWithURL:url resolvingAgainstBaseURL:NO];
-        
-        // Merge with existing components, if any
-        NSMutableArray *queryItems = URLComponents.queryItems ? [URLComponents.queryItems mutableCopy] : [NSMutableArray array];
-        if (tokenURLComponents.queryItems) {
-            [queryItems addObjectsFromArray:tokenURLComponents.queryItems];
+        if (!finalURL) {
+            finalURL = url;
+            DDLogDebug(@"Final URL without token: %@ - error: %@", finalURL, error ?: deserializationError ?: nil);
         }
-        URLComponents.queryItems = [queryItems copy];
-        
-        NSURL *finalURL = URLComponents.URL;
-        DDLogDebug(@"Final Tokenized URL: %@", finalURL);
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            completionBlock ? completionBlock(finalURL, nil) : nil;
+            completionBlock ? completionBlock(finalURL, error ?: deserializationError ?: nil) : nil;
         });
     }];
     [sessionTask resume];

@@ -113,19 +113,18 @@ static NSString * const streamSenseKeyPathPrefix = @"SRGILStreamSenseAnalyticsIn
 #endif
                 
                 request.tokenSessionTask= [[SRGILTokenHandler sharedHandler] requestTokenForURL:media.defaultContentURL completionBlock:^(NSURL *tokenizedURL, NSError *error) {
-                    if (error) {
-                        completionHandler(urnString, nil, error);
-                        return;
+                    if (error || !tokenizedURL) {
+                        tokenizedURL = media.defaultContentURL;
                     }
                     
                     if ([media segmentationForURL:media.defaultContentURL] == SRGILPlaylistSegmentationLogical
                         && (media.markIn > 0.f) && !media.isLiveStream) {
                         NSURLComponents *components = [NSURLComponents componentsWithURL:tokenizedURL resolvingAgainstBaseURL:NO];
                         components.query = [components.query stringByAppendingFormat:@"&start=%.0f&end=%.0f", round(media.markIn), round(media.markOut)];
-                        completionHandler(urnString, components.URL, nil);
+                        completionHandler(urnString, components.URL, error);
                     }
                     else {
-                        completionHandler(urnString, tokenizedURL, nil);
+                        completionHandler(urnString, tokenizedURL, error);
                     }
                 }];
             }
