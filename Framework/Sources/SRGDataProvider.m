@@ -322,6 +322,46 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
+- (SRGRequest *)videoWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
+{
+    return [self videosWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        if (error) {
+            completionBlock ? completionBlock(nil, error) : nil;
+            return;
+        }
+        
+        if (medias.count == 0) {
+            NSError *error = [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                 code:SRGDataProviderErrorNotFound
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The video was not found", nil)}];
+            completionBlock ? completionBlock(nil, error) : nil;
+            return;
+        }
+        
+        completionBlock ? completionBlock(medias.firstObject, nil) : nil;
+    }];
+}
+
+- (SRGRequest *)audioWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
+{
+    return [self audiosWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        if (error) {
+            completionBlock ? completionBlock(nil, error) : nil;
+            return;
+        }
+        
+        if (medias.count == 0) {
+            NSError *error = [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                 code:SRGDataProviderErrorNotFound
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The audio was not found", nil)}];
+            completionBlock ? completionBlock(nil, error) : nil;
+            return;
+        }
+        
+        completionBlock ? completionBlock(medias.firstObject, nil) : nil;
+    }];
+}
+
 - (SRGRequest *)showWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/show/%@.json", self.businessUnitIdentifier, showUid.srg_stringByAddingPercentEncoding];
@@ -365,36 +405,36 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/search.json", self.businessUnitIdentifier];
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultList/video.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResult class] rootKey:@"searchResultListMedia" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)searchAudiosMatchingQuery:(NSString *)query withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)searchAudiosMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/search.json", self.businessUnitIdentifier];
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultList/audio.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResult class] rootKey:@"searchResultListMedia" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)searchVideoShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGShowListCompletionBlock)completionBlock
+- (SRGRequest *)searchVideoShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/tv/search.json", self.businessUnitIdentifier];
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultList/tv/show.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:completionBlock];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResult class] rootKey:@"searchResultListShow" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)searchAudioShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGShowListCompletionBlock)completionBlock
+- (SRGRequest *)searchAudioShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/radio/search.json", self.businessUnitIdentifier];
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultList/radio/show.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"showList" completionBlock:completionBlock];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResult class] rootKey:@"searchResultListShow" completionBlock:completionBlock];
 }
 
 - (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock

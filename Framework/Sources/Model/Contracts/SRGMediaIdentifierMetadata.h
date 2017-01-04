@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, copy) NSString *uid;
 
 /**
- *  The Uniform Resource Name idenfying the media
+ *  The Uniform Resource Name identifying the media
  */
 @property (nonatomic, readonly, copy) NSString *URN;
 

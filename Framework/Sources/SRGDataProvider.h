@@ -29,6 +29,7 @@
 #import "SRGRequest.h"
 #import "SRGRequestQueue.h"
 #import "SRGResource.h"
+#import "SRGSearchResult.h"
 #import "SRGSection.h"
 #import "SRGSegment.h"
 #import "SRGShow.h"
@@ -62,8 +63,10 @@ typedef void (^SRGChannelListCompletionBlock)(NSArray<SRGChannel *> * _Nullable 
 typedef void (^SRGEpisodeCompositionCompletionBlock)(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGEventListCompletionBlock)(NSArray<SRGEvent *> * _Nullable events, NSError * _Nullable error);
 typedef void (^SRGLikeCompletionBlock)(SRGLike * _Nullable like, NSError * _Nullable error);
+typedef void (^SRGMediaCompletionBlock)(SRGMedia * _Nullable media, NSError * _Nullable error);
 typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error);
 typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
+typedef void (^SRGSearchResultListCompletionBlock)(NSArray<SRGSearchResult *> * _Nullable searchResults, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGShowCompletionBlock)(SRGShow * _Nullable show, NSError * _Nullable error);
 typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error);
@@ -323,17 +326,31 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)audioEpisodesForDate:(nullable NSDate *)date withChannelUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  Specific show
+ *  Retrieve the video having the specified uid
+ *
+ *  @discussion If you need to retrieve several videos, use `-videosWithUids:completionBlock:` instead
+ */
+- (SRGRequest *)videoWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve the audio having the specified uid
+ *
+ *  @discussion If you need to retrieve several videos, use `-audiosWithUids:completionBlock:` instead
+ */
+- (SRGRequest *)audioWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve the show having the specified uid
  */
 - (SRGRequest *)showWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock;
 
 /**
- *  Specifics videos
+ *  Retrieve videos matching a uid list
  */
 - (SRGRequest *)videosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  Specifics audios
+ *  Specifics audios matching a uid list
  */
 - (SRGRequest *)audiosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
@@ -350,30 +367,34 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 /**
  *  Search videos matching a specific criterium
  *
- *  @discussion Some business units only support full-text search, not partial matching
+ *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
+ *              `-videosWithUids:completionBlock:` request with the returned search results uid list
  */
-- (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock;
 
 /**
  *  Search audios matching a specific criterium
  *
- *  @discussion Some business units only support full-text search, not partial matching
+ *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
+ *              `-audiosWithUids:completionBlock:` request with the returned search results uid list
  */
-- (SRGRequest *)searchAudiosMatchingQuery:(NSString *)query withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)searchAudiosMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock;
 
 /**
  *  Search video shows matching a specific criterium
  *
- *  @discussion Some business units only support full-text search, not partial matching
+ *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
+ *              `-videoShowsWithUids:completionBlock:` request with the returned search results uid list
  */
-- (SRGRequest *)searchVideoShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
+- (SRGRequest *)searchVideoShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock;
 
 /**
  *  Search audio shows matching a specific criterium
  *
- *  @discussion Some business units only support full-text search, not partial matching
+ *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
+ *              `-audioShowsWithUids:completionBlock:` request with the returned search results uid list
  */
-- (SRGRequest *)searchAudioShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
+- (SRGRequest *)searchAudioShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock;
 
 /**
  *  Increase the SRG popularity like counter from 1 unit for the specified media
@@ -398,7 +419,7 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 /**
  *  Media URL tokenization (common for all business units)
  */
-@interface SRGDataProvider (Tonekizer)
+@interface SRGDataProvider (Tokenizer)
 
 /**
  *  Return the provided URL, tokenized for playback
