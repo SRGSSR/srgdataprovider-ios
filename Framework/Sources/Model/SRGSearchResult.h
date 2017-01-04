@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Results of a search request
+ *  Common base class for results of a search request
  */
 @interface SRGSearchResult : MTLModel <MTLJSONSerializing, SRGImageMetadata, SRGMetadata>
 
