@@ -405,36 +405,36 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock
+- (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultList/video.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResult class] rootKey:@"searchResultListMedia" completionBlock:completionBlock];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResultMedia class] rootKey:@"searchResultListMedia" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)searchAudiosMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock
+- (SRGRequest *)searchAudiosMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultList/audio.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResult class] rootKey:@"searchResultListMedia" completionBlock:completionBlock];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResultMedia class] rootKey:@"searchResultListMedia" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)searchVideoShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock
+- (SRGRequest *)searchVideoShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultShowListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultList/tv/show.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResult class] rootKey:@"searchResultListShow" completionBlock:completionBlock];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResultShow class] rootKey:@"searchResultListShow" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)searchAudioShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock
+- (SRGRequest *)searchAudioShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultShowListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultList/radio/show.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResult class] rootKey:@"searchResultListShow" completionBlock:completionBlock];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResultShow class] rootKey:@"searchResultListShow" completionBlock:completionBlock];
 }
 
 - (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock
