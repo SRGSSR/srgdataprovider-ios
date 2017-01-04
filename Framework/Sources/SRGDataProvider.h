@@ -29,6 +29,7 @@
 #import "SRGRequest.h"
 #import "SRGRequestQueue.h"
 #import "SRGResource.h"
+#import "SRGSearchResult.h"
 #import "SRGSection.h"
 #import "SRGSegment.h"
 #import "SRGShow.h"
