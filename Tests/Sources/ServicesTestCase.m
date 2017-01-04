@@ -460,8 +460,8 @@ static NSURL *ServiceTestURL(void)
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
-    [[dataProvider searchVideosMatchingQuery:@"roger" withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(medias);
+    [[dataProvider searchVideosMatchingQuery:@"roger" withCompletionBlock:^(NSArray<SRGSearchResult *> * _Nullable searchResults, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(searchResults);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];
@@ -474,8 +474,8 @@ static NSURL *ServiceTestURL(void)
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
-    [[dataProvider searchAudiosMatchingQuery:@"tennis" withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(medias);
+    [[dataProvider searchAudiosMatchingQuery:@"tennis" withCompletionBlock:^(NSArray<SRGSearchResult *> * _Nullable searchResults, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(searchResults);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];
@@ -488,8 +488,8 @@ static NSURL *ServiceTestURL(void)
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
-    [[dataProvider searchVideoShowsMatchingQuery:@"infrarouge" withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(shows);
+    [[dataProvider searchVideoShowsMatchingQuery:@"infrarouge" withCompletionBlock:^(NSArray<SRGSearchResult *> * _Nullable searchResults, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(searchResults);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];
@@ -502,8 +502,8 @@ static NSURL *ServiceTestURL(void)
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
-    [[dataProvider searchAudioShowsMatchingQuery:@"journal" withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(shows);
+    [[dataProvider searchAudioShowsMatchingQuery:@"journal" withCompletionBlock:^(NSArray<SRGSearchResult *> * _Nullable searchResults, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(searchResults);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];

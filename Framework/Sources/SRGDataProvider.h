@@ -65,6 +65,7 @@ typedef void (^SRGEventListCompletionBlock)(NSArray<SRGEvent *> * _Nullable even
 typedef void (^SRGLikeCompletionBlock)(SRGLike * _Nullable like, NSError * _Nullable error);
 typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error);
 typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
+typedef void (^SRGSearchResultListCompletionBlock)(NSArray<SRGSearchResult *> * _Nullable searchResults, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGShowCompletionBlock)(SRGShow * _Nullable show, NSError * _Nullable error);
 typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error);
@@ -351,30 +352,34 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 /**
  *  Search videos matching a specific criterium
  *
- *  @discussion Some business units only support full-text search, not partial matching
+ *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
+ *              `-videosWithUids:completionBlock:` request with the returned search results uid list
  */
-- (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock;
 
 /**
  *  Search audios matching a specific criterium
  *
- *  @discussion Some business units only support full-text search, not partial matching
+ *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
+ *              `-audiosWithUids:completionBlock:` request with the returned search results uid list
  */
-- (SRGRequest *)searchAudiosMatchingQuery:(NSString *)query withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)searchAudiosMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock;
 
 /**
  *  Search video shows matching a specific criterium
  *
- *  @discussion Some business units only support full-text search, not partial matching
+ *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
+ *              `-videoShowsWithUids:completionBlock:` request with the returned search results uid list
  */
-- (SRGRequest *)searchVideoShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
+- (SRGRequest *)searchVideoShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock;
 
 /**
  *  Search audio shows matching a specific criterium
  *
- *  @discussion Some business units only support full-text search, not partial matching
+ *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
+ *              `-audioShowsWithUids:completionBlock:` request with the returned search results uid list
  */
-- (SRGRequest *)searchAudioShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
+- (SRGRequest *)searchAudioShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultListCompletionBlock)completionBlock;
 
 /**
  *  Increase the SRG popularity like counter from 1 unit for the specified media
@@ -399,7 +404,7 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 /**
  *  Media URL tokenization (common for all business units)
  */
-@interface SRGDataProvider (Tonekizer)
+@interface SRGDataProvider (Tokenizer)
 
 /**
  *  Return the provided URL, tokenized for playback
