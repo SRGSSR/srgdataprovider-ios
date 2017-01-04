@@ -385,7 +385,35 @@ static NSURL *ServiceTestURL(void)
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testShow
+- (void)testVideoWithUid
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRSI];
+    [[dataProvider videoWithUid:@"8326174" completionBlock:^(SRGMedia * _Nullable media, NSError * _Nullable error) {
+        XCTAssertNotNil(media);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testAudioWithUid
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRSI];
+    [[dataProvider audioWithUid:@"8257420" completionBlock:^(SRGMedia * _Nullable media, NSError * _Nullable error) {
+        XCTAssertNotNil(media);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testShowWithUid
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
@@ -404,7 +432,7 @@ static NSURL *ServiceTestURL(void)
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRSI];
-    [[dataProvider videosWithUids:@[@"8326174",@"8322319"] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[dataProvider videosWithUids:@[@"8326174", @"8322319"] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -418,7 +446,7 @@ static NSURL *ServiceTestURL(void)
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRSI];
-    [[dataProvider audiosWithUids:@[@"8257420",@"8332555"] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[dataProvider audiosWithUids:@[@"8257420", @"8332555"] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];

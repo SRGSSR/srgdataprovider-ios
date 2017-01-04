@@ -63,6 +63,7 @@ typedef void (^SRGChannelListCompletionBlock)(NSArray<SRGChannel *> * _Nullable 
 typedef void (^SRGEpisodeCompositionCompletionBlock)(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGEventListCompletionBlock)(NSArray<SRGEvent *> * _Nullable events, NSError * _Nullable error);
 typedef void (^SRGLikeCompletionBlock)(SRGLike * _Nullable like, NSError * _Nullable error);
+typedef void (^SRGMediaCompletionBlock)(SRGMedia * _Nullable media, NSError * _Nullable error);
 typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error);
 typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGSearchResultListCompletionBlock)(NSArray<SRGSearchResult *> * _Nullable searchResults, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
@@ -325,17 +326,31 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)audioEpisodesForDate:(nullable NSDate *)date withChannelUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  Specific show
+ *  Retrieve the video having the specified uid
+ *
+ *  @discussion If you need to retrieve several videos, use `-videosWithUids:completionBlock:` instead
+ */
+- (SRGRequest *)videoWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve the audio having the specified uid
+ *
+ *  @discussion If you need to retrieve several videos, use `-audiosWithUids:completionBlock:` instead
+ */
+- (SRGRequest *)audioWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve the show having the specified uid
  */
 - (SRGRequest *)showWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock;
 
 /**
- *  Specifics videos
+ *  Retrieve videos matching a uid list
  */
 - (SRGRequest *)videosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  Specifics audios
+ *  Specifics audios matching a uid list
  */
 - (SRGRequest *)audiosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 

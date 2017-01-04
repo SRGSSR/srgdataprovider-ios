@@ -322,6 +322,46 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
+- (SRGRequest *)videoWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
+{
+    return [self videosWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        if (error) {
+            completionBlock ? completionBlock(nil, error) : nil;
+            return;
+        }
+        
+        if (medias.count == 0) {
+            NSError *error = [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                 code:SRGDataProviderErrorNotFound
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The video was not found", nil)}];
+            completionBlock ? completionBlock(nil, error) : nil;
+            return;
+        }
+        
+        completionBlock ? completionBlock(medias.firstObject, nil) : nil;
+    }];
+}
+
+- (SRGRequest *)audioWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
+{
+    return [self audiosWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        if (error) {
+            completionBlock ? completionBlock(nil, error) : nil;
+            return;
+        }
+        
+        if (medias.count == 0) {
+            NSError *error = [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                 code:SRGDataProviderErrorNotFound
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The audio was not found", nil)}];
+            completionBlock ? completionBlock(nil, error) : nil;
+            return;
+        }
+        
+        completionBlock ? completionBlock(medias.firstObject, nil) : nil;
+    }];
+}
+
 - (SRGRequest *)showWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/show/%@.json", self.businessUnitIdentifier, showUid.srg_stringByAddingPercentEncoding];
