@@ -8,7 +8,9 @@
 
 #import <libextobjc/libextobjc.h>
 
-const NSInteger SRGPageDefaultSize = NSIntegerMax;
+const NSInteger SRGPageDefaultSize = 10;
+const NSInteger SRGPageMaximumSize = 100;
+const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
 
 @interface SRGPage ()
 
@@ -27,9 +29,10 @@ const NSInteger SRGPageDefaultSize = NSIntegerMax;
     if (page.URL) {
         return [NSURLRequest requestWithURL:page.URL];
     }
-    else if (page && page.size != SRGPageDefaultSize) {
+    else if (page) {
         NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:NO];
-        NSMutableArray *queryItems = [NSMutableArray arrayWithObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:@(page.size).stringValue]];
+        NSString *pageSize = (page.size != SRGPageUnlimitedSize) ? @(page.size).stringValue : @"unlimited";
+        NSMutableArray *queryItems = [NSMutableArray arrayWithObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:pageSize]];
         if (URLComponents.queryItems) {
             [queryItems addObjectsFromArray:URLComponents.queryItems];
         }
@@ -59,7 +62,15 @@ const NSInteger SRGPageDefaultSize = NSIntegerMax;
 - (SRGPage *)initWithSize:(NSInteger)size number:(NSInteger)number URL:(NSURL *)URL
 {
     if (self = [super init]) {
-        self.size = MAX(size, 1);
+        if (size < 1) {
+            self.size = 1;
+        }
+        else if (size > SRGPageMaximumSize && size != SRGPageUnlimitedSize) {
+            self.size = SRGPageMaximumSize;
+        }
+        else {
+            self.size = size;
+        }
         self.number = MAX(number, 0);
         self.URL = URL;
     }
@@ -104,7 +115,7 @@ const NSInteger SRGPageDefaultSize = NSIntegerMax;
     return [NSString stringWithFormat:@"<%@: %p; size: %@; number: %@; URL: %@>",
             [self class],
             self,
-            self.size == SRGPageDefaultSize ? @"default" : @(self.size),
+            self.size == SRGPageUnlimitedSize ? @"unlimited" : @(self.size),
             @(self.number),
             self.URL];
 }
