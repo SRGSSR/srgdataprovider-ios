@@ -67,6 +67,7 @@ typedef void (^SRGEventListCompletionBlock)(NSArray<SRGEvent *> * _Nullable even
 typedef void (^SRGLikeCompletionBlock)(SRGLike * _Nullable like, NSError * _Nullable error);
 typedef void (^SRGMediaCompletionBlock)(SRGMedia * _Nullable media, NSError * _Nullable error);
 typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error);
+typedef void (^SRGMediaFullListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error);
 typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGSearchResultMediaListCompletionBlock)(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGSearchResultShowListCompletionBlock)(NSArray<SRGSearchResultShow *> * _Nullable searchResults, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
@@ -350,12 +351,12 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 /**
  *  Retrieve videos matching a uid list
  */
-- (SRGRequest *)videosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)videosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaFullListCompletionBlock)completionBlock;
 
 /**
  *  Specifics audios matching a uid list
  */
-- (SRGRequest *)audiosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)audiosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaFullListCompletionBlock)completionBlock;
 
 /**
  *  Retrieve the full media information needed to play a video
