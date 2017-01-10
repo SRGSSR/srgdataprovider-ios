@@ -45,8 +45,7 @@
 {
     // Default page size
     SRGRequest *request1 = [self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertEqual(page.number, 0);
-        XCTAssertEqual(page.size, SRGPageDefaultSize);
+        // Nothing, the request isn't run
     }];
     XCTAssertFalse(request1.running);
     XCTAssertEqual(request1.page.number, 0);
@@ -54,8 +53,7 @@
     
     // Specific page size
     SRGRequest *request2 = [[self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertEqual(page.number, 0);
-        XCTAssertEqual(page.size, 10);
+        // Nothing, the request isn't run
     }] withPageSize:10];
     XCTAssertFalse(request2.running);
     XCTAssertEqual(request2.page.number, 0);
@@ -63,8 +61,7 @@
     
     // Override with nil page
     __block SRGRequest *request3 = [[self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertEqual(page.number, 0);
-        XCTAssertEqual(page.size, SRGPageDefaultSize);
+        // Nothing, the request isn't run
     }] atPage:nil];
     XCTAssertFalse(request3.running);
     XCTAssertEqual(request3.page.number, 0);
@@ -72,8 +69,7 @@
     
     // Incorrect page size
     SRGRequest *request4 = [[self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertEqual(page.number, 0);
-        XCTAssertEqual(page.size, 1);
+        // Nothing, the request isn't run
     }] withPageSize:0];
     XCTAssertFalse(request4.running);
     XCTAssertEqual(request4.page.number, 0);
@@ -98,6 +94,28 @@
     [self waitForExpectationsWithTimeout:5. handler:nil];
     
     XCTAssertFalse(request.running);
+}
+
+- (void)testPageInformation
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
+    
+    __block SRGRequest *request = [[self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertEqual(page.number, 0);
+        XCTAssertEqual(page.size, 5);
+        
+        XCTAssertEqual(request.page.number, 0);
+        XCTAssertEqual(request.page.size, 5);
+        
+        [expectation fulfill];
+    }] withPageSize:5];
+    
+    XCTAssertEqual(request.page.number, 0);
+    XCTAssertEqual(request.page.size, 5);
+    
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
 }
 
 - (void)testRunningKVO
