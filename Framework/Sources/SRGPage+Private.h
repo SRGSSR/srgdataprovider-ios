@@ -17,9 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  Start from a request and add the necessary information to access a particular page
  *
  *  @param request The original request
- *  @param page    The page. If none is specified, the request will simply be copied as is
+ *  @param page    The page
  */
-+ (NSURLRequest *)request:(NSURLRequest *)request withPage:(nullable SRGPage *)page;
++ (NSURLRequest *)request:(NSURLRequest *)request withPage:(SRGPage *)page;
 
 /**
  *  Return the `SRGPage` for the first page of content, with the default size supported by the service. This
@@ -41,6 +41,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param path The URL were the next page of result can be retrieved
  */
 - (SRGPage *)nextPageWithURL:(NSURL *)URL;
+
+/**
+ *  Return the first page matching the receiver
+ */
+@property (nonatomic, readonly) SRGPage *firstPage;
 
 @end
 

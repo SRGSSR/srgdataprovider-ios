@@ -29,7 +29,7 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
     if (page.URL) {
         return [NSURLRequest requestWithURL:page.URL];
     }
-    else if (page) {
+    else {
         NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:NO];
         NSString *pageSize = (page.size != SRGPageUnlimitedSize) ? @(page.size).stringValue : @"unlimited";
         NSMutableArray *queryItems = [NSMutableArray arrayWithObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:pageSize]];
@@ -41,9 +41,6 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
         NSMutableURLRequest *sizeRequest = [request mutableCopy];
         sizeRequest.URL = URLComponents.URL;
         return [sizeRequest copy];
-    }
-    else {
-        return [request copy];
     }
 }
 
@@ -82,6 +79,11 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
 - (SRGPage *)nextPageWithURL:(NSURL *)URL
 {
     return [[[self class] alloc] initWithSize:self.size number:self.number + 1 URL:URL];
+}
+
+- (SRGPage *)firstPage
+{
+    return [[[self class] alloc] initWithSize:self.size number:0 URL:nil];
 }
 
 #pragma mark Equality

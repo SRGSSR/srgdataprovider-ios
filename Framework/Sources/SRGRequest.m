@@ -191,8 +191,12 @@ static NSInteger s_numberOfRunningRequests = 0;
     return [self atPage:page];
 }
 
-- (SRGRequest *)atPage:(nullable SRGPage *)page
+- (SRGRequest *)atPage:(SRGPage *)page
 {
+    if (! page) {
+        page = self.page.firstPage;
+    }
+    
     NSURLRequest *request = [SRGPage request:self.request withPage:page];
     return [[[self class] alloc] initWithRequest:request page:page session:self.session completionBlock:self.completionBlock];
 }

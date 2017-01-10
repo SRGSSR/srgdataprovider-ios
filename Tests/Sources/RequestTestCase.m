@@ -67,13 +67,21 @@
     XCTAssertEqual(request3.page.number, 0);
     XCTAssertEqual(request3.page.size, SRGPageDefaultSize);
     
-    // Incorrect page size
-    SRGRequest *request4 = [[self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    // Override with page size, then nil page
+    __block SRGRequest *request4 = [[[self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing, the request isn't run
-    }] withPageSize:0];
+    }] withPageSize:15] atPage:nil];
     XCTAssertFalse(request4.running);
     XCTAssertEqual(request4.page.number, 0);
-    XCTAssertEqual(request4.page.size, 1);
+    XCTAssertEqual(request4.page.size, 15);
+    
+    // Incorrect page size
+    SRGRequest *request5 = [[self.dataProvider trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // Nothing, the request isn't run
+    }] withPageSize:0];
+    XCTAssertFalse(request5.running);
+    XCTAssertEqual(request5.page.number, 0);
+    XCTAssertEqual(request5.page.size, 1);
 }
 
 - (void)testStatus
