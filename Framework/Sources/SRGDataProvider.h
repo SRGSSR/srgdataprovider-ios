@@ -350,11 +350,15 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 
 /**
  *  Retrieve videos matching a uid list
+ *
+ *  @discussion The list must contain at least a uid, otherwise the results is undefined
  */
 - (SRGRequest *)videosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaFullListCompletionBlock)completionBlock;
 
 /**
  *  Specifics audios matching a uid list
+ *
+ *  @discussion The list must contain at least a uid, otherwise the results is undefined
  */
 - (SRGRequest *)audiosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaFullListCompletionBlock)completionBlock;
 
