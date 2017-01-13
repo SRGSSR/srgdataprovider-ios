@@ -1,4 +1,4 @@
-![SRG IL Data Provider logo](README-images/logo.png)
+![SRG Data Provider logo](README-images/logo.png)
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) ![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)
 
