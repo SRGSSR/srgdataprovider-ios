@@ -39,6 +39,7 @@
 #import "SRGSubtitle.h"
 #import "SRGTopic.h"
 #import "SRGTypes.h"
+#import "SRGMediaURN.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
