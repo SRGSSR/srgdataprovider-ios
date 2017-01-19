@@ -38,8 +38,14 @@ NS_ASSUME_NONNULL_BEGIN
  *  "urn:[vendor]:[mediaType]:[uid]", all in lower case
  *  If it's not respected, a nil object will be return.
  */
-- (instancetype)initWithURN:(NSString *)URN NS_DESIGNATED_INITIALIZER;
+- (_Nullable instancetype)initWithURN:(NSString *)URN NS_DESIGNATED_INITIALIZER;
 
 NS_ASSUME_NONNULL_END
+
+@end
+
+@interface SRGMediaURN (Unavailable)
+
+- (_Nullable instancetype)init NS_UNAVAILABLE;
 
 @end
