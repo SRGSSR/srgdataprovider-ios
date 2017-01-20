@@ -4,17 +4,31 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGTypes.h"
+
 #import <Foundation/Foundation.h>
-#import <SRGDataProvider/SRGDataProvider.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SRGMediaURN : NSObject
+/**
+ *  The Uniform Resource Name (URN) of a media. A URN encompasses the whole information required to locate a media
+ */
+@interface SRGMediaURN : NSObject <NSCopying>
+
+/**
+ *  Convenience constructor
+ */
++ (SRGMediaURN *)mediaURNWithString:(NSString *)URNString;
+
+/**
+ *  Create a URN from a string representation. If the string representation is invalid, the method returns nil
+ */
+- (nullable instancetype)initWithURNString:(NSString *)URNString NS_DESIGNATED_INITIALIZER;
 
 /**
  *  The unique media identifier
  */
-@property (nonatomic, readonly) NSString *uid;
+@property (nonatomic, readonly, copy) NSString *uid;
 
 /**
  *  The media type
@@ -29,23 +43,14 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The URN string representation
  */
-@property (nonatomic, readonly) NSString *URN;
-
-/**
- *  The default initializer
- *  An URN string has 4 or 5 elements (depend of ais team), separate with colons
- *  With removing "ais" element. we have in this order:
- *  "urn:[vendor]:[mediaType]:[uid]", all in lower case
- *  If it's not respected, a nil object will be return.
- */
-- (_Nullable instancetype)initWithURN:(NSString *)URN NS_DESIGNATED_INITIALIZER;
-
-NS_ASSUME_NONNULL_END
+@property (nonatomic, readonly, copy) NSString *URNString;
 
 @end
 
 @interface SRGMediaURN (Unavailable)
 
-- (_Nullable instancetype)init NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -5,27 +5,35 @@
 //
 
 #import "SRGMediaURN.h"
+
 #import "SRGJSONTransformers.h"
 
 @interface SRGMediaURN ()
 
-@property (nonatomic) NSString *uid;
+@property (nonatomic, copy) NSString *uid;
 @property (nonatomic) SRGMediaType mediaType;
 @property (nonatomic) SRGVendor vendor;
-@property (nonatomic) NSString *URN;
+@property (nonatomic, copy) NSString *URNString;
 
 @end
 
 @implementation SRGMediaURN
 
-- (instancetype)initWithURN:(NSString *)URN {
-    
-    NSArray<NSString *> *components = [URN componentsSeparatedByString:@":"];
+#pragma mark Class methods
+
++ (SRGMediaURN *)mediaURNWithString:(NSString *)URNString
+{
+    return [[[self class] alloc] initWithURNString:URNString];
+}
+
+#pragma mark Object lifecycle
+
+- (instancetype)initWithURNString:(NSString *)URNString
+{
+    NSMutableArray<NSString *> *components = [[URNString componentsSeparatedByString:@":"] mutableCopy];
     
     if ([components containsObject:@"ais"]) {
-        NSMutableArray *mutableComponents = components.mutableCopy;
-        [mutableComponents removeObject:@"ais"];
-        components = mutableComponents.copy;
+        [components removeObject:@"ais"];
     }
     
     if (components.count != 4) {
@@ -36,24 +44,65 @@
         return nil;
     }
     
+    SRGMediaType mediaType = [[SRGMediaTypeJSONTransformer() transformedValue:components[2].uppercaseString] integerValue];
+    if (mediaType == SRGMediaTypeNone) {
+        return nil;
+    }
+    
+    SRGVendor vendor = [[SRGVendorJSONTransformer() transformedValue:components[1].uppercaseString] integerValue];
+    if (vendor == SRGVendorNone) {
+        return nil;
+    }
+    
     if (self = [super init]) {
         self.uid = components[3];
-        
-        NSNumber *mediaType = [SRGMediaTypeJSONTransformer() transformedValue:components[2].uppercaseString];
-        self.mediaType = mediaType.integerValue;
-        
-        NSNumber *vendor = [SRGVendorJSONTransformer() transformedValue:components[1].uppercaseString];
-        self.vendor = vendor.integerValue;
-        
-        self.URN = URN;
+        self.mediaType = mediaType;
+        self.vendor = vendor;
+        self.URNString = URNString;
     }
     return self;
 }
 
 - (instancetype)init
 {
-    self = [self initWithURN:@""];
-    return self;
+    [self doesNotRecognizeSelector:_cmd];
+    return [self initWithURNString:@""];
+}
+
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (!object || ![object isKindOfClass:[SRGMediaURN class]]) {
+        return NO;
+    }
+    
+    SRGMediaURN *otherMediaURN = object;
+    return [self.URNString isEqualToString:otherMediaURN.URNString];
+}
+
+- (NSUInteger)hash
+{
+    return self.URNString.hash;
+}
+
+#pragma mark NSCopying protocol
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    return [[SRGMediaURN alloc] initWithURNString:self.URNString];
+}
+
+#pragma mark Description
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@: %p; uid: %@; mediaType: %@; URNString: %@>",
+            [self class],
+            self,
+            self.uid,
+            self.mediaType == SRGMediaTypeAudio ? @"audio" : @"video",
+            self.URNString];
 }
 
 @end

@@ -28,7 +28,7 @@
 @property (nonatomic, copy) NSString *summary;
 
 @property (nonatomic, copy) NSString *uid;
-@property (nonatomic, copy) NSString *URN;
+@property (nonatomic) SRGMediaURN *URN;
 @property (nonatomic) SRGMediaType mediaType;
 @property (nonatomic) SRGVendor vendor;
 
@@ -110,6 +110,11 @@
 + (NSValueTransformer *)subtitlesJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSubtitle class]];
+}
+
++ (NSValueTransformer *)URNJSONTransformer
+{
+    return SRGMediaURNJSONTransformer();
 }
 
 + (NSValueTransformer *)mediaTypeJSONTransformer

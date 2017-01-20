@@ -5,6 +5,7 @@
 //
 
 #import "SRGImageMetadata.h"
+#import "SRGMediaURN.h"
 #import "SRGMetadata.h"
 
 #import <Mantle/Mantle.h>
@@ -24,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The Uniform Resource Name identifying the object
  */
-@property (nonatomic, readonly, copy) NSString *URN;
+@property (nonatomic, readonly) SRGMediaURN *URN;
 
 @end
 

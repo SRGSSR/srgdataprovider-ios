@@ -92,6 +92,20 @@ NSValueTransformer *SRGMediaTypeJSONTransformer(void)
     return s_transformer;
 }
 
+NSValueTransformer *SRGMediaURNJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *URNString, BOOL *success, NSError *__autoreleasing *error) {
+            return [SRGMediaURN mediaURNWithString:URNString];
+        } reverseBlock:^id(SRGMediaURN *mediaURN, BOOL *success, NSError *__autoreleasing *error) {
+            return mediaURN.URNString;
+        }];
+    });
+    return s_transformer;
+}
+
 NSValueTransformer *SRGProtocolJSONTransformer(void)
 {
     static NSValueTransformer *s_transformer;

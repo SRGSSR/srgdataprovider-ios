@@ -7,13 +7,14 @@
 #import "SRGSearchResult.h"
 
 #import "NSURL+SRGDataProvider.h"
+#import "SRGJSONTransformers.h"
 
 #import <libextobjc/libextobjc.h>
 
 @interface SRGSearchResult ()
 
 @property (nonatomic, copy) NSString *uid;
-@property (nonatomic, copy) NSString *URN;
+@property (nonatomic) SRGMediaURN *URN;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
@@ -49,6 +50,11 @@
 }
 
 #pragma mark Transformers
+
++ (NSValueTransformer *)URNJSONTransformer
+{
+    return SRGMediaURNJSONTransformer();
+}
 
 + (NSValueTransformer *)imageURLJSONTransformer
 {

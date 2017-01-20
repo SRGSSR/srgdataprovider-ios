@@ -22,7 +22,7 @@
 @property (nonatomic, copy) NSString *summary;
 
 @property (nonatomic, copy) NSString *uid;
-@property (nonatomic, copy) NSString *URN;
+@property (nonatomic) SRGMediaURN *URN;
 @property (nonatomic) SRGMediaType mediaType;
 @property (nonatomic) SRGVendor vendor;
 
@@ -98,6 +98,11 @@
 + (NSValueTransformer *)showJSONTransformer
 {
     return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGShow class]];
+}
+
++ (NSValueTransformer *)URNJSONTransformer
+{
+    return SRGMediaURNJSONTransformer();
 }
 
 + (NSValueTransformer *)mediaTypeJSONTransformer

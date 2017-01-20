@@ -4,9 +4,10 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGChapter.h"
 #import "SRGMedia.h"
 #import "SRGMediaParentMetadata.h"
-#import "SRGChapter.h"
+#import "SRGMediaURN.h"
 
 #import <Mantle/Mantle.h>
 
@@ -25,14 +26,14 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  For convenient direct retrieval of the `SRGChapter` object, use the `mainChapter` property directly
  */
-@property (nonatomic, readonly, copy) NSString *chapterURN;
+@property (nonatomic, readonly) SRGMediaURN *chapterURN;
 
 /**
  *  The URN of the segment which should initially be played
  *
  *  For convenient direct retrieval of the `SRGSegment` object, use the `mainSegment` property directly
  */
-@property (nonatomic, readonly, copy, nullable) NSString *segmentURN;
+@property (nonatomic, readonly, nullable) SRGMediaURN *segmentURN;
 
 /**
  *  The list of chapters available for the media

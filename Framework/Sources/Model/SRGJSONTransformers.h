@@ -4,6 +4,8 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGMediaURN.h"
+
 #import <Foundation/Foundation.h>
 
 /**
@@ -14,6 +16,7 @@ OBJC_EXPORT NSValueTransformer *SRGBlockingReasonJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGContentTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGEncodingJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGMediaTypeJSONTransformer(void);
+OBJC_EXPORT NSValueTransformer *SRGMediaURNJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGProtocolJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGQualityJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGSocialCountTypeJSONTransformer(void);
