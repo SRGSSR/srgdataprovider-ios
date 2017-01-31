@@ -36,4 +36,21 @@
     return s_mapping;
 }
 
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (!object || ![object isKindOfClass:[SRGTopic class]]) {
+        return NO;
+    }
+    
+    SRGTopic *otherTopic = object;
+    return [self.uid isEqualToString:otherTopic.uid];
+}
+
+- (NSUInteger)hash
+{
+    return self.uid.hash;
+}
+
 @end

@@ -122,4 +122,21 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSection class]];
 }
 
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (!object || ![object isKindOfClass:[SRGEvent class]]) {
+        return NO;
+    }
+    
+    SRGEvent *otherEvent = object;
+    return [self.uid isEqualToString:otherEvent.uid];
+}
+
+- (NSUInteger)hash
+{
+    return self.uid.hash;
+}
+
 @end

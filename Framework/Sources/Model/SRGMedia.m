@@ -172,4 +172,21 @@
     return [self.imageURL srg_URLForDimension:dimension withValue:value];
 }
 
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (!object || ![object isKindOfClass:[SRGMedia class]]) {
+        return NO;
+    }
+    
+    SRGMedia *otherMedia = object;
+    return [self.uid isEqualToString:otherMedia.uid];
+}
+
+- (NSUInteger)hash
+{
+    return self.uid.hash;
+}
+
 @end

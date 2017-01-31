@@ -62,4 +62,21 @@
     return SRGVendorJSONTransformer();
 }
 
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (!object || ![object isKindOfClass:[SRGLike class]]) {
+        return NO;
+    }
+    
+    SRGLike *otherLike = object;
+    return [self.uid isEqualToString:otherLike.uid];
+}
+
+- (NSUInteger)hash
+{
+    return self.uid.hash;
+}
+
 @end

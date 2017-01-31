@@ -184,4 +184,21 @@
     return [self.imageURL srg_URLForDimension:dimension withValue:value];
 }
 
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (!object || ![object isKindOfClass:[SRGSegment class]]) {
+        return NO;
+    }
+    
+    SRGSegment *otherSegment = object;
+    return [self.uid isEqualToString:otherSegment.uid];
+}
+
+- (NSUInteger)hash
+{
+    return self.uid.hash;
+}
+
 @end

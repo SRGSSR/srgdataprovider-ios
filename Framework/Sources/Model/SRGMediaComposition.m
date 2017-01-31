@@ -175,4 +175,26 @@
     return [self mediaCompositionForChapter:chapter];
 }
 
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (!object || ![object isKindOfClass:[SRGMediaComposition class]]) {
+        return NO;
+    }
+    
+    SRGMediaComposition *otherMediaComposition = object;
+    if (self.segmentURN) {
+        return [self.segmentURN isEqual:otherMediaComposition.segmentURN];
+    }
+    else {
+        return [self.chapterURN isEqual:otherMediaComposition.chapterURN];
+    }
+}
+
+- (NSUInteger)hash
+{
+    return self.segmentURN ? self.segmentURN.hash : self.chapterURN.hash;
+}
+
 @end

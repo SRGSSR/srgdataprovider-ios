@@ -45,4 +45,21 @@
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (!object || ![object isKindOfClass:[SRGRelatedContent class]]) {
+        return NO;
+    }
+    
+    SRGRelatedContent *otherRelatedContent = object;
+    return [self.uid isEqualToString:otherRelatedContent.uid];
+}
+
+- (NSUInteger)hash
+{
+    return self.uid.hash;
+}
+
 @end

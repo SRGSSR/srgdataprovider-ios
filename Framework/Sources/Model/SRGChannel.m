@@ -89,4 +89,21 @@
     return [self.imageURL srg_URLForDimension:dimension withValue:value];
 }
 
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (!object || ![object isKindOfClass:[SRGChannel class]]) {
+        return NO;
+    }
+    
+    SRGChannel *otherChannel = object;
+    return [self.uid isEqualToString:otherChannel.uid];
+}
+
+- (NSUInteger)hash
+{
+    return self.uid.hash;
+}
+
 @end

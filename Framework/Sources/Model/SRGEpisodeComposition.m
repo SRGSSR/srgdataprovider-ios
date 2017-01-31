@@ -49,4 +49,21 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGEpisode class]];
 }
 
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (!object || ![object isKindOfClass:[SRGEpisodeComposition class]]) {
+        return NO;
+    }
+    
+    SRGEpisodeComposition *otherEpisodeComposition = object;
+    return [self.show.uid isEqualToString:otherEpisodeComposition.show.uid];
+}
+
+- (NSUInteger)hash
+{
+    return self.show.uid.hash;
+}
+
 @end

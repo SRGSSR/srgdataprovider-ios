@@ -52,4 +52,21 @@
     return [self.imageURL srg_URLForDimension:dimension withValue:value];
 }
 
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (!object || ![object isKindOfClass:[SRGPresenter class]]) {
+        return NO;
+    }
+    
+    SRGPresenter *otherPresenter = object;
+    return [self.name isEqualToString:otherPresenter.name];
+}
+
+- (NSUInteger)hash
+{
+    return self.name.hash;
+}
+
 @end

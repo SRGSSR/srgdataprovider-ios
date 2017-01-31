@@ -83,4 +83,21 @@
     return [self.imageURL srg_URLForDimension:dimension withValue:value];
 }
 
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (!object || ![object isKindOfClass:[SRGEpisode class]]) {
+        return NO;
+    }
+    
+    SRGEpisode *otherEpisode = object;
+    return [self.uid isEqualToString:otherEpisode.uid];
+}
+
+- (NSUInteger)hash
+{
+    return self.uid.hash;
+}
+
 @end

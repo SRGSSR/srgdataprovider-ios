@@ -68,4 +68,21 @@
     return [self.imageURL srg_URLForDimension:dimension withValue:value];
 }
 
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (!object || ![object isKindOfClass:[SRGSearchResult class]]) {
+        return NO;
+    }
+    
+    SRGSearchResult *otherSearchResult = object;
+    return [self.uid isEqualToString:otherSearchResult.uid];
+}
+
+- (NSUInteger)hash
+{
+    return self.uid.hash;
+}
+
 @end
