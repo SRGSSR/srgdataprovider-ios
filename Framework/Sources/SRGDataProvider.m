@@ -201,7 +201,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
         resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestByTopic/%@.json", self.businessUnitIdentifier, topicUid.srg_stringByAddingPercentEncoding];
     }
     else {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latest.json", self.businessUnitIdentifier];
+        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestEpisodes.json", self.businessUnitIdentifier];
     }
     
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
