@@ -159,7 +159,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
         resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/livestreamsByChannel/%@.json", self.businessUnitIdentifier, channelUid.srg_stringByAddingPercentEncoding];
     }
     else {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/livestreams.json", self.businessUnitIdentifier];
+        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/livestreams.json", self.businessUnitIdentifier];
     }
     
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
