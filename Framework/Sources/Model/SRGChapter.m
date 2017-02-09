@@ -50,14 +50,7 @@
 
 - (SRGProtocol)recommendedProtocol
 {
-    NSArray *recommendedProtocols = nil;
-    
-    if (self.mediaType == SRGMediaTypeVideo) {
-        recommendedProtocols = @[ @(SRGProtocolHLS_DVR), @(SRGProtocolHLS) ];
-    }
-    else {
-        recommendedProtocols = @[ @(SRGProtocolHTTPS), @(SRGProtocolHTTP) ];
-    }
+    NSArray *recommendedProtocols = @[ @(SRGProtocolHLS_DVR), @(SRGProtocolHLS), @(SRGProtocolHTTPS), @(SRGProtocolHTTP) ];
     
     for (NSNumber *protocolNumber in recommendedProtocols) {
         SRGProtocol protocol = protocolNumber.integerValue;
