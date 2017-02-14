@@ -31,11 +31,6 @@
 - (instancetype)initWithURNString:(NSString *)URNString
 {
     NSMutableArray<NSString *> *components = [[URNString componentsSeparatedByString:@":"] mutableCopy];
-    
-    if ([components containsObject:@"ais"]) {
-        [components removeObject:@"ais"];
-    }
-    
     if (components.count != 4) {
         return nil;
     }

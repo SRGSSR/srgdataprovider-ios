@@ -13,7 +13,7 @@
 
 @implementation MediaURNTests
 
-- (void)testCreationSWI
+- (void)testCreation
 {
     NSString *URNString = @"urn:swi:video:41981254";
     
@@ -21,17 +21,6 @@
     XCTAssertEqualObjects(mediaURN.uid, @"41981254");
     XCTAssertEqualObjects(@(mediaURN.mediaType), @(SRGMediaTypeVideo));
     XCTAssertEqualObjects(@(mediaURN.vendor), @(SRGVendorSWI));
-    XCTAssertEqualObjects(mediaURN.URNString, URNString);
-}
-
-- (void)testCreationSRF
-{
-    NSString *URNString = @"urn:srf:ais:video:4a70cbd6-4575-43ce-a7ca-766f7e2fb974";
-    
-    SRGMediaURN *mediaURN = [[SRGMediaURN alloc] initWithURNString:URNString];
-    XCTAssertEqualObjects(mediaURN.uid, @"4a70cbd6-4575-43ce-a7ca-766f7e2fb974");
-    XCTAssertEqualObjects(@(mediaURN.mediaType), @(SRGMediaTypeVideo));
-    XCTAssertEqualObjects(@(mediaURN.vendor), @(SRGVendorSRF));
     XCTAssertEqualObjects(mediaURN.URNString, URNString);
 }
 
