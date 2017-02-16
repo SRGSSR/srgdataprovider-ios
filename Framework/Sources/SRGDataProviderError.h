@@ -37,9 +37,9 @@ typedef NS_ENUM(NSInteger, SRGDataProviderErrorCode) {
      */
     SRGDataProviderErrorNotFound,
     /**
-     *  A blocking reason error, for segment
+     *  The content is blocked
      */
-    SRGDataProviderErrorBlockingReason
+    SRGDataProviderErrorBlocked
 };
 
 /**
@@ -54,8 +54,8 @@ OBJC_EXPORT NSString * const SRGDataProviderRedirectionURLKey;
 OBJC_EXPORT NSString * const SRGDataProviderErrorsKey;
 
 /**
- *  Return an error for a blocking reason type
+ *  Return an error for a blocking reason type, nil if none
  */
-OBJC_EXPORT NSError *SRGBlockingReasonErrorForBlockingReason(SRGBlockingReason blockingReason);
+OBJC_EXPORT NSError * _Nullable SRGErrorForBlockingReason(SRGBlockingReason blockingReason);
 
 NS_ASSUME_NONNULL_END

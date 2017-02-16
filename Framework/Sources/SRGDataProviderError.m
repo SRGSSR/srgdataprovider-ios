@@ -12,7 +12,7 @@ NSString * const SRGDataProviderErrorDomain = @"ch.srgssr.dataprovider";
 NSString * const SRGDataProviderRedirectionURLKey = @"SRGDataProviderRedirectionURLKey";
 NSString * const SRGDataProviderErrorsKey = @"SRGDataProviderErrorsKey";
 
-NSError *SRGBlockingReasonErrorForBlockingReason(SRGBlockingReason blockingReason)
+NSError *SRGErrorForBlockingReason(SRGBlockingReason blockingReason)
 {
     static dispatch_once_t onceToken;
     static NSDictionary *messages;
@@ -25,8 +25,13 @@ NSError *SRGBlockingReasonErrorForBlockingReason(SRGBlockingReason blockingReaso
                       @(SRGBlockingReasonStartDate) : SRGDataProviderLocalizedString(@"This content is not yet available. Please try again later.", nil),
                       @(SRGBlockingReasonEndDate) : SRGDataProviderLocalizedString(@"For legal reasons, this content was only available for a limited period of time.", nil) };
     });
-    return messages[@(blockingReason)] ? [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                             code:SRGDataProviderErrorBlockingReason
-                                                         userInfo:@{ NSLocalizedDescriptionKey : messages[@(blockingReason)]}]
-                                                                     : nil;
-                                                                     }
+    
+    NSString *message = messages[@(blockingReason)];
+    if (! message) {
+        return nil;
+    }
+    
+    return [NSError errorWithDomain:SRGDataProviderErrorDomain
+                               code:SRGDataProviderErrorBlocked
+                           userInfo:@{ NSLocalizedDescriptionKey : message }];
+}
