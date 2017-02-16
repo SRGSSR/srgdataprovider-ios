@@ -90,7 +90,7 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
 
 - (BOOL)isEqual:(id)object
 {
-    if (!object || ![object isKindOfClass:[SRGPage class]]) {
+    if (!object || ![object isKindOfClass:[self class]]) {
         return NO;
     }
     

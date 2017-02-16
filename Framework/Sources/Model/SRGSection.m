@@ -56,7 +56,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (!object || ![object isKindOfClass:[SRGSection class]]) {
+    if (!object || ![object isKindOfClass:[self class]]) {
         return NO;
     }
     

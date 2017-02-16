@@ -40,7 +40,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (!object || ![object isKindOfClass:[SRGTopic class]]) {
+    if (!object || ![object isKindOfClass:[self class]]) {
         return NO;
     }
     

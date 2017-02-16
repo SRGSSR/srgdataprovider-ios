@@ -93,7 +93,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (!object || ![object isKindOfClass:[SRGChannel class]]) {
+    if (!object || ![object isKindOfClass:[self class]]) {
         return NO;
     }
     

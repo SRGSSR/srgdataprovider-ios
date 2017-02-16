@@ -68,7 +68,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (!object || ![object isKindOfClass:[SRGMediaURN class]]) {
+    if (!object || ![object isKindOfClass:[self class]]) {
         return NO;
     }
     

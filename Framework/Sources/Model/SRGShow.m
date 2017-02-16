@@ -80,7 +80,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (!object || ![object isKindOfClass:[SRGShow class]]) {
+    if (!object || ![object isKindOfClass:[self class]]) {
         return NO;
     }
     

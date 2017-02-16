@@ -87,7 +87,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (!object || ![object isKindOfClass:[SRGEpisode class]]) {
+    if (!object || ![object isKindOfClass:[self class]]) {
         return NO;
     }
     

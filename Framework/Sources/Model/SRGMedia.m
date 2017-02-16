@@ -176,7 +176,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (!object || ![object isKindOfClass:[SRGMedia class]]) {
+    if (!object || ![object isKindOfClass:[self class]]) {
         return NO;
     }
     
