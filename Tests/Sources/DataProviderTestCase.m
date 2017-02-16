@@ -7,11 +7,11 @@
 #import <SRGDataProvider/SRGDataProvider.h>
 #import <XCTest/XCTest.h>
 
-@interface DataProviderTests : XCTestCase
+@interface DataProviderTestCase : XCTestCase
 
 @end
 
-@implementation DataProviderTests
+@implementation DataProviderTestCase
 
 - (void)testCreation
 {

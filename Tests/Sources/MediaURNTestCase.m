@@ -7,11 +7,11 @@
 #import <SRGDataProvider/SRGDataProvider.h>
 #import <XCTest/XCTest.h>
 
-@interface MediaURNTests : XCTestCase
+@interface MediaURNTestCase : XCTestCase
 
 @end
 
-@implementation MediaURNTests
+@implementation MediaURNTestCase
 
 - (void)testCreation
 {
