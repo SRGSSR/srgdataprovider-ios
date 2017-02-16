@@ -49,6 +49,11 @@ typedef NS_ENUM(NSInteger, SRGBlockingReason) {
 };
 
 /**
+ *  Return a suggested error message for a blocking reason, nil if none
+ */
+OBJC_EXPORT NSString * _Nullable SRGMessageForBlockingReason(SRGBlockingReason blockingReason);
+
+/**
  *  Content types
  */
 typedef NS_ENUM(NSInteger, SRGContentType) {

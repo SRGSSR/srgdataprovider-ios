@@ -4,8 +4,6 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGTypes.h"
-
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -35,11 +33,7 @@ typedef NS_ENUM(NSInteger, SRGDataProviderErrorCode) {
     /**
      *  The data was not found
      */
-    SRGDataProviderErrorNotFound,
-    /**
-     *  The content is blocked
-     */
-    SRGDataProviderErrorBlocked
+    SRGDataProviderErrorNotFound
 };
 
 /**
@@ -52,10 +46,5 @@ OBJC_EXPORT NSString * const SRGDataProviderErrorDomain;
  */
 OBJC_EXPORT NSString * const SRGDataProviderRedirectionURLKey;
 OBJC_EXPORT NSString * const SRGDataProviderErrorsKey;
-
-/**
- *  Return an error for a blocking reason type, nil if none
- */
-OBJC_EXPORT NSError * _Nullable SRGErrorForBlockingReason(SRGBlockingReason blockingReason);
 
 NS_ASSUME_NONNULL_END
