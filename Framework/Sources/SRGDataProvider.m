@@ -464,7 +464,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)nowAndNextForVideoChannelWithUid:(NSString *)channelUid completionBlock:(SRGChannelCompletionBlock)completionBlock
+- (SRGRequest *)videoChannelWithUid:(NSString *)channelUid completionBlock:(SRGChannelCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channel/%@/tv/nowAndNext.json", self.businessUnitIdentifier, channelUid.srg_stringByAddingPercentEncoding];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
@@ -473,7 +473,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)nowAndNextForAudioChannelWithUid:(NSString *)channelUid livestreamUid:(NSString *)livestreamUid completionBlock:(nonnull SRGChannelCompletionBlock)completionBlock
+- (SRGRequest *)audioChannelWithUid:(NSString *)channelUid livestreamUid:(NSString *)livestreamUid completionBlock:(nonnull SRGChannelCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channel/%@/radio/nowAndNext.json", self.businessUnitIdentifier, channelUid.srg_stringByAddingPercentEncoding];
     
