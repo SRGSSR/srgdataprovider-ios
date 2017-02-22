@@ -9,6 +9,7 @@
 #import "NSBundle+SRGDataProvider.h"
 #import "SRGDataProviderError.h"
 #import "SRGDataProviderLogger.h"
+#import "SRGJSONTransformers.h"
 #import "SRGPage+Private.h"
 #import "SRGRequest+Private.h"
 #import "NSString+SRGDataProvider+Private.h"
@@ -245,16 +246,18 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 
 - (SRGRequest *)modulesWithType:(SRGModuleType)moduleType completionBlock:(SRGModuleListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/moduleConfigList/event.json", self.businessUnitIdentifier];
+    NSString *moduleTypeString = [SRGModuleTypeJSONTransformer() reverseTransformedValue:@(moduleType)];
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/moduleConfigList/%@.json", self.businessUnitIdentifier, moduleTypeString.lowercaseString];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGModule class] rootKey:@"moduleConfigList" completionBlock:^(NSArray * _Nullable objects, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(objects, error);
     }];
 }
 
-- (SRGRequest *)latestMediasForModuleWithUid:(NSString *)moduleUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)latestMediasForModuleType:(SRGModuleType)moduleType moduleUid:(NSString *)moduleUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/latestByModule/event/%@.json", self.businessUnitIdentifier, moduleUid.srg_stringByAddingPercentEncoding];
+    NSString *moduleTypeString = [SRGModuleTypeJSONTransformer() reverseTransformedValue:@(moduleType)];
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/latestByModule/%@/%@.json", self.businessUnitIdentifier, moduleTypeString.lowercaseString, moduleUid.srg_stringByAddingPercentEncoding];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }

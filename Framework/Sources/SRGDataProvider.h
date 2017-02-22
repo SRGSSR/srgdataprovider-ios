@@ -283,15 +283,18 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 
 /**
  *  List modules for a specific type, like events
+ *
+ *  @param moduleType   A specific module type
  */
 - (SRGRequest *)modulesWithType:(SRGModuleType)moduleType completionBlock:(SRGModuleListCompletionBlock)completionBlock;
 
 /**
  *  List medias for a specific module
  *
- *  @param moduleUid   The unique module
+ *  @param moduleType   A specific module type
+ *  @param moduleUid    A specific module Uid (module uid or section uid)
  */
-- (SRGRequest *)latestMediasForModuleWithUid:(NSString *)moduleUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)latestMediasForModuleType:(SRGModuleType)moduleType moduleUid:(NSString *)moduleUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List latest episodes
