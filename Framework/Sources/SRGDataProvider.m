@@ -252,17 +252,9 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)latestVideosForEventWithUid:(NSString *)eventUid sectionUid:(NSString *)sectionUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)latestMediasForModuleWithUid:(NSString *)moduleUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = nil;
-    
-    if (sectionUid) {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestByEventId/%@/sectionId/%@.json", self.businessUnitIdentifier, eventUid.srg_stringByAddingPercentEncoding, sectionUid.srg_stringByAddingPercentEncoding];
-    }
-    else {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestByEventId/%@.json", self.businessUnitIdentifier, eventUid.srg_stringByAddingPercentEncoding];
-    }
-    
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/latestByModule/event/%@.json", self.businessUnitIdentifier, moduleUid.srg_stringByAddingPercentEncoding];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }

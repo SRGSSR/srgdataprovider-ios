@@ -287,12 +287,11 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)modulesWithType:(SRGModuleType)moduleType completionBlock:(SRGModuleListCompletionBlock)completionBlock;
 
 /**
- *  List videos for a specific event (optionally for a specific section)
+ *  List medias for a specific module
  *
- *  @param eventUid   The unique event
- *  @param sectionUid An optional unique section identifier
+ *  @param moduleUid   The unique module
  */
-- (SRGRequest *)latestVideosForEventWithUid:(NSString *)eventUid sectionUid:(nullable NSString *)sectionUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)latestMediasForModuleWithUid:(NSString *)moduleUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List latest episodes
