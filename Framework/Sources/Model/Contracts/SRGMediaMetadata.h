@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSDate *date;
 
 /**
- *  The media duration
+ *  The media duration in milliseconds
  */
 @property (nonatomic, readonly) NSTimeInterval duration;
 
