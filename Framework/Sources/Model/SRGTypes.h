@@ -127,6 +127,20 @@ typedef NS_ENUM(NSInteger, SRGMediaType) {
 };
 
 /**
+ *  Module types
+ */
+typedef NS_ENUM(NSInteger, SRGModuleType) {
+    /**
+     *  Not specified
+     */
+    SRGModuleTypeNone = 0,
+    /**
+     *  Event
+     */
+    SRGModuleTypeEvent
+};
+
+/**
  *  Protocols over which medias are served
  */
 typedef NS_ENUM(NSInteger, SRGProtocol) {

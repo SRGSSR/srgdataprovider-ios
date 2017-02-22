@@ -14,24 +14,34 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Event (collection of medias grouped for a special occasion)
+ *  Module (collection of medias grouped for a special occasion, like an event)
  */
-@interface SRGEvent : MTLModel <SRGMetadata, MTLJSONSerializing>
+@interface SRGModule : MTLModel <SRGMetadata, MTLJSONSerializing>
 
 /**
- *  The event unique identifier
+ *  The module unique identifier
  */
 @property (nonatomic, readonly, copy) NSString *uid;
 
 /**
- *  The start date at which the event should be made available
+ *  The start date at which the module should be made available
  */
 @property (nonatomic, readonly) NSDate *startDate;
 
 /**
- *  The start date at which the event should not be made available anymore
+ *  The start date at which the module should not be made available anymore
  */
 @property (nonatomic, readonly) NSDate *endDate;
+
+/**
+ *  Type of the module
+ */
+@property (nonatomic, readonly) SRGModuleType moduleType;
+
+/**
+ *  The SEO name
+ */
+@property (nonatomic, readonly, copy) NSString *seoName;
 
 /**
  *  The suggested background color for headers display
@@ -44,38 +54,38 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) UIColor *headerTextColor;
 
 /**
- *  The suggested background color to use for the event
+ *  The suggested background color to use for the module
  */
 @property (nonatomic, readonly) UIColor *backgroundColor;
 
 /**
- *  The suggested text color to use for the event
+ *  The suggested text color to use for the module
  */
 @property (nonatomic, readonly, nullable) UIColor *textColor;
 
 /**
- *  The suggested color to use for links related to the event
+ *  The suggested color to use for links related to the module
  */
 @property (nonatomic, readonly, nullable) UIColor *linkColor;
 
 /**
- *  The title of the website associated with the event
+ *  The title of the website associated with the module
  */
 @property (nonatomic, readonly, copy, nullable) NSString *websiteTitle;
 
 /**
- *  The URL at which the website associated with the event can be found
+ *  The URL at which the website associated with the module can be found
  */
 @property (nonatomic, readonly, nullable) NSURL *websiteURL;
 
 /**
- *  The list of medias associated with the event
+ *  The list of medias associated with the module
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGSection *> *sections;
 
 @end
 
-@interface SRGEvent (Images)
+@interface SRGModule(Images)
 
 /**
  *  Return the URL for a background image with the specified width or height. The non-specified dimension is automatically

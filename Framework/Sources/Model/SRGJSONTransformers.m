@@ -106,6 +106,18 @@ NSValueTransformer *SRGMediaURNJSONTransformer(void)
     return s_transformer;
 }
 
+NSValueTransformer *SRGModuleTypeJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"EVENT" : @(SRGModuleTypeEvent) }
+                                                                         defaultValue:@(SRGModuleTypeNone)
+                                                                  reverseDefaultValue:nil];
+    });
+    return s_transformer;
+}
+
 NSValueTransformer *SRGProtocolJSONTransformer(void)
 {
     static NSValueTransformer *s_transformer;
@@ -251,7 +263,18 @@ NSValueTransformer *SRGHexColorJSONTransformer(void)
             CGFloat green = ((rgbValue & 0x00FF00) >> 8) / 255.f;
             CGFloat blue = (rgbValue & 0x0000FF) / 255.f;
             return [UIColor colorWithRed:red green:green blue:blue alpha:1.f];
-        } reverseBlock:nil];
+        } reverseBlock:^id(UIColor *color, BOOL *success, NSError *__autoreleasing *error) {
+            const CGFloat *components = CGColorGetComponents(color.CGColor);
+            
+            CGFloat r = components[0];
+            CGFloat g = components[1];
+            CGFloat b = components[2];
+            
+            return [NSString stringWithFormat:@"%02lX%02lX%02lX",
+                    lroundf(r * 255),
+                    lroundf(g * 255),
+                    lroundf(b * 255)];
+        }];
     });
     return s_transformer;
 }

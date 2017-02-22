@@ -243,11 +243,11 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)eventsWithCompletionBlock:(SRGEventListCompletionBlock)completionBlock
+- (SRGRequest *)modulesWithType:(SRGModuleType)moduleType completionBlock:(SRGModuleListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/eventConfigList.json", self.businessUnitIdentifier];
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/moduleConfigList/event.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGEvent class] rootKey:@"eventConfigList" completionBlock:^(NSArray * _Nullable objects, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGModule class] rootKey:@"moduleConfigList" completionBlock:^(NSArray * _Nullable objects, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(objects, error);
     }];
 }

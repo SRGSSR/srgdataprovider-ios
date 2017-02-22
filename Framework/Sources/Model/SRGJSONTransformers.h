@@ -17,6 +17,7 @@ OBJC_EXPORT NSValueTransformer *SRGContentTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGEncodingJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGMediaTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGMediaURNJSONTransformer(void);
+OBJC_EXPORT NSValueTransformer *SRGModuleTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGProtocolJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGQualityJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGSocialCountTypeJSONTransformer(void);

@@ -249,14 +249,13 @@ static NSURL *ServiceTestURL(void)
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-// This test fails since the response format is not IL 2.0 compliant
 - (void)testEvents
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
-    [[dataProvider eventsWithCompletionBlock:^(NSArray<SRGEvent *> * _Nullable events, NSError * _Nullable error) {
-        XCTAssertNotNil(events);
+    [[dataProvider modulesWithType:SRGModuleTypeEvent completionBlock:^(NSArray<SRGModule *> * _Nullable modules, NSError * _Nullable error) {
+        XCTAssertNotNil(modules);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];

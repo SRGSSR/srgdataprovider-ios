@@ -13,7 +13,7 @@
 #import "SRGDataProviderError.h"
 #import "SRGEpisode.h"
 #import "SRGEpisodeComposition.h"
-#import "SRGEvent.h"
+#import "SRGModule.h"
 #import "SRGImageMetadata.h"
 #import "SRGLike.h"
 #import "SRGMedia.h"
@@ -65,7 +65,7 @@ OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessU
 typedef void (^SRGChannelCompletionBlock)(SRGChannel * _Nullable channel, NSError * _Nullable error);
 typedef void (^SRGChannelListCompletionBlock)(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error);
 typedef void (^SRGEpisodeCompositionCompletionBlock)(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
-typedef void (^SRGEventListCompletionBlock)(NSArray<SRGEvent *> * _Nullable events, NSError * _Nullable error);
+typedef void (^SRGModuleListCompletionBlock)(NSArray<SRGModule *> * _Nullable modules, NSError * _Nullable error);
 typedef void (^SRGLikeCompletionBlock)(SRGLike * _Nullable like, NSError * _Nullable error);
 typedef void (^SRGMediaCompletionBlock)(SRGMedia * _Nullable media, NSError * _Nullable error);
 typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error);
@@ -282,9 +282,9 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)mostPopularAudiosForChannelWithUid:(nullable NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  List events
+ *  List modules for a specific type, like events
  */
-- (SRGRequest *)eventsWithCompletionBlock:(SRGEventListCompletionBlock)completionBlock;
+- (SRGRequest *)modulesWithType:(SRGModuleType)moduleType completionBlock:(SRGModuleListCompletionBlock)completionBlock;
 
 /**
  *  List videos for a specific event (optionally for a specific section)

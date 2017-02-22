@@ -4,18 +4,20 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGEvent.h"
+#import "SRGModule.h"
 
 #import "NSURL+SRGDataProvider.h"
 #import "SRGJSONTransformers.h"
 
 #import <libextobjc/libextobjc.h>
 
-@interface SRGEvent ()
+@interface SRGModule ()
 
 @property (nonatomic, copy) NSString *uid;
 @property (nonatomic) NSDate *startDate;
 @property (nonatomic) NSDate *endDate;
+@property (nonatomic) SRGModuleType moduleType;
+@property (nonatomic, copy) NSString *seoName;
 @property (nonatomic) NSURL *backgroundImageURL;
 @property (nonatomic) UIColor *headerBackgroundColor;
 @property (nonatomic) UIColor *headerTextColor;
@@ -34,7 +36,7 @@
 
 @end
 
-@implementation SRGEvent
+@implementation SRGModule
 
 #pragma mark MTLJSONSerializing protocol
 
@@ -43,24 +45,26 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @keypath(SRGEvent.new, uid) : @"id",
-                       @keypath(SRGEvent.new, startDate) : @"publishStartTimestamp",
-                       @keypath(SRGEvent.new, endDate) : @"publishEndTimestamp",
-                       @keypath(SRGEvent.new, backgroundImageURL) : @"bgImageUrl",
-                       @keypath(SRGEvent.new, headerBackgroundColor) : @"headerBackgroundColor",
-                       @keypath(SRGEvent.new, headerTextColor) : @"headerTitleColor",
-                       @keypath(SRGEvent.new, backgroundColor) : @"bgColor",
-                       @keypath(SRGEvent.new, textColor) : @"textColor",
-                       @keypath(SRGEvent.new, linkColor) : @"linkColor",
-                       @keypath(SRGEvent.new, logoImageURL) : @"logoImageUrl",
-                       @keypath(SRGEvent.new, keyVisualImageURL) : @"keyVisualImageUrl",
-                       @keypath(SRGEvent.new, websiteTitle) : @"microSiteTitle",
-                       @keypath(SRGEvent.new, websiteURL) : @"microSiteUrl",
-                       @keypath(SRGEvent.new, sections) : @"sectionList",
+        s_mapping = @{ @keypath(SRGModule.new, uid) : @"id",
+                       @keypath(SRGModule.new, startDate) : @"publishStartTimestamp",
+                       @keypath(SRGModule.new, endDate) : @"publishEndTimestamp",
+                       @keypath(SRGModule.new, moduleType) : @"moduleConfigType",
+                       @keypath(SRGModule.new, seoName) : @"seoName",
+                       @keypath(SRGModule.new, backgroundImageURL) : @"bgImageUrl",
+                       @keypath(SRGModule.new, headerBackgroundColor) : @"headerBackgroundColor",
+                       @keypath(SRGModule.new, headerTextColor) : @"headerTitleColor",
+                       @keypath(SRGModule.new, backgroundColor) : @"bgColor",
+                       @keypath(SRGModule.new, textColor) : @"textColor",
+                       @keypath(SRGModule.new, linkColor) : @"linkColor",
+                       @keypath(SRGModule.new, logoImageURL) : @"logoImageUrl",
+                       @keypath(SRGModule.new, keyVisualImageURL) : @"keyVisualImageUrl",
+                       @keypath(SRGModule.new, websiteTitle) : @"microSiteTitle",
+                       @keypath(SRGModule.new, websiteURL) : @"microSiteUrl",
+                       @keypath(SRGModule.new, sections) : @"sectionList",
                        
-                       @keypath(SRGEvent.new, title) : @"title",
-                       @keypath(SRGEvent.new, lead) : @"lead",
-                       @keypath(SRGEvent.new, summary) : @"description" };
+                       @keypath(SRGModule.new, title) : @"title",
+                       @keypath(SRGModule.new, lead) : @"lead",
+                       @keypath(SRGModule.new, summary) : @"description" };
     });
     return s_mapping;
 }
@@ -75,6 +79,11 @@
 + (NSValueTransformer *)endDateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
+}
+
++ (NSValueTransformer *)moduleTypeJSONTransformer
+{
+    return SRGModuleTypeJSONTransformer();
 }
 
 + (NSValueTransformer *)backgroundImageURLJSONTransformer
@@ -130,8 +139,8 @@
         return NO;
     }
     
-    SRGEvent *otherEvent = object;
-    return [self.uid isEqualToString:otherEvent.uid];
+    SRGModule *otherModule = object;
+    return [self.uid isEqualToString:otherModule.uid];
 }
 
 - (NSUInteger)hash
