@@ -13,7 +13,6 @@
 #import "SRGDataProviderError.h"
 #import "SRGEpisode.h"
 #import "SRGEpisodeComposition.h"
-#import "SRGModule.h"
 #import "SRGImageMetadata.h"
 #import "SRGLike.h"
 #import "SRGMedia.h"
@@ -23,6 +22,7 @@
 #import "SRGMediaParentMetadata.h"
 #import "SRGMediaURN.h"
 #import "SRGMetadata.h"
+#import "SRGModule.h"
 #import "SRGPage.h"
 #import "SRGPresenter.h"
 #import "SRGProgram.h"
@@ -65,12 +65,12 @@ OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessU
 typedef void (^SRGChannelCompletionBlock)(SRGChannel * _Nullable channel, NSError * _Nullable error);
 typedef void (^SRGChannelListCompletionBlock)(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error);
 typedef void (^SRGEpisodeCompositionCompletionBlock)(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
-typedef void (^SRGModuleListCompletionBlock)(NSArray<SRGModule *> * _Nullable modules, NSError * _Nullable error);
 typedef void (^SRGLikeCompletionBlock)(SRGLike * _Nullable like, NSError * _Nullable error);
 typedef void (^SRGMediaCompletionBlock)(SRGMedia * _Nullable media, NSError * _Nullable error);
 typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error);
 typedef void (^SRGMediaFullListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error);
 typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
+typedef void (^SRGModuleListCompletionBlock)(NSArray<SRGModule *> * _Nullable modules, NSError * _Nullable error);
 typedef void (^SRGSearchResultMediaListCompletionBlock)(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGSearchResultShowListCompletionBlock)(NSArray<SRGSearchResultShow *> * _Nullable searchResults, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGShowCompletionBlock)(SRGShow * _Nullable show, NSError * _Nullable error);
@@ -292,9 +292,9 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
  *  List medias for a specific module
  *
  *  @param moduleType   A specific module type
- *  @param moduleUid    A specific module Uid (module uid or section uid)
+ *  @param uid          A specific module or section unique identifier
  */
-- (SRGRequest *)latestMediasForModuleType:(SRGModuleType)moduleType moduleUid:(NSString *)moduleUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)latestMediasForModuleWithType:(SRGModuleType)moduleType uid:(NSString *)uid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List latest episodes

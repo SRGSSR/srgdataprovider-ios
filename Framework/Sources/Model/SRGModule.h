@@ -85,7 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface SRGModule(Images)
+@interface SRGModule (Images)
 
 /**
  *  Return the URL for a background image with the specified width or height. The non-specified dimension is automatically
