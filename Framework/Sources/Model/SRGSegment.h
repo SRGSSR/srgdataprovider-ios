@@ -5,6 +5,7 @@
 //
 
 #import "SRGMediaMetadata.h"
+#import "SRGMediaURN.h"
 #import "SRGSubtitle.h"
 #import "SRGTypes.h"
 
@@ -21,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The URN of the full length segment to which the segment belongs, if any
  */
-@property (nonatomic, copy, readonly, nullable) NSString *fullLengthURN;
+@property (nonatomic, readonly, nullable) SRGMediaURN *fullLengthURN;
 
 /**
  *  An index specifying the order of sibling segments in collections

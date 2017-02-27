@@ -13,7 +13,7 @@
 
 @interface SRGSegment ()
 
-@property (nonatomic, copy) NSString *fullLengthURN;
+@property (nonatomic) SRGMediaURN *fullLengthURN;
 @property (nonatomic) NSInteger position;
 @property (nonatomic) NSTimeInterval markIn;
 @property (nonatomic) NSTimeInterval markOut;
@@ -96,6 +96,11 @@
 }
 
 #pragma mark Transformers
+
++ (NSValueTransformer *)fullLengthURNJSONTransformer
+{
+    return SRGMediaURNJSONTransformer();
+}
 
 + (NSValueTransformer *)blockingReasonJSONTransformer
 {
