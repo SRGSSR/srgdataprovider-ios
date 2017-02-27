@@ -172,7 +172,7 @@
 
 - (SRGMediaComposition *)mediaCompositionForChapter:(SRGChapter *)chapter
 {
-    return [self mediaCompositionForChapter:chapter];
+    return [self mediaCompositionForSegment:chapter];
 }
 
 #pragma mark Equality
