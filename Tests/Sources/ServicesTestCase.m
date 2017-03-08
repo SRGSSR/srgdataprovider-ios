@@ -468,28 +468,140 @@ static NSURL *ServiceTestURL(void)
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testVideoMediaComposition
+- (void)testVideoMediaCompositionFullLengthWithoutSegments
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
+    // SWI clip
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSWI];
     [[dataProvider mediaCompositionForVideoWithUid:@"42297626" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         XCTAssertNotNil(mediaComposition);
         XCTAssertNil(error);
+        
+        XCTAssertNotNil(mediaComposition.mainChapter);
+        XCTAssertNil(mediaComposition.mainSegment);
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.URN.uid, @"42297626");
+        
         [expectation fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testAudioMediaComposition
+- (void)testVideoMediaCompositionFullLengthWithSegments
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSRF];
-    [[dataProvider mediaCompositionForAudioWithUid:@"d6f933ed-871d-418c-8856-74da6712accd" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    // 19h30, full-length
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
+    [[dataProvider mediaCompositionForVideoWithUid:@"8441145" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         XCTAssertNotNil(mediaComposition);
         XCTAssertNil(error);
+        
+        XCTAssertNotNil(mediaComposition.mainChapter);
+        XCTAssertNil(mediaComposition.mainSegment);
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.URN.uid, @"8441145");
+        
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testVideoMediaCompositionSegmentOfFullLength
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    // 19h30, segment
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
+    [[dataProvider mediaCompositionForVideoWithUid:@"8441158" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        XCTAssertNil(error);
+        
+        XCTAssertNotNil(mediaComposition.mainChapter);
+        XCTAssertNotNil(mediaComposition.mainSegment);
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.URN.uid, @"8441145");
+        
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testVideoMediaCompositionClipWithoutFullLength
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    // RTS, 'L'actualité en vidéo'. Collection of clips without full-length
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
+    [[dataProvider mediaCompositionForVideoWithUid:@"8443001" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        XCTAssertNil(error);
+        
+        XCTAssertNotNil(mediaComposition.mainChapter);
+        XCTAssertNil(mediaComposition.mainSegment);
+        XCTAssertNil(mediaComposition.fullLengthMedia.URN.uid);
+        
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testAudioMediaCompositionWithoutChapters
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    // 'Premier rendez-vous', only a single media
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
+    [[dataProvider mediaCompositionForAudioWithUid:@"8404546" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        XCTAssertNil(error);
+        
+        XCTAssertNotNil(mediaComposition.mainChapter);
+        XCTAssertNil(mediaComposition.mainSegment);
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.URN.uid, @"8404546");
+        
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testAudioMediaCompositionFullLengthWithChapters
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    // 'On en parle', full episode chapter
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
+    [[dataProvider mediaCompositionForAudioWithUid:@"8404578" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        XCTAssertNil(error);
+        
+        XCTAssertNotNil(mediaComposition.mainChapter);
+        XCTAssertNil(mediaComposition.mainSegment);
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.URN.uid, @"8404578");
+        
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testAudioMediaCompositionChapterWithFullLength
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    // 'On en parle', chapter cut from the full-length episode
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
+    [[dataProvider mediaCompositionForAudioWithUid:@"8404584" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        XCTAssertNil(error);
+        
+        XCTAssertNotNil(mediaComposition.mainChapter);
+        XCTAssertNil(mediaComposition.mainSegment);
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.URN.uid, @"8404578");
+        
         [expectation fulfill];
     }] resume];
     

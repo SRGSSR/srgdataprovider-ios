@@ -88,6 +88,24 @@
     return [self.mainChapter.segments filteredArrayUsingPredicate:predicate].firstObject;
 }
 
+- (SRGMedia *)fullLengthMedia
+{
+    // If the main chapter is an episode, it is the full-length
+    SRGChapter *mainChapter = self.mainChapter;
+    if (mainChapter.contentType == SRGContentTypeEpisode) {
+        return [self mediaForChapter:mainChapter];
+    }
+    // Locate the associate full-length
+    else if (mainChapter.fullLengthURN) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGChapter.new, URN), mainChapter.fullLengthURN];
+        SRGChapter *fullLengthChapter = [self.chapters filteredArrayUsingPredicate:predicate].firstObject;
+        return fullLengthChapter ? [self mediaForChapter:fullLengthChapter] : nil;
+    }
+    else {
+        return nil;
+    }    
+}
+
 #pragma mark Chapter generation
 
 - (BOOL)containsSegment:(SRGSegment *)segment

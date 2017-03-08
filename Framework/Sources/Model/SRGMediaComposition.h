@@ -56,9 +56,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGChapter *mainChapter;
 
 /**
- *  The segment from the main chapter which should be initially played
+ *  The segment from the main chapter which should be initially played, if any
  */
 @property (nonatomic, readonly, nullable) SRGSegment *mainSegment;
+
+/**
+ *  Return the media object corresponding to the media composition full-length, if any
+ */
+@property (nonatomic, readonly, nullable) SRGMedia *fullLengthMedia;
 
 @end
 
