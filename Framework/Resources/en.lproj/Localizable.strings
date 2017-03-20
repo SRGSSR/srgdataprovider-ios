@@ -1,32 +1,42 @@
-﻿/* No comment provided by engineer. */
-"To protect children under the age of 12, this content is only available between 8 p.m. and 6 a.m." = "To protect children under the age of 12, this content is only available between 8 p.m. and 6 a.m.";
-
-/* No comment provided by engineer. */
-"To protect children under the age of 18, this content is only available between 11 p.m. and 5 a.m." = "To protect children under the age of 18, this content is only available between 11 p.m. and 5 a.m.";
-
-/* No comment provided by engineer. */
+/* A blocking reason message for an end-user. */
 "Commercial is being skipped. Please wait – playback will resume shortly." = "Commercial is being skipped. Please wait – playback will resume shortly.";
 
-/* No comment provided by engineer. */
-"For legal reasons, this content was only available for a limited period of time." = "For legal reasons, this content was only available for a limited period of time.";
-
-/* No comment provided by engineer. */
+/* A blocking reason message for an end-user. */
 "For legal reasons, this content is not available in your region." = "For legal reasons, this content is not available in your region.";
 
-/* No comment provided by engineer. */
+/* A blocking reason message for an end-user. */
+"For legal reasons, this content was only available for a limited period of time." = "For legal reasons, this content was only available for a limited period of time.";
+
+/* The main error message if multiple errors have been encountered. Finally, the developer could should which one to display, and not show this message. */
+"Several errors have been encountered" = "Several errors have been encountered";
+
+/* The error message when the audio request return nothing. */
+"The audio was not found" = "The audio was not found";
+
+/* The error message when the response from IL server is incorrect. */
 "The data is invalid." = "The data is invalid.";
 
-/* No comment provided by engineer. */
-"The media cannot be played." = "The content cannot be played.";
+/* The error message when the secure token cannot be retrieved to play the media stream. */
+"The stream could not be secured." = "The stream could not be secured.";
 
-/* No comment provided by engineer. */
-"The request is invalid." = "The request is invalid.";
+/* The error message when the video request return nothing. */
+"The video was not found" = "The video was not found";
 
-/* No comment provided by engineer. */
+/* A blocking reason message for an end-user. */
 "This content is not available due to legal restrictions." = "This content is not available due to legal restrictions.";
 
-/* No comment provided by engineer. */
+/* A blocking reason message for an end-user. */
+"This content is not available." = "This content is not available.";
+
+/* A blocking reason message for an end-user. */
 "This content is not yet available. Please try again later." = "This content is not yet available. Please try again later.";
 
-/* Date preposition, for instance: "Something happened <XXX> Oct 28, 2015." */
-"on" = "on";
+/* A blocking reason message for an end-user. */
+"To protect children under the age of 12, this content is only available between 8 p.m. and 6 a.m." = "To protect children under the age of 12, this content is only available between 8 p.m. and 6 a.m.";
+
+/* A blocking reason message for an end-user. */
+"To protect children under the age of 18, this content is only available between 11 p.m. and 5 a.m." = "To protect children under the age of 18, this content is only available between 11 p.m. and 5 a.m.";
+
+/* The error message when request a media or a media list on a public network with no Internet access (e.g. SBB) */
+"You are likely connected to a public wifi network with no Internet access" = "You are likely connected to a public wifi network with no Internet access";
+
