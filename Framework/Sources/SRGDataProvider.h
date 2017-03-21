@@ -193,9 +193,33 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 @end
 
 /**
- *  List of the requests supported by the data provider
+ *  List of video requests supported by the data provider
  */
-@interface SRGDataProvider (Services)
+
+@interface SRGDataProvider (VideoServices)
+
+/**
+ *  @name Channels and livestreams
+ */
+
+/**
+ *  List video channels
+ */
+- (SRGRequest *)videoChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve video channel information (contains most notably information about current and next programs)
+ */
+- (SRGRequest *)videoChannelWithUid:(NSString *)channelUid completionBlock:(SRGChannelCompletionBlock)completionBlock;
+
+/**
+ *  List video livestreams
+ */
+- (SRGRequest *)videoLivestreamsWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  @name Media retrieval
+ */
 
 /**
  *  List videos which have been picked by editors
@@ -208,11 +232,11 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)soonExpiringVideosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  List videos available for the day containing the given date
+ *  List latest episodes
  *
- *  @param date The date. If nil, today is used
+ *  @param channelUid The channel which medias must be listed for. If none is specified, medias for all channels will be returned
  */
-- (SRGRequest *)videoEpisodesForDate:(nullable NSDate *)date withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)latestVideoEpisodesForChannelWithUid:(nullable NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List trending videos (with all editorial recommendations)
@@ -228,27 +252,29 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)trendingVideosWithEditorialLimit:(nullable NSNumber *)editorialLimit episodesOnly:(BOOL)episodesOnly completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  List video livestreams
- */
-- (SRGRequest *)videoLivestreamsWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
-
-/**
- *  List audio live streams
+ *  List videos available for the day containing the given date
  *
- *  @param channelUid The channel uid for which audio live streams (main and regional) must be retrieved. If not specified,
- *                    all main live streams are returned
+ *  @param date The date. If nil, today is used
  */
-- (SRGRequest *)audioLivestreamsForChannelWithUid:(nullable NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)videoEpisodesForDate:(nullable NSDate *)date withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  List video channels
+ *  Retrieve the video having the specified uid
+ *
+ *  @discussion If you need to retrieve several videos, use `-videosWithUids:completionBlock:` instead
  */
-- (SRGRequest *)videoChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
+- (SRGRequest *)videoWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock;
 
 /**
- *  List audio channels
+ *  Retrieve videos matching a uid list
+ *
+ *  @discussion The list must contain at least a uid, otherwise the results is undefined
  */
-- (SRGRequest *)audioChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
+- (SRGRequest *)videosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaFullListCompletionBlock)completionBlock;
+
+/**
+ *  @name Topics
+ */
 
 /**
  *  List video topics
@@ -263,11 +289,6 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)latestVideosForTopicWithUid:(nullable NSString *)topicUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  List latest audios
- */
-- (SRGRequest *)latestAudiosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
-
-/**
  *  List most popular videos for a specific topic
  *
  *  @param topicUid The unique topic identifier. If none is specified, medias for any topic will be returned
@@ -275,11 +296,8 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)mostPopularVideosForTopicWithUid:(nullable NSString *)topicUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  List most popular audios
- *
- *  @param channelUid The channel which medias must be listed for. If none is specified, medias for all channels will be returned
+ *  @name Modules
  */
-- (SRGRequest *)mostPopularAudiosForChannelWithUid:(nullable NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List modules for a specific type, like events
@@ -297,16 +315,8 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)latestMediasForModuleWithType:(SRGModuleType)moduleType uid:(NSString *)uid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  List latest episodes
- *
- *  @param channelUid The channel which medias must be listed for. If none is specified, medias for all channels will be returned
+ *  @name Shows
  */
-- (SRGRequest *)latestVideoEpisodesForChannelWithUid:(nullable NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
-
-/**
- *  List latest audio episodes for a specific channel
- */
-- (SRGRequest *)latestAudioEpisodesForChannelWithUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List video shows
@@ -314,9 +324,91 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)videoShowsWithCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
 
 /**
- *  List audio shows by channel
+ *  Retrieve the video show having the specified uid
  */
-- (SRGRequest *)audioShowsForChannelWithUid:(NSString *)channelUid completionBlock:(SRGShowListCompletionBlock)completionBlock;
+- (SRGRequest *)videoShowWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock;
+
+/**
+ *  List episodes for a specific video show
+ *
+ *  @param oldestMonth The oldest month for which medias are returned (if `nil`, all medias are returned).
+ *
+ *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes returned in the episode
+ *              composition)
+ */
+- (SRGRequest *)latestVideoEpisodesForShowWithUid:(NSString *)showUid oldestMonth:(nullable NSDate *)oldestMonth completionBlock:(SRGEpisodeCompositionCompletionBlock)completionBlock;
+
+/**
+ *  @name Media composition
+ */
+
+/**
+ *  Retrieve the full media information needed to play a video
+ */
+- (SRGRequest *)mediaCompositionForVideoWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
+
+/**
+ *  @name Search
+ */
+
+/**
+ *  Search videos matching a specific criterium
+ *
+ *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
+ *              `-videosWithUids:completionBlock:` request with the returned search results uid list
+ */
+- (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultMediaListCompletionBlock)completionBlock;
+
+/**
+ *  Search video shows matching a specific criterium
+ *
+ *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
+ *              `-videoShowsWithUids:completionBlock:` request with the returned search results uid list
+ */
+- (SRGRequest *)searchVideoShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultShowListCompletionBlock)completionBlock;
+
+@end
+
+/**
+ *  List of audio requests supported by the data provider
+ */
+@interface SRGDataProvider (AudioServices)
+
+/**
+ *  @name Channels and livestreams
+ */
+
+/**
+ *  List audio channels
+ */
+- (SRGRequest *)audioChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve audio channel information (contains most notably information about current and next programs)
+ *
+ *  @param livestreamUid An optional radio channel unique identifier (usually regional, but might be the main one). If provided,
+ *                       the program of the specified live stream is used, otherwise the one of the main channel
+ */
+- (SRGRequest *)audioChannelWithUid:(NSString *)channelUid livestreamUid:(nullable NSString *)livestreamUid completionBlock:(SRGChannelCompletionBlock)completionBlock;
+
+/**
+ *  List audio live streams
+ *
+ *  @param channelUid The channel uid for which audio live streams (main and regional) must be retrieved. If not specified,
+ *                    all main live streams are returned
+ */
+- (SRGRequest *)audioLivestreamsForChannelWithUid:(nullable NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  @name Media retrieval
+ */
+
+// TODO: Merge the two following methods into one with optional parameter
+
+/**
+ *  List latest audios
+ */
+- (SRGRequest *)latestAudiosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List latest audios for a specific channel
@@ -324,14 +416,51 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)latestAudiosForChannelWithUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  List episodes for a specific video show
- *
- *  @param oldestMonth The oldest month for which medias are returned (if `nil`, all medias are returned).
- *
- *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes returned in the episode 
- *              composition)
+ *  List latest audio episodes for a specific channel
  */
-- (SRGRequest *)latestVideoEpisodesForShowWithUid:(NSString *)showUid oldestMonth:(nullable NSDate *)oldestMonth completionBlock:(SRGEpisodeCompositionCompletionBlock)completionBlock;
+- (SRGRequest *)latestAudioEpisodesForChannelWithUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  List most popular audios
+ *
+ *  @param channelUid The channel which medias must be listed for. If none is specified, medias for all channels will be returned
+ */
+- (SRGRequest *)mostPopularAudiosForChannelWithUid:(nullable NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  List audio episodess available for the day containing the given date, for the specified channel
+ *
+ *  @param date The date. If nil, today is used
+ */
+- (SRGRequest *)audioEpisodesForDate:(nullable NSDate *)date withChannelUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve the audio having the specified uid
+ *
+ *  @discussion If you need to retrieve several videos, use `-audiosWithUids:completionBlock:` instead
+ */
+- (SRGRequest *)audioWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock;
+
+/**
+ *  Specifics audios matching a uid list
+ *
+ *  @discussion The list must contain at least a uid, otherwise the results is undefined
+ */
+- (SRGRequest *)audiosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaFullListCompletionBlock)completionBlock;
+
+/**
+ *  @name Shows
+ */
+
+/**
+ *  List audio shows by channel
+ */
+- (SRGRequest *)audioShowsForChannelWithUid:(NSString *)channelUid completionBlock:(SRGShowListCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve the video show having the specified uid
+ */
+- (SRGRequest *)audioShowWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock;
 
 /**
  *  List episodes for a specific audio show
@@ -344,54 +473,8 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)latestAudioEpisodesForShowWithUid:(NSString *)showUid oldestMonth:(nullable NSDate *)oldestMonth completionBlock:(SRGEpisodeCompositionCompletionBlock)completionBlock;
 
 /**
- *  List audio episodess available for the day containing the given date, for the specified channel
- *
- *  @param date The date. If nil, today is used
+ *  @name Media composition
  */
-- (SRGRequest *)audioEpisodesForDate:(nullable NSDate *)date withChannelUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
-
-/**
- *  Retrieve the video having the specified uid
- *
- *  @discussion If you need to retrieve several videos, use `-videosWithUids:completionBlock:` instead
- */
-- (SRGRequest *)videoWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock;
-
-/**
- *  Retrieve the audio having the specified uid
- *
- *  @discussion If you need to retrieve several videos, use `-audiosWithUids:completionBlock:` instead
- */
-- (SRGRequest *)audioWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock;
-
-/**
- *  Retrieve the video show having the specified uid
- */
-- (SRGRequest *)videoShowWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock;
-
-/**
- *  Retrieve the video show having the specified uid
- */
-- (SRGRequest *)audioShowWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock;
-
-/**
- *  Retrieve videos matching a uid list
- *
- *  @discussion The list must contain at least a uid, otherwise the results is undefined
- */
-- (SRGRequest *)videosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaFullListCompletionBlock)completionBlock;
-
-/**
- *  Specifics audios matching a uid list
- *
- *  @discussion The list must contain at least a uid, otherwise the results is undefined
- */
-- (SRGRequest *)audiosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaFullListCompletionBlock)completionBlock;
-
-/**
- *  Retrieve the full media information needed to play a video
- */
-- (SRGRequest *)mediaCompositionForVideoWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
 /**
  *  Retrieve the full media information needed to play an audio
@@ -399,12 +482,8 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)mediaCompositionForAudioWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
 /**
- *  Search videos matching a specific criterium
- *
- *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
- *              `-videosWithUids:completionBlock:` request with the returned search results uid list
+ *  @name Search
  */
-- (SRGRequest *)searchVideosMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultMediaListCompletionBlock)completionBlock;
 
 /**
  *  Search audios matching a specific criterium
@@ -415,14 +494,6 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)searchAudiosMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultMediaListCompletionBlock)completionBlock;
 
 /**
- *  Search video shows matching a specific criterium
- *
- *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
- *              `-videoShowsWithUids:completionBlock:` request with the returned search results uid list
- */
-- (SRGRequest *)searchVideoShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultShowListCompletionBlock)completionBlock;
-
-/**
  *  Search audio shows matching a specific criterium
  *
  *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
@@ -430,23 +501,14 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
  */
 - (SRGRequest *)searchAudioShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultShowListCompletionBlock)completionBlock;
 
+@end
+
+@interface SRGDataProvider (SocialMediaServices)
+
 /**
  *  Increase the SRG popularity like counter from 1 unit for the specified media
  */
 - (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock;
-
-/**
- *  Retrieve video channel information (contains most notably information about current and next programs)
- */
-- (SRGRequest *)videoChannelWithUid:(NSString *)channelUid completionBlock:(SRGChannelCompletionBlock)completionBlock;
-
-/**
- *  Retrieve audio channel information (contains most notably information about current and next programs)
- *
- *  @param livestreamUid An optional radio channel unique identifier (usually regional, but might be the main one). If provided, 
- *                       the program of the specified live stream is used, otherwise the one of the main channel
- */
-- (SRGRequest *)audioChannelWithUid:(NSString *)channelUid livestreamUid:(nullable NSString *)livestreamUid completionBlock:(SRGChannelCompletionBlock)completionBlock;
 
 @end
 
