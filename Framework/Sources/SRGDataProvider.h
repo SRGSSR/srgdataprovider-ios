@@ -515,7 +515,7 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 /**
  *  Media URL tokenization (common for all business units)
  */
-@interface SRGDataProvider (Tokenizer)
+@interface SRGDataProvider (TokenizationServices)
 
 /**
  *  Return the provided URL, tokenized for playback
