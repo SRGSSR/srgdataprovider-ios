@@ -319,12 +319,24 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)audioShowsForChannelWithUid:(NSString *)channelUid completionBlock:(SRGShowListCompletionBlock)completionBlock;
 
 /**
- *  List episodes for a specific show
+ *  List episodes for a specific video show
  *
- *  @discussion The show can be a video or audio show. Though the completion block does not return an array directly, this request 
- *              supports paging (for episodes returned in the episode composition)
+ *  @param oldestMonth The oldest month for which medias are returned (if `nil`, all medias are returned).
+ *
+ *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes returned in the episode 
+ *              composition)
  */
-- (SRGRequest *)latestEpisodesForShowWithUid:(NSString *)showUid completionBlock:(SRGEpisodeCompositionCompletionBlock)completionBlock;
+- (SRGRequest *)latestVideoEpisodesForShowWithUid:(NSString *)showUid oldestMonth:(nullable NSDate *)oldestMonth completionBlock:(SRGEpisodeCompositionCompletionBlock)completionBlock;
+
+/**
+ *  List episodes for a specific audio show
+ *
+ *  @param oldestMonth The oldest month for which medias are returned (if `nil`, all medias are returned).
+ *
+ *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes returned in the episode
+ *              composition)
+ */
+- (SRGRequest *)latestAudioEpisodesForShowWithUid:(NSString *)showUid oldestMonth:(nullable NSDate *)oldestMonth completionBlock:(SRGEpisodeCompositionCompletionBlock)completionBlock;
 
 /**
  *  List audio episodess available for the day containing the given date, for the specified channel
