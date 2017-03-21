@@ -361,7 +361,6 @@ static NSURL *ServiceTestURL(void)
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-// TODO: Should also test construction and proper execution of the request for the next page
 - (void)testLatestEpisodesForShow
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
