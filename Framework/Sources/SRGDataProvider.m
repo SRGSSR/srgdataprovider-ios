@@ -541,10 +541,11 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     NSURLComponents *URLComponents = [NSURLComponents componentsWithString:URL.absoluteString];
     
     NSMutableArray<NSURLQueryItem *> *fullQueryItems = [NSMutableArray array];
+    [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"vector" value:@"appplay"]];
     if (queryItems) {
         [fullQueryItems addObjectsFromArray:queryItems];
     }
-    URLComponents.queryItems = fullQueryItems.count != 0 ? [fullQueryItems copy] : nil;
+    URLComponents.queryItems = [fullQueryItems copy];
     
     return URLComponents.URL;
 }
