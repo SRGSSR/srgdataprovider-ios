@@ -403,13 +403,6 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
  *  @name Media retrieval
  */
 
-// TODO: Merge the two following methods into one with optional parameter
-
-/**
- *  List latest audios
- */
-- (SRGRequest *)latestAudiosWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
-
 /**
  *  List latest audios for a specific channel
  */
