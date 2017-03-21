@@ -296,25 +296,6 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)mostPopularVideosForTopicWithUid:(nullable NSString *)topicUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  @name Modules
- */
-
-/**
- *  List modules for a specific type, like events
- *
- *  @param moduleType   A specific module type
- */
-- (SRGRequest *)modulesWithType:(SRGModuleType)moduleType completionBlock:(SRGModuleListCompletionBlock)completionBlock;
-
-/**
- *  List medias for a specific module
- *
- *  @param moduleType   A specific module type
- *  @param uid          A specific module or section unique identifier
- */
-- (SRGRequest *)latestMediasForModuleWithType:(SRGModuleType)moduleType uid:(NSString *)uid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
-
-/**
  *  @name Shows
  */
 
@@ -493,6 +474,29 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
  *              `-audioShowsWithUids:completionBlock:` request with the returned search results uid list
  */
 - (SRGRequest *)searchAudioShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGSearchResultShowListCompletionBlock)completionBlock;
+
+@end
+
+@interface SRGDataProvider (ModuleServices)
+
+/**
+ *  @name Modules
+ */
+
+/**
+ *  List modules for a specific type, like events
+ *
+ *  @param moduleType   A specific module type
+ */
+- (SRGRequest *)modulesWithType:(SRGModuleType)moduleType completionBlock:(SRGModuleListCompletionBlock)completionBlock;
+
+/**
+ *  List medias for a specific module
+ *
+ *  @param moduleType   A specific module type
+ *  @param uid          A specific module or section unique identifier
+ */
+- (SRGRequest *)latestMediasForModuleWithType:(SRGModuleType)moduleType uid:(NSString *)uid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 @end
 
