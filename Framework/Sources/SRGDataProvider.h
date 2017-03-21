@@ -319,6 +319,11 @@ typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable
 - (SRGRequest *)audioShowsForChannelWithUid:(NSString *)channelUid completionBlock:(SRGShowListCompletionBlock)completionBlock;
 
 /**
+ *  List latest audios for a specific channel
+ */
+- (SRGRequest *)latestAudiosForChannelWithUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
  *  List episodes for a specific video show
  *
  *  @param oldestMonth The oldest month for which medias are returned (if `nil`, all medias are returned).
