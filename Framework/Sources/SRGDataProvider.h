@@ -225,12 +225,12 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 /**
  *  List videos which have been picked by editors
  */
-- (SRGRequest *)editorialVideosWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)videoEditorialWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  List videos which will soon expire
  */
-- (SRGRequest *)soonExpiringVideosWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)videoSoonExpiringWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  List latest episodes
@@ -238,13 +238,13 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *  @param channelUid The channel which medias must be listed for. If none is specified, medias for all channels will 
  *                    be returned
  */
-- (SRGRequest *)latestVideoEpisodesForChannelWithUid:(nullable NSString *)channelUid
+- (SRGRequest *)videoLatestEpisodesForChannelWithUid:(nullable NSString *)channelUid
                                      completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  List trending videos (with all editorial recommendations)
  */
-- (SRGRequest *)trendingVideosWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)videoTrendingWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  List trending videos. A limit can be set on editorial recommendations and results can be limited to episodes
@@ -252,9 +252,9 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *  @param editorialLimit The maximum number of editorial recommendations returned (if nil, all are returned)
  *  @param episodesOnly   Whether only episodes must be returned
  */
-- (SRGRequest *)trendingVideosWithEditorialLimit:(nullable NSNumber *)editorialLimit
-                                    episodesOnly:(BOOL)episodesOnly
-                                 completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)videoTrendingWithEditorialLimit:(nullable NSNumber *)editorialLimit
+                                   episodesOnly:(BOOL)episodesOnly
+                                completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  List videos available for the day containing the given date
@@ -293,16 +293,16 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *
  *  @param topicUid The unique topic identifier. If none is specified, medias for any topic will be returned
  */
-- (SRGRequest *)latestVideosForTopicWithUid:(nullable NSString *)topicUid
-                            completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)videoLatestForTopicWithUid:(nullable NSString *)topicUid
+                           completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  List most popular videos for a specific topic
  *
  *  @param topicUid The unique topic identifier. If none is specified, medias for any topic will be returned
  */
-- (SRGRequest *)mostPopularVideosForTopicWithUid:(nullable NSString *)topicUid
-                                 completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)videoMostPopularForTopicWithUid:(nullable NSString *)topicUid
+                                completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Shows
@@ -326,7 +326,7 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes returned in the episode
  *              composition)
  */
-- (SRGRequest *)latestVideoEpisodesForShowWithUid:(NSString *)showUid
+- (SRGRequest *)videoLatestEpisodesForShowWithUid:(NSString *)showUid
                                       oldestMonth:(nullable NSDate *)oldestMonth
                                   completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
@@ -337,8 +337,8 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 /**
  *  Retrieve the full media information needed to play a video
  */
-- (SRGRequest *)mediaCompositionForVideoWithUid:(NSString *)mediaUid
-                                completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
+- (SRGRequest *)videoMediaCompositionWithUid:(NSString *)mediaUid
+                             completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
 /**
  *  @name Search
@@ -350,8 +350,8 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
  *              `-videosWithUids:completionBlock:` request with the returned search results uid list
  */
-- (SRGRequest *)searchVideosMatchingQuery:(NSString *)query
-                      withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)videoSearchWithQuery:(NSString *)query
+                 withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
 
 /**
  *  Search video shows matching a specific criterium
@@ -359,8 +359,8 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
  *              `-videoShowsWithUids:completionBlock:` request with the returned search results uid list
  */
-- (SRGRequest *)searchVideoShowsMatchingQuery:(NSString *)query
-                          withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
+- (SRGRequest *)videoShowSearchWithQuery:(NSString *)query
+                     withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
 
 @end
 
@@ -404,20 +404,20 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 /**
  *  List latest audios for a specific channel
  */
-- (SRGRequest *)latestAudiosForChannelWithUid:(NSString *)channelUid
-                              completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)audioLatestForChannelWithUid:(NSString *)channelUid
+                             completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  List latest audio episodes for a specific channel
  */
-- (SRGRequest *)latestAudioEpisodesForChannelWithUid:(NSString *)channelUid
+- (SRGRequest *)audioLatestEpisodesForChannelWithUid:(NSString *)channelUid
                                      completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  List most popular audios
  */
-- (SRGRequest *)mostPopularAudiosForChannelWithUid:(NSString *)channelUid
-                                   completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)audioMostPopularForChannelWithUid:(NSString *)channelUid
+                                  completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  List audio episodess available for the day containing the given date, for the specified channel
@@ -466,7 +466,7 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes returned in the episode
  *              composition)
  */
-- (SRGRequest *)latestAudioEpisodesForShowWithUid:(NSString *)showUid
+- (SRGRequest *)audioLatestEpisodesForShowWithUid:(NSString *)showUid
                                       oldestMonth:(nullable NSDate *)oldestMonth
                                   completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
@@ -477,8 +477,8 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 /**
  *  Retrieve the full media information needed to play an audio
  */
-- (SRGRequest *)mediaCompositionForAudioWithUid:(NSString *)mediaUid
-                                completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
+- (SRGRequest *)audioMediaCompositionWithUid:(NSString *)mediaUid
+                             completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
 /**
  *  @name Search
@@ -490,8 +490,8 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
  *              `-audiosWithUids:completionBlock:` request with the returned search results uid list
  */
-- (SRGRequest *)searchAudiosMatchingQuery:(NSString *)query
-                      withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)audioSearchWithQuery:(NSString *)query
+                 withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
 
 /**
  *  Search audio shows matching a specific criterium
@@ -499,8 +499,8 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
  *              `-audioShowsWithUids:completionBlock:` request with the returned search results uid list
  */
-- (SRGRequest *)searchAudioShowsMatchingQuery:(NSString *)query
-                          withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
+- (SRGRequest *)audioShowSearchWithQuery:(NSString *)query
+                     withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
 
 @end
 
