@@ -417,10 +417,8 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 
 /**
  *  List most popular audios
- *
- *  @param channelUid The channel which medias must be listed for. If none is specified, medias for all channels will be returned
  */
-- (SRGRequest *)mostPopularAudiosForChannelWithUid:(nullable NSString *)channelUid
+- (SRGRequest *)mostPopularAudiosForChannelWithUid:(NSString *)channelUid
                                    completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
