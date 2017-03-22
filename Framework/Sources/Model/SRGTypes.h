@@ -289,7 +289,7 @@ typedef NS_ENUM(NSInteger, SRGTransmission) {
     /**
      *  Not specified
      */
-    SRGTransmissionNone,
+    SRGTransmissionNone = 0,
     /**
      *  Television
      */
