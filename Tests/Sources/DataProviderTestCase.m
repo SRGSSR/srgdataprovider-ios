@@ -17,10 +17,10 @@
 
 - (void)testCreation
 {
-    NSURL *serviceURL = SRGIntegrationLayerTestServiceURL();
+    NSURL *serviceURL = SRGIntegrationLayerProductionServiceURL();
     
     SRGDataProvider *dataProvider1 = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
-    XCTAssertEqualObjects(dataProvider1.serviceURL, [NSURL URLWithString:@"https://il-test.srgssr.ch/"]);
+    XCTAssertEqualObjects(dataProvider1.serviceURL, [NSURL URLWithString:@"https://il.srgssr.ch/"]);
     XCTAssertEqualObjects(dataProvider1.businessUnitIdentifier, SRGDataProviderBusinessUnitIdentifierRTS);
     
     XCTAssertNil([SRGDataProvider currentDataProvider]);

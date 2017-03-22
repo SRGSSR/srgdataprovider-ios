@@ -597,7 +597,7 @@ static NSString * const kModuleUid = @"c01f03b2-5546-4c94-bb78-2a2b1dbd206c";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
 
-    // Event always available in test
+    // Event available in test
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerTestServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
     [[dataProvider latestMediasForModuleWithType:SRGModuleTypeEvent uid:kModuleUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
