@@ -24,8 +24,6 @@ static NSString * const kVideoOtherUid = @"43007158";
 
 static NSString * const kTopicUid = @"1";
 
-static NSString * const kModuleUid = @"none_yet";
-
 @interface SWIServicesTestCase : XCTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
@@ -587,17 +585,6 @@ static NSString * const kModuleUid = @"none_yet";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testLatestMediasForModule
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
-    
-    // FIXME: Currently no reliable event is available
-    [[self.dataProvider latestMediasForModuleWithType:SRGModuleTypeEvent uid:kModuleUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(error);
-        [expectation fulfill];
-    }] resume];
-    
-    [self waitForExpectationsWithTimeout:30. handler:nil];
-}
+// Cannot test -latestMediasForModuleWithType:uid:sectionUid:completionBlock: yet due to missing reliable data}
 
 @end

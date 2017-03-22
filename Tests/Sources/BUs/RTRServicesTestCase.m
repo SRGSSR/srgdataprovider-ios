@@ -24,8 +24,6 @@ static NSString * const kVideoOtherUid = @"6c326059-3acc-467e-bca3-73bd7d3057fe"
 
 static NSString * const kTopicUid = @"none_yet";
 
-static NSString * const kModuleUid = @"640cc7c0-109d-416a-8299-e036bd15e3ea";
-
 @interface RTRServicesTestCase : XCTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
@@ -592,17 +590,6 @@ static NSString * const kModuleUid = @"640cc7c0-109d-416a-8299-e036bd15e3ea";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testLatestMediasForModule
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
-    
-    [[self.dataProvider latestMediasForModuleWithType:SRGModuleTypeEvent uid:kModuleUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(medias);
-        XCTAssertNil(error);
-        [expectation fulfill];
-    }] resume];
-    
-    [self waitForExpectationsWithTimeout:30. handler:nil];
-}
+// Cannot test -latestMediasForModuleWithType:uid:sectionUid:completionBlock: yet due to missing reliable data
 
 @end

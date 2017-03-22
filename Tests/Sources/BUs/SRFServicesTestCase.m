@@ -24,8 +24,6 @@ static NSString * const kVideoOtherUid = @"99cf6ce3-c588-4241-9487-a2c607ccce51"
 
 static NSString * const kTopicUid = @"a709c610-b275-4c0c-a496-cba304c36712";
 
-static NSString * const kModuleUid = @"33c6e208-1a3c-4b84-9dab-28fd19392096";
-
 @interface SRFServicesTestCase : XCTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
@@ -593,19 +591,6 @@ static NSString * const kModuleUid = @"33c6e208-1a3c-4b84-9dab-28fd19392096";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testLatestMediasForModule
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
-    
-    // Event available in test
-    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerTestServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSRF];
-    [[dataProvider latestMediasForModuleWithType:SRGModuleTypeEvent uid:kModuleUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(medias);
-        XCTAssertNil(error);
-        [expectation fulfill];
-    }] resume];
-    
-    [self waitForExpectationsWithTimeout:30. handler:nil];
-}
+// Cannot test -latestMediasForModuleWithType:uid:sectionUid:completionBlock: yet due to missing reliable data
 
 @end

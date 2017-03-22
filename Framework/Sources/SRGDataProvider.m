@@ -140,7 +140,6 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 - (SRGRequest *)videoLatestEpisodesForChannelWithUid:(NSString *)channelUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = nil;
-    
     if (channelUid) {
         resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestEpisodesByChannel/%@.json", self.businessUnitIdentifier, channelUid];
     }
@@ -228,7 +227,6 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 - (SRGRequest *)videoLatestForTopicWithUid:(NSString *)topicUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = nil;
-    
     if (topicUid) {
         resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestByTopic/%@.json", self.businessUnitIdentifier, topicUid];
     }
@@ -343,7 +341,6 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 - (SRGRequest *)audioLivestreamsForChannelWithUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = nil;
-    
     if (channelUid) {
         resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/livestreamsByChannel/%@.json", self.businessUnitIdentifier, channelUid];
     }
@@ -493,10 +490,18 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)latestMediasForModuleWithType:(SRGModuleType)moduleType uid:(NSString *)uid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+- (SRGRequest *)latestMediasForModuleWithType:(SRGModuleType)moduleType uid:(NSString *)uid sectionUid:(NSString *)sectionUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *moduleTypeString = [SRGModuleTypeJSONTransformer() reverseTransformedValue:@(moduleType)];
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/latestByModule/%@/%@.json", self.businessUnitIdentifier, moduleTypeString.lowercaseString, uid];
+    NSString *moduleTypeString = [[SRGModuleTypeJSONTransformer() reverseTransformedValue:@(moduleType)] lowercaseString];
+    
+    NSString *resourcePath = nil;
+    if (sectionUid) {
+        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/latestByModuleAndSection/%@/%@/%@.json", self.businessUnitIdentifier, moduleTypeString, uid, sectionUid];
+    }
+    else {
+        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/latestByModule/%@/%@.json", self.businessUnitIdentifier, moduleTypeString, uid];
+    }
+    
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }

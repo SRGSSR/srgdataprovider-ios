@@ -513,18 +513,20 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 /**
  *  List modules for a specific type, like events
  *
- *  @param moduleType   A specific module type
+ *  @param moduleType A specific module type
  */
 - (SRGRequest *)modulesWithType:(SRGModuleType)moduleType completionBlock:(SRGModuleListCompletionBlock)completionBlock;
 
 /**
  *  List medias for a specific module
  *
- *  @param moduleType   A specific module type
- *  @param uid          A specific module or section unique identifier
+ *  @param moduleType A specific module type
+ *  @param uid        A specific module or section unique identifier
+ *  @param sectionUid An optional section uid
  */
 - (SRGRequest *)latestMediasForModuleWithType:(SRGModuleType)moduleType
                                           uid:(NSString *)uid
+                                   sectionUid:(nullable NSString *)sectionUid
                               completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 @end
