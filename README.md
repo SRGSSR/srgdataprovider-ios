@@ -67,6 +67,10 @@ To learn about how the library can be used, have a look at the [getting started 
 
 The library internally uses the [SRG Logger](https://github.com/SRGSSR/srglogger-ios) library for logging, within the `ch.srgssr.dataprovider` subsystem. This logger either automatically integrates with your own logger, or can be easily integrated with it. Refer to the SRG Logger documentation for more information.
 
+## Supported requests
+
+The supported requests vary depending on the business unit. A [compatibility matrix](Documentation/Request-compatibility-matrix.md) is provided for reference.
+
 ## Demo project
 
 To test what the library is capable of, try running the associated demo by opening the workspace and building the associated scheme.
