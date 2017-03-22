@@ -7,38 +7,38 @@
 #import <SRGDataProvider/SRGDataProvider.h>
 #import <XCTest/XCTest.h>
 
-static NSString * const kAudioChannelUid = @"rete-uno";
-static NSString * const kAudioLivestreamUid = @"none_yet";
-static NSString * const kAudioSearchQuery = @"tennis";
-static NSString * const kAudioShowSearchQuery = @"modem";
-static NSString * const kAudioShowUid = @"3520594";
-static NSString * const kAudioUid = @"8800213";
-static NSString * const kAudioOtherUid = @"8849587";
+static NSString * const kAudioChannelUid = @"12fb886e-b7aa-4e55-beb2-45dbc619f3c4";
+static NSString * const kAudioLivestreamUid = @"";
+static NSString * const kAudioSearchQuery = @"roger";
+static NSString * const kAudioShowSearchQuery = @"actualitad";
+static NSString * const kAudioShowUid = @"e0c6add1-55a2-4ae1-af09-143fd7f29a31";
+static NSString * const kAudioUid = @"4e0291b5-b718-480c-840e-80c746dff1a8";
+static NSString * const kAudioOtherUid = @"716f5280-5110-4f99-afe7-aeeaf6cf3b8b";
 
-static NSString * const kVideoChannelUid = @"la1";
-static NSString * const kVideoSearchQuery = @"roger";
-static NSString * const kVideoShowUid = @"2311780";
-static NSString * const kVideoShowSearchQuery = @"telegiornale";
-static NSString * const kVideoUid = @"8812327";
-static NSString * const kVideoOtherUid = @"8812318";
+static NSString * const kVideoChannelUid = @"none_yet";
+static NSString * const kVideoSearchQuery = @"tennis";
+static NSString * const kVideoShowUid = @"c482ada1-acc0-0001-8415-847c2ad01c59";
+static NSString * const kVideoShowSearchQuery = @"controvers";
+static NSString * const kVideoUid = @"63cc0629-615c-4e97-93cc-f770d2ce4e79";
+static NSString * const kVideoOtherUid = @"6c326059-3acc-467e-bca3-73bd7d3057fe";
 
-static NSString * const kTopicUid = @"7";
+static NSString * const kTopicUid = @"none_yet";
 
-static NSString * const kModuleUid = @"5529526";
+static NSString * const kModuleUid = @"640cc7c0-109d-416a-8299-e036bd15e3ea";
 
-@interface RSIServicesTestCase : XCTestCase
+@interface RTRServicesTestCase : XCTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
 
 @end
 
-@implementation RSIServicesTestCase
+@implementation RTRServicesTestCase
 
 #pragma mark Setup and teardown
 
 - (void)setUp
 {
-    self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRSI];
+    self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTR];
 }
 
 - (void)tearDown
@@ -66,8 +66,7 @@ static NSString * const kModuleUid = @"5529526";
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videoChannelWithUid:kVideoChannelUid completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
-        XCTAssertNotNil(channel);
-        XCTAssertNil(error);
+        XCTAssertNotNil(error);
         [expectation fulfill];
     }] resume];
     
@@ -104,9 +103,9 @@ static NSString * const kModuleUid = @"5529526";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
+    // Not supported for RTR
     [[self.dataProvider soonExpiringVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(medias);
-        XCTAssertNil(error);
+        XCTAssertNotNil(error);
         [expectation fulfill];
     }] resume];
     
@@ -125,9 +124,9 @@ static NSString * const kModuleUid = @"5529526";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
-    // Not available for RSI
     [[self.dataProvider latestVideoEpisodesForChannelWithUid:kVideoChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(error);
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
         [expectation2 fulfill];
     }] resume];
     
@@ -223,10 +222,10 @@ static NSString * const kModuleUid = @"5529526";
     }] resume];
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
-    
+
+    // No topics exist for RTR
     [[self.dataProvider latestVideosForTopicWithUid:kTopicUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(medias);
-        XCTAssertNil(error);
+        XCTAssertNotNil(error);
         [expectation2 fulfill];
     }] resume];
     
@@ -245,9 +244,9 @@ static NSString * const kModuleUid = @"5529526";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
+    // No topics exist for RTR
     [[self.dataProvider mostPopularVideosForTopicWithUid:kTopicUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(medias);
-        XCTAssertNil(error);
+        XCTAssertNotNil(error);
         [expectation2 fulfill];
     }] resume];
     
@@ -412,13 +411,13 @@ static NSString * const kModuleUid = @"5529526";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-// Not available for RSI
 - (void)testLatestAudioEpisodesForChannel
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider latestAudioEpisodesForChannelWithUid:kAudioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(error);
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
         [expectation fulfill];
     }] resume];
     
@@ -597,9 +596,7 @@ static NSString * const kModuleUid = @"5529526";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    // Event always available in test
-    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerTestServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRSI];
-    [[dataProvider latestMediasForModuleWithType:SRGModuleTypeEvent uid:kModuleUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider latestMediasForModuleWithType:SRGModuleTypeEvent uid:kModuleUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];

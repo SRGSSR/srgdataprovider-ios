@@ -16,6 +16,7 @@
 		6F6BDCE71E8262C4004BC726 /* RTSServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6BDCE51E8262C4004BC726 /* RTSServicesTestCase.m */; };
 		6F6BDCE81E8262C4004BC726 /* SRFServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6BDCE61E8262C4004BC726 /* SRFServicesTestCase.m */; };
 		6F6BDCEA1E826A5C004BC726 /* RSIServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6BDCE91E826A5C004BC726 /* RSIServicesTestCase.m */; };
+		6F6BDCEE1E827DDB004BC726 /* RTRServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6BDCED1E827DDB004BC726 /* RTRServicesTestCase.m */; };
 		6F6E1C731E56269100E88238 /* SRGTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E1C721E56269100E88238 /* SRGTypes.m */; };
 		6F8201DD1D9A3FAC001DA4DA /* DataProviderTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8201DC1D9A3FAC001DA4DA /* DataProviderTestCase.m */; };
 		6F8201E01D9A62D2001DA4DA /* RequestTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8201DF1D9A62D2001DA4DA /* RequestTestCase.m */; };
@@ -131,6 +132,7 @@
 		6F6BDCE51E8262C4004BC726 /* RTSServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTSServicesTestCase.m; sourceTree = "<group>"; };
 		6F6BDCE61E8262C4004BC726 /* SRFServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRFServicesTestCase.m; sourceTree = "<group>"; };
 		6F6BDCE91E826A5C004BC726 /* RSIServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSIServicesTestCase.m; sourceTree = "<group>"; };
+		6F6BDCED1E827DDB004BC726 /* RTRServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRServicesTestCase.m; sourceTree = "<group>"; };
 		6F6E1C721E56269100E88238 /* SRGTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGTypes.m; sourceTree = "<group>"; };
 		6F8201DC1D9A3FAC001DA4DA /* DataProviderTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataProviderTestCase.m; sourceTree = "<group>"; };
 		6F8201DF1D9A62D2001DA4DA /* RequestTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestTestCase.m; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				6F6BDCE91E826A5C004BC726 /* RSIServicesTestCase.m */,
+				6F6BDCED1E827DDB004BC726 /* RTRServicesTestCase.m */,
 				6F6BDCE51E8262C4004BC726 /* RTSServicesTestCase.m */,
 				6F6BDCE61E8262C4004BC726 /* SRFServicesTestCase.m */,
 			);
@@ -569,6 +572,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F8201E01D9A62D2001DA4DA /* RequestTestCase.m in Sources */,
+				6F6BDCEE1E827DDB004BC726 /* RTRServicesTestCase.m in Sources */,
 				6F6BDCE71E8262C4004BC726 /* RTSServicesTestCase.m in Sources */,
 				6F6BDCE81E8262C4004BC726 /* SRFServicesTestCase.m in Sources */,
 				6F8201DD1D9A3FAC001DA4DA /* DataProviderTestCase.m in Sources */,

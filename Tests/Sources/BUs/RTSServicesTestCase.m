@@ -8,6 +8,7 @@
 #import <XCTest/XCTest.h>
 
 static NSString * const kAudioChannelUid = @"a9e7621504c6959e35c3ecbe7f6bed0446cdf8da";
+static NSString * const kAudioLivestreamUid = @"none_yet";
 static NSString * const kAudioSearchQuery = @"roger";
 static NSString * const kAudioShowSearchQuery = @"supersonic";
 static NSString * const kAudioShowUid = @"5168249";
@@ -368,7 +369,8 @@ static NSString * const kModuleUid = @"c01f03b2-5546-4c94-bb78-2a2b1dbd206c";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
-    [[self.dataProvider audioChannelWithUid:kAudioChannelUid livestreamUid:@"not_supported" completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
+    // No livestreams for RSI yet
+    [[self.dataProvider audioChannelWithUid:kAudioChannelUid livestreamUid:kAudioLivestreamUid completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         [expectation2 fulfill];
     }] resume];
