@@ -69,7 +69,7 @@ The library internally uses the [SRG Logger](https://github.com/SRGSSR/srglogger
 
 ## Supported requests
 
-The supported requests vary depending on the business unit. A [compatibility matrix](Documentation/Request-compatibility-matrix.md) is provided for reference.
+The supported requests vary depending on the business unit. A [compatibility matrix](Documentation/Service-availability.md) is provided for reference.
 
 ## Demo project
 

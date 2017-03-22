@@ -123,6 +123,11 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *  You can keep a reference to an `SRGRequest` you have started. This can be useful if you later need to cancel the
  *  request, or to start it again. Note that the completion block will not be called when a request is cancelled.
  *
+ *  ## Service availability
+ *
+ *  Service availability depends on the business unit. Have a look at the `Documentation/Service-availability.md` file
+ *  supplied with this project documentation for more information.
+ *
  *  ## Page management
  *
  *  Some services support pagination (retrieving results in pages with a bound number of results for each). Such requests
