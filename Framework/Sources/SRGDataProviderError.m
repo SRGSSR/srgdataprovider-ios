@@ -8,5 +8,6 @@
 
 NSString * const SRGDataProviderErrorDomain = @"ch.srgssr.dataprovider";
 
+NSString * const SRGDataProviderHTTPStatusCodeKey = @"SRGDataProviderHTTPStatusCodeKey";
 NSString * const SRGDataProviderRedirectionURLKey = @"SRGDataProviderRedirectionURLKey";
 NSString * const SRGDataProviderErrorsKey = @"SRGDataProviderErrorsKey";

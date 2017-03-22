@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 typedef NS_ENUM(NSInteger, SRGDataProviderErrorCode) {
     /**
-     *  An HTTP error has been encountered
+     *  An HTTP error has been encountered. The HTTP status code is available frm the user info under the
+     *  `SRGDataProviderHTTPStatusCodeKey` key (as an `NSNumber`)
      */
     SRGDataProviderErrorHTTP,
     /**
@@ -44,6 +45,7 @@ OBJC_EXPORT NSString * const SRGDataProviderErrorDomain;
 /**
  *  Error user information keys, @see `SRGDataProviderErrorCode`
  */
+OBJC_EXPORT NSString * const SRGDataProviderHTTPStatusCodeKey;
 OBJC_EXPORT NSString * const SRGDataProviderRedirectionURLKey;
 OBJC_EXPORT NSString * const SRGDataProviderErrorsKey;
 

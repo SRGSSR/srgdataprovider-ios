@@ -125,7 +125,8 @@ static NSInteger s_numberOfRunningRequests = 0;
                 NSError *HTTPError = [NSError errorWithDomain:SRGDataProviderErrorDomain
                                                          code:SRGDataProviderErrorHTTP
                                                      userInfo:@{ NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:HTTPStatusCode],
-                                                                 NSURLErrorKey : response.URL }];
+                                                                 NSURLErrorKey : response.URL,
+                                                                 SRGDataProviderHTTPStatusCodeKey : @(HTTPStatusCode) }];
                 SRGDataProviderLogDebug(@"Request", @"Ended %@ with an HTTP error: %@", self.request.URL, HTTPError);
                 requestCompletionBlock(nil, nil, HTTPError);
                 return;

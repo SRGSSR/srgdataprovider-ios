@@ -13,6 +13,8 @@
 
 @implementation MediaURNTestCase
 
+#pragma mark Tests
+
 - (void)testCreation
 {
     NSString *URNString = @"urn:swi:video:41981254";
