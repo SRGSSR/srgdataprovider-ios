@@ -53,8 +53,6 @@
 		E67BB66A1D3D2FB600E1FEA3 /* SRGSocialCount.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6681D3D2FB600E1FEA3 /* SRGSocialCount.m */; };
 		E67BB66D1D3DF13800E1FEA3 /* SRGMediaComposition.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB66B1D3DF13800E1FEA3 /* SRGMediaComposition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E67BB66E1D3DF13800E1FEA3 /* SRGMediaComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB66C1D3DF13800E1FEA3 /* SRGMediaComposition.m */; };
-		E67BB6711D3E011500E1FEA3 /* SRGLike.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB66F1D3E011500E1FEA3 /* SRGLike.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E67BB6721D3E011500E1FEA3 /* SRGLike.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6701D3E011500E1FEA3 /* SRGLike.m */; };
 		E67BB6751D3E01C900E1FEA3 /* SRGTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6731D3E01C900E1FEA3 /* SRGTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E67BB6791D3E041900E1FEA3 /* SRGJSONTransformers.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6771D3E041900E1FEA3 /* SRGJSONTransformers.h */; };
 		E67BB67A1D3E041900E1FEA3 /* SRGJSONTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6781D3E041900E1FEA3 /* SRGJSONTransformers.m */; };
@@ -164,8 +162,6 @@
 		E67BB6681D3D2FB600E1FEA3 /* SRGSocialCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSocialCount.m; sourceTree = "<group>"; };
 		E67BB66B1D3DF13800E1FEA3 /* SRGMediaComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGMediaComposition.h; sourceTree = "<group>"; };
 		E67BB66C1D3DF13800E1FEA3 /* SRGMediaComposition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGMediaComposition.m; sourceTree = "<group>"; };
-		E67BB66F1D3E011500E1FEA3 /* SRGLike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGLike.h; sourceTree = "<group>"; };
-		E67BB6701D3E011500E1FEA3 /* SRGLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGLike.m; sourceTree = "<group>"; };
 		E67BB6731D3E01C900E1FEA3 /* SRGTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGTypes.h; sourceTree = "<group>"; };
 		E67BB6771D3E041900E1FEA3 /* SRGJSONTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGJSONTransformers.h; sourceTree = "<group>"; };
 		E67BB6781D3E041900E1FEA3 /* SRGJSONTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGJSONTransformers.m; sourceTree = "<group>"; };
@@ -306,8 +302,6 @@
 				6F556B3E1DDDD7C500B5DEA2 /* SRGEpisodeComposition.m */,
 				E67BB6771D3E041900E1FEA3 /* SRGJSONTransformers.h */,
 				E67BB6781D3E041900E1FEA3 /* SRGJSONTransformers.m */,
-				E67BB66F1D3E011500E1FEA3 /* SRGLike.h */,
-				E67BB6701D3E011500E1FEA3 /* SRGLike.m */,
 				E6C2B3BD1D390EEF00B6250B /* SRGMedia.h */,
 				E6C2B3BE1D390EEF00B6250B /* SRGMedia.m */,
 				E67BB66B1D3DF13800E1FEA3 /* SRGMediaComposition.h */,
@@ -432,7 +426,6 @@
 				E68598AF1D40CEB90010000A /* SRGMetadata.h in Headers */,
 				E6C2B3BF1D390EEF00B6250B /* SRGMedia.h in Headers */,
 				E68598B31D40CEDA0010000A /* SRGMediaIdentifierMetadata.h in Headers */,
-				E67BB6711D3E011500E1FEA3 /* SRGLike.h in Headers */,
 				E68598B81D40F30B0010000A /* SRGChannel.h in Headers */,
 				E67BB66D1D3DF13800E1FEA3 /* SRGMediaComposition.h in Headers */,
 				6FC024B81E1D381E00550881 /* SRGSearchResultMedia.h in Headers */,
@@ -597,7 +590,6 @@
 				E6AE51431D40A66C00572CE4 /* SRGRelatedContent.m in Sources */,
 				E62459B91D47828D00482BE9 /* SRGRequest.m in Sources */,
 				E6C2B3C41D391D5A00B6250B /* SRGDataProviderError.m in Sources */,
-				E67BB6721D3E011500E1FEA3 /* SRGLike.m in Sources */,
 				6F556B401DDDD7C500B5DEA2 /* SRGEpisodeComposition.m in Sources */,
 				E6AE513F1D40A1FA00572CE4 /* SRGRequestQueue.m in Sources */,
 				6FC024B91E1D381E00550881 /* SRGSearchResultMedia.m in Sources */,

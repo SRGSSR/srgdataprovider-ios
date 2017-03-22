@@ -608,19 +608,4 @@ static NSString * const kModuleUid = @"33c6e208-1a3c-4b84-9dab-28fd19392096";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testLikeMediaComposition
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
-    
-    [[self.dataProvider mediaCompositionForVideoWithUid:kVideoUid completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
-        [[self.dataProvider likeMediaComposition:mediaComposition withCompletionBlock:^(SRGLike * _Nullable like, NSError * _Nullable error) {
-            XCTAssertNotNil(like);
-            XCTAssertNil(error);
-            [expectation fulfill];
-        }] resume];
-    }] resume];
-    
-    [self waitForExpectationsWithTimeout:30. handler:nil];
-}
-
 @end

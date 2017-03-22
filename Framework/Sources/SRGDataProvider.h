@@ -14,7 +14,6 @@
 #import "SRGEpisode.h"
 #import "SRGEpisodeComposition.h"
 #import "SRGImageMetadata.h"
-#import "SRGLike.h"
 #import "SRGMedia.h"
 #import "SRGMediaComposition.h"
 #import "SRGMediaIdentifierMetadata.h"
@@ -64,7 +63,6 @@ OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessU
 // Completion block signatures (without pagination support)
 typedef void (^SRGChannelCompletionBlock)(SRGChannel * _Nullable channel, NSError * _Nullable error);
 typedef void (^SRGChannelListCompletionBlock)(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error);
-typedef void (^SRGLikeCompletionBlock)(SRGLike * _Nullable like, NSError * _Nullable error);
 typedef void (^SRGMediaCompletionBlock)(SRGMedia * _Nullable media, NSError * _Nullable error);
 typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error);
 typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error);
@@ -528,16 +526,6 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 - (SRGRequest *)latestMediasForModuleWithType:(SRGModuleType)moduleType
                                           uid:(NSString *)uid
                               completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
-
-@end
-
-@interface SRGDataProvider (SocialMediaServices)
-
-/**
- *  Increase the SRG popularity like counter from 1 unit for the specified media
- */
-- (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition
-                 withCompletionBlock:(SRGLikeCompletionBlock)completionBlock;
 
 @end
 

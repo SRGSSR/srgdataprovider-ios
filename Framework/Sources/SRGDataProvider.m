@@ -481,31 +481,6 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResultShow class] rootKey:@"searchResultListShow" completionBlock:completionBlock];
 }
 
-#pragma mark Public social media services
-
-- (SRGRequest *)likeMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGLikeCompletionBlock)completionBlock
-{
-    // Assert request parameters. Won't crash in release builds, but the request will most likely fail
-    SRGChapter *mainChapter = mediaComposition.mainChapter;
-    NSAssert(mainChapter, @"Expect a chapter");
-    NSAssert(mainChapter.event, @"Expect event information");
-    
-    NSString *mediaTypeString = (mainChapter.mediaType == SRGMediaTypeAudio) ? @"audio" : @"video";
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaStatistic/%@/%@/liked.json", self.businessUnitIdentifier, mediaTypeString, mainChapter.uid];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-    request.HTTPMethod = @"POST";
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    NSDictionary *bodyJSONDictionary = mediaComposition.mainChapter.event ? @{ @"eventData" : mediaComposition.mainChapter.event } : @{};
-    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyJSONDictionary options:0 error:NULL];
-    
-    return [self fetchObjectWithRequest:request modelClass:[SRGLike class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(object, error);
-    }];
-}
-
 #pragma mark Module services
 
 - (SRGRequest *)modulesWithType:(SRGModuleType)moduleType completionBlock:(SRGModuleListCompletionBlock)completionBlock
