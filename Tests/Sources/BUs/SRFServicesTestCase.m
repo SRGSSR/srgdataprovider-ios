@@ -126,20 +126,12 @@ static NSString * const kTopicUid = @"a709c610-b275-4c0c-a496-cba304c36712";
 
 - (void)testTVLatestEpisodesForChannel
 {
-    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvLatestEpisodesForChannelWithUid:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvLatestEpisodesWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        [expectation1 fulfill];
-    }] resume];
-    
-    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
-    
-    [[self.dataProvider tvLatestEpisodesForChannelWithUid:kVideoChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(medias);
-        XCTAssertNil(error);
-        [expectation2 fulfill];
+        [expectation fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

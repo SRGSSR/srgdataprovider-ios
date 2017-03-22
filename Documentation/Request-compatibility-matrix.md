@@ -8,7 +8,7 @@
 | Single channel | SRF | RTS | RSI | SRF | SWI |
 | Livestreams | SRF | RTS | RSI | SRF | SWI |
 
-### Media retrieval
+### Media and episode retrieval
 
 | Request | SRF | RTS | RSI | SRF | SWI |
 |:-- |:--:|:--:|:--:|:--:|:--:|
@@ -59,7 +59,7 @@
 | Single channel | SRF | RTS | RSI | SRF | SWI |
 | Livestreams | SRF | RTS | RSI | SRF | SWI |
 
-### Media retrieval
+### Media and episode retrieval
 
 | Request | SRF | RTS | RSI | SRF | SWI |
 |:-- |:--:|:--:|:--:|:--:|:--:|
