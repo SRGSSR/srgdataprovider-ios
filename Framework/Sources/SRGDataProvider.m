@@ -96,7 +96,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 
 #pragma mark Public video services
 
-- (SRGRequest *)videoChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock
+- (SRGRequest *)tvChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channelList/tv.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
@@ -105,7 +105,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)videoChannelWithUid:(NSString *)channelUid completionBlock:(SRGChannelCompletionBlock)completionBlock
+- (SRGRequest *)tvChannelWithUid:(NSString *)channelUid completionBlock:(SRGChannelCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channel/%@/tv/nowAndNext.json", self.businessUnitIdentifier, channelUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
@@ -114,7 +114,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)videoLivestreamsWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)tvLivestreamsWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/livestreams.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
@@ -123,40 +123,26 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)videoEditorialWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+- (SRGRequest *)tvEditorialMediasWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/editorial.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)videoSoonExpiringWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+- (SRGRequest *)tvSoonExpiringMediasWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/soonExpiring.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)videoLatestEpisodesForChannelWithUid:(NSString *)channelUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+- (SRGRequest *)tvTrendingMediasWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = nil;
-    if (channelUid) {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestEpisodesByChannel/%@.json", self.businessUnitIdentifier, channelUid];
-    }
-    else {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestEpisodes.json", self.businessUnitIdentifier];
-    }
-    
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+    return [self tvTrendingMediasWithEditorialLimit:nil episodesOnly:NO completionBlock:completionBlock];
 }
 
-- (SRGRequest *)videoTrendingWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
-{
-    return [self videoTrendingWithEditorialLimit:nil episodesOnly:NO completionBlock:completionBlock];
-}
-
-- (SRGRequest *)videoTrendingWithEditorialLimit:(NSNumber *)editorialLimit episodesOnly:(BOOL)episodesOnly completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+- (SRGRequest *)tvTrendingMediasWithEditorialLimit:(NSNumber *)editorialLimit episodesOnly:(BOOL)episodesOnly completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/trending.json", self.businessUnitIdentifier];
     
@@ -173,7 +159,21 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)videoEpisodesForDate:(NSDate *)date withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+- (SRGRequest *)tvLatestEpisodesForChannelWithUid:(NSString *)channelUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = nil;
+    if (channelUid) {
+        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestEpisodesByChannel/%@.json", self.businessUnitIdentifier, channelUid];
+    }
+    else {
+        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestEpisodes.json", self.businessUnitIdentifier];
+    }
+    
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+}
+
+- (SRGRequest *)tvEpisodesForDate:(NSDate *)date withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     if (!date) {
         date = [NSDate date];
@@ -185,9 +185,9 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)videoWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
+- (SRGRequest *)tvMediaWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
 {
-    return [self videosWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    return [self tvMediasWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         if (error) {
             completionBlock ? completionBlock(nil, error) : nil;
             return;
@@ -205,7 +205,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)videosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)tvMediasWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/byIds.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"ids" value:[mediaUids componentsJoinedByString: @","]] ];
@@ -215,7 +215,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)videoTopicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock
+- (SRGRequest *)tvTopicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/topicList/tv.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
@@ -224,7 +224,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)videoLatestForTopicWithUid:(NSString *)topicUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+- (SRGRequest *)tvLatestMediasForTopicWithUid:(NSString *)topicUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = nil;
     if (topicUid) {
@@ -238,7 +238,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)videoMostPopularForTopicWithUid:(NSString *)topicUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+- (SRGRequest *)tvMostPopularMediasForTopicWithUid:(NSString *)topicUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/mostClicked.json", self.businessUnitIdentifier];
     
@@ -251,14 +251,14 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)videoShowsWithCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock
+- (SRGRequest *)tvShowsWithCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/tv/alphabetical.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)videoShowWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock
+- (SRGRequest *)tvShowWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/show/tv/%@.json", self.businessUnitIdentifier, showUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
@@ -267,7 +267,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)videoLatestEpisodesForShowWithUid:(NSString *)showUid oldestMonth:(NSDate *)oldestMonth completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
+- (SRGRequest *)tvLatestEpisodesForShowWithUid:(NSString *)showUid oldestMonth:(NSDate *)oldestMonth completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/episodeComposition/latestByShow/tv/%@.json", self.businessUnitIdentifier, showUid];
     
@@ -287,7 +287,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGEpisodeComposition class] completionBlock:completionBlock];
 }
 
-- (SRGRequest *)videoMediaCompositionWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
+- (SRGRequest *)tvMediaCompositionWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaComposition/video/%@.json", self.businessUnitIdentifier, mediaUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
@@ -296,7 +296,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)videoSearchWithQuery:(NSString *)query withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock
+- (SRGRequest *)tvMediasMatchingQuery:(NSString *)query withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultListMedia/video.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
@@ -304,7 +304,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResultMedia class] rootKey:@"searchResultListMedia" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)videoShowSearchWithQuery:(NSString *)query withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock
+- (SRGRequest *)tvShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultListShow/tv.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
@@ -314,7 +314,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 
 #pragma mark Public audio services
 
-- (SRGRequest *)audioChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock
+- (SRGRequest *)radioChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channelList/radio.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
@@ -323,7 +323,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)audioChannelWithUid:(NSString *)channelUid livestreamUid:(NSString *)livestreamUid completionBlock:(SRGChannelCompletionBlock)completionBlock
+- (SRGRequest *)radioChannelWithUid:(NSString *)channelUid livestreamUid:(NSString *)livestreamUid completionBlock:(SRGChannelCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channel/%@/radio/nowAndNext.json", self.businessUnitIdentifier, channelUid];
     
@@ -338,7 +338,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)audioLivestreamsForChannelWithUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)radioLivestreamsForChannelWithUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = nil;
     if (channelUid) {
@@ -354,28 +354,28 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)audioLatestForChannelWithUid:(NSString *)channelUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+- (SRGRequest *)radioLatestMediasForChannelWithUid:(NSString *)channelUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/latestByChannel/%@.json", self.businessUnitIdentifier, channelUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)audioLatestEpisodesForChannelWithUid:(NSString *)channelUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
-{
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/latestEpisodesByChannel/%@.json", self.businessUnitIdentifier, channelUid];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
-}
-
-- (SRGRequest *)audioMostPopularForChannelWithUid:(NSString *)channelUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+- (SRGRequest *)radioMostPopularMediasForChannelWithUid:(NSString *)channelUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/mostClickedByChannel/%@.json", self.businessUnitIdentifier, channelUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)audioEpisodesForDate:(NSDate *)date withChannelUid:(NSString *)channelUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+- (SRGRequest *)radioLatestEpisodesForChannelWithUid:(NSString *)channelUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/latestEpisodesByChannel/%@.json", self.businessUnitIdentifier, channelUid];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+}
+
+- (SRGRequest *)radioEpisodesForDate:(NSDate *)date withChannelUid:(NSString *)channelUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     if (!date) {
         date = [NSDate date];
@@ -387,9 +387,9 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)audioWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
+- (SRGRequest *)radioMediaWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
 {
-    return [self audiosWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    return [self radioMediasWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         if (error) {
             completionBlock ? completionBlock(nil, error) : nil;
             return;
@@ -407,7 +407,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)audiosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)radioMediasWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/byIds.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"ids" value:[mediaUids componentsJoinedByString: @","]] ];
@@ -417,14 +417,14 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)audioShowsForChannelWithUid:(NSString *)channelUid completionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock
+- (SRGRequest *)radioShowsForChannelWithUid:(NSString *)channelUid completionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/radio/alphabeticalByChannel/%@.json", self.businessUnitIdentifier, channelUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)audioShowWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock
+- (SRGRequest *)radioShowWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/show/radio/%@.json", self.businessUnitIdentifier, showUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
@@ -433,7 +433,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)audioLatestEpisodesForShowWithUid:(NSString *)showUid oldestMonth:(NSDate *)oldestMonth completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
+- (SRGRequest *)radioLatestEpisodesForShowWithUid:(NSString *)showUid oldestMonth:(NSDate *)oldestMonth completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/episodeComposition/latestByShow/radio/%@.json", self.businessUnitIdentifier, showUid];
     
@@ -453,7 +453,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGEpisodeComposition class] completionBlock:completionBlock];
 }
 
-- (SRGRequest *)audioMediaCompositionWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
+- (SRGRequest *)radioMediaCompositionWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaComposition/audio/%@.json", self.businessUnitIdentifier, mediaUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
@@ -462,7 +462,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)audioSearchWithQuery:(NSString *)query withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock
+- (SRGRequest *)radioMediasMatchingQuery:(NSString *)query withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultListMedia/audio.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
@@ -470,7 +470,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResultMedia class] rootKey:@"searchResultListMedia" completionBlock:completionBlock];
 }
 
-- (SRGRequest *)audioShowSearchWithQuery:(NSString *)query withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock
+- (SRGRequest *)radioShowsMatchingQuery:(NSString *)query withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultListShow/radio.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
