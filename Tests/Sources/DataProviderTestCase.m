@@ -13,6 +13,8 @@
 
 @implementation DataProviderTestCase
 
+#pragma mark Tests
+
 - (void)testCreation
 {
     NSURL *serviceURL = SRGIntegrationLayerTestServiceURL();
