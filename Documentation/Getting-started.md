@@ -17,17 +17,17 @@ You can have several data providers in an application, for example if you want t
 and to retrieve it from anywhere, for example when creating a request:
 
 ```objective-c
-SRGRequest *request = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:...];
+SRGRequest *request = [[SRGDataProvider currentDataProvider] tvEditorialMediasWithCompletionBlock:...];
 ```
 
 For simplicity, this getting started guide assumes that a shared data provider has been set. If you cannot use the shared instance, store the data providers you instantiated somewhere and provide access to them in some way.
 
 ## Requesting data
 
-To request data, use the methods available from the `SRGDataProvider (Services)` category. For example, to get the list of editorially picked videos from the shared data provider, simply call:
+To request data, use the methods available from one of the `SRGDataProvider` _Services_ category. For example, to get the list of editorially picked medias from the shared data provider, simply call:
 
 ```objective-c
-SRGRequest *request = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+SRGRequest *request = [[SRGDataProvider currentDataProvider] tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
     if (error) {
     	// Deal with the error
     	return;
@@ -37,6 +37,8 @@ SRGRequest *request = [[SRGDataProvider currentDataProvider] editorialVideosWith
 }];
 [request resume];
 ```
+
+Request availability depends on the business unit. Refer to the provided [compatibility matrix](Service-availability.md) for reference.
 
 All request methods return an `SRGRequest` object, which can be used to manage their lifecycle. Note that a request is not started initially, you must call `-resume` to start it when required. You can also `-cancel` requests before they finish. This is especially useful when you manage requests at the view controller level and you want to cancel the request when the view controller gets dismissed.
 
@@ -75,12 +77,12 @@ Once you have a queue, you can add requests to it at any time. In general, reque
 
 ### Parallel requests
 
-When a request does not depend on the result of another request (e.g. requesting editorial and trending videos at the same time), you can instantiate both requests at the same level and add them to a common queue by calling `-addRequest:resume:`:
+When a request does not depend on the result of another request (e.g. requesting editorial and trending medias at the same time), you can instantiate both requests at the same level and add them to a common queue by calling `-addRequest:resume:`:
 
 ```objective-c
 SRGRequestQueue *requestQueue = [[SRGRequestQueue alloc] initWithStateChangeBlock:^(BOOL finished, NSError * _Nullable error) {
 	if (finished) {
-		// Proceed with the results, e.g. use self.editorialVideos and self.trendingVideos to 
+		// Proceed with the results, e.g. use self.editorialMedias and self.trendingMedias to 
 		// reload a table or collection view. If errors have been reported to the queue, they 
 		// will be available here
 	}
@@ -89,21 +91,21 @@ SRGRequestQueue *requestQueue = [[SRGRequestQueue alloc] initWithStateChangeBloc
 	}
 }];
 
-SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
 	// Report errors to the queue
 	[requestQueue reportError:error];
 	
 	// Do something with the results, e.g. store them for later retrieval
-	self.editorialVideos = medias;
+	self.editorialMedias = medias;
 }];
 [requestQueue addRequest:editorialRequest resume:YES];
 
-SRGRequest *trendingRequest = [[SRGDataProvider currentDataProvider] trendingVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+SRGRequest *trendingRequest = [[SRGDataProvider currentDataProvider] tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
 	// Report errors to the queue
 	[requestQueue reportError:error];
 	
 	// Do something with the results, e.g. store them for later retrieval
-	self.trendingVideos = medias;
+	self.trendingMedias = medias;
 }];
 [requestQueue addRequest:trendingRequest resume:YES];
 ```
@@ -121,14 +123,14 @@ SRGRequestQueue *requestQueue = [[SRGRequestQueue alloc] initWithStateChangeBloc
 	// ...
 }];
 
-SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
 	if (error) {
 		[requestQueue reportError:error];
 		return;
 	}
 		
 	SRGMedia *firstMedia = medias.firstObject;
-	SRGRequest *mediaCompositionRequest = [[SRGDataProvider currentDataProvider] mediaCompositionForVideoWithUid:firstMedia.uid completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+	SRGRequest *mediaCompositionRequest = [[SRGDataProvider currentDataProvider] tvMediaCompositionWithUid:firstMedia.uid completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
 		if (error) {
 			[requestQueue reportError:error];
 			return;
@@ -152,7 +154,7 @@ When contacting a service supporting pagination but without specifying a page si
 When creating a request, call the `-withPageSize:` to override the page size value:
 
 ```objective-c
-SRGRequest *request = [[[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:...] withPageSize:10];
+SRGRequest *request = [[[SRGDataProvider currentDataProvider] tvEditorialMediasWithCompletionBlock:...] withPageSize:10];
 ```
 
 Then start the request as usual.
@@ -164,7 +166,7 @@ When another page of content is available, the request completion block returns 
 Usually, you do not want to perform the request for the next page immediately from the first request completion block, but wait until an appropriate time, e.g. when the user has scrolled through the results of the first page. One way is to store the next page information:
 
 ```objective-c
-self.request = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+self.request = [[SRGDataProvider currentDataProvider] tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
 	// Deal with objects and errors
 	// ...
 	
@@ -187,7 +189,7 @@ and to use it later when needed:
 Another possibility would be not to store the page information, but rather to generate the new request directly:
 
 ```objective-c
-self.request = [[SRGDataProvider currentDataProvider] editorialVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+self.request = [[SRGDataProvider currentDataProvider] tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
 	// Deal with objects and errors
 	// ...
 	
