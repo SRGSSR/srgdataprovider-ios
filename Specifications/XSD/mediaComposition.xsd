@@ -1,0 +1,107 @@
+<xs:schema id="mediaComposition"
+           version="1.0"
+           xmlns="http://www.srgssr.ch"
+           targetNamespace="http://www.srgssr.ch"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="media.xsd"/>
+
+    <xs:complexType name="mediaComposition">
+        <xs:annotation>
+            <xs:documentation>Object which holds all relevant metadata information to play and display an audio or video</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="chapterUrn" type="urn" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Reference to chapter requested by the client. In addition segmentUrn might also be
+                        set if the client requested a segment of this chapter
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="segmentUrn" type="urn" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Reference to the segment requested by the client. This might be set in addition to
+                        chapterUrn if the client requested a logical segment
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="episode" type="episode" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="show" type="show" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="channel" type="channel" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="chapterList" type="chapter" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="analyticsData" type="analyticsData" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Key value map of analytics data which the client has to post to analytics services, e.g. comscore</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:complexType name="chapter">
+        <xs:annotation>
+            <xs:documentation>A physical media as part of an episode. In most cases, this is the full-length media of the episode.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="segment">
+                <xs:sequence>
+                    <xs:element name="resourceList" type="resource" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="segmentList" type="segment" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="segment">
+        <xs:annotation>
+            <xs:documentation>Logical section of a chapter, defined by it's markIn and markOut points</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:group ref="mediaGroup"/>
+            <xs:element name="fullLengthUrn" type="urn" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>URN of the base physical media (chapter)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="position" type="xs:int" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Position of this media within the sequence of medias of an episode</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="noEmbed" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Indicated that this segment cannot be included in other sites and clients should not provide an embed code</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="markIn" type="xs:long" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Starting point of a segment within it's (pyhsical) chapter, in milliseconds</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="markOut" type="xs:long" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>End point of a segment within it's (physical) chapter, in milliseconds</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="subtitleList" type="subtitle" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:group ref="scheduledLivestreamGroup"/>
+            <xs:element name="analyticsData" type="analyticsData" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Key value map of analytics data which the client has to post to analytics services, e.g. comscore</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="eventData" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Encoded metadata which the client has to post pack when sending player events</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="playerProperties" type="playerProperty" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+</xs:schema>

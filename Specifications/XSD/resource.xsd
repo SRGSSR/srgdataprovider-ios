@@ -1,0 +1,90 @@
+<xs:schema id="resource"
+           version="1.0"
+           xmlns="http://www.srgssr.ch"
+           targetNamespace="http://www.srgssr.ch"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="resource">
+        <xs:annotation>
+            <xs:documentation>A playable resource</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="url" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="quality" type="quality" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="protocol" type="protocol" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="encoding" type="encoding" minOccurs="1" maxOccurs="1"/>
+            <!-- set mimeType to minOccurs=1 and might be to an enum type as soon as it is implemented for flow v2-->
+            <xs:element name="mimeType" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="presentation" type="presentation" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="analyticsData" type="analyticsData" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Key value map of analytics data which the client has to post to analytics services, e.g. comscore</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:simpleType name="quality">
+        <xs:annotation>
+            <xs:documentation>Quality of a single resource</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SD"/>
+            <xs:enumeration value="HD"/>
+            <xs:enumeration value="HQ"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="protocol">
+        <xs:annotation>
+            <xs:documentation>Identify over which protocol a resource is playable</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="HLS"/>
+            <xs:enumeration value="HLS-DVR"/>
+            <xs:enumeration value="HDS"/>
+            <xs:enumeration value="HDS-DVR"/>
+            <xs:enumeration value="RTMP"/>
+            <xs:enumeration value="HTTP"/>
+            <xs:enumeration value="HTTPS" />
+            <xs:enumeration value="HTTP-M3U"/>
+            <xs:enumeration value="HTTP-MP3-STREAM"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="encoding">
+        <xs:annotation>
+            <xs:documentation>Encoding of a resource</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <!-- video -->
+            <xs:enumeration value="H264"/>
+            <xs:enumeration value="VP6F"/>
+            <xs:enumeration value="MPEG2"/>
+            <xs:enumeration value="WMV3"/>
+            <!-- audio -->
+            <xs:enumeration value="AAC"/>
+            <xs:enumeration value="AAC-HE"/>
+            <xs:enumeration value="MP3"/>
+            <xs:enumeration value="MP2"/>
+            <xs:enumeration value="WMAV2"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="presentation">
+        <xs:annotation>
+            <xs:documentation>How the resource should be presented</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="DEFAULT"/>
+            <xs:enumeration value="VIDEO_360"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
