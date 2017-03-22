@@ -24,7 +24,7 @@ static NSString * const kVideoOtherUid = @"99cf6ce3-c588-4241-9487-a2c607ccce51"
 
 static NSString * const kTopicUid = @"a709c610-b275-4c0c-a496-cba304c36712";
 
-static NSString * const kModuleUid = @"";
+static NSString * const kModuleUid = @"33c6e208-1a3c-4b84-9dab-28fd19392096";
 
 @interface SRFServicesTestCase : XCTestCase
 
@@ -440,7 +440,15 @@ static NSString * const kModuleUid = @"";
 
 - (void)testAudioEpisodesForDate
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
+    
+    [[self.dataProvider audioEpisodesForDate:nil withChannelUid:kAudioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     dateComponents.year = 2016;
@@ -450,7 +458,7 @@ static NSString * const kModuleUid = @"";
     [[self.dataProvider audioEpisodesForDate:dateComponents.date withChannelUid:kAudioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        [expectation fulfill];
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
@@ -589,7 +597,9 @@ static NSString * const kModuleUid = @"";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider latestMediasForModuleWithType:SRGModuleTypeEvent uid:kModuleUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    // Event always available in test
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerTestServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSRF];
+    [[dataProvider latestMediasForModuleWithType:SRGModuleTypeEvent uid:kModuleUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];

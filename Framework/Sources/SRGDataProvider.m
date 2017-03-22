@@ -385,7 +385,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }
     
     NSString *dateString = SRGDataProviderRequestDateString(date);
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/episodesByDateAndChannel/%@/%@.json", self.businessUnitIdentifier, channelUid, dateString];
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/episodesByDateAndChannel/%@/%@.json", self.businessUnitIdentifier, dateString, channelUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
 }
