@@ -6,6 +6,8 @@
 
 #import "NSArray+SRGDataProvider.h"
 
+#import "NSObject+SRGDataProvider.h"
+
 @implementation NSArray (SRGDataProvider)
 
 - (NSString *)srg_descriptionAtLevel:(NSInteger)level
@@ -15,16 +17,7 @@
     
     NSMutableString *description = [NSMutableString stringWithFormat:@"(\n"];
     for (id object in self) {
-        id formattedObject = nil;
-        if ([object respondsToSelector:@selector(srg_descriptionAtLevel:)]) {
-            formattedObject = [object srg_descriptionAtLevel:level + 1];
-        }
-        else if ([object isKindOfClass:[NSString class]]) {
-            formattedObject = [NSString stringWithFormat:@"\"%@\"", object];
-        }
-        else {
-            formattedObject = object;
-        }
+        id formattedObject = [object srg_formattedObjectAtLevel:level + 1];
         [description appendFormat:@"%@%@,\n", fieldIndentationString, formattedObject];
 
     }

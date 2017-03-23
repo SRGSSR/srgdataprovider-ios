@@ -31,6 +31,8 @@
 		6FB156171E83D20B00389D04 /* NSDictionary+SRGDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB156151E83D20B00389D04 /* NSDictionary+SRGDataProvider.m */; };
 		6FB1561A1E83D21800389D04 /* NSArray+SRGDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FB156181E83D21800389D04 /* NSArray+SRGDataProvider.h */; };
 		6FB1561B1E83D21800389D04 /* NSArray+SRGDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB156191E83D21800389D04 /* NSArray+SRGDataProvider.m */; };
+		6FB1561E1E83D6F900389D04 /* NSObject+SRGDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FB1561C1E83D6F900389D04 /* NSObject+SRGDataProvider.h */; };
+		6FB1561F1E83D6F900389D04 /* NSObject+SRGDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB1561D1E83D6F900389D04 /* NSObject+SRGDataProvider.m */; };
 		6FC024B01E1D001600550881 /* SRGSearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FC024AE1E1D001600550881 /* SRGSearchResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FC024B11E1D001600550881 /* SRGSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC024AF1E1D001600550881 /* SRGSearchResult.m */; };
 		6FC024B41E1D380700550881 /* SRGSearchResultShow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FC024B21E1D380700550881 /* SRGSearchResultShow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -153,6 +155,9 @@
 		6FB156151E83D20B00389D04 /* NSDictionary+SRGDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+SRGDataProvider.m"; sourceTree = "<group>"; };
 		6FB156181E83D21800389D04 /* NSArray+SRGDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+SRGDataProvider.h"; sourceTree = "<group>"; };
 		6FB156191E83D21800389D04 /* NSArray+SRGDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+SRGDataProvider.m"; sourceTree = "<group>"; };
+		6FB1561C1E83D6F900389D04 /* NSObject+SRGDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SRGDataProvider.h"; sourceTree = "<group>"; };
+		6FB1561D1E83D6F900389D04 /* NSObject+SRGDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SRGDataProvider.m"; sourceTree = "<group>"; };
+		6FB156221E83D7DB00389D04 /* SRGDescribable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGDescribable.h; sourceTree = "<group>"; };
 		6FC024AE1E1D001600550881 /* SRGSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSearchResult.h; sourceTree = "<group>"; };
 		6FC024AF1E1D001600550881 /* SRGSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSearchResult.m; sourceTree = "<group>"; };
 		6FC024B21E1D380700550881 /* SRGSearchResultShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSearchResultShow.h; sourceTree = "<group>"; };
@@ -264,6 +269,14 @@
 			path = BUs;
 			sourceTree = "<group>";
 		};
+		6FB156201E83D7C300389D04 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6FB156221E83D7DB00389D04 /* SRGDescribable.h */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		E600FE5E1D942260000B8A1D /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				E6C2B3C91D391EFD00B6250B /* Categories */,
+				6FB156201E83D7C300389D04 /* Helpers */,
 				E6391A981D38E92400E4CBB9 /* Model */,
 				E6391A9B1D38E92400E4CBB9 /* SRGDataProvider.h */,
 				E6391A9C1D38E92400E4CBB9 /* SRGDataProvider.m */,
@@ -424,6 +438,8 @@
 				E6C2B3CB1D391EFD00B6250B /* NSBundle+SRGDataProvider.m */,
 				6FB156141E83D20B00389D04 /* NSDictionary+SRGDataProvider.h */,
 				6FB156151E83D20B00389D04 /* NSDictionary+SRGDataProvider.m */,
+				6FB1561C1E83D6F900389D04 /* NSObject+SRGDataProvider.h */,
+				6FB1561D1E83D6F900389D04 /* NSObject+SRGDataProvider.m */,
 				E6AE51381D4093B700572CE4 /* NSURL+SRGDataProvider.h */,
 				E6AE51391D4093B700572CE4 /* NSURL+SRGDataProvider.m */,
 			);
@@ -461,6 +477,7 @@
 				E63DA7251D5C554A0053060E /* SRGModule.h in Headers */,
 				E6C2B3C31D391D5A00B6250B /* SRGDataProviderError.h in Headers */,
 				E68598B11D40CEC30010000A /* SRGImageMetadata.h in Headers */,
+				6FB1561E1E83D6F900389D04 /* NSObject+SRGDataProvider.h in Headers */,
 				6FB156161E83D20B00389D04 /* NSDictionary+SRGDataProvider.h in Headers */,
 				E68598B51D40CEEE0010000A /* SRGMediaMetadata.h in Headers */,
 				E68598AF1D40CEB90010000A /* SRGMetadata.h in Headers */,
@@ -619,6 +636,7 @@
 				E6C2B3F91D392F1A00B6250B /* SRGShow.m in Sources */,
 				6FB1561B1E83D21800389D04 /* NSArray+SRGDataProvider.m in Sources */,
 				E6AE513B1D4093B700572CE4 /* NSURL+SRGDataProvider.m in Sources */,
+				6FB1561F1E83D6F900389D04 /* NSObject+SRGDataProvider.m in Sources */,
 				6F6E1C731E56269100E88238 /* SRGTypes.m in Sources */,
 				E63DA72A1D5C5A390053060E /* SRGSection.m in Sources */,
 				E688C4F21D4756D60084DE4D /* SRGPage.m in Sources */,

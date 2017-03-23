@@ -6,6 +6,8 @@
 
 #import "SRGModel.h"
 
+#import "NSObject+SRGDataProvider.h"
+
 @implementation SRGModel
 
 #pragma mark MTLJSONSerializing protocol
@@ -37,16 +39,7 @@
             continue;
         }
         
-        id formattedValue = nil;
-        if ([value respondsToSelector:@selector(srg_descriptionAtLevel:)]) {
-            formattedValue = [value srg_descriptionAtLevel:level + 1];
-        }
-        else if ([value isKindOfClass:[NSString class]]) {
-            formattedValue = [NSString stringWithFormat:@"\"%@\"", value];
-        }
-        else {
-            formattedValue = value;
-        }
+        id formattedValue = [value srg_formattedObjectAtLevel:level + 1];
         [description appendFormat:@"%@%@ = %@;\n", fieldIndentationString, propertyKey, formattedValue];
     }
     [description appendFormat:@"%@}", normalIndentationString];

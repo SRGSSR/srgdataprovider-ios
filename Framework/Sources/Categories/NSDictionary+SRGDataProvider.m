@@ -6,6 +6,8 @@
 
 #import "NSDictionary+SRGDataProvider.h"
 
+#import "NSObject+SRGDataProvider.h"
+
 @implementation NSDictionary (SRGDataProvider)
 
 - (NSString *)srg_descriptionAtLevel:(NSInteger)level
@@ -15,18 +17,7 @@
     
     NSMutableString *description = [NSMutableString stringWithFormat:@"(\n"];
     for (id key in self.allKeys) {
-        id value = self[key];
-        
-        id formattedValue = nil;
-        if ([value respondsToSelector:@selector(srg_descriptionAtLevel:)]) {
-            formattedValue = [value srg_descriptionAtLevel:level + 1];
-        }
-        else if ([value isKindOfClass:[NSString class]]) {
-            formattedValue = [NSString stringWithFormat:@"\"%@\"", value];
-        }
-        else {
-            formattedValue = value;
-        }
+        id formattedValue = [self[key] srg_formattedObjectAtLevel:level + 1];
         [description appendFormat:@"%@%@ = %@,\n", fieldIndentationString, key, formattedValue];
     }
     [description appendFormat:@"%@)", normalIndentationString];
