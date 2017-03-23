@@ -93,28 +93,46 @@
     XCTAssertNotEqual(request6.page.size, 18);
 }
 
+// Use autorelease pools to force pool drain before testing weak variables (otherwise objects might have been added to
+// a pool by ARC depending on how they are used
 - (void)testDeallocation
 {
     // Non-retained requests are deallocated
-    __weak SRGRequest *request1 = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        // Nothing, the request isn't run
-    }];
+    __weak SRGRequest *request1;
+    @autoreleasepool {
+        request1 = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+            XCTFail(@"Must not be called since the request has not been resumed");
+        }];
+    }
     XCTAssertNil(request1);
     
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
+    // If resumed, non-retained requests are cancelled when deallocated (the completion block is not called for cancelled requests)
+    __weak SRGRequest *request2;
+    @autoreleasepool {
+        request2 = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+            XCTFail(@"Must not be called for cancelled requests");
+        }];
+        [request2 resume];
+    }
+    XCTAssertNil(request2);
     
-    // They can be self-retained until completion if needed
-    __block SRGRequest *request2 = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        // Release the local strong reference
-        request2 = nil;
-        [expectation fulfill];
-    }];
-    [request2 resume];
-    XCTAssertNotNil(request2);
+    // One-shot requests can also be self-retained until completion
+    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request finished"];
+    
+    __block SRGRequest *request3;
+    @autoreleasepool {
+        request3 = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+            // Release the local strong reference
+            request3 = nil;
+            [expectation3 fulfill];
+        }];
+        [request3 resume];
+    }
+    XCTAssertNotNil(request3);
     
     [self waitForExpectationsWithTimeout:5. handler:nil];
     
-    XCTAssertNil(request2);
+    XCTAssertNil(request3);
 }
 
 - (void)testStatus
