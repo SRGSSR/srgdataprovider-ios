@@ -7,15 +7,14 @@
 #import "SRGImageMetadata.h"
 #import "SRGMediaURN.h"
 #import "SRGMetadata.h"
-
-#import <Mantle/Mantle.h>
+#import "SRGModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Common base class for results of a search request
  */
-@interface SRGSearchResult : MTLModel <MTLJSONSerializing, SRGImageMetadata, SRGMetadata>
+@interface SRGSearchResult : SRGModel <SRGImageMetadata, SRGMetadata>
 
 /**
  *  The unique identifier of the object

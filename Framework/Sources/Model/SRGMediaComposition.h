@@ -8,6 +8,7 @@
 #import "SRGMedia.h"
 #import "SRGMediaParentMetadata.h"
 #import "SRGMediaURN.h"
+#import "SRGModel.h"
 
 #import <Mantle/Mantle.h>
 
@@ -19,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  *    - complete media information
  *    - analytics information
  */
-@interface SRGMediaComposition : MTLModel <SRGMediaParentMetadata, MTLJSONSerializing>
+@interface SRGMediaComposition : SRGModel <SRGMediaParentMetadata>
 
 /**
  *  The URN of the chapter which should initially be played

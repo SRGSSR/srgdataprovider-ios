@@ -5,8 +5,7 @@
 //
 
 #import "SRGMetadata.h"
-
-#import <Mantle/Mantle.h>
+#import "SRGModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Content related to a media (e.g. articles providing more information about a subject). Related contents are
  *  simple links to external web pages
  */
-@interface SRGRelatedContent : MTLModel <SRGMetadata, MTLJSONSerializing>
+@interface SRGRelatedContent : SRGModel <SRGMetadata>
 
 /**
  *  The unique identifier of the content

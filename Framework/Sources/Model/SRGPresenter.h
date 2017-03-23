@@ -5,6 +5,7 @@
 //
 
 #import "SRGImageMetadata.h"
+#import "SRGModel.h"
 
 #import <Mantle/Mantle.h>
 
@@ -13,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Presenter (of a show)
  */
-@interface SRGPresenter : MTLModel <SRGImageMetadata, MTLJSONSerializing>
+@interface SRGPresenter : SRGModel <SRGImageMetadata>
 
 /**
  *  The name of the presenter

@@ -6,10 +6,9 @@
 
 #import "SRGMediaMetadata.h"
 #import "SRGMediaURN.h"
+#import "SRGModel.h"
 #import "SRGSubtitle.h"
 #import "SRGTypes.h"
-
-#import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  A section is a logical media subdivision. It can correspond to an actual media (@see `SRGChapter`) or to a subset
  *  of a media (logical segmentation)
  */
-@interface SRGSegment : MTLModel <SRGMediaMetadata, MTLJSONSerializing>
+@interface SRGSegment : SRGModel <SRGMediaMetadata>
 
 /**
  *  The URN of the full length segment to which the segment belongs, if any

@@ -6,17 +6,16 @@
 
 #import "SRGImageMetadata.h"
 #import "SRGMetadata.h"
+#import "SRGModel.h"
 #import "SRGProgram.h"
 #import "SRGTypes.h"
-
-#import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Channel (TV, radio or online)
  */
-@interface SRGChannel : MTLModel <SRGImageMetadata, SRGMetadata, MTLJSONSerializing>
+@interface SRGChannel : SRGModel <SRGImageMetadata, SRGMetadata>
 
 /**
  *  The unique channel identifier
