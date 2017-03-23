@@ -36,6 +36,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGEncoding encoding;
 
 /**
+ *  The recommended way to present the media
+ */
+@property (nonatomic, readonly) SRGPresentation presentation;
+
+/**
  *  The media MIME type
  */
 @property (nonatomic, readonly, copy, nullable) NSString *MIMEType;

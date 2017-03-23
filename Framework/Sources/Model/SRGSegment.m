@@ -17,8 +17,6 @@
 @property (nonatomic) NSInteger position;
 @property (nonatomic) NSTimeInterval markIn;
 @property (nonatomic) NSTimeInterval markOut;
-@property (nonatomic) SRGBlockingReason blockingReason;
-@property (nonatomic, getter=isHidden) BOOL hidden;
 @property (nonatomic, copy) NSString *event;
 @property (nonatomic) NSArray<SRGSubtitle *> *subtitles;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
@@ -40,6 +38,8 @@
 @property (nonatomic) SRGSource source;
 @property (nonatomic) NSDate *date;
 @property (nonatomic) NSTimeInterval duration;
+@property (nonatomic) SRGBlockingReason blockingReason;
+@property (nonatomic, getter=isHidden) BOOL hidden;
 @property (nonatomic) NSURL *podcastStandardDefinitionURL;
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
 @property (nonatomic) NSDate *startDate;
@@ -62,8 +62,6 @@
                        @keypath(SRGSegment.new, position) : @"position",
                        @keypath(SRGSegment.new, markIn) : @"markIn",
                        @keypath(SRGSegment.new, markOut) : @"markOut",
-                       @keypath(SRGSegment.new, blockingReason) : @"blockReason",
-                       @keypath(SRGSegment.new, hidden) : @"displayable",
                        @keypath(SRGSegment.new, event) : @"eventData",
                        @keypath(SRGSegment.new, analyticsLabels) : @"analyticsData",
                        @keypath(SRGSegment.new, subtitles) : @"subtitleList",
@@ -85,6 +83,8 @@
                        @keypath(SRGSegment.new, source) : @"assignedBy",
                        @keypath(SRGSegment.new, date) : @"date",
                        @keypath(SRGSegment.new, duration) : @"duration",
+                       @keypath(SRGSegment.new, blockingReason) : @"blockReason",
+                       @keypath(SRGSegment.new, hidden) : @"displayable",
                        @keypath(SRGSegment.new, podcastStandardDefinitionURL) : @"podcastSdUrl",
                        @keypath(SRGSegment.new, podcastHighDefinitionURL) : @"podcastHdUrl",
                        @keypath(SRGSegment.new, startDate) : @"validFrom",
@@ -100,16 +100,6 @@
 + (NSValueTransformer *)fullLengthURNJSONTransformer
 {
     return SRGMediaURNJSONTransformer();
-}
-
-+ (NSValueTransformer *)blockingReasonJSONTransformer
-{
-    return SRGBlockingReasonJSONTransformer();
-}
-
-+ (NSValueTransformer *)hiddenJSONTransformer
-{
-    return SRGBooleanInversionJSONTransformer();
 }
 
 + (NSValueTransformer *)subtitlesJSONTransformer
@@ -150,6 +140,16 @@
 + (NSValueTransformer *)dateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
+}
+
++ (NSValueTransformer *)blockingReasonJSONTransformer
+{
+    return SRGBlockingReasonJSONTransformer();
+}
+
++ (NSValueTransformer *)hiddenJSONTransformer
+{
+    return SRGBooleanInversionJSONTransformer();
 }
 
 + (NSValueTransformer *)podcastStandardDefinitionURLJSONTransformer

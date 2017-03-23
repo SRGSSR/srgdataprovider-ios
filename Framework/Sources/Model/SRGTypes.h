@@ -7,6 +7,10 @@
 #import <Foundation/Foundation.h>
 
 /**
+ *  @name Native service types
+ */
+
+/**
  *  Reasons for content blocking
  */
 typedef NS_ENUM(NSInteger, SRGBlockingReason) {
@@ -66,6 +70,10 @@ typedef NS_ENUM(NSInteger, SRGContentType) {
      */
     SRGContentTypeEpisode,
     /**
+     *  Extract
+     */
+    SRGContentTypeExtract,
+    /**
      *  Trailer
      */
     SRGContentTypeTrailer,
@@ -105,7 +113,7 @@ typedef NS_ENUM(NSInteger, SRGEncoding) {
     SRGEncodingAAC_HE,
     SRGEncodingMP3,
     SRGEncodingMP2,
-    SRGEncodingWMAV2,
+    SRGEncodingWMAV2
 };
 
 /**
@@ -138,6 +146,24 @@ typedef NS_ENUM(NSInteger, SRGModuleType) {
      *  Event
      */
     SRGModuleTypeEvent
+};
+
+/**
+ *  Content presentation types
+ */
+typedef NS_ENUM(NSInteger, SRGPresentation) {
+    /**
+     *  Not specified
+     */
+    SRGPresentationNone = 0,
+    /**
+     *  Default presentation
+     */
+    SRGPresentationDefault,
+    /**
+     *  360° presentation
+     */
+    SRGPresentation360
 };
 
 /**
@@ -309,16 +335,28 @@ typedef NS_ENUM(NSInteger, SRGTransmission) {
 };
 
 /**
- *  Business units which provide content
+ *  Content producers and providers
  */
 typedef NS_ENUM(NSInteger, SRGVendor) {
     SRGVendorNone = 0,
+    /**
+     *  SRG SSR business units
+     */
     SRGVendorRSI,
     SRGVendorRTR,
     SRGVendorRTS,
     SRGVendorSRF,
-    SRGVendorSWI
+    SRGVendorSWI,
+    /**
+     *  Regional radios and televisions
+     */
+    SRGVendorTVO,
+    SRGVendorCanalAlpha
 };
+
+/**
+ *  @name Data provider library types
+ */
 
 /**
  *  Image dimensions for image retrieval
