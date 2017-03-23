@@ -49,6 +49,7 @@ NSValueTransformer *SRGContentTypeJSONTransformer(void)
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"EPISODE" : @(SRGContentTypeEpisode),
+                                                                                         @"EXTRACT" : @(SRGContentTypeExtract),
                                                                                          @"TRAILER" : @(SRGContentTypeTrailer),
                                                                                          @"CLIP" : @(SRGContentTypeClip),
                                                                                          @"LIVESTREAM" : @(SRGContentTypeLivestream),
@@ -75,6 +76,58 @@ NSValueTransformer *SRGEncodingJSONTransformer(void)
                                                                                          @"WMAV2" : @(SRGEncodingWMAV2) }
                                                                          defaultValue:@(SRGEncodingNone)
                                                                   reverseDefaultValue:nil];
+    });
+    return s_transformer;
+}
+
+NSValueTransformer *SRGHexColorJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *hexColorString, BOOL *success, NSError *__autoreleasing *error) {
+            NSScanner *scanner = [NSScanner scannerWithString:hexColorString];
+            if ([hexColorString hasPrefix:@"#"]) {
+                [scanner setScanLocation:1];
+            }
+            
+            unsigned rgbValue = 0;
+            [scanner scanHexInt:&rgbValue];
+            
+            CGFloat red = ((rgbValue & 0xFF0000) >> 16) / 255.f;
+            CGFloat green = ((rgbValue & 0x00FF00) >> 8) / 255.f;
+            CGFloat blue = (rgbValue & 0x0000FF) / 255.f;
+            return [UIColor colorWithRed:red green:green blue:blue alpha:1.f];
+        } reverseBlock:^id(UIColor *color, BOOL *success, NSError *__autoreleasing *error) {
+            const CGFloat *components = CGColorGetComponents(color.CGColor);
+            
+            CGFloat r = components[0];
+            CGFloat g = components[1];
+            CGFloat b = components[2];
+            
+            return [NSString stringWithFormat:@"%02lX%02lX%02lX",
+                    lroundf(r * 255),
+                    lroundf(g * 255),
+                    lroundf(b * 255)];
+        }];
+    });
+    return s_transformer;
+}
+
+NSValueTransformer *SRGISO8601DateJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
+        
+        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *dateString, BOOL *success, NSError *__autoreleasing *error) {
+            return [dateFormatter dateFromString:dateString];
+        } reverseBlock:^id(NSDate *date, BOOL *success, NSError *__autoreleasing *error) {
+            return [dateFormatter stringFromDate:date];
+        }];
     });
     return s_transformer;
 }
@@ -117,6 +170,20 @@ NSValueTransformer *SRGModuleTypeJSONTransformer(void)
     });
     return s_transformer;
 }
+
+NSValueTransformer *SRGPresentationJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"DEFAULT" : @(SRGPresentationDefault),
+                                                                                         @"VIDEO_360" : @(SRGPresentation360) }
+                                                                         defaultValue:@(SRGPresentationNone)
+                                                                  reverseDefaultValue:nil];
+    });
+    return s_transformer;
+}
+
 
 NSValueTransformer *SRGProtocolJSONTransformer(void)
 {
@@ -220,61 +287,11 @@ NSValueTransformer *SRGVendorJSONTransformer(void)
                                                                                          @"RTR" : @(SRGVendorRTR),
                                                                                          @"RTS" : @(SRGVendorRTS),
                                                                                          @"SRF" : @(SRGVendorSRF),
-                                                                                         @"SWI" : @(SRGVendorSWI) }
+                                                                                         @"SWI" : @(SRGVendorSWI),
+                                                                                         @"TVO" : @(SRGVendorTVO),
+                                                                                         @"CA" : @(SRGVendorCanalAlpha) }
                                                                          defaultValue:@(SRGVendorNone)
                                                                   reverseDefaultValue:nil];
-    });
-    return s_transformer;
-}
-
-NSValueTransformer *SRGISO8601DateJSONTransformer(void)
-{
-    static NSValueTransformer *s_transformer;
-    static dispatch_once_t s_onceToken;
-    dispatch_once(&s_onceToken, ^{
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
-        
-        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *dateString, BOOL *success, NSError *__autoreleasing *error) {
-            return [dateFormatter dateFromString:dateString];
-        } reverseBlock:^id(NSDate *date, BOOL *success, NSError *__autoreleasing *error) {
-            return [dateFormatter stringFromDate:date];
-        }];
-    });
-    return s_transformer;
-}
-
-NSValueTransformer *SRGHexColorJSONTransformer(void)
-{
-    static NSValueTransformer *s_transformer;
-    static dispatch_once_t s_onceToken;
-    dispatch_once(&s_onceToken, ^{
-        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *hexColorString, BOOL *success, NSError *__autoreleasing *error) {
-            NSScanner *scanner = [NSScanner scannerWithString:hexColorString];
-            if ([hexColorString hasPrefix:@"#"]) {
-                [scanner setScanLocation:1];
-            }
-            
-            unsigned rgbValue = 0;
-            [scanner scanHexInt:&rgbValue];
-            
-            CGFloat red = ((rgbValue & 0xFF0000) >> 16) / 255.f;
-            CGFloat green = ((rgbValue & 0x00FF00) >> 8) / 255.f;
-            CGFloat blue = (rgbValue & 0x0000FF) / 255.f;
-            return [UIColor colorWithRed:red green:green blue:blue alpha:1.f];
-        } reverseBlock:^id(UIColor *color, BOOL *success, NSError *__autoreleasing *error) {
-            const CGFloat *components = CGColorGetComponents(color.CGColor);
-            
-            CGFloat r = components[0];
-            CGFloat g = components[1];
-            CGFloat b = components[2];
-            
-            return [NSString stringWithFormat:@"%02lX%02lX%02lX",
-                    lroundf(r * 255),
-                    lroundf(g * 255),
-                    lroundf(b * 255)];
-        }];
     });
     return s_transformer;
 }

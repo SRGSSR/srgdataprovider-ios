@@ -1,0 +1,91 @@
+<xs:schema id="channel"
+           version="1.0"
+           xmlns="http://www.srgssr.ch"
+           targetNamespace="http://www.srgssr.ch"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="show.xsd"/>
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="channel">
+        <xs:annotation>
+            <xs:documentation>Broadcast channel of a given content provider where content is broadcasted. E.g. SRF 1, RTS Un, etc</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="metaDataGroup" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="imageGroup" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="transmission" type="transmission" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="timeTableUrl" type="xs:anyURI" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>URL for the broadcast time table of this channel</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="now" type="program" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Information about the current emission on this channel</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="next" type="program" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Information about the next emission on this channel</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:complexType name="channelList">
+        <xs:annotation>
+            <xs:documentation>A list of broadcast channels. See channel for further details</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="list" type="channel" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:simpleType name="transmission">
+        <xs:annotation>
+            <xs:documentation>Primary content transmission channel</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="TV"/>
+            <xs:enumeration value="RADIO"/>
+            <xs:enumeration value="ONLINE"/>
+            <xs:enumeration value="UNKNOWN"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="program">
+        <xs:annotation>
+            <xs:documentation>Information about an emission</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:group ref="metaDataGroup" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="imageGroup" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="startTime" type="dateTime" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="endTime" type="dateTime" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="url" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="show" type="show" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="presenter" type="presenter" minOccurs="0" maxOccurs="1"/>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:complexType name="presenter">
+        <xs:annotation>
+            <xs:documentation>Presenter/Host of the actual program</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="imageGroup" minOccurs="0" maxOccurs="1"/>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+</xs:schema>

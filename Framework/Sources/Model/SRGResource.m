@@ -34,6 +34,7 @@
                        @keypath(SRGResource.new, quality) : @"quality",
                        @keypath(SRGResource.new, protocol) : @"protocol",
                        @keypath(SRGResource.new, encoding) : @"encoding",
+                       @keypath(SRGResource.new, presentation) : @"presentation",
                        @keypath(SRGResource.new, MIMEType) : @"mimeType",
                        @keypath(SRGResource.new, analyticsLabels) : @"analyticsData" };
     });
@@ -60,6 +61,11 @@
 + (NSValueTransformer *)encodingJSONTransformer
 {
     return SRGEncodingJSONTransformer();
+}
+
++ (NSValueTransformer *)presentationJSONTransformer
+{
+    return SRGPresentationJSONTransformer();
 }
 
 @end

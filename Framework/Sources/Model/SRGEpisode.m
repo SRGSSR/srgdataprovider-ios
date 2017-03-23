@@ -40,6 +40,7 @@
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @keypath(SRGEpisode.new, uid) : @"id",
                        @keypath(SRGEpisode.new, date) : @"publishedDate",
+                       @keypath(SRGEpisode.new, fullLengthURN) : @"fullLengthUrn",
                        @keypath(SRGEpisode.new, medias) : @"mediaList",
                        @keypath(SRGEpisode.new, socialCount) : @"socialCount",
                        
@@ -56,14 +57,19 @@
 
 #pragma mark Transformers
 
-+ (NSValueTransformer *)mediasJSONTransformer
-{
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGMedia class]];
-}
-
 + (NSValueTransformer *)dateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
+}
+
++ (NSValueTransformer *)fullLengthURNJSONTransformer
+{
+    return SRGMediaURNJSONTransformer();
+}
+
++ (NSValueTransformer *)mediasJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGMedia class]];
 }
 
 + (NSValueTransformer *)socialCountJSONTransformer

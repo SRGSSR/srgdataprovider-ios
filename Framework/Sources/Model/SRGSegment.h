@@ -40,17 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSTimeInterval markOut;
 
 /**
- *  Return whether segment playback should be blocked client-side. If `SRGBlockingReasonNone`, the segment can be
- *  freely played
- */
-@property (nonatomic, readonly) SRGBlockingReason blockingReason;
-
-/**
- *  Return whether segment playback should be displayed client-side
- */
-@property (nonatomic, readonly, getter=isHidden) BOOL hidden;
-
-/**
  *  An opaque event information to be sent when liking an event
  */
 @property (nonatomic, readonly, copy, nullable) NSString *event;

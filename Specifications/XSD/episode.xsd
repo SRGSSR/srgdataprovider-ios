@@ -1,0 +1,32 @@
+<xs:schema id="episode"
+           version="1.0"
+           xmlns="http://www.srgssr.ch"
+           targetNamespace="http://www.srgssr.ch"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="media.xsd"/>
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="episode">
+        <xs:annotation>
+            <xs:documentation>Information about a broadcasted episode. E.g. 10vor10 vom 06.06.2016</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="id" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="metaDataGroup" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="publishedDate" type="dateTime" minOccurs="0" maxOccurs="1"/>
+            <xs:group ref="imageGroup" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="fullLengthUrn" type="urn" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>URN of the base physical media</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="socialCount" type="socialCountEntry" minOccurs="0" maxOccurs="1"/>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+</xs:schema>

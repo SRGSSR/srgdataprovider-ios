@@ -5,6 +5,7 @@
 //
 
 #import "SRGImageMetadata.h"
+#import "SRGMediaURN.h"
 #import "SRGMetadata.h"
 #import "SRGSocialCount.h"
 
@@ -26,9 +27,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, copy) NSString *uid;
 
 /**
- *  THe episode date
+ *  The episode date
  */
 @property (nonatomic, readonly, nullable) NSDate *date;
+
+/**
+ *  The full-length URN, if any
+ */
+@property (nonatomic, readonly, copy, nullable) SRGMediaURN *fullLengthURN;
 
 /**
  *  The medias associated with this episode

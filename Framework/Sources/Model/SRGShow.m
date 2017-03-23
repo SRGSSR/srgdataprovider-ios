@@ -16,6 +16,8 @@
 @property (nonatomic) NSURL *homepageURL;
 @property (nonatomic) NSURL *podcastSubscriptionURL;
 @property (nonatomic, copy) NSString *primaryChannelUid;
+@property (nonatomic) NSURL *bannerImageURL;
+@property (nonatomic) NSInteger numberOfEpisodes;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
@@ -40,6 +42,8 @@
                        @keypath(SRGShow.new, homepageURL) : @"homepageUrl",
                        @keypath(SRGShow.new, podcastSubscriptionURL) : @"podcastSubscriptionUrl",
                        @keypath(SRGShow.new, primaryChannelUid) : @"primaryChannelId",
+                       @keypath(SRGShow.new, bannerImageURL) : @"bannerImageUrl",
+                       @keypath(SRGShow.new, numberOfEpisodes) : @"numberOfEpisodes",
                        
                        @keypath(SRGShow.new, title) : @"title",
                        @keypath(SRGShow.new, lead) : @"lead",
@@ -69,6 +73,11 @@
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
++ (NSValueTransformer *)bannerImageURLJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
 #pragma mark SRGImage protocol
 
 - (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
@@ -91,6 +100,15 @@
 - (NSUInteger)hash
 {
     return self.uid.hash;
+}
+
+@end
+
+@implementation SRGShow (Images)
+
+- (NSURL *)bannerImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
+{
+    return [self.bannerImageURL srg_URLForDimension:dimension withValue:value];
 }
 
 @end

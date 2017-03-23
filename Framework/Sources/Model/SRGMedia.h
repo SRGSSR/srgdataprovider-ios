@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  A media (audio or video). This is a lightweight representation (which does not contain the URLs to be played,
- *  most notably). For complete information, an `SRGMediaComposition` must be requested
+ *  most notably). For complete playack context information, an `SRGMediaComposition` must be requested.
  */
 @interface SRGMedia : MTLModel <SRGMediaMetadata, SRGMediaParentMetadata, MTLJSONSerializing>
 

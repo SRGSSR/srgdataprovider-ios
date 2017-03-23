@@ -8,6 +8,7 @@
 
 #import "NSURL+SRGDataProvider.h"
 #import "SRGJSONTransformers.h"
+#import "NSURL+SRGDataProvider.h"
 
 #import <libextobjc/libextobjc.h>
 
@@ -146,6 +147,25 @@
 - (NSUInteger)hash
 {
     return self.uid.hash;
+}
+
+@end
+
+@implementation SRGModule (Images)
+
+- (NSURL *)backgroundImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
+{
+    return [self.backgroundImageURL srg_URLForDimension:dimension withValue:value];
+}
+
+- (NSURL *)logoImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
+{
+    return [self.logoImageURL srg_URLForDimension:dimension withValue:value];
+}
+
+- (NSURL *)keyVisualImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
+{
+    return [self.keyVisualImageURL srg_URLForDimension:dimension withValue:value];
 }
 
 @end
