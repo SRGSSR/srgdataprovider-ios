@@ -26,6 +26,9 @@
 
 - (NSString *)descriptionAtLevel:(NSInteger)level
 {
+    NSString *normalIndentationString = [@"" stringByPaddingToLength:level withString:@"\t" startingAtIndex:0];
+    NSString *fieldIndentationString = [@"" stringByPaddingToLength:level + 1 withString:@"\t" startingAtIndex:0];
+    
     NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: %p> {\n", [self class], self];
     for (NSString *propertyKey in [[self class] propertyKeys]) {
         id value = [self valueForKey:propertyKey];
@@ -33,10 +36,25 @@
             continue;
         }
         
-        NSString *valueString = [value isKindOfClass:[NSString class]] ? [NSString stringWithFormat:@"\"%@\"", value] : value;
-        [description appendFormat:@"%@ = %@;\n", propertyKey, valueString];
+        id formattedValue = nil;
+        if ([value isKindOfClass:[NSString class]]) {
+            formattedValue = [NSString stringWithFormat:@"\"%@\"", value];
+        }
+        else if ([value isKindOfClass:[NSDictionary class]]) {
+            formattedValue = @"dictionary";
+        }
+        else if ([value isKindOfClass:[NSArray class]]) {
+            formattedValue = @"array";
+        }
+        else if ([value isKindOfClass:[SRGModel class]]) {
+            formattedValue = [value descriptionAtLevel:level + 1];
+        }
+        else {
+            formattedValue = value;
+        }
+        [description appendFormat:@"%@%@ = %@;\n", fieldIndentationString, propertyKey, formattedValue];
     }
-    [description appendString:@"}\n"];
+    [description appendFormat:@"%@}", normalIndentationString];
     return [description copy];
 }
 
