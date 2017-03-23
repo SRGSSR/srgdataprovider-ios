@@ -161,7 +161,7 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *  manage parallel or cascading requests with a unified formalism, and provide a way to report errors along the way.
  *  For more information, @see `SRGRequestQueue`.
  */
-@interface SRGDataProvider : NSObject <NSURLSessionTaskDelegate>
+@interface SRGDataProvider : NSObject
 
 /**
  *  The data provider currently set as shared instance, if any.

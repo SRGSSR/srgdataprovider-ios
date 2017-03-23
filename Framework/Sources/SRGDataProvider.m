@@ -12,6 +12,7 @@
 #import "SRGJSONTransformers.h"
 #import "SRGPage+Private.h"
 #import "SRGRequest+Private.h"
+#import "SRGSessionDelegate.h"
 
 #import <Mantle/Mantle.h>
 
@@ -82,8 +83,13 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
         
         self.businessUnitIdentifier = businessUnitIdentifier;
         
+        // The session delegate is retained. We could have self be the delegate, but we would need a way to invalidate
+        // the session (e.g. by calling -invalidateAndCancel) so that the delegate is released, and thus a data provider
+        // public invalidation method to be called for proper release. To avoid having this error-prone needs, we add
+        // another object as delegate and use dealloc to invalidate the session
         NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        self.session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
+        SRGSessionDelegate *sessionDelegate = [[SRGSessionDelegate alloc] init];
+        self.session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:sessionDelegate delegateQueue:nil];
     }
     return self;
 }
@@ -92,6 +98,11 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 {
     [self doesNotRecognizeSelector:_cmd];
     return nil;
+}
+
+- (void)dealloc
+{
+    [self.session invalidateAndCancel];
 }
 
 #pragma mark Public video services
@@ -631,14 +642,6 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
         
         completionBlock(object, page, nextPage, nil);
     }];
-}
-
-#pragma mark NSURLSessionDelegate protocol
-
-- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task willPerformHTTPRedirection:(NSHTTPURLResponse *)response newRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest * _Nullable))completionHandler
-{
-    // Refuse the redirection and return the redirection response (with the proper HTTP status code)
-    completionHandler(nil);
 }
 
 #pragma mark Description
