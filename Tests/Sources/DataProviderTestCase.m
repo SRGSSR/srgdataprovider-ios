@@ -34,4 +34,10 @@
     XCTAssertEqualObjects(previousDataProvider2, dataProvider1);
 }
 
+- (void)testDeallocation
+{
+    __weak SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
+    XCTAssertNil(dataProvider);
+}
+
 @end
