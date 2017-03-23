@@ -6,16 +6,16 @@
 
 #import "SRGImageMetadata.h"
 #import "SRGMetadata.h"
+#import "SRGModel.h"
 
 #import <CoreGraphics/CoreGraphics.h>
-#import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Show
  */
-@interface SRGShow : MTLModel <SRGImageMetadata, SRGMetadata, MTLJSONSerializing>
+@interface SRGShow : SRGModel <SRGImageMetadata, SRGMetadata>
 
 /**
  *  The unique identifier of the show

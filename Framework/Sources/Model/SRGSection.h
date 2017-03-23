@@ -5,15 +5,14 @@
 //
 
 #import "SRGMetadata.h"
-
-#import <Mantle/Mantle.h>
+#import "SRGModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  A section is a collection of medias part of a global context (e.g. a module config, like an event)
  */
-@interface SRGSection : MTLModel <SRGMetadata, MTLJSONSerializing>
+@interface SRGSection : SRGModel <SRGMetadata>
 
 /**
  *  The unique identifier of the section

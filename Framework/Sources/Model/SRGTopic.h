@@ -5,15 +5,14 @@
 //
 
 #import "SRGMetadata.h"
-
-#import <Mantle/Mantle.h>
+#import "SRGModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Topic (e.g. sports, kids, etc.)
  */
-@interface SRGTopic : MTLModel <SRGMetadata, MTLJSONSerializing>
+@interface SRGTopic : SRGModel <SRGMetadata>
 
 /**
  *  The unique topic identifier

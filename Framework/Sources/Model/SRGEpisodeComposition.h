@@ -6,16 +6,15 @@
 
 #import "SRGChannel.h"
 #import "SRGEpisode.h"
+#import "SRGModel.h"
 #import "SRGShow.h"
-
-#import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  List of related episodes
  */
-@interface SRGEpisodeComposition : MTLModel <MTLJSONSerializing>
+@interface SRGEpisodeComposition : SRGModel
 
 /**
  *  The channel which the episodes belong to

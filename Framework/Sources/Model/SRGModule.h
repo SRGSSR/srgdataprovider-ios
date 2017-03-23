@@ -5,10 +5,10 @@
 //
 
 #import "SRGMetadata.h"
+#import "SRGModel.h"
 #import "SRGSection.h"
 #import "SRGTypes.h"
 
-#import <Mantle/Mantle.h>
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Module (collection of medias grouped for a special occasion, like an event)
  */
-@interface SRGModule : MTLModel <SRGMetadata, MTLJSONSerializing>
+@interface SRGModule : SRGModel <SRGMetadata>
 
 /**
  *  The module unique identifier

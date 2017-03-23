@@ -4,16 +4,15 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGModel.h"
 #import "SRGTypes.h"
-
-#import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  A resource provides a media URL and its description (quality, encoding, etc.)
  */
-@interface SRGResource : MTLModel <MTLJSONSerializing>
+@interface SRGResource : SRGModel
 
 /**
  *  The media URL

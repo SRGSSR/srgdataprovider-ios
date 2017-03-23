@@ -4,16 +4,15 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGModel.h"
 #import "SRGTypes.h"
-
-#import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Subtitle
  */
-@interface SRGSubtitle : MTLModel <MTLJSONSerializing>
+@interface SRGSubtitle : SRGModel
 
 /**
  *  The format of the subtitle file

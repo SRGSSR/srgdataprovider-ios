@@ -7,10 +7,10 @@
 #import "SRGImageMetadata.h"
 #import "SRGMediaURN.h"
 #import "SRGMetadata.h"
+#import "SRGModel.h"
 #import "SRGSocialCount.h"
 
 #import <CoreGraphics/CoreGraphics.h>
-#import <Mantle/Mantle.h>
 
 @class SRGMedia;
 
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Episode (broadcasted unit of a show)
  */
-@interface SRGEpisode : MTLModel <SRGImageMetadata, SRGMetadata, MTLJSONSerializing>
+@interface SRGEpisode : SRGModel <SRGImageMetadata, SRGMetadata>
 
 /**
  *  The unique episode identifier

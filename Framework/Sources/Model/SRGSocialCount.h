@@ -4,16 +4,15 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGModel.h"
 #import "SRGTypes.h"
-
-#import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Measure associated with a social network or popularity service
  */
-@interface SRGSocialCount : MTLModel <MTLJSONSerializing>
+@interface SRGSocialCount : SRGModel
 
 /**
  *  The type of service

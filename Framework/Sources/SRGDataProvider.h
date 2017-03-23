@@ -21,6 +21,7 @@
 #import "SRGMediaParentMetadata.h"
 #import "SRGMediaURN.h"
 #import "SRGMetadata.h"
+#import "SRGModel.h"
 #import "SRGModule.h"
 #import "SRGPage.h"
 #import "SRGPresenter.h"

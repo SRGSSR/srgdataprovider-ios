@@ -25,6 +25,8 @@
 		6FA09D821D9EB37600EDCA64 /* SRGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; };
 		6FA09D851D9EB39000EDCA64 /* SRGLogger.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6FA09D871D9EB5CA00EDCA64 /* SRGDataProviderLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FA09D861D9EB5CA00EDCA64 /* SRGDataProviderLogger.h */; };
+		6FB156121E83B60400389D04 /* SRGModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FB156101E83B60400389D04 /* SRGModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6FB156131E83B60400389D04 /* SRGModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB156111E83B60400389D04 /* SRGModel.m */; };
 		6FC024B01E1D001600550881 /* SRGSearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FC024AE1E1D001600550881 /* SRGSearchResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FC024B11E1D001600550881 /* SRGSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC024AF1E1D001600550881 /* SRGSearchResult.m */; };
 		6FC024B41E1D380700550881 /* SRGSearchResultShow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FC024B21E1D380700550881 /* SRGSearchResultShow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -141,6 +143,8 @@
 		6F98DD691E8282A9008B0B22 /* SWIServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWIServicesTestCase.m; sourceTree = "<group>"; };
 		6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SRGLogger.framework; path = Carthage/Build/iOS/SRGLogger.framework; sourceTree = "<group>"; };
 		6FA09D861D9EB5CA00EDCA64 /* SRGDataProviderLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGDataProviderLogger.h; sourceTree = "<group>"; };
+		6FB156101E83B60400389D04 /* SRGModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGModel.h; sourceTree = "<group>"; };
+		6FB156111E83B60400389D04 /* SRGModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGModel.m; sourceTree = "<group>"; };
 		6FC024AE1E1D001600550881 /* SRGSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSearchResult.h; sourceTree = "<group>"; };
 		6FC024AF1E1D001600550881 /* SRGSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSearchResult.m; sourceTree = "<group>"; };
 		6FC024B21E1D380700550881 /* SRGSearchResultShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSearchResultShow.h; sourceTree = "<group>"; };
@@ -326,6 +330,8 @@
 				E6C2B3BE1D390EEF00B6250B /* SRGMedia.m */,
 				E67BB66B1D3DF13800E1FEA3 /* SRGMediaComposition.h */,
 				E67BB66C1D3DF13800E1FEA3 /* SRGMediaComposition.m */,
+				6FB156101E83B60400389D04 /* SRGModel.h */,
+				6FB156111E83B60400389D04 /* SRGModel.m */,
 				E63DA7231D5C554A0053060E /* SRGModule.h */,
 				E63DA7241D5C554A0053060E /* SRGModule.m */,
 				E68598C21D41029F0010000A /* SRGPresenter.h */,
@@ -448,6 +454,7 @@
 				E68598B31D40CEDA0010000A /* SRGMediaIdentifierMetadata.h in Headers */,
 				E68598B81D40F30B0010000A /* SRGChannel.h in Headers */,
 				E67BB66D1D3DF13800E1FEA3 /* SRGMediaComposition.h in Headers */,
+				6FB156121E83B60400389D04 /* SRGModel.h in Headers */,
 				6FC024B81E1D381E00550881 /* SRGSearchResultMedia.h in Headers */,
 				E67BB6751D3E01C900E1FEA3 /* SRGTypes.h in Headers */,
 				E688C4F11D4756D60084DE4D /* SRGPage.h in Headers */,
@@ -609,6 +616,7 @@
 				E67BB66E1D3DF13800E1FEA3 /* SRGMediaComposition.m in Sources */,
 				E6C2B3F51D392F1200B6250B /* SRGEpisode.m in Sources */,
 				E68598AB1D40CC750010000A /* SRGSegment.m in Sources */,
+				6FB156131E83B60400389D04 /* SRGModel.m in Sources */,
 				E6391AA21D38E92400E4CBB9 /* SRGDataProvider.m in Sources */,
 				E68598B91D40F30B0010000A /* SRGChannel.m in Sources */,
 				E6AE51431D40A66C00572CE4 /* SRGRelatedContent.m in Sources */,

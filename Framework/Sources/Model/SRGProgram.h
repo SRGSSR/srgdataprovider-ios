@@ -6,17 +6,16 @@
 
 #import "SRGImageMetadata.h"
 #import "SRGMetadata.h"
+#import "SRGModel.h"
 #import "SRGPresenter.h"
 #import "SRGShow.h"
-
-#import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Program information (information about what is currently on air or what will be)
  */
-@interface SRGProgram : MTLModel <SRGImageMetadata, SRGMetadata, MTLJSONSerializing>
+@interface SRGProgram : SRGModel <SRGImageMetadata, SRGMetadata>
 
 /**
  *  The date at which the content starts or started
