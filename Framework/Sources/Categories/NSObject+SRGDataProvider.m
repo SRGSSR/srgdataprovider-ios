@@ -10,6 +10,8 @@
 
 @implementation NSObject (SRGDataProvider)
 
+#pragma SRGDescribable protocol
+
 - (id)srg_formattedObjectAtLevel:(NSInteger)level
 {
     if ([self respondsToSelector:@selector(srg_descriptionAtLevel:)]) {

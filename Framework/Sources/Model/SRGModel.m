@@ -19,12 +19,7 @@
                                  userInfo:nil];
 }
 
-#pragma mark Description
-
-- (NSString *)description
-{
-    return [self srg_descriptionAtLevel:0];
-}
+#pragma SRGDescribable protocol
 
 - (NSString *)srg_descriptionAtLevel:(NSInteger)level
 {
@@ -44,6 +39,13 @@
     }
     [description appendFormat:@"%@}", normalIndentationString];
     return [description copy];
+}
+
+#pragma mark Description
+
+- (NSString *)description
+{
+    return [self srg_descriptionAtLevel:0];
 }
 
 @end
