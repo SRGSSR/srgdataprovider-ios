@@ -17,4 +17,27 @@
                                  userInfo:nil];
 }
 
+#pragma mark Description
+
+- (NSString *)description
+{
+    return [self descriptionAtLevel:0];
+}
+
+- (NSString *)descriptionAtLevel:(NSInteger)level
+{
+    NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: %p> {\n", [self class], self];
+    for (NSString *propertyKey in [[self class] propertyKeys]) {
+        id value = [self valueForKey:propertyKey];
+        if (! value) {
+            continue;
+        }
+        
+        NSString *valueString = [value isKindOfClass:[NSString class]] ? [NSString stringWithFormat:@"\"%@\"", value] : value;
+        [description appendFormat:@"%@ = %@;\n", propertyKey, valueString];
+    }
+    [description appendString:@"}\n"];
+    return [description copy];
+}
+
 @end
