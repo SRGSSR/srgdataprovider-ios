@@ -51,6 +51,11 @@ static NSInteger s_numberOfRunningRequests = 0;
     return [self initWithRequest:request page:nil session:session completionBlock:completionBlock];
 }
 
+- (void)dealloc
+{
+    [self.sessionTask cancel];
+}
+
 #pragma mark Getters and setters
 
 - (void)setManagingNetworkActivityIndicator:(BOOL)managingNetworkActivityIndicator
@@ -90,7 +95,10 @@ static NSInteger s_numberOfRunningRequests = 0;
         return;
     }
     
+    @weakify(self)
     void (^requestCompletionBlock)(NSDictionary * _Nullable, SRGPage * _Nullable, NSError * _Nullable) = ^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        @strongify(self)
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             self.completionBlock(JSONDictionary, self.page, nextPage, error);
             self.running = NO;
@@ -100,7 +108,6 @@ static NSInteger s_numberOfRunningRequests = 0;
     SRGDataProviderLogDebug(@"Request", @"Started %@ with page %@", self.request.URL, self.page);
     
     // Session tasks cannot be reused. To provide SRGRequest reuse, we need to instantiate another task
-    @weakify(self)
     self.sessionTask = [self.session dataTaskWithRequest:self.request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         @strongify(self)
         

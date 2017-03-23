@@ -17,6 +17,19 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Requests are not started by default. Once you have an `SRGRequest` instance, call the `-resume` method
  *  to start the request. If you need to manage several related requests, use an `SRGRequestQueue`.
+ *
+ *  If a request is not retained, it will get deallocated and automatically cancelled. When getting a request
+ *  from the data provider, you should therefore use one of the following strategies:
+ *    - Assign the request to a property with strong semantics. This also provides an easy reference for
+ *      later cancelling the request.
+ *    - Associate the request with a queue. The queue itself must also be retained elsewhere.
+ *    - Create a one-shot request by using a _block reference `nil`led within the request completion block, as
+ *      follows:
+ *
+ *      __block SRGRequest *request = [dataProvider someRequestWithCompletionBlock:^( ... ) {
+ *          request = nil;
+ *      }];
+ *      [request resume];
  */
 @interface SRGRequest : NSObject
 

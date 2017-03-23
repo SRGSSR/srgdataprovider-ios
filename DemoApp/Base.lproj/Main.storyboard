@@ -65,12 +65,22 @@
                                     <action selector="startRequest:" destination="fEH-HW-9aO" eventType="touchUpInside" id="q21-2V-sKT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYj-UL-JV1">
+                                <rect key="frame" x="165" y="388" width="46" height="30"/>
+                                <state key="normal" title="Queue"/>
+                                <connections>
+                                    <action selector="startQueue:" destination="fEH-HW-9aO" eventType="touchUpInside" id="dFY-bg-pCt"/>
+                                    <action selector="startRequest:" destination="fEH-HW-9aO" eventType="touchUpInside" id="rcU-Et-zsF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="tFt-vb-KKd" firstAttribute="top" secondItem="Gp8-nV-Ue3" secondAttribute="bottom" id="28E-eF-eUo"/>
+                            <constraint firstItem="jYj-UL-JV1" firstAttribute="top" secondItem="Shf-67-FI6" secondAttribute="bottom" constant="40" id="3wl-fF-67n"/>
                             <constraint firstItem="Shf-67-FI6" firstAttribute="centerY" secondItem="dQV-Cy-yn8" secondAttribute="centerY" id="Ob6-j1-cr5"/>
                             <constraint firstItem="tFt-vb-KKd" firstAttribute="leading" secondItem="dQV-Cy-yn8" secondAttribute="leading" constant="16" id="Xw1-EC-GnU"/>
+                            <constraint firstItem="jYj-UL-JV1" firstAttribute="centerX" secondItem="Shf-67-FI6" secondAttribute="centerX" id="nFI-f1-i3t"/>
                             <constraint firstItem="Shf-67-FI6" firstAttribute="centerX" secondItem="dQV-Cy-yn8" secondAttribute="centerX" id="tiH-Ip-wJ6"/>
                         </constraints>
                     </view>

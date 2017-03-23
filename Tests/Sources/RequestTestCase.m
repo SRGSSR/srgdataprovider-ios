@@ -93,6 +93,30 @@
     XCTAssertNotEqual(request6.page.size, 18);
 }
 
+- (void)testDeallocation
+{
+    // Non-retained requests are deallocated
+    __weak SRGRequest *request1 = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // Nothing, the request isn't run
+    }];
+    XCTAssertNil(request1);
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
+    
+    // They can be self-retained until completion if needed
+    __block SRGRequest *request2 = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // Release the local strong reference
+        request2 = nil;
+        [expectation fulfill];
+    }];
+    [request2 resume];
+    XCTAssertNotNil(request2);
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+    
+    XCTAssertNil(request2);
+}
+
 - (void)testStatus
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
