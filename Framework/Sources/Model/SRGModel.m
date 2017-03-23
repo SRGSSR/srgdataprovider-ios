@@ -21,33 +21,28 @@
 
 - (NSString *)description
 {
-    return [self descriptionAtLevel:0];
+    return [self srg_descriptionAtLevel:0];
 }
 
-- (NSString *)descriptionAtLevel:(NSInteger)level
+- (NSString *)srg_descriptionAtLevel:(NSInteger)level
 {
     NSString *normalIndentationString = [@"" stringByPaddingToLength:level withString:@"\t" startingAtIndex:0];
     NSString *fieldIndentationString = [@"" stringByPaddingToLength:level + 1 withString:@"\t" startingAtIndex:0];
     
     NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: %p> {\n", [self class], self];
-    for (NSString *propertyKey in [[self class] propertyKeys]) {
+    NSArray *sortedPropertyKeys = [[[self class] propertyKeys].allObjects sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    for (NSString *propertyKey in sortedPropertyKeys) {
         id value = [self valueForKey:propertyKey];
         if (! value) {
             continue;
         }
         
         id formattedValue = nil;
-        if ([value isKindOfClass:[NSString class]]) {
+        if ([value respondsToSelector:@selector(srg_descriptionAtLevel:)]) {
+            formattedValue = [value srg_descriptionAtLevel:level + 1];
+        }
+        else if ([value isKindOfClass:[NSString class]]) {
             formattedValue = [NSString stringWithFormat:@"\"%@\"", value];
-        }
-        else if ([value isKindOfClass:[NSDictionary class]]) {
-            formattedValue = @"dictionary";
-        }
-        else if ([value isKindOfClass:[NSArray class]]) {
-            formattedValue = @"array";
-        }
-        else if ([value isKindOfClass:[SRGModel class]]) {
-            formattedValue = [value descriptionAtLevel:level + 1];
         }
         else {
             formattedValue = value;
