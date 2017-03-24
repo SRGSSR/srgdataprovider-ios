@@ -332,6 +332,41 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testPageSizeOnPages
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
+    
+    // Use a small page size to be sure we get two full pages of results (and more to come)
+    __block SRGRequest *request = [[self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertEqual(medias.count, 2);
+        XCTAssertNil(error);
+        XCTAssertNotNil(nextPage);
+        
+        if (page.number == 0 && nextPage) {
+            @try {
+                [[[request atPage:nextPage]  withPageSize:3] resume];
+            } @catch (NSException *requestException) {
+                // Assert Exception: `-withPageSize:` can only on be called on the request for the first page
+                if ([requestException.name isEqualToString:NSInternalInconsistencyException]) {
+                    [expectation fulfill];
+                }
+            }
+        }
+        else {
+            XCTFail(@"Second page call with `-withPageSize:` should not work.");
+        }
+    }] withPageSize:2];
+    [request resume];
+    
+    
+    
+    [self waitForExpectationsWithTimeout:30. handler:^(NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"toto");
+        }
+    }];
+}
+
 // TODO: Test what happens with page size added to a request not supporting it, or to page size chained after atPage:. Document
 // and maybe add warnings (e.g. topics)
 

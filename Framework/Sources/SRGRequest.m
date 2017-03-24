@@ -193,6 +193,9 @@ static NSInteger s_numberOfRunningRequests = 0;
 
 - (SRGRequest *)withPageSize:(NSInteger)pageSize
 {
+    // PageSize is only supported on the request to the first page.
+    // http://www.srfcdn.ch/developer-docs/integrationlayer/api/public/v2/pagination.html
+    NSCAssert(self.page.number == 0, @"`-withPageSize:` can only on be called on the request for the first page");
     SRGPage *page = [SRGPage firstPageWithSize:pageSize];
     return [self atPage:page];
 }
