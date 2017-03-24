@@ -70,7 +70,6 @@
                                 <state key="normal" title="Queue"/>
                                 <connections>
                                     <action selector="startQueue:" destination="fEH-HW-9aO" eventType="touchUpInside" id="dFY-bg-pCt"/>
-                                    <action selector="startRequest:" destination="fEH-HW-9aO" eventType="touchUpInside" id="rcU-Et-zsF"/>
                                 </connections>
                             </button>
                         </subviews>

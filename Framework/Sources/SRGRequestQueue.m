@@ -11,12 +11,13 @@
 #import "SRGDataProviderLogger.h"
 
 #import <libextobjc/libextobjc.h>
+#import <MAKVONotificationCenter/MAKVONotificationCenter.h>
 
-static void *s_kvoContext = &s_kvoContext;
+static NSMapTable<SRGRequestQueue *, NSHashTable<SRGRequest *> *> *s_relationshipTable = nil;
 
 @interface SRGRequestQueue ()
 
-@property (nonatomic) NSMutableArray<SRGRequest *> *requests;
+@property (nonatomic, readonly) NSSet<SRGRequest *> *requests;
 @property (nonatomic, copy) void (^stateChangeBlock)(BOOL running, NSError *error);
 @property (nonatomic) NSMutableArray<NSError *> *errors;
 @property (nonatomic, getter=isRunning) BOOL running;
@@ -25,12 +26,26 @@ static void *s_kvoContext = &s_kvoContext;
 
 @implementation SRGRequestQueue
 
+#pragma mark Class methods
+
++ (void)initialize
+{
+    if (self != [SRGRequestQueue class]) {
+        return;
+    }
+    
+    s_relationshipTable = [NSMapTable mapTableWithKeyOptions:NSHashTableWeakMemory
+                                                valueOptions:NSHashTableStrongMemory];
+}
+
+#pragma mark Object lifecycle
+
 - (instancetype)initWithStateChangeBlock:(void (^)(BOOL, NSError *))stateChangeBlock
 {
     if (self = [super init]) {
-        self.requests = [NSMutableArray array];
         self.errors = [NSMutableArray array];
         self.stateChangeBlock = stateChangeBlock;
+        [s_relationshipTable setObject:[NSHashTable hashTableWithOptions:NSHashTableWeakMemory] forKey:self];
     }
     return self;
 }
@@ -42,16 +57,28 @@ static void *s_kvoContext = &s_kvoContext;
 
 - (void)dealloc
 {
-    for (SRGRequest *request in self.requests) {
-        [request removeObserver:self forKeyPath:@keypath(request, running) context:s_kvoContext];
-    }
-    [self checkStateChange];
+    [s_relationshipTable removeObjectForKey:self];
 }
+
+#pragma mark Getters and setters
+
+- (NSArray<SRGRequest *> *)requests
+{
+    return [[s_relationshipTable objectForKey:self] copy];
+}
+
+#pragma mark Request management
 
 - (void)addRequest:(SRGRequest *)request resume:(BOOL)resume
 {
-    [request addObserver:self forKeyPath:@keypath(request, running) options:NSKeyValueObservingOptionNew context:s_kvoContext];
-    [self.requests addObject:request];
+    @weakify(self)
+    [request addObserver:self keyPath:@keypath(request, running) options:NSKeyValueObservingOptionNew block:^(MAKVONotification *notification) {
+        @strongify(self)
+        [self checkStateChange];
+    }];
+    
+    NSHashTable<SRGRequest *> *requests = [s_relationshipTable objectForKey:self];
+    [requests addObject:request];
     
     if (resume) {
         [request resume];
@@ -95,11 +122,13 @@ static void *s_kvoContext = &s_kvoContext;
     }
 }
 
+#pragma mark State management
+
 - (void)checkStateChange
 {
     // Running iff at least one request is running
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == YES", @keypath(SRGRequest.new, running)];
-    BOOL running = ([self.requests filteredArrayUsingPredicate:predicate].count != 0);
+    BOOL running = ([self.requests.allObjects filteredArrayUsingPredicate:predicate].count != 0);
     
     if (running != self.running) {
         self.running = running;
@@ -114,16 +143,6 @@ static void *s_kvoContext = &s_kvoContext;
             SRGDataProviderLogDebug(@"Request Queue", @"Ended %@ with error: %@", self, error);
             self.stateChangeBlock ? self.stateChangeBlock(YES, error) : nil;
         }
-    }
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
-{
-    if (context == s_kvoContext && [keyPath isEqualToString:@keypath(SRGRequest.new, running)]) {
-        [self checkStateChange];
-    }
-    else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 

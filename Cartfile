@@ -1,3 +1,4 @@
 github "Mantle/Mantle" "2.1.0"
 github "ashaman/libextobjc" "e24f2be3af2cf7fc88a78295f116ef98d0832bcf"
+github "SRGSSR/MAKVONotificationCenter" "4a127e52997889729286510103f7e27100223730"
 github "SRGSSR/srglogger-ios" "e35f1bb283372b74358775f964e461828b3c6f14"
