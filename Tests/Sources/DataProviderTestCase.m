@@ -36,8 +36,11 @@
 
 - (void)testDeallocation
 {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-unsafe-retained-assign"
     __weak SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
     XCTAssertNil(dataProvider);
+#pragma clang diagnostic pop
 }
 
 @end
