@@ -312,16 +312,13 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
     
     // Use a small page size to be sure we get two full pages of results (and more to come)
-    __block SRGRequest *request = [[[self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    __block SRGRequest *request = [[self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 2);
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
       
         if (page.number == 0 && nextPage) {
-            // Assign to the request block variable to retain the next generated request (otherwise it would get dealloced
-            // and thus cancelled)
-            request = [request atPage:nextPage];
-            [request resume];
+            [[request atPage:nextPage] resume];
         }
         else if (page.number == 1) {
             [expectation fulfill];
