@@ -94,10 +94,10 @@
 }
 
 // Use autorelease pools to force pool drain before testing weak variables (otherwise objects might have been added to
-// a pool by ARC depending on how they are used
+// a pool by ARC depending on how they are used, and might therefore still be alive before a pool is drained)
 - (void)testDeallocation
 {
-    // Non-retained requests are deallocated
+    // Non-resumed requests are deallocated when not used
     __weak SRGRequest *request1;
     @autoreleasepool {
         request1 = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
@@ -106,17 +106,7 @@
     }
     XCTAssertNil(request1);
     
-    // If resumed, non-retained requests are cancelled when deallocated (the completion block is not called for cancelled requests)
-    __weak SRGRequest *request2;
-    @autoreleasepool {
-        request2 = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-            XCTFail(@"Must not be called for cancelled requests");
-        }];
-        [request2 resume];
-    }
-    XCTAssertNil(request2);
-    
-    // One-shot requests can also be self-retained until completion
+    // Resumed requests are self-retained during their lifetime
     XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request finished"];
     
     __block SRGRequest *request3;

@@ -12,7 +12,6 @@
 #import "SRGPage+Private.h"
 #import "SRGRequest+Private.h"
 
-#import <libextobjc/libextobjc.h>
 #import <UIKit/UIKit.h>
 
 static NSInteger s_numberOfRunningRequests = 0;
@@ -95,10 +94,8 @@ static NSInteger s_numberOfRunningRequests = 0;
         return;
     }
     
-    @weakify(self)
+    // No weakify / strongify dance here, so that the request retains itself while it is running
     void (^requestCompletionBlock)(BOOL finished, NSDictionary * _Nullable, SRGPage * _Nullable, NSError * _Nullable) = ^(BOOL finished, NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        @strongify(self)
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             if (finished) {
                 self.completionBlock(JSONDictionary, self.page, nextPage, error);
@@ -111,8 +108,6 @@ static NSInteger s_numberOfRunningRequests = 0;
     
     // Session tasks cannot be reused. To provide SRGRequest reuse, we need to instantiate another task
     self.sessionTask = [self.session dataTaskWithRequest:self.request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        @strongify(self)
-        
         // Don't call the completion block for cancelled requests
         if (error) {
             if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
