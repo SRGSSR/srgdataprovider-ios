@@ -326,11 +326,12 @@
         XCTAssertEqual(medias.count, 2);
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
-        
+      
         if (page.number == 0 && nextPage) {
-            [[[request withPageSize:3] atPage:nextPage] resume];
-            [[[request atPage:nextPage]  withPageSize:3] resume];
-            [[request atPage:nextPage] resume];
+            // Assign to the request block variable to retain the next generated request (otherwise it would get dealloced
+            // and thus cancelled)
+            request = [request atPage:nextPage];
+            [request resume];
         }
         else if (page.number == 1) {
             [expectation fulfill];
