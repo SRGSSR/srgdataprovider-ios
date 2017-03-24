@@ -46,6 +46,7 @@
     }];
     
     SRGRequest *request = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        [queue reportError:error];
         NSLog(@"Medias: %@", @(medias.count));
     }];
     [queue addRequest:request resume:YES];
