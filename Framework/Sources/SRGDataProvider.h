@@ -24,6 +24,7 @@
 #import "SRGModel.h"
 #import "SRGModule.h"
 #import "SRGPage.h"
+#import "SRGPageRequest.h"
 #import "SRGPresenter.h"
 #import "SRGProgram.h"
 #import "SRGRelatedContent.h"

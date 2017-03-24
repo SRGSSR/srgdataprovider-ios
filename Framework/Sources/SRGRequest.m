@@ -9,6 +9,7 @@
 #import "NSBundle+SRGDataProvider.h"
 #import "SRGDataProviderError.h"
 #import "SRGDataProviderLogger.h"
+#import "SRGPage.h"
 #import "SRGPage+Private.h"
 #import "SRGRequest+Private.h"
 

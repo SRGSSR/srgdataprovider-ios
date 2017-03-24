@@ -23,6 +23,16 @@ typedef void (^SRGRequestCompletionBlock)(NSDictionary * _Nullable JSONDictionar
  */
 - (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session completionBlock:(SRGRequestCompletionBlock)completionBlock;
 
+/**
+ *  See `SRGPageRequest` documentation
+ */
+- (SRGRequest *)withPageSize:(NSInteger)pageSize;
+
+/**
+ *  See `SRGPageRequest` documentation
+ */
+- (SRGRequest *)atPage:(SRGPage *)page;
+
 @end
 
 NS_ASSUME_NONNULL_END
