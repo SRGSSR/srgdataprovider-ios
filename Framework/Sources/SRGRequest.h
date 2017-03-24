@@ -27,6 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
  *      follows:
  *
  *      __block SRGRequest *request = [dataProvider someRequestWithCompletionBlock:^( ... ) {
+ *          // Proceed with the result
+ *          // ...
+ *
+ *          // Reference the request within the block so that it gets captured until completion (otherwise it
+ *          // would likely be deallocated earlier and be cancelled). Set the request to `nil` since we don't
+ *          // need it anymore
  *          request = nil;
  *      }];
  *      [request resume];
