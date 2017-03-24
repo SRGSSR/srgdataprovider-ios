@@ -96,11 +96,13 @@ static NSInteger s_numberOfRunningRequests = 0;
     }
     
     @weakify(self)
-    void (^requestCompletionBlock)(NSDictionary * _Nullable, SRGPage * _Nullable, NSError * _Nullable) = ^(NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    void (^requestCompletionBlock)(BOOL finished, NSDictionary * _Nullable, SRGPage * _Nullable, NSError * _Nullable) = ^(BOOL finished, NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         @strongify(self)
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.completionBlock(JSONDictionary, self.page, nextPage, error);
+            if (finished) {
+                self.completionBlock(JSONDictionary, self.page, nextPage, error);
+            }
             self.running = NO;
         });
     };
@@ -115,10 +117,11 @@ static NSInteger s_numberOfRunningRequests = 0;
         if (error) {
             if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
                 SRGDataProviderLogDebug(@"Request", @"Cancelled %@", self.request.URL);
+                requestCompletionBlock(NO, nil, nil, error);
             }
             else {
                 SRGDataProviderLogDebug(@"Request", @"Ended %@ with an error: %@", self.request.URL, error);
-                requestCompletionBlock(nil, nil, error);
+                requestCompletionBlock(YES, nil, nil, error);
             }
             return;
         }
@@ -135,7 +138,7 @@ static NSInteger s_numberOfRunningRequests = 0;
                                                                  NSURLErrorKey : response.URL,
                                                                  SRGDataProviderHTTPStatusCodeKey : @(HTTPStatusCode) }];
                 SRGDataProviderLogDebug(@"Request", @"Ended %@ with an HTTP error: %@", self.request.URL, HTTPError);
-                requestCompletionBlock(nil, nil, HTTPError);
+                requestCompletionBlock(YES, nil, nil, HTTPError);
                 return;
             }
             // Block redirects and return an error with URL information. Currently no redirection is expected for IL services, this
@@ -154,7 +157,7 @@ static NSInteger s_numberOfRunningRequests = 0;
                                                              code:SRGDataProviderErrorRedirect
                                                          userInfo:[userInfo copy]];
                 SRGDataProviderLogDebug(@"Request", @"Ended %@ with a redirect error: %@", self.request.URL, redirectError);
-                requestCompletionBlock(nil, nil, redirectError);
+                requestCompletionBlock(YES, nil, nil, redirectError);
                 return;
             }
         }
@@ -165,7 +168,7 @@ static NSInteger s_numberOfRunningRequests = 0;
                                                            code:SRGDataProviderErrorCodeInvalidData
                                                        userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }];
             SRGDataProviderLogDebug(@"Request", @"Ended %@ with a data format error: %@", self.request.URL, dataFormatError);
-            requestCompletionBlock(nil, nil, dataFormatError);
+            requestCompletionBlock(YES, nil, nil, dataFormatError);
             return;
         }
         
@@ -178,7 +181,7 @@ static NSInteger s_numberOfRunningRequests = 0;
         }
         
         SRGDataProviderLogDebug(@"Request", @"Ended %@ successfully with JSON %@ and next page %@", self.request.URL, JSONDictionary, nextPage);
-        requestCompletionBlock(JSONDictionary, nextPage, nil);
+        requestCompletionBlock(YES, JSONDictionary, nextPage, nil);
     }];
     
     self.running = YES;
