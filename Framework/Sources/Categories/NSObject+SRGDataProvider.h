@@ -6,6 +6,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSObject (SRGDataProvider)
 
 /**
@@ -14,3 +16,5 @@
 - (id)srg_formattedObjectAtLevel:(NSInteger)level;
 
 @end
+
+NS_ASSUME_NONNULL_END

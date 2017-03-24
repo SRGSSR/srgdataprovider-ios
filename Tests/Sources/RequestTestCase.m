@@ -93,6 +93,38 @@
     XCTAssertNotEqual(request6.page.size, 18);
 }
 
+// Use autorelease pools to force pool drain before testing weak variables (otherwise objects might have been added to
+// a pool by ARC depending on how they are used, and might therefore still be alive before a pool is drained)
+- (void)testDeallocation
+{
+    // Non-resumed requests are deallocated when not used
+    __weak SRGRequest *request1;
+    @autoreleasepool {
+        request1 = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+            XCTFail(@"Must not be called since the request has not been resumed");
+        }];
+    }
+    XCTAssertNil(request1);
+    
+    // Resumed requests are self-retained during their lifetime
+    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request finished"];
+    
+    __block SRGRequest *request3;
+    @autoreleasepool {
+        request3 = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+            // Release the local strong reference
+            request3 = nil;
+            [expectation3 fulfill];
+        }];
+        [request3 resume];
+    }
+    XCTAssertNotNil(request3);
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+    
+    XCTAssertNil(request3);
+}
+
 - (void)testStatus
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
@@ -280,14 +312,12 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
     
     // Use a small page size to be sure we get two full pages of results (and more to come)
-    __block SRGRequest *request = [[[self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    __block SRGRequest *request = [[self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 2);
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
-        
+      
         if (page.number == 0 && nextPage) {
-            [[[request withPageSize:3] atPage:nextPage] resume];
-            [[[request atPage:nextPage]  withPageSize:3] resume];
             [[request atPage:nextPage] resume];
         }
         else if (page.number == 1) {

@@ -6,6 +6,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  Convenience macro for localized strings associated with the framework
  */
@@ -19,3 +21,5 @@
 + (NSBundle *)srg_dataProviderBundle;
 
 @end
+
+NS_ASSUME_NONNULL_END
