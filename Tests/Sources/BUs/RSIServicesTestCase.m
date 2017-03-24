@@ -50,14 +50,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider tvChannelsWithCompletionBlock:^(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error) {
+    [[self.dataProvider tvChannelsWithCompletionBlock:^(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error) {
         XCTAssertNotNil(channels);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -66,14 +63,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider tvChannelWithUid:kVideoChannelUid completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
+    [[self.dataProvider tvChannelWithUid:kVideoChannelUid completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
         XCTAssertNotNil(channel);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -82,14 +76,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider tvLivestreamsWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    [[self.dataProvider tvLivestreamsWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -98,14 +89,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -114,14 +102,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider tvSoonExpiringMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvSoonExpiringMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -130,14 +115,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -146,14 +128,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider tvLatestEpisodesWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvLatestEpisodesWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -162,14 +141,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    __block SRGRequest *request1 = [self.dataProvider tvEpisodesForDate:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvEpisodesForDate:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request1 = nil;
         [expectation1 fulfill];
-    }];
-    [request1 resume];
+    }] resume];
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
@@ -178,14 +154,11 @@ static NSString * const kTopicUid = @"7";
     dateComponents.month = 5;
     dateComponents.day = 12;
     
-    __block SRGRequest *request2 = [self.dataProvider tvEpisodesForDate:dateComponents.date withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvEpisodesForDate:dateComponents.date withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request2 = nil;
         [expectation2 fulfill];
-    }];
-    [request2 resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -194,14 +167,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider tvMediaWithUid:kVideoUid completionBlock:^(SRGMedia * _Nullable media, NSError * _Nullable error) {
+    [[self.dataProvider tvMediaWithUid:kVideoUid completionBlock:^(SRGMedia * _Nullable media, NSError * _Nullable error) {
         XCTAssertNotNil(media);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -210,14 +180,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider tvMediasWithUids:@[kVideoUid, kVideoOtherUid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    [[self.dataProvider tvMediasWithUids:@[kVideoUid, kVideoOtherUid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -226,14 +193,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider tvTopicsWithCompletionBlock:^(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error) {
+    [[self.dataProvider tvTopicsWithCompletionBlock:^(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error) {
         XCTAssertNotNil(topics);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -242,25 +206,19 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    __block SRGRequest *request1 = [self.dataProvider tvLatestMediasForTopicWithUid:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvLatestMediasForTopicWithUid:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request1 = nil;
         [expectation1 fulfill];
-    }];
-    [request1 resume];
+    }] resume];
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
-    __block SRGRequest *request2 = [self.dataProvider tvLatestMediasForTopicWithUid:kTopicUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvLatestMediasForTopicWithUid:kTopicUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request2 = nil;
         [expectation2 fulfill];
-    }];
-    [request2 resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -269,25 +227,19 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    __block SRGRequest *request1 = [self.dataProvider tvMostPopularMediasForTopicWithUid:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvMostPopularMediasForTopicWithUid:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request1 = nil;
         [expectation1 fulfill];
-    }];
-    [request1 resume];
+    }] resume];
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
-    __block SRGRequest *request2 = [self.dataProvider tvMostPopularMediasForTopicWithUid:kTopicUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvMostPopularMediasForTopicWithUid:kTopicUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request2 = nil;
         [expectation2 fulfill];
-    }];
-    [request2 resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -296,14 +248,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider tvShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(shows);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -312,14 +261,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider tvShowWithUid:kVideoShowUid completionBlock:^(SRGShow * _Nullable show, NSError * _Nullable error) {
+    [[self.dataProvider tvShowWithUid:kVideoShowUid completionBlock:^(SRGShow * _Nullable show, NSError * _Nullable error) {
         XCTAssertNotNil(show);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -328,14 +274,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    __block SRGRequest *request1 = [self.dataProvider tvLatestEpisodesForShowWithUid:kVideoShowUid oldestMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvLatestEpisodesForShowWithUid:kVideoShowUid oldestMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(episodeComposition);
         XCTAssertNil(error);
-        
-        request1 = nil;
         [expectation1 fulfill];
-    }];
-    [request1 resume];
+    }] resume];
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
@@ -343,14 +286,11 @@ static NSString * const kTopicUid = @"7";
     dateComponents.year = 2016;
     dateComponents.month = 5;
     
-    __block SRGRequest *request2 = [self.dataProvider tvLatestEpisodesForShowWithUid:kVideoShowUid oldestMonth:dateComponents.date completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvLatestEpisodesForShowWithUid:kVideoShowUid oldestMonth:dateComponents.date completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(episodeComposition);
         XCTAssertNil(error);
-        
-        request2 = nil;
         [expectation2 fulfill];
-    }];
-    [request2 resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -359,14 +299,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider tvMediaCompositionWithUid:kVideoUid completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    [[self.dataProvider tvMediaCompositionWithUid:kVideoUid completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         XCTAssertNotNil(mediaComposition);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -375,14 +312,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider tvMediasMatchingQuery:kVideoSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvMediasMatchingQuery:kVideoSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(searchResults);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -391,14 +325,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider tvShowsMatchingQuery:kVideoShowSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultShow *> * _Nullable searchResults, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvShowsMatchingQuery:kVideoShowSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultShow *> * _Nullable searchResults, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(searchResults);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -407,14 +338,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider radioChannelsWithCompletionBlock:^(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error) {
+    [[self.dataProvider radioChannelsWithCompletionBlock:^(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error) {
         XCTAssertNotNil(channels);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -423,25 +351,19 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    __block SRGRequest *request1 = [self.dataProvider radioChannelWithUid:kAudioChannelUid livestreamUid:nil completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
+    [[self.dataProvider radioChannelWithUid:kAudioChannelUid livestreamUid:nil completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
         XCTAssertNotNil(channel);
         XCTAssertNil(error);
-        
-        request1 = nil;
         [expectation1 fulfill];
-    }];
-    [request1 resume];
+    }] resume];
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
     // No livestreams for RSI yet
-    __block SRGRequest *request2 = [self.dataProvider radioChannelWithUid:kAudioChannelUid livestreamUid:kAudioLivestreamUid completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
+    [[self.dataProvider radioChannelWithUid:kAudioChannelUid livestreamUid:kAudioLivestreamUid completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
         XCTAssertNotNil(error);
-        
-        request2 = nil;
         [expectation2 fulfill];
-    }];
-    [request2 resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -450,25 +372,19 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    __block SRGRequest *request1 = [self.dataProvider radioLivestreamsForChannelWithUid:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    [[self.dataProvider radioLivestreamsForChannelWithUid:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request1 = nil;
         [expectation1 fulfill];
-    }];
-    [request1 resume];
+    }] resume];
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
-    __block SRGRequest *request2 = [self.dataProvider radioLivestreamsForChannelWithUid:kAudioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    [[self.dataProvider radioLivestreamsForChannelWithUid:kAudioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request2 = nil;
         [expectation2 fulfill];
-    }];
-    [request2 resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -477,14 +393,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider radioLatestMediasForChannelWithUid:kAudioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioLatestMediasForChannelWithUid:kAudioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -493,14 +406,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider radioMostPopularMediasForChannelWithUid:kAudioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioMostPopularMediasForChannelWithUid:kAudioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -510,13 +420,10 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider radioLatestEpisodesForChannelWithUid:kAudioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioLatestEpisodesForChannelWithUid:kAudioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -525,14 +432,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    __block SRGRequest *request1 = [self.dataProvider radioEpisodesForDate:nil withChannelUid:kAudioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioEpisodesForDate:nil withChannelUid:kAudioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request1 = nil;
         [expectation1 fulfill];
-    }];
-    [request1 resume];
+    }] resume];
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
@@ -541,14 +445,11 @@ static NSString * const kTopicUid = @"7";
     dateComponents.month = 5;
     dateComponents.day = 12;
     
-    __block SRGRequest *request2 = [self.dataProvider radioEpisodesForDate:dateComponents.date withChannelUid:kAudioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioEpisodesForDate:dateComponents.date withChannelUid:kAudioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request2 = nil;
         [expectation2 fulfill];
-    }];
-    [request2 resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -557,14 +458,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider radioMediaWithUid:kAudioUid completionBlock:^(SRGMedia * _Nullable media, NSError * _Nullable error) {
+    [[self.dataProvider radioMediaWithUid:kAudioUid completionBlock:^(SRGMedia * _Nullable media, NSError * _Nullable error) {
         XCTAssertNotNil(media);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -573,14 +471,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider radioMediasWithUids:@[kAudioUid, kAudioOtherUid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    [[self.dataProvider radioMediasWithUids:@[kAudioUid, kAudioOtherUid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -589,14 +484,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider radioShowsForChannelWithUid:kAudioChannelUid completionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioShowsForChannelWithUid:kAudioChannelUid completionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(shows);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -605,14 +497,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider radioShowWithUid:kAudioShowUid completionBlock:^(SRGShow * _Nullable show, NSError * _Nullable error) {
+    [[self.dataProvider radioShowWithUid:kAudioShowUid completionBlock:^(SRGShow * _Nullable show, NSError * _Nullable error) {
         XCTAssertNotNil(show);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -621,14 +510,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    __block SRGRequest *request1 = [self.dataProvider radioLatestEpisodesForShowWithUid:kAudioShowUid oldestMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioLatestEpisodesForShowWithUid:kAudioShowUid oldestMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(episodeComposition);
         XCTAssertNil(error);
-        
-        request1 = nil;
         [expectation1 fulfill];
-    }];
-    [request1 resume];
+    }] resume];
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
@@ -636,14 +522,11 @@ static NSString * const kTopicUid = @"7";
     dateComponents.year = 2016;
     dateComponents.month = 5;
     
-    __block SRGRequest *request2 = [self.dataProvider radioLatestEpisodesForShowWithUid:kAudioShowUid oldestMonth:dateComponents.date completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioLatestEpisodesForShowWithUid:kAudioShowUid oldestMonth:dateComponents.date completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(episodeComposition);
         XCTAssertNil(error);
-        
-        request2 = nil;
         [expectation2 fulfill];
-    }];
-    [request2 resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -652,14 +535,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider radioMediaCompositionWithUid:kAudioUid completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    [[self.dataProvider radioMediaCompositionWithUid:kAudioUid completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         XCTAssertNotNil(mediaComposition);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -668,14 +548,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider radioMediasMatchingQuery:kAudioSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioMediasMatchingQuery:kAudioSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(searchResults);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -684,14 +561,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider radioShowsMatchingQuery:kAudioShowSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultShow *> * _Nullable searchResults, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioShowsMatchingQuery:kAudioShowSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultShow *> * _Nullable searchResults, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(searchResults);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -700,14 +574,11 @@ static NSString * const kTopicUid = @"7";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    __block SRGRequest *request = [self.dataProvider modulesWithType:SRGModuleTypeEvent completionBlock:^(NSArray<SRGModule *> * _Nullable modules, NSError * _Nullable error) {
+    [[self.dataProvider modulesWithType:SRGModuleTypeEvent completionBlock:^(NSArray<SRGModule *> * _Nullable modules, NSError * _Nullable error) {
         XCTAssertNotNil(modules);
         XCTAssertNil(error);
-        
-        request = nil;
         [expectation fulfill];
-    }];
-    [request resume];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
