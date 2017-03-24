@@ -35,20 +35,6 @@
 		6FB1561B1E83D21800389D04 /* NSArray+SRGDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB156191E83D21800389D04 /* NSArray+SRGDataProvider.m */; };
 		6FB1561E1E83D6F900389D04 /* NSObject+SRGDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FB1561C1E83D6F900389D04 /* NSObject+SRGDataProvider.h */; };
 		6FB1561F1E83D6F900389D04 /* NSObject+SRGDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB1561D1E83D6F900389D04 /* NSObject+SRGDataProvider.m */; };
-		6FB1562B1E83F25200389D04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB1562A1E83F25200389D04 /* main.m */; };
-		6FB1562E1E83F25200389D04 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB1562D1E83F25200389D04 /* AppDelegate.m */; };
-		6FB156311E83F25200389D04 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB156301E83F25200389D04 /* ViewController.m */; };
-		6FB156341E83F25200389D04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FB156321E83F25200389D04 /* Main.storyboard */; };
-		6FB156361E83F25300389D04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FB156351E83F25200389D04 /* Assets.xcassets */; };
-		6FB156391E83F25300389D04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FB156371E83F25300389D04 /* LaunchScreen.storyboard */; };
-		6FB1563E1E83F26100389D04 /* libextobjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E66BEC051DA7F08B00AD4450 /* libextobjc.framework */; };
-		6FB1563F1E83F26100389D04 /* libextobjc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E66BEC051DA7F08B00AD4450 /* libextobjc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6FB156401E83F26100389D04 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; };
-		6FB156411E83F26100389D04 /* Mantle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6FB156421E83F26100389D04 /* SRGDataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGDataProvider.framework */; };
-		6FB156431E83F26100389D04 /* SRGDataProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGDataProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6FB156471E83F2E300389D04 /* SRGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; };
-		6FB156481E83F2E300389D04 /* SRGLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6FC024B01E1D001600550881 /* SRGSearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FC024AE1E1D001600550881 /* SRGSearchResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FC024B11E1D001600550881 /* SRGSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC024AF1E1D001600550881 /* SRGSearchResult.m */; };
 		6FC024B41E1D380700550881 /* SRGSearchResultShow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FC024B21E1D380700550881 /* SRGSearchResultShow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -58,8 +44,6 @@
 		6FC5B8221E852B22003555F8 /* MAKVONotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; };
 		6FC5B8231E852B34003555F8 /* MAKVONotificationCenter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6FC5B8241E852B46003555F8 /* MAKVONotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; };
-		6FC5B8251E852B52003555F8 /* MAKVONotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; };
-		6FC5B8261E852B52003555F8 /* MAKVONotificationCenter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E600FE681D942348000B8A1D /* SRGDataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGDataProvider.framework */; };
 		E600FE721D9423C3000B8A1D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E600FE711D9423C3000B8A1D /* Info.plist */; };
 		E600FE731D94242F000B8A1D /* ServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */; };
@@ -128,13 +112,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6FB156441E83F26100389D04 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E6AF7EF41D38B8BD00942ADA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E6AF7EFC1D38B8BD00942ADA;
-			remoteInfo = SRGDataProvider;
-		};
 		E600FE691D942348000B8A1D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E6AF7EF41D38B8BD00942ADA /* Project object */;
@@ -145,21 +122,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		6FB156461E83F26200389D04 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				6FB1563F1E83F26100389D04 /* libextobjc.framework in Embed Frameworks */,
-				6FC5B8261E852B52003555F8 /* MAKVONotificationCenter.framework in Embed Frameworks */,
-				6FB156411E83F26100389D04 /* Mantle.framework in Embed Frameworks */,
-				6FB156431E83F26100389D04 /* SRGDataProvider.framework in Embed Frameworks */,
-				6FB156481E83F2E300389D04 /* SRGLogger.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E600FE7F1D943FAE000B8A1D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -204,16 +166,6 @@
 		6FB1561C1E83D6F900389D04 /* NSObject+SRGDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SRGDataProvider.h"; sourceTree = "<group>"; };
 		6FB1561D1E83D6F900389D04 /* NSObject+SRGDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SRGDataProvider.m"; sourceTree = "<group>"; };
 		6FB156221E83D7DB00389D04 /* SRGDescribable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGDescribable.h; sourceTree = "<group>"; };
-		6FB156271E83F25200389D04 /* DemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6FB1562A1E83F25200389D04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6FB1562C1E83F25200389D04 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		6FB1562D1E83F25200389D04 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6FB1562F1E83F25200389D04 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6FB156301E83F25200389D04 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		6FB156331E83F25200389D04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6FB156351E83F25200389D04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6FB156381E83F25300389D04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		6FB1563A1E83F25300389D04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6FC024AE1E1D001600550881 /* SRGSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSearchResult.h; sourceTree = "<group>"; };
 		6FC024AF1E1D001600550881 /* SRGSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSearchResult.m; sourceTree = "<group>"; };
 		6FC024B21E1D380700550881 /* SRGSearchResultShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSearchResultShow.h; sourceTree = "<group>"; };
@@ -291,18 +243,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6FB156241E83F25200389D04 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6FB1563E1E83F26100389D04 /* libextobjc.framework in Frameworks */,
-				6FC5B8251E852B52003555F8 /* MAKVONotificationCenter.framework in Frameworks */,
-				6FB156401E83F26100389D04 /* Mantle.framework in Frameworks */,
-				6FB156421E83F26100389D04 /* SRGDataProvider.framework in Frameworks */,
-				6FB156471E83F2E300389D04 /* SRGLogger.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E600FE601D942348000B8A1D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -348,30 +288,6 @@
 				6FB156221E83D7DB00389D04 /* SRGDescribable.h */,
 			);
 			path = Helpers;
-			sourceTree = "<group>";
-		};
-		6FB156281E83F25200389D04 /* DemoApp */ = {
-			isa = PBXGroup;
-			children = (
-				6FB1562C1E83F25200389D04 /* AppDelegate.h */,
-				6FB1562D1E83F25200389D04 /* AppDelegate.m */,
-				6FB1562F1E83F25200389D04 /* ViewController.h */,
-				6FB156301E83F25200389D04 /* ViewController.m */,
-				6FB156321E83F25200389D04 /* Main.storyboard */,
-				6FB156351E83F25200389D04 /* Assets.xcassets */,
-				6FB156371E83F25300389D04 /* LaunchScreen.storyboard */,
-				6FB1563A1E83F25300389D04 /* Info.plist */,
-				6FB156291E83F25200389D04 /* Supporting Files */,
-			);
-			path = DemoApp;
-			sourceTree = "<group>";
-		};
-		6FB156291E83F25200389D04 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				6FB1562A1E83F25200389D04 /* main.m */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		E600FE5E1D942260000B8A1D /* Tests */ = {
@@ -502,7 +418,6 @@
 			children = (
 				E6391A951D38E92400E4CBB9 /* Framework */,
 				E600FE5E1D942260000B8A1D /* Tests */,
-				6FB156281E83F25200389D04 /* DemoApp */,
 				E6AF7F921D38D52300942ADA /* Frameworks */,
 				E6AF7EFE1D38B8BD00942ADA /* Products */,
 			);
@@ -513,7 +428,6 @@
 			children = (
 				E6AF7EFD1D38B8BD00942ADA /* SRGDataProvider.framework */,
 				E600FE631D942348000B8A1D /* SRGDataProvider-tests.xctest */,
-				6FB156271E83F25200389D04 /* DemoApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -610,25 +524,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		6FB156261E83F25200389D04 /* DemoApp */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6FB1563D1E83F25300389D04 /* Build configuration list for PBXNativeTarget "DemoApp" */;
-			buildPhases = (
-				6FB156231E83F25200389D04 /* Sources */,
-				6FB156241E83F25200389D04 /* Frameworks */,
-				6FB156251E83F25200389D04 /* Resources */,
-				6FB156461E83F26200389D04 /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6FB156451E83F26100389D04 /* PBXTargetDependency */,
-			);
-			name = DemoApp;
-			productName = DemoApp;
-			productReference = 6FB156271E83F25200389D04 /* DemoApp.app */;
-			productType = "com.apple.product-type.application";
-		};
 		E600FE621D942348000B8A1D /* SRGDataProvider-tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E600FE6B1D942348000B8A1D /* Build configuration list for PBXNativeTarget "SRGDataProvider-tests" */;
@@ -676,10 +571,6 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = SRG;
 				TargetAttributes = {
-					6FB156261E83F25200389D04 = {
-						CreatedOnToolsVersion = 8.2.1;
-						ProvisioningStyle = Automatic;
-					};
 					E600FE621D942348000B8A1D = {
 						CreatedOnToolsVersion = 8.0;
 						ProvisioningStyle = Automatic;
@@ -708,22 +599,11 @@
 			targets = (
 				E6AF7EFC1D38B8BD00942ADA /* SRGDataProvider */,
 				E600FE621D942348000B8A1D /* SRGDataProvider-tests */,
-				6FB156261E83F25200389D04 /* DemoApp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		6FB156251E83F25200389D04 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6FB156391E83F25300389D04 /* LaunchScreen.storyboard in Resources */,
-				6FB156361E83F25300389D04 /* Assets.xcassets in Resources */,
-				6FB156341E83F25200389D04 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E600FE611D942348000B8A1D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -743,16 +623,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		6FB156231E83F25200389D04 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6FB156311E83F25200389D04 /* ViewController.m in Sources */,
-				6FB1562E1E83F25200389D04 /* AppDelegate.m in Sources */,
-				6FB1562B1E83F25200389D04 /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E600FE5F1D942348000B8A1D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -815,11 +685,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6FB156451E83F26100389D04 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E6AF7EFC1D38B8BD00942ADA /* SRGDataProvider */;
-			targetProxy = 6FB156441E83F26100389D04 /* PBXContainerItemProxy */;
-		};
 		E600FE6A1D942348000B8A1D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E6AF7EFC1D38B8BD00942ADA /* SRGDataProvider */;
@@ -828,22 +693,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		6FB156321E83F25200389D04 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6FB156331E83F25200389D04 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		6FB156371E83F25300389D04 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6FB156381E83F25300389D04 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 		E6C2B3CF1D39239E00B6250B /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -859,40 +708,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		6FB1563B1E83F25300389D04 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = DemoApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ch.srgssr.DemoApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		6FB1563C1E83F25300389D04 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = DemoApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ch.srgssr.DemoApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		E600FE6C1D942348000B8A1D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1072,15 +887,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6FB1563D1E83F25300389D04 /* Build configuration list for PBXNativeTarget "DemoApp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6FB1563B1E83F25300389D04 /* Debug */,
-				6FB1563C1E83F25300389D04 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		E600FE6B1D942348000B8A1D /* Build configuration list for PBXNativeTarget "SRGDataProvider-tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
