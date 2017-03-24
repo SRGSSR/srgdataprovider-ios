@@ -97,6 +97,12 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *  implementation) and setting it as global shared instance by calling `-[SRGDataProvider setCurrentDataProvider:]`.
  *  You can then conveniently retrieve this shared instance with `-[SRGDataProvider currentDataProvider]`.
  *
+ *  ## Lifetime
+ *
+ *  A data provider must be retained somewhere, at least when executing a request retrieved from it (otherwise the request
+ *  will be automatically cancelled when the data provider is deallocated). You can e.g. use the global instance or store the
+ *  data provider you use locally.
+ *
  *  ## Thread-safety
  *
  *  The data provider library does not make any guarantees regarding thread safety. Though highly asynchronous in nature
