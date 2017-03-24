@@ -10,6 +10,9 @@
 
 @implementation SRGPageRequest
 
+// Inherited from hidden parent property
+@dynamic page;
+
 #pragma mark Page management
 
 - (SRGRequest *)withPageSize:(NSInteger)pageSize
