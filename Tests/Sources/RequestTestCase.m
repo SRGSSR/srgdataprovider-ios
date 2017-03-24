@@ -82,6 +82,15 @@
     XCTAssertFalse(request5.running);
     XCTAssertEqual(request5.page.number, 0);
     XCTAssertEqual(request5.page.size, 1);
+    
+    // Override with page size, twice
+    SRGRequest *request6 = [[[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // Nothing, the request isn't run
+    }] withPageSize:18] withPageSize:3];
+    XCTAssertFalse(request6.running);
+    XCTAssertEqual(request6.page.number, 0);
+    XCTAssertEqual(request6.page.size, 3);
+    XCTAssertNotEqual(request6.page.size, 18);
 }
 
 - (void)testStatus
@@ -248,17 +257,37 @@
     XCTAssertFalse(request.running);
 }
 
+- (void)testPageSizeOverrideTwice
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
+    
+    // Use a small page size to be sure we get three elements in the result
+    // Be sure to have only the latest pageSize set to the request.
+    __block SRGRequest *request = [[[self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotEqual(medias.count, 18);
+        XCTAssertEqual(medias.count, 3);
+        XCTAssertNil(error);
+        
+        [expectation fulfill];
+    }] withPageSize:18] withPageSize:3];
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testPages
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
     
     // Use a small page size to be sure we get two full pages of results (and more to come)
-    __block SRGRequest *request = [[self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    __block SRGRequest *request = [[[self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 2);
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
         
         if (page.number == 0 && nextPage) {
+            [[[request withPageSize:3] atPage:nextPage] resume];
+            [[[request atPage:nextPage]  withPageSize:3] resume];
             [[request atPage:nextPage] resume];
         }
         else if (page.number == 1) {

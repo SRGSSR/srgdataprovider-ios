@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Return an equivalent request, but with the specified page size
  *
  *  @param pageSize The page size to use (values below 1 will be set to 1)
+ * 
+ *  @discussion If `withPageSize:`called twice or more, only the latest called value will be considered.
  */
 - (SRGRequest *)withPageSize:(NSInteger)pageSize;
 

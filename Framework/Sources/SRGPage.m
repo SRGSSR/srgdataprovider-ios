@@ -34,7 +34,9 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
         NSString *pageSize = (page.size != SRGPageUnlimitedSize) ? @(page.size).stringValue : @"unlimited";
         NSMutableArray *queryItems = [NSMutableArray arrayWithObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:pageSize]];
         if (URLComponents.queryItems) {
-            [queryItems addObjectsFromArray:URLComponents.queryItems];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K != %@", @keypath(NSURLQueryItem.new, name), @"pageSize"];
+            NSArray<NSURLQueryItem *> *originalQueryItems = [URLComponents.queryItems filteredArrayUsingPredicate:predicate];
+            [queryItems addObjectsFromArray:originalQueryItems];
         }
         URLComponents.queryItems = [queryItems copy];
         
