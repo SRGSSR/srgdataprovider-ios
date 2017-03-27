@@ -168,7 +168,9 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }
     
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+    SRGFirstPageRequest *request = [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:completionBlock];
+    request.maximumPageSize = 50;
+    return request;
 }
 
 - (SRGFirstPageRequest *)tvLatestEpisodesWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock

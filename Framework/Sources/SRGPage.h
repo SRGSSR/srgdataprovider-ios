@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 OBJC_EXTERN const NSInteger SRGPageDefaultSize;
 
 /**
- *  The maximum supported page size (100 for all services)
+ *  The maximum supported page size (100 for almost all services)
  */
 OBJC_EXTERN const NSInteger SRGPageMaximumSize;
 

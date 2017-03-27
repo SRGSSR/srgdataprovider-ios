@@ -6,6 +6,8 @@
 
 #import "SRGPage.h"
 
+#import "SRGDataProviderLogger.h"
+
 #import <libextobjc/libextobjc.h>
 
 const NSInteger SRGPageDefaultSize = 10;
@@ -48,11 +50,15 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
 
 + (SRGPage *)firstPageWithDefaultSize
 {
-    return [self firstPageWithSize:SRGPageDefaultSize];
+    return [self firstPageWithSize:SRGPageDefaultSize maximumPageSize:SRGPageMaximumSize];
 }
 
-+ (SRGPage *)firstPageWithSize:(NSInteger)size
++ (SRGPage *)firstPageWithSize:(NSInteger)size maximumPageSize:(NSInteger)maximumPageSize
 {
+    if (size > maximumPageSize) {
+        size = maximumPageSize;
+        SRGDataProviderLogWarning(@"page", @"The maximum page size for this request is %@. This maximum value will be used.", @(maximumPageSize));
+    }
     return [[[self class] alloc] initWithSize:size number:0 URL:nil];
 }
 

@@ -75,14 +75,30 @@
     XCTAssertEqual(request4.page.number, 0);
     XCTAssertEqual(request4.page.size, 1);
     
-    // Override with page size, twice
-    SRGFirstPageRequest *request6 = [[[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    // Over maximum page size (100 for almost all requests)
+    SRGFirstPageRequest *request5 = [[self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing, the request isn't run
-    }] requestWithPageSize:18] requestWithPageSize:3];
+    }] requestWithPageSize:101];
+    XCTAssertFalse(request5.running);
+    XCTAssertEqual(request5.page.number, 0);
+    XCTAssertEqual(request5.page.size, 100);
+    
+    // Over maximum page size for trending medias request, which has a special maximum page size of 50
+    SRGFirstPageRequest *request6 = [[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // Nothing, the request isn't run
+    }] requestWithPageSize:51];
     XCTAssertFalse(request6.running);
     XCTAssertEqual(request6.page.number, 0);
-    XCTAssertEqual(request6.page.size, 3);
-    XCTAssertNotEqual(request6.page.size, 18);
+    XCTAssertEqual(request6.page.size, 50);
+    
+    // Override with page size, twice
+    SRGFirstPageRequest *request7 = [[[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // Nothing, the request isn't run
+    }] requestWithPageSize:18] requestWithPageSize:3];
+    XCTAssertFalse(request7.running);
+    XCTAssertEqual(request7.page.number, 0);
+    XCTAssertEqual(request7.page.size, 3);
+    XCTAssertNotEqual(request7.page.size, 18);
 }
 
 // Use autorelease pools to force pool drain before testing weak variables (otherwise objects might have been added to

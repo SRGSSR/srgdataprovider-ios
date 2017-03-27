@@ -14,6 +14,7 @@
 @interface SRGFirstPageRequest ()
 
 @property (nonatomic, copy) SRGPageCompletionBlock pageCompletionBlock;
+@property (nonatomic) NSInteger maximumPageSize;
 
 @end
 
@@ -44,16 +45,17 @@
     if (self = [super initWithRequest:request session:session completionBlock:requestCompletionBlock]) {
         self.page = page ?: [SRGPage firstPageWithDefaultSize];
         self.pageCompletionBlock = pageCompletionBlock;
+        self.maximumPageSize = SRGPageMaximumSize;
     }
     return self;
 }
 
 #pragma mark Page management
 
-- (__kindof SRGRequest *)requestAtPage:(SRGPage *)page withClass:(Class)cls
+- (__kindof SRGPageRequest *)requestWithPage:(SRGPage *)page withClass:(Class)cls
 {
     NSURLRequest *request = [SRGPage request:self.request withPage:page];
-    SRGFirstPageRequest *pageRequest = [[cls alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
+    SRGPageRequest *pageRequest = [[cls alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
         SRGPage *nextPage = [SRGFirstPageRequest nextPageAfterPage:page fromJSONDictionary:JSONDictionary];
         self.pageCompletionBlock(JSONDictionary, page, nextPage, error);
     }];
@@ -64,8 +66,10 @@
 
 - (SRGFirstPageRequest *)requestWithPageSize:(NSInteger)pageSize
 {
-    SRGPage *page = [SRGPage firstPageWithSize:pageSize];
-    return [self requestAtPage:page withClass:[SRGFirstPageRequest class]];
+    SRGPage *page = [SRGPage firstPageWithSize:pageSize maximumPageSize:self.maximumPageSize];
+    SRGFirstPageRequest *pageRequest = [self requestWithPage:page withClass:[SRGFirstPageRequest class]];
+    pageRequest.maximumPageSize = self.maximumPageSize;
+    return pageRequest;
 }
 
 - (SRGPageRequest *)requestWithPage:(SRGPage *)page
@@ -74,7 +78,7 @@
         page = self.page.firstPage;
     }
     
-    return [self requestAtPage:page withClass:[SRGPageRequest class]];
+    return [self requestWithPage:page withClass:[SRGPageRequest class]];
 }
 
 @end

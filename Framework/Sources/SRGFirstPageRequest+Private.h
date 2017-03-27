@@ -23,6 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session pageCompletionBlock:(SRGPageCompletionBlock)pageCompletionBlock;
 
+/**
+ *  The maximum page size (defaults to `SRGPageMaximumSize`)
+ */
+@property (nonatomic) NSInteger maximumPageSize;
+
 @end
 
 NS_ASSUME_NONNULL_END
