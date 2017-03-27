@@ -50,6 +50,17 @@
     return self;
 }
 
+#pragma mark Getters and setters
+
+- (void)setMaximumPageSize:(NSInteger)maximumPageSize
+{
+    if (maximumPageSize < 1) {
+        maximumPageSize = 1;
+    }
+    
+    _maximumPageSize = maximumPageSize;
+}
+
 #pragma mark Page management
 
 - (__kindof SRGPageRequest *)requestWithPage:(SRGPage *)page withClass:(Class)cls

@@ -8,11 +8,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// Block signatures
+// Block signatures.
 typedef void (^SRGPageCompletionBlock)(NSDictionary * _Nullable JSONDictionary, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 
 /**
- *  Private interface for implementation purposes
+ *  Private interface for implementation purposes.
  */
 @interface SRGPageRequest (Private)
 

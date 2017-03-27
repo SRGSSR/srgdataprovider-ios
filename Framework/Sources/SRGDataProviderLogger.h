@@ -7,7 +7,7 @@
 #import <SRGLogger/SRGLogger.h>
 
 /**
- *  Helper macros for logging
+ *  Helper macros for logging.
  */
 #define SRGDataProviderLogVerbose(category, format, ...) SRGLogVerbose(@"ch.srgssr.dataprovider", category, format, ##__VA_ARGS__)
 #define SRGDataProviderLogDebug(category, format, ...)   SRGLogDebug(@"ch.srgssr.dataprovider", category, format, ##__VA_ARGS__)

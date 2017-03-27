@@ -10,21 +10,19 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Private interface for implementation purposes
+ *  Private interface for implementation purposes.
  */
 @interface SRGFirstPageRequest (Private)
 
 /**
- *  Create a request from a URL request, starting it with the provided session, and calling the specified block on completion
+ *  Create a request from a URL request, starting it with the provided session, and calling the specified block on completion.
  *
- *  @param page The page for which the request must be made. If `nil`, the first page will be requested.
- *
- *  @discussion The completion block is called on the main thread
+ *  @discussion The completion block is called on the main thread.
  */
 - (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session pageCompletionBlock:(SRGPageCompletionBlock)pageCompletionBlock;
 
 /**
- *  The maximum page size (defaults to `SRGPageMaximumSize`)
+ *  The maximum page size (defaults to `SRGPageMaximumSize`). Values smaller than 1 will be set to 1.
  */
 @property (nonatomic) NSInteger maximumPageSize;
 

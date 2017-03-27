@@ -16,24 +16,25 @@ NS_ASSUME_NONNULL_BEGIN
  *  Requests are not started by default. Once you have an `SRGRequest` instance, call the `-resume` method
  *  to start the request. A started request keeps itself alive while it is running. You can therefore send
  *  a request locally without keeping a reference to it (but this makes it impossible to cancel the request
- *  manually afterwards). If you want to be able to cancel a request, keep a reference to it. To manage
- *  several related requests, use an `SRGRequestQueue`.
+ *  manually afterwards). If you want to be able to cancel a request, keep a reference to it. 
+ *
+ *  To manage several related requests, use an `SRGRequestQueue`.
  */
 @interface SRGRequest : NSObject
 
 /**
- *  Start performing the request
+ *  Start performing the request.
  *
  *  @discussion `running` is immediately set to `YES`. Attempting to resume an already running request does nothing.
- *              You can restart a finished request by calling `-resume` again
+ *              You can restart a finished request by calling `-resume` again.
  */
 - (void)resume;
 
 /**
- *  Cancel the request
+ *  Cancel the request.
  *
  *  @discussion `running` is immediately set to `NO`. Request completion blocks (@see `SRGDataProvider`) won't be called.
- *              You can restart a cancelled request by `-calling` resume again
+ *              You can restart a cancelled request by `-calling` resume again.
  */
 - (void)cancel;
 
@@ -44,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
  *              completion block (@see `SRGDataProvider`) has been executed. It is immediately reset to `NO`
  *              when the request is cancelled.
  *
- *              This property is KVO-observable
+ *              This property is KVO-observable.
  */
 @property (nonatomic, readonly, getter=isRunning) BOOL running;
 
@@ -54,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @discussion If you never manage the activity indicator yourself, you can leave this value to `YES`. The activity
  *              indicator is shown when at least one request with `managingNetworkActivityIndicator` set to `YES` is 
- *              running. Conversely, it is hidden when no such request is running
+ *              running. Conversely, it is hidden when no such request is running.
  */
 @property (nonatomic, getter=isManagingNetworkActivityIndicator) BOOL managingNetworkActivityIndicator;
 
