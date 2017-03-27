@@ -44,7 +44,7 @@
 - (void)testConstruction
 {
     // Default page size
-    SRGPageRequest *request1 = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGFirstPageRequest *request1 = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing, the request isn't run
     }];
     XCTAssertFalse(request1.running);
@@ -52,7 +52,7 @@
     XCTAssertEqual(request1.page.size, SRGPageDefaultSize);
     
     // Specific page size
-    SRGPageRequest *request2 = [[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGFirstPageRequest *request2 = [[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing, the request isn't run
     }] withPageSize:10];
     XCTAssertFalse(request2.running);
@@ -67,24 +67,16 @@
     XCTAssertEqual(request3.page.number, 0);
     XCTAssertEqual(request3.page.size, SRGPageDefaultSize);
     
-    // Override with page size, then nil page
-    __block SRGPageRequest *request4 = [[[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        // Nothing, the request isn't run
-    }] withPageSize:15] atPage:nil];
-    XCTAssertFalse(request4.running);
-    XCTAssertEqual(request4.page.number, 0);
-    XCTAssertEqual(request4.page.size, 15);
-    
     // Incorrect page size
-    SRGPageRequest *request5 = [[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGFirstPageRequest *request4 = [[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing, the request isn't run
     }] withPageSize:0];
-    XCTAssertFalse(request5.running);
-    XCTAssertEqual(request5.page.number, 0);
-    XCTAssertEqual(request5.page.size, 1);
+    XCTAssertFalse(request4.running);
+    XCTAssertEqual(request4.page.number, 0);
+    XCTAssertEqual(request4.page.size, 1);
     
     // Override with page size, twice
-    SRGPageRequest *request6 = [[[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGFirstPageRequest *request6 = [[[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing, the request isn't run
     }] withPageSize:18] withPageSize:3];
     XCTAssertFalse(request6.running);
@@ -149,7 +141,7 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
     
-    __block SRGPageRequest *request = [[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    __block SRGFirstPageRequest *request = [[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertEqual(page.number, 0);
         XCTAssertEqual(page.size, 5);
         
@@ -312,11 +304,11 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
     
     // Use a small page size to be sure we get two full pages of results (and more to come)
-    __block SRGPageRequest *request = [[self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    __block SRGFirstPageRequest *request = [[self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 2);
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
-      
+        
         if (page.number == 0 && nextPage) {
             [[request atPage:nextPage] resume];
         }
@@ -330,41 +322,6 @@
     [request resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
-}
-
-- (void)testPageSizeOnPages
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
-    
-    // Use a small page size to be sure we get two full pages of results (and more to come)
-    __block SRGPageRequest *request = [[self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertEqual(medias.count, 2);
-        XCTAssertNil(error);
-        XCTAssertNotNil(nextPage);
-        
-        if (page.number == 0 && nextPage) {
-            @try {
-                [[[request atPage:nextPage]  withPageSize:3] resume];
-            } @catch (NSException *requestException) {
-                // Assert Exception: `-withPageSize:` can only on be called on the request for the first page
-                if ([requestException.name isEqualToString:NSInternalInconsistencyException]) {
-                    [expectation fulfill];
-                }
-            }
-        }
-        else {
-            XCTFail(@"Second page call with `-withPageSize:` should not work.");
-        }
-    }] withPageSize:2];
-    [request resume];
-    
-    
-    
-    [self waitForExpectationsWithTimeout:30. handler:^(NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"toto");
-        }
-    }];
 }
 
 // TODO: Test what happens with page size added to a request not supporting it, or to page size chained after atPage:. Document
