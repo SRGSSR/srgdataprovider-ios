@@ -6,7 +6,7 @@
 
 #import <Foundation/Foundation.h>
 
-// Public framework imports
+// Public framework imports.
 #import "SRGChannel.h"
 #import "SRGChapter.h"
 #import "SRGDataProvider.h"
@@ -87,12 +87,13 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *
  *  The data provider requests data from the Integration Layer, the SRG SSR service responsible of delivering metadata
  *  common to all SRG SSR business units. To avoid unnecessary requests, the data provider relies on the standard
- *  built-in iOS URL cache (`NSURLCache`).
+ *  built-in iOS URL cache (`NSURLCache`). No additional application setup is required.
  *
  *  ## Instantiation
  *
  *  You instantiate a data provider with a service base URL and a business unit identifier. The service URL must expose
  *  services whose endpoints start with 'integrationlayer/', corresponding to a working Integration Layer installation.
+ *  Official server URLs are available at the top of this header files.
  *
  *  If your application only requires data from a single business unit, you can use the data provider you need like a singleton
  *  by instantiating it early in your application lifecycle (e.g. in your `-applicationDidFinishLaunching:withOptions:`
@@ -102,59 +103,61 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *  ## Lifetime
  *
  *  A data provider must be retained somewhere, at least when executing a request retrieved from it (otherwise the request
- *  will be automatically cancelled when the data provider is deallocated). You can e.g. use the global instance or store the
- *  data provider you use locally.
+ *  will be automatically cancelled when the data provider is deallocated). You can e.g. use the global shared instance
+ *  (see above) or store the data provider you use locally, e.g. at view controller level.
  *
  *  ## Thread-safety
  *
  *  The data provider library does not make any guarantees regarding thread safety. Though highly asynchronous in nature
- *  during data retrieval and parsing, the library public interface is meant to be used from the main thread only. Data
- *  provider creation and requests must be performed from the main thread. Accordingly, completion blocks are guaranteed
+ *  during data retrieval and parsing, the library components and methods are meant to be used from the main thread only. 
+ *  Data provider creation and requests must be performed from the main thread. Accordingly, completion blocks are guaranteed
  *  to be called on the main thread as well.
  *
  *  This choice was made to prevent programming errors, since requests will usually be triggered by user interactions,
  *  and result in the UI being updated. Trying to use this library from any other thread except the main one will result
  *  in undefined behavior (i.e. it may work or not, and may or not break in the future).
  *
- *  ## Requesting data
- *
- *  To request data, use the methods from the various 'Services' category. These methods return an `SRGRequest` object,
- *  which lets you manage the request process itself (starting or cancelling data retrieval), and are basically
- *  separated in three major groups:
- *    - TV-related services, whose methods start with `tv`.
- *    - Radio related services (which commonly require a channel identifier to be specified), whose methods start with
- *      `radio`.
- *    - Other services.
- *
- *  Requests must be started when needed by calling the `-resume` method, and expect a mandatory completion block,
- *  called when the request finishes (either normally or with an error).
- *
- *  You can keep a reference to an `SRGRequest` you have started. This can be useful if you later need to cancel the
- *  request, or to start it again. Note that the completion block will not be called when a request is cancelled.
- *
  *  ## Service availability
  *
  *  Service availability depends on the business unit. Have a look at the `Documentation/Service-availability.md` file
  *  supplied with this project documentation for more information.
  *
- *  ## Page management
+ *  ## Requesting data
+ *
+ *  To request data, use the methods from the various 'Services' category. These methods return an request objects which
+ *  let you manage the request process itself (starting or cancelling data retrieval), and are basically separated in 
+ *  three major groups:
+ *    - TV-related services, whose methods start with `tv`.
+ *    - Radio related services (which commonly require a channel identifier to be specified), whose methods start with
+ *      `radio`.
+ *    - Other services.
+ *
+ *  Data provider methods return two kinds of request objects:
+ *    - `SRGRequest` instances for standard requests without pagination support.
+ *    - `SRGFirstPageRequest` instances for requests supporting pagination.
+ *
+ *  Requests must be started when needed by calling the `-resume` method, and expect a mandatory completion block,
+ *  called when the request finishes (either normally or with an error). You can keep a reference to an `SRGRequest` 
+ *  you have started to cancel it later if needed. Note that the completion block will not be called when a request 
+ *  is cancelled.
+ *
+ *  ## Requests with pagination support
  *
  *  Some services support pagination (retrieving results in pages with a bound number of results for each). Such requests
- *  must always start with the first page of content and proceed by successively retrieving further pages, as follows:
+ *  always start with the first page of content and proceed by successively retrieving further pages, as follows:
  *
- *  1. Get the `SRGRequest` for a service supporting pagination by calling the associated method from a 'Services'
- *     category. Services supporting pagination are easily recognized by looking at their completion block signature,
- *     which contains a `nextPage` parameter.
+ *  1. Get the `SRGFirstPageRequest` from a service method supporting pagination. Keep a local reference to this initial
+ *     request and perform it by calling `-resume` on it.
  *  1. Once the request completes, you obtain a `nextPage` parameter from the completion block. If this parameter is
- *     not `nil`, you can use it to generate the request for the next page of content, by calling `[request requestWithPage:nextPage]`
- *     on your previous request, and starting it when needed.
+ *     not `nil`, you can use it to generate the request for the next page of content. This is achieved by calling
+ *     the `-[SRGFirstPageRequest requestWithPage:]` method on the initial request you kept a reference to. You must
+ *     call `-resume` on this new request to start it, as usual.
  *  1. You can continue requesting further pages until `nil` is returned as `nextPage`, at which point you have
  *     retrieved all available pages of results.
  *
  *  Most applications will not directly request the next page of content from the completion block, though. In general,
  *  the `nextPage` could be stored by your application, so that it is readily available when the next request needs
- *  to be generated (e.g. when scrolling reaches the bottom of a result table). You can also directly generate the
- *  next request and store it instead.
+ *  to be generated (e.g. when scrolling reaches the bottom of a result table).
  *
  *  Note that you cannot generate arbitrary pages (e.g. you can ask to get the 4th page of content with a page size of
  *  20 items), as this use case is not supported by Integration Layer services. If you need to reload the whole result
@@ -191,7 +194,6 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *  @param serviceURL             The Integration Layer service base URL (which must expose service endpoints
  *                                starting with '/integrationlayer'). Official service URLs are available at
  *                                the top of this header file.
- *
  *  @param businessUnitIdentifier The identifier of the SRG SSR business unit to retrieve data for. Use constants
  *                                available at the top of this file for the officially supported values.
  */
@@ -201,7 +203,7 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 /**
  *  The service URL which has been set.
  *
- *  @discussion Always ends with a slash, even if the service URL set at creaioon wasn't.
+ *  @discussion Always ends with a slash, even if the service URL set at creation wasn't.
  */
 @property (nonatomic, readonly) NSURL *serviceURL;
 
@@ -213,8 +215,8 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 @end
 
 /**
- *  List of TV-oriented services supported by the data provider. TV channels are not considered as separate, media list
- *  requests therefore return results stemming for all channels at the same time.
+ *  List of TV-oriented services supported by the data provider. Media list requests collect content for all channels
+ *  and do not make any distinction between them.
  */
 @interface SRGDataProvider (TVServices)
 
@@ -223,17 +225,17 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  */
 
 /**
- *  Channels.
+ *  List of TV channels.
  */
 - (SRGRequest *)tvChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
 
 /**
- *  Specific channel. Use this request to obtain complete channel information, including current and next programs).
+ *  Specific TV channel. Use this request to obtain complete channel information, including current and next programs).
  */
 - (SRGRequest *)tvChannelWithUid:(NSString *)channelUid completionBlock:(SRGChannelCompletionBlock)completionBlock;
 
 /**
- *  Livestreams.
+ *  List of TV livestreams.
  */
 - (SRGRequest *)tvLivestreamsWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
@@ -257,7 +259,7 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 - (SRGFirstPageRequest *)tvTrendingMediasWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
- *  Trending medias. A limit can be set on editorial recommendations and results can be limited to episodes
+ *  Trending medias. A limit can be set on editorial recommendations and results can be limited to episodes only
  *  (eliminating clips, teasers, etc.).
  *
  *  @param editorialLimit The maximum number of editorial recommendations returned (if `nil`, all are returned).
@@ -339,8 +341,8 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *
  *  @param oldestMonth The oldest month for which medias are returned (if `nil`, all medias are returned).
  *
- *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes returned in the episode
- *              composition).
+ *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes 
+ *              returned in the episode composition object).
  */
 - (SRGFirstPageRequest *)tvLatestEpisodesForShowWithUid:(NSString *)showUid
                                             oldestMonth:(nullable NSDate *)oldestMonth
@@ -372,8 +374,7 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 /**
  *  Search shows matching a specific query.
  *
- *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
- *              `-videoShowsWithUids:completionBlock:` request with the returned search results uid list.
+ *  @discussion Some business units only support full-text search, not partial matching.
  */
 - (SRGFirstPageRequest *)tvShowsMatchingQuery:(NSString *)query
                           withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
@@ -382,7 +383,7 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 
 /**
  *  List of TV-oriented services supported by the data provider. Radio channels have separate identities and programs,
- *  and as such retrieving media lists require the unique identifier of a channel to be specified.
+ *  this is why retrieving media lists requires the unique identifier of a channel to be specified.
  */
 @interface SRGDataProvider (RadioServices)
 
@@ -391,12 +392,12 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  */
 
 /**
- *  Channels.
+ *  List of radio channels.
  */
 - (SRGRequest *)radioChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
 
 /**
- *  Specific channel. Use this request to obtain complete channel information, including current and next programs).
+ *  Specific radio channel. Use this request to obtain complete channel information, including current and next programs).
  *
  *  @param livestreamUid An optional radio channel unique identifier (usually regional, but might be the main one). If provided,
  *                       the program of the specified live stream is used, otherwise the one of the main channel.
@@ -406,7 +407,7 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
                     completionBlock:(SRGChannelCompletionBlock)completionBlock;
 
 /**
- *  Livestreams.
+ *  List of livestreams.
  *
  *  @param channelUid The channel uid for which audio live streams (main and regional) must be retrieved. If not specified,
  *                    all main live streams are returned.
@@ -437,7 +438,7 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
                                               completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
- *  Episodess available for the day containing the given date, for the specific channel.
+ *  Episodes available for the day containing the given date, for the specific channel.
  *
  *  @param date The date. If `nil`, today is used.
  */
@@ -480,8 +481,8 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *
  *  @param oldestMonth The oldest month for which medias are returned (if `nil`, all medias are returned).
  *
- *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes returned in the episode
- *              composition).
+ *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes 
+ *              returned in the episode composition object).
  */
 - (SRGFirstPageRequest *)radioLatestEpisodesForShowWithUid:(NSString *)showUid
                                                oldestMonth:(nullable NSDate *)oldestMonth
@@ -513,8 +514,7 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 /**
  *  Search shows matching a specific query
  *
- *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
- *              `-audioShowsWithUids:completionBlock:` request with the returned search results uid list.
+ *  @discussion Some business units only support full-text search, not partial matching.
  */
 - (SRGFirstPageRequest *)radioShowsMatchingQuery:(NSString *)query
                              withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
