@@ -63,13 +63,13 @@
     return pageRequest;
 }
 
-- (SRGFirstPageRequest *)withPageSize:(NSInteger)pageSize
+- (SRGFirstPageRequest *)requestWithPageSize:(NSInteger)pageSize
 {
     SRGPage *page = [SRGPage firstPageWithSize:pageSize];
     return [self requestAtPage:page withClass:[SRGFirstPageRequest class]];
 }
 
-- (SRGPageRequest *)atPage:(SRGPage *)page
+- (SRGPageRequest *)requestWithPage:(SRGPage *)page
 {
     if (! page) {
         page = self.page.firstPage;

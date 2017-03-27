@@ -54,7 +54,7 @@
     // Specific page size
     SRGFirstPageRequest *request2 = [[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing, the request isn't run
-    }] withPageSize:10];
+    }] requestWithPageSize:10];
     XCTAssertFalse(request2.running);
     XCTAssertEqual(request2.page.number, 0);
     XCTAssertEqual(request2.page.size, 10);
@@ -62,7 +62,7 @@
     // Override with nil page
     __block SRGPageRequest *request3 = [[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing, the request isn't run
-    }] atPage:nil];
+    }] requestWithPage:nil];
     XCTAssertFalse(request3.running);
     XCTAssertEqual(request3.page.number, 0);
     XCTAssertEqual(request3.page.size, SRGPageDefaultSize);
@@ -70,7 +70,7 @@
     // Incorrect page size
     SRGFirstPageRequest *request4 = [[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing, the request isn't run
-    }] withPageSize:0];
+    }] requestWithPageSize:0];
     XCTAssertFalse(request4.running);
     XCTAssertEqual(request4.page.number, 0);
     XCTAssertEqual(request4.page.size, 1);
@@ -78,7 +78,7 @@
     // Override with page size, twice
     SRGFirstPageRequest *request6 = [[[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         // Nothing, the request isn't run
-    }] withPageSize:18] withPageSize:3];
+    }] requestWithPageSize:18] requestWithPageSize:3];
     XCTAssertFalse(request6.running);
     XCTAssertEqual(request6.page.number, 0);
     XCTAssertEqual(request6.page.size, 3);
@@ -149,7 +149,7 @@
         XCTAssertEqual(request.page.size, 5);
         
         [expectation fulfill];
-    }] withPageSize:5];
+    }] requestWithPageSize:5];
     
     XCTAssertEqual(request.page.number, 0);
     XCTAssertEqual(request.page.size, 5);
@@ -293,7 +293,7 @@
         XCTAssertNil(error);
         
         [expectation fulfill];
-    }] withPageSize:18] withPageSize:3];
+    }] requestWithPageSize:18] requestWithPageSize:3];
     [request resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
@@ -310,7 +310,7 @@
         XCTAssertNotNil(nextPage);
         
         if (page.number == 0 && nextPage) {
-            [[request atPage:nextPage] resume];
+            [[request requestWithPage:nextPage] resume];
         }
         else if (page.number == 1) {
             [expectation fulfill];
@@ -318,13 +318,13 @@
         else {
             XCTFail(@"Only first two pages are expected");
         }
-    }] withPageSize:2];
+    }] requestWithPageSize:2];
     [request resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-// TODO: Test what happens with page size added to a request not supporting it, or to page size chained after atPage:. Document
+// TODO: Test what happens with page size added to a request not supporting it, or to page size chained after requestWithPage:. Document
 // and maybe add warnings (e.g. topics)
 
 @end

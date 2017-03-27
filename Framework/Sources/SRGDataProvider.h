@@ -146,7 +146,7 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *     category. Services supporting pagination are easily recognized by looking at their completion block signature,
  *     which contains a `nextPage` parameter.
  *  1. Once the request completes, you obtain a `nextPage` parameter from the completion block. If this parameter is
- *     not `nil`, you can use it to generate the request for the next page of content, by calling `[request atPage:nextPage]`
+ *     not `nil`, you can use it to generate the request for the next page of content, by calling `[request requestWithPage:nextPage]`
  *     on your previous request, and starting it when needed.
  *  1. You can continue requesting further pages until `nil` is returned as `nextPage`, at which point you have
  *     retrieved all available pages of results.
