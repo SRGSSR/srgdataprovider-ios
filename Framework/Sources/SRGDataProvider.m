@@ -598,14 +598,16 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
         NSError *modelError = nil;
         id JSONArray = JSONDictionary[rootKey];
         if (JSONArray && [JSONArray isKindOfClass:[NSArray class]]) {
-            NSArray *objects = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:NULL];
-            if (objects) {
-                completionBlock(objects, page, nextPage, nil);
+            NSArray *objects = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:&modelError];
+            if (! objects) {
+                SRGDataProviderLogError(@"DataProvider", @"Could not build model object of %@. Reason: %@", modelClass, modelError);
+                completionBlock(nil, page, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                                    code:SRGDataProviderErrorCodeInvalidData
+                                                                userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
                 return;
             }
-            else {
-                SRGDataProviderLogError(@"DataProvider", @"Could not build model object of %@. Reason: %@", modelClass, modelError);
-            }
+            
+            completionBlock(objects, page, nextPage, nil);
         }
         else {
             // This also correctly handles the special case where the number of results is a multiple of the page size. When retrieved,
