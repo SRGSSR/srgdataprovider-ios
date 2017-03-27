@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ *  Data provider extensions to `NSArray`.
+ */
 @interface NSArray (SRGDataProvider) <SRGDescribable>
 
 @end

@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ *  Data provider extensions to `NSDictionary`.
+ */
 @interface NSDictionary (SRGDataProvider) <SRGDescribable>
 
 @end

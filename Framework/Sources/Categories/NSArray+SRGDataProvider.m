@@ -12,6 +12,8 @@
 
 @implementation NSArray (SRGDataProvider)
 
+#pragma SRGDescribable protocol
+
 - (NSString *)srg_descriptionAtLevel:(NSInteger)level
 {
     NSString *normalIndentationString = [@"" stringByPaddingToLength:level withString:@"\t" startingAtIndex:0];

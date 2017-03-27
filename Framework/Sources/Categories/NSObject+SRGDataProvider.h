@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSObject (SRGDataProvider)
 
 /**
- *  Helper method for custom recursive descriptions
+ *  Return an object suited for recursive description.
  */
 - (id)srg_formattedObjectAtLevel:(NSInteger)level;
 
