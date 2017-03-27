@@ -57,6 +57,10 @@ static NSMapTable<SRGRequestQueue *, NSHashTable<SRGRequest *> *> *s_relationshi
 
 - (void)dealloc
 {
+    for (SRGRequest *request in self.requests) {
+        [request cancel];
+    }
+    
     [s_relationshipTable removeObjectForKey:self];
 }
 
