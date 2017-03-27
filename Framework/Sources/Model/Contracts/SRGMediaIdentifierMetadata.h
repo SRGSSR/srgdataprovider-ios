@@ -12,27 +12,27 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Common protocol for media identification
+ *  Common protocol for media identification.
  */
 @protocol SRGMediaIdentifierMetadata <NSObject>
 
 /**
- *  The unique media identifier
+ *  The unique media identifier.
  */
 @property (nonatomic, readonly, copy) NSString *uid;
 
 /**
- *  The Uniform Resource Name identifying the media
+ *  The Uniform Resource Name identifying the media.
  */
 @property (nonatomic, readonly) SRGMediaURN *URN;
 
 /**
- *  The media type
+ *  The media type.
  */
 @property (nonatomic, readonly) SRGMediaType mediaType;
 
 /**
- *  The business unit which supplied the media
+ *  The business unit which supplied the media.
  */
 @property (nonatomic, readonly) SRGVendor vendor;
 

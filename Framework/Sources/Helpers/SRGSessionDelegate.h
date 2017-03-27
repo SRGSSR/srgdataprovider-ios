@@ -8,6 +8,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ *  Internal `NSURLSession` delegate.
+ */
 @interface SRGSessionDelegate : NSObject <NSURLSessionTaskDelegate>
 
 @end

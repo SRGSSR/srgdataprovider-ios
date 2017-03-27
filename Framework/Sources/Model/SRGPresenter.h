@@ -12,12 +12,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Presenter (of a show)
+ *  Show presenter information.
  */
 @interface SRGPresenter : SRGModel <SRGImageMetadata>
 
 /**
- *  The name of the presenter
+ *  The name of the presenter.
  */
 @property (nonatomic, readonly, copy) NSString *name;
 

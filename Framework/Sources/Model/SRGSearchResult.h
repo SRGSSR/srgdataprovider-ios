@@ -12,17 +12,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Common base class for results of a search request
+ *  Common base class for results of a search request.
  */
 @interface SRGSearchResult : SRGModel <SRGImageMetadata, SRGMetadata>
 
 /**
- *  The unique identifier of the object
+ *  The unique identifier of the object.
  */
 @property (nonatomic, readonly, copy) NSString *uid;
 
 /**
- *  The Uniform Resource Name identifying the object
+ *  The Uniform Resource Name identifying the object.
  */
 @property (nonatomic, readonly) SRGMediaURN *URN;
 

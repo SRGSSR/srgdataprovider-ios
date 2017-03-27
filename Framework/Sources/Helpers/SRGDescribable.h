@@ -7,7 +7,7 @@
 #import <Foundation/Foundation.h>
 
 /**
- *  Protocol which can be implemented by classes recursively describable.
+ *  Protocol which can be implemented by classes that need to be recursively describable.
  */
 @protocol SRGDescribable <NSObject>
 

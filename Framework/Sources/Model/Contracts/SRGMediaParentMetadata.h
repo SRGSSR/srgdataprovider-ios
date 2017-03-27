@@ -13,22 +13,22 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Common protocol for media parent information
+ *  Common protocol for media parent information.
  */
 @protocol SRGMediaParentMetadata <NSObject>
 
 /**
- *  The channel which the media belongs to
+ *  The channel which the media belongs to.
  */
 @property (nonatomic, readonly, nullable) SRGChannel *channel;
 
 /**
- *  The episode which the media belongs to
+ *  The episode which the media belongs to.
  */
 @property (nonatomic, readonly, nullable) SRGEpisode *episode;
 
 /**
- *  The show which the media belongs to
+ *  The show which the media belongs to.
  */
 @property (nonatomic, readonly, nullable) SRGShow *show;
 

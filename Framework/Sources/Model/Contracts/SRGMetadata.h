@@ -9,22 +9,22 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  *  Common protocol for standard metadata
+ *  Common protocol for standard metadata.
  */
 @protocol SRGMetadata <NSObject>
 
 /**
- *  The title of the content
+ *  The title of the content.
  */
 @property (nonatomic, readonly, copy) NSString *title;
 
 /**
- *  A short introductory text
+ *  A short introductory text.
  */
 @property (nonatomic, readonly, copy, nullable) NSString *lead;
 
 /**
- *  A more comprehensive description of the content
+ *  A more comprehensive description of the content.
  */
 @property (nonatomic, readonly, copy, nullable) NSString *summary;
 

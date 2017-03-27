@@ -10,17 +10,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Chapter (unit of media playback characterized by a URL to be played)
+ *  Chapter (unit of media playback characterized by a URL to be played).
  */
 @interface SRGChapter : SRGSegment
 
 /**
- *  The list of available resources
+ *  The list of available resources.
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGResource *> *resources;
 
 /**
- *  The list of segments associated with the chapter
+ *  The list of segments associated with the chapter.
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGSegment *> *segments;
 
@@ -29,12 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGChapter (Resources)
 
 /**
- *  The recommended protocol to use. Might return `SRGProtocolNone` if no good match is found
+ *  The recommended protocol to use. Might return `SRGProtocolNone` if no good match is found.
  */
 @property (nonatomic, readonly) SRGProtocol recommendedProtocol;
 
 /**
- *  Return resources matching the specified protocol, from the highest to the lowest available qualities
+ *  Return resources matching the specified protocol, from the highest to the lowest available qualities.
  */
 - (nullable NSArray<SRGResource *> *)resourcesForProtocol:(SRGProtocol)protocol;
 

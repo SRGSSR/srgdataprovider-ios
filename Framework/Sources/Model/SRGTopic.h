@@ -10,12 +10,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Topic (e.g. sports, kids, etc.)
+ *  Topic (e.g. sports, kids, etc.) information.
  */
 @interface SRGTopic : SRGModel <SRGMetadata>
 
 /**
- *  The unique topic identifier
+ *  The unique topic identifier.
  */
 @property (nonatomic, readonly, copy) NSString *uid;
 

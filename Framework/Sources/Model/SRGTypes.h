@@ -7,107 +7,107 @@
 #import <Foundation/Foundation.h>
 
 /**
- *  @name Native service types
+ *  @name Native service types.
  */
 
 /**
- *  Reasons for content blocking
+ *  Reasons for content blocking.
  */
 typedef NS_ENUM(NSInteger, SRGBlockingReason) {
     /**
-     *  The content is not blocked
+     *  The content is not blocked.
      */
     SRGBlockingReasonNone = 0,
     /**
-     *  The content is blocked because the user is in a country where it is not available
+     *  The content is blocked because the user is in a country where it is not available.
      */
     SRGBlockingReasonGeoblocking,
     /**
-     *  The content is blocked for legal reasons
+     *  The content is blocked for legal reasons.
      */
     SRGBlockingReasonLegal,
     /**
-     *  The content is a commercial
+     *  The content is a commercial.
      */
     SRGBlockingReasonCommercial,
     /**
-     *  The content is not suitable for people under 18
+     *  The content is not suitable for people under 18.
      */
     SRGBlockingReasonAgeRating18,
     /**
-     *  The content is not suitable for people under 12
+     *  The content is not suitable for people under 12.
      */
     SRGBlockingReasonAgeRating12,
     /**
-     *  The content is not available yet
+     *  The content is not available yet.
      */
     SRGBlockingReasonStartDate,
     /**
-     *  The content is not available anymore
+     *  The content is not available anymore.
      */
     SRGBlockingReasonEndDate,
     /**
-     *  The content is blocked for some unknown reason
+     *  The content is blocked for some unknown reason.
      */
     SRGBlockingReasonUnknown
 };
 
 /**
- *  Return a suggested error message for a blocking reason, nil if none
+ *  Return a suggested error message for a blocking reason, `nil` if none.
  */
 OBJC_EXPORT NSString * _Nullable SRGMessageForBlockingReason(SRGBlockingReason blockingReason);
 
 /**
- *  Content types
+ *  Content types.
  */
 typedef NS_ENUM(NSInteger, SRGContentType) {
     /**
-     *  Not specified
+     *  Not specified.
      */
     SRGContentTypeNone = 0,
     /**
-     *  Episode
+     *  Episode.
      */
     SRGContentTypeEpisode,
     /**
-     *  Extract
+     *  Extract.
      */
     SRGContentTypeExtract,
     /**
-     *  Trailer
+     *  Trailer.
      */
     SRGContentTypeTrailer,
     /**
-     *  Clip
+     *  Clip.
      */
     SRGContentTypeClip,
     /**
-     *  Live
+     *  Live.
      */
     SRGContentTypeLivestream,
     /**
-     *  Live in the future
+     *  Live in the future.
      */
     SRGContentTypeScheduledLivestream
 };
 
 /**
- *  Media encodings
+ *  Media encodings.
  */
 typedef NS_ENUM(NSInteger, SRGEncoding) {
     /**
-     *  Not specified
+     *  Not specified.
      */
     SRGEncodingNone = 0,
     /**
-     *  Video encodings
+     *  Video encodings.
      */
     SRGEncodingH264,
     SRGEncodingVP6F,
     SRGEncodingMPEG2,
     SRGEncodingWMV3,
     /**
-     *  Audio encodings
+     *  Audio encodings.
      */
     SRGEncodingAAC,
     SRGEncodingAAC_HE,
@@ -117,153 +117,153 @@ typedef NS_ENUM(NSInteger, SRGEncoding) {
 };
 
 /**
- *  Media types
+ *  Media types.
  */
 typedef NS_ENUM(NSInteger, SRGMediaType) {
     /**
-     *  Not specified
+     *  Not specified.
      */
     SRGMediaTypeNone = 0,
     /**
-     *  Video
+     *  Video.
      */
     SRGMediaTypeVideo,
     /**
-     *  Audio
+     *  Audio.
      */
     SRGMediaTypeAudio
 };
 
 /**
- *  Module types
+ *  Module types.
  */
 typedef NS_ENUM(NSInteger, SRGModuleType) {
     /**
-     *  Not specified
+     *  Not specified.
      */
     SRGModuleTypeNone = 0,
     /**
-     *  Event
+     *  Event.
      */
     SRGModuleTypeEvent
 };
 
 /**
- *  Content presentation types
+ *  Content presentation types.
  */
 typedef NS_ENUM(NSInteger, SRGPresentation) {
     /**
-     *  Not specified
+     *  Not specified.
      */
     SRGPresentationNone = 0,
     /**
-     *  Default presentation
+     *  Default presentation.
      */
     SRGPresentationDefault,
     /**
-     *  360° presentation
+     *  360° presentation.
      */
     SRGPresentation360
 };
 
 /**
- *  Protocols over which medias are served
+ *  Protocols over which medias are served.
  */
 typedef NS_ENUM(NSInteger, SRGProtocol) {
     /**
-     *  Not specified
+     *  Not specified.
      */
     SRGProtocolNone = 0,
     /**
-     *  HTTP Live Streaming
+     *  HTTP Live Streaming.
      */
     SRGProtocolHLS,
     /**
-     *  HTTP DVR Live Streaming
+     *  HTTP DVR Live Streaming.
      */
     SRGProtocolHLS_DVR,
     /**
-     *  HTTP Dynamic Streaming
+     *  HTTP Dynamic Streaming.
      */
     SRGProtocolHDS,
     /**
-     *  HTTP DVR Dynamic Streaming
+     *  HTTP DVR Dynamic Streaming.
      */
     SRGProtocolHDS_DVR,
     /**
-     *  Real Time Messaging Protocol
+     *  Real Time Messaging Protocol.
      */
     SRGProtocolRTMP,
     /**
-     *  HTTP
+     *  HTTP.
      */
     SRGProtocolHTTP,
     /**
-     *  HTTPS
+     *  HTTPS.
      */
     SRGProtocolHTTPS,
     /**
-     *  HTTP M3U
+     *  HTTP M3U.
      */
     SRGProtocolHTTP_M3U,
     /**
-     *  HTTP MP3 stream
+     *  HTTP MP3 stream.
      */
     SRGProtocolHTTP_MP3Stream
 };
 
 /**
- *  Media qualities
+ *  Media qualities.
  */
 typedef NS_ENUM(NSInteger, SRGQuality) {
     /**
-     *  Not specified
+     *  Not specified.
      */
     SRGQualityNone = 0,
     /**
-     *  Standard definition
+     *  Standard definition.
      */
     SRGQualitySD,
     /**
-     *  High definition
+     *  High definition.
      */
     SRGQualityHD,
     /**
-     *  High quality
+     *  High quality.
      */
     SRGQualityHQ,
 };
 
 /**
- *  Types of social or popularity measurement services
+ *  Types of social or popularity measurement services.
  */
 typedef NS_ENUM(NSInteger, SRGSocialCountType) {
     /**
-     *  Not specified
+     *  Not specified.
      */
     SRGSocialCountTypeNone = 0,
     /**
-     *  SRG view count service
+     *  SRG view count service.
      */
     SRGSocialCountTypeSRGView,
     /**
-     *  SRG like service
+     *  SRG like service.
      */
     SRGSocialCountTypeSRGLike,
     /**
-     *  Facebook
+     *  Facebook.
      */
     SRGSocialCountTypeFacebookShare,
     /**
-     *  Twitter
+     *  Twitter.
      */
     SRGSocialCountTypeTwitterShare,
     /**
-     *  Google+
+     *  Google+.
      */
     SRGSocialCountTypeGooglePlusShare,
     /**
-     *  WhatsApp
+     *  WhatsApp.
      */
     SRGSocialCountTypeWhatsAppShare
 };
@@ -309,38 +309,38 @@ typedef NS_ENUM(NSInteger, SRGSubtitleFormat) {
 };
 
 /**
- *  Transmission types
+ *  Transmission types.
  */
 typedef NS_ENUM(NSInteger, SRGTransmission) {
     /**
-     *  Not specified
+     *  Not specified.
      */
     SRGTransmissionNone = 0,
     /**
-     *  Television
+     *  Television.
      */
     SRGTransmissionTV,
     /**
-     *  Radio
+     *  Radio.
      */
     SRGTransmissionRadio,
     /**
-     *  Online
+     *  Online.
      */
     SRGTransmissionOnline,
     /**
-     *  Unknown
+     *  Unknown.
      */
     SRGTransmissionUnknown
 };
 
 /**
- *  Content producers and providers
+ *  Content producers and providers.
  */
 typedef NS_ENUM(NSInteger, SRGVendor) {
     SRGVendorNone = 0,
     /**
-     *  SRG SSR business units
+     *  SRG SSR business units.
      */
     SRGVendorRSI,
     SRGVendorRTR,
@@ -348,26 +348,26 @@ typedef NS_ENUM(NSInteger, SRGVendor) {
     SRGVendorSRF,
     SRGVendorSWI,
     /**
-     *  Regional radios and televisions
+     *  Regional radios and televisions.
      */
     SRGVendorTVO,
     SRGVendorCanalAlpha
 };
 
 /**
- *  @name Data provider library types
+ *  @name Data provider library types.
  */
 
 /**
- *  Image dimensions for image retrieval
+ *  Image dimensions for image retrieval.
  */
 typedef NS_ENUM(NSInteger, SRGImageDimension) {
     /**
-     *  Width
+     *  Width.
      */
     SRGImageDimensionWidth,
     /**
-     *  Height
+     *  Height.
      */
     SRGImageDimensionHeight
 };
