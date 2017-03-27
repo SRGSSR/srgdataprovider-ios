@@ -9,7 +9,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // Block signatures
-typedef void (^SRGRequestCompletionBlock)(NSDictionary * _Nullable JSONDictionary, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
+typedef void (^SRGRequestCompletionBlock)(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error);
 
 /**
  *  Private interface for implementation purposes
@@ -24,14 +24,19 @@ typedef void (^SRGRequestCompletionBlock)(NSDictionary * _Nullable JSONDictionar
 - (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session completionBlock:(SRGRequestCompletionBlock)completionBlock;
 
 /**
- *  See `SRGPageRequest` documentation
+ *  The underlying low-level request
  */
-- (SRGRequest *)withPageSize:(NSInteger)pageSize;
+@property (nonatomic, readonly) NSURLRequest *request;
 
 /**
- *  See `SRGPageRequest` documentation
+ *  The session
  */
-- (SRGRequest *)atPage:(SRGPage *)page;
+@property (nonatomic, readonly) NSURLSession *session;
+
+/**
+ *  The completion block
+ */
+@property (nonatomic, readonly, copy) SRGRequestCompletionBlock completionBlock;
 
 @end
 

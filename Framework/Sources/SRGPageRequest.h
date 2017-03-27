@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @discussion If `withPageSize:`called twice or more, only the latest called value will be considered.
  *              `-withPageSize:` can only on be called on the request for the first page.
  */
-- (SRGPageRequest *)withPageSize:(NSInteger)pageSize;
+- (SRGRequest *)withPageSize:(NSInteger)pageSize;
 
 /**
  *  Return an equivalent request, but for the specified page. You never instantiate pages yourself, you receive them
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  *              When using a next page, You must NOT complete the request with the `withPageSize:`method. PageSize is
  *              already known by the IL service, and it's the same as the page size in your first request.
  */
-- (SRGPageRequest *)atPage:(nullable SRGPage *)page;
+- (SRGRequest *)atPage:(nullable SRGPage *)page;
 
 /**
  *  The page associated with the request

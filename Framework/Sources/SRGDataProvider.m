@@ -11,6 +11,7 @@
 #import "SRGDataProviderLogger.h"
 #import "SRGJSONTransformers.h"
 #import "SRGPage+Private.h"
+#import "SRGPageRequest+Private.h"
 #import "SRGRequest+Private.h"
 #import "SRGSessionDelegate.h"
 
@@ -524,7 +525,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     tokenServiceURLComponents.queryItems = @[ [NSURLQueryItem queryItemWithName:@"acl" value:acl] ];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:tokenServiceURLComponents.URL];
-    return [[SRGRequest alloc] initWithRequest:request session:[NSURLSession sharedSession] completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    return [[SRGRequest alloc] initWithRequest:request session:[NSURLSession sharedSession] completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
         if (error) {
             completionBlock(nil, error);
             return;
@@ -588,7 +589,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     NSParameterAssert(rootKey);
     NSParameterAssert(completionBlock);
     
-    return [[SRGPageRequest alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    return [[SRGPageRequest alloc] initWithRequest:request page:nil session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
             completionBlock(nil, page, nil, error);
             return;
@@ -623,7 +624,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     NSParameterAssert(modelClass);
     NSParameterAssert(completionBlock);
     
-    return [[SRGPageRequest alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    return [[SRGPageRequest alloc] initWithRequest:request page:nil session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
             completionBlock(nil, page, nil, error);
             return;

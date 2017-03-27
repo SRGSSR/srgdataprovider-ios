@@ -46,6 +46,7 @@
 		6FC5B8241E852B46003555F8 /* MAKVONotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; };
 		6FD909921E8592710071748C /* SRGPageRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FD909901E8592710071748C /* SRGPageRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FD909931E8592710071748C /* SRGPageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD909911E8592710071748C /* SRGPageRequest.m */; };
+		6FD909981E88CB670071748C /* SRGPageRequest+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FD909961E88CB670071748C /* SRGPageRequest+Private.h */; };
 		E600FE681D942348000B8A1D /* SRGDataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGDataProvider.framework */; };
 		E600FE721D9423C3000B8A1D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E600FE711D9423C3000B8A1D /* Info.plist */; };
 		E600FE731D94242F000B8A1D /* ServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */; };
@@ -177,6 +178,7 @@
 		6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAKVONotificationCenter.framework; path = Carthage/Build/iOS/MAKVONotificationCenter.framework; sourceTree = "<group>"; };
 		6FD909901E8592710071748C /* SRGPageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGPageRequest.h; sourceTree = "<group>"; };
 		6FD909911E8592710071748C /* SRGPageRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGPageRequest.m; sourceTree = "<group>"; };
+		6FD909961E88CB670071748C /* SRGPageRequest+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGPageRequest+Private.h"; sourceTree = "<group>"; };
 		E600FE631D942348000B8A1D /* SRGDataProvider-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SRGDataProvider-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServicesTestCase.m; sourceTree = "<group>"; };
 		E600FE711D9423C3000B8A1D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				E600FE7A1D9432FB000B8A1D /* SRGPage+Private.h */,
 				6FD909901E8592710071748C /* SRGPageRequest.h */,
 				6FD909911E8592710071748C /* SRGPageRequest.m */,
+				6FD909961E88CB670071748C /* SRGPageRequest+Private.h */,
 				E62459B61D47828D00482BE9 /* SRGRequest.h */,
 				E62459B71D47828D00482BE9 /* SRGRequest.m */,
 				E62459BB1D4787CE00482BE9 /* SRGRequest+Private.h */,
@@ -520,6 +523,7 @@
 				083F41561DB6D59F00FEA340 /* SRGMediaParentMetadata.h in Headers */,
 				E6AE51461D40AA0100572CE4 /* SRGSubtitle.h in Headers */,
 				E68598C01D40FF950010000A /* SRGProgram.h in Headers */,
+				6FD909981E88CB670071748C /* SRGPageRequest+Private.h in Headers */,
 				E62459B81D47828D00482BE9 /* SRGRequest.h in Headers */,
 				E68598AA1D40CC750010000A /* SRGSegment.h in Headers */,
 				E6AE513A1D4093B700572CE4 /* NSURL+SRGDataProvider.h in Headers */,

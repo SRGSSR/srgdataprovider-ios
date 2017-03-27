@@ -9,8 +9,6 @@
 #import "NSBundle+SRGDataProvider.h"
 #import "SRGDataProviderError.h"
 #import "SRGDataProviderLogger.h"
-#import "SRGPage.h"
-#import "SRGPage+Private.h"
 #import "SRGRequest+Private.h"
 
 #import <UIKit/UIKit.h>
@@ -20,7 +18,6 @@ static NSInteger s_numberOfRunningRequests = 0;
 @interface SRGRequest ()
 
 @property (nonatomic) NSURLRequest *request;
-@property (nonatomic) SRGPage *page;
 @property (nonatomic, copy) SRGRequestCompletionBlock completionBlock;
 
 @property (nonatomic) NSURLSessionTask *sessionTask;
@@ -34,21 +31,15 @@ static NSInteger s_numberOfRunningRequests = 0;
 
 #pragma mark Object lifecycle
 
-- (instancetype)initWithRequest:(NSURLRequest *)request page:(SRGPage *)page session:(NSURLSession *)session completionBlock:(SRGRequestCompletionBlock)completionBlock
+- (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session completionBlock:(SRGRequestCompletionBlock)completionBlock
 {
     if (self = [super init]) {
         self.request = request;
         self.completionBlock = completionBlock;
-        self.page = page ?: [SRGPage firstPageWithDefaultSize];
         self.session = session;
         self.managingNetworkActivityIndicator = YES;
     }
     return self;
-}
-
-- (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session completionBlock:(SRGRequestCompletionBlock)completionBlock
-{
-    return [self initWithRequest:request page:nil session:session completionBlock:completionBlock];
 }
 
 - (void)dealloc
@@ -96,16 +87,16 @@ static NSInteger s_numberOfRunningRequests = 0;
     }
     
     // No weakify / strongify dance here, so that the request retains itself while it is running
-    void (^requestCompletionBlock)(BOOL finished, NSDictionary * _Nullable, SRGPage * _Nullable, NSError * _Nullable) = ^(BOOL finished, NSDictionary * _Nullable JSONDictionary, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    void (^requestCompletionBlock)(BOOL finished, NSDictionary * _Nullable, NSError * _Nullable) = ^(BOOL finished, NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (finished) {
-                self.completionBlock(JSONDictionary, self.page, nextPage, error);
+                self.completionBlock(JSONDictionary, error);
             }
             self.running = NO;
         });
     };
     
-    SRGDataProviderLogDebug(@"Request", @"Started %@ with page %@", self.request.URL, self.page);
+    SRGDataProviderLogDebug(@"Request", @"Started %@", self.request.URL);
     
     // Session tasks cannot be reused. To provide SRGRequest reuse, we need to instantiate another task
     self.sessionTask = [self.session dataTaskWithRequest:self.request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -113,11 +104,11 @@ static NSInteger s_numberOfRunningRequests = 0;
         if (error) {
             if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
                 SRGDataProviderLogDebug(@"Request", @"Cancelled %@", self.request.URL);
-                requestCompletionBlock(NO, nil, nil, error);
+                requestCompletionBlock(NO, nil, error);
             }
             else {
                 SRGDataProviderLogDebug(@"Request", @"Ended %@ with an error: %@", self.request.URL, error);
-                requestCompletionBlock(YES, nil, nil, error);
+                requestCompletionBlock(YES, nil, error);
             }
             return;
         }
@@ -134,7 +125,7 @@ static NSInteger s_numberOfRunningRequests = 0;
                                                                  NSURLErrorKey : response.URL,
                                                                  SRGDataProviderHTTPStatusCodeKey : @(HTTPStatusCode) }];
                 SRGDataProviderLogDebug(@"Request", @"Ended %@ with an HTTP error: %@", self.request.URL, HTTPError);
-                requestCompletionBlock(YES, nil, nil, HTTPError);
+                requestCompletionBlock(YES, nil, HTTPError);
                 return;
             }
             // Block redirects and return an error with URL information. Currently no redirection is expected for IL services, this
@@ -153,7 +144,7 @@ static NSInteger s_numberOfRunningRequests = 0;
                                                              code:SRGDataProviderErrorRedirect
                                                          userInfo:[userInfo copy]];
                 SRGDataProviderLogDebug(@"Request", @"Ended %@ with a redirect error: %@", self.request.URL, redirectError);
-                requestCompletionBlock(YES, nil, nil, redirectError);
+                requestCompletionBlock(YES, nil, redirectError);
                 return;
             }
         }
@@ -164,20 +155,12 @@ static NSInteger s_numberOfRunningRequests = 0;
                                                            code:SRGDataProviderErrorCodeInvalidData
                                                        userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }];
             SRGDataProviderLogDebug(@"Request", @"Ended %@ with a data format error: %@", self.request.URL, dataFormatError);
-            requestCompletionBlock(YES, nil, nil, dataFormatError);
+            requestCompletionBlock(YES, nil, dataFormatError);
             return;
         }
         
-        id next = JSONDictionary[@"next"];
-        
-        // Ensure the next field is a string. In now and next requests, it might be a dictionary
-        SRGPage *nextPage = nil;
-        if ([next isKindOfClass:[NSString class]]) {
-            nextPage = [self.page nextPageWithURL:[NSURL URLWithString:next]];
-        }
-        
-        SRGDataProviderLogDebug(@"Request", @"Ended %@ successfully with JSON %@ and next page %@", self.request.URL, JSONDictionary, nextPage);
-        requestCompletionBlock(YES, JSONDictionary, nextPage, nil);
+        SRGDataProviderLogDebug(@"Request", @"Ended %@ successfully with JSON %@", self.request.URL, JSONDictionary);
+        requestCompletionBlock(YES, JSONDictionary, nil);
     }];
     
     self.running = YES;
@@ -188,27 +171,6 @@ static NSInteger s_numberOfRunningRequests = 0;
 {
     self.running = NO;
     [self.sessionTask cancel];
-}
-
-#pragma mark Page management
-
-- (SRGRequest *)withPageSize:(NSInteger)pageSize
-{
-    // PageSize is only supported on the request to the first page.
-    // http://www.srfcdn.ch/developer-docs/integrationlayer/api/public/v2/pagination.html
-    NSCAssert(self.page.number == 0, @"`-withPageSize:` can only on be called on the request for the first page");
-    SRGPage *page = [SRGPage firstPageWithSize:pageSize];
-    return [self atPage:page];
-}
-
-- (SRGRequest *)atPage:(SRGPage *)page
-{
-    if (! page) {
-        page = self.page.firstPage;
-    }
-    
-    NSURLRequest *request = [SRGPage request:self.request withPage:page];
-    return [[[self class] alloc] initWithRequest:request page:page session:self.session completionBlock:self.completionBlock];
 }
 
 #pragma mark Description
