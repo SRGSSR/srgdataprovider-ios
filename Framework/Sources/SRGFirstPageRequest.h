@@ -12,6 +12,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ *  Request for the first page of a list of results.
+ */
 @interface SRGFirstPageRequest : SRGRequest
 
 /**

@@ -66,10 +66,7 @@
 - (SRGFirstPageRequest *)withPageSize:(NSInteger)pageSize
 {
     SRGPage *page = [SRGPage firstPageWithSize:pageSize];
-    SRGFirstPageRequest *request = [self requestAtPage:page withClass:[SRGFirstPageRequest class]];
-    request.page = page;
-    request.pageCompletionBlock = self.pageCompletionBlock;
-    return request;
+    return [self requestAtPage:page withClass:[SRGFirstPageRequest class]];
 }
 
 - (SRGPageRequest *)atPage:(SRGPage *)page
@@ -78,10 +75,7 @@
         page = self.page.firstPage;
     }
     
-    SRGPageRequest *request = [self requestAtPage:page withClass:[SRGPageRequest class]];
-    request.page = page;
-    request.pageCompletionBlock = self.pageCompletionBlock;
-    return request;
+    return [self requestAtPage:page withClass:[SRGPageRequest class]];
 }
 
 @end
