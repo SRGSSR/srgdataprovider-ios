@@ -13,7 +13,6 @@
 
 @interface SRGFirstPageRequest ()
 
-@property (nonatomic) SRGPage *page;
 @property (nonatomic, copy) SRGPageCompletionBlock pageCompletionBlock;
 
 @end

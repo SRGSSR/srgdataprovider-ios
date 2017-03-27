@@ -9,8 +9,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ *  Request for a page of results.
+ */
 @interface SRGPageRequest : SRGRequest
 
+/**
+ *  The page which is requested.
+ */
 @property (nonatomic, readonly) SRGPage *page;
 
 @end

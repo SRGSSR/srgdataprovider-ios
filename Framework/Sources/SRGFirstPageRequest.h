@@ -4,18 +4,14 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGPage.h"
-#import "SRGRequest.h"
-
-// Forward declarations
-@class SRGPageRequest;
+#import "SRGPageRequest.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Request for the first page of a list of results.
+ *  Request for the first page of results.
  */
-@interface SRGFirstPageRequest : SRGRequest
+@interface SRGFirstPageRequest : SRGPageRequest
 
 /**
  *  Return an equivalent request, but with the specified page size
@@ -38,11 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
  *              already known by the IL service, and it's the same as the page size in your first request.
  */
 - (SRGPageRequest *)requestWithPage:(nullable SRGPage *)page;
-
-/**
- *  The page associated with the request
- */
-@property (nonatomic, readonly) SRGPage *page;
 
 @end
 
