@@ -175,6 +175,41 @@
     [self waitForExpectationsWithTimeout:5. handler:nil];
 }
 
+- (void)testSupportedUnlimitedPageSize
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
+    
+    __block SRGFirstPageRequest *request = [[self.dataProvider tvShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(shows);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] requestWithPageSize:SRGPageUnlimitedSize];
+    
+    XCTAssertEqual(request.page.number, 0);
+    XCTAssertEqual(request.page.size, SRGPageUnlimitedSize);
+    
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+}
+
+- (void)testUnsupporteUnlimitedPageSize
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
+    
+    __block SRGFirstPageRequest *request = [[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation fulfill];
+    }] requestWithPageSize:SRGPageUnlimitedSize];
+    
+    XCTAssertEqual(request.page.number, 0);
+    XCTAssertEqual(request.page.size, SRGPageUnlimitedSize);
+    
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+}
+
 - (void)testRunningKVO
 {
     SRGRequest *request = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {

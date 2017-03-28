@@ -48,17 +48,17 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
     }
 }
 
-+ (SRGPage *)firstPageWithDefaultSize
-{
-    return [self firstPageWithSize:SRGPageDefaultSize maximumPageSize:SRGPageMaximumSize];
-}
-
 + (SRGPage *)firstPageWithSize:(NSInteger)size maximumPageSize:(NSInteger)maximumPageSize
 {
-    if (size > maximumPageSize) {
-        size = maximumPageSize;
-        SRGDataProviderLogWarning(@"page", @"The maximum page size for this request is %@. This maximum value will be used.", @(maximumPageSize));
+    if (size < 1) {
+        SRGDataProviderLogWarning(@"page", @"The minimum page size is 1. This minimum value will be used.");
+        size = 1;
     }
+    else if (size > maximumPageSize && size != SRGPageUnlimitedSize) {
+        SRGDataProviderLogWarning(@"page", @"The maximum page size for this request is %@. This maximum value will be used.", @(maximumPageSize));
+        size = maximumPageSize;
+    }
+    
     return [[[self class] alloc] initWithSize:size number:0 URL:nil];
 }
 
@@ -66,18 +66,12 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
 
 - (SRGPage *)initWithSize:(NSInteger)size number:(NSInteger)number URL:(NSURL *)URL
 {
+    NSAssert(size >= 1 && (size <= SRGPageMaximumSize || size == SRGPageUnlimitedSize), @"The page size must be valid");
+    
     if (self = [super init]) {
-        if (size < 1) {
-            self.size = 1;
-        }
-        else if (size > SRGPageMaximumSize && size != SRGPageUnlimitedSize) {
-            self.size = SRGPageMaximumSize;
-        }
-        else {
-            self.size = size;
-        }
         self.number = MAX(number, 0);
         self.URL = URL;
+        self.size = size;
     }
     return self;
 }
