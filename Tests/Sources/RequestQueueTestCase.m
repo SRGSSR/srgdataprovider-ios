@@ -79,6 +79,15 @@
     XCTAssertFalse(requestQueue.running);
 }
 
+- (void)testEmptyQueue
+{
+    SRGRequestQueue *requestQueue = [[SRGRequestQueue alloc] init];
+    [requestQueue resume];
+    
+    // Empty queues can never be running
+    XCTAssertFalse(requestQueue.running);
+}
+
 - (void)testDeallocation
 {
 #pragma clang diagnostic push

@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
  *    - request N completion block (if not cancelled)
  *    - queue state change block call, `finished` = `YES`
  *
+ *  Note that an empty queue (i.e. without any request attached to it) will never switch to the running state.
+ *
  *  ## Error reporting
  *
  *  As requests finish, you can report back the errors they encounter to the queue by calling `-reportError:`
