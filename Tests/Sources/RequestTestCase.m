@@ -120,6 +120,25 @@
     XCTAssertNil(request3);
 }
 
+- (void)testCancelOnProviderDeallocation
+{
+    [self expectationForElapsedTimeInterval:3. withHandler:nil];
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-unsafe-retained-assign"
+    __weak SRGDataProvider *dataProvider;
+    @autoreleasepool {
+        dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSWI];
+        SRGRequest *request = [dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+            XCTFail(@"Must not be called since the request must be cancelled if the associated provider was deallocated");
+        }];
+        [request resume];
+    }
+#pragma clang diagnostic pop
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+}
+
 - (void)testStatus
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
