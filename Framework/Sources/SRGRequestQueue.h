@@ -94,6 +94,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param request The request to add to the queue.
  *  @param resume  If set to `YES`, `-resume` is automatically called on the request when added to the queue.
+ *
+ *  @discussion Adding the same request to two different queues is not supported and leads to undefined behavior.
  */
 - (void)addRequest:(SRGRequest *)request resume:(BOOL)resume;
 
