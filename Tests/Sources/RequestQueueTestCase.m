@@ -4,28 +4,15 @@
 //  License information is available from the LICENSE file.
 //
 
-#import <SRGDataProvider/SRGDataProvider.h>
-#import <XCTest/XCTest.h>
+#import "DataProviderBaseTestCase.h"
 
-@interface RequestQueueTestCase : XCTestCase
+@interface RequestQueueTestCase : DataProviderBaseTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
 
 @end
 
 @implementation RequestQueueTestCase
-
-#pragma mark Helpers
-
-- (XCTestExpectation *)expectationForElapsedTimeInterval:(NSTimeInterval)timeInterval withHandler:(void (^)(void))handler
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:[NSString stringWithFormat:@"Wait for %@ seconds", @(timeInterval)]];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [expectation fulfill];
-        handler ? handler() : nil;
-    });
-    return expectation;
-}
 
 #pragma mark Setup and teardown
 

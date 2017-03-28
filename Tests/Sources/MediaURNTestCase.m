@@ -4,10 +4,9 @@
 //  License information is available from the LICENSE file.
 //
 
-#import <SRGDataProvider/SRGDataProvider.h>
-#import <XCTest/XCTest.h>
+#import "DataProviderBaseTestCase.h"
 
-@interface MediaURNTestCase : XCTestCase
+@interface MediaURNTestCase : DataProviderBaseTestCase
 
 @end
 

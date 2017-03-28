@@ -47,6 +47,7 @@
 		6FC5B8221E852B22003555F8 /* MAKVONotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; };
 		6FC5B8231E852B34003555F8 /* MAKVONotificationCenter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6FC5B8241E852B46003555F8 /* MAKVONotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; };
+		6FD1EAEE1E8A652E007940EE /* DataProviderBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1EAED1E8A652E007940EE /* DataProviderBaseTestCase.m */; };
 		6FD909921E8592710071748C /* SRGFirstPageRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FD909901E8592710071748C /* SRGFirstPageRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FD909931E8592710071748C /* SRGFirstPageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD909911E8592710071748C /* SRGFirstPageRequest.m */; };
 		6FD909981E88CB670071748C /* SRGFirstPageRequest+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FD909961E88CB670071748C /* SRGFirstPageRequest+Private.h */; };
@@ -182,6 +183,8 @@
 		6FC024B61E1D381E00550881 /* SRGSearchResultMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSearchResultMedia.h; sourceTree = "<group>"; };
 		6FC024B71E1D381E00550881 /* SRGSearchResultMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSearchResultMedia.m; sourceTree = "<group>"; };
 		6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAKVONotificationCenter.framework; path = Carthage/Build/iOS/MAKVONotificationCenter.framework; sourceTree = "<group>"; };
+		6FD1EAEC1E8A652E007940EE /* DataProviderBaseTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataProviderBaseTestCase.h; sourceTree = "<group>"; };
+		6FD1EAED1E8A652E007940EE /* DataProviderBaseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataProviderBaseTestCase.m; sourceTree = "<group>"; };
 		6FD909901E8592710071748C /* SRGFirstPageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGFirstPageRequest.h; sourceTree = "<group>"; };
 		6FD909911E8592710071748C /* SRGFirstPageRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGFirstPageRequest.m; sourceTree = "<group>"; };
 		6FD909961E88CB670071748C /* SRGFirstPageRequest+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGFirstPageRequest+Private.h"; sourceTree = "<group>"; };
@@ -302,6 +305,15 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		6FD1EAEB1E8A6517007940EE /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6FD1EAEC1E8A652E007940EE /* DataProviderBaseTestCase.h */,
+				6FD1EAED1E8A652E007940EE /* DataProviderBaseTestCase.m */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		E600FE5E1D942260000B8A1D /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,6 +326,7 @@
 		E600FE6E1D9423BC000B8A1D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				6FD1EAEB1E8A6517007940EE /* Helpers */,
 				6F6BDCE41E8262C4004BC726 /* BUs */,
 				6F8201DC1D9A3FAC001DA4DA /* DataProviderTestCase.m */,
 				08FA0D2E1E31279A000C94EF /* MediaURNTestCase.m */,
@@ -658,6 +671,7 @@
 				6F8201E31D9AA087001DA4DA /* RequestQueueTestCase.m in Sources */,
 				6F98DD6B1E8282EB008B0B22 /* SWIServicesTestCase.m in Sources */,
 				6F6BDCEA1E826A5C004BC726 /* RSIServicesTestCase.m in Sources */,
+				6FD1EAEE1E8A652E007940EE /* DataProviderBaseTestCase.m in Sources */,
 				08FA0D301E3127A1000C94EF /* MediaURNTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

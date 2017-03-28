@@ -4,8 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
-#import <SRGDataProvider/SRGDataProvider.h>
-#import <XCTest/XCTest.h>
+#import "DataProviderBaseTestCase.h"
 
 static NSString * const kAudioChannelUid = @"not_supported";
 static NSString * const kAudioLivestreamUid = @"not_supported";
@@ -24,7 +23,7 @@ static NSString * const kVideoOtherUid = @"43007158";
 
 static NSString * const kTopicUid = @"1";
 
-@interface SWIServicesTestCase : XCTestCase
+@interface SWIServicesTestCase : DataProviderBaseTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
 
