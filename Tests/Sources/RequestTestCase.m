@@ -332,6 +332,29 @@
     XCTAssertFalse(request.running);
 }
 
+- (void)testNestedRequests
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
+    
+    // Test nested requests (self-retained)
+    SRGRequest *request1 = [self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        
+        SRGMedia *firstMedia = medias.firstObject;
+        SRGRequest *request2 = [self.dataProvider tvMediaCompositionWithUid:firstMedia.uid completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+            XCTAssertNotNil(mediaComposition);
+            XCTAssertNil(error);
+            
+            [expectation fulfill];
+        }];
+        [request2 resume];
+    }];
+    [request1 resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testPageSizeOverrideTwice
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
