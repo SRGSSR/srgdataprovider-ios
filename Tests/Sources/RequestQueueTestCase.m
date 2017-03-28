@@ -458,4 +458,39 @@
     [self waitForExpectationsWithTimeout:5. handler:nil];
 }
 
+- (void)testReportedErrorsReset
+{
+    // Errors are only collected when the queue is running, and reset when returning to non-running state. If we perform
+    // a request queue leading to a single error twice, we thus expect only a single error each time the status change block is
+    // called. We do not expect errors to accumulate as a SRGDataProviderErrorMultiple error
+    SRGRequestQueue *requestQueue = [[SRGRequestQueue alloc] initWithStateChangeBlock:^(BOOL finished, NSError * _Nullable error) {
+        if (finished) {
+            XCTAssertNotNil(error);
+            XCTAssertNotEqual(error.code, SRGDataProviderErrorMultiple);
+        }
+    }];
+    SRGRequest *request = [self.dataProvider tvMediaCompositionWithUid:@"invalid_id" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        [requestQueue reportError:error];
+    }];
+    [requestQueue addRequest:request resume:YES];
+    
+    // Wait until the queue is not running anymore
+    [self keyValueObservingExpectationForObject:requestQueue keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+    }];
+    
+    [requestQueue resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+    
+    // Restart it
+    [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+    }];
+    
+    [requestQueue resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+}
+
 @end
