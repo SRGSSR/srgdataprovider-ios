@@ -37,8 +37,8 @@ For example, to get the list of TV livestreams, simply call:
 ```objective-c
 SRGRequest *request = [[SRGDataProvider currentDataProvider] tvLivestreamsWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
     if (error) {
-    	// Deal with the error
-    	return;
+        // Deal with the error
+        return;
     }
     
     // Proceed further, e.g. display the medias
@@ -149,14 +149,14 @@ Here is a simple illustration of the way page retrieval conceptually works:
 ```objective-c
 SRGFirstPageRequest *request = [[SRGDataProvider currentDataProvider] tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
    if (error) {
-	   // Deal with the error
-	   // ...
-	   return;
+       // Deal with the error
+       // ...
+       return;
    }
-	
+    
    // Append medias to some list
    // ...
-	
+    
    // Request the next page of content, if any
    if (nextPage) {
       SRGPageRequest *nextPageRequest = [request requestWithPage:nextPage];
@@ -321,7 +321,7 @@ If a request depends on the result of another request, you can similarly use a r
                 [requestQueue reportError:error];
                 return;
              }
-		
+        
              // Do something with the media composition
         }];
         [self.requestQueue addRequest:mediaCompositionRequest resume:YES];
@@ -381,10 +381,10 @@ When you need to load the next page of content (if any is available), simply gen
 ```objective-c
 - (void)loadNextPage
 {
-	if (self.nextPage) {
-		SRGPageRequest *request = [self.firstPageRequest requestWithPage:self.nextPage];
-		[self.requestQueue addRequest:request resume:YES];
-	}
+    if (self.nextPage) {
+        SRGPageRequest *request = [self.firstPageRequest requestWithPage:self.nextPage];
+        [self.requestQueue addRequest:request resume:YES];
+    }
 }
 ```
 
