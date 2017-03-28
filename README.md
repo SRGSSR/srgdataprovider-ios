@@ -8,8 +8,8 @@ The SRG Data Provider library for iOS provides a simple way to retrieve metadata
 
 The library provides:
 
-* Requests to get the usual metadata associated with SRG SSR productions
-* A flat object model to easily access the data relevant to front-end users
+* Requests to get the usual metadata associated with SRG SSR productions.
+* A flat object model to easily access the data relevant to front-end users.
 * A convenient way to perform requests, either in parallel or in cascade.
 
 ## Compatibility
@@ -72,9 +72,9 @@ The library internally uses the [SRG Logger](https://github.com/SRGSSR/srglogger
 
 The supported requests vary depending on the business unit. A [compatibility matrix](Documentation/Service-availability.md) is provided for reference.
 
-## Demo project
+## Examples
 
-To test what the library is capable of, try running the associated demo by opening the workspace and building the associated scheme.
+To see examples of use, have a look a the unit test suite bundled with the project.
 
 ## Migration from versions previous versions
 
