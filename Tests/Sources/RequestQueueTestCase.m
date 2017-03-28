@@ -15,6 +15,18 @@
 
 @implementation RequestQueueTestCase
 
+#pragma mark Helpers
+
+- (XCTestExpectation *)expectationForElapsedTimeInterval:(NSTimeInterval)timeInterval withHandler:(void (^)(void))handler
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:[NSString stringWithFormat:@"Wait for %@ seconds", @(timeInterval)]];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [expectation fulfill];
+        handler ? handler() : nil;
+    });
+    return expectation;
+}
+
 #pragma mark Setup and teardown
 
 - (void)setUp
@@ -78,6 +90,40 @@
     
     XCTAssertFalse(request.running);
     XCTAssertFalse(requestQueue.running);
+}
+
+- (void)testDeallocation
+{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-unsafe-retained-assign"
+    __weak SRGRequestQueue *requestQueue;
+    @autoreleasepool {
+        requestQueue = [[SRGRequestQueue alloc] init];
+    }
+    XCTAssertNil(requestQueue);
+#pragma clang diagnostic pop
+}
+
+- (void)testDeallocationWithRequests
+{
+    [self expectationForElapsedTimeInterval:3. withHandler:nil];
+ 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-unsafe-retained-assign"
+    __weak SRGRequestQueue *requestQueue;
+    @autoreleasepool {
+        requestQueue = [[SRGRequestQueue alloc] initWithStateChangeBlock:^(BOOL finished, NSError * _Nullable error) {
+            if (finished) {
+                XCTFail(@"No finished state change expected since the queue is deallocated early");
+            }
+        }];
+        SRGRequest *request = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+            XCTFail(@"The request must be cancelled when the parent queue is deallocated");
+        }];
+        [requestQueue addRequest:request resume:YES];
+    }
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+#pragma clang diagnostic pop
 }
 
 - (void)testParallelRequests
