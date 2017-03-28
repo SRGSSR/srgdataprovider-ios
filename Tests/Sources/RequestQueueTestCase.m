@@ -395,6 +395,7 @@
     
     // Add a request to the queue and run it. Wait until the queue does not run anymore
     [self keyValueObservingExpectationForObject:requestQueue keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        XCTAssertTrue([NSThread isMainThread]);
         return [change[NSKeyValueChangeNewKey] isEqual:@NO];
     }];
     
@@ -408,6 +409,7 @@
     
     // Add a second request. The queue must run again
     [self keyValueObservingExpectationForObject:requestQueue keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        XCTAssertTrue([NSThread isMainThread]);
         return [change[NSKeyValueChangeNewKey] isEqual:@NO];
     }];
     
@@ -416,6 +418,33 @@
     }];
     [requestQueue addRequest:request2 resume:YES];
     XCTAssertTrue(requestQueue.running);
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+}
+
+- (void)testReuse
+{
+    SRGRequestQueue *requestQueue = [[SRGRequestQueue alloc] init];
+    SRGRequest *request = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // Not interested in individual request status
+    }];
+    [requestQueue addRequest:request resume:NO];
+    
+    // Wait until the queue is not running anymore
+    [self keyValueObservingExpectationForObject:requestQueue keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+    }];
+    
+    [requestQueue resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+    
+    // Restart it
+    [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+    }];
+    
+    [requestQueue resume];
     
     [self waitForExpectationsWithTimeout:5. handler:nil];
 }
