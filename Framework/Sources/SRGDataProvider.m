@@ -405,7 +405,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
         if (medias.count == 0) {
             NSError *error = [NSError errorWithDomain:SRGDataProviderErrorDomain
                                                  code:SRGDataProviderErrorNotFound
-                                             userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The audio was not found", nil)}];
+                                             userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The audio was not found", @"The error message when the audio request return nothing.")}];
             completionBlock ? completionBlock(nil, error) : nil;
             return;
         }
@@ -543,7 +543,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
         if (!token) {
             completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
                                                      code:SRGDataProviderErrorCodeInvalidData
-                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The stream could not be secured.", nil) }]);
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The stream could not be secured.", @"The error message when the secure token cannot be retrieved to play the media stream.") }]);
             return;
         }
         

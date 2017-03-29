@@ -131,7 +131,7 @@ static NSInteger s_numberOfRunningRequests = 0;
             // Block redirects and return an error with URL information. Currently no redirection is expected for IL services, this
             // means redirection is probably related to a public hotspot with login page (e.g. SBB)
             else if (HTTPStatusCode >= 300) {
-                NSMutableDictionary *userInfo = [@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"You are likely connected to a public wifi network with no Internet access", nil),
+                NSMutableDictionary *userInfo = [@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"You are likely connected to a public wifi network with no Internet access", @"The error message when request a media or a media list on a public network with no Internet access (e.g. SBB)"),
                                                     NSURLErrorKey : response.URL } mutableCopy];
                 
                 NSString *redirectionURLString = HTTPURLResponse.allHeaderFields[@"Location"];
@@ -153,7 +153,7 @@ static NSInteger s_numberOfRunningRequests = 0;
         if (!JSONDictionary || ![JSONDictionary isKindOfClass:[NSDictionary class]]) {
             NSError *dataFormatError = [NSError errorWithDomain:SRGDataProviderErrorDomain
                                                            code:SRGDataProviderErrorCodeInvalidData
-                                                       userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }];
+                                                       userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", @"The error message when the response from IL server is incorrect.") }];
             SRGDataProviderLogDebug(@"Request", @"Ended %@ with a data format error: %@", self.request.URL, dataFormatError);
             requestCompletionBlock(YES, nil, dataFormatError);
             return;

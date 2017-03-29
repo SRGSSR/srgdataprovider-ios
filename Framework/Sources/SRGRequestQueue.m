@@ -121,7 +121,7 @@ static NSMapTable<SRGRequestQueue *, NSHashTable<SRGRequest *> *> *s_relationshi
     else {
         return [NSError errorWithDomain:SRGDataProviderErrorDomain
                                    code:SRGDataProviderErrorMultiple
-                               userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"Several errors have been encountered", nil),
+                               userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"Several errors have been encountered", @"The main error message if multiple errors have been encountered. Finally, the developer could should which one to display, and not show this message."),
                                            SRGDataProviderErrorsKey : self.errors }];
     }
 }
