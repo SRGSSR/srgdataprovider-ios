@@ -1,11 +1,12 @@
 //
-//  Copyright (c) SRG. All rights reserved.
+//  Copyright (c) SRG SSR. All rights reserved.
 //
 //  License information is available from the LICENSE file.
 //
 
 #import "SRGFirstPageRequest.h"
 
+#import "SRGDataProviderLogger.h"
 #import "SRGFirstPageRequest+Private.h"
 #import "SRGPage+Private.h"
 #import "SRGPageRequest+Private.h"
@@ -35,7 +36,7 @@
 
 - (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session pageCompletionBlock:(SRGPageCompletionBlock)pageCompletionBlock
 {
-    SRGPage *page = [SRGPage firstPageWithDefaultSize];
+    SRGPage *page = [SRGPage firstPageWithSize:SRGPageDefaultSize maximumPageSize:SRGPageMaximumSize];
     
     SRGRequestCompletionBlock requestCompletionBlock = ^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
         SRGPage *nextPage = [SRGFirstPageRequest nextPageAfterPage:page fromJSONDictionary:JSONDictionary];
@@ -43,7 +44,7 @@
     };
     
     if (self = [super initWithRequest:request session:session completionBlock:requestCompletionBlock]) {
-        self.page = page ?: [SRGPage firstPageWithDefaultSize];
+        self.page = page;
         self.pageCompletionBlock = pageCompletionBlock;
         self.maximumPageSize = SRGPageMaximumSize;
     }
@@ -55,7 +56,12 @@
 - (void)setMaximumPageSize:(NSInteger)maximumPageSize
 {
     if (maximumPageSize < 1) {
+        SRGDataProviderLogWarning(@"request", @"The minimum page size is 1. This minimum value will be used.");
         maximumPageSize = 1;
+    }
+    else if (maximumPageSize > SRGPageMaximumSize) {
+        SRGDataProviderLogWarning(@"request", @"The maximum page size is %@. This maximum value will be used.", @(SRGPageMaximumSize));
+        maximumPageSize = SRGPageMaximumSize;
     }
     
     _maximumPageSize = maximumPageSize;

@@ -1,11 +1,10 @@
 //
-//  Copyright (c) SRG. All rights reserved.
+//  Copyright (c) SRG SSR. All rights reserved.
 //
 //  License information is available from the LICENSE file.
 //
 
-#import <SRGDataProvider/SRGDataProvider.h>
-#import <XCTest/XCTest.h>
+#import "DataProviderBaseTestCase.h"
 
 static NSString * const kAudioChannelUid = @"69e8ac16-4327-4af4-b873-fd5cd6e895a7";
 static NSString * const kAudioLivestreamUid = @"56d2f86a-ae7b-463b-a5ad-93fcf9fffb58";
@@ -24,7 +23,7 @@ static NSString * const kVideoOtherUid = @"99cf6ce3-c588-4241-9487-a2c607ccce51"
 
 static NSString * const kTopicUid = @"a709c610-b275-4c0c-a496-cba304c36712";
 
-@interface SRFServicesTestCase : XCTestCase
+@interface SRFServicesTestCase : DataProviderBaseTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
 

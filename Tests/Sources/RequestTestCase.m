@@ -1,31 +1,18 @@
 //
-//  Copyright (c) SRG. All rights reserved.
+//  Copyright (c) SRG SSR. All rights reserved.
 //
 //  License information is available from the LICENSE file.
 //
 
-#import <SRGDataProvider/SRGDataProvider.h>
-#import <XCTest/XCTest.h>
+#import "DataProviderBaseTestCase.h"
 
-@interface RequestTestCase : XCTestCase
+@interface RequestTestCase : DataProviderBaseTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
 
 @end
 
 @implementation RequestTestCase
-
-#pragma mark Helpers
-
-- (XCTestExpectation *)expectationForElapsedTimeInterval:(NSTimeInterval)timeInterval withHandler:(void (^)(void))handler
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:[NSString stringWithFormat:@"Wait for %@ seconds", @(timeInterval)]];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [expectation fulfill];
-        handler ? handler() : nil;
-    });
-    return expectation;
-}
 
 #pragma mark Setup and teardown
 
@@ -133,6 +120,25 @@
     XCTAssertNil(request3);
 }
 
+- (void)testCancelOnProviderDeallocation
+{
+    [self expectationForElapsedTimeInterval:3. withHandler:nil];
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-unsafe-retained-assign"
+    __weak SRGDataProvider *dataProvider;
+    @autoreleasepool {
+        dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSWI];
+        SRGRequest *request = [dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+            XCTFail(@"Must not be called since the request must be cancelled if the associated provider was deallocated");
+        }];
+        [request resume];
+    }
+#pragma clang diagnostic pop
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+}
+
 - (void)testStatus
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
@@ -169,6 +175,41 @@
     
     XCTAssertEqual(request.page.number, 0);
     XCTAssertEqual(request.page.size, 5);
+    
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+}
+
+- (void)testSupportedUnlimitedPageSize
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
+    
+    __block SRGFirstPageRequest *request = [[self.dataProvider tvShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(shows);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] requestWithPageSize:SRGPageUnlimitedSize];
+    
+    XCTAssertEqual(request.page.number, 0);
+    XCTAssertEqual(request.page.size, SRGPageUnlimitedSize);
+    
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+}
+
+- (void)testUnsupporteUnlimitedPageSize
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
+    
+    __block SRGFirstPageRequest *request = [[self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation fulfill];
+    }] requestWithPageSize:SRGPageUnlimitedSize];
+    
+    XCTAssertEqual(request.page.number, 0);
+    XCTAssertEqual(request.page.size, SRGPageUnlimitedSize);
     
     [request resume];
     
@@ -295,6 +336,29 @@
     [self waitForExpectationsWithTimeout:5. handler:nil];
     
     XCTAssertFalse(request.running);
+}
+
+- (void)testNestedRequests
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
+    
+    // Test nested requests (self-retained)
+    SRGRequest *request1 = [self.dataProvider tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        
+        SRGMedia *firstMedia = medias.firstObject;
+        SRGRequest *request2 = [self.dataProvider tvMediaCompositionWithUid:firstMedia.uid completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+            XCTAssertNotNil(mediaComposition);
+            XCTAssertNil(error);
+            
+            [expectation fulfill];
+        }];
+        [request2 resume];
+    }];
+    [request1 resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
 - (void)testPageSizeOverrideTwice

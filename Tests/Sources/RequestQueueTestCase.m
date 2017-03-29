@@ -1,13 +1,12 @@
 //
-//  Copyright (c) SRG. All rights reserved.
+//  Copyright (c) SRG SSR. All rights reserved.
 //
 //  License information is available from the LICENSE file.
 //
 
-#import <SRGDataProvider/SRGDataProvider.h>
-#import <XCTest/XCTest.h>
+#import "DataProviderBaseTestCase.h"
 
-@interface RequestQueueTestCase : XCTestCase
+@interface RequestQueueTestCase : DataProviderBaseTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
 
@@ -78,6 +77,49 @@
     
     XCTAssertFalse(request.running);
     XCTAssertFalse(requestQueue.running);
+}
+
+- (void)testEmptyQueue
+{
+    SRGRequestQueue *requestQueue = [[SRGRequestQueue alloc] init];
+    [requestQueue resume];
+    
+    // Empty queues can never be running
+    XCTAssertFalse(requestQueue.running);
+}
+
+- (void)testDeallocation
+{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-unsafe-retained-assign"
+    __weak SRGRequestQueue *requestQueue;
+    @autoreleasepool {
+        requestQueue = [[SRGRequestQueue alloc] init];
+    }
+    XCTAssertNil(requestQueue);
+#pragma clang diagnostic pop
+}
+
+- (void)testDeallocationWithRequests
+{
+    [self expectationForElapsedTimeInterval:3. withHandler:nil];
+ 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-unsafe-retained-assign"
+    __weak SRGRequestQueue *requestQueue;
+    @autoreleasepool {
+        requestQueue = [[SRGRequestQueue alloc] initWithStateChangeBlock:^(BOOL finished, NSError * _Nullable error) {
+            if (finished) {
+                XCTFail(@"No finished state change expected since the queue is deallocated early");
+            }
+        }];
+        SRGRequest *request = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+            XCTFail(@"The request must be cancelled when the parent queue is deallocated");
+        }];
+        [requestQueue addRequest:request resume:YES];
+    }
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+#pragma clang diagnostic pop
 }
 
 - (void)testParallelRequests
@@ -362,6 +404,7 @@
     
     // Add a request to the queue and run it. Wait until the queue does not run anymore
     [self keyValueObservingExpectationForObject:requestQueue keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        XCTAssertTrue([NSThread isMainThread]);
         return [change[NSKeyValueChangeNewKey] isEqual:@NO];
     }];
     
@@ -375,6 +418,7 @@
     
     // Add a second request. The queue must run again
     [self keyValueObservingExpectationForObject:requestQueue keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        XCTAssertTrue([NSThread isMainThread]);
         return [change[NSKeyValueChangeNewKey] isEqual:@NO];
     }];
     
@@ -383,6 +427,68 @@
     }];
     [requestQueue addRequest:request2 resume:YES];
     XCTAssertTrue(requestQueue.running);
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+}
+
+- (void)testReuse
+{
+    SRGRequestQueue *requestQueue = [[SRGRequestQueue alloc] init];
+    SRGRequest *request = [self.dataProvider tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        // Not interested in individual request status
+    }];
+    [requestQueue addRequest:request resume:NO];
+    
+    // Wait until the queue is not running anymore
+    [self keyValueObservingExpectationForObject:requestQueue keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+    }];
+    
+    [requestQueue resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+    
+    // Restart it
+    [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+    }];
+    
+    [requestQueue resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+}
+
+- (void)testReportedErrorsReset
+{
+    // Errors are only collected when the queue is running, and reset when returning to non-running state. If we perform
+    // a request queue leading to a single error twice, we thus expect only a single error each time the status change block is
+    // called. We do not expect errors to accumulate as a SRGDataProviderErrorMultiple error
+    SRGRequestQueue *requestQueue = [[SRGRequestQueue alloc] initWithStateChangeBlock:^(BOOL finished, NSError * _Nullable error) {
+        if (finished) {
+            XCTAssertNotNil(error);
+            XCTAssertNotEqual(error.code, SRGDataProviderErrorMultiple);
+        }
+    }];
+    SRGRequest *request = [self.dataProvider tvMediaCompositionWithUid:@"invalid_id" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        [requestQueue reportError:error];
+    }];
+    [requestQueue addRequest:request resume:YES];
+    
+    // Wait until the queue is not running anymore
+    [self keyValueObservingExpectationForObject:requestQueue keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+    }];
+    
+    [requestQueue resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+    
+    // Restart it
+    [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
+        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+    }];
+    
+    [requestQueue resume];
     
     [self waitForExpectationsWithTimeout:5. handler:nil];
 }

@@ -1,13 +1,12 @@
 //
-//  Copyright (c) SRG. All rights reserved.
+//  Copyright (c) SRG SSR. All rights reserved.
 //
 //  License information is available from the LICENSE file.
 //
 
-#import <SRGDataProvider/SRGDataProvider.h>
-#import <XCTest/XCTest.h>
+#import "DataProviderBaseTestCase.h"
 
-@interface DataProviderTestCase : XCTestCase
+@interface DataProviderTestCase : DataProviderBaseTestCase
 
 @end
 
