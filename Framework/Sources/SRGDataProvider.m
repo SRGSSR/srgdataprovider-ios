@@ -397,29 +397,6 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 - (SRGRequest *)radioMediaWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
 {
     return [self radioMediasWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
-=======
-    return [self videosWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
-        if (error) {
-            completionBlock ? completionBlock(nil, error) : nil;
-            return;
-        }
-        
-        if (medias.count == 0) {
-            NSError *error = [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                 code:SRGDataProviderErrorNotFound
-                                             userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The video was not found", @"The error message when the video request return nothing.")}];
-            completionBlock ? completionBlock(nil, error) : nil;
-            return;
-        }
-        
-        completionBlock ? completionBlock(medias.firstObject, nil) : nil;
-    }];
-}
-
-- (SRGRequest *)audioWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
-{
-    return [self audiosWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
->>>>>>> Add translation descriptions and translations submitted to our service.
         if (error) {
             completionBlock ? completionBlock(nil, error) : nil;
             return;
