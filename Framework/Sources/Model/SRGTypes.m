@@ -13,14 +13,14 @@ NSString *SRGMessageForBlockingReason(SRGBlockingReason blockingReason)
     static dispatch_once_t onceToken;
     static NSDictionary *messages;
     dispatch_once(&onceToken, ^{
-        messages = @{ @(SRGBlockingReasonGeoblocking) : SRGDataProviderLocalizedString(@"For legal reasons, this content is not available in your region.", @"A blocking reason message for an end-user."),
-                      @(SRGBlockingReasonLegal) : SRGDataProviderLocalizedString(@"This content is not available due to legal restrictions.", @"A blocking reason message for an end-user."),
-                      @(SRGBlockingReasonCommercial) : SRGDataProviderLocalizedString(@"Commercial is being skipped. Please wait – playback will resume shortly.", @"A blocking reason message for an end-user."),
-                      @(SRGBlockingReasonAgeRating18) : SRGDataProviderLocalizedString(@"To protect children under the age of 18, this content is only available between 11 p.m. and 5 a.m.", @"A blocking reason message for an end-user."),
-                      @(SRGBlockingReasonAgeRating12) : SRGDataProviderLocalizedString(@"To protect children under the age of 12, this content is only available between 8 p.m. and 6 a.m.", @"A blocking reason message for an end-user."),
-                      @(SRGBlockingReasonStartDate) : SRGDataProviderLocalizedString(@"This content is not yet available. Please try again later.", @"A blocking reason message for an end-user."),
-                      @(SRGBlockingReasonEndDate) : SRGDataProviderLocalizedString(@"For legal reasons, this content was only available for a limited period of time.", @"A blocking reason message for an end-user."),
-                      @(SRGBlockingReasonUnknown) : SRGDataProviderLocalizedString(@"This content is not available.", @"A blocking reason message for an end-user.") };
+        messages = @{ @(SRGBlockingReasonGeoblocking) : SRGDataProviderLocalizedString(@"This media is not available outside Switzerland.", @"A blocking reason message displayed to the user if the media can't be played."),
+                      @(SRGBlockingReasonLegal) : SRGDataProviderLocalizedString(@"This media is not available due to legal restrictions.", @"A blocking reason message displayed to the user if the media can't be played."),
+                      @(SRGBlockingReasonCommercial) : SRGDataProviderLocalizedString(@"This commercial media is not available.", @"A blocking reason message displayed to the user if the media can't be played."),
+                      @(SRGBlockingReasonAgeRating18) : SRGDataProviderLocalizedString(@"To protect children, this media is only available between 11PM and 5AM.", @"A blocking reason message displayed to the user if the media can't be played."),
+                      @(SRGBlockingReasonAgeRating12) : SRGDataProviderLocalizedString(@"To protect children, this media is only available between 8PM and 6AM.", @"A blocking reason message displayed to the user if the media can't be played."),
+                      @(SRGBlockingReasonStartDate) : SRGDataProviderLocalizedString(@"This media is not available yet. Please try again later.", @"A blocking reason message displayed to the user if the media can't be played."),
+                      @(SRGBlockingReasonEndDate) : SRGDataProviderLocalizedString(@"This media is not available anymore.", @"A blocking reason message displayed to the user if the media can't be played."),
+                      @(SRGBlockingReasonUnknown) : SRGDataProviderLocalizedString(@"This media is not available.", @"A blocking reason message displayed to the user if the media can't be played.") };
     });
     return messages[@(blockingReason)];
 }
