@@ -25,6 +25,18 @@
     XCTAssertEqualObjects(mediaURN.URNString, URNString);
 }
 
+- (void)testCaseInsensitive
+{
+    SRGMediaURN *mediaURN1 = [[SRGMediaURN alloc] initWithURNString:@"URN:swi:video:41981254"];
+    XCTAssertNotNil(mediaURN1);
+    
+    SRGMediaURN *mediaURN2 = [[SRGMediaURN alloc] initWithURNString:@"urn:SWI:video:41981254"];
+    XCTAssertNotNil(mediaURN2);
+    
+    SRGMediaURN *mediaURN3 = [[SRGMediaURN alloc] initWithURNString:@"urn:swi:VIDEO:41981254"];
+    XCTAssertNotNil(mediaURN3);
+}
+
 - (void)testIncorrectURNs
 {
     SRGMediaURN *mediaURN1 = [[SRGMediaURN alloc] initWithURNString:@"fakeURN:swi:video:41981254"];

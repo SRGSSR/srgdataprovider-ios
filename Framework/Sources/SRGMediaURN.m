@@ -30,7 +30,7 @@
 
 - (instancetype)initWithURNString:(NSString *)URNString
 {
-    NSMutableArray<NSString *> *components = [[URNString componentsSeparatedByString:@":"] mutableCopy];
+    NSMutableArray<NSString *> *components = [[URNString.lowercaseString componentsSeparatedByString:@":"] mutableCopy];
     if (components.count != 4) {
         return nil;
     }
