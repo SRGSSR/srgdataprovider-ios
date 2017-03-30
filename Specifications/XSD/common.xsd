@@ -93,7 +93,7 @@
             </xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:pattern value="|urn:(srf|rtr|rts|rsi|swi|tvo|ca)(:livestream)?:(video|audio|show):&buSpecificIdPattern;"/>
+            <xs:pattern value="|urn:(srf|rtr|rts|rsi|swi|tvo|ca|swisstxt)(:livestream)?:(video|audio|show)(:(srf|rtr|rts|rsi))?:&buSpecificIdPattern;"/>
         </xs:restriction>
     </xs:simpleType>
 
