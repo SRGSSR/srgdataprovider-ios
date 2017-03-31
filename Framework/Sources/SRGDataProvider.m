@@ -106,7 +106,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     [self.session invalidateAndCancel];
 }
 
-#pragma mark Public video services
+#pragma mark Public TV services
 
 - (SRGRequest *)tvChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock
 {
@@ -272,7 +272,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResultShow class] rootKey:@"searchResultListShow" completionBlock:completionBlock];
 }
 
-#pragma mark Public audio services
+#pragma mark Public radio services
 
 - (SRGRequest *)radioChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock
 {
@@ -318,7 +318,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/latestByChannel/%@.json", self.businessUnitIdentifier, channelUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"mediaList" completionBlock:completionBlock];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:completionBlock];
 }
 
 - (SRGFirstPageRequest *)radioMostPopularMediasForChannelWithUid:(NSString *)channelUid completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
@@ -391,6 +391,8 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResultShow class] rootKey:@"searchResultListShow" completionBlock:completionBlock];
 }
 
+#pragma mark Public video services
+
 - (SRGRequest *)videoWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
 {
     return [self videosWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
@@ -438,6 +440,8 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResultMedia class] rootKey:@"searchResultListMedia" completionBlock:completionBlock];
 }
 
+#pragma mark Public audio services
+
 - (SRGRequest *)audioWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
 {
     return [self audiosWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
@@ -484,6 +488,8 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResultMedia class] rootKey:@"searchResultListMedia" completionBlock:completionBlock];
 }
+
+#pragma mark Public module services
 
 - (SRGRequest *)modulesWithType:(SRGModuleType)moduleType completionBlock:(SRGModuleListCompletionBlock)completionBlock
 {
