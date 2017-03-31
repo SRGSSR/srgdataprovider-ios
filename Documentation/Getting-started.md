@@ -316,7 +316,7 @@ If a request depends on the result of another request, you can similarly use a r
         }
         
         SRGMedia *firstMedia = medias.firstObject;
-        SRGRequest *mediaCompositionRequest = [[SRGDataProvider currentDataProvider] tvMediaCompositionWithUid:firstMedia.uid completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        SRGRequest *mediaCompositionRequest = [[SRGDataProvider currentDataProvider] videoCompositionWithUid:firstMedia.uid completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
              if (error) {
                 [requestQueue reportError:error];
                 return;

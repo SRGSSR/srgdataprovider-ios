@@ -24,8 +24,6 @@ If not specified, the maximum page size is 100. The default page size is 10.
 | Trending medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 50 | ❌ |
 | Latest episodes | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ❌ |
 | Episodes by date | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ❌ |
-| Single media | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A | N/A |
-| List of medias | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A | N/A |
 
 ### Topics
 
@@ -42,27 +40,11 @@ If not specified, the maximum page size is 100. The default page size is 10.
 | Shows | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ✅ |
 | Single show | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A | N/A |
 | Latest episodes for a show | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ❌ |
+| Show search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ❌ |
 
 #### Remark
 
-For SWI, shows represent content categories (Business, Culture, etc.).
-
-### Media composition
-
-| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Maximum page size | Unlimited page size |
-|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Media composition | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A | N/A |
-
-### Search
-
-| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Maximum page size | Unlimited page size |
-|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Media search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ❌ |
-| Show Search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ❌ |
-
-#### Remark
-
-SWI currently only returns results for full-word matches.
+For SWI, shows represent content categories (Business, Culture, etc.), and search returns only exact word matches.
 
 ## Radio services
 
@@ -86,8 +68,6 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Most popular medias | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ❌ |
 | Latest episodes | ✅ | ✅ | ❌ | ✅ | ❌ | ✅ | 100 | ❌ |
 | Episodes by date | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ❌ |
-| Single media | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A | N/A |
-| List of medias | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A | N/A |
 
 ### Shows
 
@@ -96,19 +76,25 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Shows | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ✅ |
 | Single show | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A | N/A |
 | Latest episodes for a show | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ❌ |
+| Show search | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ❌ |
 
-### Media composition
-
-| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Maximum page size | Unlimited page size |
-|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Media composition | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |N/A | N/A |
-
-### Search
+## Video services
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Maximum page size | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Media search | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ❌ |
-| Show Search | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ❌ |
+| Single video | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A | N/A |
+| List of videos | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A | N/A |
+| Video media composition | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A | N/A |
+| Video search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ❌ |
+
+## Audio services
+
+| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Maximum page size | Unlimited page size |
+|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Single audio | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A | N/A |
+| List of audios | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A | N/A |
+| Audio media composition | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |N/A | N/A |
+| Audio search | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ❌ |
 
 ## Module services
 
@@ -124,7 +110,6 @@ Modules are collection of medias related to a specific context (e.g. an event).
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Maximum page size | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | URL tokenization | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A | N/A |
-
 
 ### Remark
 

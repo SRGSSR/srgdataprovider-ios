@@ -207,7 +207,7 @@
         SRGMedia *firstMedia = medias.firstObject;
         XCTAssertNotNil(firstMedia);
         
-        SRGRequest *mediaCompositionRequest = [self.dataProvider tvMediaCompositionWithUid:firstMedia.uid completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        SRGRequest *mediaCompositionRequest = [self.dataProvider videoMediaCompositionWithUid:firstMedia.uid completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
             [requestQueue reportError:error];
             
             [requestsFinishedExpectation fulfill];
@@ -248,7 +248,7 @@
         }
     }];
     
-    SRGRequest *request = [self.dataProvider tvMediaCompositionWithUid:@"invalid_id" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGRequest *request = [self.dataProvider videoMediaCompositionWithUid:@"invalid_id" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         [requestQueue reportError:error];
         [requestCompletionExpectation fulfill];
     }];
@@ -283,7 +283,7 @@
         }
     }];
     
-    SRGRequest *request1 = [self.dataProvider tvMediaCompositionWithUid:@"invalid_id1" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGRequest *request1 = [self.dataProvider videoMediaCompositionWithUid:@"invalid_id1" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         [requestQueue reportError:error];
         [request1CompletionExpectation fulfill];
     }];
@@ -292,7 +292,7 @@
     // The queue is immediately running
     XCTAssertTrue(requestQueue.running);
     
-    SRGRequest *request2 = [self.dataProvider tvMediaCompositionWithUid:@"invalid_id2" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGRequest *request2 = [self.dataProvider videoMediaCompositionWithUid:@"invalid_id2" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         [requestQueue reportError:error];
         [request2CompletionExpectation fulfill];
     }];
@@ -469,7 +469,7 @@
             XCTAssertNotEqual(error.code, SRGDataProviderErrorMultiple);
         }
     }];
-    SRGRequest *request = [self.dataProvider tvMediaCompositionWithUid:@"invalid_id" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGRequest *request = [self.dataProvider videoMediaCompositionWithUid:@"invalid_id" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         [requestQueue reportError:error];
     }];
     [requestQueue addRequest:request resume:YES];

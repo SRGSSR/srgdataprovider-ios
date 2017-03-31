@@ -126,11 +126,14 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *
  *  To request data, use the methods from the various 'Services' category. These methods return an request objects which
  *  let you manage the request process itself (starting or cancelling data retrieval), and are basically separated in 
- *  three major groups:
- *    - TV-related services, whose methods start with `tv`.
+ *  several major groups:
+ *    - TV-related services, whose methods start with `tv`. These requests return TV-specific content.
  *    - Radio related services (which commonly require a channel identifier to be specified), whose methods start with
- *      `radio`.
- *    - Other services.
+ *      `radio`. These requests return radio-specific content.
+ *    - Video services, whose methods start with `video`. These requests retrieve videos only. Note that radios sometimes
+ *      also provide content as videos.
+ *    - Audio services, whose methods start with `audio`. These requests retrieve audios only.
+ *    - Other services (modules and playback token retrieval).
  *
  *  Data provider methods return two kinds of request objects:
  *    - `SRGRequest` instances for standard requests without pagination support.
@@ -283,21 +286,6 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
                        withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
- *  Retrieve the media having the specified uid.
- *
- *  @discussion If you need to retrieve several videos, use `-tvMediasWithUids:completionBlock:` instead.
- */
-- (SRGRequest *)tvMediaWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock;
-
-/**
- *  Retrieve medias matching a uid list.
- *
- *  @discussion The list must contain at least a uid, otherwise the results is undefined.
- */
-- (SRGRequest *)tvMediasWithUids:(NSArray<NSString *> *)mediaUids
-                 completionBlock:(SRGMediaListCompletionBlock)completionBlock;
-
-/**
  *  @name Topics
  */
 
@@ -347,29 +335,6 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 - (SRGFirstPageRequest *)tvLatestEpisodesForShowWithUid:(NSString *)showUid
                                             oldestMonth:(nullable NSDate *)oldestMonth
                                         completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
-
-/**
- *  @name Media composition
- */
-
-/**
- *  Full media information needed to play a media.
- */
-- (SRGRequest *)tvMediaCompositionWithUid:(NSString *)mediaUid
-                          completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
-
-/**
- *  @name Search
- */
-
-/**
- *  Search medias matching a specific query.
- *
- *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
- *              `-tvMediasWithUids:completionBlock:` request with the returned search results uid list.
- */
-- (SRGFirstPageRequest *)tvMediasMatchingQuery:(NSString *)query
-                           withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
 
 /**
  *  Search shows matching a specific query.
@@ -447,21 +412,6 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
                               completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
- *  Retrieve the media having the specified uid.
- *
- *  @discussion If you need to retrieve several videos, use `-radioMediasWithUids:completionBlock:` instead.
- */
-- (SRGRequest *)radioMediaWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock;
-
-/**
- *  Retrieve medias matching a uid list.
- *
- *  @discussion The list must contain at least a uid, otherwise the results is undefined.
- */
-- (SRGRequest *)radioMediasWithUids:(NSArray<NSString *> *)mediaUids
-                    completionBlock:(SRGMediaListCompletionBlock)completionBlock;
-
-/**
  *  @name Shows
  */
 
@@ -489,35 +439,86 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
                                            completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
 /**
- *  @name Media composition
- */
-
-/**
- *  Full media information needed to play a media.
- */
-- (SRGRequest *)radioMediaCompositionWithUid:(NSString *)mediaUid
-                             completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
-
-/**
- *  @name Search
- */
-
-/**
- *  Search medias matching a specific query.
- *
- *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
- *              `-radioMediasWithUids:completionBlock:` request with the returned search results uid list.
- */
-- (SRGFirstPageRequest *)radioMediasMatchingQuery:(NSString *)query
-                              withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
-
-/**
  *  Search shows matching a specific query
  *
  *  @discussion Some business units only support full-text search, not partial matching.
  */
 - (SRGFirstPageRequest *)radioShowsMatchingQuery:(NSString *)query
                              withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
+
+@end
+
+/**
+ *  List of video-oriented services supported by the data provider.
+ */
+@interface SRGDataProvider (VideoServices)
+
+/**
+ *  Retrieve the video having the specified uid.
+ *
+ *  @discussion If you need to retrieve several videos, use `-videosWithUids:completionBlock:` instead.
+ */
+- (SRGRequest *)videoWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve videos matching a uid list.
+ *
+ *  @discussion The list must contain at least a uid, otherwise the results is undefined.
+ */
+- (SRGRequest *)videosWithUids:(NSArray<NSString *> *)mediaUids
+               completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  Full media information needed to play a video.
+ */
+- (SRGRequest *)videoMediaCompositionWithUid:(NSString *)mediaUid
+                             completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
+
+/**
+ *  Search videos matching a specific query.
+ *
+ *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
+ *              `-videosWithUids:completionBlock:` request with the returned search results uid list.
+ */
+- (SRGFirstPageRequest *)videosMatchingQuery:(NSString *)query
+                         withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
+
+@end
+
+/**
+ *  List of audio-oriented services supported by the data provider.
+ */
+@interface SRGDataProvider (AudioServices)
+
+/**
+ *  Retrieve the audio having the specified uid.
+ *
+ *  @discussion If you need to retrieve several audios, use `-audiosWithUids:completionBlock:` instead.
+ */
+- (SRGRequest *)audioWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve audios matching a uid list.
+ *
+ *  @discussion The list must contain at least a uid, otherwise the results is undefined.
+ */
+- (SRGRequest *)audiosWithUids:(NSArray<NSString *> *)mediaUids
+               completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  Full media information needed to play an audio.
+ */
+- (SRGRequest *)audioMediaCompositionWithUid:(NSString *)mediaUid
+                             completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
+
+/**
+ *  Search audios matching a specific query.
+ *
+ *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
+ *              `-audiosWithUids:completionBlock:` request with the returned search results uid list.
+ */
+- (SRGFirstPageRequest *)audiosMatchingQuery:(NSString *)query
+                         withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
 
 @end
 
