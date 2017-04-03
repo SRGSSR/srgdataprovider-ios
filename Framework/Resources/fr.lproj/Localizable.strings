@@ -1,32 +1,65 @@
-﻿/* No comment provided by engineer. */
-"To protect children under the age of 12, this content is only available between 8 p.m. and 6 a.m." = "Pour des questions de protection des mineurs (12+), ce contenu n'est disponible qu'entre 20h00 et 6h00.";
+/* The main error message if multiple errors have been encountered. Finally, the developer could should which one to display, and not show this message. */
+"Several errors have been encountered" = "Plusieurs erreurs se sont produites.";
 
-/* No comment provided by engineer. */
-"To protect children under the age of 18, this content is only available between 11 p.m. and 5 a.m." = "Pour des raisons de protection de la jeunesse (à partir de 18 ans), ce contenu n'est disponible qu'entre 23h00 et 5h00.";
+/* The error message when the audio request return nothing. */
+"The audio was not found" = "L'audio n'existe pas";
 
-/* No comment provided by engineer. */
-"Commercial is being skipped. Please wait – playback will resume shortly." = "La publicité est sautée. Veuillez patienter - la lecture se poursuivra dans un court instant.";
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The commercial content was skipped." = "Une séquence publicitaire a été sautée.";
 
-/* No comment provided by engineer. */
-"For legal reasons, this content was only available for a limited period of time." = "Pour des questions de droits, ce contenu n'était disponible que durant une période limitée.";
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available anymore." = "Une séquence dépubliée a été sautée.";
 
-/* No comment provided by engineer. */
-"For legal reasons, this content is not available in your region." = "Pour des raisons juridiques, ce contenu n'est pas disponible dans votre région.";
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available outside Switzerland." = "Une séquence pour laquelle la RTS ne dispose pas des droits de diffusion en dehors de la Suisse a été sautée.";
 
-/* No comment provided by engineer. */
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available yet. Please try again later." = "Une séquence pas encore disponible a été sautée.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available." = "Une séquence indisponible a été sautée.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped due to legal restrictions." = "Une séquence dépubliée sur décision de justice n’a pas été lue.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped to protect children. Please try again between 11PM and 5AM." = "Une séquence non adaptés aux enfants n’a pas été lue (accessible entre 23h et 5h).";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped to protect children. Please try again between 8AM and 6AM." = "Une séquence non adaptés aux enfants n’a pas été lue (accessible entre 20h et 6h).";
+
+/* The error message when the response from IL server is incorrect. */
 "The data is invalid." = "Les données sont invalides.";
 
-/* No comment provided by engineer. */
-"The media cannot be played." = "Le contenu ne peut être joué.";
+/* The error message when the secure token cannot be retrieved to play the media stream. */
+"The stream could not be secured." = "Le contenu ne peut être protégé.";
 
-/* No comment provided by engineer. */
-"The request is invalid." = "La requête est invalide.";
+/* The error message when the video request return nothing. */
+"The video was not found" = "La vidéo n'existe pas";
 
-/* No comment provided by engineer. */
-"This content is not available due to legal restrictions." = "Pour des raisons juridiques, ce contenu n'est pas disponible.";
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This commercial media is not available." = "Ce contenu n’est actuellement pas disponible.";
 
-/* No comment provided by engineer. */
-"This content is not yet available. Please try again later." = "Ce contenu n'est pas encore disponible. Veuillez réessayer plus tard.";
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available anymore." = "Ce contenu n’est plus disponible.";
 
-/* Date preposition, for instance: "Something happened <XXX> Oct 28, 2015." */
-"on" = "du";
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available due to legal restrictions." = "Par décision de justice, ce contenu a été retiré.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available outside Switzerland." = "La RTS ne dispose pas des droits de diffusion en dehors de la Suisse.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available yet. Please try again later." = "Ce contenu n’est pas encore disponible.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available." = "Ce contenu n’est actuellement pas disponible.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"To protect children, this media is only available between 11PM and 5AM." = "Pour protéger les enfants, ce contenu est accessible entre 23h et 5h.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"To protect children, this media is only available between 8PM and 6AM." = "Pour protéger les enfants, ce contenu est accessible entre 20h et 6h.";
+
+/* The error message when request a media or a media list on a public network with no Internet access (e.g. SBB) */
+"You are likely connected to a public wifi network with no Internet access" = "Vous êtes probablement connecté à un réseau wifi public sans accès Internet";

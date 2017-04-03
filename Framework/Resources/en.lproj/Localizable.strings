@@ -41,25 +41,25 @@
 "This commercial media is not available." = "This commercial media is not available.";
 
 /* A blocking reason message displayed to the user if the media can't be played. */
-"This media is not available anymore." = "This media is not available anymore.";
+"This media is not available anymore." = "This content is not available anymore.";
 
 /* A blocking reason message displayed to the user if the media can't be played. */
-"This media is not available due to legal restrictions." = "This media is not available due to legal restrictions.";
+"This media is not available due to legal restrictions." = "This content is not available due to legal restrictions.";
 
 /* A blocking reason message displayed to the user if the media can't be played. */
-"This media is not available outside Switzerland." = "This media is not available outside Switzerland.";
+"This media is not available outside Switzerland." = "This content is not available outside Switzerland.";
 
 /* A blocking reason message displayed to the user if the media can't be played. */
-"This media is not available yet. Please try again later." = "This media is not available yet. Please try again later.";
+"This media is not available yet. Please try again later." = "This content is not yet available. Please try again later.";
 
 /* A blocking reason message displayed to the user if the media can't be played. */
-"This media is not available." = "This media is not available.";
+"This media is not available." = "This content is not available.";
 
 /* A blocking reason message displayed to the user if the media can't be played. */
-"To protect children, this media is only available between 11PM and 5AM." = "To protect children, this media is only available between 11PM and 5AM.";
+"To protect children, this media is only available between 11PM and 5AM." = "To protect children, this content is only available between 11PM and 5AM.";
 
 /* A blocking reason message displayed to the user if the media can't be played. */
-"To protect children, this media is only available between 8PM and 6AM." = "To protect children, this media is only available between 8PM and 6AM.";
+"To protect children, this media is only available between 8PM and 6AM." = "To protect children, this content is only available between 8PM and 6AM.";
 
 /* The error message when request a media or a media list on a public network with no Internet access (e.g. SBB) */
 "You are likely connected to a public wifi network with no Internet access" = "You are likely connected to a public wifi network with no Internet access";

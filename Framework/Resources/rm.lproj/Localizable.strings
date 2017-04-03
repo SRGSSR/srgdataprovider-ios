@@ -1,32 +1,65 @@
-﻿/* No comment provided by engineer. */
-"To protect children under the age of 12, this content is only available between 8 p.m. and 6 a.m." = "Per motivs da la protecziun da la giuventetgna (a partir da 12 onns) stat quest video a disposiziun mo tranter las 20:00 e las 06:00.";
+/* The main error message if multiple errors have been encountered. Finally, the developer could should which one to display, and not show this message. */
+"Several errors have been encountered" = "Intgins sbagls èn vegnids chattads";
 
-/* No comment provided by engineer. */
-"To protect children under the age of 18, this content is only available between 11 p.m. and 5 a.m." = "Per motivs da la protecziun da la giuventetgna (a partir da 18 onns) stat quest video a disposiziun mo tranter las 23:00 e las 05:00.";
+/* The error message when the audio request return nothing. */
+"The audio was not found" = "Audio n'è betg vegnì chattà";
 
-/* No comment provided by engineer. */
-"Commercial is being skipped. Please wait – playback will resume shortly." = "La reclama vegn sursiglì. I va prest vinavant.";
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The commercial content was skipped." = "Il cuntegn commercial è vegnì eliminà.";
 
-/* No comment provided by engineer. */
-"For legal reasons, this content was only available for a limited period of time." = "Ord motivs giuridics statt quest cuntegn a disposiziun mo entaifer in spazi da temp determinà.";
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available anymore." = "Il cuntegn è vegnì eliminà perquai ch'el n'è betg pli disponibel.";
 
-/* No comment provided by engineer. */
-"For legal reasons, this content is not available in your region." = "Ord motivs giuridics na statt quest cuntegn betg a disposiziun en Vossa regiun.";
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available outside Switzerland." = "Il cuntegn è vegnì eliminà perquai ch'el n'è betg disponibel ordaifer la Svizra.";
 
-/* No comment provided by engineer. */
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available yet. Please try again later." = "Il cuntegn è vegnì eliminà perquai ch'el n'è betg anc disponibel. Empruvai pli tard puspè.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available." = "Il cuntegn è vegnì eliminà perquai ch'el n'è betg disponibel.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped due to legal restrictions." = "Il cuntegn è vegnì eliminà perquai ch'el è scadì.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped to protect children. Please try again between 11PM and 5AM." = "Il cuntegn è vegnì eliminà per proteger uffants. Empuvai puspè tranter las 23.00 e las 05.00.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped to protect children. Please try again between 8AM and 6AM." = "Il cuntegn è vegnì eliminà per proteger uffants. Empruvai puspè tranter las 20.00 e las 06.00.";
+
+/* The error message when the response from IL server is incorrect. */
 "The data is invalid." = "Las datas n'èn betg valaivlas.";
 
-/* No comment provided by engineer. */
-"The media cannot be played." = "Quest cuntegn na sa betg vegnì laschà ir.";
+/* The error message when the secure token cannot be retrieved to play the media stream. */
+"The stream could not be secured." = "Il stream na po betg vegnir sigerà.";
 
-/* No comment provided by engineer. */
-"The request is invalid." = "La dumonda da datas n'es betg valaivla.";
+/* The error message when the video request return nothing. */
+"The video was not found" = "Il video n'è betg vegnì chattà";
 
-/* No comment provided by engineer. */
-"This content is not available due to legal restrictions." = "Ord motivs giuridics na sa quest cuntegn betg vegnì laschà ir.";
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This commercial media is not available." = "Quest medium commerzial n'è betg disponibel.";
 
-/* No comment provided by engineer. */
-"This content is not yet available. Please try again later." = "Quest cuntegn n'è anc betg a disposiziun. Per plaschair empruvar pli tard anc ina giada.";
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available anymore." = "Quest medium n'è betg pli disponibel.";
 
-/* Date preposition, for instance: "Something happened <XXX> Oct 28, 2015." */
-"on" = "dals";
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available due to legal restrictions." = "Quest medium n'è betg disponibel perquei ch'el è scadì.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available outside Switzerland." = "Quest medium n'è betg disponibel ordaifer la Svizra.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available yet. Please try again later." = "Quest medium n'è betg anc disponibel. Empruvai pli tard.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available." = "Quest medium n'è betg disponibel.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"To protect children, this media is only available between 11PM and 5AM." = "Per proteger uffants, è quest medium disponibel mo tranter las 23.00 e las 05.00.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"To protect children, this media is only available between 8PM and 6AM." = "Per proteger uffants, è quest medium disponibel mo tranter las 20.00 e las 06.00.";
+
+/* The error message when request a media or a media list on a public network with no Internet access (e.g. SBB) */
+"You are likely connected to a public wifi network with no Internet access" = "Probablamain essas Vus colliads cun ina rait wifi publica però senza avair access a l'internet";
