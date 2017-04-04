@@ -1,0 +1,161 @@
+<xs:schema id="media"
+           version="1.0"
+           xmlns="http://www.srgssr.ch"
+           targetNamespace="http://www.srgssr.ch"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+    <xs:include schemaLocation="episode.xsd"/>
+    <xs:include schemaLocation="channel.xsd"/>
+    <xs:include schemaLocation="show.xsd"/>
+    <xs:include schemaLocation="resource.xsd"/>
+    <xs:include schemaLocation="subtitle.xsd"/>
+
+    <xs:complexType name="media">
+        <xs:annotation>
+            <xs:documentation>Information about a media (audio or video) and it's context</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:group ref="mediaGroup" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="episode" type="episode" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="show" type="show" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="channel" type="channel" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="userProperties" type="userProperties" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="playerProperties" type="playerProperty" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:complexType name="userProperties">
+        <xs:sequence>
+            <xs:element name="consumedDate" minOccurs="0" maxOccurs="1" type="dateTime"/>
+            <xs:element name="progress" minOccurs="0" maxOccurs="1" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="playerProperty">
+        <xs:sequence>
+            <xs:element name="key" type="playerPropertyKey"/>
+            <xs:element name="value" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="playerPropertyKey">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="iFrameUrl"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="mediaList">
+        <xs:annotation>
+            <xs:documentation>A list of medias. See media for further details</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="list" type="media" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attributeGroup ref="linksGroup"/>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:complexType name="mediaScheduledLivestream">
+        <xs:complexContent>
+            <xs:extension base="media">
+                <xs:sequence>
+                    <xs:group ref="scheduledLivestreamGroup"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="mediaStatistic">
+        <xs:annotation>
+            <xs:documentation>Statistics about a media. E.g. Facebook likes, google+, etc</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:group ref="mediaIdentifierGroup"/>
+            <xs:element name="socialCountList" type="socialCountEntry" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:group name="mediaGroup">
+        <xs:annotation>
+            <xs:documentation>Typical attributes of a media</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:group ref="mediaIdentifierGroup" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="metaDataGroup" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="imageGroup" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="blockReason" type="blockReason" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="displayable" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Indicated that this media can be displayed.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="type" type="type" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="date" type="dateTime" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Date of the media. In most cases, this is the publication date or the creation date if no publication date is available</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="duration" type="xs:long" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Duration in milliseconds</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="podcastSdUrl" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="podcastHdUrl" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="validFrom" type="dateTime" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Content is valid from this date</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="validTo" type="dateTime" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Content is valid until this date</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="assignedBy" type="referrer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="relatedContentList" type="relatedContent" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="socialCountList" type="socialCountEntry" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:simpleType name="referrer">
+        <xs:annotation>
+            <xs:documentation>Determines who or what is responsible for that content to appear in a list</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="EDITOR"/>
+            <xs:enumeration value="TRENDING"/>
+            <xs:enumeration value="RECOMMENDATION"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="relatedContent">
+        <xs:annotation>
+            <xs:documentation>Content which is related to a specific other content</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="id" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="metaDataGroup" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="url" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:group name="mediaIdentifierGroup">
+        <xs:sequence>
+            <xs:element name="id" type="id" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="mediaType" type="mediaType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="vendor" type="vendor" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="urn" type="urn" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+
+</xs:schema>

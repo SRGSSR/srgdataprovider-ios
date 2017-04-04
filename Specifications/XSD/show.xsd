@@ -1,0 +1,71 @@
+<xs:schema id="myShow"
+           version="1.0"
+           xmlns="http://www.srgssr.ch"
+           targetNamespace="http://www.srgssr.ch"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="show">
+        <xs:annotation>
+            <xs:documentation>A Show is a broadcasted container object for multiple episodes. e.g. 10vor10</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="id" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="metaDataGroup" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="imageGroup" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="bannerImageUrl" type="xs:anyURI" minOccurs="0" maxOccurs="1" />
+            <xs:element name="homepageUrl" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="podcastSubscriptionUrl" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="primaryChannelId" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Id of the channel on which this content is primarily broadcasted. The content might also appear on other channels, e.g. for recurrences</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="viewedMedias" type="xs:int" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="numberOfEpisodes" type="xs:int" minOccurs="0" maxOccurs="1"/>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:complexType name="showCharacterList">
+        <xs:annotation>
+            <xs:documentation>A list of characters with the count of shows starting with that character</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="list" type="showCharacter" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:complexType name="showCharacter">
+        <xs:sequence>
+            <xs:element name="character" type="character" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="count" type="xs:int" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="character">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="1"/>
+            <xs:pattern value="[a-z#]"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="showList">
+        <xs:annotation>
+            <xs:documentation>A list of shows. See show for further details</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="list" type="show" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attributeGroup ref="linksGroup"/>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+</xs:schema>

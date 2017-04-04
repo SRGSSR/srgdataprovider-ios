@@ -1,0 +1,65 @@
+/* The main error message if multiple errors have been encountered. Finally, the developer could should which one to display, and not show this message. */
+"Several errors have been encountered" = "Sono stati riscontrati alcuni errori";
+
+/* The error message when the audio request return nothing. */
+"The audio was not found" = "L'audio non è stato trovato";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The commercial content was skipped." = "Il contenuto commerciale è stato ignorato.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available anymore." = "Il contenuto è stato ignorato perché non è più disponibile.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available outside Switzerland." = "Il contenuto è stato ignorato perché non è disponibile fuori dalla Svizzera.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available yet. Please try again later." = "Il contenuto è stato ignorato perché non è ancora disponibile. Si prega di riprovare più tardi.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available." = "Il contenuto è stato ignorato perché non è disponibile.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped due to legal restrictions." = "Il contenuto non è fruibile a causa di restrizioni legali.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped to protect children. Please try again between 11PM and 5AM." = "Il contenuto è stato ignorato per proteggere i bambini. Si prega di riprovare tra 23 e 5.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped to protect children. Please try again between 8AM and 6AM." = "Il contenuto è stato ignorato per proteggere i bambini. Si prega di riprovare tra le 20 e le 6.";
+
+/* The error message when the response from IL server is incorrect. */
+"The data is invalid." = "I dati non sono corretti.";
+
+/* The error message when the secure token cannot be retrieved to play the media stream. */
+"The stream could not be secured." = "Il flusso potrebbe non essere protetto.";
+
+/* The error message when the video request return nothing. */
+"The video was not found" = "Il video non è stato trovato";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This commercial media is not available." = "Questo contenuto commerciale non è disponibile.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available anymore." = "Questo media non è più disponibile.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available due to legal restrictions." = "Questo media non è disponibile a causa di restrizioni legali.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available outside Switzerland." = "Questo media non è disponibile fuori dalla Svizzera.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available yet. Please try again later." = "Questo media non è ancora disponibile. Si prega di riprovare più tardi.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available." = "Questo media non è disponibile.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"To protect children, this media is only available between 11PM and 5AM." = "Per proteggere i bambini, questo media è disponibile solo fra le 23 le 5.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"To protect children, this media is only available between 8PM and 6AM." = "Per proteggere i bambini, questo media è disponibile solo fra le 20 e le 6.";
+
+/* The error message when request a media or a media list on a public network with no Internet access (e.g. SBB) */
+"You are likely connected to a public wifi network with no Internet access" = "Probabilmente si è connessi a una rete Wi-Fi pubblico senza però avere accesso a Internet";

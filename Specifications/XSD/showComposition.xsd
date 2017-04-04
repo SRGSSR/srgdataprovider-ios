@@ -1,0 +1,24 @@
+<xs:schema id="showComposition"
+           version="1.0"
+           xmlns="http://www.srgssr.ch"
+           targetNamespace="http://www.srgssr.ch"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="channel.xsd"/>
+    <xs:include schemaLocation="show.xsd"/>
+
+    <xs:complexType name="showComposition">
+        <xs:annotation>
+            <xs:documentation>Composite object for a show with it's channel</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="channel" type="channel" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="list" type="show" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+</xs:schema>

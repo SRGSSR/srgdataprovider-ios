@@ -1,0 +1,362 @@
+<!DOCTYPE xs:schema [
+        <!ENTITY uuidPattern "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}">
+        <!ENTITY buSpecificIdPattern "(\d+|&uuidPattern;|livestream_\S*|[0-9a-z\-]+)">
+        ]>
+<xs:schema id="common"
+           version="1.0"
+           xmlns="http://www.srgssr.ch"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           jaxb:version="2.0"
+           targetNamespace="http://www.srgssr.ch"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+
+    <xs:complexType name="List" abstract="true">
+        <xs:annotation>
+            <xs:appinfo>
+                <jaxb:class implClass="ch.srg.jaxb.ListWrapper"/>
+            </xs:appinfo>
+        </xs:annotation>
+    </xs:complexType>
+
+    <xs:attributeGroup name="linksGroup">
+        <xs:attribute name="next" type="xs:anyURI" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    Link to the next page. Clients can follow this link to load more content.
+                    Clients have to be aware of two things:
+                    First, it is possible that a link is present but no more content is available. Clients will get a HTTP 404 Error in such cases when calling the url.
+                    Second, it is possible that no next link is present at all. Clients have to assume that there is no more content in such a case.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:attributeGroup>
+
+    <xs:simpleType name="vendor">
+        <xs:annotation>
+            <xs:documentation>Producer or provider of content, e.g. an SRG business unit or some 3rd party content provider</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SRF"/>
+            <xs:enumeration value="RTR"/>
+            <xs:enumeration value="RTS"/>
+            <xs:enumeration value="RSI"/>
+            <xs:enumeration value="SWI"/>
+            <xs:enumeration value="TVO"/>
+            <xs:enumeration value="CA"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="id">
+        <xs:annotation>
+            <xs:documentation>An id must be a numeric value or a valid UUID</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="&buSpecificIdPattern;"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="mediaIdsList">
+        <xs:sequence>
+            <xs:element name="ids" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="media" type="id" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="episode" type="id" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="show" type="id" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="channel" type="id" minOccurs="0" maxOccurs="1"/>
+                        <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="linksGroup"/>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:simpleType name="uuid">
+        <xs:annotation>
+            <xs:documentation>A UUID</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="&uuidPattern;"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="urn">
+        <xs:annotation>
+            <xs:documentation>The fully qualified name of the specific element.
+                It holds the vendor, mediaType and the id of the specific element concatenated with a colon.
+                'urn:swi:video:3823903'
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="|urn:(srf|rtr|rts|rsi|swi|tvo|ca|swisstxt)(:livestream)?:(video|audio|show)(:(srf|rtr|rts|rsi))?:&buSpecificIdPattern;"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="title">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="2000"/>
+            <xs:pattern value="(\S| )+"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="dateTime">
+        <xs:restriction base="xs:dateTime">
+            <xs:whiteSpace value="collapse" fixed="true"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="seoName">
+        <xs:annotation>
+            <xs:documentation>Defines a valid seo url, see restrictions</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-z0-9-]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="type">
+        <xs:annotation>
+            <xs:documentation>Peculiarity of a media</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="EPISODE"/>
+            <xs:enumeration value="EXTRACT"/>
+            <xs:enumeration value="TRAILER"/>
+            <xs:enumeration value="CLIP"/>
+            <xs:enumeration value="LIVESTREAM"/>
+            <xs:enumeration value="SCHEDULED_LIVESTREAM"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="blockReason">
+        <xs:annotation>
+            <xs:documentation>Reason why an element is blocked</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="GEOBLOCK"/>
+            <xs:enumeration value="LEGAL"/>
+            <xs:enumeration value="COMMERCIAL"/>
+            <xs:enumeration value="AGERATING18"/>
+            <xs:enumeration value="AGERATING12"/>
+            <xs:enumeration value="STARTDATE"/>
+            <xs:enumeration value="ENDDATE"/>
+            <xs:enumeration value="UNKNOWN"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="analyticsData">
+        <xs:sequence>
+            <xs:element name="srg_pr_id" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Episode ID</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ns_st_ep" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Episode title</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="srg_plid" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Show ID</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ns_st_pl" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Show title</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ns_st_pr" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Program title</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ns_st_ty" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Media type</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ns_st_ci" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Media ID</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ns_st_el" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Chapter length</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ns_st_cl" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Clip length</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ns_st_sl" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Clip length 2</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ns_st_dt" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Published date</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="srg_mgeobl" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Geoblocking flag</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ns_st_li" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Livestream flag</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ns_st_tp" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Total number of parts</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ns_st_cn" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Clip number</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ns_st_pn" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Part number</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="srg_unit" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Owner of content</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="srg_c1" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>BU specific information</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="srg_c2" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>BU specific information</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="srg_c3" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>BU specific information</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="srg_wo" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Web only flag</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="srg_mqual" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Stream quality</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="srg_mpres" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Media presentation</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="srg_enc" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Encoder</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="srg_tv_id" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Infosys program ID</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="srg_tvsvizzera" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="srg_aod_prid" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="srg_fullLength" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:complexType name="socialCountEntry">
+        <xs:annotation>
+            <xs:documentation>Key/Value pair of social count entries</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="key" type="socialCountKey" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="value" type="xs:int" minOccurs="1" maxOccurs="1"/>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:simpleType name="socialCountKey">
+        <xs:annotation>
+            <xs:documentation>Available keys for social count entries</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="srgView"/>
+            <xs:enumeration value="srgLike"/>
+            <xs:enumeration value="fbShare"/>
+            <xs:enumeration value="googleShare"/>
+            <xs:enumeration value="twitterShare"/>
+            <xs:enumeration value="whatsAppShare"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="mediaType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AUDIO"/>
+            <xs:enumeration value="VIDEO"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:group name="metaDataGroup">
+        <xs:sequence>
+            <xs:element name="title" type="title" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="lead" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:group name="imageGroup">
+        <xs:sequence>
+            <xs:element name="imageUrl" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="imageTitle" type="title" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="imageCopyright" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:simpleType name="color">
+        <xs:annotation>
+            <xs:documentation>A color must be a valid 3 or 6 chars hex color code</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:group name="scheduledLivestreamGroup">
+        <xs:sequence>
+            <xs:element name="preTrailerStart" type="dateTime" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="postTrailerStop" type="dateTime" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="cesimId" type="id" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="hbbtvProperties" type="hbbtvProperties" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:complexType name="hbbtvProperties">
+        <xs:sequence>
+            <xs:element name="redButton" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="imageLink" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

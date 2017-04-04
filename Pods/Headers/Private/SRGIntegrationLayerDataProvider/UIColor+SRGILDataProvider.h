@@ -1,1 +1,0 @@
-../../../../SRGIntegrationLayerDataProvider/Core/UIColor+SRGILDataProvider.h

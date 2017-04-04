@@ -1,168 +1,84 @@
-![SRG IL Data Provider logo](README-images/logo.png)
+![SRG Data Provider logo](README-images/logo.png)
+
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) ![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)
 
 ## About
 
-The SRG Integration Layer (IL) Data Provider library for iOS provides a simple way to communicate with the common service shared by SRG business units.
+The SRG Data Provider library for iOS provides a simple way to retrieve metadata for all SRG SSRG business units in a common format.
 
-The library can optionally be combined with the media player and / or analytics libraries, so that token retrieval for media playback as well as comScore labels are automatically retrieved in a standard way.
+The library provides:
+
+* Requests to get the usual metadata associated with SRG SSR productions.
+* A flat object model to easily access the data relevant to front-end users.
+* A convenient way to perform requests, either in parallel or in cascade.
 
 ## Compatibility
 
-The library is suitable for applications running on iOS 8 and above.
+The library is suitable for applications running on iOS 8 and above. The project is meant to be opened with the latest Xcode version (currently Xcode 8).
 
 ## Installation
 
-The library can be added to a project through [CocoaPods](http://cocoapods.org/) version 1.0 or above. Create a `Podfile` with the following contents:
-
-* The SRG specification repository:
+The library can be added to a project using [Carthage](https://github.com/Carthage/Carthage)  by adding the following dependency to your `Cartfile`:
     
-```ruby
-    source 'https://github.com/SRGSSR/srgpodspecs-ios.git'
 ```
-    
-* The `SRGIntegrationLayerDataProvider` dependency:
-
-```ruby
-    pod 'SRGIntegrationLayerDataProvider', '<version>'
+github "SRGSSR/srgdataprovider-ios"
 ```
 
-* To add optional support for the [SRG Media Player library](https://github.com/SRGSSR/SRGMediaPlayer-iOS), add the corresponding subspec (it is preferable not to provide an explicit version number for subspecs):
+Then run `carthage update --platform iOS` to update the dependencies. You will need to manually add the following `.framework`s generated in the `Carthage/Build/iOS` folder to your project:
 
-```ruby
-    pod 'SRGIntegrationLayerDataProvider/MediaPlayer'
-```
+* `libextobjc`: A utility framework
+* `MAKVONotificationCenter`: A safe KVO framework.
+* `Mantle`: The framework used to parse the data
+* `SRGDataProvider`: The main data provider framework
+* `SRGLogger`: The framework used for internal logging
 
-* To add optional support for the [SRG Analytics library](https://github.com/SRGSSR/srganalytics-ios) when playing media, add the corresponding subspec (it is preferable not to provide an explicit version number for subspecs):
+For more information about Carthage and its use, refer to the [official documentation](https://github.com/Carthage/Carthage).
 
-```ruby
-    pod 'SRGIntegrationLayerDataProvider/MediaPlayer/Analytics'
-```
+## Usage
 
-Then run `pod install` to update the dependencies.
+When you want to use classes or functions provided by the library in your code, you must import it from your source files first.
 
-For more information about CocoaPods and the `Podfile`, please refer to the [official documentation](http://guides.cocoapods.org/).
+### Usage from Objective-C source files
 
-
-## Quick Start
-
-Every request to the IL is made through a data provider, instantiated with a business uit identifier as follows:
+Import the global header file using:
 
 ```objective-c
-    SRGILDataProvider *dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:<business unit string>];
+#import <SRGDataProvider/SRGDataProvider.h>
 ```
 
-The default URL is `https://il.srgssr.ch` and you need to check which business unit is supported. Currently, the `sfr`, `rts`, `rsi`, `rtr` and `swi` business unit identifiers are supported.
-
-Usually, you only need a single data provider instance for your application. This instance must be kept somewhere for reuse. A convenient approach is to have a singleton instance returned from a function, as follows:
+or directly import the module itself:
 
 ```objective-c
-SRGILDataProvider *SRFDataProvider(void)
-{
-	static SRGILDataProvider *dataProvider;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        dataProvider = [[SRGILDataProvider alloc] initWithBusinessUnit:@"srf"];
-    });
-    return dataProvider;
-}
+@import SRGDataProvider;
 ```
 
-You can then access this provider by simply calling `SRFDataProvider()`.
+### Usage from Swift source files
 
-To fetch a list of items, create an URL component object with the desired fetch list index (the type of request) and, optionally, an identifier:
+Import the module where needed:
 
-```objective-c
-    SRGILURLComponents *components = [SRGILURLComponents componentsForFetchListIndex:<fetch list index>
-                                                                      withIdentifier:<an optional identifier relevant for that fetch index>
-                                                                               error:<an optional error>];
+```swift
+import SRGDataProvider
 ```
 
-Then perform the request by providing those components to the data provider:
+### Working with the library
 
-```objective-c
-[dataProvider fetchObjectsListWithURLComponents:components
-                                      organised:<SRGILModelDataOrganisationTypeFlat or SRGILModelDataOrganisationTypeAlphabetical>
-                                     onProgress:<an optional progress block>
-                                   onCompletion:<a completion block>];
-```
+To learn about how the library can be used, have a look at the [getting started guide](Documentation/Getting-started.md).
 
-The completion block is called with an array of objects, usually `SRGILAudio`, `SRGILVideo` or `SRGILShow` instances.
+### Logging
 
-When you have a media to play, request its complete metadata using its URN (unique identifier):
+The library internally uses the [SRG Logger](https://github.com/SRGSSR/srglogger-ios) library for logging, within the `ch.srgssr.dataprovider` subsystem. This logger either automatically integrates with your own logger, or can be easily integrated with it. Refer to the SRG Logger documentation for more information.
 
-```objective-c
-SRGILURN *mediaURN = [SRGILURN URNWithString:<a media URN string>];
-[dataProvider fetchMediaWithURN:mediaURN
-                completionBlock:<a completion block>];
-```
+## Supported requests
 
-The completion block is called with an `SRGILAudio`, `SRGILVideo` or a `SRGILShow` object, from which you can extract the information you need.
+The supported requests vary depending on the business unit. A [compatibility matrix](Documentation/Service-availability.md) is provided for reference.
 
-## Media player integration
+## Examples
 
-Playback of a media requires an authorization token. If you add the `SRGIntegrationLayerDataProvider/MediaPlayer` subspec to your `Podfile`, the token is transparently retrieved for you when playing a media using its identifier, provided you use the data provider above as data source of the media player:
+To see examples of use, have a look a the unit test suite bundled with the project.
 
-* If you use `RTSMediaPlayerController`, assign your data provider to its `dataSource` property. Alternatively, you can provide the data source at creation time:
+## Migration from versions previous versions
 
-```objective-c
-RTSMediaPlayerController *mediaPlayerController = [[RTSMediaPlayerController alloc] initWithContentIdentifier:<a media URN string> dataSource:dataProvider]
-```
-
-* If you use `RTSMediaPlayerViewController`, provide the data source at creation time:
-
-```objective-c
-RTSMediaPlayerViewController *mediaPlayerViewController = [[RTSMediaPlayerViewController alloc] initWithContentIdentifier:<a media URN string> dataSource:dataProvider]
-```
-
-### Analytics integration
-
-If you want to send comScore and StreamSense analytics labels when playing a media with either `RTSMediaPlayerController` or `RTSMediaPlayerViewController`, add the `SRGIntegrationLayerDataProvider/MediaPlayer/Analytics` subspec to your `Podfile`. 
-
-You must start tracking for your data provider, as described in the [SRG Analytics library](https://github.com/SRGSSR/srganalytics-ios) readme file:
-
-```objective-c
-    [[RTSAnalyticsTracker sharedTracker] startTrackingForBusinessUnit:<business unit>
-                                                      mediaDataSource:dataProvider];
-```
-
-Be sure that media players have been associated with a data source as described above.
-
-### App Transport Security (ATS)
-
-Starting on January 2017, Apple will impose to every developer to explicit declare insecure connection on iOS mobile applications.
-We work hard to move all requests to HTTPS support, but be prepare to have some exception domains. To better understand ATS, please refer to the [Apple Technical documentation for iOS](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW33).
-
-
-The key `NSAllowsArbitraryLoads` in the `Ìnfo.plist` application is under you responsability.
-For IL requests, we help you with an update table for each BU on [the release github page](https://github.com/SRGSSR/srgdataprovider-ios/releases). Look below for a configuration example.
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>NSAllowsArbitraryLoads</key>
-	<false/>
-	<key>NSExceptionDomains</key>
-	<dict>
-		<key>[domain1]</key>
-		<dict>
-			<key>NSIncludesSubdomains</key>
-			<true/>
-			<key>NSExceptionAllowsInsecureHTTPLoads</key>
-			<true/>
-		</dict>
-		<key>[domain2]</key>
-		<dict>
-			<key>NSIncludesSubdomains</key>
-			<true/>
-			<key>NSExceptionAllowsInsecureHTTPLoads</key>
-			<true/>
-		</dict>				
-	</dict>
-</dict>
-</plist>
-```
+For information about changes introduced with version 5 of the library, please read the [migration guide](Documentation/Migration-guide.md).
 
 ## License
 

@@ -1,0 +1,65 @@
+/* The main error message if multiple errors have been encountered. Finally, the developer could should which one to display, and not show this message. */
+"Several errors have been encountered" = "Plusieurs erreurs se sont produites.";
+
+/* The error message when the audio request return nothing. */
+"The audio was not found" = "L'audio n'existe pas";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The commercial content was skipped." = "Une séquence publicitaire a été sautée.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available anymore." = "Une séquence dépubliée a été sautée.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available outside Switzerland." = "Une séquence pour laquelle la RTS ne dispose pas des droits de diffusion en dehors de la Suisse a été sautée.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available yet. Please try again later." = "Une séquence pas encore disponible a été sautée.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available." = "Une séquence indisponible a été sautée.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped due to legal restrictions." = "Une séquence dépubliée sur décision de justice n’a pas été lue.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped to protect children. Please try again between 11PM and 5AM." = "Une séquence non adaptée aux enfants n’a pas été lue (accessible entre 23h et 5h).";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped to protect children. Please try again between 8AM and 6AM." = "Une séquence non adaptée aux enfants n’a pas été lue (accessible entre 20h et 6h).";
+
+/* The error message when the response from IL server is incorrect. */
+"The data is invalid." = "Les données sont invalides.";
+
+/* The error message when the secure token cannot be retrieved to play the media stream. */
+"The stream could not be secured." = "Le contenu ne peut être protégé.";
+
+/* The error message when the video request return nothing. */
+"The video was not found" = "La vidéo n'existe pas";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This commercial media is not available." = "Ce contenu n’est actuellement pas disponible.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available anymore." = "Ce contenu n’est plus disponible.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available due to legal restrictions." = "Par décision de justice, ce contenu a été retiré.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available outside Switzerland." = "La RTS ne dispose pas des droits de diffusion en dehors de la Suisse.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available yet. Please try again later." = "Ce contenu n’est pas encore disponible.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available." = "Ce contenu n’est actuellement pas disponible.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"To protect children, this media is only available between 11PM and 5AM." = "Pour protéger les enfants, ce contenu est accessible entre 23h et 5h.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"To protect children, this media is only available between 8PM and 6AM." = "Pour protéger les enfants, ce contenu est accessible entre 20h et 6h.";
+
+/* The error message when request a media or a media list on a public network with no Internet access (e.g. SBB) */
+"You are likely connected to a public wifi network with no Internet access" = "Vous êtes probablement connecté à un réseau wifi public sans accès Internet";

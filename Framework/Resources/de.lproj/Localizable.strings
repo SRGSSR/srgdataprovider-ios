@@ -1,0 +1,65 @@
+/* The main error message if multiple errors have been encountered. Finally, the developer could should which one to display, and not show this message. */
+"Several errors have been encountered" = "Verschiedene Fehler sind aufgetreten.";
+
+/* The error message when the audio request return nothing. */
+"The audio was not found" = "Das Audio wurde nicht gefunden.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The commercial content was skipped." = "Werbung darf in Play SRF nicht angezeigt werden und wird übersprungen.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available anymore." = "Dieser Inhalt ist nicht mehr verfügbar und wird übersprungen.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available outside Switzerland." = "Dieser Inhalt ist ausserhalb der Schweiz nicht verfügbar und wird daher übersprungen.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available yet. Please try again later." = "Dieser Inhalt ist noch nicht verfügbar und wird übersprungen. Bitte versuchen Sie es später noch einmal.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped because it is not available." = "Dieser Inhalt ist nicht verfügbar und wird übersprungen.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped due to legal restrictions." = "Dieser Inhalt ist aus rechtlichen Gründen nicht verfügbar und wird übersprungen.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped to protect children. Please try again between 11PM and 5AM." = "Dieser Inhalt ist aus Gründen des Jugendschutzes zur Zeit nicht verfügbar. Bitte versuchen Sie es zwischen 23:00 und 5:00 Uhr noch einmal.";
+
+/* A blocking reason message displayed to the user during the playback if a segment was skipped. */
+"The content was skipped to protect children. Please try again between 8AM and 6AM." = "Dieser Inhalt ist aus Gründen des Jugendschutzes zur Zeit nicht verfügbar. Bitte versuchen Sie es zwischen 20:00 und 6:00 Uhr noch einmal.";
+
+/* The error message when the response from IL server is incorrect. */
+"The data is invalid." = "Die Daten sind ungültig.";
+
+/* The error message when the secure token cannot be retrieved to play the media stream. */
+"The stream could not be secured." = "Die Wiedergabe kann nicht abgesichert werden.";
+
+/* The error message when the video request return nothing. */
+"The video was not found" = "Das Video wurde nicht gefunden.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This commercial media is not available." = "Dieses Werbe-Video ist nicht verfügbar.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available anymore." = "Dieser Inhalt ist nicht mehr verfügbar.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available due to legal restrictions." = "Dieser Inhalt ist aus rechtlichen Gründen nicht verfügbar.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available outside Switzerland." = "Dieser Inhalt ist ausserhalb der Schweiz nicht verfügbar.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available yet. Please try again later." = "Dieser Inhalt ist noch nicht verfügbar. Bitte versuchen Sie es später noch einmal.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"This media is not available." = "Dieser Inhalt ist nicht verfügbar.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"To protect children, this media is only available between 11PM and 5AM." = "Aus Gründen des Jugendschutzes steht dieser Inhalt nur zwischen 23:00 und 05:00 Uhr zur Verfügung.";
+
+/* A blocking reason message displayed to the user if the media can't be played. */
+"To protect children, this media is only available between 8PM and 6AM." = "Aus Gründen des Jugendschutzes steht dieser Inhalt nur zwischen 20:00 und 06:00 Uhr zur Verfügung.";
+
+/* The error message when request a media or a media list on a public network with no Internet access (e.g. SBB) */
+"You are likely connected to a public wifi network with no Internet access" = "Sie sind möglicherweise mit einem öffentlichen WLAN ohne Internetanschluss verbunden.";
