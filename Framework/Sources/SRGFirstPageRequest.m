@@ -40,7 +40,7 @@
     
     SRGRequestCompletionBlock requestCompletionBlock = ^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
         SRGPage *nextPage = [SRGFirstPageRequest nextPageAfterPage:page fromJSONDictionary:JSONDictionary];
-        pageCompletionBlock(JSONDictionary, page, nextPage, error);
+        pageCompletionBlock(JSONDictionary, JSONDictionary[@"total"], page, nextPage, error);
     };
     
     if (self = [super initWithRequest:request session:session completionBlock:requestCompletionBlock]) {
@@ -74,7 +74,7 @@
     NSURLRequest *request = [SRGPage request:self.request withPage:page];
     SRGPageRequest *pageRequest = [[cls alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
         SRGPage *nextPage = [SRGFirstPageRequest nextPageAfterPage:page fromJSONDictionary:JSONDictionary];
-        self.pageCompletionBlock(JSONDictionary, page, nextPage, error);
+        self.pageCompletionBlock(JSONDictionary, JSONDictionary[@"total"],  page, nextPage, error);
     }];
     pageRequest.page = page;
     pageRequest.pageCompletionBlock = self.pageCompletionBlock;
