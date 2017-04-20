@@ -30,12 +30,12 @@
 
 - (instancetype)initWithURNString:(NSString *)URNString
 {
-    NSMutableArray<NSString *> *components = [[URNString.lowercaseString componentsSeparatedByString:@":"] mutableCopy];
+    NSMutableArray<NSString *> *components = [[URNString componentsSeparatedByString:@":"] mutableCopy];
     if (components.count != 4) {
         return nil;
     }
     
-    if (! [components.firstObject isEqualToString:@"urn"]) {
+    if (! [components.firstObject.lowercaseString isEqualToString:@"urn"]) {
         return nil;
     }
     
