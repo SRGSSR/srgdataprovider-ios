@@ -422,20 +422,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 - (SRGRequest *)videoWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
 {
     return [self videosWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
-        if (error) {
-            completionBlock ? completionBlock(nil, error) : nil;
-            return;
-        }
-        
-        if (medias.count == 0) {
-            NSError *error = [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                 code:SRGDataProviderErrorNotFound
-                                             userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The video was not found", nil)}];
-            completionBlock ? completionBlock(nil, error) : nil;
-            return;
-        }
-        
-        completionBlock ? completionBlock(medias.firstObject, nil) : nil;
+        completionBlock(medias.firstObject, error);
     }];
 }
 
@@ -445,7 +432,21 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"ids" value:[mediaUids componentsJoinedByString: @","]] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, error);
+        if (error) {
+            completionBlock(nil, error);
+            return;
+        }
+        
+        // If the identifier list contains an unknown uid, the IL still returns a list of results without it. At the client
+        // level, though, we want to ensure that we got all the results we expected
+        if (objects.count != mediaUids.count) {
+            completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                     code:SRGDataProviderErrorNotFound
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The video was not found", @"Error message when the video request returns no result.")}]);
+            return;
+        }
+        
+        completionBlock(objects, nil);
     }];
 }
 
@@ -471,20 +472,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 - (SRGRequest *)audioWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
 {
     return [self audiosWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
-        if (error) {
-            completionBlock ? completionBlock(nil, error) : nil;
-            return;
-        }
-        
-        if (medias.count == 0) {
-            NSError *error = [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                 code:SRGDataProviderErrorNotFound
-                                             userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The audio was not found", @"The error message when the audio request return nothing.")}];
-            completionBlock ? completionBlock(nil, error) : nil;
-            return;
-        }
-        
-        completionBlock ? completionBlock(medias.firstObject, nil) : nil;
+        completionBlock(medias.firstObject, error);
     }];
 }
 
@@ -494,7 +482,21 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"ids" value:[mediaUids componentsJoinedByString: @","]] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, error);
+        if (error) {
+            completionBlock(nil, error);
+            return;
+        }
+        
+        // If the identifier list contains an unknown uid, the IL still returns a list of results without it. At the client
+        // level, though, we want to ensure that we got all the results we expected
+        if (objects.count != mediaUids.count) {
+            completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                     code:SRGDataProviderErrorNotFound
+                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The audio was not found", @"Error message when the audio request returns no result.")}]);
+            return;
+        }
+        
+        completionBlock(objects, nil);
     }];
 }
 
