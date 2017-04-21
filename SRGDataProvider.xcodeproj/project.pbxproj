@@ -326,8 +326,8 @@
 		E600FE6E1D9423BC000B8A1D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				6FD1EAEB1E8A6517007940EE /* Helpers */,
 				6F6BDCE41E8262C4004BC726 /* BUs */,
+				6FD1EAEB1E8A6517007940EE /* Helpers */,
 				6F8201DC1D9A3FAC001DA4DA /* DataProviderTestCase.m */,
 				08FA0D2E1E31279A000C94EF /* MediaURNTestCase.m */,
 				6F8201E21D9AA087001DA4DA /* RequestQueueTestCase.m */,

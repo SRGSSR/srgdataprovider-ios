@@ -620,4 +620,77 @@ static NSString * const kInvalidMediaId = @"999999999999999";
 
 // Cannot test -latestMediasForModuleWithType:uid:sectionUid:completionBlock: yet due to missing reliable data
 
+- (void)testFullLength
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    // Full-length VOD
+    [[self.dataProvider videoMediaCompositionWithUid:@"e74e5631-2be6-46f1-b8d2-08297b959f45" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"e74e5631-2be6-46f1-b8d2-08297b959f45");
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    // VOD segment
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:@"246aa77b-f0bf-4c39-a1d9-f67cc7a6bde3" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"e74e5631-2be6-46f1-b8d2-08297b959f45");
+        [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    // VOD clip
+    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:@"83024b88-7867-41be-a90e-460330dbf19e" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"83024b88-7867-41be-a90e-460330dbf19e");
+        [expectation3 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    // Video livestream
+    XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:@"c4927fcf-e1a0-0001-7edd-1ef01d441651" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNil(mediaComposition.fullLengthMedia.uid);
+        [expectation4 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    // Full-length AOD
+    XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider audioMediaCompositionWithUid:@"7be7f6ce-d1ac-4435-8040-64792c544969" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"7be7f6ce-d1ac-4435-8040-64792c544969");
+        [expectation5 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    // AOD segment
+    XCTestExpectation *expectation6 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider audioMediaCompositionWithUid:@"f0082810-5496-41dc-99ea-5a12e4e16215" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"7be7f6ce-d1ac-4435-8040-64792c544969");
+        [expectation6 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    // Audio livestream
+    XCTestExpectation *expectation7 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:@"69e8ac16-4327-4af4-b873-fd5cd6e895a7" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNil(mediaComposition.fullLengthMedia.uid);
+        [expectation7 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 @end

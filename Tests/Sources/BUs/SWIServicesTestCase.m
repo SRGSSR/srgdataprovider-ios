@@ -591,4 +591,17 @@ static NSString * const kInvalidMediaId = @"999999999999999";
 
 // Cannot test -latestMediasForModuleWithType:uid:sectionUid:completionBlock: yet due to missing reliable data}
 
+- (void)testFullLength
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    // VOD
+    [[self.dataProvider videoMediaCompositionWithUid:@"43080614" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"43080614");
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 @end
