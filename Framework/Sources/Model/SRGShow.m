@@ -82,7 +82,7 @@
 
 - (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
 {
-    return [self.imageURL srg_URLForDimension:dimension withValue:value];
+    return [self.imageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:nil];
 }
 
 #pragma mark Equality
@@ -108,7 +108,7 @@
 
 - (NSURL *)bannerImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
 {
-    return [self.bannerImageURL srg_URLForDimension:dimension withValue:value];
+    return [self.bannerImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:@"banner"];
 }
 
 @end
