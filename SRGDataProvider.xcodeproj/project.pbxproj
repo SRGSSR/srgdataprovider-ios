@@ -51,7 +51,6 @@
 		6FD909921E8592710071748C /* SRGFirstPageRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FD909901E8592710071748C /* SRGFirstPageRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FD909931E8592710071748C /* SRGFirstPageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD909911E8592710071748C /* SRGFirstPageRequest.m */; };
 		6FD909981E88CB670071748C /* SRGFirstPageRequest+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FD909961E88CB670071748C /* SRGFirstPageRequest+Private.h */; };
-		6FE89DCF1EBCE27200CE3069 /* SRGAppearance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE89DCE1EBCE27200CE3069 /* SRGAppearance.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E600FE681D942348000B8A1D /* SRGDataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGDataProvider.framework */; };
 		E600FE721D9423C3000B8A1D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E600FE711D9423C3000B8A1D /* Info.plist */; };
 		E600FE731D94242F000B8A1D /* ServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */; };
@@ -190,7 +189,6 @@
 		6FD909901E8592710071748C /* SRGFirstPageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGFirstPageRequest.h; sourceTree = "<group>"; };
 		6FD909911E8592710071748C /* SRGFirstPageRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGFirstPageRequest.m; sourceTree = "<group>"; };
 		6FD909961E88CB670071748C /* SRGFirstPageRequest+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGFirstPageRequest+Private.h"; sourceTree = "<group>"; };
-		6FE89DCE1EBCE27200CE3069 /* SRGAppearance.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SRGAppearance.framework; path = Carthage/Build/iOS/SRGAppearance.framework; sourceTree = "<group>"; };
 		E600FE631D942348000B8A1D /* SRGDataProvider-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SRGDataProvider-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServicesTestCase.m; sourceTree = "<group>"; };
 		E600FE711D9423C3000B8A1D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -264,7 +262,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FE89DCF1EBCE27200CE3069 /* SRGAppearance.framework in Frameworks */,
 				6FC5B8241E852B46003555F8 /* MAKVONotificationCenter.framework in Frameworks */,
 				E66BEC091DA7F0A500AD4450 /* libextobjc.framework in Frameworks */,
 				E600FE811D943FCD000B8A1D /* Mantle.framework in Frameworks */,
@@ -469,7 +466,6 @@
 		E6AF7F921D38D52300942ADA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6FE89DCE1EBCE27200CE3069 /* SRGAppearance.framework */,
 				6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */,
 				E66BEC051DA7F08B00AD4450 /* libextobjc.framework */,
 				E6C2B3B71D39089F00B6250B /* Mantle.framework */,

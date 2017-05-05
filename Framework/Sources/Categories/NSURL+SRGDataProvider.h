@@ -30,13 +30,12 @@ typedef NSURL * _Nullable (^SRGDataProviderURLOverridingBlock)(NSString *uid, NS
 @interface NSURL (SRGDataProvider)
 
 /**
- *  Private hook for fixing images in the Play application.
+ *  Private hook for fixing images in the Play SRG application.
  *
- *  @discussion Requires `SRGAppearance.framework` to be linked, otherwise no overriding will take place. Content overriding
- *              is only implemented for objects having a `uid`.
+ *  @discussion Content overriding is only implemented for objects having a `uid`.
  */
 // FIXME: This hook will hopefully be removed and must never be made public. Once images have been fixed, it will
-//        not make sense anymore, you should therefore never rely on it if not working on the Play applications.
+//        not make sense anymore, you should therefore never rely on it if not working on the Play SRG application.
 + (void)srg_setImageURLOverridingBlock:(SRGDataProviderURLOverridingBlock)imageURLOverridingBlock;
 
 /**
