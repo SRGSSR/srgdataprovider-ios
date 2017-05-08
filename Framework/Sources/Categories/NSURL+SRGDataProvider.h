@@ -36,7 +36,7 @@ typedef NSURL * _Nullable (^SRGDataProviderURLOverridingBlock)(NSString *uid, NS
  */
 // FIXME: This hook will hopefully be removed and must never be made public. Once images have been fixed, it will
 //        not make sense anymore, you should therefore never rely on it if not working on the Play SRG application.
-+ (void)srg_setImageURLOverridingBlock:(SRGDataProviderURLOverridingBlock)imageURLOverridingBlock;
++ (void)srg_setImageURLOverridingBlock:(nullable SRGDataProviderURLOverridingBlock)imageURLOverridingBlock;
 
 /**
  *  For a given URL, return the full URL for the specified width or height. The non-specified dimension is automatically
