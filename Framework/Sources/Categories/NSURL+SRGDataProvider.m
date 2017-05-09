@@ -20,7 +20,7 @@ static SRGDataProviderURLOverridingBlock s_imageURLOverridingBlock = nil;
 - (NSURL *)srg_URLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value uid:(NSString *)uid type:(NSString *)type
 {
     if (s_imageURLOverridingBlock && uid) {
-        NSURL *overriddenURL = s_imageURLOverridingBlock(uid, type, dimension, value);
+        NSURL *overriddenURL = s_imageURLOverridingBlock(uid, type ?: @"default", dimension, value);
         if (overriddenURL) {
             return overriddenURL;
         }
