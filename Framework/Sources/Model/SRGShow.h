@@ -7,6 +7,7 @@
 #import "SRGImageMetadata.h"
 #import "SRGMetadata.h"
 #import "SRGModel.h"
+#import "SRGTypes.h"
 
 #import <CoreGraphics/CoreGraphics.h>
 
@@ -41,6 +42,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  The number of episodes available for the show.
  */
 @property (nonatomic, readonly) NSInteger numberOfEpisodes;
+
+/**
+ *  Describes whether the show is part of TV, radio or online channel.
+ */
+@property (nonatomic, readonly) SRGTransmission transmission;
 
 @end
 

@@ -7,6 +7,7 @@
 #import "SRGShow.h"
 
 #import "NSURL+SRGDataProvider.h"
+#import "SRGJSONTransformers.h"
 
 #import <libextobjc/libextobjc.h>
 
@@ -18,6 +19,7 @@
 @property (nonatomic, copy) NSString *primaryChannelUid;
 @property (nonatomic) NSURL *bannerImageURL;
 @property (nonatomic) NSInteger numberOfEpisodes;
+@property (nonatomic) SRGTransmission transmission;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
@@ -44,6 +46,8 @@
                        @keypath(SRGShow.new, primaryChannelUid) : @"primaryChannelId",
                        @keypath(SRGShow.new, bannerImageURL) : @"bannerImageUrl",
                        @keypath(SRGShow.new, numberOfEpisodes) : @"numberOfEpisodes",
+                       @keypath(SRGShow.new, transmission) : @"transmission",
+
                        
                        @keypath(SRGShow.new, title) : @"title",
                        @keypath(SRGShow.new, lead) : @"lead",
@@ -76,6 +80,11 @@
 + (NSValueTransformer *)bannerImageURLJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)transmissionJSONTransformer
+{
+    return SRGTransmissionJSONTransformer();
 }
 
 #pragma mark SRGImage protocol
