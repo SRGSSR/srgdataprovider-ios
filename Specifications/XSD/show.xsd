@@ -26,6 +26,7 @@
             </xs:element>
             <xs:element name="viewedMedias" type="xs:int" minOccurs="0" maxOccurs="1"/>
             <xs:element name="numberOfEpisodes" type="xs:int" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="transmission" type="transmission" minOccurs="0" maxOccurs="1"/>
             <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
         </xs:sequence>
         <xs:anyAttribute processContents="lax" namespace="##other"/>

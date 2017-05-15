@@ -155,17 +155,17 @@
 
 - (NSURL *)backgroundImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
 {
-    return [self.backgroundImageURL srg_URLForDimension:dimension withValue:value];
+    return [self.backgroundImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:@"background"];
 }
 
 - (NSURL *)logoImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
 {
-    return [self.logoImageURL srg_URLForDimension:dimension withValue:value];
+    return [self.logoImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:@"logo"];
 }
 
 - (NSURL *)keyVisualImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
 {
-    return [self.keyVisualImageURL srg_URLForDimension:dimension withValue:value];
+    return [self.keyVisualImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:@"key_visual"];
 }
 
 @end
