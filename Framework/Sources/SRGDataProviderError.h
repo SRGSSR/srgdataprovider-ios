@@ -30,11 +30,7 @@ typedef NS_ENUM(NSInteger, SRGDataProviderErrorCode) {
      *  Several errors have been encountered. Use the `SRGDataProviderErrorsKey` user info key to retrieve the 
      *  error list (as an `NSArray<NSError *>`).
      */
-    SRGDataProviderErrorMultiple,
-    /**
-     *  The data was not found.
-     */
-    SRGDataProviderErrorNotFound
+    SRGDataProviderErrorMultiple
 };
 
 /**
