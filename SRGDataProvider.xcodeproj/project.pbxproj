@@ -44,6 +44,7 @@
 		6FC024B51E1D380700550881 /* SRGSearchResultShow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC024B31E1D380700550881 /* SRGSearchResultShow.m */; };
 		6FC024B81E1D381E00550881 /* SRGSearchResultMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FC024B61E1D381E00550881 /* SRGSearchResultMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FC024B91E1D381E00550881 /* SRGSearchResultMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC024B71E1D381E00550881 /* SRGSearchResultMedia.m */; };
+		6FC361B31ECD7C8B00E01022 /* CommonServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC361B21ECD7C8B00E01022 /* CommonServicesTestCase.m */; };
 		6FC5B8221E852B22003555F8 /* MAKVONotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; };
 		6FC5B8231E852B34003555F8 /* MAKVONotificationCenter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6FC5B8241E852B46003555F8 /* MAKVONotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; };
@@ -183,6 +184,7 @@
 		6FC024B31E1D380700550881 /* SRGSearchResultShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSearchResultShow.m; sourceTree = "<group>"; };
 		6FC024B61E1D381E00550881 /* SRGSearchResultMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSearchResultMedia.h; sourceTree = "<group>"; };
 		6FC024B71E1D381E00550881 /* SRGSearchResultMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSearchResultMedia.m; sourceTree = "<group>"; };
+		6FC361B21ECD7C8B00E01022 /* CommonServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonServicesTestCase.m; sourceTree = "<group>"; };
 		6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAKVONotificationCenter.framework; path = Carthage/Build/iOS/MAKVONotificationCenter.framework; sourceTree = "<group>"; };
 		6FD1EAEC1E8A652E007940EE /* DataProviderBaseTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataProviderBaseTestCase.h; sourceTree = "<group>"; };
 		6FD1EAED1E8A652E007940EE /* DataProviderBaseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataProviderBaseTestCase.m; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 		6F6BDCE41E8262C4004BC726 /* BUs */ = {
 			isa = PBXGroup;
 			children = (
+				6FC361B21ECD7C8B00E01022 /* CommonServicesTestCase.m */,
 				6F6BDCE91E826A5C004BC726 /* RSIServicesTestCase.m */,
 				6F6BDCED1E827DDB004BC726 /* RTRServicesTestCase.m */,
 				6F6BDCE51E8262C4004BC726 /* RTSServicesTestCase.m */,
@@ -666,6 +669,7 @@
 				6F6BDCEE1E827DDB004BC726 /* RTRServicesTestCase.m in Sources */,
 				6F6BDCE71E8262C4004BC726 /* RTSServicesTestCase.m in Sources */,
 				6F6BDCE81E8262C4004BC726 /* SRFServicesTestCase.m in Sources */,
+				6FC361B31ECD7C8B00E01022 /* CommonServicesTestCase.m in Sources */,
 				6F8201DD1D9A3FAC001DA4DA /* DataProviderTestCase.m in Sources */,
 				E600FE731D94242F000B8A1D /* ServicesTestCase.m in Sources */,
 				6F8201E31D9AA087001DA4DA /* RequestQueueTestCase.m in Sources */,
