@@ -96,6 +96,16 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Audio media composition | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |N/A | N/A |
 | Audio search | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ❌ |
 
+## Common services
+
+These services provide a way to access content from any business unit from any data provider.
+
+| Request | Remarks |
+|:-- |:--:|
+| Single media by URN | - |
+| List of medias by URNs | For the request to succeed, URNs must all have the same type (only videos or only audios), and must belong to the same business unit |
+| Media composition by URN | - |
+
 ## Module services
 
 Modules are collection of medias related to a specific context (e.g. an event).
