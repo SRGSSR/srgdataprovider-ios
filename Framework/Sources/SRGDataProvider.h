@@ -467,7 +467,8 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 /**
  *  Retrieve videos matching a uid list.
  *
- *  @discussion The list must contain at least a uid, otherwise the results is undefined.
+ *  @discussion The list must contain at least a uid, otherwise the results is undefined. Partial results can be
+ *              returned if some uids (but not all) are invalid.
  */
 - (SRGRequest *)videosWithUids:(NSArray<NSString *> *)mediaUids
                completionBlock:(SRGMediaListCompletionBlock)completionBlock;
@@ -504,7 +505,8 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 /**
  *  Retrieve audios matching a uid list.
  *
- *  @discussion The list must contain at least a uid, otherwise the results is undefined.
+ *  @discussion The list must contain at least a uid, otherwise the results is undefined. Partial results can be
+ *              returned if some uids (but not all) are invalid.
  */
 - (SRGRequest *)audiosWithUids:(NSArray<NSString *> *)mediaUids
                completionBlock:(SRGMediaListCompletionBlock)completionBlock;
