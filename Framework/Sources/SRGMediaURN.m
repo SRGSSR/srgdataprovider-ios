@@ -30,29 +30,11 @@
 
 - (instancetype)initWithURNString:(NSString *)URNString
 {
-    NSMutableArray<NSString *> *components = [[URNString componentsSeparatedByString:@":"] mutableCopy];
-    if (components.count != 4) {
-        return nil;
-    }
-    
-    if (! [components.firstObject.lowercaseString isEqualToString:@"urn"]) {
-        return nil;
-    }
-    
-    SRGMediaType mediaType = [[SRGMediaTypeJSONTransformer() transformedValue:components[2].uppercaseString] integerValue];
-    if (mediaType == SRGMediaTypeNone) {
-        return nil;
-    }
-    
-    SRGVendor vendor = [[SRGVendorJSONTransformer() transformedValue:components[1].uppercaseString] integerValue];
-    if (vendor == SRGVendorNone) {
-        return nil;
-    }
-    
     if (self = [super init]) {
-        self.uid = components[3];
-        self.mediaType = mediaType;
-        self.vendor = vendor;
+        if (! [self parseURNString:URNString]) {
+            return nil;
+        }
+        
         self.URNString = URNString;
     }
     return self;
@@ -62,6 +44,54 @@
 {
     [self doesNotRecognizeSelector:_cmd];
     return [self initWithURNString:@""];
+}
+
+#pragma mark Parsing
+
+- (BOOL)parseURNString:(NSString *)URNString
+{
+    NSMutableArray<NSString *> *components = [[URNString componentsSeparatedByString:@":"] mutableCopy];
+    if (! [components.firstObject.lowercaseString isEqualToString:@"urn"] || components.count < 2) {
+        return NO;
+    }
+    
+    // Special case of SwissTXT URLs
+    if ([components[1] isEqualToString:@"swisstxt"]) {
+        if (components.count != 5) {
+            return NO;
+        }
+        
+        [components replaceObjectAtIndex:1 withObject:components[3]];
+        [components removeObjectAtIndex:3];
+        
+        NSString *shortURNString = [components componentsJoinedByString:@":"];
+        return [self parseURNString:shortURNString];
+    }
+    
+    if (components.count != 4) {
+        return NO;
+    }
+    
+    SRGMediaType mediaType = [[SRGMediaTypeJSONTransformer() transformedValue:components[2].uppercaseString] integerValue];
+    if (mediaType == SRGMediaTypeNone) {
+        return NO;
+    }
+    
+    SRGVendor vendor = [[SRGVendorJSONTransformer() transformedValue:components[1].uppercaseString] integerValue];
+    if (vendor == SRGVendorNone) {
+        return NO;
+    }
+    
+    NSString *uid = components[3];
+    if (uid.length == 0) {
+        return nil;
+    }
+    
+    self.uid = uid;
+    self.mediaType = mediaType;
+    self.vendor = vendor;
+    
+    return YES;
 }
 
 #pragma mark Equality
