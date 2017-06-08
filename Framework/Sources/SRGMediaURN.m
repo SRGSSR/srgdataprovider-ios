@@ -14,6 +14,7 @@
 @property (nonatomic) SRGMediaType mediaType;
 @property (nonatomic) SRGVendor vendor;
 @property (nonatomic, copy) NSString *URNString;
+@property (nonatomic, getter=isLiveEvent) BOOL liveCenterEvent;
 
 @end
 
@@ -63,6 +64,8 @@
         
         [components replaceObjectAtIndex:1 withObject:components[3]];
         [components removeObjectAtIndex:3];
+        
+        self.liveCenterEvent = YES;
         
         NSString *shortURNString = [components componentsJoinedByString:@":"];
         return [self parseURNString:shortURNString];

@@ -45,6 +45,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly, copy) NSString *URNString;
 
+/**
+ *  Return `YES` iff the URN is related to a live center event.
+ */
+@property (nonatomic, readonly, getter=isLiveEvent) BOOL liveCenterEvent;
+
 @end
 
 @interface SRGMediaURN (Unavailable)

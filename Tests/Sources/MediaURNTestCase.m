@@ -23,6 +23,7 @@
     XCTAssertEqualObjects(@(mediaURN.mediaType), @(SRGMediaTypeVideo));
     XCTAssertEqualObjects(@(mediaURN.vendor), @(SRGVendorSWI));
     XCTAssertEqualObjects(mediaURN.URNString, URNString);
+    XCTAssertFalse(mediaURN.liveCenterEvent);
 }
 
 - (void)testCaseInsensitive
@@ -60,6 +61,7 @@
     XCTAssertEqualObjects(@(mediaURN.mediaType), @(SRGMediaTypeVideo));
     XCTAssertEqualObjects(@(mediaURN.vendor), @(SRGVendorSRF));
     XCTAssertEqualObjects(mediaURN.URNString, URNString);
+    XCTAssertTrue(mediaURN.liveCenterEvent);
 }
 
 - (void)testIncorrectURNs
