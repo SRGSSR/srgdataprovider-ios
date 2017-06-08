@@ -52,7 +52,7 @@
 - (BOOL)parseURNString:(NSString *)URNString
 {
     NSMutableArray<NSString *> *components = [[URNString componentsSeparatedByString:@":"] mutableCopy];
-    if (! [components.firstObject.lowercaseString isEqualToString:@"urn"] || components.count < 2) {
+    if (! [components.firstObject.lowercaseString isEqualToString:@"urn"] || components.count < 4) {
         return NO;
     }
     
@@ -62,17 +62,15 @@
             return NO;
         }
         
+        self.liveCenterEvent = YES;
+        
+        // Reorder URN components to get a standard non-SwissTXT URN from a SwissTXT one
+        // e.g. urn:swisstxt:type:bu:id must be reordered to urn:bu:type:id 
         [components replaceObjectAtIndex:1 withObject:components[3]];
         [components removeObjectAtIndex:3];
         
-        self.liveCenterEvent = YES;
-        
         NSString *shortURNString = [components componentsJoinedByString:@":"];
         return [self parseURNString:shortURNString];
-    }
-    
-    if (components.count != 4) {
-        return NO;
     }
     
     SRGMediaType mediaType = [[SRGMediaTypeJSONTransformer() transformedValue:components[2].uppercaseString] integerValue];
