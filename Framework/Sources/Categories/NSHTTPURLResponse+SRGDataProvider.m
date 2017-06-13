@@ -8,8 +8,10 @@
 
 @implementation NSHTTPURLResponse (SRGDataProvider)
 
+// TODO: Remove this workaround when the bug has been fixed on all supported iOS versions
 + (NSString *)play_localizedStringForStatusCode:(NSInteger)statusCode
 {
+    // The +localizedStringForStatusCode: method always returns the English version, which we use as localization key
     NSString *localizationKey = [self localizedStringForStatusCode:statusCode];
     NSBundle *bundle = [NSBundle bundleWithIdentifier:@"com.apple.CFNetwork"];
     NSString *localizedString = [bundle localizedStringForKey:localizationKey value:localizationKey table:nil];

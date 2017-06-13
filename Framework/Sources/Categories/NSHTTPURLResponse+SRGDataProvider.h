@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Returns a capitalized localized string for the specified HTTP status code.
  *
- *  @discussion This method is a fix for the buggy +localizedStringForStatusCode: public method.
+ *  @discussion This method is a fix for the buggy +localizedStringForStatusCode: public method. See
+ *                http://openradar.appspot.com/radar?id=5498641225613312.
  */
 + (NSString *)play_localizedStringForStatusCode:(NSInteger)statusCode;
 
