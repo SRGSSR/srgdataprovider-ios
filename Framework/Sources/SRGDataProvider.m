@@ -15,6 +15,7 @@
 #import "SRGRequest+Private.h"
 #import "SRGSessionDelegate.h"
 
+#import <libextobjc/libextobjc.h>
 #import <Mantle/Mantle.h>
 
 NSURL *SRGIntegrationLayerProductionServiceURL(void)
@@ -419,17 +420,17 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 
 #pragma mark Public video services
 
-- (SRGRequest *)videoWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
+- (SRGRequest *)videoWithUid:(NSString *)videoUid completionBlock:(SRGMediaCompletionBlock)completionBlock
 {
-    return [self videosWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    return [self videosWithUids:@[videoUid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         completionBlock(medias.firstObject, error);
     }];
 }
 
-- (SRGRequest *)videosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)videosWithUids:(NSArray<NSString *> *)videoUids completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/byIds.json", self.businessUnitIdentifier];
-    NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"ids" value:[mediaUids componentsJoinedByString: @","]] ];
+    NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"ids" value:[videoUids componentsJoinedByString: @","]] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
@@ -437,22 +438,13 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
             return;
         }
         
-        // If the identifier list contains an unknown uid, the IL still returns a list of results without it. At the client
-        // level, though, we want to ensure that we got all the results we expected
-        if (objects.count != mediaUids.count) {
-            completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                     code:SRGDataProviderErrorNotFound
-                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The video was not found", @"Error message when the video request returns no result.")}]);
-            return;
-        }
-        
         completionBlock(objects, nil);
     }];
 }
 
-- (SRGRequest *)videoMediaCompositionWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
+- (SRGRequest *)videoMediaCompositionWithUid:(NSString *)videoUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaComposition/video/%@.json", self.businessUnitIdentifier, mediaUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaComposition/video/%@.json", self.businessUnitIdentifier, videoUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMediaComposition class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(object, error);
@@ -469,17 +461,17 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 
 #pragma mark Public audio services
 
-- (SRGRequest *)audioWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock
+- (SRGRequest *)audioWithUid:(NSString *)audioUid completionBlock:(SRGMediaCompletionBlock)completionBlock
 {
-    return [self audiosWithUids:@[uid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    return [self audiosWithUids:@[audioUid] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         completionBlock(medias.firstObject, error);
     }];
 }
 
-- (SRGRequest *)audiosWithUids:(NSArray<NSString *> *)mediaUids completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)audiosWithUids:(NSArray<NSString *> *)audioUids completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/byIds.json", self.businessUnitIdentifier];
-    NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"ids" value:[mediaUids componentsJoinedByString: @","]] ];
+    NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"ids" value:[audioUids componentsJoinedByString: @","]] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
@@ -487,22 +479,13 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
             return;
         }
         
-        // If the identifier list contains an unknown uid, the IL still returns a list of results without it. At the client
-        // level, though, we want to ensure that we got all the results we expected
-        if (objects.count != mediaUids.count) {
-            completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                     code:SRGDataProviderErrorNotFound
-                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The audio was not found", @"Error message when the audio request returns no result.")}]);
-            return;
-        }
-        
         completionBlock(objects, nil);
     }];
 }
 
-- (SRGRequest *)audioMediaCompositionWithUid:(NSString *)mediaUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
+- (SRGRequest *)audioMediaCompositionWithUid:(NSString *)audioUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaComposition/audio/%@.json", self.businessUnitIdentifier, mediaUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaComposition/audio/%@.json", self.businessUnitIdentifier, audioUid];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMediaComposition class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(object, error);
@@ -515,6 +498,40 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGSearchResultMedia class] rootKey:@"searchResultListMedia" completionBlock:completionBlock];
+}
+
+#pragma mark Public common services
+
+- (SRGRequest *)mediaWithURN:(SRGMediaURN *)mediaURN completionBlock:(SRGMediaCompletionBlock)completionBlock
+{
+    return [self mediasWithURNs:@[mediaURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+        completionBlock(medias.firstObject, error);
+    }];
+}
+
+- (SRGRequest *)mediasWithURNs:(NSArray<SRGMediaURN *> *)mediaURNs completionBlock:(SRGMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/byUrns.json"];
+    NSArray<NSString *> *mediaURNStrings = [mediaURNs valueForKeyPath:[NSString stringWithFormat:@"@unionOfObjects.%@", @keypath(SRGMediaURN.new, URNString)]];
+    NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"urns" value:[mediaURNStrings componentsJoinedByString: @","]] ];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        if (error) {
+            completionBlock(nil, error);
+            return;
+        }
+        
+        completionBlock(objects, nil);
+    }];
+}
+
+- (SRGRequest *)mediaCompositionWithURN:(SRGMediaURN *)mediaURN completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaComposition/byUrn/%@.json", mediaURN.URNString];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMediaComposition class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(object, error);
+    }];
 }
 
 #pragma mark Public module services

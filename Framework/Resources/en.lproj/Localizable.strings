@@ -1,7 +1,7 @@
 /* The main error message if multiple errors have been encountered. Finally, the developer could should which one to display, and not show this message. */
 "Several errors have been encountered" = "Several errors have been encountered";
 
-/* Error message when the audio request returns no result. */
+/* The error message when the audio request return nothing. */
 "The audio was not found" = "The audio was not found";
 
 /* A blocking reason message displayed to the user during the playback if a segment was skipped. */
@@ -34,7 +34,7 @@
 /* The error message when the secure token cannot be retrieved to play the media stream. */
 "The stream could not be secured." = "The stream could not be secured.";
 
-/* Error message when the video request returns no result. */
+/* The error message when the video request return nothing. */
 "The video was not found" = "The video was not found";
 
 /* A blocking reason message displayed to the user if the media can't be played. */

@@ -462,20 +462,21 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *
  *  @discussion If you need to retrieve several videos, use `-videosWithUids:completionBlock:` instead.
  */
-- (SRGRequest *)videoWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock;
+- (SRGRequest *)videoWithUid:(NSString *)videoUid completionBlock:(SRGMediaCompletionBlock)completionBlock;
 
 /**
  *  Retrieve videos matching a uid list.
  *
- *  @discussion The list must contain at least a uid, otherwise the results is undefined.
+ *  @discussion The list must contain at least a uid, otherwise the result is undefined. Partial results can be
+ *              returned if some uids (but not all) are invalid.
  */
-- (SRGRequest *)videosWithUids:(NSArray<NSString *> *)mediaUids
+- (SRGRequest *)videosWithUids:(NSArray<NSString *> *)videoUids
                completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  Full media information needed to play a video.
  */
-- (SRGRequest *)videoMediaCompositionWithUid:(NSString *)mediaUid
+- (SRGRequest *)videoMediaCompositionWithUid:(NSString *)videoUid
                              completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
 /**
@@ -499,20 +500,21 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  *
  *  @discussion If you need to retrieve several audios, use `-audiosWithUids:completionBlock:` instead.
  */
-- (SRGRequest *)audioWithUid:(NSString *)uid completionBlock:(SRGMediaCompletionBlock)completionBlock;
+- (SRGRequest *)audioWithUid:(NSString *)audioUid completionBlock:(SRGMediaCompletionBlock)completionBlock;
 
 /**
  *  Retrieve audios matching a uid list.
  *
- *  @discussion The list must contain at least a uid, otherwise the results is undefined.
+ *  @discussion The list must contain at least a uid, otherwise the result is undefined. Partial results can be
+ *              returned if some uids (but not all) are invalid.
  */
-- (SRGRequest *)audiosWithUids:(NSArray<NSString *> *)mediaUids
+- (SRGRequest *)audiosWithUids:(NSArray<NSString *> *)audioUids
                completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  Full media information needed to play an audio.
  */
-- (SRGRequest *)audioMediaCompositionWithUid:(NSString *)mediaUid
+- (SRGRequest *)audioMediaCompositionWithUid:(NSString *)audioUid
                              completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
 /**
@@ -526,11 +528,43 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 
 @end
 
-@interface SRGDataProvider (ModuleServices)
+/**
+ *  List of common services supported by the data provider. Such services do not need explicit knowledge of what
+ *  is requested (audio / video, for example) or of the business unit. They provide a way to retrieve content
+ *  from any business unit, even with a data provider instantiated for another business unit. Some restrictions 
+ *  may apply, though, refer to the documentation of each request for more information.
+ */
+@interface SRGDataProvider (CommonServices)
 
 /**
- *  @name Modules
+ *  Retrieve the media having the specified URN.
+ *
+ *  @discussion If you need to retrieve several medias, use `-mediasWithURNs:completionBlock:` instead.
  */
+- (SRGRequest *)mediaWithURN:(SRGMediaURN *)mediaURN completionBlock:(SRGMediaCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve medias matching a URN list.
+ *
+ *  @discussion The list must contain at least a URN, otherwise the result is undefined. Partial results can be
+ *              returned if some URNs (but not all) are invalid. Note that you cannot mix audio and video URNs, 
+ *              or URNs from different business units, otherwise the request will fail.
+ */
+- (SRGRequest *)mediasWithURNs:(NSArray<SRGMediaURN *> *)mediaURNs
+               completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  Full media information needed to play a media.
+ */
+- (SRGRequest *)mediaCompositionWithURN:(SRGMediaURN *)mediaURN
+                        completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
+
+@end
+
+/**
+ *  List of module services (e.g. events) supported by the data provider.
+ */
+@interface SRGDataProvider (ModuleServices)
 
 /**
  *  List modules for a specific type (e.g. events).

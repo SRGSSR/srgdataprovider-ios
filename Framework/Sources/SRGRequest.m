@@ -7,6 +7,7 @@
 #import "SRGRequest.h"
 
 #import "NSBundle+SRGDataProvider.h"
+#import "NSHTTPURLResponse+SRGDataProvider.h"
 #import "SRGDataProviderError.h"
 #import "SRGDataProviderLogger.h"
 #import "SRGRequest+Private.h"
@@ -121,7 +122,7 @@ static NSInteger s_numberOfRunningRequests = 0;
             if (HTTPStatusCode >= 400) {
                 NSError *HTTPError = [NSError errorWithDomain:SRGDataProviderErrorDomain
                                                          code:SRGDataProviderErrorHTTP
-                                                     userInfo:@{ NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:HTTPStatusCode],
+                                                     userInfo:@{ NSLocalizedDescriptionKey : [NSHTTPURLResponse play_localizedStringForStatusCode:HTTPStatusCode],
                                                                  NSURLErrorKey : response.URL,
                                                                  SRGDataProviderHTTPStatusCodeKey : @(HTTPStatusCode) }];
                 SRGDataProviderLogDebug(@"Request", @"Ended %@ with an HTTP error: %@", self.request.URL, HTTPError);
