@@ -453,6 +453,19 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 @end
 
 /**
+ *  List of TV-oriented services supported by the data provider. Radio channels have separate identities and programs,
+ *  this is why retrieving media lists requires the unique identifier of a channel to be specified.
+ */
+@interface SRGDataProvider (LiveCenterServices)
+
+/**
+ *  Video scheduled live streams from Live center
+ */
+- (SRGFirstPageRequest *)livecenterVideoScheduledLivestreamsWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+@end
+
+/**
  *  List of video-oriented services supported by the data provider.
  */
 @interface SRGDataProvider (VideoServices)
