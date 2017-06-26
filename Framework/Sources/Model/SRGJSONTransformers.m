@@ -219,6 +219,20 @@ NSValueTransformer *SRGQualityJSONTransformer(void)
     return s_transformer;
 }
 
+NSValueTransformer *SRGShowURNJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *URNString, BOOL *success, NSError *__autoreleasing *error) {
+            return [SRGShowURN showURNWithString:URNString];
+        } reverseBlock:^id(SRGShowURN *showURN, BOOL *success, NSError *__autoreleasing *error) {
+            return showURN.URNString;
+        }];
+    });
+    return s_transformer;
+}
+
 NSValueTransformer *SRGSocialCountTypeJSONTransformer(void)
 {
     static NSValueTransformer *transformer;

@@ -5,6 +5,7 @@
 //
 
 #import "SRGMediaURN.h"
+#import "SRGShowURN.h"
 
 #import <Foundation/Foundation.h>
 
@@ -23,6 +24,7 @@ OBJC_EXPORT NSValueTransformer *SRGModuleTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGPresentationJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGProtocolJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGQualityJSONTransformer(void);
+OBJC_EXPORT NSValueTransformer *SRGShowURNJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGSocialCountTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGSourceJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGSubtitleFormatJSONTransformer(void);
