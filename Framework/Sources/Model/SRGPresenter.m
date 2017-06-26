@@ -13,6 +13,7 @@
 @interface SRGPresenter ()
 
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic) NSURL *URL;
 
 @property (nonatomic) NSURL *imageURL;
 @property (nonatomic, copy) NSString *imageTitle;
@@ -30,6 +31,7 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @keypath(SRGPresenter.new, name) : @"name",
+                       @keypath(SRGPresenter.new, URL) : @"url",
                        
                        @keypath(SRGPresenter.new, imageURL) : @"imageUrl",
                        @keypath(SRGPresenter.new, imageTitle) : @"imageTitle",
@@ -39,6 +41,11 @@
 }
 
 #pragma mark Transformers
+
++ (NSValueTransformer *)URLJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
 
 + (NSValueTransformer *)imageURLJSONTransformer
 {
