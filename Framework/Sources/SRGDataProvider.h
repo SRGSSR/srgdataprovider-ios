@@ -38,6 +38,8 @@
 #import "SRGSection.h"
 #import "SRGSegment.h"
 #import "SRGShow.h"
+#import "SRGShowIdentifierMetadata.h"
+#import "SRGShowURN.h"
 #import "SRGSocialCount.h"
 #import "SRGSubtitle.h"
 #import "SRGTopic.h"
