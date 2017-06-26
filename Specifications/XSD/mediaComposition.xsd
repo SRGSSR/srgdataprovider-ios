@@ -46,10 +46,11 @@
             <xs:documentation>A physical media as part of an episode. In most cases, this is the full-length media of the episode.</xs:documentation>
         </xs:annotation>
         <xs:complexContent>
-            <xs:extension base="segment">
+            <xs:extension base="mediaRepresentation">
                 <xs:sequence>
                     <xs:element name="resourceList" type="resource" minOccurs="0" maxOccurs="unbounded"/>
                     <xs:element name="segmentList" type="segment" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:group ref="scheduledLivestreamGroup"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -59,11 +60,17 @@
         <xs:annotation>
             <xs:documentation>Logical section of a chapter, defined by it's markIn and markOut points</xs:documentation>
         </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="mediaRepresentation"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="mediaRepresentation">
         <xs:sequence>
             <xs:group ref="mediaGroup"/>
             <xs:element name="fullLengthUrn" type="urn" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
-                    <xs:documentation>URN of the base physical media (chapter)</xs:documentation>
+                    <xs:documentation>URN of the complete episode</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="position" type="xs:int" minOccurs="1" maxOccurs="1">
@@ -76,18 +83,20 @@
                     <xs:documentation>Indicated that this segment cannot be included in other sites and clients should not provide an embed code</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="markIn" type="xs:long" minOccurs="1" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>Starting point of a segment within it's (pyhsical) chapter, in milliseconds</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="markOut" type="xs:long" minOccurs="1" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>End point of a segment within it's (physical) chapter, in milliseconds</xs:documentation>
-                </xs:annotation>
-            </xs:element>
+            <xs:sequence>
+                <xs:element name="markIn" type="xs:long" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>Starting point in milliseconds</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="markOut" type="xs:long" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>End point in milliseconds</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+
             <xs:element name="subtitleList" type="subtitle" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:group ref="scheduledLivestreamGroup"/>
             <xs:element name="analyticsData" type="analyticsData" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>Key value map of analytics data which the client has to post to analytics services, e.g. comscore</xs:documentation>
