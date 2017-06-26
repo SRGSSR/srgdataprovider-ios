@@ -420,7 +420,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 
 #pragma mark Live center services
 
-- (SRGFirstPageRequest *)livecenterVideoScheduledLivestreamsWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+- (SRGFirstPageRequest *)liveCenterVideosWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/scheduledLivestreams/livecenter.json", self.businessUnitIdentifier];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
