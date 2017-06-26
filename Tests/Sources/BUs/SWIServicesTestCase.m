@@ -546,6 +546,19 @@ static NSString * const kInvalidMediaId = @"999999999999999";
 }
 
 // Not supported for SWI
+- (void)testLiveCenterVideos
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider liveCenterVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// Not supported for SWI
 - (void)testAudio
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];

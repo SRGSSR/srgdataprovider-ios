@@ -453,6 +453,18 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 @end
 
 /**
+ *  List of services offered by the SwissTXT Live Center.
+ */
+@interface SRGDataProvider (LiveCenterServices)
+
+/**
+ *  List of videos available from the Live Center.
+ */
+- (SRGFirstPageRequest *)liveCenterVideosWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+@end
+
+/**
  *  List of video-oriented services supported by the data provider.
  */
 @interface SRGDataProvider (VideoServices)
