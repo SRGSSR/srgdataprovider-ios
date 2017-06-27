@@ -4,16 +4,14 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGMediaRepresentationMetadata.h"
-#import "SRGModel.h"
+#import "SRGMediaRepresentation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  A section is a logical media subdivision. It can correspond to an actual media (@see `SRGChapter`) or to a subset
- *  of a media (logical segmentation).
+ *  A segment is piece of a physical media.
  */
-@interface SRGSegment : SRGModel <SRGMediaRepresentationMetadata>
+@interface SRGSegment : SRGMediaRepresentation
 
 @end
 

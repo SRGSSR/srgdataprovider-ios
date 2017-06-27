@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGModel.h"
 #import "SRGMediaMetadata.h"
 #import "SRGMediaURN.h"
 #import "SRGSubtitle.h"
@@ -12,9 +13,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Common protocol for media representation
+ *  Abstract base class for media representations.
  */
-@protocol SRGMediaRepresentationMetadata <SRGMediaMetadata>
+@interface SRGMediaRepresentation : SRGModel <SRGMediaMetadata>
 
 /**
  *  The URN of the full length segment to which the segment belongs, if any.
