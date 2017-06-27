@@ -4,11 +4,9 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGShowMetadata.h"
 #import "SRGModel.h"
+#import "SRGShowMetadata.h"
 #import "SRGTypes.h"
-
-#import <CoreGraphics/CoreGraphics.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -13,11 +13,6 @@
 
 @interface SRGShow ()
 
-@property (nonatomic, copy) NSString *uid;
-@property (nonatomic, copy) SRGShowURN *URN;
-@property (nonatomic) SRGTransmission transmission;
-@property (nonatomic) SRGVendor vendor;
-
 @property (nonatomic) NSURL *homepageURL;
 @property (nonatomic) NSURL *podcastSubscriptionURL;
 @property (nonatomic, copy) NSString *primaryChannelUid;
@@ -32,6 +27,11 @@
 @property (nonatomic, copy) NSString *imageTitle;
 @property (nonatomic, copy) NSString *imageCopyright;
 
+@property (nonatomic, copy) NSString *uid;
+@property (nonatomic, copy) SRGShowURN *URN;
+@property (nonatomic) SRGTransmission transmission;
+@property (nonatomic) SRGVendor vendor;
+
 @end
 
 @implementation SRGShow
@@ -43,24 +43,24 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @keypath(SRGShow.new, uid) : @"id",
-                        @keypath(SRGShow.new, URN) : @"urn",
-                        @keypath(SRGShow.new, transmission) : @"transmission",
-                        @keypath(SRGShow.new, vendor) : @"vendor",
+        s_mapping = @{ @keypath(SRGShow.new, homepageURL) : @"homepageUrl",
+                       @keypath(SRGShow.new, podcastSubscriptionURL) : @"podcastSubscriptionUrl",
+                       @keypath(SRGShow.new, primaryChannelUid) : @"primaryChannelId",
+                       @keypath(SRGShow.new, bannerImageURL) : @"bannerImageUrl",
+                       @keypath(SRGShow.new, numberOfEpisodes) : @"numberOfEpisodes",
+                       
+                       @keypath(SRGShow.new, title) : @"title",
+                       @keypath(SRGShow.new, lead) : @"lead",
+                       @keypath(SRGShow.new, summary) : @"description",
+                       
+                       @keypath(SRGShow.new, imageURL) : @"imageUrl",
+                       @keypath(SRGShow.new, imageTitle) : @"imageTitle",
+                       @keypath(SRGShow.new, imageCopyright) : @"imageCopyright",
                         
-                        @keypath(SRGShow.new, homepageURL) : @"homepageUrl",
-                        @keypath(SRGShow.new, podcastSubscriptionURL) : @"podcastSubscriptionUrl",
-                        @keypath(SRGShow.new, primaryChannelUid) : @"primaryChannelId",
-                        @keypath(SRGShow.new, bannerImageURL) : @"bannerImageUrl",
-                        @keypath(SRGShow.new, numberOfEpisodes) : @"numberOfEpisodes",
-                        
-                        @keypath(SRGShow.new, title) : @"title",
-                        @keypath(SRGShow.new, lead) : @"lead",
-                        @keypath(SRGShow.new, summary) : @"description",
-                        
-                        @keypath(SRGShow.new, imageURL) : @"imageUrl",
-                        @keypath(SRGShow.new, imageTitle) : @"imageTitle",
-                        @keypath(SRGShow.new, imageCopyright) : @"imageCopyright" };
+                       @keypath(SRGShow.new, uid) : @"id",
+                       @keypath(SRGShow.new, URN) : @"urn",
+                       @keypath(SRGShow.new, transmission) : @"transmission",
+                       @keypath(SRGShow.new, vendor) : @"vendor" };
     });
     return s_mapping;
 }

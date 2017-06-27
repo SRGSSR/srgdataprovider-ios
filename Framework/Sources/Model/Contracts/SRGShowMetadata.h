@@ -5,9 +5,10 @@
 //
 
 #import "SRGImageMetadata.h"
-#import "SRGShowIdentifierMetadata.h"
 #import "SRGMetadata.h"
+#import "SRGShowIdentifierMetadata.h"
 
+#import <CoreGraphics/CoreGraphics.h>
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -15,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Common protocol for shows.
  */
-@protocol SRGShowMetadata <SRGMetadata, SRGShowIdentifierMetadata, SRGImageMetadata>
+@protocol SRGShowMetadata <SRGMetadata, SRGImageMetadata, SRGShowIdentifierMetadata>
 
 /**
  *  The URL of the show homepage.
