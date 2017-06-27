@@ -9,6 +9,7 @@
 #import "SRGMediaParentMetadata.h"
 #import "SRGMediaURN.h"
 #import "SRGModel.h"
+#import "SRGSegment.h"
 
 #import <Mantle/Mantle.h>
 
@@ -71,40 +72,20 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGMediaComposition (Generators)
 
 /**
- *  Return the media corresponding to a segment belonging to the receiver.
+ *  Return the media corresponding to a representation (chapter or segment) belonging to the receiver.
  *
- *  @param segment The segment which the media must be returned for. If the segment does not belong to the receiver, 
- *                 the method returns `nil`.
- *
- *  @discussion Since `SRGChapter` is a subclass of `SRGSegment`, this method works for chapters as well.
+ *  @param representation The representation which the media must be returned for. If the representation does not belong
+ *                        to the receiver, the method returns `nil`.
  */
-- (nullable SRGMedia *)mediaForSegment:(SRGSegment *)segment;
+- (nullable SRGMedia *)mediaForRepresentation:(SRGMediaRepresentation *)representation;
 
 /**
- *  Return the media corresponding to a chapter belonging to the receiver.
+ *  Return the media composition corresponding to a representation (chapter or segment) belonging to the receiver.
  *
- *  @param chapter The chapter which the media must be returned for. If the chapter does not belong to the receiver,
- *                 the method returns `nil`.
+ *  @param representation The representation which the composition must be generated for. If the specified representation
+ *                        does not belong to the media composition, the method returns `nil`.
  */
-- (nullable SRGMedia *)mediaForChapter:(SRGChapter *)chapter;
-
-/**
- *  Return the media composition corresponding to a segment belonging to the receiver.
- *
- *  @param segment The segment which the composition must be generated for. If the specified segment does not belong 
- *                 to the media composition, the method returns `nil`.
- */
-- (nullable SRGMediaComposition *)mediaCompositionForSegment:(SRGSegment *)segment;
-
-/**
- *  Return the media composition corresponding to a chapter belonging to the receiver.
- *
- *  @param chapter The chapter which the composition must be generated for. If the specified chapter does not belong 
- *                 to the media composition, the method returns `nil`.
- *
- *  @discussion Since `SRGChapter` is a subclass of `SRGSegment`, this method works for chapters as well.
- */
-- (nullable SRGMediaComposition *)mediaCompositionForChapter:(SRGChapter *)chapter;
+- (nullable SRGMediaComposition *)mediaCompositionForRepresentation:(SRGMediaRepresentation *)representation;
 
 @end
 

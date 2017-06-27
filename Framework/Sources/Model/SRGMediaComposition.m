@@ -93,30 +93,30 @@
     // If the main chapter is an episode, it is the full-length
     SRGChapter *mainChapter = self.mainChapter;
     if (mainChapter.contentType == SRGContentTypeEpisode) {
-        return [self mediaForChapter:mainChapter];
+        return [self mediaForRepresentation:mainChapter];
     }
     // Locate the associate full-length
     else if (mainChapter.fullLengthURN) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGChapter.new, URN), mainChapter.fullLengthURN];
         SRGChapter *fullLengthChapter = [self.chapters filteredArrayUsingPredicate:predicate].firstObject;
-        return fullLengthChapter ? [self mediaForChapter:fullLengthChapter] : nil;
+        return fullLengthChapter ? [self mediaForRepresentation:fullLengthChapter] : nil;
     }
     else {
         return nil;
     }    
 }
 
-#pragma mark Chapter generation
+#pragma mark Media and media composition generation
 
-- (BOOL)containsSegment:(SRGSegment *)segment
+- (BOOL)containsRepresentation:(SRGMediaRepresentation *)representation
 {
     for (SRGChapter *chapter in self.chapters) {
-        if (chapter == segment) {
+        if (chapter == representation) {
             return YES;
         }
         else {
             for (SRGSegment *chapterSegment in chapter.segments) {
-                if (chapterSegment == segment) {
+                if (chapterSegment == representation) {
                     return YES;
                 }
             }
@@ -126,16 +126,16 @@
     return NO;
 }
 
-- (SRGMedia *)mediaForSegment:(SRGSegment *)segment
+- (SRGMedia *)mediaForRepresentation:(SRGMediaRepresentation *)representation
 {
-    if (! [self containsSegment:segment]) {
+    if (! [self containsRepresentation:representation]) {
         return nil;
     }
     
     SRGMedia *media = [[SRGMedia alloc] init];
     
     // Start from existing segment values
-    NSMutableDictionary *values = [segment.dictionaryValue mutableCopy];
+    NSMutableDictionary *values = [representation.dictionaryValue mutableCopy];
     
     // Merge with parent metadata available at the media composition level
     if (self.channel) {
@@ -159,22 +159,17 @@
     return media;
 }
 
-- (SRGMedia *)mediaForChapter:(SRGChapter *)chapter
-{
-    return [self mediaForSegment:chapter];
-}
-
-- (SRGMediaComposition *)mediaCompositionForSegment:(SRGSegment *)segment
+- (SRGMediaComposition *)mediaCompositionForRepresentation:(SRGMediaRepresentation *)representation
 {
     for (SRGChapter *chapter in self.chapters) {
-        if (chapter == segment) {
+        if (chapter == representation) {
             SRGMediaComposition *mediaComposition = [self copy];
             mediaComposition.chapterURN = chapter.URN;
             return mediaComposition;
         }
         else {
             for (SRGSegment *chapterSegment in chapter.segments) {
-                if (chapterSegment == segment) {
+                if (chapterSegment == representation) {
                     SRGMediaComposition *mediaComposition = [self copy];
                     mediaComposition.chapterURN = chapter.URN;
                     mediaComposition.segmentURN = chapterSegment.URN;
@@ -186,11 +181,6 @@
     
     // No match found
     return nil;
-}
-
-- (SRGMediaComposition *)mediaCompositionForChapter:(SRGChapter *)chapter
-{
-    return [self mediaCompositionForSegment:chapter];
 }
 
 #pragma mark Equality
