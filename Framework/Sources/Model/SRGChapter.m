@@ -6,12 +6,17 @@
 
 #import "SRGChapter.h"
 
+#import "SRGJSONTransformers.h"
+
 #import <libextobjc/libextobjc.h>
 
 @interface SRGChapter ()
 
 @property (nonatomic) NSArray<SRGResource *> *resources;
 @property (nonatomic) NSArray<SRGSegment *> *segments;
+
+@property (nonatomic) NSDate *preTrailerStartDate;
+@property (nonatomic) NSDate *postTrailerEndDate;
 
 @end
 
@@ -26,7 +31,10 @@
     dispatch_once(&s_onceToken, ^{
         NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
         [mapping addEntriesFromDictionary:@{ @keypath(SRGChapter.new, resources) : @"resourceList",
-                                             @keypath(SRGChapter.new, segments) : @"segmentList" }];
+                                             @keypath(SRGChapter.new, segments) : @"segmentList",
+                                              
+                                             @keypath(SRGChapter.new, preTrailerStartDate) : @"preTrailerStart",
+                                             @keypath(SRGChapter.new, postTrailerEndDate) : @"postTrailerStop" }];
         s_mapping = [mapping copy];
     });
     return s_mapping;
@@ -42,6 +50,16 @@
 + (NSValueTransformer *)segmentsJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSegment class]];
+}
+
++ (NSValueTransformer *)preTrailerStartDateJSONTransformer
+{
+    return SRGISO8601DateJSONTransformer();
+}
+
++ (NSValueTransformer *)postTrailerEndDateJSONTransformer
+{
+    return SRGISO8601DateJSONTransformer();
 }
 
 @end

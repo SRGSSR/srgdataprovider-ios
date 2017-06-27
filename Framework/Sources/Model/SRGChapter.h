@@ -5,6 +5,7 @@
 //
 
 #import "SRGResource.h"
+#import "SRGScheduledLivestreamMetadata.h"
 #import "SRGSegment.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -12,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Chapter (unit of media playback characterized by a URL to be played).
  */
-@interface SRGChapter : SRGSegment
+@interface SRGChapter : SRGSegment <SRGScheduledLivestreamMetadata>
 
 /**
  *  The list of available resources.

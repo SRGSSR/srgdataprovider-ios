@@ -33,6 +33,7 @@
 #import "SRGRequest.h"
 #import "SRGRequestQueue.h"
 #import "SRGResource.h"
+#import "SRGScheduledLivestreamMetadata.h"
 #import "SRGSearchResult.h"
 #import "SRGSearchResultMedia.h"
 #import "SRGSearchResultShow.h"
