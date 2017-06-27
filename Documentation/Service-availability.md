@@ -3,7 +3,7 @@ Service availability
 
 Integration Layer services are not available for all business units. The following document describes the availability of all services supported by the SRG Data Provider library, depending on the business unit which a data provider has been created with.
 
-If not specified, the maximum page size is 100. The default page size is 10.
+If not specified, the maximum page size is 100. The default page size is 10. A special page size of _unlimited_ is available in some cases to return all entries at once.
 
 ## TV services
 
@@ -37,7 +37,8 @@ If not specified, the maximum page size is 100. The default page size is 10.
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Maximum page size | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Shows | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ✅ |
+| All shows | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ✅ |
+| Shows with specific identifiers | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A | N/A |
 | Single show | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A | N/A |
 | Latest episodes for a show | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ❌ |
 | Show search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ❌ |
@@ -73,10 +74,24 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Maximum page size | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Shows | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ✅ |
+| All shows | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ✅ |
+| Shows with specific identifiers | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A | N/A |
 | Single show | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A | N/A |
 | Latest episodes for a show | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ❌ |
 | Show search | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ❌ |
+
+### Songs
+
+| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Maximum page size | Unlimited page size |
+|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Recent songs | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ✅ |
+| Current song on air | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A | N/A |
+
+## Live center services
+
+| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Maximum page size | Unlimited page size |
+|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Videos | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ✅ |
 
 ## Video services
 
@@ -105,6 +120,8 @@ These services provide a way to access content from any business unit from any d
 | Single media by URN | - |
 | List of medias by URNs | For the request to succeed, URNs must all have the same type (only videos or only audios), and must belong to the same business unit |
 | Media composition by URN | - |
+| Show by URN | - |
+| Latest episodes for show with URN | - |
 
 ## Module services
 
