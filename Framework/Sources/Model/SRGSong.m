@@ -6,6 +6,8 @@
 
 #import "SRGSong.h"
 
+#import "SRGJSONTransformers.h"
+
 #import <libextobjc/libextobjc.h>
 
 @interface SRGSong ()
@@ -37,6 +39,11 @@
 }
 
 #pragma mark Transformers
+
++ (NSValueTransformer *)dateJSONTransformer
+{
+    return SRGISO8601DateJSONTransformer();
+}
 
 + (NSValueTransformer *)artistJSONTransformer
 {

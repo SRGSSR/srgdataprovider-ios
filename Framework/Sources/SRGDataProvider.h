@@ -78,6 +78,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error);
 typedef void (^SRGModuleListCompletionBlock)(NSArray<SRGModule *> * _Nullable modules, NSError * _Nullable error);
 typedef void (^SRGShowCompletionBlock)(SRGShow * _Nullable show, NSError * _Nullable error);
+typedef void (^SRGSongCompletionBlock)(SRGSong * _Nullable song, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error);
 typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable error);
 
@@ -87,6 +88,7 @@ typedef void (^SRGPaginatedMediaListCompletionBlock)(NSArray<SRGMedia *> * _Null
 typedef void (^SRGPaginatedSearchResultMediaListCompletionBlock)(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, NSNumber *total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGPaginatedSearchResultShowListCompletionBlock)(NSArray<SRGSearchResultShow *> * _Nullable searchResults, NSNumber *total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
+typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullable songs, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 
 /**
  *  A data provider supplies metadata for an SRG SSR business unit (media and show lists, mostly). Several data providers
@@ -450,12 +452,30 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
                                            completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
 /**
- *  Search shows matching a specific query
+ *  Search shows matching a specific query.
  *
  *  @discussion Some business units only support full-text search, not partial matching.
  */
 - (SRGFirstPageRequest *)radioShowsMatchingQuery:(NSString *)query
                              withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
+
+/**
+ *  @name Song list
+ */
+
+/**
+ *  Song list by channel.
+ */
+- (SRGFirstPageRequest *)radioSongsForChannelWithUid:(NSString *)channelUid
+                                     completionBlock:(SRGPaginatedSongListCompletionBlock)completionBlock;
+
+/**
+ *  Current song by channel.
+ *
+ *  @discussion If no song is currently being played, the completion block is called with both song and error set to `nil`.
+ */
+- (SRGRequest *)radioCurrentSongForChannelWithUid:(NSString *)channelUid
+                                  completionBlock:(SRGSongCompletionBlock)completionBlock;
 
 @end
 
@@ -577,6 +597,21 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
  */
 - (SRGRequest *)mediaCompositionWithURN:(SRGMediaURN *)mediaURN
                         completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve the show having the specified URN.
+ */
+- (SRGRequest *)showWithURN:(SRGShowURN *)showURN completionBlock:(SRGShowCompletionBlock)completionBlock;
+
+/**
+ *  Latest episodes for a specific show.
+ *
+ *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes
+ *              returned in the episode composition object). Unlike the equivalent TV and radio requests, this request
+ *              does not support an optional date to filter only more recent media.
+ */
+- (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(SRGShowURN *)showURN
+                                      completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
 @end
 

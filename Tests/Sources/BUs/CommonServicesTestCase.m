@@ -13,7 +13,10 @@ static NSString * const kAudioRTSURN = @"urn:rts:audio:8438184";
 
 static NSString * const kMediaSRFURN = @"urn:srf:video:e7cfd700-e14e-43b4-9710-3527fc2098bc";
 
+static NSString * const kShowURN = @"urn:srf:show:tv:c38cc259-b5cd-4ac1-b901-e3fddd901a3d";
+
 static NSString * const kInvalidMediaURN = @"urn:rts:video:999999999999999";
+static NSString * const kInvalidShowURN = @"urn:rts:show:tv:999999999999999";
 
 @interface CommonServicesTestCase : DataProviderBaseTestCase
 
@@ -132,6 +135,42 @@ static NSString * const kInvalidMediaURN = @"urn:rts:video:999999999999999";
         XCTAssertNil(mediaComposition);
         XCTAssertNotNil(error);
         [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testShow
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showWithURN:[SRGShowURN showURNWithString:kShowURN] completionBlock:^(SRGShow * _Nullable show, NSError * _Nullable error) {
+        XCTAssertNotNil(show);
+        XCTAssertNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showWithURN:[SRGShowURN showURNWithString:kInvalidShowURN] completionBlock:^(SRGShow * _Nullable show, NSError * _Nullable error) {
+        XCTAssertNil(show);
+        XCTAssertNotNil(error);
+        [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testEpisodesForShow
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider latestEpisodesForShowWithURN:[SRGShowURN showURNWithString:kShowURN] completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(episodeComposition);
+        XCTAssertNil(error);
+        [expectation1 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
