@@ -14,8 +14,7 @@
 
 @property (nonatomic) NSURL *URL;
 @property (nonatomic) SRGQuality quality;
-@property (nonatomic) SRGProtocol protocol;
-@property (nonatomic) SRGEncoding encoding;
+@property (nonatomic) SRGPresentation presentation;
 @property (nonatomic, copy) NSString *MIMEType;
 @property (nonatomic) SRGStreamingMethod streamingMethod;
 @property (nonatomic, getter=isLive) BOOL live;
@@ -38,8 +37,6 @@
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @keypath(SRGResource.new, URL) : @"url",
                        @keypath(SRGResource.new, quality) : @"quality",
-                       @keypath(SRGResource.new, protocol) : @"protocol",
-                       @keypath(SRGResource.new, encoding) : @"encoding",
                        @keypath(SRGResource.new, presentation) : @"presentation",
                        @keypath(SRGResource.new, MIMEType) : @"mimeType",
                        @keypath(SRGResource.new, streamingMethod) : @"streaming",
@@ -78,16 +75,6 @@
 + (NSValueTransformer *)qualityJSONTransformer
 {
     return SRGQualityJSONTransformer();
-}
-
-+ (NSValueTransformer *)protocolJSONTransformer
-{
-    return SRGProtocolJSONTransformer();
-}
-
-+ (NSValueTransformer *)encodingJSONTransformer
-{
-    return SRGEncodingJSONTransformer();
 }
 
 + (NSValueTransformer *)presentationJSONTransformer

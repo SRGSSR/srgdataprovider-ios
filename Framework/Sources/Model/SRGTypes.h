@@ -133,31 +133,6 @@ typedef NS_ENUM(NSInteger, SRGContentType) {
 };
 
 /**
- *  Media encodings.
- */
-typedef NS_ENUM(NSInteger, SRGEncoding) {
-    /**
-     *  Not specified.
-     */
-    SRGEncodingNone = 0,
-    /**
-     *  Video encodings.
-     */
-    SRGEncodingH264,
-    SRGEncodingVP6F,
-    SRGEncodingMPEG2,
-    SRGEncodingWMV3,
-    /**
-     *  Audio encodings.
-     */
-    SRGEncodingAAC,
-    SRGEncodingAAC_HE,
-    SRGEncodingMP3,
-    SRGEncodingMP2,
-    SRGEncodingWMAV2
-};
-
-/**
  *  Media containers.
  */
 typedef NS_ENUM(NSInteger, SRGMediaContainer) {
@@ -227,52 +202,6 @@ typedef NS_ENUM(NSInteger, SRGPresentation) {
      *  360° presentation.
      */
     SRGPresentation360
-};
-
-/**
- *  Protocols over which medias are served.
- */
-typedef NS_ENUM(NSInteger, SRGProtocol) {
-    /**
-     *  Not specified.
-     */
-    SRGProtocolNone = 0,
-    /**
-     *  HTTP Live Streaming.
-     */
-    SRGProtocolHLS,
-    /**
-     *  HTTP DVR Live Streaming.
-     */
-    SRGProtocolHLS_DVR,
-    /**
-     *  HTTP Dynamic Streaming.
-     */
-    SRGProtocolHDS,
-    /**
-     *  HTTP DVR Dynamic Streaming.
-     */
-    SRGProtocolHDS_DVR,
-    /**
-     *  Real Time Messaging Protocol.
-     */
-    SRGProtocolRTMP,
-    /**
-     *  HTTP.
-     */
-    SRGProtocolHTTP,
-    /**
-     *  HTTPS.
-     */
-    SRGProtocolHTTPS,
-    /**
-     *  HTTP M3U.
-     */
-    SRGProtocolHTTP_M3U,
-    /**
-     *  HTTP MP3 stream.
-     */
-    SRGProtocolHTTP_MP3Stream
 };
 
 /**

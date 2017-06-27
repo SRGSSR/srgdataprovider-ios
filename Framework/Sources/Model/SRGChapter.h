@@ -30,14 +30,14 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGChapter (Resources)
 
 /**
- *  The recommended protocol to use. Might return `SRGProtocolNone` if no good match is found.
+ *  The recommended streaming method to use. Might return `SRGStreamingMethodNone` if no good match is found.
  */
-@property (nonatomic, readonly) SRGProtocol recommendedProtocol;
+@property (nonatomic, readonly) SRGStreamingMethod recommendedStreamingMethod;
 
 /**
- *  Return resources matching the specified protocol, from the highest to the lowest available qualities.
+ *  Return resources matching the specified streaming method, from the highest to the lowest available qualities.
  */
-- (nullable NSArray<SRGResource *> *)resourcesForProtocol:(SRGProtocol)protocol;
+- (nullable NSArray<SRGResource *> *)resourcesForStreamingMethod:(SRGStreamingMethod)streamingMethod;
 
 @end
 

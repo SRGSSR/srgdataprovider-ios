@@ -25,16 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGQuality quality;
 
 /**
- *  The protocol over which the media is served.
- */
-@property (nonatomic, readonly) SRGProtocol protocol;
-
-/**
- *  The media encoding.
- */
-@property (nonatomic, readonly) SRGEncoding encoding;
-
-/**
  *  The recommended way to present the media.
  */
 @property (nonatomic, readonly) SRGPresentation presentation;

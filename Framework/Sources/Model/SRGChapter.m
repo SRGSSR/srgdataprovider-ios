@@ -66,23 +66,23 @@
 
 @implementation SRGChapter (Resources)
 
-- (SRGProtocol)recommendedProtocol
+- (SRGStreamingMethod)recommendedStreamingMethod
 {
-    NSArray *recommendedProtocols = @[ @(SRGProtocolHLS_DVR), @(SRGProtocolHLS), @(SRGProtocolHTTPS), @(SRGProtocolHTTP) ];
+    NSArray<NSNumber *> *recommendedStreamingMethods = @[ @(SRGStreamingMethodHLS), @(SRGStreamingMethodHTTPS), @(SRGStreamingMethodHTTP) ];
     
-    for (NSNumber *protocolNumber in recommendedProtocols) {
-        SRGProtocol protocol = protocolNumber.integerValue;
-        if ([self resourcesForProtocol:protocol].count != 0) {
-            return protocol;
+    for (NSNumber *recommendedStreamingMethodNumber in recommendedStreamingMethods) {
+        SRGStreamingMethod streamingMethod = recommendedStreamingMethodNumber.integerValue;
+        if ([self resourcesForStreamingMethod:streamingMethod].count != 0) {
+            return streamingMethod;
         }
     }
     
-    return SRGProtocolNone;
+    return SRGStreamingMethodNone;
 }
 
-- (NSArray<SRGResource *> *)resourcesForProtocol:(SRGProtocol)protocol
+- (NSArray<SRGResource *> *)resourcesForStreamingMethod:(SRGStreamingMethod)streamingMethod
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGResource.new, protocol), @(protocol)];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGResource.new, streamingMethod), @(streamingMethod)];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@keypath(SRGResource.new, quality) ascending:NO];
     return [[self.resources filteredArrayUsingPredicate:predicate] sortedArrayUsingDescriptors:@[sortDescriptor]];
 }
