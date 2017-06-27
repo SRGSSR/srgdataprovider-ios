@@ -82,7 +82,7 @@
     return SRGPresentationJSONTransformer();
 }
 
-+ (NSValueTransformer *)streamingJSONTransformer
++ (NSValueTransformer *)streamingMethodJSONTransformer
 {
     return SRGStreamingMethodJSONTransformer();
 }
