@@ -110,7 +110,7 @@
             [self class],
             self,
             self.uid,
-            [SRGTransmissionJSONTransformer() reverseTransformedValue:@(self.transmission)],
+            [[SRGTransmissionJSONTransformer() reverseTransformedValue:@(self.transmission)] lowercaseString],
             self.URNString];
 }
 

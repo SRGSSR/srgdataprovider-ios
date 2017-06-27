@@ -127,7 +127,7 @@
             [self class],
             self,
             self.uid,
-            [SRGMediaTypeJSONTransformer() reverseTransformedValue:@(self.mediaType)],
+            [[SRGMediaTypeJSONTransformer() reverseTransformedValue:@(self.mediaType)] lowercaseString],
             self.URNString];
 }
 
