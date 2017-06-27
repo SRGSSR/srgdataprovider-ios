@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0833BF901F0153D2008CDAC4 /* SRGShowMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 0833BF8F1F0153D2008CDAC4 /* SRGShowMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		083F41561DB6D59F00FEA340 /* SRGMediaParentMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 083F41551DB6D59F00FEA340 /* SRGMediaParentMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08FA0D2C1E311792000C94EF /* SRGMediaURN.h in Headers */ = {isa = PBXBuildFile; fileRef = 08FA0D2A1E311792000C94EF /* SRGMediaURN.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08FA0D2D1E311792000C94EF /* SRGMediaURN.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FA0D2B1E311792000C94EF /* SRGMediaURN.m */; };
@@ -154,7 +153,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0833BF8F1F0153D2008CDAC4 /* SRGShowMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGShowMetadata.h; sourceTree = "<group>"; };
 		083F41551DB6D59F00FEA340 /* SRGMediaParentMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGMediaParentMetadata.h; sourceTree = "<group>"; };
 		08B2D8FD1E7FFEC0000DEF4F /* rm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = rm; path = rm.lproj/Localizable.strings; sourceTree = "<group>"; };
 		08FA0D2A1E311792000C94EF /* SRGMediaURN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGMediaURN.h; sourceTree = "<group>"; };
@@ -464,7 +462,6 @@
 				083F41551DB6D59F00FEA340 /* SRGMediaParentMetadata.h */,
 				E68598AE1D40CEB90010000A /* SRGMetadata.h */,
 				6FDF33B61F013D5100BA1D6E /* SRGShowIdentifierMetadata.h */,
-				0833BF8F1F0153D2008CDAC4 /* SRGShowMetadata.h */,
 			);
 			path = Contracts;
 			sourceTree = "<group>";
@@ -559,7 +556,6 @@
 				E68598AF1D40CEB90010000A /* SRGMetadata.h in Headers */,
 				E6C2B3BF1D390EEF00B6250B /* SRGMedia.h in Headers */,
 				E68598B31D40CEDA0010000A /* SRGMediaIdentifierMetadata.h in Headers */,
-				0833BF901F0153D2008CDAC4 /* SRGShowMetadata.h in Headers */,
 				6F00E37B1E88EADB00817EC2 /* SRGPageRequest.h in Headers */,
 				E68598B81D40F30B0010000A /* SRGChannel.h in Headers */,
 				E67BB66D1D3DF13800E1FEA3 /* SRGMediaComposition.h in Headers */,

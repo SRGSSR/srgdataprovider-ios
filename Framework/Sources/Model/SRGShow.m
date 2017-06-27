@@ -46,8 +46,8 @@
         s_mapping = @{ @keypath(SRGShow.new, homepageURL) : @"homepageUrl",
                        @keypath(SRGShow.new, podcastSubscriptionURL) : @"podcastSubscriptionUrl",
                        @keypath(SRGShow.new, primaryChannelUid) : @"primaryChannelId",
-                       @keypath(SRGShow.new, bannerImageURL) : @"bannerImageUrl",
                        @keypath(SRGShow.new, numberOfEpisodes) : @"numberOfEpisodes",
+                       @keypath(SRGShow.new, bannerImageURL) : @"bannerImageUrl",
                        
                        @keypath(SRGShow.new, title) : @"title",
                        @keypath(SRGShow.new, lead) : @"lead",
