@@ -59,6 +59,7 @@
 		6FDF33BE1F013DDD00BA1D6E /* SRGShowURN.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FDF33BC1F013DDD00BA1D6E /* SRGShowURN.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FDF33BF1F013DDD00BA1D6E /* SRGShowURN.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDF33BD1F013DDD00BA1D6E /* SRGShowURN.m */; };
 		6FDF33C11F014B9200BA1D6E /* ShowURNTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDF33C01F014B9200BA1D6E /* ShowURNTestCase.m */; };
+		6FDF33C41F02249300BA1D6E /* SRGSearchResult+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FDF33C21F02249300BA1D6E /* SRGSearchResult+Private.h */; };
 		E600FE681D942348000B8A1D /* SRGDataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGDataProvider.framework */; };
 		E600FE721D9423C3000B8A1D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E600FE711D9423C3000B8A1D /* Info.plist */; };
 		E600FE731D94242F000B8A1D /* ServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */; };
@@ -205,6 +206,7 @@
 		6FDF33BC1F013DDD00BA1D6E /* SRGShowURN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGShowURN.h; sourceTree = "<group>"; };
 		6FDF33BD1F013DDD00BA1D6E /* SRGShowURN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGShowURN.m; sourceTree = "<group>"; };
 		6FDF33C01F014B9200BA1D6E /* ShowURNTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowURNTestCase.m; sourceTree = "<group>"; };
+		6FDF33C21F02249300BA1D6E /* SRGSearchResult+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGSearchResult+Private.h"; sourceTree = "<group>"; };
 		E600FE631D942348000B8A1D /* SRGDataProvider-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SRGDataProvider-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServicesTestCase.m; sourceTree = "<group>"; };
 		E600FE711D9423C3000B8A1D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 				E67BB6641D3D295E00E1FEA3 /* SRGResource.m */,
 				6FC024AE1E1D001600550881 /* SRGSearchResult.h */,
 				6FC024AF1E1D001600550881 /* SRGSearchResult.m */,
+				6FDF33C21F02249300BA1D6E /* SRGSearchResult+Private.h */,
 				6FC024B61E1D381E00550881 /* SRGSearchResultMedia.h */,
 				6FC024B71E1D381E00550881 /* SRGSearchResultMedia.m */,
 				6FC024B21E1D380700550881 /* SRGSearchResultShow.h */,
@@ -534,6 +537,7 @@
 				E6C2B3CC1D391EFD00B6250B /* NSBundle+SRGDataProvider.h in Headers */,
 				E6C2B3F41D392F1200B6250B /* SRGEpisode.h in Headers */,
 				6FB1561A1E83D21800389D04 /* NSArray+SRGDataProvider.h in Headers */,
+				6FDF33C41F02249300BA1D6E /* SRGSearchResult+Private.h in Headers */,
 				6F556B3F1DDDD7C500B5DEA2 /* SRGEpisodeComposition.h in Headers */,
 				6FDF33BE1F013DDD00BA1D6E /* SRGShowURN.h in Headers */,
 				6F723D921E83FC9100BB5F33 /* SRGSessionDelegate.h in Headers */,

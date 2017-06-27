@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGMediaIdentifierMetadata.h"
 #import "SRGSearchResult.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -14,12 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @discussion This object does not contain all media information. If you need complete media information or a
  *              full-fledged `SRGMedia` object, you must perform an additional request using the result uid.
  */
-@interface SRGSearchResultMedia : SRGSearchResult
-
-/**
- *  The media type.
- */
-@property (nonatomic, readonly) SRGMediaType mediaType;
+@interface SRGSearchResultMedia : SRGSearchResult <SRGMediaIdentifierMetadata>
 
 /**
  *  The media date.

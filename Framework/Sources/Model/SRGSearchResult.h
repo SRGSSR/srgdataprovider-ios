@@ -16,16 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface SRGSearchResult : SRGModel <SRGImageMetadata, SRGMetadata>
 
-/**
- *  The unique identifier of the object.
- */
-@property (nonatomic, readonly, copy) NSString *uid;
-
-/**
- *  The Uniform Resource Name identifying the object.
- */
-@property (nonatomic, readonly) SRGMediaURN *URN;
-
 @end
 
 NS_ASSUME_NONNULL_END
