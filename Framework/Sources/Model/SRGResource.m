@@ -17,6 +17,12 @@
 @property (nonatomic) SRGProtocol protocol;
 @property (nonatomic) SRGEncoding encoding;
 @property (nonatomic, copy) NSString *MIMEType;
+@property (nonatomic) SRGStreamingMethod streamingMethod;
+@property (nonatomic, getter=isLive) BOOL live;
+@property (nonatomic, getter=isDVR) BOOL DVR;
+@property (nonatomic) SRGMediaContainer mediaContainer;
+@property (nonatomic) SRGAudioCodec audioCodec;
+@property (nonatomic) SRGVideoCodec videoCodec;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
 
 @end
@@ -36,9 +42,30 @@
                        @keypath(SRGResource.new, encoding) : @"encoding",
                        @keypath(SRGResource.new, presentation) : @"presentation",
                        @keypath(SRGResource.new, MIMEType) : @"mimeType",
+                       @keypath(SRGResource.new, streamingMethod) : @"streaming",
+                       @keypath(SRGResource.new, live) : @"live",
+                       @keypath(SRGResource.new, DVR) : @"dvr",
+                       @keypath(SRGResource.new, mediaContainer) : @"mediaContainer",
+                       @keypath(SRGResource.new, audioCodec) : @"audioCodec",
+                       @keypath(SRGResource.new, videoCodec) : @"videoCodec",
                        @keypath(SRGResource.new, analyticsLabels) : @"analyticsData" };
     });
     return s_mapping;
+}
+
+#pragma mark Getters and setters
+
+- (SRGStreamType)streamType
+{
+    if (self.DVR) {
+        return SRGStreamTypeDVR;
+    }
+    else if (self.live) {
+        return SRGStreamTypeLive;
+    }
+    else {
+        return SRGStreamTypeOnDemand;
+    }
 }
 
 #pragma mark Parsers
@@ -66,6 +93,26 @@
 + (NSValueTransformer *)presentationJSONTransformer
 {
     return SRGPresentationJSONTransformer();
+}
+
++ (NSValueTransformer *)streamingJSONTransformer
+{
+    return SRGStreamingMethodJSONTransformer();
+}
+
++ (NSValueTransformer *)mediaContainerJSONTransformer
+{
+    return SRGMediaContainerJSONTransformer();
+}
+
++ (NSValueTransformer *)audioCodecJSONTransformer
+{
+    return SRGAudioCodecJSONTransformer();
+}
+
++ (NSValueTransformer *)videoCodecJSONTransformer
+{
+    return SRGVideoCodecJSONTransformer();
 }
 
 @end

@@ -65,6 +65,40 @@ OBJC_EXPORT NSString * _Nullable SRGMessageForBlockedMediaWithBlockingReason(SRG
 OBJC_EXPORT NSString * _Nullable SRGMessageForSkippedSegmentWithBlockingReason(SRGBlockingReason blockingReason);
 
 /**
+ *  Audio codecs.
+ */
+typedef NS_ENUM(NSInteger, SRGAudioCodec) {
+    /**
+     *  Not specified.
+     */
+    SRGAudioCodecNone = 0,
+    /**
+     *  Advanced Audio Coding.
+     */
+    SRGAudioCodecAAC,
+    /**
+     *  High-Efficiency Advanced Audio Coding.
+     */
+    SRGAudioCodecAAC_HE,
+    /**
+     *  MP3.
+     */
+    SRGAudioCodecMP3,
+    /**
+     *  MP2.
+     */
+    SRGAudioCodecMP2,
+    /**
+     *  WMAV2.
+     */
+    SRGAudioCodecWMAV2,
+    /**
+     *  Unknown.
+     */
+    SRGAudioCodecUnknown
+};
+
+/**
  *  Content types.
  */
 typedef NS_ENUM(NSInteger, SRGContentType) {
@@ -121,6 +155,28 @@ typedef NS_ENUM(NSInteger, SRGEncoding) {
     SRGEncodingMP3,
     SRGEncodingMP2,
     SRGEncodingWMAV2
+};
+
+/**
+ *  Media containers.
+ */
+typedef NS_ENUM(NSInteger, SRGMediaContainer) {
+    /**
+     *  Not specified.
+     */
+    SRGMediaContainerNone = 0,
+    /**
+     *  MP4.
+     */
+    SRGMediaContainerMP4,
+    /**
+     *  MKV.
+     */
+    SRGMediaContainerMKV,
+    /**
+     *  Unknown.
+     */
+    SRGMediaContainerUnknown
 };
 
 /**
@@ -280,37 +336,79 @@ typedef NS_ENUM(NSInteger, SRGSocialCountType) {
  */
 typedef NS_ENUM(NSInteger, SRGSource) {
     /**
-     *  Not specified
+     *  Not specified.
      */
     SRGSourceNone = 0,
     /**
-     *  Editorial
+     *  Editorial.
      */
     SRGSourceEditor,
     /**
-     *  Trending media identification system
+     *  Trending media identification system.
      */
     SRGSourceTrending,
     /**
-     *  Recommendation system
+     *  Recommendation system.
      */
     SRGSourceRecommendation
 };
 
 /**
- *  Subtitle formats
+ *  Streaming methods.
+ */
+typedef NS_ENUM(NSInteger, SRGStreamingMethod) {
+    /**
+     *  Not specified.
+     */
+    SRGStreamingMethodNone = 0,
+    /**
+     *  Progressive download.
+     */
+    SRGStreamingMethodProgressive,
+    /**
+     *  M3U playlist.
+     */
+    SRGStreamingMethodM3UPlaylist,
+    /**
+     *  HTTP Live Streaming.
+     */
+    SRGStreamingMethodHLS,
+    /**
+     *  HTTP Dynamic Streaming.
+     */
+    SRGStreamingMethodHDS,
+    /**
+     *  Real Time Messaging Protocol.
+     */
+    SRGStreamingMethodRTMP,
+    /**
+     *  HTTP.
+     */
+    SRGStreamingMethodHTTP,
+    /**
+     *  HTTPS.
+     */
+    SRGStreamingMethodHTTPS,
+    /**
+     *  Unknown.
+     */
+    SRGStreamingMethodUnknown
+};
+
+/**
+ *  Subtitle formats.
  */
 typedef NS_ENUM(NSInteger, SRGSubtitleFormat) {
     /**
-     *  Not specified
+     *  Not specified.
      */
     SRGSubtitleFormatNone = 0,
     /**
-     *  Timed Text Markup Language
+     *  Timed Text Markup Language.
      */
     SRGSubtitleFormatTTML,
     /**
-     *  Video Text Tracks
+     *  Video Text Tracks.
      */
     SRGSubtitleFormatVTT
 };
@@ -362,8 +460,56 @@ typedef NS_ENUM(NSInteger, SRGVendor) {
 };
 
 /**
+ *  Video codecs.
+ */
+typedef NS_ENUM(NSInteger, SRGVideoCodec) {
+    /**
+     *  Not specified.
+     */
+    SRGVideoCodecNone = 0,
+    /**
+     *  H.264.
+     */
+    SRGVideoCodecH264,
+    /**
+     *  VP6F.
+     */
+    SRGVideoCodecVP6F,
+    /**
+     *  MPEG2.
+     */
+    SRGVideoCodecMPEG2,
+    /**
+     *  WMV3.
+     */
+    SRGVideoCodecWMV3,
+    /**
+     *  Unknown.
+     */
+    SRGVideoCodecUnknown
+};
+
+/**
  *  @name Data provider library types.
  */
+
+/**
+ *  Stream types.
+ */
+typedef NS_ENUM(NSInteger, SRGStreamType) {
+    /**
+     *  On-demand stream.
+     */
+    SRGStreamTypeOnDemand,
+    /**
+     *  Live-only stream.
+     */
+    SRGStreamTypeLive,
+    /**
+     *  DVR stream (live with timeshift support).
+     */
+    SRGStreamTypeDVR
+};
 
 /**
  *  Image dimensions for image retrieval.
