@@ -13,7 +13,7 @@ static NSString * const kAudioRTSURN = @"urn:rts:audio:8438184";
 
 static NSString * const kMediaSRFURN = @"urn:srf:video:e7cfd700-e14e-43b4-9710-3527fc2098bc";
 
-static NSString * const kShowURN = @"urn:srf:show:tv:c38cc259-b5cd-4ac1-b901-e3fddd901a3d";
+static NSString * const kShowURN = @"urn:srf:show:tv:6fd27ab0-d10f-450f-aaa9-836f1cac97bd";
 
 static NSString * const kInvalidMediaURN = @"urn:rts:video:999999999999999";
 static NSString * const kInvalidShowURN = @"urn:rts:show:tv:999999999999999";

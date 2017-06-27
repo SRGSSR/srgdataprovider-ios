@@ -78,6 +78,7 @@ typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullab
 typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error);
 typedef void (^SRGModuleListCompletionBlock)(NSArray<SRGModule *> * _Nullable modules, NSError * _Nullable error);
 typedef void (^SRGShowCompletionBlock)(SRGShow * _Nullable show, NSError * _Nullable error);
+typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error);
 typedef void (^SRGSongCompletionBlock)(SRGSong * _Nullable song, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error);
 typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable error);
@@ -331,6 +332,14 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 - (SRGFirstPageRequest *)tvShowsWithCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 
 /**
+ *  Retrieve shows matching a uid list.
+ *
+ *  @discussion The list must contain at least a uid, otherwise the result is undefined. Partial results can be
+ *              returned if some uids (but not all) are invalid.
+ */
+- (SRGRequest *)tvShowsWithUids:(NSArray<NSString *> *)showUids completionBlock:(SRGShowListCompletionBlock)completionBlock;
+
+/**
  *  Retrieve the show having the specified uid.
  */
 - (SRGRequest *)tvShowWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock;
@@ -433,6 +442,14 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  */
 - (SRGFirstPageRequest *)radioShowsForChannelWithUid:(NSString *)channelUid
                                      completionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve shows matching a uid list.
+ *
+ *  @discussion The list must contain at least a uid, otherwise the result is undefined. Partial results can be
+ *              returned if some uids (but not all) are invalid.
+ */
+- (SRGRequest *)radioShowsWithUids:(NSArray<NSString *> *)showUids completionBlock:(SRGShowListCompletionBlock)completionBlock;
 
 /**
  *  Retrieve the show having the specified uid.
