@@ -13,6 +13,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// Supported alternative image types
+typedef NSString * SRGModuleImageType NS_STRING_ENUM;
+
+OBJC_EXPORT SRGModuleImageType const SRGModuleImageTypeBackground;          // Background image.
+OBJC_EXPORT SRGModuleImageType const SRGModuleImageTypeLogo;                // Logo image.
+
 /**
  *  Module (collection of medias grouped for a special occasion, like an event).
  */
@@ -83,45 +89,19 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGSection *> *sections;
 
-@end
-
-@interface SRGModule (Images)
-
 /**
- *  Return the URL for a background image with the specified width or height. The non-specified dimension is automatically
+ *  Return the URL for an image with the specified type and width / height. The non-specified dimension is automatically
  *  determined by the intrinsic image aspect ratio, which cannot be altered.
  *
  *  @param dimension The dimension (horizontal or vertical).
  *  @param value     The value along the specified dimensions, in pixels.
+ *  @param type      The type of the image. Use `nil` for the default image, or have a look at the top of this file for
+ *                   alternative images.
  *
  *  @discussion The device scale is NOT automatically taken into account. Be sure that the required size in pixels
  *              matches the scale of your device.
  */
-- (NSURL *)backgroundImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value;
-
-/**
- *  Return the URL for a logo image with the specified width or height. The non-specified dimension is automatically
- *  determined by the intrinsic image aspect ratio, which cannot be altered.
- *
- *  @param dimension The dimension (horizontal or vertical).
- *  @param value     The value along the specified dimensions, in pixels.
- *
- *  @discussion The device scale is NOT automatically taken into account. Be sure that the required size in pixels
- *              matches the scale of your device.
- */
-- (nullable NSURL *)logoImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value;
-
-/**
- *  Return the URL for a key visual image with the specified width or height. The non-specified dimension is automatically
- *  determined by the intrinsic image aspect ratio, which cannot be altered.
- *
- *  @param dimension The dimension (horizontal or vertical).
- *  @param value     The value along the specified dimensions, in pixels.
- *
- *  @discussion The device scale is NOT automatically taken into account. Be sure that the required size in pixels
- *              matches the scale of your device.
- */
-- (nullable NSURL *)keyVisualImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value;
+- (nullable NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(nullable SRGModuleImageType)type;
 
 @end
 

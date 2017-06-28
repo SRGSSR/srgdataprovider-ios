@@ -54,9 +54,9 @@
 
 #pragma mark SRGImageMetadata protocol
 
-- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
+- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(NSString *)type
 {
-    return [self.imageURL srg_URLForDimension:dimension withValue:value uid:nil type:nil];
+    return [self.imageURL srg_URLForDimension:dimension withValue:value uid:nil type:type];
 }
 
 #pragma mark Equality

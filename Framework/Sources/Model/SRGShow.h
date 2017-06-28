@@ -15,6 +15,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// Supported additional image types
+typedef NSString * SRGShowImageType NS_STRING_ENUM;
+
+OBJC_EXPORT SRGShowImageType const SRGShowImageTypeBanner;          // Banner image.
+
 /**
  *  Show information.
  */
@@ -39,18 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  The number of episodes available for the show.
  */
 @property (nonatomic, readonly) NSInteger numberOfEpisodes;
-
-/**
- *  Return the URL for a banner image with the specified width or height. The non-specified dimension is automatically
- *  determined by the intrinsic image aspect ratio, which cannot be altered.
- *
- *  @param dimension The dimension (horizontal or vertical).
- *  @param value     The value along the specified dimensions, in pixels.
- *
- *  @discussion The device scale is NOT automatically taken into account. Be sure that the required size in pixels
- *              matches the scale of your device.
- */
-- (nullable NSURL *)bannerImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value;
 
 @end
 

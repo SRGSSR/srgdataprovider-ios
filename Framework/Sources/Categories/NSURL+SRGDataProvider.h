@@ -47,6 +47,7 @@ typedef NSURL * _Nullable (^SRGDataProviderURLOverridingBlock)(NSString *uid, NS
  *  @param uid       Optional unique identifier for the object to which the image is related. Provides a way to
  *                   override the image if needed.
  *  @param type      An optional type provided as a hint for content overriding. Set to `nil` for default images.
+ *                   If no image is found for the specified type, the override will not be applied.
  *
  *  @discussion The device scale is NOT automatically taken into account. Be sure that the required size in pixels
  *              matches the scale of your device.

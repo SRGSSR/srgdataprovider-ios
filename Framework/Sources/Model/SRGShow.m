@@ -11,6 +11,8 @@
 
 #import <libextobjc/libextobjc.h>
 
+SRGShowImageType const SRGShowImageTypeBanner = @"banner";
+
 @interface SRGShow ()
 
 @property (nonatomic) NSURL *homepageURL;
@@ -104,16 +106,14 @@
 
 #pragma mark SRGImage protocol
 
-- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
+- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(NSString *)type
 {
-    return [self.imageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:nil];
-}
-
-#pragma mark SRGShowMetadata protocol
-
-- (NSURL *)bannerImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
-{
-    return [self.bannerImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:@"banner"];
+    if ([type isEqualToString:SRGShowImageTypeBanner]) {
+        return [self.imageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
+    }
+    else {
+        return [self.bannerImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
+    }
 }
 
 #pragma mark Equality
