@@ -18,27 +18,27 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGMediaRepresentation : SRGModel <SRGMediaMetadata>
 
 /**
- *  The URN of the full length segment to which the segment belongs, if any.
+ *  The URN of the full length to which the representation belongs, if any.
  */
 @property (nonatomic, readonly, nullable) SRGMediaURN *fullLengthURN;
 
 /**
- *  An index specifying the order of sibling segments in collections.
+ *  An index specifying the order of sibling representations in collections.
  */
 @property (nonatomic, readonly) NSInteger position;
 
 /**
- *  The time at which the segment starts, in milliseconds.
+ *  The time at which the represented media starts, in milliseconds.
  */
 @property (nonatomic, readonly) NSTimeInterval markIn;
 
 /**
- *  The time at which the segment ends, in milliseconds.
+ *  The time at which the represented media ends, in milliseconds.
  */
 @property (nonatomic, readonly) NSTimeInterval markOut;
 
 /**
- *  An opaque event information to be sent when liking an event.
+ *  An opaque event information to be sent when liking the represented media.
  */
 @property (nonatomic, readonly, copy, nullable) NSString *event;
 

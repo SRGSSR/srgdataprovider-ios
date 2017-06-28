@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGTransmission transmission;
 
 /**
- *  The business unit which supplied the show.
+ *  The business unit which the show belongs to.
  */
 @property (nonatomic, readonly) SRGVendor vendor;
 

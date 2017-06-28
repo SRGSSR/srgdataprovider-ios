@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Show information.
  */
-@interface SRGShow : SRGModel <SRGMetadata, SRGImageMetadata, SRGShowIdentifierMetadata>
+@interface SRGShow : SRGModel <SRGImageMetadata, SRGMetadata, SRGShowIdentifierMetadata>
 
 /**
  *  The URL of the show homepage.

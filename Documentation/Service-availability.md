@@ -3,7 +3,7 @@ Service availability
 
 Integration Layer services are not available for all business units. The following document describes the availability of all services supported by the SRG Data Provider library, depending on the business unit which a data provider has been created with.
 
-If not specified, the maximum page size is 100. The default page size is 10. A special page size of _unlimited_ is available in some cases to return all entries at once.
+If not specified, the maximum page size is 100. The default page size is 10. A special _unlimited_ page size is available in some cases to return all entries at once.
 
 ## TV services
 
