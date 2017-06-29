@@ -30,6 +30,16 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGChapter (Resources)
 
 /**
+ *  Return the list of streaming methods supported by the device.
+ */
++ (NSArray<NSNumber *> *)supportedStreamingMethods;
+
+/**
+ *  Return the set of resources which can be played on the device.
+ */
+@property (nonatomic, readonly, nullable) NSArray<SRGResource *> *playableResources;
+
+/**
  *  The recommended streaming method to use. Might return `SRGStreamingMethodNone` if no good match is found.
  */
 @property (nonatomic, readonly) SRGStreamingMethod recommendedStreamingMethod;

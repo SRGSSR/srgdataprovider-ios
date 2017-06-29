@@ -66,12 +66,21 @@
 
 @implementation SRGChapter (Resources)
 
++ (NSArray<NSNumber *> *)supportedStreamingMethods
+{
+    return @[ @(SRGStreamingMethodHLS), @(SRGStreamingMethodHTTPS), @(SRGStreamingMethodHTTP), @(SRGStreamingMethodM3UPlaylist), @(SRGStreamingMethodProgressive) ];
+}
+
+- (NSArray<SRGResource *> *)playableResources
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K IN %@", [SRGChapter supportedStreamingMethods]];
+    return [self.resources filteredArrayUsingPredicate:predicate];
+}
+
 - (SRGStreamingMethod)recommendedStreamingMethod
 {
-    NSArray<NSNumber *> *recommendedStreamingMethods = @[ @(SRGStreamingMethodHLS), @(SRGStreamingMethodHTTPS), @(SRGStreamingMethodHTTP) ];
-    
-    for (NSNumber *recommendedStreamingMethodNumber in recommendedStreamingMethods) {
-        SRGStreamingMethod streamingMethod = recommendedStreamingMethodNumber.integerValue;
+    for (NSNumber *streamingMethodNumber in [SRGChapter supportedStreamingMethods]) {
+        SRGStreamingMethod streamingMethod = streamingMethodNumber.integerValue;
         if ([self resourcesForStreamingMethod:streamingMethod].count != 0) {
             return streamingMethod;
         }
