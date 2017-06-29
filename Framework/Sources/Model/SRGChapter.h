@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGChapter (Resources)
 
 /**
- *  Return the list of streaming methods supported by the device.
+ *  Return the list of streaming methods supported by the device (from the most to the least recommended method).
  */
 + (NSArray<NSNumber *> *)supportedStreamingMethods;
 
