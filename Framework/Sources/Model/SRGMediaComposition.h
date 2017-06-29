@@ -72,20 +72,20 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGMediaComposition (Generators)
 
 /**
- *  Return the media corresponding to a representation (chapter or segment) belonging to the receiver.
+ *  Return the media corresponding to a subdivision (chapter or segment) belonging to the receiver.
  *
- *  @param representation The representation which the media must be returned for. If the representation does not belong
- *                        to the receiver, the method returns `nil`.
+ *  @param division The subdivision which the media must be returned for. If the subdivision does not belong to the 
+ *                  receiver, the method returns `nil`.
  */
-- (nullable SRGMedia *)mediaForRepresentation:(SRGMediaRepresentation *)representation;
+- (nullable SRGMedia *)mediaForSubdivision:(SRGMediaSubdivision *)subdivision;
 
 /**
- *  Return the media composition corresponding to a representation (chapter or segment) belonging to the receiver.
+ *  Return the media composition corresponding to a subdivision (chapter or segment) belonging to the receiver.
  *
- *  @param representation The representation which the composition must be generated for. If the specified representation
- *                        does not belong to the media composition, the method returns `nil`.
+ *  @param division The subdivision which the media must be returned for. If the subdivision does not belong to the
+ *                  receiver, the method returns `nil`.
  */
-- (nullable SRGMediaComposition *)mediaCompositionForRepresentation:(SRGMediaRepresentation *)representation;
+- (nullable SRGMediaComposition *)mediaCompositionForSubdivision:(SRGMediaSubdivision *)subdivision;
 
 @end
 

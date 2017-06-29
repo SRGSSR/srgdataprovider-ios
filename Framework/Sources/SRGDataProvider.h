@@ -22,7 +22,7 @@
 #import "SRGMediaIdentifierMetadata.h"
 #import "SRGMediaMetadata.h"
 #import "SRGMediaParentMetadata.h"
-#import "SRGMediaRepresentation.h"
+#import "SRGMediaSubdivision.h"
 #import "SRGMediaURN.h"
 #import "SRGMetadata.h"
 #import "SRGModel.h"

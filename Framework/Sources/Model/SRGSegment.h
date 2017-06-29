@@ -4,14 +4,14 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGMediaRepresentation.h"
+#import "SRGMediaSubdivision.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  A segment is piece of a physical media.
  */
-@interface SRGSegment : SRGMediaRepresentation
+@interface SRGSegment : SRGMediaSubdivision
 
 @end
 

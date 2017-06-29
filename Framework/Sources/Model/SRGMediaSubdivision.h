@@ -13,17 +13,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Abstract base class for media representations.
+ *  Abstract base class for media subdivisions.
  */
-@interface SRGMediaRepresentation : SRGModel <SRGMediaMetadata>
+@interface SRGMediaSubdivision : SRGModel <SRGMediaMetadata>
 
 /**
- *  The URN of the full length to which the representation belongs, if any.
+ *  The URN of the full length to which the subdivision belongs, if any.
  */
 @property (nonatomic, readonly, nullable) SRGMediaURN *fullLengthURN;
 
 /**
- *  An index specifying the order of sibling representations in collections.
+ *  An index specifying the order of sibling subdivisions in collections.
  */
 @property (nonatomic, readonly) NSInteger position;
 

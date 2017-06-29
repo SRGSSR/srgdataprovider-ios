@@ -93,13 +93,13 @@
     // If the main chapter is an episode, it is the full-length
     SRGChapter *mainChapter = self.mainChapter;
     if (mainChapter.contentType == SRGContentTypeEpisode) {
-        return [self mediaForRepresentation:mainChapter];
+        return [self mediaForSubdivision:mainChapter];
     }
     // Locate the associate full-length
     else if (mainChapter.fullLengthURN) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGChapter.new, URN), mainChapter.fullLengthURN];
         SRGChapter *fullLengthChapter = [self.chapters filteredArrayUsingPredicate:predicate].firstObject;
-        return fullLengthChapter ? [self mediaForRepresentation:fullLengthChapter] : nil;
+        return fullLengthChapter ? [self mediaForSubdivision:fullLengthChapter] : nil;
     }
     else {
         return nil;
@@ -108,15 +108,15 @@
 
 #pragma mark Media and media composition generation
 
-- (BOOL)containsRepresentation:(SRGMediaRepresentation *)representation
+- (BOOL)containsSubdivision:(SRGMediaSubdivision *)subdivision
 {
     for (SRGChapter *chapter in self.chapters) {
-        if (chapter == representation) {
+        if (chapter == subdivision) {
             return YES;
         }
         else {
             for (SRGSegment *chapterSegment in chapter.segments) {
-                if (chapterSegment == representation) {
+                if (chapterSegment == subdivision) {
                     return YES;
                 }
             }
@@ -126,16 +126,16 @@
     return NO;
 }
 
-- (SRGMedia *)mediaForRepresentation:(SRGMediaRepresentation *)representation
+- (SRGMedia *)mediaForSubdivision:(SRGMediaSubdivision *)subdivision
 {
-    if (! [self containsRepresentation:representation]) {
+    if (! [self containsSubdivision:subdivision]) {
         return nil;
     }
     
     SRGMedia *media = [[SRGMedia alloc] init];
     
     // Start from existing segment values
-    NSMutableDictionary *values = [representation.dictionaryValue mutableCopy];
+    NSMutableDictionary *values = [subdivision.dictionaryValue mutableCopy];
     
     // Merge with parent metadata available at the media composition level
     if (self.channel) {
@@ -159,17 +159,17 @@
     return media;
 }
 
-- (SRGMediaComposition *)mediaCompositionForRepresentation:(SRGMediaRepresentation *)representation
+- (SRGMediaComposition *)mediaCompositionForSubdivision:(SRGMediaSubdivision *)subdivision
 {
     for (SRGChapter *chapter in self.chapters) {
-        if (chapter == representation) {
+        if (chapter == subdivision) {
             SRGMediaComposition *mediaComposition = [self copy];
             mediaComposition.chapterURN = chapter.URN;
             return mediaComposition;
         }
         else {
             for (SRGSegment *chapterSegment in chapter.segments) {
-                if (chapterSegment == representation) {
+                if (chapterSegment == subdivision) {
                     SRGMediaComposition *mediaComposition = [self copy];
                     mediaComposition.chapterURN = chapter.URN;
                     mediaComposition.segmentURN = chapterSegment.URN;

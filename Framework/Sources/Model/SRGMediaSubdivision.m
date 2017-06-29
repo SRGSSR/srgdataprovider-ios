@@ -4,14 +4,14 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGMediaRepresentation.h"
+#import "SRGMediaSubdivision.h"
 
 #import "SRGJSONTransformers.h"
 #import "NSURL+SRGDataProvider.h"
 
 #import <libextobjc/libextobjc.h>
 
-@interface SRGMediaRepresentation ()
+@interface SRGMediaSubdivision ()
 
 @property (nonatomic) SRGMediaURN *fullLengthURN;
 @property (nonatomic) NSInteger position;
@@ -49,7 +49,7 @@
 
 @end
 
-@implementation SRGMediaRepresentation
+@implementation SRGMediaSubdivision
 
 #pragma mark MTLJSONSerializing protocol
 
@@ -58,39 +58,39 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @keypath(SRGMediaRepresentation.new, fullLengthURN) : @"fullLengthUrn",
-                       @keypath(SRGMediaRepresentation.new, position) : @"position",
-                       @keypath(SRGMediaRepresentation.new, markIn) : @"markIn",
-                       @keypath(SRGMediaRepresentation.new, markOut) : @"markOut",
-                       @keypath(SRGMediaRepresentation.new, event) : @"eventData",
-                       @keypath(SRGMediaRepresentation.new, analyticsLabels) : @"analyticsData",
-                       @keypath(SRGMediaRepresentation.new, subtitles) : @"subtitleList",
+        s_mapping = @{ @keypath(SRGMediaSubdivision.new, fullLengthURN) : @"fullLengthUrn",
+                       @keypath(SRGMediaSubdivision.new, position) : @"position",
+                       @keypath(SRGMediaSubdivision.new, markIn) : @"markIn",
+                       @keypath(SRGMediaSubdivision.new, markOut) : @"markOut",
+                       @keypath(SRGMediaSubdivision.new, event) : @"eventData",
+                       @keypath(SRGMediaSubdivision.new, analyticsLabels) : @"analyticsData",
+                       @keypath(SRGMediaSubdivision.new, subtitles) : @"subtitleList",
                        
-                       @keypath(SRGMediaRepresentation.new, title) : @"title",
-                       @keypath(SRGMediaRepresentation.new, lead) : @"lead",
-                       @keypath(SRGMediaRepresentation.new, summary) : @"description",
+                       @keypath(SRGMediaSubdivision.new, title) : @"title",
+                       @keypath(SRGMediaSubdivision.new, lead) : @"lead",
+                       @keypath(SRGMediaSubdivision.new, summary) : @"description",
                        
-                       @keypath(SRGMediaRepresentation.new, uid) : @"id",
-                       @keypath(SRGMediaRepresentation.new, URN) : @"urn",
-                       @keypath(SRGMediaRepresentation.new, mediaType) : @"mediaType",
-                       @keypath(SRGMediaRepresentation.new, vendor) : @"vendor",
+                       @keypath(SRGMediaSubdivision.new, uid) : @"id",
+                       @keypath(SRGMediaSubdivision.new, URN) : @"urn",
+                       @keypath(SRGMediaSubdivision.new, mediaType) : @"mediaType",
+                       @keypath(SRGMediaSubdivision.new, vendor) : @"vendor",
                        
-                       @keypath(SRGMediaRepresentation.new, imageURL) : @"imageUrl",
-                       @keypath(SRGMediaRepresentation.new, imageTitle) : @"imageTitle",
-                       @keypath(SRGMediaRepresentation.new, imageCopyright) : @"imageCopyright",
+                       @keypath(SRGMediaSubdivision.new, imageURL) : @"imageUrl",
+                       @keypath(SRGMediaSubdivision.new, imageTitle) : @"imageTitle",
+                       @keypath(SRGMediaSubdivision.new, imageCopyright) : @"imageCopyright",
                        
-                       @keypath(SRGMediaRepresentation.new, contentType) : @"type",
-                       @keypath(SRGMediaRepresentation.new, source) : @"assignedBy",
-                       @keypath(SRGMediaRepresentation.new, date) : @"date",
-                       @keypath(SRGMediaRepresentation.new, duration) : @"duration",
-                       @keypath(SRGMediaRepresentation.new, blockingReason) : @"blockReason",
-                       @keypath(SRGMediaRepresentation.new, hidden) : @"displayable",
-                       @keypath(SRGMediaRepresentation.new, podcastStandardDefinitionURL) : @"podcastSdUrl",
-                       @keypath(SRGMediaRepresentation.new, podcastHighDefinitionURL) : @"podcastHdUrl",
-                       @keypath(SRGMediaRepresentation.new, startDate) : @"validFrom",
-                       @keypath(SRGMediaRepresentation.new, endDate) : @"validTo",
-                       @keypath(SRGMediaRepresentation.new, relatedContents) : @"relatedContentList",
-                       @keypath(SRGMediaRepresentation.new, socialCounts) : @"socialCountList" };
+                       @keypath(SRGMediaSubdivision.new, contentType) : @"type",
+                       @keypath(SRGMediaSubdivision.new, source) : @"assignedBy",
+                       @keypath(SRGMediaSubdivision.new, date) : @"date",
+                       @keypath(SRGMediaSubdivision.new, duration) : @"duration",
+                       @keypath(SRGMediaSubdivision.new, blockingReason) : @"blockReason",
+                       @keypath(SRGMediaSubdivision.new, hidden) : @"displayable",
+                       @keypath(SRGMediaSubdivision.new, podcastStandardDefinitionURL) : @"podcastSdUrl",
+                       @keypath(SRGMediaSubdivision.new, podcastHighDefinitionURL) : @"podcastHdUrl",
+                       @keypath(SRGMediaSubdivision.new, startDate) : @"validFrom",
+                       @keypath(SRGMediaSubdivision.new, endDate) : @"validTo",
+                       @keypath(SRGMediaSubdivision.new, relatedContents) : @"relatedContentList",
+                       @keypath(SRGMediaSubdivision.new, socialCounts) : @"socialCountList" };
     });
     return s_mapping;
 }
@@ -197,8 +197,8 @@
         return NO;
     }
     
-    SRGMediaRepresentation *otherMediaRepresentation = object;
-    return [self.uid isEqualToString:otherMediaRepresentation.uid];
+    SRGMediaSubdivision *otherMediaSubdivision = object;
+    return [self.uid isEqualToString:otherMediaSubdivision.uid];
 }
 
 - (NSUInteger)hash
