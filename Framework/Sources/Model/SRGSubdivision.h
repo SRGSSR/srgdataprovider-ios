@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Abstract base class for media subdivisions.
  */
-@interface SRGMediaSubdivision : SRGModel <SRGMediaMetadata>
+@interface SRGSubdivision : SRGModel <SRGMediaMetadata>
 
 /**
  *  The URN of the full length to which the subdivision belongs, if any.

@@ -4,17 +4,17 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGMediaSubdivision.h"
 #import "SRGResource.h"
 #import "SRGScheduledLivestreamMetadata.h"
 #import "SRGSegment.h"
+#import "SRGSubdivision.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Chapter (unit of media playback characterized by a URL to be played).
  */
-@interface SRGChapter : SRGMediaSubdivision <SRGScheduledLivestreamMetadata>
+@interface SRGChapter : SRGSubdivision <SRGScheduledLivestreamMetadata>
 
 /**
  *  The list of available resources.

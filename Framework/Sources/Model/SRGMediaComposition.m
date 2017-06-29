@@ -108,7 +108,7 @@
 
 #pragma mark Media and media composition generation
 
-- (BOOL)containsSubdivision:(SRGMediaSubdivision *)subdivision
+- (BOOL)containsSubdivision:(SRGSubdivision *)subdivision
 {
     for (SRGChapter *chapter in self.chapters) {
         if (chapter == subdivision) {
@@ -126,7 +126,7 @@
     return NO;
 }
 
-- (SRGMedia *)mediaForSubdivision:(SRGMediaSubdivision *)subdivision
+- (SRGMedia *)mediaForSubdivision:(SRGSubdivision *)subdivision
 {
     if (! [self containsSubdivision:subdivision]) {
         return nil;
@@ -159,7 +159,7 @@
     return media;
 }
 
-- (SRGMediaComposition *)mediaCompositionForSubdivision:(SRGMediaSubdivision *)subdivision
+- (SRGMediaComposition *)mediaCompositionForSubdivision:(SRGSubdivision *)subdivision
 {
     for (SRGChapter *chapter in self.chapters) {
         if (chapter == subdivision) {
