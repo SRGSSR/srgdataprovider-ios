@@ -156,7 +156,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 
 - (SRGRequest *)tvTrendingMediasWithLimit:(NSNumber *)limit completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
-    return [self tvTrendingMediasWithLimit:nil editorialLimit:nil episodesOnly:NO completionBlock:completionBlock];
+    return [self tvTrendingMediasWithLimit:limit editorialLimit:nil episodesOnly:NO completionBlock:completionBlock];
 }
 
 - (SRGRequest *)tvTrendingMediasWithLimit:(NSNumber *)limit editorialLimit:(NSNumber *)editorialLimit episodesOnly:(BOOL)episodesOnly completionBlock:(SRGMediaListCompletionBlock)completionBlock
