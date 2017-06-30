@@ -82,7 +82,7 @@
 
 // TODO: This override is only required because of uid-based image URL overriding. Drop when image overriding is not
 //       required anymore.
-- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(NSString *)type
+- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
 {
     return [self.imageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
 }

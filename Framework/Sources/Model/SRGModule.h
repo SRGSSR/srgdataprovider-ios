@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGImageMetadata.h"
 #import "SRGMetadata.h"
 #import "SRGModel.h"
 #import "SRGSection.h"
@@ -14,10 +15,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // Supported alternative image types
-typedef NSString * SRGModuleImageType NS_STRING_ENUM;
-
-OBJC_EXPORT SRGModuleImageType const SRGModuleImageTypeBackground;          // Background image.
-OBJC_EXPORT SRGModuleImageType const SRGModuleImageTypeLogo;                // Logo image.
+OBJC_EXPORT SRGImageType const SRGImageTypeModuleBackground;          // Module background image.
+OBJC_EXPORT SRGImageType const SRGImageTypeModuleLogo;                // Module logo image.
 
 /**
  *  Module (collection of medias grouped for a special occasion, like an event).
@@ -101,7 +100,7 @@ OBJC_EXPORT SRGModuleImageType const SRGModuleImageTypeLogo;                // L
  *  @discussion The device scale is NOT automatically taken into account. Be sure that the required size in pixels
  *              matches the scale of your device.
  */
-- (nullable NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(nullable SRGModuleImageType)type;
+- (nullable NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type;
 
 @end
 

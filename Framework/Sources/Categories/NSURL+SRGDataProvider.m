@@ -17,10 +17,10 @@ static SRGDataProviderURLOverridingBlock s_imageURLOverridingBlock = nil;
     s_imageURLOverridingBlock = imageURLOverridingBlock;
 }
 
-- (NSURL *)srg_URLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value uid:(NSString *)uid type:(NSString *)type
+- (NSURL *)srg_URLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value uid:(NSString *)uid type:(SRGImageType)type
 {
     if (s_imageURLOverridingBlock && uid) {
-        NSURL *overriddenURL = s_imageURLOverridingBlock(uid, type ?: @"default", dimension, value);
+        NSURL *overriddenURL = s_imageURLOverridingBlock(uid, type, dimension, value);
         if (overriddenURL) {
             return overriddenURL;
         }

@@ -12,9 +12,9 @@
 
 #import <libextobjc/libextobjc.h>
 
-SRGModuleImageType const SRGModuleImageTypeBackground = @"background";
-SRGModuleImageType const SRGModuleImageTypeKeyVisual = @"key_visual";
-SRGModuleImageType const SRGModuleImageTypeLogo = @"logo";
+SRGImageType const SRGImageTypeModuleBackground = @"background";
+SRGImageType const SRGImageTypeModuleKeyVisual = @"key_visual";
+SRGImageType const SRGImageTypeModuleLogo = @"logo";
 
 @interface SRGModule ()
 
@@ -138,12 +138,12 @@ SRGModuleImageType const SRGModuleImageTypeLogo = @"logo";
 
 #pragma mark SRGImageMetadata protocol
 
-- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(NSString *)type
+- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
 {
-    if ([type isEqualToString:SRGModuleImageTypeBackground]) {
+    if ([type isEqualToString:SRGImageTypeModuleBackground]) {
         return [self.backgroundImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
     }
-    else if ([type isEqualToString:SRGModuleImageTypeLogo]) {
+    else if ([type isEqualToString:SRGImageTypeModuleLogo]) {
         return [self.logoImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
     }
     else {

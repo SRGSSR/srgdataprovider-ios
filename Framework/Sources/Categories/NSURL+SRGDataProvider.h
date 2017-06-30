@@ -52,7 +52,7 @@ typedef NSURL * _Nullable (^SRGDataProviderURLOverridingBlock)(NSString *uid, NS
  *  @discussion The device scale is NOT automatically taken into account. Be sure that the required size in pixels
  *              matches the scale of your device.
  */
-- (NSURL *)srg_URLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value uid:(nullable NSString *)uid type:(nullable NSString *)type;
+- (NSURL *)srg_URLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value uid:(nullable NSString *)uid type:(SRGImageType)type;
 
 @end
 

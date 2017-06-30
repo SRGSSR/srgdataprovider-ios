@@ -15,10 +15,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// Supported additional image types
-typedef NSString * SRGShowImageType NS_STRING_ENUM;
-
-OBJC_EXPORT SRGShowImageType const SRGShowImageTypeBanner;          // Banner image.
+OBJC_EXPORT SRGImageType const SRGImageTypeShowBanner;          // Show banner image.
 
 /**
  *  Show information.

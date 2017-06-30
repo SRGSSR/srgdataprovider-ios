@@ -11,6 +11,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// Supported image types
+typedef NSString * SRGImageType NS_STRING_ENUM;
+
+OBJC_EXPORT NSString * const SRGImageTypeDefault;          // Default image.
+
 /**
  *  Common protocol for model objects having an optional image.
  */
@@ -23,13 +28,13 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param dimension The dimension (horizontal or vertical).
  *  @param value     The value along the specified dimensions, in pixels.
  *  @param type      The type of the image. The list of admissible values, if any, is publicly made available through dedicated
- *                   constants declared by classes conforming to `SRGImageMetadata`. If no type or if an invalid type is specified, 
- *                   the URL of the default image is returned.
+ *                   constants declared by classes conforming to `SRGImageMetadata`. For a default image, use `SRGImageTypeDefault`.
+ *                   If an invalid type is specified, the default image is used.
  *
  *  @discussion The device scale is NOT automatically taken into account. Be sure that the required size in pixels
  *              matches the scale of your device.
  */
-- (nullable NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(nullable NSString *)type;
+- (nullable NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type;
 
 /**
  *  The image title.

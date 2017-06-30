@@ -33,6 +33,7 @@
 		6FA09D821D9EB37600EDCA64 /* SRGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; };
 		6FA09D851D9EB39000EDCA64 /* SRGLogger.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6FA09D871D9EB5CA00EDCA64 /* SRGDataProviderLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FA09D861D9EB5CA00EDCA64 /* SRGDataProviderLogger.h */; };
+		6FAC25AB1F06A2B70058D53A /* SRGImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAC25AA1F06A2B70058D53A /* SRGImageMetadata.m */; };
 		6FB156121E83B60400389D04 /* SRGModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FB156101E83B60400389D04 /* SRGModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FB156131E83B60400389D04 /* SRGModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB156111E83B60400389D04 /* SRGModel.m */; };
 		6FB156161E83D20B00389D04 /* NSDictionary+SRGDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FB156141E83D20B00389D04 /* NSDictionary+SRGDataProvider.h */; };
@@ -189,6 +190,7 @@
 		6F98DD691E8282A9008B0B22 /* SWIServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWIServicesTestCase.m; sourceTree = "<group>"; };
 		6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SRGLogger.framework; path = Carthage/Build/iOS/SRGLogger.framework; sourceTree = "<group>"; };
 		6FA09D861D9EB5CA00EDCA64 /* SRGDataProviderLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGDataProviderLogger.h; sourceTree = "<group>"; };
+		6FAC25AA1F06A2B70058D53A /* SRGImageMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGImageMetadata.m; sourceTree = "<group>"; };
 		6FB156101E83B60400389D04 /* SRGModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGModel.h; sourceTree = "<group>"; };
 		6FB156111E83B60400389D04 /* SRGModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGModel.m; sourceTree = "<group>"; };
 		6FB156141E83D20B00389D04 /* NSDictionary+SRGDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+SRGDataProvider.h"; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 			isa = PBXGroup;
 			children = (
 				E68598B01D40CEC30010000A /* SRGImageMetadata.h */,
+				6FAC25AA1F06A2B70058D53A /* SRGImageMetadata.m */,
 				E68598B21D40CED70010000A /* SRGMediaIdentifierMetadata.h */,
 				E68598B41D40CEEE0010000A /* SRGMediaMetadata.h */,
 				083F41551DB6D59F00FEA340 /* SRGMediaParentMetadata.h */,
@@ -771,6 +774,7 @@
 				E67BB66E1D3DF13800E1FEA3 /* SRGMediaComposition.m in Sources */,
 				E6C2B3F51D392F1200B6250B /* SRGEpisode.m in Sources */,
 				E68598AB1D40CC750010000A /* SRGSubdivision.m in Sources */,
+				6FAC25AB1F06A2B70058D53A /* SRGImageMetadata.m in Sources */,
 				6F723D931E83FC9100BB5F33 /* SRGSessionDelegate.m in Sources */,
 				6FB156131E83B60400389D04 /* SRGModel.m in Sources */,
 				E6391AA21D38E92400E4CBB9 /* SRGDataProvider.m in Sources */,

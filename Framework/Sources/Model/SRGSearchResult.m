@@ -52,7 +52,7 @@
 
 #pragma mark SRGImageMetadata protocol
 
-- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(NSString *)type
+- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
 {
     return [self.imageURL srg_URLForDimension:dimension withValue:value uid:nil type:type];
 }
