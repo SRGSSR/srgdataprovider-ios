@@ -22,9 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param dimension The dimension (horizontal or vertical).
  *  @param value     The value along the specified dimensions, in pixels.
- *  @param type      The type of the image. The list of admissible values can be freely defined, usually by a class
- *                   conforming to the `SRGImageMetadata` protocol itself. If no type or an invalid type is specified, 
- *                   the URL of the default image is used.
+ *  @param type      The type of the image. The list of admissible values, if any, is publicly made available through dedicated
+ *                   constants declared by classes conforming to `SRGImageMetadata`. If no type or if an invalid type is specified, 
+ *                   the URL of the default image is returned.
  *
  *  @discussion The device scale is NOT automatically taken into account. Be sure that the required size in pixels
  *              matches the scale of your device.
