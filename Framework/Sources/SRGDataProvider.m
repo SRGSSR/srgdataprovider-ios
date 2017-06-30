@@ -166,9 +166,9 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
     
     // This request does not support pagination, but a maximum number of results, specified via a pageSize parameter.
-    // The name is sadly misleading, see https://srfmmz.atlassian.net/browse/AIS-15970.
+    // The name is sadly misleading, see https://srfmmz.atlassian.net/browse/AIS-15970. Maximum page size is 50.
     if (limit) {
-        limit = @(MAX(0, limit.integerValue));
+        limit = @(MIN(MAX(0, limit.integerValue), 50));
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:limit.stringValue]];
     }
     if (editorialLimit) {

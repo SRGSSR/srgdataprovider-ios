@@ -281,6 +281,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  (eliminating clips, teasers, etc.).
  *
  *  @param limit          The maximum number of results returned (if `nil`, 10 results at most will be returned).
+ *                        The maximum limit is 50.
  *  @param editorialLimit The maximum number of editorial recommendations returned (if `nil`, all are returned).
  *  @param episodesOnly   Whether only episodes must be returned.
  */
