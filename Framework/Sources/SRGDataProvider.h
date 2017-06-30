@@ -270,19 +270,24 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 
 /**
  *  Trending medias (with all editorial recommendations).
+ *
+ *  @param limit The maximum number of results returned (if `nil`, 10 results at most will be returned).
  */
-- (SRGFirstPageRequest *)tvTrendingMediasWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)tvTrendingMediasWithLimit:(nullable NSNumber *)limit
+                          completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  Trending medias. A limit can be set on editorial recommendations and results can be limited to episodes only
+ *  Trending medias. A limit can be set on editorial recommendations and results can be restricted to episodes only
  *  (eliminating clips, teasers, etc.).
  *
+ *  @param limit          The maximum number of results returned (if `nil`, 10 results at most will be returned).
  *  @param editorialLimit The maximum number of editorial recommendations returned (if `nil`, all are returned).
  *  @param episodesOnly   Whether only episodes must be returned.
  */
-- (SRGFirstPageRequest *)tvTrendingMediasWithEditorialLimit:(nullable NSNumber *)editorialLimit
-                                               episodesOnly:(BOOL)episodesOnly
-                                            completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)tvTrendingMediasWithLimit:(nullable NSNumber *)limit
+                           editorialLimit:(nullable NSNumber *)editorialLimit
+                             episodesOnly:(BOOL)episodesOnly
+                          completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  Latest episodes.

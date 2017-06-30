@@ -21,7 +21,7 @@ If not specified, the maximum page size is 100. The default page size is 10. A s
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Editorial medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ❌ |
 | Soon expiring medias | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | 100 | ❌ |
-| Trending medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 50 | ❌ |
+| Trending medias | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A | N/A |
 | Latest episodes | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ❌ |
 | Episodes by date | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ❌ |
 

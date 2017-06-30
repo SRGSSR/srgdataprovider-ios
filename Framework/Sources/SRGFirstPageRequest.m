@@ -15,7 +15,6 @@
 @interface SRGFirstPageRequest ()
 
 @property (nonatomic, copy) SRGPageCompletionBlock pageCompletionBlock;
-@property (nonatomic) NSInteger maximumPageSize;
 
 @end
 
@@ -36,7 +35,7 @@
 
 - (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session pageCompletionBlock:(SRGPageCompletionBlock)pageCompletionBlock
 {
-    SRGPage *page = [SRGPage firstPageWithSize:SRGPageDefaultSize maximumPageSize:SRGPageMaximumSize];
+    SRGPage *page = [SRGPage firstPageWithSize:SRGPageDefaultSize];
     
     SRGRequestCompletionBlock requestCompletionBlock = ^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
         SRGPage *nextPage = [SRGFirstPageRequest nextPageAfterPage:page fromJSONDictionary:JSONDictionary];
@@ -46,25 +45,8 @@
     if (self = [super initWithRequest:request session:session completionBlock:requestCompletionBlock]) {
         self.page = page;
         self.pageCompletionBlock = pageCompletionBlock;
-        self.maximumPageSize = SRGPageMaximumSize;
     }
     return self;
-}
-
-#pragma mark Getters and setters
-
-- (void)setMaximumPageSize:(NSInteger)maximumPageSize
-{
-    if (maximumPageSize < 1) {
-        SRGDataProviderLogWarning(@"request", @"The minimum page size is 1. This minimum value will be used.");
-        maximumPageSize = 1;
-    }
-    else if (maximumPageSize > SRGPageMaximumSize) {
-        SRGDataProviderLogWarning(@"request", @"The maximum page size is %@. This maximum value will be used.", @(SRGPageMaximumSize));
-        maximumPageSize = SRGPageMaximumSize;
-    }
-    
-    _maximumPageSize = maximumPageSize;
 }
 
 #pragma mark Page management
@@ -83,10 +65,8 @@
 
 - (SRGFirstPageRequest *)requestWithPageSize:(NSInteger)pageSize
 {
-    SRGPage *page = [SRGPage firstPageWithSize:pageSize maximumPageSize:self.maximumPageSize];
-    SRGFirstPageRequest *pageRequest = [self requestWithPage:page withClass:[SRGFirstPageRequest class]];
-    pageRequest.maximumPageSize = self.maximumPageSize;
-    return pageRequest;
+    SRGPage *page = [SRGPage firstPageWithSize:pageSize];
+    return [self requestWithPage:page withClass:[SRGFirstPageRequest class]];
 }
 
 - (SRGPageRequest *)requestWithPage:(SRGPage *)page

@@ -154,16 +154,23 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGFirstPageRequest *)tvTrendingMediasWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+- (SRGRequest *)tvTrendingMediasWithLimit:(NSNumber *)limit completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
-    return [self tvTrendingMediasWithEditorialLimit:nil episodesOnly:NO completionBlock:completionBlock];
+    return [self tvTrendingMediasWithLimit:nil editorialLimit:nil episodesOnly:NO completionBlock:completionBlock];
 }
 
-- (SRGFirstPageRequest *)tvTrendingMediasWithEditorialLimit:(NSNumber *)editorialLimit episodesOnly:(BOOL)episodesOnly completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+- (SRGRequest *)tvTrendingMediasWithLimit:(NSNumber *)limit editorialLimit:(NSNumber *)editorialLimit episodesOnly:(BOOL)episodesOnly completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/trending.json", self.businessUnitIdentifier];
     
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
+    
+    // This request does not support pagination, but a maximum number of results, specified via a pageSize parameter.
+    // The name is sadly misleading, see https://srfmmz.atlassian.net/browse/AIS-15970.
+    if (limit) {
+        limit = @(MAX(0, limit.integerValue));
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:limit.stringValue]];
+    }
     if (editorialLimit) {
         editorialLimit = @(MAX(0, editorialLimit.integerValue));
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"maxCountEditorPicks" value:editorialLimit.stringValue]];
@@ -173,11 +180,9 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }
     
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:[queryItems copy]];
-    SRGFirstPageRequest *request = [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(objects, error);
     }];
-    request.maximumPageSize = 50;
-    return request;
 }
 
 - (SRGFirstPageRequest *)tvLatestEpisodesWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock

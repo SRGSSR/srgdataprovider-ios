@@ -48,15 +48,15 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
     }
 }
 
-+ (SRGPage *)firstPageWithSize:(NSInteger)size maximumPageSize:(NSInteger)maximumPageSize
++ (SRGPage *)firstPageWithSize:(NSInteger)size
 {
     if (size < 1) {
         SRGDataProviderLogWarning(@"page", @"The minimum page size is 1. This minimum value will be used.");
         size = 1;
     }
-    else if (size > maximumPageSize && size != SRGPageUnlimitedSize) {
-        SRGDataProviderLogWarning(@"page", @"The maximum page size for this request is %@. This maximum value will be used.", @(maximumPageSize));
-        size = maximumPageSize;
+    else if (size > SRGPageMaximumSize && size != SRGPageUnlimitedSize) {
+        SRGDataProviderLogWarning(@"page", @"The maximum page size for this request is %@. This maximum value will be used.", @(SRGPageMaximumSize));
+        size = SRGPageMaximumSize;
     }
     
     return [[[self class] alloc] initWithSize:size number:0 URL:nil];
