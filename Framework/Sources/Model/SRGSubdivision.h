@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Abstract base class for media subdivisions.
+ *  Abstract base class representing a media subdivision (part of a media).
  */
 @interface SRGSubdivision : SRGModel <SRGMediaMetadata>
 
@@ -28,17 +28,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSInteger position;
 
 /**
- *  The time at which the represented media starts, in milliseconds.
+ *  The time at which the subdivision starts, in milliseconds.
  */
 @property (nonatomic, readonly) NSTimeInterval markIn;
 
 /**
- *  The time at which the represented media ends, in milliseconds.
+ *  The time at which the subdivision ends, in milliseconds.
  */
 @property (nonatomic, readonly) NSTimeInterval markOut;
 
 /**
- *  An opaque event information to be sent when liking the represented media.
+ *  An opaque event information to be sent when liking the represented subdivision.
  */
 @property (nonatomic, readonly, copy, nullable) NSString *event;
 
