@@ -18,6 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  The list of available resources.
+ *
+ *  @discussion The list contains the raw resource list available for a chapter. Some resources might not be supported 
+ *              on a platform or device, though (e.g. HDS resources). The `Resources` category below provides methods
+ *              to retrieve resources which can be actually played on the device or platform.
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGResource *> *resources;
 
@@ -31,12 +35,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGChapter (Resources)
 
 /**
- *  Return the list of streaming methods supported by the device (from the most to the least recommended method).
+ *  Return the list of supported streaming methods (from the most to the least recommended method).
  */
 + (NSArray<NSNumber *> *)supportedStreamingMethods;
 
 /**
- *  Return the set of resources which can be played on the device.
+ *  Return the set of resources which can be actually played on the device or platform.
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGResource *> *playableResources;
 
