@@ -91,7 +91,7 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Maximum page size | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Videos | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ✅ |
+| Videos | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ✅ |
 
 ## Video services
 
