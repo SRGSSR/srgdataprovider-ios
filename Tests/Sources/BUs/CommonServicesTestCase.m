@@ -41,7 +41,7 @@ static NSString * const kInvalidShowURN = @"urn:rts:show:tv:999999999999999";
 
 #pragma mark Tests
 
-- (void)testMedia
+- (void)testMediaWithURN
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
@@ -64,7 +64,7 @@ static NSString * const kInvalidShowURN = @"urn:rts:show:tv:999999999999999";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testMedias
+- (void)testMediasWithURNs
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
@@ -117,7 +117,7 @@ static NSString * const kInvalidShowURN = @"urn:rts:show:tv:999999999999999";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testMediaComposition
+- (void)testMediaCompositionWithURN
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
@@ -140,7 +140,7 @@ static NSString * const kInvalidShowURN = @"urn:rts:show:tv:999999999999999";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testShow
+- (void)testShowWithURN
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
@@ -163,7 +163,7 @@ static NSString * const kInvalidShowURN = @"urn:rts:show:tv:999999999999999";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testEpisodesForShow
+- (void)testEpisodesForShowWithURN
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
