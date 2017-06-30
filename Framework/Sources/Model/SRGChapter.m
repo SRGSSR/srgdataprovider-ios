@@ -73,7 +73,7 @@
 
 - (NSArray<SRGResource *> *)playableResources
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K IN %@", [SRGChapter supportedStreamingMethods]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K IN %@", @keypath(SRGResource.new, streamingMethod), [SRGChapter supportedStreamingMethods]];
     return [self.resources filteredArrayUsingPredicate:predicate];
 }
 
