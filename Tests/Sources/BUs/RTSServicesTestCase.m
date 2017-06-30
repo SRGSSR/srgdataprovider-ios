@@ -129,7 +129,7 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testTVLatestEpisodesForChannel
+- (void)testTVLatestEpisodes
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
@@ -236,13 +236,13 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+// Not supported for RTS
 - (void)testTVShowsWithUids
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider tvShowsWithUids:@[kTVShowUid, kTVShowOtherUid] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
-        XCTAssertNotNil(shows);
-        XCTAssertNil(error);
+        XCTAssertNotNil(error);
         [expectation fulfill];
     }] resume];
     
@@ -434,13 +434,13 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+// Not supported for RTS
 - (void)testRadioShowsWithUids
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider radioShowsWithUids:@[kRadioShowUid, kRadioShowOtherUid] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
-        XCTAssertNotNil(shows);
-        XCTAssertNil(error);
+        XCTAssertNotNil(error);
         [expectation fulfill];
     }] resume];
     

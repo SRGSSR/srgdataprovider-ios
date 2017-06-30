@@ -129,7 +129,7 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testTVLatestEpisodesForChannel
+- (void)testTVLatestEpisodes
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     

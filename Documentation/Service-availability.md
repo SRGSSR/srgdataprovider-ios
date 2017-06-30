@@ -38,7 +38,7 @@ If not specified, the maximum page size is 100. The default page size is 10. A s
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Maximum page size | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | All shows | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ✅ |
-| Shows with specific identifiers | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A | N/A |
+| Shows with specific identifiers | ✅ | ❌ | ✅ | ✅ | ✅ | ❌ | N/A | N/A |
 | Single show | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A | N/A |
 | Latest episodes for a show | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ❌ |
 | Show search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 100 | ❌ |
@@ -75,7 +75,7 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Maximum page size | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | All shows | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ✅ |
-| Shows with specific identifiers | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A | N/A |
+| Shows with specific identifiers | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | N/A | N/A |
 | Single show | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A | N/A |
 | Latest episodes for a show | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ❌ |
 | Show search | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | 100 | ❌ |
