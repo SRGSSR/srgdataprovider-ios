@@ -223,7 +223,7 @@ typedef NS_ENUM(NSInteger, SRGQuality) {
     /**
      *  High quality.
      */
-    SRGQualityHQ,
+    SRGQualityHQ
 };
 
 /**

@@ -91,6 +91,8 @@
 
 - (NSArray<SRGResource *> *)resourcesForStreamingMethod:(SRGStreamingMethod)streamingMethod
 {
+    // Qualities are ordered in increasing order in the associated enum, from the lowest to the highest one, and can therefore
+    // be used as is for sorting.
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGResource.new, streamingMethod), @(streamingMethod)];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@keypath(SRGResource.new, quality) ascending:NO];
     return [[self.resources filteredArrayUsingPredicate:predicate] sortedArrayUsingDescriptors:@[sortDescriptor]];

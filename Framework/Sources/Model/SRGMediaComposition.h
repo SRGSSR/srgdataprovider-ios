@@ -74,16 +74,16 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Return the media corresponding to a subdivision (chapter or segment) belonging to the receiver.
  *
- *  @param division The subdivision which the media must be returned for. If the subdivision does not belong to the 
- *                  receiver, the method returns `nil`.
+ *  @param subdivision The subdivision which the media must be returned for. If the subdivision does not belong to the
+ *                     receiver, the method returns `nil`.
  */
 - (nullable SRGMedia *)mediaForSubdivision:(SRGSubdivision *)subdivision;
 
 /**
  *  Return the media composition corresponding to a subdivision (chapter or segment) belonging to the receiver.
  *
- *  @param division The subdivision which the media must be returned for. If the subdivision does not belong to the
- *                  receiver, the method returns `nil`.
+ *  @param subdivision The subdivision which the media must be returned for. If the subdivision does not belong to the
+ *                     receiver, the method returns `nil`.
  */
 - (nullable SRGMediaComposition *)mediaCompositionForSubdivision:(SRGSubdivision *)subdivision;
 
