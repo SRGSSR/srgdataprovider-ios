@@ -258,12 +258,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"ids" value:[showUids componentsJoinedByString: @","]] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        if (error) {
-            completionBlock(nil, error);
-            return;
-        }
-        
-        completionBlock(objects, nil);
+        completionBlock(objects, error);
     }];
 }
 
@@ -402,12 +397,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"ids" value:[showUids componentsJoinedByString: @","]] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        if (error) {
-            completionBlock(nil, error);
-            return;
-        }
-        
-        completionBlock(objects, nil);
+        completionBlock(objects, error);
     }];
 }
 
@@ -496,12 +486,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"ids" value:[videoUids componentsJoinedByString: @","]] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        if (error) {
-            completionBlock(nil, error);
-            return;
-        }
-        
-        completionBlock(objects, nil);
+        completionBlock(objects, error);
     }];
 }
 
@@ -537,12 +522,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"ids" value:[audioUids componentsJoinedByString: @","]] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        if (error) {
-            completionBlock(nil, error);
-            return;
-        }
-        
-        completionBlock(objects, nil);
+        completionBlock(objects, error);
     }];
 }
 
@@ -579,12 +559,7 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"urns" value:[mediaURNStrings componentsJoinedByString: @","]] ];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
     return [self listObjectsWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        if (error) {
-            completionBlock(nil, error);
-            return;
-        }
-        
-        completionBlock(objects, nil);
+        completionBlock(objects, error);
     }];
 }
 
