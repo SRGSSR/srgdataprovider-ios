@@ -38,12 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSTimeInterval markOut;
 
 /**
- *  Return whether subdivision playback should be blocked client-side. If `SRGBlockingReasonNone`, the subdivision can be
- *  freely played.
- */
-@property (nonatomic, readonly) SRGBlockingReason blockingReason;
-
-/**
  *  Return whether the subdivision must be hidden client-side.
  */
 @property (nonatomic, readonly, getter=isHidden) BOOL hidden;

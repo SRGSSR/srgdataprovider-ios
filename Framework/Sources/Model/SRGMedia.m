@@ -34,6 +34,7 @@
 @property (nonatomic) SRGSource source;
 @property (nonatomic) NSDate *date;
 @property (nonatomic) NSTimeInterval duration;
+@property (nonatomic) SRGBlockingReason blockingReason;
 @property (nonatomic) NSURL *podcastStandardDefinitionURL;
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
 @property (nonatomic) NSDate *startDate;
@@ -70,13 +71,14 @@
                        @keypath(SRGMedia.new, imageCopyright) : @"imageCopyright",
                        
                        @keypath(SRGMedia.new, contentType) : @"type",
+                       @keypath(SRGMedia.new, source) : @"assignedBy",
                        @keypath(SRGMedia.new, date) : @"date",
                        @keypath(SRGMedia.new, duration) : @"duration",
+                       @keypath(SRGMedia.new, blockingReason) : @"blockReason",
                        @keypath(SRGMedia.new, podcastStandardDefinitionURL) : @"podcastSdUrl",
                        @keypath(SRGMedia.new, podcastHighDefinitionURL) : @"podcastHdUrl",
                        @keypath(SRGMedia.new, startDate) : @"validFrom",
                        @keypath(SRGMedia.new, endDate) : @"validTo",
-                       @keypath(SRGMedia.new, source) : @"assignedBy",
                        @keypath(SRGMedia.new, relatedContents) : @"relatedContentList",
                        @keypath(SRGMedia.new, socialCounts) : @"socialCountList" };
     });
@@ -125,9 +127,19 @@
     return SRGContentTypeJSONTransformer();
 }
 
++ (NSValueTransformer *)sourceJSONTransformer
+{
+    return SRGSourceJSONTransformer();
+}
+
 + (NSValueTransformer *)dateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
+}
+
++ (NSValueTransformer *)blockingReasonJSONTransformer
+{
+    return SRGBlockingReasonJSONTransformer();
 }
 
 + (NSValueTransformer *)podcastStandardDefinitionURLJSONTransformer
@@ -148,11 +160,6 @@
 + (NSValueTransformer *)endDateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
-}
-
-+ (NSValueTransformer *)sourceJSONTransformer
-{
-    return SRGSourceJSONTransformer();
 }
 
 + (NSValueTransformer *)relatedContentsJSONTransformer

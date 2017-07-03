@@ -17,6 +17,7 @@
 @property (nonatomic) NSInteger position;
 @property (nonatomic) NSTimeInterval markIn;
 @property (nonatomic) NSTimeInterval markOut;
+@property (nonatomic, getter=isHidden) BOOL hidden;
 @property (nonatomic, copy) NSString *event;
 @property (nonatomic) NSArray<SRGSubtitle *> *subtitles;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
@@ -39,7 +40,6 @@
 @property (nonatomic) NSDate *date;
 @property (nonatomic) NSTimeInterval duration;
 @property (nonatomic) SRGBlockingReason blockingReason;
-@property (nonatomic, getter=isHidden) BOOL hidden;
 @property (nonatomic) NSURL *podcastStandardDefinitionURL;
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
 @property (nonatomic) NSDate *startDate;
@@ -62,6 +62,7 @@
                        @keypath(SRGSubdivision.new, position) : @"position",
                        @keypath(SRGSubdivision.new, markIn) : @"markIn",
                        @keypath(SRGSubdivision.new, markOut) : @"markOut",
+                       @keypath(SRGSubdivision.new, hidden) : @"displayable",
                        @keypath(SRGSubdivision.new, event) : @"eventData",
                        @keypath(SRGSubdivision.new, analyticsLabels) : @"analyticsData",
                        @keypath(SRGSubdivision.new, subtitles) : @"subtitleList",
@@ -84,7 +85,6 @@
                        @keypath(SRGSubdivision.new, date) : @"date",
                        @keypath(SRGSubdivision.new, duration) : @"duration",
                        @keypath(SRGSubdivision.new, blockingReason) : @"blockReason",
-                       @keypath(SRGSubdivision.new, hidden) : @"displayable",
                        @keypath(SRGSubdivision.new, podcastStandardDefinitionURL) : @"podcastSdUrl",
                        @keypath(SRGSubdivision.new, podcastHighDefinitionURL) : @"podcastHdUrl",
                        @keypath(SRGSubdivision.new, startDate) : @"validFrom",

@@ -41,6 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSTimeInterval duration;
 
 /**
+ *  Return whether media playback should be blocked client-side. If `SRGBlockingReasonNone`, the media can be
+ *  freely played.
+ */
+@property (nonatomic, readonly) SRGBlockingReason blockingReason;
+
+/**
  *  The standard definition podcast URL.
  */
 @property (nonatomic, readonly, nullable) NSURL *podcastStandardDefinitionURL;
