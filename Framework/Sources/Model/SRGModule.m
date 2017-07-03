@@ -136,7 +136,7 @@ SRGImageType const SRGImageTypeModuleLogo = @"logo";
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSection class]];
 }
 
-#pragma mark SRGImageMetadata protocol
+#pragma mark SRGImage protocol
 
 - (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
 {

@@ -21,7 +21,7 @@ OBJC_EXPORT SRGImageType const SRGImageTypeModuleLogo;                // Module 
 /**
  *  Module (collection of medias grouped for a special occasion, like an event).
  */
-@interface SRGModule : SRGModel <SRGMetadata>
+@interface SRGModule : SRGModel <SRGImage, SRGMetadata>
 
 /**
  *  The module unique identifier.
@@ -87,20 +87,6 @@ OBJC_EXPORT SRGImageType const SRGImageTypeModuleLogo;                // Module 
  *  The list of medias associated with the module.
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGSection *> *sections;
-
-/**
- *  Return the URL for an image with the specified type and width / height. The non-specified dimension is automatically
- *  determined by the intrinsic image aspect ratio, which cannot be altered.
- *
- *  @param dimension The dimension (horizontal or vertical).
- *  @param value     The value along the specified dimensions, in pixels.
- *  @param type      The type of the image. Use `nil` for the default image, or have a look at the top of this file for
- *                   alternative images.
- *
- *  @discussion The device scale is NOT automatically taken into account. Be sure that the required size in pixels
- *              matches the scale of your device.
- */
-- (nullable NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type;
 
 @end
 

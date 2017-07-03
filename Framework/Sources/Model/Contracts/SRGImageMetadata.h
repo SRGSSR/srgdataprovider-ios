@@ -17,9 +17,9 @@ typedef NSString * SRGImageType NS_STRING_ENUM;
 OBJC_EXPORT NSString * const SRGImageTypeDefault;          // Default image.
 
 /**
- *  Common protocol for model objects having an optional image.
+ *  Common protocol for model objects having an image.
  */
-@protocol SRGImageMetadata <NSObject>
+@protocol SRGImage <NSObject>
 
 /**
  *  Return the URL for an image with the specified type and width / height. The non-specified dimension is automatically
@@ -35,6 +35,13 @@ OBJC_EXPORT NSString * const SRGImageTypeDefault;          // Default image.
  *              matches the scale of your device.
  */
 - (nullable NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type;
+
+@end
+
+/**
+ *  Common protocol for model objects having an image and associated information.
+ */
+@protocol SRGImageMetadata <SRGImage>
 
 /**
  *  The image title.
