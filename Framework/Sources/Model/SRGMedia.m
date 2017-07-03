@@ -34,8 +34,6 @@
 @property (nonatomic) SRGSource source;
 @property (nonatomic) NSDate *date;
 @property (nonatomic) NSTimeInterval duration;
-@property (nonatomic) SRGBlockingReason blockingReason;
-@property (nonatomic, getter=isHidden) BOOL hidden;
 @property (nonatomic) NSURL *podcastStandardDefinitionURL;
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
 @property (nonatomic) NSDate *startDate;
@@ -74,8 +72,6 @@
                        @keypath(SRGMedia.new, contentType) : @"type",
                        @keypath(SRGMedia.new, date) : @"date",
                        @keypath(SRGMedia.new, duration) : @"duration",
-                       @keypath(SRGMedia.new, blockingReason) : @"blockingReason",
-                       @keypath(SRGMedia.new, hidden) : @"displayable",
                        @keypath(SRGMedia.new, podcastStandardDefinitionURL) : @"podcastSdUrl",
                        @keypath(SRGMedia.new, podcastHighDefinitionURL) : @"podcastHdUrl",
                        @keypath(SRGMedia.new, startDate) : @"validFrom",
@@ -132,16 +128,6 @@
 + (NSValueTransformer *)dateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
-}
-
-+ (NSValueTransformer *)blockingReasonJSONTransformer
-{
-    return SRGBlockingReasonJSONTransformer();
-}
-
-+ (NSValueTransformer *)hiddenJSONTransformer
-{
-    return SRGBooleanInversionJSONTransformer();
 }
 
 + (NSValueTransformer *)podcastStandardDefinitionURLJSONTransformer
