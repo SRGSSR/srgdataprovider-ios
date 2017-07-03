@@ -25,16 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGQuality quality;
 
 /**
- *  The protocol over which the media is served.
- */
-@property (nonatomic, readonly) SRGProtocol protocol;
-
-/**
- *  The media encoding.
- */
-@property (nonatomic, readonly) SRGEncoding encoding;
-
-/**
  *  The recommended way to present the media.
  */
 @property (nonatomic, readonly) SRGPresentation presentation;
@@ -43,6 +33,31 @@ NS_ASSUME_NONNULL_BEGIN
  *  The media MIME type.
  */
 @property (nonatomic, readonly, copy, nullable) NSString *MIMEType;
+
+/**
+ *  The streaming method.
+ */
+@property (nonatomic, readonly) SRGStreamingMethod streamingMethod;
+
+/**
+ *  The stream type.
+ */
+@property (nonatomic, readonly) SRGStreamType streamType;
+
+/**
+ *  The media container.
+ */
+@property (nonatomic, readonly) SRGMediaContainer mediaContainer;
+
+/**
+ *  The audio codec.
+ */
+@property (nonatomic, readonly) SRGAudioCodec audioCodec;
+
+/**
+ *  The video codec.
+ */
+@property (nonatomic, readonly) SRGVideoCodec videoCodec;
 
 /**
  *  The list of analytics labels which should be supplied in SRG Analytics events

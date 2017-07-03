@@ -24,11 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Return the `SRGPage` for the first page of content, with the specified page size.
  *
- *  @param size                   The page size to use. Values < 1 will be fixed to 1, and values too large will be fixed to the
- *                                 maximum page size.
- *  @param maximumPageSize The maximum value for the page size supported by a request.
+ *  @param size The page size to use. Values < 1 will be fixed to 1, and values too large will be fixed to the maximum 
+ *              page size.
  */
-+ (SRGPage *)firstPageWithSize:(NSInteger)size maximumPageSize:(NSInteger)maximumPageSize;
++ (SRGPage *)firstPageWithSize:(NSInteger)size;
 
 /**
  *  Build the page immediately following the receiver, associating it the path where more content can be retrieved.

@@ -52,7 +52,7 @@
 - (BOOL)parseURNString:(NSString *)URNString
 {
     NSMutableArray<NSString *> *components = [[URNString componentsSeparatedByString:@":"] mutableCopy];
-    if (! [components.firstObject.lowercaseString isEqualToString:@"urn"] || components.count < 4) {
+    if (components.count < 4 || ! [components.firstObject.lowercaseString isEqualToString:@"urn"]) {
         return NO;
     }
     
@@ -127,7 +127,7 @@
             [self class],
             self,
             self.uid,
-            self.mediaType == SRGMediaTypeAudio ? @"audio" : @"video",
+            [[SRGMediaTypeJSONTransformer() reverseTransformedValue:@(self.mediaType)] lowercaseString],
             self.URNString];
 }
 

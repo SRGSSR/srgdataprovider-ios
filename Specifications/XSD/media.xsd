@@ -46,6 +46,10 @@
     <xs:simpleType name="playerPropertyKey">
         <xs:restriction base="xs:string">
             <xs:enumeration value="iFrameUrl"/>
+            <xs:enumeration value="playerUrl"/>
+            <xs:enumeration value="playerRelativeIconImageUrl"/>
+            <xs:enumeration value="playerWidth"/>
+            <xs:enumeration value="playerHeight"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -135,27 +139,5 @@
             <xs:enumeration value="RECOMMENDATION"/>
         </xs:restriction>
     </xs:simpleType>
-
-    <xs:complexType name="relatedContent">
-        <xs:annotation>
-            <xs:documentation>Content which is related to a specific other content</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="id" type="id" minOccurs="1" maxOccurs="1"/>
-            <xs:group ref="metaDataGroup" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="url" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
-            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
-        </xs:sequence>
-        <xs:anyAttribute processContents="lax" namespace="##other"/>
-    </xs:complexType>
-
-    <xs:group name="mediaIdentifierGroup">
-        <xs:sequence>
-            <xs:element name="id" type="id" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="mediaType" type="mediaType" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="vendor" type="vendor" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="urn" type="urn" minOccurs="1" maxOccurs="1"/>
-        </xs:sequence>
-    </xs:group>
 
 </xs:schema>

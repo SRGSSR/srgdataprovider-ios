@@ -20,6 +20,12 @@
             <!-- set mimeType to minOccurs=1 and might be to an enum type as soon as it is implemented for flow v2-->
             <xs:element name="mimeType" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="presentation" type="presentation" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="streaming" type="streaming" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="dvr" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="live" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="mediaContainer" type="mediaContainer" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="audioCodec" type="audioCodec" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="videoCodec" type="videoCodec" minOccurs="1" maxOccurs="1"/>
             <xs:element name="analyticsData" type="analyticsData" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>Key value map of analytics data which the client has to post to analytics services, e.g. comscore</xs:documentation>
@@ -84,6 +90,62 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="DEFAULT"/>
             <xs:enumeration value="VIDEO_360"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="streaming">
+        <xs:annotation>
+            <xs:documentation>How the resource can be streamed</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PROGRESSIVE"/>
+            <xs:enumeration value="M3UPLAYLIST"/>
+            <xs:enumeration value="HLS"/>
+            <xs:enumeration value="HDS"/>
+            <xs:enumeration value="RTMP"/>
+            <xs:enumeration value="HTTP"/>
+            <xs:enumeration value="HTTPS"/>
+            <xs:enumeration value="UNKNOWN"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="mediaContainer">
+        <xs:annotation>
+            <xs:documentation>Container of the resource</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="MP4"/>
+            <xs:enumeration value="MKV"/>
+            <xs:enumeration value="NONE"/>
+            <xs:enumeration value="UNKNOWN"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="audioCodec">
+        <xs:annotation>
+            <xs:documentation>How the resource can be streamed</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AAC"/>
+            <xs:enumeration value="AAC-HE"/>
+            <xs:enumeration value="MP3"/>
+            <xs:enumeration value="MP2"/>
+            <xs:enumeration value="WMAV2"/>
+            <xs:enumeration value="UNKNOWN"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="videoCodec">
+        <xs:annotation>
+            <xs:documentation>How the resource can be streamed</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="H264"/>
+            <xs:enumeration value="VP6F"/>
+            <xs:enumeration value="MPEG2"/>
+            <xs:enumeration value="WMV3"/>
+            <xs:enumeration value="NONE"/>
+            <xs:enumeration value="UNKNOWN"/>
         </xs:restriction>
     </xs:simpleType>
 

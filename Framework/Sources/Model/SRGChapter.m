@@ -6,12 +6,17 @@
 
 #import "SRGChapter.h"
 
+#import "SRGJSONTransformers.h"
+
 #import <libextobjc/libextobjc.h>
 
 @interface SRGChapter ()
 
 @property (nonatomic) NSArray<SRGResource *> *resources;
 @property (nonatomic) NSArray<SRGSegment *> *segments;
+
+@property (nonatomic) NSDate *preTrailerStartDate;
+@property (nonatomic) NSDate *postTrailerEndDate;
 
 @end
 
@@ -26,7 +31,10 @@
     dispatch_once(&s_onceToken, ^{
         NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
         [mapping addEntriesFromDictionary:@{ @keypath(SRGChapter.new, resources) : @"resourceList",
-                                             @keypath(SRGChapter.new, segments) : @"segmentList" }];
+                                             @keypath(SRGChapter.new, segments) : @"segmentList",
+                                              
+                                             @keypath(SRGChapter.new, preTrailerStartDate) : @"preTrailerStart",
+                                             @keypath(SRGChapter.new, postTrailerEndDate) : @"postTrailerStop" }];
         s_mapping = [mapping copy];
     });
     return s_mapping;
@@ -44,27 +52,48 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSegment class]];
 }
 
++ (NSValueTransformer *)preTrailerStartDateJSONTransformer
+{
+    return SRGISO8601DateJSONTransformer();
+}
+
++ (NSValueTransformer *)postTrailerEndDateJSONTransformer
+{
+    return SRGISO8601DateJSONTransformer();
+}
+
 @end
 
 @implementation SRGChapter (Resources)
 
-- (SRGProtocol)recommendedProtocol
++ (NSArray<NSNumber *> *)supportedStreamingMethods
 {
-    NSArray *recommendedProtocols = @[ @(SRGProtocolHLS_DVR), @(SRGProtocolHLS), @(SRGProtocolHTTPS), @(SRGProtocolHTTP) ];
-    
-    for (NSNumber *protocolNumber in recommendedProtocols) {
-        SRGProtocol protocol = protocolNumber.integerValue;
-        if ([self resourcesForProtocol:protocol].count != 0) {
-            return protocol;
+    return @[ @(SRGStreamingMethodHLS), @(SRGStreamingMethodHTTPS), @(SRGStreamingMethodHTTP), @(SRGStreamingMethodM3UPlaylist), @(SRGStreamingMethodProgressive) ];
+}
+
+- (NSArray<SRGResource *> *)playableResources
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K IN %@", @keypath(SRGResource.new, streamingMethod), [SRGChapter supportedStreamingMethods]];
+    return [self.resources filteredArrayUsingPredicate:predicate];
+}
+
+- (SRGStreamingMethod)recommendedStreamingMethod
+{
+    for (NSNumber *streamingMethodNumber in [SRGChapter supportedStreamingMethods]) {
+        SRGStreamingMethod streamingMethod = streamingMethodNumber.integerValue;
+        if ([self resourcesForStreamingMethod:streamingMethod].count != 0) {
+            return streamingMethod;
         }
     }
     
-    return SRGProtocolNone;
+    return SRGStreamingMethodNone;
 }
 
-- (NSArray<SRGResource *> *)resourcesForProtocol:(SRGProtocol)protocol
+- (NSArray<SRGResource *> *)resourcesForStreamingMethod:(SRGStreamingMethod)streamingMethod
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGResource.new, protocol), @(protocol)];
+    // Qualities are ordered in increasing order in the associated enum, from the lowest to the highest one, and can therefore
+    // be used as is for sorting.
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGResource.new, streamingMethod), @(streamingMethod)];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@keypath(SRGResource.new, quality) ascending:NO];
     return [[self.resources filteredArrayUsingPredicate:predicate] sortedArrayUsingDescriptors:@[sortDescriptor]];
 }

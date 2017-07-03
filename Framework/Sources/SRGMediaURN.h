@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGMediaType mediaType;
 
 /**
- *  The business unit which supplied the media.
+ *  The business unit which the media belongs to.
  */
 @property (nonatomic, readonly) SRGVendor vendor;
 

@@ -35,7 +35,6 @@
 @property (nonatomic) NSDate *date;
 @property (nonatomic) NSTimeInterval duration;
 @property (nonatomic) SRGBlockingReason blockingReason;
-@property (nonatomic, getter=isHidden) BOOL hidden;
 @property (nonatomic) NSURL *podcastStandardDefinitionURL;
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
 @property (nonatomic) NSDate *startDate;
@@ -72,15 +71,14 @@
                        @keypath(SRGMedia.new, imageCopyright) : @"imageCopyright",
                        
                        @keypath(SRGMedia.new, contentType) : @"type",
+                       @keypath(SRGMedia.new, source) : @"assignedBy",
                        @keypath(SRGMedia.new, date) : @"date",
                        @keypath(SRGMedia.new, duration) : @"duration",
-                       @keypath(SRGMedia.new, blockingReason) : @"blockingReason",
-                       @keypath(SRGMedia.new, hidden) : @"displayable",
+                       @keypath(SRGMedia.new, blockingReason) : @"blockReason",
                        @keypath(SRGMedia.new, podcastStandardDefinitionURL) : @"podcastSdUrl",
                        @keypath(SRGMedia.new, podcastHighDefinitionURL) : @"podcastHdUrl",
                        @keypath(SRGMedia.new, startDate) : @"validFrom",
                        @keypath(SRGMedia.new, endDate) : @"validTo",
-                       @keypath(SRGMedia.new, source) : @"assignedBy",
                        @keypath(SRGMedia.new, relatedContents) : @"relatedContentList",
                        @keypath(SRGMedia.new, socialCounts) : @"socialCountList" };
     });
@@ -129,6 +127,11 @@
     return SRGContentTypeJSONTransformer();
 }
 
++ (NSValueTransformer *)sourceJSONTransformer
+{
+    return SRGSourceJSONTransformer();
+}
+
 + (NSValueTransformer *)dateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
@@ -137,11 +140,6 @@
 + (NSValueTransformer *)blockingReasonJSONTransformer
 {
     return SRGBlockingReasonJSONTransformer();
-}
-
-+ (NSValueTransformer *)hiddenJSONTransformer
-{
-    return SRGBooleanInversionJSONTransformer();
 }
 
 + (NSValueTransformer *)podcastStandardDefinitionURLJSONTransformer
@@ -164,11 +162,6 @@
     return SRGISO8601DateJSONTransformer();
 }
 
-+ (NSValueTransformer *)sourceJSONTransformer
-{
-    return SRGSourceJSONTransformer();
-}
-
 + (NSValueTransformer *)relatedContentsJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGRelatedContent class]];
@@ -181,9 +174,9 @@
 
 #pragma mark SRGImageMetadata protocol
 
-- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
+- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
 {
-    return [self.imageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:nil];
+    return [self.imageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
 }
 
 #pragma mark Equality

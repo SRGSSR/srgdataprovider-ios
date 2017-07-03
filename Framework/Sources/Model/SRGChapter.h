@@ -5,17 +5,23 @@
 //
 
 #import "SRGResource.h"
+#import "SRGScheduledLivestreamMetadata.h"
 #import "SRGSegment.h"
+#import "SRGSubdivision.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Chapter (unit of media playback characterized by a URL to be played).
  */
-@interface SRGChapter : SRGSegment
+@interface SRGChapter : SRGSubdivision <SRGScheduledLivestreamMetadata>
 
 /**
  *  The list of available resources.
+ *
+ *  @discussion The list contains the raw resource list available for a chapter. Some resources might not be supported 
+ *              on a platform or device, though (e.g. HDS resources). The `Resources` category below provides methods
+ *              to retrieve resources which can be actually played on the device or platform.
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGResource *> *resources;
 
@@ -29,14 +35,24 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGChapter (Resources)
 
 /**
- *  The recommended protocol to use. Might return `SRGProtocolNone` if no good match is found.
+ *  Return the list of supported streaming methods (from the most to the least recommended method).
  */
-@property (nonatomic, readonly) SRGProtocol recommendedProtocol;
++ (NSArray<NSNumber *> *)supportedStreamingMethods;
 
 /**
- *  Return resources matching the specified protocol, from the highest to the lowest available qualities.
+ *  Return the set of resources which can be actually played on the device or platform.
  */
-- (nullable NSArray<SRGResource *> *)resourcesForProtocol:(SRGProtocol)protocol;
+@property (nonatomic, readonly, nullable) NSArray<SRGResource *> *playableResources;
+
+/**
+ *  The recommended streaming method to use. Might return `SRGStreamingMethodNone` if no good match is found.
+ */
+@property (nonatomic, readonly) SRGStreamingMethod recommendedStreamingMethod;
+
+/**
+ *  Return resources matching the specified streaming method, from the highest to the lowest available qualities.
+ */
+- (nullable NSArray<SRGResource *> *)resourcesForStreamingMethod:(SRGStreamingMethod)streamingMethod;
 
 @end
 
