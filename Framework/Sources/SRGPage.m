@@ -50,6 +50,13 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
 
 + (SRGPage *)firstPageWithSize:(NSInteger)size
 {
+    return [[[self class] alloc] initWithSize:size number:0 URL:nil];
+}
+
+#pragma mark Object lifecycle
+
+- (SRGPage *)initWithSize:(NSInteger)size number:(NSInteger)number URL:(NSURL *)URL
+{
     if (size < 1) {
         SRGDataProviderLogWarning(@"page", @"The minimum page size is 1. This minimum value will be used.");
         size = 1;
@@ -58,15 +65,6 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
         SRGDataProviderLogWarning(@"page", @"The maximum page size for this request is %@. This maximum value will be used.", @(SRGPageMaximumSize));
         size = SRGPageMaximumSize;
     }
-    
-    return [[[self class] alloc] initWithSize:size number:0 URL:nil];
-}
-
-#pragma mark Object lifecycle
-
-- (SRGPage *)initWithSize:(NSInteger)size number:(NSInteger)number URL:(NSURL *)URL
-{
-    NSAssert(size >= 1 && (size <= SRGPageMaximumSize || size == SRGPageUnlimitedSize), @"The page size must be valid");
     
     if (self = [super init]) {
         self.number = MAX(number, 0);
