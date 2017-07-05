@@ -19,8 +19,9 @@
 @property (nonatomic) NSTimeInterval markOut;
 @property (nonatomic, getter=isHidden) BOOL hidden;
 @property (nonatomic, copy) NSString *event;
-@property (nonatomic) NSArray<SRGSubtitle *> *subtitles;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
+@property (nonatomic) NSDictionary<NSString *, NSString *> *comScoreAnalyticsLabels;
+@property (nonatomic) NSArray<SRGSubtitle *> *subtitles;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
@@ -64,7 +65,8 @@
                        @keypath(SRGSubdivision.new, markOut) : @"markOut",
                        @keypath(SRGSubdivision.new, hidden) : @"displayable",
                        @keypath(SRGSubdivision.new, event) : @"eventData",
-                       @keypath(SRGSubdivision.new, analyticsLabels) : @"analyticsData",
+                       @keypath(SRGSubdivision.new, analyticsLabels) : @"webAnalytics",
+                       @keypath(SRGSubdivision.new, comScoreAnalyticsLabels) : @"analyticsData",
                        @keypath(SRGSubdivision.new, subtitles) : @"subtitleList",
                        
                        @keypath(SRGSubdivision.new, title) : @"title",

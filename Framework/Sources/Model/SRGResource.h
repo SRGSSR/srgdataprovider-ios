@@ -60,10 +60,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGVideoCodec videoCodec;
 
 /**
- *  The list of analytics labels which should be supplied in SRG Analytics events
+ *  The list of labels which should be supplied in SRG Analytics player events.
  *  (https://github.com/SRGSSR/srganalytics-ios).
  */
-@property (nonatomic, readonly) NSDictionary<NSString *, NSString *> *analyticsLabels;
+@property (nonatomic, readonly, nullable) NSDictionary<NSString *, NSString *> *analyticsLabels;
+
+/**
+ *  The list of comScore labels which should be supplied in SRG Analytics player events.
+ *  (https://github.com/SRGSSR/srganalytics-ios).
+ */
+@property (nonatomic, readonly, nullable) NSDictionary<NSString *, NSString *> *comScoreAnalyticsLabels;
 
 @end
 

@@ -19,6 +19,7 @@
 @property (nonatomic) SRGShow *show;
 @property (nonatomic) NSArray<SRGChapter *> *chapters;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
+@property (nonatomic) NSDictionary<NSString *, NSString *> *comScoreAnalyticsLabels;
 
 @end
 
@@ -37,7 +38,8 @@
                        @keypath(SRGMediaComposition.new, episode) : @"episode",
                        @keypath(SRGMediaComposition.new, show) : @"show",
                        @keypath(SRGMediaComposition.new, chapters) : @"chapterList",
-                       @keypath(SRGMediaComposition.new, analyticsLabels) : @"analyticsData" };
+                       @keypath(SRGMediaComposition.new, analyticsLabels) : @"webAnalytics",
+                       @keypath(SRGMediaComposition.new, comScoreAnalyticsLabels) : @"analyticsData" };
     });
     return s_mapping;
 }

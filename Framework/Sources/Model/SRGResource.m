@@ -23,6 +23,7 @@
 @property (nonatomic) SRGAudioCodec audioCodec;
 @property (nonatomic) SRGVideoCodec videoCodec;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
+@property (nonatomic) NSDictionary<NSString *, NSString *> *comScoreAnalyticsLabels;
 
 @end
 
@@ -45,7 +46,8 @@
                        @keypath(SRGResource.new, mediaContainer) : @"mediaContainer",
                        @keypath(SRGResource.new, audioCodec) : @"audioCodec",
                        @keypath(SRGResource.new, videoCodec) : @"videoCodec",
-                       @keypath(SRGResource.new, analyticsLabels) : @"analyticsData" };
+                       @keypath(SRGResource.new, analyticsLabels) : @"webAnalytics",
+                       @keypath(SRGResource.new, comScoreAnalyticsLabels) : @"analyticsData" };
     });
     return s_mapping;
 }
