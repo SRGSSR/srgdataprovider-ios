@@ -229,7 +229,7 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
     
-    SRGRequest *request = [self.dataProvider videoMediaCompositionWithUid:@"bad_id" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGRequest *request = [self.dataProvider videoMediaCompositionWithUid:@"bad_id" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         [expectation fulfill];
     }];
     [request resume];
@@ -297,7 +297,7 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
     
-    SRGRequest *request = [self.dataProvider videoMediaCompositionWithUid:@"bad_id" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGRequest *request = [self.dataProvider videoMediaCompositionWithUid:@"bad_id" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         XCTAssertNil(mediaComposition);
         XCTAssertEqualObjects(error.domain, SRGDataProviderErrorDomain);
         XCTAssertEqual(error.code, SRGDataProviderErrorHTTP);
@@ -340,7 +340,7 @@
         XCTAssertNil(error);
         
         SRGMedia *firstMedia = medias.firstObject;
-        SRGRequest *request2 = [self.dataProvider videoMediaCompositionWithUid:firstMedia.uid completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        SRGRequest *request2 = [self.dataProvider videoMediaCompositionWithUid:firstMedia.uid chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
             XCTAssertNotNil(mediaComposition);
             XCTAssertNil(error);
             

@@ -537,8 +537,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 
 /**
  *  Full media information needed to play a video.
+ *
+ *  @param chaptersOnly If set to `YES`, the returned media composition is only made of chapters. If set to `NO`, it
+ *                      may contain a mixture of chapters and segments.
  */
 - (SRGRequest *)videoMediaCompositionWithUid:(NSString *)videoUid
+                                chaptersOnly:(BOOL)chaptersOnly
                              completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
 /**
@@ -575,8 +579,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 
 /**
  *  Full media information needed to play an audio.
+ *
+ *  @param chaptersOnly If set to `YES`, the returned media composition is only made of chapters. If set to `NO`, it
+ *                      may contain a mixture of chapters and segments.
  */
 - (SRGRequest *)audioMediaCompositionWithUid:(NSString *)audioUid
+                                chaptersOnly:(BOOL)chaptersOnly
                              completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
 /**
@@ -617,8 +625,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 
 /**
  *  Full media information needed to play a media.
+ *
+ *  @param chaptersOnly If set to `YES`, the returned media composition is only made of chapters. If set to `NO`, it
+ *                      may contain a mixture of chapters and segments.
  */
 - (SRGRequest *)mediaCompositionWithURN:(SRGMediaURN *)mediaURN
+                           chaptersOnly:(BOOL)chaptersOnly
                         completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
 /**
