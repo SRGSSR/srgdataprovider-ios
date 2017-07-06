@@ -1,0 +1,32 @@
+<xs:schema id="livePlayerConfig"
+           version="1.0"
+           xmlns="http://www.srgssr.ch"
+           targetNamespace="http://www.srgssr.ch"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="livePlayerConfig">
+        <xs:annotation>
+            <xs:documentation>Mostly used for holding static information about a radio station.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="channelId" type="id" minOccurs="1" maxOccurs="1" />
+            <xs:element name="channelName" type="title" minOccurs="1" maxOccurs="1" />
+            <xs:element name="channelDescription" type="title" minOccurs="0" maxOccurs="1" />
+            <xs:element name="livestreamTitle" type="title" minOccurs="1" maxOccurs="1" />
+            <xs:element name="livestreamDesc" type="title" minOccurs="0" maxOccurs="1" />
+            <xs:element name="programLink" type="xs:anyURI" minOccurs="1" maxOccurs="1" />
+            <xs:element name="mailLink" type="xs:anyURI" minOccurs="0" maxOccurs="1" />
+            <xs:element name="webcamLink" type="xs:anyURI" minOccurs="0" maxOccurs="1" />
+            <xs:element name="livestreamLink" type="xs:anyURI" minOccurs="0" maxOccurs="1" />
+            <xs:element name="newsLink" type="xs:anyURI" minOccurs="0" maxOccurs="1" />
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+
+</xs:schema>

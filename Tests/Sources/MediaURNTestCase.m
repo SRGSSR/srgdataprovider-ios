@@ -23,6 +23,7 @@
     XCTAssertEqualObjects(@(mediaURN.mediaType), @(SRGMediaTypeVideo));
     XCTAssertEqualObjects(@(mediaURN.vendor), @(SRGVendorSWI));
     XCTAssertEqualObjects(mediaURN.URNString, URNString);
+    XCTAssertFalse(mediaURN.liveCenterEvent);
 }
 
 - (void)testCaseInsensitive
@@ -39,16 +40,21 @@
 
 - (void)testCaseSensitive
 {
-    SRGMediaURN *mediaURN1 = [[SRGMediaURN alloc] initWithURNString:@"urn:rsi:video:livestream_La1"];
-    XCTAssertNotNil(mediaURN1);
-    XCTAssertNotEqualObjects(mediaURN1.uid, @"livestream_la1");
-    XCTAssertEqualObjects(mediaURN1.uid, @"livestream_La1");
+    SRGMediaURN *mediaURN = [[SRGMediaURN alloc] initWithURNString:@"urn:rsi:video:livestream_La1"];
+    XCTAssertNotNil(mediaURN);
+    XCTAssertEqualObjects(mediaURN.uid, @"livestream_La1");
+}
+
+- (void)testSwissTXTURN
+{
+    NSString *URNString = @"urn:swisstxt:video:srf:5288f730-b776-4ff7-8b52-8028ec0d238a";
     
-    SRGMediaURN *mediaURN2 = [[SRGMediaURN alloc] initWithURNString:@"urn:rtr:video:269e6a58-a9cb-11e3-ac2b-fbf4986f02ad"];
-    XCTAssertNotNil(mediaURN2);
-    XCTAssertNotEqualObjects(mediaURN2.uid, @"269E6A58-A9CB-11E3-AC2B-FBF4986F02AD");
-    XCTAssertNotEqualObjects(mediaURN2.uid, @"269e6a58-a9cb-11e3-ac2b-fbf4986f02AD");
-    XCTAssertEqualObjects(mediaURN2.uid, @"269e6a58-a9cb-11e3-ac2b-fbf4986f02ad");
+    SRGMediaURN *mediaURN = [[SRGMediaURN alloc] initWithURNString:URNString];
+    XCTAssertEqualObjects(mediaURN.uid, @"5288f730-b776-4ff7-8b52-8028ec0d238a");
+    XCTAssertEqualObjects(@(mediaURN.mediaType), @(SRGMediaTypeVideo));
+    XCTAssertEqualObjects(@(mediaURN.vendor), @(SRGVendorSRF));
+    XCTAssertEqualObjects(mediaURN.URNString, URNString);
+    XCTAssertTrue(mediaURN.liveCenterEvent);
 }
 
 - (void)testIncorrectURNs
@@ -58,6 +64,15 @@
     
     SRGMediaURN *mediaURN2 = [[SRGMediaURN alloc] initWithURNString:@"swi:video:41981254"];
     XCTAssertNil(mediaURN2);
+    
+    SRGMediaURN *mediaURN3 = [[SRGMediaURN alloc] initWithURNString:@"swi:video:"];
+    XCTAssertNil(mediaURN3);
+    
+    SRGMediaURN *mediaURN4 = [[SRGMediaURN alloc] initWithURNString:@"urn:swisstxt:video:srf:"];
+    XCTAssertNil(mediaURN4);
+    
+    SRGMediaURN *mediaURN5 = [[SRGMediaURN alloc] initWithURNString:@"urn:swisstxt:"];
+    XCTAssertNil(mediaURN5);
 }
 
 - (void)testEquality

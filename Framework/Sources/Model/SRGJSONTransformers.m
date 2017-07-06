@@ -11,6 +11,22 @@
 #import <Mantle/Mantle.h>
 #import <UIKit/UIKit.h>
 
+NSValueTransformer *SRGAudioCodecJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"AAC" : @(SRGAudioCodecAAC),
+                                                                                         @"AAC-HE" : @(SRGAudioCodecAAC_HE),
+                                                                                         @"MP3" : @(SRGAudioCodecMP3),
+                                                                                         @"MP2" : @(SRGAudioCodecMP2),
+                                                                                         @"WMAV2" : @(SRGAudioCodecWMAV2) }
+                                                                         defaultValue:@(SRGAudioCodecNone)
+                                                                  reverseDefaultValue:nil];
+    });
+    return s_transformer;
+}
+
 NSValueTransformer *SRGBlockingReasonJSONTransformer(void)
 {
     static NSValueTransformer *s_transformer;
@@ -55,26 +71,6 @@ NSValueTransformer *SRGContentTypeJSONTransformer(void)
                                                                                          @"LIVESTREAM" : @(SRGContentTypeLivestream),
                                                                                          @"SCHEDULED_LIVESTREAM" : @(SRGContentTypeScheduledLivestream) }
                                                                          defaultValue:@(SRGContentTypeNone)
-                                                                  reverseDefaultValue:nil];
-    });
-    return s_transformer;
-}
-
-NSValueTransformer *SRGEncodingJSONTransformer(void)
-{
-    static NSValueTransformer *s_transformer;
-    static dispatch_once_t s_onceToken;
-    dispatch_once(&s_onceToken, ^{
-        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"H264" : @(SRGEncodingH264),
-                                                                                         @"VP6F" : @(SRGEncodingVP6F),
-                                                                                         @"MPEG2" : @(SRGEncodingMPEG2),
-                                                                                         @"WMV3" : @(SRGEncodingWMV3),
-                                                                                         @"AAC" : @(SRGEncodingAAC),
-                                                                                         @"AAC-HE" : @(SRGEncodingAAC_HE),
-                                                                                         @"MP3" : @(SRGEncodingMP3),
-                                                                                         @"MP2" : @(SRGEncodingMP2),
-                                                                                         @"WMAV2" : @(SRGEncodingWMAV2) }
-                                                                         defaultValue:@(SRGEncodingNone)
                                                                   reverseDefaultValue:nil];
     });
     return s_transformer;
@@ -132,6 +128,20 @@ NSValueTransformer *SRGISO8601DateJSONTransformer(void)
     return s_transformer;
 }
 
+NSValueTransformer *SRGMediaContainerJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"MP4" : @(SRGMediaContainerMP4),
+                                                                                         @"MKV" : @(SRGMediaContainerMKV),
+                                                                                         @"UNKNOWN" : @(SRGMediaContainerUnknown) }
+                                                                         defaultValue:@(SRGMediaContainerNone)
+                                                                  reverseDefaultValue:nil];
+    });
+    return s_transformer;
+}
+
 NSValueTransformer *SRGMediaTypeJSONTransformer(void)
 {
     static NSValueTransformer *s_transformer;
@@ -184,27 +194,6 @@ NSValueTransformer *SRGPresentationJSONTransformer(void)
     return s_transformer;
 }
 
-
-NSValueTransformer *SRGProtocolJSONTransformer(void)
-{
-    static NSValueTransformer *s_transformer;
-    static dispatch_once_t s_onceToken;
-    dispatch_once(&s_onceToken, ^{
-        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"HLS" : @(SRGProtocolHLS),
-                                                                                         @"HLS-DVR" : @(SRGProtocolHLS_DVR),
-                                                                                         @"HDS" : @(SRGProtocolHDS),
-                                                                                         @"HDS-DVR" : @(SRGProtocolHDS_DVR),
-                                                                                         @"RTMP" : @(SRGProtocolRTMP),
-                                                                                         @"HTTP" : @(SRGProtocolHTTP),
-                                                                                         @"HTTPS" : @(SRGProtocolHTTPS),
-                                                                                         @"HTTP-M3U" : @(SRGProtocolHTTP_M3U),
-                                                                                         @"HTTP-MP3-STREAM" : @(SRGProtocolHTTP_MP3Stream) }
-                                                                         defaultValue:@(SRGProtocolNone)
-                                                                  reverseDefaultValue:nil];
-    });
-    return s_transformer;
-}
-
 NSValueTransformer *SRGQualityJSONTransformer(void)
 {
     static NSValueTransformer *s_transformer;
@@ -214,6 +203,39 @@ NSValueTransformer *SRGQualityJSONTransformer(void)
                                                                                          @"HD" : @(SRGQualityHD),
                                                                                          @"HQ" : @(SRGQualityHQ) }
                                                                          defaultValue:@(SRGQualityNone)
+                                                                  reverseDefaultValue:nil];
+    });
+    return s_transformer;
+}
+
+NSValueTransformer *SRGShowURNJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *URNString, BOOL *success, NSError *__autoreleasing *error) {
+            return [SRGShowURN showURNWithString:URNString];
+        } reverseBlock:^id(SRGShowURN *showURN, BOOL *success, NSError *__autoreleasing *error) {
+            return showURN.URNString;
+        }];
+    });
+    return s_transformer;
+}
+
+NSValueTransformer *SRGStreamingMethodJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"PROGRESSIVE" : @(SRGStreamingMethodProgressive),
+                                                                                         @"M3UPLAYLIST" : @(SRGStreamingMethodM3UPlaylist),
+                                                                                         @"HLS" : @(SRGStreamingMethodHLS),
+                                                                                         @"HDS" : @(SRGStreamingMethodHDS),
+                                                                                         @"RTMP" : @(SRGStreamingMethodRTMP),
+                                                                                         @"HTTP" : @(SRGStreamingMethodHTTP),
+                                                                                         @"HTTPS" : @(SRGStreamingMethodHTTPS),
+                                                                                         @"UNKNOWN" : @(SRGStreamingMethodUnknown) }
+                                                                         defaultValue:@(SRGStreamingMethodNone)
                                                                   reverseDefaultValue:nil];
     });
     return s_transformer;
@@ -263,7 +285,7 @@ NSValueTransformer *SRGSubtitleFormatJSONTransformer(void)
     return s_transformer;
 }
 
-OBJC_EXPORT NSValueTransformer *SRGTransmissionJSONTransformer(void)
+NSValueTransformer *SRGTransmissionJSONTransformer(void)
 {
     static NSValueTransformer *s_transformer;
     static dispatch_once_t s_onceToken;
@@ -291,6 +313,21 @@ NSValueTransformer *SRGVendorJSONTransformer(void)
                                                                                          @"TVO" : @(SRGVendorTVO),
                                                                                          @"CA" : @(SRGVendorCanalAlpha) }
                                                                          defaultValue:@(SRGVendorNone)
+                                                                  reverseDefaultValue:nil];
+    });
+    return s_transformer;
+}
+
+NSValueTransformer *SRGVideoCodecJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"H264" : @(SRGVideoCodecH264),
+                                                                                         @"VP6F" : @(SRGVideoCodecVP6F),
+                                                                                         @"MPEG2" : @(SRGVideoCodecMPEG2),
+                                                                                         @"WMV3" : @(SRGVideoCodecWMV3) }
+                                                                         defaultValue:@(SRGVideoCodecNone)
                                                                   reverseDefaultValue:nil];
     });
     return s_transformer;

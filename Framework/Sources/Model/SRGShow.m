@@ -11,15 +11,15 @@
 
 #import <libextobjc/libextobjc.h>
 
+SRGImageType const SRGImageTypeShowBanner = @"banner";
+
 @interface SRGShow ()
 
-@property (nonatomic, copy) NSString *uid;
 @property (nonatomic) NSURL *homepageURL;
 @property (nonatomic) NSURL *podcastSubscriptionURL;
 @property (nonatomic, copy) NSString *primaryChannelUid;
 @property (nonatomic) NSURL *bannerImageURL;
 @property (nonatomic) NSInteger numberOfEpisodes;
-@property (nonatomic) SRGTransmission transmission;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
@@ -28,6 +28,11 @@
 @property (nonatomic) NSURL *imageURL;
 @property (nonatomic, copy) NSString *imageTitle;
 @property (nonatomic, copy) NSString *imageCopyright;
+
+@property (nonatomic, copy) NSString *uid;
+@property (nonatomic, copy) SRGShowURN *URN;
+@property (nonatomic) SRGTransmission transmission;
+@property (nonatomic) SRGVendor vendor;
 
 @end
 
@@ -40,14 +45,11 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @keypath(SRGShow.new, uid) : @"id",
-                       @keypath(SRGShow.new, homepageURL) : @"homepageUrl",
+        s_mapping = @{ @keypath(SRGShow.new, homepageURL) : @"homepageUrl",
                        @keypath(SRGShow.new, podcastSubscriptionURL) : @"podcastSubscriptionUrl",
                        @keypath(SRGShow.new, primaryChannelUid) : @"primaryChannelId",
-                       @keypath(SRGShow.new, bannerImageURL) : @"bannerImageUrl",
                        @keypath(SRGShow.new, numberOfEpisodes) : @"numberOfEpisodes",
-                       @keypath(SRGShow.new, transmission) : @"transmission",
-
+                       @keypath(SRGShow.new, bannerImageURL) : @"bannerImageUrl",
                        
                        @keypath(SRGShow.new, title) : @"title",
                        @keypath(SRGShow.new, lead) : @"lead",
@@ -55,7 +57,12 @@
                        
                        @keypath(SRGShow.new, imageURL) : @"imageUrl",
                        @keypath(SRGShow.new, imageTitle) : @"imageTitle",
-                       @keypath(SRGShow.new, imageCopyright) : @"imageCopyright" };
+                       @keypath(SRGShow.new, imageCopyright) : @"imageCopyright",
+                        
+                       @keypath(SRGShow.new, uid) : @"id",
+                       @keypath(SRGShow.new, URN) : @"urn",
+                       @keypath(SRGShow.new, transmission) : @"transmission",
+                       @keypath(SRGShow.new, vendor) : @"vendor" };
     });
     return s_mapping;
 }
@@ -82,16 +89,31 @@
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
++ (NSValueTransformer *)URNJSONTransformer
+{
+    return SRGShowURNJSONTransformer();
+}
+
 + (NSValueTransformer *)transmissionJSONTransformer
 {
     return SRGTransmissionJSONTransformer();
 }
 
++ (NSValueTransformer *)vendorJSONTransformer
+{
+    return SRGVendorJSONTransformer();
+}
+
 #pragma mark SRGImage protocol
 
-- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
+- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
 {
-    return [self.imageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:nil];
+    if ([type isEqualToString:SRGImageTypeShowBanner]) {
+        return [self.bannerImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
+    }
+    else {
+        return [self.imageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
+    }
 }
 
 #pragma mark Equality
@@ -109,15 +131,6 @@
 - (NSUInteger)hash
 {
     return self.uid.hash;
-}
-
-@end
-
-@implementation SRGShow (Images)
-
-- (NSURL *)bannerImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
-{
-    return [self.bannerImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:@"banner"];
 }
 
 @end

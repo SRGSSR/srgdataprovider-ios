@@ -9,6 +9,7 @@
 #import "SRGMediaParentMetadata.h"
 #import "SRGMediaURN.h"
 #import "SRGModel.h"
+#import "SRGSegment.h"
 
 #import <Mantle/Mantle.h>
 
@@ -42,10 +43,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSArray<SRGChapter *> *chapters;
 
 /**
- *  The list of analytics labels which should be supplied in SRG Analytics events
+ *  The list of labels which should be supplied in SRG Analytics player events.
  *  (https://github.com/SRGSSR/srganalytics-ios).
  */
 @property (nonatomic, readonly, nullable) NSDictionary<NSString *, NSString *> *analyticsLabels;
+
+/**
+ *  The list of comScore labels which should be supplied in SRG Analytics player events.
+ *  (https://github.com/SRGSSR/srganalytics-ios).
+ */
+@property (nonatomic, readonly, nullable) NSDictionary<NSString *, NSString *> *comScoreAnalyticsLabels;
 
 @end
 
@@ -71,40 +78,20 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGMediaComposition (Generators)
 
 /**
- *  Return the media corresponding to a segment belonging to the receiver.
+ *  Return the media corresponding to a subdivision (chapter or segment) belonging to the receiver.
  *
- *  @param segment The segment which the media must be returned for. If the segment does not belong to the receiver, 
- *                 the method returns `nil`.
- *
- *  @discussion Since `SRGChapter` is a subclass of `SRGSegment`, this method works for chapters as well.
+ *  @param subdivision The subdivision which the media must be returned for. If the subdivision does not belong to the
+ *                     receiver, the method returns `nil`.
  */
-- (nullable SRGMedia *)mediaForSegment:(SRGSegment *)segment;
+- (nullable SRGMedia *)mediaForSubdivision:(SRGSubdivision *)subdivision;
 
 /**
- *  Return the media corresponding to a chapter belonging to the receiver.
+ *  Return the media composition corresponding to a subdivision (chapter or segment) belonging to the receiver.
  *
- *  @param chapter The chapter which the media must be returned for. If the chapter does not belong to the receiver,
- *                 the method returns `nil`.
+ *  @param subdivision The subdivision which the media must be returned for. If the subdivision does not belong to the
+ *                     receiver, the method returns `nil`.
  */
-- (nullable SRGMedia *)mediaForChapter:(SRGChapter *)chapter;
-
-/**
- *  Return the media composition corresponding to a segment belonging to the receiver.
- *
- *  @param segment The segment which the composition must be generated for. If the specified segment does not belong 
- *                 to the media composition, the method returns `nil`.
- */
-- (nullable SRGMediaComposition *)mediaCompositionForSegment:(SRGSegment *)segment;
-
-/**
- *  Return the media composition corresponding to a chapter belonging to the receiver.
- *
- *  @param chapter The chapter which the composition must be generated for. If the specified chapter does not belong 
- *                 to the media composition, the method returns `nil`.
- *
- *  @discussion Since `SRGChapter` is a subclass of `SRGSegment`, this method works for chapters as well.
- */
-- (nullable SRGMediaComposition *)mediaCompositionForChapter:(SRGChapter *)chapter;
+- (nullable SRGMediaComposition *)mediaCompositionForSubdivision:(SRGSubdivision *)subdivision;
 
 @end
 

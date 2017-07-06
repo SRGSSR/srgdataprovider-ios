@@ -25,16 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGQuality quality;
 
 /**
- *  The protocol over which the media is served.
- */
-@property (nonatomic, readonly) SRGProtocol protocol;
-
-/**
- *  The media encoding.
- */
-@property (nonatomic, readonly) SRGEncoding encoding;
-
-/**
  *  The recommended way to present the media.
  */
 @property (nonatomic, readonly) SRGPresentation presentation;
@@ -45,10 +35,41 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, copy, nullable) NSString *MIMEType;
 
 /**
- *  The list of analytics labels which should be supplied in SRG Analytics events
+ *  The streaming method.
+ */
+@property (nonatomic, readonly) SRGStreamingMethod streamingMethod;
+
+/**
+ *  The stream type.
+ */
+@property (nonatomic, readonly) SRGStreamType streamType;
+
+/**
+ *  The media container.
+ */
+@property (nonatomic, readonly) SRGMediaContainer mediaContainer;
+
+/**
+ *  The audio codec.
+ */
+@property (nonatomic, readonly) SRGAudioCodec audioCodec;
+
+/**
+ *  The video codec.
+ */
+@property (nonatomic, readonly) SRGVideoCodec videoCodec;
+
+/**
+ *  The list of labels which should be supplied in SRG Analytics player events.
  *  (https://github.com/SRGSSR/srganalytics-ios).
  */
-@property (nonatomic, readonly) NSDictionary<NSString *, NSString *> *analyticsLabels;
+@property (nonatomic, readonly, nullable) NSDictionary<NSString *, NSString *> *analyticsLabels;
+
+/**
+ *  The list of comScore labels which should be supplied in SRG Analytics player events.
+ *  (https://github.com/SRGSSR/srganalytics-ios).
+ */
+@property (nonatomic, readonly, nullable) NSDictionary<NSString *, NSString *> *comScoreAnalyticsLabels;
 
 @end
 

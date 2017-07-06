@@ -21,6 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly, copy) NSString *name;
 
+/**
+ *  The presenter webpage URL.
+ */
+@property (nonatomic, readonly, nullable) NSURL *URL;
+
 @end
 
 NS_ASSUME_NONNULL_END

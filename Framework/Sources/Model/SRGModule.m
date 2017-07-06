@@ -12,6 +12,10 @@
 
 #import <libextobjc/libextobjc.h>
 
+SRGImageType const SRGImageTypeModuleBackground = @"background";
+SRGImageType const SRGImageTypeModuleKeyVisual = @"key_visual";
+SRGImageType const SRGImageTypeModuleLogo = @"logo";
+
 @interface SRGModule ()
 
 @property (nonatomic, copy) NSString *uid;
@@ -132,6 +136,21 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSection class]];
 }
 
+#pragma mark SRGImage protocol
+
+- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
+{
+    if ([type isEqualToString:SRGImageTypeModuleBackground]) {
+        return [self.backgroundImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
+    }
+    else if ([type isEqualToString:SRGImageTypeModuleLogo]) {
+        return [self.logoImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
+    }
+    else {
+        return [self.keyVisualImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
+    }
+}
+
 #pragma mark Equality
 
 - (BOOL)isEqual:(id)object
@@ -147,25 +166,6 @@
 - (NSUInteger)hash
 {
     return self.uid.hash;
-}
-
-@end
-
-@implementation SRGModule (Images)
-
-- (NSURL *)backgroundImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
-{
-    return [self.backgroundImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:@"background"];
-}
-
-- (NSURL *)logoImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
-{
-    return [self.logoImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:@"logo"];
-}
-
-- (NSURL *)keyVisualImageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
-{
-    return [self.keyVisualImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:@"key_visual"];
 }
 
 @end

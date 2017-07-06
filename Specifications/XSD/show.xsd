@@ -13,7 +13,7 @@
             <xs:documentation>A Show is a broadcasted container object for multiple episodes. e.g. 10vor10</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="id" type="id" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="showIdentifierGroup" minOccurs="1" maxOccurs="1"/>
             <xs:group ref="metaDataGroup" minOccurs="1" maxOccurs="1"/>
             <xs:group ref="imageGroup" minOccurs="1" maxOccurs="1"/>
             <xs:element name="bannerImageUrl" type="xs:anyURI" minOccurs="0" maxOccurs="1" />
@@ -26,7 +26,6 @@
             </xs:element>
             <xs:element name="viewedMedias" type="xs:int" minOccurs="0" maxOccurs="1"/>
             <xs:element name="numberOfEpisodes" type="xs:int" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="transmission" type="transmission" minOccurs="0" maxOccurs="1"/>
             <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
         </xs:sequence>
         <xs:anyAttribute processContents="lax" namespace="##other"/>

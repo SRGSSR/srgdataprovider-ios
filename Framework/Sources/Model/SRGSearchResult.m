@@ -13,9 +13,6 @@
 
 @interface SRGSearchResult ()
 
-@property (nonatomic, copy) NSString *uid;
-@property (nonatomic) SRGMediaURN *URN;
-
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
 @property (nonatomic, copy) NSString *summary;
@@ -35,10 +32,7 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @keypath(SRGSearchResult.new, uid) : @"id",
-                       @keypath(SRGSearchResult.new, URN) : @"urn",
-                        
-                       @keypath(SRGSearchResult.new, title) : @"title",
+        s_mapping = @{ @keypath(SRGSearchResult.new, title) : @"title",
                        @keypath(SRGSearchResult.new, lead) : @"lead",
                        @keypath(SRGSearchResult.new, summary) : @"description",
                         
@@ -51,11 +45,6 @@
 
 #pragma mark Transformers
 
-+ (NSValueTransformer *)URNJSONTransformer
-{
-    return SRGMediaURNJSONTransformer();
-}
-
 + (NSValueTransformer *)imageURLJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
@@ -63,26 +52,9 @@
 
 #pragma mark SRGImageMetadata protocol
 
-- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
+- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
 {
-    return [self.imageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:nil];
-}
-
-#pragma mark Equality
-
-- (BOOL)isEqual:(id)object
-{
-    if (!object || ![object isKindOfClass:[self class]]) {
-        return NO;
-    }
-    
-    SRGSearchResult *otherSearchResult = object;
-    return [self.uid isEqualToString:otherSearchResult.uid];
-}
-
-- (NSUInteger)hash
-{
-    return self.uid.hash;
+    return [self.imageURL srg_URLForDimension:dimension withValue:value uid:nil type:type];
 }
 
 @end

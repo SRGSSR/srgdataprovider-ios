@@ -12,7 +12,7 @@
         <xs:complexContent>
             <xs:extension base="searchResult">
                 <xs:sequence>
-                    <xs:element name="mediaType" type="mediaType" minOccurs="1" maxOccurs="1"/>
+                    <xs:group ref="mediaIdentifierGroup" minOccurs="1" maxOccurs="1"/>
                     <xs:element name="date" type="dateTime" minOccurs="0" maxOccurs="1"/>
                     <xs:element name="duration" type="xs:long" minOccurs="1" maxOccurs="1"/>
                     <xs:element name="episode" minOccurs="0" maxOccurs="1">
@@ -54,6 +54,7 @@
         <xs:complexContent>
             <xs:extension base="searchResult">
                 <xs:sequence>
+                    <xs:group ref="showIdentifierGroup" minOccurs="1" maxOccurs="1"/>
                     <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
                 </xs:sequence>
                 <xs:anyAttribute processContents="lax" namespace="##other"/>
@@ -98,8 +99,6 @@
             <xs:documentation>Base information about a search result.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="id" type="id" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="urn" type="urn" minOccurs="1" maxOccurs="1"/>
             <xs:group ref="metaDataGroup" minOccurs="1" maxOccurs="1"/>
             <xs:group ref="imageGroup" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>

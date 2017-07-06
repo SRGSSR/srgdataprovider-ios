@@ -13,6 +13,7 @@
 @interface SRGPresenter ()
 
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic) NSURL *URL;
 
 @property (nonatomic) NSURL *imageURL;
 @property (nonatomic, copy) NSString *imageTitle;
@@ -30,6 +31,7 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @keypath(SRGPresenter.new, name) : @"name",
+                       @keypath(SRGPresenter.new, URL) : @"url",
                        
                        @keypath(SRGPresenter.new, imageURL) : @"imageUrl",
                        @keypath(SRGPresenter.new, imageTitle) : @"imageTitle",
@@ -40,6 +42,11 @@
 
 #pragma mark Transformers
 
++ (NSValueTransformer *)URLJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
 + (NSValueTransformer *)imageURLJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
@@ -47,9 +54,9 @@
 
 #pragma mark SRGImageMetadata protocol
 
-- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value
+- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
 {
-    return [self.imageURL srg_URLForDimension:dimension withValue:value uid:nil type:nil];
+    return [self.imageURL srg_URLForDimension:dimension withValue:value uid:nil type:type];
 }
 
 #pragma mark Equality

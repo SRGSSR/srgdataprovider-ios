@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGMediaType mediaType;
 
 /**
- *  The business unit which supplied the media.
+ *  The business unit which the media belongs to.
  */
 @property (nonatomic, readonly) SRGVendor vendor;
 
@@ -44,6 +44,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  The URN string representation.
  */
 @property (nonatomic, readonly, copy) NSString *URNString;
+
+/**
+ *  Return `YES` iff the URN is related to a live center event.
+ */
+@property (nonatomic, readonly, getter=isLiveEvent) BOOL liveCenterEvent;
 
 @end
 

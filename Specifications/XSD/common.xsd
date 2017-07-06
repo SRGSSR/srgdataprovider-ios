@@ -1,6 +1,8 @@
 <!DOCTYPE xs:schema [
         <!ENTITY uuidPattern "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}">
-        <!ENTITY buSpecificIdPattern "(\d+|&uuidPattern;|livestream_\S*|[0-9a-z\-]+)">
+        <!ENTITY ssatrChannelIds "(rsc-de|rsc-fr|rsc-it|rsj|rsp)">
+        <!ENTITY buSpecificIdPattern "(\d+|&uuidPattern;|livestream_\S*|[0-9a-z\-]+|\d+_\w+)">
+        <!ENTITY showIdPattern "(\d+|&uuidPattern;)">
         ]>
 <xs:schema id="common"
            version="1.0"
@@ -93,9 +95,50 @@
             </xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:pattern value="|urn:(srf|rtr|rts|rsi|swi|tvo|ca|swisstxt)(:livestream)?:(video|audio|show)(:(srf|rtr|rts|rsi))?:&buSpecificIdPattern;"/>
+            <xs:pattern value="|urn:(srf|rtr|rts|rsi|swi|tvo|ca|swisstxt)(:livestream)?(:ssatr)?:(video|audio|show)(:(srf|rtr|rts|rsi))?:(&buSpecificIdPattern;|&ssatrChannelIds;)"/>
         </xs:restriction>
     </xs:simpleType>
+
+    <xs:group name="mediaIdentifierGroup">
+        <xs:sequence>
+            <xs:element name="id" type="id" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="mediaType" type="mediaType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="vendor" type="vendor" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="urn" type="urn" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:simpleType name="showId">
+        <xs:annotation>
+            <xs:documentation>An id must be a numeric value or a valid UUID</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="&showIdPattern;"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="showUrn">
+        <xs:annotation>
+            <xs:documentation>The fully qualified name of the specific element.
+                It holds the vendor, transmission and the id of the specific element concatenated with a colon.
+                'urn:srf:show:radio:8fcaf817-aae9-416c-82cd-6f438ddfb309'
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern
+                    value="urn:(srf|rtr|rts|rsi|swi):show:(tv|radio|online):&showIdPattern;"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:group name="showIdentifierGroup">
+        <xs:sequence>
+            <xs:element name="id" type="showId" minOccurs="1" maxOccurs="1"/>
+            <!-- all elements must be mandatory if https://srfmmz.atlassian.net/browse/AIS-15426 is implemented -->
+            <xs:element name="vendor" type="vendor" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="transmission" type="transmission" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="urn" type="showUrn" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
 
     <xs:simpleType name="title">
         <xs:restriction base="xs:string">
@@ -318,6 +361,17 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:simpleType name="transmission">
+        <xs:annotation>
+            <xs:documentation>Primary content transmission channel</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="TV"/>
+            <xs:enumeration value="RADIO"/>
+            <xs:enumeration value="ONLINE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
     <xs:group name="metaDataGroup">
         <xs:sequence>
             <xs:element name="title" type="title" minOccurs="1" maxOccurs="1"/>
@@ -325,6 +379,19 @@
             <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:group>
+
+    <xs:complexType name="relatedContent">
+        <xs:annotation>
+            <xs:documentation>Content which is related to a specific other content</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="id" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="metaDataGroup" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="url" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
+        </xs:sequence>
+        <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
 
     <xs:group name="imageGroup">
         <xs:sequence>
@@ -356,6 +423,56 @@
         <xs:sequence>
             <xs:element name="redButton" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
             <xs:element name="imageLink" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="flowInfo">
+        <xs:sequence>
+            <xs:element name="incomingRequest" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="parsedToken" type="parsedToken" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="useCase" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="domainObject" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="returnCode" type="xs:int" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="next" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="outgoingRequests" type="outgoingRequest" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="validationResult" type="validationResult" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="steps" type="step" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="parsedToken">
+        <xs:sequence>
+            <xs:element name="pageSize" type="xs:int" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="pageNumber" type="xs:int" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="backendToken" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="outgoingRequest">
+        <xs:sequence>
+            <xs:element name="url" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="method" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="body" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="returnCode" type="xs:int" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="duration" type="xs:long" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="exceptionMessage" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="timestamp" type="xs:long" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="componentType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="componentName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="validationResult">
+        <xs:sequence>
+            <xs:element name="msgs" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="step">
+        <xs:sequence>
+            <xs:element name="componentType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="componentName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="timestamp" type="xs:long" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 
