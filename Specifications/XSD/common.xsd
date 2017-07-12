@@ -126,17 +126,16 @@
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:pattern
-                    value="urn:(srf|rtr|rts|rsi|swi):show:(tv|radio|online):&showIdPattern;"/>
+                    value="urn:(srf|rtr|rts|rsi|swi|tvo|ca):show:(tv|radio|online):&showIdPattern;"/>
         </xs:restriction>
     </xs:simpleType>
 
     <xs:group name="showIdentifierGroup">
         <xs:sequence>
             <xs:element name="id" type="showId" minOccurs="1" maxOccurs="1"/>
-            <!-- all elements must be mandatory if https://srfmmz.atlassian.net/browse/AIS-15426 is implemented -->
-            <xs:element name="vendor" type="vendor" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="transmission" type="transmission" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="urn" type="showUrn" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="vendor" type="vendor" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="transmission" type="transmission" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="urn" type="showUrn" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
     </xs:group>
 
@@ -326,6 +325,36 @@
             <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
         </xs:sequence>
         <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:complexType name="analyticsMetadata">
+        <xs:annotation>
+            <xs:documentation>Key/Value pairs to track data via WebTrekk</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="media_episode_id" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_segment" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_show_id" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_show" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_episode" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_type" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_episode_id_of_referring_episode" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_episode_length" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_clip_length" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_is_geoblocked" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_is_livestream" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_full_length" type="xs:string" minOccurs="0" maxOccurs="1" />
+            <xs:element name="media_enterprise_units" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_joker1" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_joker2" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_joker3" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_is_web_only" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_streaming_quality" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_special_format" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_livestream_encoder" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_tv_id" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_is_tvsvizzera" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="socialCountEntry">

@@ -95,11 +95,6 @@
             <xs:group ref="metaDataGroup" minOccurs="1" maxOccurs="1"/>
             <xs:group ref="imageGroup" minOccurs="1" maxOccurs="1"/>
             <xs:element name="blockReason" type="blockReason" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="displayable" type="xs:boolean" minOccurs="1" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>Indicated that this media can be displayed.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
             <xs:element name="type" type="type" minOccurs="1" maxOccurs="1"/>
             <xs:element name="date" type="dateTime" minOccurs="1" maxOccurs="1">
                 <xs:annotation>

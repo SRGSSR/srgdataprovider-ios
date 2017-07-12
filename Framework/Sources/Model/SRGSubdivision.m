@@ -65,7 +65,7 @@
                        @keypath(SRGSubdivision.new, markOut) : @"markOut",
                        @keypath(SRGSubdivision.new, hidden) : @"displayable",
                        @keypath(SRGSubdivision.new, event) : @"eventData",
-                       @keypath(SRGSubdivision.new, analyticsLabels) : @"webAnalytics",
+                       @keypath(SRGSubdivision.new, analyticsLabels) : @"analyticsMetadata",
                        @keypath(SRGSubdivision.new, comScoreAnalyticsLabels) : @"analyticsData",
                        @keypath(SRGSubdivision.new, subtitles) : @"subtitleList",
                        

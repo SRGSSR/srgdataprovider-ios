@@ -38,7 +38,7 @@
                        @keypath(SRGMediaComposition.new, episode) : @"episode",
                        @keypath(SRGMediaComposition.new, show) : @"show",
                        @keypath(SRGMediaComposition.new, chapters) : @"chapterList",
-                       @keypath(SRGMediaComposition.new, analyticsLabels) : @"webAnalytics",
+                       @keypath(SRGMediaComposition.new, analyticsLabels) : @"analyticsMetadata",
                        @keypath(SRGMediaComposition.new, comScoreAnalyticsLabels) : @"analyticsData" };
     });
     return s_mapping;

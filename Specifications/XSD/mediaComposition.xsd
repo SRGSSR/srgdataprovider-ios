@@ -36,6 +36,7 @@
                     <xs:documentation>Key value map of analytics data which the client has to post to analytics services, e.g. comscore</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element name="analyticsMetadata" type="analyticsMetadata" minOccurs="0" maxOccurs="1"/>
             <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
         </xs:sequence>
         <xs:anyAttribute processContents="lax" namespace="##other"/>
@@ -68,6 +69,11 @@
     <xs:complexType name="mediaRepresentation">
         <xs:sequence>
             <xs:group ref="mediaGroup"/>
+            <xs:element name="displayable" type="xs:boolean" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Indicated that this media can be displayed.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="fullLengthUrn" type="urn" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>URN of the complete episode</xs:documentation>
@@ -102,6 +108,7 @@
                     <xs:documentation>Key value map of analytics data which the client has to post to analytics services, e.g. comscore</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element name="analyticsMetadata" type="analyticsMetadata" minOccurs="0" maxOccurs="1"/>
             <xs:element name="eventData" type="xs:string" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>Encoded metadata which the client has to post pack when sending player events</xs:documentation>
