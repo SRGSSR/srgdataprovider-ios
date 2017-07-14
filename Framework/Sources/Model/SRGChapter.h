@@ -27,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  The list of segments associated with the chapter.
+ *
+ *  @discussion This list is not the raw list retrieved from the Integration Layer, but might have been edited to
+ *              remove all kinds of overlaps or nested segments.
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGSegment *> *segments;
 
