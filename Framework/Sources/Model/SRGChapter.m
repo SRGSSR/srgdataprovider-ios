@@ -7,6 +7,7 @@
 #import "SRGChapter.h"
 
 #import "SRGJSONTransformers.h"
+#import "SRGSubdivision+Private.h"
 
 #import <libextobjc/libextobjc.h>
 
@@ -46,9 +47,9 @@
 
 - (NSArray<SRGSegment *> *)segments
 {
+    // TODO: Avoid raw segments. Implement transformer directly (better for pretty printing)
     if (! _segments) {
-        // TODO: Sanitize
-        _segments = self.rawSegments;
+        _segments = SRGSubdivisionSanitize(self.rawSegments);
     }
     return _segments;
 }

@@ -209,3 +209,8 @@
 }
 
 @end
+
+NSArray<SRGSubdivision *> *SRGSubdivisionSanitize(NSArray<SRGSubdivision *> *subdivisions)
+{
+    return subdivisions;
+}
