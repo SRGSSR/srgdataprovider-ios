@@ -13,10 +13,12 @@
 @interface SRGChapter ()
 
 @property (nonatomic) NSArray<SRGResource *> *resources;
-@property (nonatomic) NSArray<SRGSegment *> *segments;
+@property (nonatomic) NSArray<SRGSegment *> *rawSegments;
 
 @property (nonatomic) NSDate *preTrailerStartDate;
 @property (nonatomic) NSDate *postTrailerEndDate;
+
+@property (nonatomic) NSArray<SRGSegment *> *segments;
 
 @end
 
@@ -31,13 +33,24 @@
     dispatch_once(&s_onceToken, ^{
         NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
         [mapping addEntriesFromDictionary:@{ @keypath(SRGChapter.new, resources) : @"resourceList",
-                                             @keypath(SRGChapter.new, segments) : @"segmentList",
+                                             @keypath(SRGChapter.new, rawSegments) : @"segmentList",
                                               
                                              @keypath(SRGChapter.new, preTrailerStartDate) : @"preTrailerStart",
                                              @keypath(SRGChapter.new, postTrailerEndDate) : @"postTrailerStop" }];
         s_mapping = [mapping copy];
     });
     return s_mapping;
+}
+
+#pragma mark Getters and setters
+
+- (NSArray<SRGSegment *> *)segments
+{
+    if (! _segments) {
+        // TODO: Sanitize
+        _segments = self.rawSegments;
+    }
+    return _segments;
 }
 
 #pragma mark Transformers
@@ -47,7 +60,7 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGResource class]];
 }
 
-+ (NSValueTransformer *)segmentsJSONTransformer
++ (NSValueTransformer *)rawSegmentsJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSegment class]];
 }
