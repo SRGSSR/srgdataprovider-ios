@@ -223,6 +223,10 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
         }
         
         SRGSubdivision *subdivision = [sortedSubdivisions objectAtIndex:i];
+        if (subdivision.markOut < subdivision.markIn) {
+            subdivision.markOut = subdivision.markIn;
+        }
+        
         for (NSUInteger j = i + 1; j < sortedSubdivisions.count; ++j) {
             SRGSubdivision *nextSubdivision = [sortedSubdivisions objectAtIndex:j];
             
@@ -257,5 +261,10 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
     
     // Cleanup all subdivisions with 0 duration
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K != 0", @keypath(SRGSubdivision.new, duration)];
-    return [[sortedSubdivisions filteredArrayUsingPredicate:predicate] copy];
+    NSSortDescriptor *positionSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@keypath(SRGSubdivision.new, position) ascending:YES];
+    NSArray<SRGSubdivision *> *sanitizedSubdivisions = [[sortedSubdivisions filteredArrayUsingPredicate:predicate] sortedArrayUsingDescriptors:@[positionSortDescriptor]];
+    [sanitizedSubdivisions enumerateObjectsUsingBlock:^(SRGSubdivision * _Nonnull subdivision, NSUInteger idx, BOOL * _Nonnull stop) {
+        subdivision.position = idx;
+    }];
+    return sanitizedSubdivisions;
 }

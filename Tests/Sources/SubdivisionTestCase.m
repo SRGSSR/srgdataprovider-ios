@@ -13,7 +13,7 @@
 @implementation SubdivisionTestCase
 
 // Test:
-//   - Two disjoint subdivisions
+//   - Two disjoint subdivisions (OK)
 //   - Two disjoint blocked subdivisions
 //   - Two overlapping subdivisions
 
@@ -32,10 +32,43 @@
 //   - SRF use cases
 
 //   - Empty subdivisions
+//   - Incorrect markout
+//   - Incorrect duration
 
 - (void)testDisjointSubdivisions
 {
+    NSError *error = nil;
+    NSArray<NSDictionary *> *JSONArray = [NSArray arrayWithObjects:
+                                          @{ @"title" : @"A",
+                                             @"position" : @0,
+                                             @"markIn" : @10,
+                                             @"markOut" : @20,
+                                             @"duration" : @10 },
+                                          
+                                          @{ @"title" : @"B",
+                                             @"position" : @1,
+                                             @"markIn" : @40,
+                                             @"markOut" : @45,
+                                             @"duration" : @5 }, nil];
+    NSArray<SRGSubdivision *> *subdivisions = [MTLJSONAdapter modelsOfClass:[SRGSubdivision class] fromJSONArray:JSONArray error:&error];
+    XCTAssertNil(error);
+    XCTAssertEqual(subdivisions.count, 2);
     
+    SRGSubdivision *subdivision0 = subdivisions[0];
+    XCTAssertEqual(subdivision0.title, @"A");
+    XCTAssertEqual(subdivision0.position, 0);
+    XCTAssertEqual(subdivision0.markIn, 10);
+    XCTAssertEqual(subdivision0.markOut, 20);
+    XCTAssertEqual(subdivision0.duration, 10);
+    XCTAssertEqual(subdivision0.blockingReason, SRGBlockingReasonNone);
+    
+    SRGSubdivision *subdivision1 = subdivisions[1];
+    XCTAssertEqual(subdivision1.title, @"B");
+    XCTAssertEqual(subdivision1.position, 1);
+    XCTAssertEqual(subdivision1.markIn, 40);
+    XCTAssertEqual(subdivision1.markOut, 45);
+    XCTAssertEqual(subdivision1.duration, 5);
+    XCTAssertEqual(subdivision1.blockingReason, SRGBlockingReasonNone);
 }
 
 @end
