@@ -6,11 +6,11 @@
 
 #import "DataProviderBaseTestCase.h"
 
-@interface SubdivisionTestCase : DataProviderBaseTestCase
+@interface ChapterTestCase : DataProviderBaseTestCase
 
 @end
 
-@implementation SubdivisionTestCase
+@implementation ChapterTestCase
 
 // Test:
 //   - Two disjoint subdivisions (OK)
@@ -19,7 +19,7 @@
 
 //   - Subdivision overlapping with blocked one (OK)
 //   - Blocked subdivion overlapping with normal one (OK)
-//   - Two overlapping blocked subdivisions
+//   - Two overlapping blocked subdivisions (OK)
 
 //   - Two nested normal subdivisions
 //   - Blocked subdivision nested in non-blocked one

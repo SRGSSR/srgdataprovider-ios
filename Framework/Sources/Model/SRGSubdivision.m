@@ -243,7 +243,11 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
             else if (nextSubdivision.blockingReason == SRGBlockingReasonNone && subdivision.markOut >= nextSubdivision.markOut) {
                 nextSubdivision.markOut = nextSubdivision.markIn;
             }
-            // Current subdivision is blocked. Cut the one after it
+            // Next subdivision is blocked. Cut the previous one in all cases
+            else if (nextSubdivision.blockingReason != SRGBlockingReasonNone) {
+                subdivision.markOut = nextSubdivision.markIn;
+            }
+            // Current subdivision is blocked. Cut the one after it (not blocked if we arrive here)
             else if (subdivision.blockingReason != SRGBlockingReasonNone) {
                 nextSubdivision.markIn = fminf(subdivision.markOut, nextSubdivision.markOut);
             }
