@@ -210,7 +210,7 @@
 
 @end
 
-NSArray<SRGSubdivision *> *SRGSubdivisionSanitize(NSArray<SRGSubdivision *> *subdivisions)
+NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *subdivisions)
 {
     // Order by markIn first, in case of equality by duration (from the longest to the shortest)
     NSSortDescriptor *markInSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@keypath(SRGSubdivision.new, markIn) ascending:YES];

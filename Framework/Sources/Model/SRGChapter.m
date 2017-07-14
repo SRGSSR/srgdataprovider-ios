@@ -14,12 +14,10 @@
 @interface SRGChapter ()
 
 @property (nonatomic) NSArray<SRGResource *> *resources;
-@property (nonatomic) NSArray<SRGSegment *> *rawSegments;
+@property (nonatomic) NSArray<SRGSegment *> *segments;
 
 @property (nonatomic) NSDate *preTrailerStartDate;
 @property (nonatomic) NSDate *postTrailerEndDate;
-
-@property (nonatomic) NSArray<SRGSegment *> *segments;
 
 @end
 
@@ -34,24 +32,13 @@
     dispatch_once(&s_onceToken, ^{
         NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
         [mapping addEntriesFromDictionary:@{ @keypath(SRGChapter.new, resources) : @"resourceList",
-                                             @keypath(SRGChapter.new, rawSegments) : @"segmentList",
+                                             @keypath(SRGChapter.new, segments) : @"segmentList",
                                               
                                              @keypath(SRGChapter.new, preTrailerStartDate) : @"preTrailerStart",
                                              @keypath(SRGChapter.new, postTrailerEndDate) : @"postTrailerStop" }];
         s_mapping = [mapping copy];
     });
     return s_mapping;
-}
-
-#pragma mark Getters and setters
-
-- (NSArray<SRGSegment *> *)segments
-{
-    // TODO: Avoid raw segments. Implement transformer directly (better for pretty printing)
-    if (! _segments) {
-        _segments = SRGSubdivisionSanitize(self.rawSegments);
-    }
-    return _segments;
 }
 
 #pragma mark Transformers
@@ -61,9 +48,23 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGResource class]];
 }
 
-+ (NSValueTransformer *)rawSegmentsJSONTransformer
++ (NSValueTransformer *)segmentsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSegment class]];
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *JSONArray, BOOL *success, NSError *__autoreleasing *error) {
+            NSArray *objects = [MTLJSONAdapter modelsOfClass:[SRGSegment class] fromJSONArray:JSONArray error:error];
+            if (! objects) {
+                return nil;
+            }
+            
+            return SRGSanitizedSubdivisions(objects);
+        } reverseBlock:^id(NSArray *objects, BOOL *success, NSError *__autoreleasing *error) {
+            return [MTLJSONAdapter JSONArrayFromModels:objects error:error];
+        }];
+    });
+    return s_transformer;
 }
 
 + (NSValueTransformer *)preTrailerStartDateJSONTransformer
