@@ -8,6 +8,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSArray<__kindof SRGSubdivision *> *SRGSubdivisionSanitize(NSArray<SRGSubdivision *> *subdivisions);
+OBJC_EXTERN NSArray<__kindof SRGSubdivision *> *SRGSubdivisionSanitize(NSArray<SRGSubdivision *> *subdivisions);
 
 NS_ASSUME_NONNULL_END

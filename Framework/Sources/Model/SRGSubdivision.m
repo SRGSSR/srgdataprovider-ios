@@ -212,5 +212,50 @@
 
 NSArray<SRGSubdivision *> *SRGSubdivisionSanitize(NSArray<SRGSubdivision *> *subdivisions)
 {
-    return subdivisions;
+    // Order by markIn first, in case of equality by duration (from the longest to the shortest)
+    NSSortDescriptor *markInSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@keypath(SRGSubdivision.new, markIn) ascending:YES];
+    NSSortDescriptor *durationSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@keypath(SRGSubdivision.new, duration) ascending:NO];
+    NSArray<SRGSubdivision *> *sortedSubdivisions = [subdivisions sortedArrayUsingDescriptors:@[markInSortDescriptor, durationSortDescriptor]];
+
+    for (NSUInteger i = 0; i < sortedSubdivisions.count; ++i) {
+        if (i == sortedSubdivisions.count - 1) {
+            break;
+        }
+        
+        SRGSubdivision *subdivision = [sortedSubdivisions objectAtIndex:i];
+        for (NSUInteger j = i + 1; j < sortedSubdivisions.count; ++j) {
+            SRGSubdivision *nextSubdivision = [sortedSubdivisions objectAtIndex:j];
+            
+            // Skip empty subdivisions
+            if (nextSubdivision.duration == 0) {
+                continue;
+            }
+            // Disjoint subdivisions. Nothing to be done.
+            else if (subdivision.markOut <= nextSubdivision.markIn) {
+                // Can stop because of the ordering
+                break;
+            }
+            // Next non-blocked subdivision nested within the first. Make the subdivision empty (later cleaned up).
+            else if (nextSubdivision.blockingReason == SRGBlockingReasonNone && subdivision.markOut >= nextSubdivision.markOut) {
+                nextSubdivision.markOut = nextSubdivision.markIn;
+            }
+            // Current subdivision is blocked. Cut the one after it
+            else if (subdivision.blockingReason != SRGBlockingReasonNone) {
+                nextSubdivision.markIn = fminf(subdivision.markOut, nextSubdivision.markOut);
+            }
+            // In all other cases, ensure the next subdivision starts at the original time, cutting the first one
+            // so that no overlap occurs
+            else {
+                subdivision.markOut = nextSubdivision.markIn;
+            }
+            
+            // Ensure consistent durations
+            subdivision.duration = subdivision.markOut - subdivision.markIn;
+            nextSubdivision.duration = nextSubdivision.markOut - nextSubdivision.markIn;
+        }
+    }
+    
+    // Cleanup all subdivisions with 0 duration
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K != 0", @keypath(SRGSubdivision.new, duration)];
+    return [[sortedSubdivisions filteredArrayUsingPredicate:predicate] copy];
 }
