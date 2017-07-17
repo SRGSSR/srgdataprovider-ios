@@ -212,63 +212,90 @@
 
 NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *subdivisions)
 {
-    // Order by markIn first, in case of equality by duration (from the longest to the shortest)
-    NSSortDescriptor *markInSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@keypath(SRGSubdivision.new, markIn) ascending:YES];
-    NSSortDescriptor *durationSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@keypath(SRGSubdivision.new, duration) ascending:NO];
-    NSArray<SRGSubdivision *> *sortedSubdivisions = [subdivisions sortedArrayUsingDescriptors:@[markInSortDescriptor, durationSortDescriptor]];
-
-    for (NSUInteger i = 0; i < sortedSubdivisions.count; ++i) {
-        if (i == sortedSubdivisions.count - 1) {
-            break;
+    // Make the inventory of all mark in and mark  in increasing order
+    NSMutableSet<NSNumber *> *marks = [NSMutableSet set];
+    [subdivisions enumerateObjectsUsingBlock:^(SRGSubdivision * _Nonnull subdivision, NSUInteger idx, BOOL * _Nonnull stop) {
+        [marks addObject:@(subdivision.markIn)];
+        [marks addObject:@(subdivision.markOut)];
+    }];
+    
+    NSCAssert(marks.count == 0 || marks.count > 1, @"No marks expected, or at least 2 by construction");
+    NSSortDescriptor *markSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    NSArray<NSNumber *> *orderedMarks = [marks sortedArrayUsingDescriptors:@[markSortDescriptor]];
+    
+    // For each interval defined by consecutive marks, define the subdivision resulting from the superposition of all
+    // subdivisions
+    NSMutableArray<SRGSubdivision *> *sanitizedSubdivisions = [NSMutableArray array];
+    for (NSUInteger i = 0; i < orderedMarks.count - 1; ++i) {
+        NSTimeInterval markIn = orderedMarks[i].doubleValue;
+        NSTimeInterval markOut = orderedMarks[i+1].doubleValue;
+        
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(SRGSubdivision * _Nullable subdivision, NSDictionary<NSString *,id> * _Nullable bindings) {
+            return subdivision.markIn <= markIn && markOut <= subdivision.markOut;
+        }];
+        NSArray<SRGSubdivision *> *matchingSubdivisions = [subdivisions filteredArrayUsingPredicate:predicate];
+        if (matchingSubdivisions.count == 0) {
+            continue;
         }
         
-        SRGSubdivision *subdivision = [sortedSubdivisions objectAtIndex:i];
-        if (subdivision.markOut < subdivision.markIn) {
-            subdivision.markOut = subdivision.markIn;
-        }
-        
-        for (NSUInteger j = i + 1; j < sortedSubdivisions.count; ++j) {
-            SRGSubdivision *nextSubdivision = [sortedSubdivisions objectAtIndex:j];
+        // Find the winning subdivision amongst matches.
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES comparator:^NSComparisonResult(SRGSubdivision * _Nonnull subdivision1, SRGSubdivision * _Nonnull subdivision2) {
+            // Blocked subdivision must win. Arbitrary rely on the reason index order to create a stable order.
+            if (subdivision1.blockingReason != subdivision2.blockingReason) {
+                if (subdivision1.blockingReason == SRGBlockingReasonNone) {
+                    return NSOrderedAscending;
+                }
+                else if (subdivision2.blockingReason == SRGBlockingReasonNone) {
+                    return NSOrderedDescending;
+                }
+                else {
+                    return (subdivision1.blockingReason < subdivision2.blockingReason) ? NSOrderedDescending : NSOrderedAscending;
+                }
+            }
             
-            // Skip empty subdivisions
-            if (nextSubdivision.duration == 0) {
-                continue;
+            // Prefer visible subdivisions.
+            if (subdivision1.hidden != subdivision2.hidden) {
+                return subdivision1.hidden ? NSOrderedDescending : NSOrderedAscending;
             }
-            // Disjoint subdivisions. Nothing to be done.
-            else if (subdivision.markOut <= nextSubdivision.markIn) {
-                // Can stop because of the ordering
-                break;
+            
+            // Prefer subdivision starting at mark-in.
+            if (subdivision1.markIn != subdivision2.markOut) {
+                if (subdivision1.markIn == markIn) {
+                    return NSOrderedDescending;
+                }
+                else if (subdivision2.markIn == markIn) {
+                    return NSOrderedAscending;
+                }
             }
-            // Next non-blocked subdivision nested within the first. Make the subdivision empty (later cleaned up).
-            else if (nextSubdivision.blockingReason == SRGBlockingReasonNone && subdivision.markOut >= nextSubdivision.markOut) {
-                nextSubdivision.markOut = nextSubdivision.markIn;
+            
+            // Prefer shorter subdivisions (fine-grained structure).
+            if (subdivision1.duration == subdivision2.duration) {
+                return NSOrderedSame;
             }
-            // Next subdivision is blocked. Cut the previous one in all cases
-            else if (nextSubdivision.blockingReason != SRGBlockingReasonNone) {
-                subdivision.markOut = nextSubdivision.markIn;
+            else if (subdivision1.duration < subdivision2.duration) {
+                return NSOrderedDescending;
             }
-            // Current subdivision is blocked. Cut the one after it (not blocked if we arrive here)
-            else if (subdivision.blockingReason != SRGBlockingReasonNone) {
-                nextSubdivision.markIn = fminf(subdivision.markOut, nextSubdivision.markOut);
-            }
-            // In all other cases, ensure the next subdivision starts at the original time, cutting the first one
-            // so that no overlap occurs
             else {
-                subdivision.markOut = nextSubdivision.markIn;
+                return NSOrderedAscending;
             }
+        }];
+        
+        SRGSubdivision *matchingSubdivision = [[matchingSubdivisions sortedArrayUsingDescriptors:@[sortDescriptor]].lastObject copy];
+        SRGSubdivision *lastSubdivision = sanitizedSubdivisions.lastObject;
+        
+        if (! [lastSubdivision isEqual:matchingSubdivision]) {
+            matchingSubdivision.position = lastSubdivision ? lastSubdivision.position + 1 : 0;
+            matchingSubdivision.markIn = markIn;
+            matchingSubdivision.markOut = markOut;
+            matchingSubdivision.duration = markOut - markIn;
             
-            // Ensure consistent durations
-            subdivision.duration = subdivision.markOut - subdivision.markIn;
-            nextSubdivision.duration = nextSubdivision.markOut - nextSubdivision.markIn;
+            [sanitizedSubdivisions addObject:matchingSubdivision];
+        }
+        else {
+            lastSubdivision.markOut = markOut;
+            lastSubdivision.duration = markOut - lastSubdivision.markIn;
         }
     }
     
-    // Cleanup all subdivisions with 0 duration
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K != 0", @keypath(SRGSubdivision.new, duration)];
-    NSSortDescriptor *positionSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@keypath(SRGSubdivision.new, position) ascending:YES];
-    NSArray<SRGSubdivision *> *sanitizedSubdivisions = [[sortedSubdivisions filteredArrayUsingPredicate:predicate] sortedArrayUsingDescriptors:@[positionSortDescriptor]];
-    [sanitizedSubdivisions enumerateObjectsUsingBlock:^(SRGSubdivision * _Nonnull subdivision, NSUInteger idx, BOOL * _Nonnull stop) {
-        subdivision.position = idx;
-    }];
-    return sanitizedSubdivisions;
+    return [sanitizedSubdivisions copy];
 }
