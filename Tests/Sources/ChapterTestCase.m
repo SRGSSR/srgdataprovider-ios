@@ -31,21 +31,23 @@
 
 //   - SRF use cases
 
+//   - No subdivisions
 //   - Empty subdivisions
 //   - Incorrect markout
 //   - Incorrect duration
+//   - Neigbhouring subdivisions
 
 - (void)testDisjointNormalSubdivisions
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"title" : @"A",
+                                              @{ @"id" : @"A",
                                                  @"position" : @0,
                                                  @"markIn" : @10,
                                                  @"markOut" : @20,
                                                  @"duration" : @10 },
                                               
-                                              @{ @"title" : @"B",
+                                              @{ @"id" : @"B",
                                                  @"position" : @1,
                                                  @"markIn" : @40,
                                                  @"markOut" : @45,
@@ -59,7 +61,7 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSubdivision *segment0 = segments[0];
-    XCTAssertEqual(segment0.title, @"A");
+    XCTAssertEqual(segment0.uid, @"A");
     XCTAssertEqual(segment0.position, 0);
     XCTAssertEqual(segment0.markIn, 10);
     XCTAssertEqual(segment0.markOut, 20);
@@ -67,7 +69,7 @@
     XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
     
     SRGSubdivision *segment1 = segments[1];
-    XCTAssertEqual(segment1.title, @"B");
+    XCTAssertEqual(segment1.uid, @"B");
     XCTAssertEqual(segment1.position, 1);
     XCTAssertEqual(segment1.markIn, 40);
     XCTAssertEqual(segment1.markOut, 45);
@@ -79,14 +81,14 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                          @{ @"title" : @"A",
+                                          @{ @"id" : @"A",
                                              @"position" : @0,
                                              @"markIn" : @10,
                                              @"markOut" : @20,
                                              @"duration" : @10,
                                              @"blockReason" : @"LEGAL" },
                                           
-                                          @{ @"title" : @"B",
+                                          @{ @"id" : @"B",
                                              @"position" : @1,
                                              @"markIn" : @40,
                                              @"markOut" : @45,
@@ -101,7 +103,7 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSubdivision *segment0 = segments[0];
-    XCTAssertEqual(segment0.title, @"A");
+    XCTAssertEqual(segment0.uid, @"A");
     XCTAssertEqual(segment0.position, 0);
     XCTAssertEqual(segment0.markIn, 10);
     XCTAssertEqual(segment0.markOut, 20);
@@ -109,7 +111,7 @@
     XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonLegal);
     
     SRGSubdivision *segment1 = segments[1];
-    XCTAssertEqual(segment1.title, @"B");
+    XCTAssertEqual(segment1.uid, @"B");
     XCTAssertEqual(segment1.position, 1);
     XCTAssertEqual(segment1.markIn, 40);
     XCTAssertEqual(segment1.markOut, 45);
@@ -121,13 +123,13 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                          @{ @"title" : @"A",
+                                          @{ @"id" : @"A",
                                              @"position" : @0,
                                              @"markIn" : @10,
                                              @"markOut" : @20,
                                              @"duration" : @10 },
                                           
-                                          @{ @"title" : @"B",
+                                          @{ @"id" : @"B",
                                              @"position" : @1,
                                              @"markIn" : @15,
                                              @"markOut" : @35,
@@ -141,7 +143,7 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSubdivision *segment0 = segments[0];
-    XCTAssertEqual(segment0.title, @"A");
+    XCTAssertEqual(segment0.uid, @"A");
     XCTAssertEqual(segment0.position, 0);
     XCTAssertEqual(segment0.markIn, 10);
     XCTAssertEqual(segment0.markOut, 15);
@@ -149,7 +151,7 @@
     XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
     
     SRGSubdivision *segment1 = segments[1];
-    XCTAssertEqual(segment1.title, @"B");
+    XCTAssertEqual(segment1.uid, @"B");
     XCTAssertEqual(segment1.position, 1);
     XCTAssertEqual(segment1.markIn, 15);
     XCTAssertEqual(segment1.markOut, 35);
@@ -161,13 +163,13 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"title" : @"A",
+                                              @{ @"id" : @"A",
                                                  @"position" : @0,
                                                  @"markIn" : @10,
                                                  @"markOut" : @20,
                                                  @"duration" : @10 },
                                               
-                                              @{ @"title" : @"B",
+                                              @{ @"id" : @"B",
                                                  @"position" : @1,
                                                  @"markIn" : @15,
                                                  @"markOut" : @35,
@@ -182,7 +184,7 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSubdivision *segment0 = segments[0];
-    XCTAssertEqual(segment0.title, @"A");
+    XCTAssertEqual(segment0.uid, @"A");
     XCTAssertEqual(segment0.position, 0);
     XCTAssertEqual(segment0.markIn, 10);
     XCTAssertEqual(segment0.markOut, 15);
@@ -190,7 +192,7 @@
     XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
     
     SRGSubdivision *segment1 = segments[1];
-    XCTAssertEqual(segment1.title, @"B");
+    XCTAssertEqual(segment1.uid, @"B");
     XCTAssertEqual(segment1.position, 1);
     XCTAssertEqual(segment1.markIn, 15);
     XCTAssertEqual(segment1.markOut, 35);
@@ -202,14 +204,14 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"title" : @"A",
+                                              @{ @"id" : @"A",
                                                  @"position" : @0,
                                                  @"markIn" : @10,
                                                  @"markOut" : @20,
                                                  @"duration" : @10,
                                                  @"blockReason" : @"GEOBLOCK" },
                                               
-                                              @{ @"title" : @"B",
+                                              @{ @"id" : @"B",
                                                  @"position" : @1,
                                                  @"markIn" : @15,
                                                  @"markOut" : @35,
@@ -223,7 +225,7 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSubdivision *segment0 = segments[0];
-    XCTAssertEqual(segment0.title, @"A");
+    XCTAssertEqual(segment0.uid, @"A");
     XCTAssertEqual(segment0.position, 0);
     XCTAssertEqual(segment0.markIn, 10);
     XCTAssertEqual(segment0.markOut, 20);
@@ -231,7 +233,7 @@
     XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonGeoblocking);
     
     SRGSubdivision *segment1 = segments[1];
-    XCTAssertEqual(segment1.title, @"B");
+    XCTAssertEqual(segment1.uid, @"B");
     XCTAssertEqual(segment1.position, 1);
     XCTAssertEqual(segment1.markIn, 20);
     XCTAssertEqual(segment1.markOut, 35);
@@ -243,14 +245,14 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"title" : @"A",
+                                              @{ @"id" : @"A",
                                                  @"position" : @0,
                                                  @"markIn" : @10,
                                                  @"markOut" : @20,
                                                  @"duration" : @10,
                                                  @"blockReason" : @"LEGAL" },
                                               
-                                              @{ @"title" : @"B",
+                                              @{ @"id" : @"B",
                                                  @"position" : @1,
                                                  @"markIn" : @15,
                                                  @"markOut" : @35,
@@ -265,7 +267,7 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSubdivision *segment0 = segments[0];
-    XCTAssertEqual(segment0.title, @"A");
+    XCTAssertEqual(segment0.uid, @"A");
     XCTAssertEqual(segment0.position, 0);
     XCTAssertEqual(segment0.markIn, 10);
     XCTAssertEqual(segment0.markOut, 15);
@@ -273,7 +275,7 @@
     XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonLegal);
     
     SRGSubdivision *segment1 = segments[1];
-    XCTAssertEqual(segment1.title, @"B");
+    XCTAssertEqual(segment1.uid, @"B");
     XCTAssertEqual(segment1.position, 1);
     XCTAssertEqual(segment1.markIn, 15);
     XCTAssertEqual(segment1.markOut, 35);
@@ -285,13 +287,13 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"title" : @"A",
+                                              @{ @"id" : @"A",
                                                  @"position" : @0,
                                                  @"markIn" : @10,
                                                  @"markOut" : @60,
                                                  @"duration" : @50 },
                                               
-                                              @{ @"title" : @"B",
+                                              @{ @"id" : @"B",
                                                  @"position" : @1,
                                                  @"markIn" : @20,
                                                  @"markOut" : @40,
@@ -305,27 +307,27 @@
     XCTAssertEqual(segments.count, 3);
     
     SRGSubdivision *segment0 = segments[0];
-    XCTAssertEqual(segment0.title, @"A");
+    XCTAssertEqual(segment0.uid, @"A");
     XCTAssertEqual(segment0.position, 0);
     XCTAssertEqual(segment0.markIn, 10);
-    XCTAssertEqual(segment0.markOut, 60);
-    XCTAssertEqual(segment0.duration, 50);
+    XCTAssertEqual(segment0.markOut, 20);
+    XCTAssertEqual(segment0.duration, 10);
     XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
     
     SRGSubdivision *segment1 = segments[1];
-    XCTAssertEqual(segment1.title, @"B");
-    XCTAssertEqual(segment1.position, 0);
-    XCTAssertEqual(segment1.markIn, 10);
-    XCTAssertEqual(segment1.markOut, 60);
-    XCTAssertEqual(segment1.duration, 50);
+    XCTAssertEqual(segment1.uid, @"B");
+    XCTAssertEqual(segment1.position, 1);
+    XCTAssertEqual(segment1.markIn, 20);
+    XCTAssertEqual(segment1.markOut, 40);
+    XCTAssertEqual(segment1.duration, 20);
     XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonNone);
     
     SRGSubdivision *segment2 = segments[2];
-    XCTAssertEqual(segment2.title, @"A");
-    XCTAssertEqual(segment2.position, 0);
-    XCTAssertEqual(segment2.markIn, 10);
+    XCTAssertEqual(segment2.uid, @"A");
+    XCTAssertEqual(segment2.position, 2);
+    XCTAssertEqual(segment2.markIn, 40);
     XCTAssertEqual(segment2.markOut, 60);
-    XCTAssertEqual(segment2.duration, 50);
+    XCTAssertEqual(segment2.duration, 20);
     XCTAssertEqual(segment2.blockingReason, SRGBlockingReasonNone);
 }
 
@@ -333,13 +335,13 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"title" : @"A",
+                                              @{ @"id" : @"A",
                                                  @"position" : @0,
                                                  @"markIn" : @10,
                                                  @"markOut" : @60,
                                                  @"duration" : @50 },
                                               
-                                              @{ @"title" : @"B",
+                                              @{ @"id" : @"B",
                                                  @"position" : @1,
                                                  @"markIn" : @20,
                                                  @"markOut" : @40,
@@ -354,27 +356,27 @@
     XCTAssertEqual(segments.count, 3);
     
     SRGSubdivision *segment0 = segments[0];
-    XCTAssertEqual(segment0.title, @"A");
+    XCTAssertEqual(segment0.uid, @"A");
     XCTAssertEqual(segment0.position, 0);
     XCTAssertEqual(segment0.markIn, 10);
-    XCTAssertEqual(segment0.markOut, 60);
-    XCTAssertEqual(segment0.duration, 50);
+    XCTAssertEqual(segment0.markOut, 20);
+    XCTAssertEqual(segment0.duration, 10);
     XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
     
     SRGSubdivision *segment1 = segments[1];
-    XCTAssertEqual(segment1.title, @"B");
-    XCTAssertEqual(segment1.position, 0);
-    XCTAssertEqual(segment1.markIn, 10);
-    XCTAssertEqual(segment1.markOut, 60);
-    XCTAssertEqual(segment1.duration, 50);
+    XCTAssertEqual(segment1.uid, @"B");
+    XCTAssertEqual(segment1.position, 1);
+    XCTAssertEqual(segment1.markIn, 20);
+    XCTAssertEqual(segment1.markOut, 40);
+    XCTAssertEqual(segment1.duration, 20);
     XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonGeoblocking);
     
     SRGSubdivision *segment2 = segments[2];
-    XCTAssertEqual(segment2.title, @"A");
-    XCTAssertEqual(segment2.position, 0);
-    XCTAssertEqual(segment2.markIn, 10);
+    XCTAssertEqual(segment2.uid, @"A");
+    XCTAssertEqual(segment2.position, 2);
+    XCTAssertEqual(segment2.markIn, 40);
     XCTAssertEqual(segment2.markOut, 60);
-    XCTAssertEqual(segment2.duration, 50);
+    XCTAssertEqual(segment2.duration, 20);
     XCTAssertEqual(segment2.blockingReason, SRGBlockingReasonNone);
 }
 
