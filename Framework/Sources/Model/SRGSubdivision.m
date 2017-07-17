@@ -217,16 +217,16 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
     }];
     subdivisions = [subdivisions filteredArrayUsingPredicate:validPredicate];
     
+    if (subdivisions.count == 0) {
+        return @[];
+    }
+    
     // Make the inventory of all mark in and mark out increasing order
     NSMutableSet<NSNumber *> *marks = [NSMutableSet set];
     [subdivisions enumerateObjectsUsingBlock:^(SRGSubdivision * _Nonnull subdivision, NSUInteger idx, BOOL * _Nonnull stop) {
         [marks addObject:@(subdivision.markIn)];
         [marks addObject:@(subdivision.markOut)];
     }];
-    
-    if (marks.count == 0) {
-        return @[];
-    }
     
     NSCAssert(marks.count >= 2, @"At least 2 marks are expected by construction");
     NSSortDescriptor *markSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
