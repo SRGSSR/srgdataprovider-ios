@@ -212,14 +212,23 @@
 
 NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *subdivisions)
 {
-    // Make the inventory of all mark in and mark  in increasing order
+    NSPredicate *validPredicate = [NSPredicate predicateWithBlock:^BOOL(SRGSubdivision * _Nullable subdivision, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return subdivision.duration > 0 && subdivision.markIn < subdivision.markOut;
+    }];
+    subdivisions = [subdivisions filteredArrayUsingPredicate:validPredicate];
+    
+    // Make the inventory of all mark in and mark out increasing order
     NSMutableSet<NSNumber *> *marks = [NSMutableSet set];
     [subdivisions enumerateObjectsUsingBlock:^(SRGSubdivision * _Nonnull subdivision, NSUInteger idx, BOOL * _Nonnull stop) {
         [marks addObject:@(subdivision.markIn)];
         [marks addObject:@(subdivision.markOut)];
     }];
     
-    NSCAssert(marks.count == 0 || marks.count > 1, @"No marks expected, or at least 2 by construction");
+    if (marks.count == 0) {
+        return @[];
+    }
+    
+    NSCAssert(marks.count >= 2, @"At least 2 marks are expected by construction");
     NSSortDescriptor *markSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
     NSArray<NSNumber *> *orderedMarks = [marks sortedArrayUsingDescriptors:@[markSortDescriptor]];
     
@@ -266,14 +275,24 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
             }
             
             // Prefer shorter subdivisions (fine-grained structure).
-            if (subdivision1.duration == subdivision2.duration) {
+            if (subdivision1.duration != subdivision2.duration) {
+                if (subdivision1.duration < subdivision2.duration) {
+                    return NSOrderedDescending;
+                }
+                else {
+                    return NSOrderedAscending;
+                }
+            }
+            
+            // Order according to declared position, otherwise consider equal
+            if (subdivision1.position == subdivision2.position) {
                 return NSOrderedSame;
             }
-            else if (subdivision1.duration < subdivision2.duration) {
-                return NSOrderedDescending;
+            else if (subdivision1.position < subdivision2.position) {
+                return NSOrderedAscending;
             }
             else {
-                return NSOrderedAscending;
+                return NSOrderedDescending;
             }
         }];
         
