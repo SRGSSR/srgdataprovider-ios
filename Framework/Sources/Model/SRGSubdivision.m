@@ -233,12 +233,13 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
     NSArray<NSNumber *> *orderedMarks = [marks sortedArrayUsingDescriptors:@[markSortDescriptor]];
     
     // For each interval defined by consecutive marks, define the subdivision resulting from the superposition of all
-    // subdivisions
+    // subdivisions, according to a set of fixed rules.
     NSMutableArray<SRGSubdivision *> *sanitizedSubdivisions = [NSMutableArray array];
     for (NSUInteger i = 0; i < orderedMarks.count - 1; ++i) {
         NSTimeInterval markIn = orderedMarks[i].doubleValue;
         NSTimeInterval markOut = orderedMarks[i+1].doubleValue;
         
+        // Find all subdivisions which touch the mark-in and mark-out.
         NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(SRGSubdivision * _Nullable subdivision, NSDictionary<NSString *,id> * _Nullable bindings) {
             return subdivision.markIn <= markIn && markOut <= subdivision.markOut;
         }];
@@ -247,9 +248,9 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
             continue;
         }
         
-        // Find the winning subdivision amongst matches.
+        // Find the winning subdivision amongst matches (from the least important to the most important one)
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES comparator:^NSComparisonResult(SRGSubdivision * _Nonnull subdivision1, SRGSubdivision * _Nonnull subdivision2) {
-            // Blocked subdivision must win.
+            // Blocked subdivision must always win.
             if (subdivision1.blockingReason != subdivision2.blockingReason) {
                 if (subdivision1.blockingReason == SRGBlockingReasonNone) {
                     return NSOrderedAscending;
@@ -299,14 +300,15 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
         SRGSubdivision *matchingSubdivision = [[matchingSubdivisions sortedArrayUsingDescriptors:@[sortDescriptor]].lastObject copy];
         SRGSubdivision *lastSubdivision = sanitizedSubdivisions.lastObject;
         
+        // Add new subdivision if different from the last one we already have.
         if (! [lastSubdivision isEqual:matchingSubdivision]) {
             matchingSubdivision.position = lastSubdivision ? lastSubdivision.position + 1 : 0;
             matchingSubdivision.markIn = markIn;
             matchingSubdivision.markOut = markOut;
             matchingSubdivision.duration = markOut - markIn;
-            
             [sanitizedSubdivisions addObject:matchingSubdivision];
         }
+        // If the same subdivision is added again, merge with the existing one to have a single subdivision.
         else {
             lastSubdivision.markOut = markOut;
             lastSubdivision.duration = markOut - lastSubdivision.markIn;
