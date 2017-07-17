@@ -38,7 +38,7 @@
                        @keypath(SRGMediaComposition.new, episode) : @"episode",
                        @keypath(SRGMediaComposition.new, show) : @"show",
                        @keypath(SRGMediaComposition.new, chapters) : @"chapterList",
-                       @keypath(SRGMediaComposition.new, analyticsLabels) : @"webAnalytics",
+                       @keypath(SRGMediaComposition.new, analyticsLabels) : @"analyticsMetadata",
                        @keypath(SRGMediaComposition.new, comScoreAnalyticsLabels) : @"analyticsData" };
     });
     return s_mapping;
@@ -92,19 +92,14 @@
 
 - (SRGMedia *)fullLengthMedia
 {
-    // If the main chapter is an episode, it is the full-length
     SRGChapter *mainChapter = self.mainChapter;
-    if (mainChapter.contentType == SRGContentTypeEpisode) {
-        return [self mediaForSubdivision:mainChapter];
-    }
-    // Locate the associate full-length
-    else if (mainChapter.fullLengthURN) {
+    if (mainChapter.fullLengthURN) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGChapter.new, URN), mainChapter.fullLengthURN];
         SRGChapter *fullLengthChapter = [self.chapters filteredArrayUsingPredicate:predicate].firstObject;
         return fullLengthChapter ? [self mediaForSubdivision:fullLengthChapter] : nil;
     }
     else {
-        return nil;
+        return [self mediaForSubdivision:mainChapter];
     }    
 }
 

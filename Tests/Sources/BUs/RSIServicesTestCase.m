@@ -756,8 +756,8 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     // Video livestream
     XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider videoMediaCompositionWithUid:@"la1" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
-        XCTAssertNil(mediaComposition.fullLengthMedia.uid);
+    [[self.dataProvider videoMediaCompositionWithUid:@"livestream_La1" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"livestream_La1");
         [expectation4 fulfill];
     }] resume];
     
@@ -776,8 +776,8 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     // Audio livestream
     XCTestExpectation *expectation6 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider audioMediaCompositionWithUid:@"rete-uno" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
-        XCTAssertNil(mediaComposition.fullLengthMedia.uid);
+    [[self.dataProvider audioMediaCompositionWithUid:@"livestream_ReteUno" completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"livestream_ReteUno");
         [expectation6 fulfill];
     }] resume];
     

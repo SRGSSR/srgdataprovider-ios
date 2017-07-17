@@ -26,7 +26,7 @@
                     <xs:element name="show" minOccurs="0" maxOccurs="1">
                         <xs:complexType>
                             <xs:sequence>
-                                <xs:element name="id" type="id" minOccurs="0" maxOccurs="1"/>
+                                <xs:group ref="showIdentifierGroup" minOccurs="1" maxOccurs="1"/>
                                 <xs:element name="title" type="title" minOccurs="0" maxOccurs="1"/>
                             </xs:sequence>
                         </xs:complexType>

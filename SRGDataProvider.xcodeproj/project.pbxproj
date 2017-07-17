@@ -33,6 +33,7 @@
 		6FA09D821D9EB37600EDCA64 /* SRGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; };
 		6FA09D851D9EB39000EDCA64 /* SRGLogger.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6FA09D871D9EB5CA00EDCA64 /* SRGDataProviderLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FA09D861D9EB5CA00EDCA64 /* SRGDataProviderLogger.h */; };
+		6FA25CC31F194A030062A748 /* ChapterTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA25CC21F194A030062A748 /* ChapterTestCase.m */; };
 		6FAC25AB1F06A2B70058D53A /* SRGImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAC25AA1F06A2B70058D53A /* SRGImageMetadata.m */; };
 		6FB156121E83B60400389D04 /* SRGModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FB156101E83B60400389D04 /* SRGModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FB156131E83B60400389D04 /* SRGModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB156111E83B60400389D04 /* SRGModel.m */; };
@@ -190,6 +191,8 @@
 		6F98DD691E8282A9008B0B22 /* SWIServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWIServicesTestCase.m; sourceTree = "<group>"; };
 		6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SRGLogger.framework; path = Carthage/Build/iOS/SRGLogger.framework; sourceTree = "<group>"; };
 		6FA09D861D9EB5CA00EDCA64 /* SRGDataProviderLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGDataProviderLogger.h; sourceTree = "<group>"; };
+		6FA25CC01F19227C0062A748 /* SRGSubdivision+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SRGSubdivision+Private.h"; sourceTree = "<group>"; };
+		6FA25CC21F194A030062A748 /* ChapterTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChapterTestCase.m; path = Tests/Sources/ChapterTestCase.m; sourceTree = SOURCE_ROOT; };
 		6FAC25AA1F06A2B70058D53A /* SRGImageMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGImageMetadata.m; sourceTree = "<group>"; };
 		6FB156101E83B60400389D04 /* SRGModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGModel.h; sourceTree = "<group>"; };
 		6FB156111E83B60400389D04 /* SRGModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGModel.m; sourceTree = "<group>"; };
@@ -374,6 +377,7 @@
 				6F8201DF1D9A62D2001DA4DA /* RequestTestCase.m */,
 				E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */,
 				6FDF33C01F014B9200BA1D6E /* ShowURNTestCase.m */,
+				6FA25CC21F194A030062A748 /* ChapterTestCase.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -474,6 +478,7 @@
 				6FEFFEF91F02A08F00CD6FCA /* SRGSong.m */,
 				E68598A81D40CC750010000A /* SRGSubdivision.h */,
 				E68598A91D40CC750010000A /* SRGSubdivision.m */,
+				6FA25CC01F19227C0062A748 /* SRGSubdivision+Private.h */,
 				E6AE51441D40AA0100572CE4 /* SRGSubtitle.h */,
 				E6AE51451D40AA0100572CE4 /* SRGSubtitle.m */,
 				E6391A991D38E92400E4CBB9 /* SRGTopic.h */,
@@ -732,6 +737,7 @@
 				6F6BDCEE1E827DDB004BC726 /* RTRServicesTestCase.m in Sources */,
 				6F73CDCD1EEED12700C7EC4A /* NSHTTPURLResponse_DataProviderTestCase.m in Sources */,
 				6F6BDCE71E8262C4004BC726 /* RTSServicesTestCase.m in Sources */,
+				6FA25CC31F194A030062A748 /* ChapterTestCase.m in Sources */,
 				6FDF33C11F014B9200BA1D6E /* ShowURNTestCase.m in Sources */,
 				6F6BDCE81E8262C4004BC726 /* SRFServicesTestCase.m in Sources */,
 				6FC361B31ECD7C8B00E01022 /* CommonServicesTestCase.m in Sources */,
@@ -907,7 +913,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MARKETING_VERSION = 5.3;
+				MARKETING_VERSION = 5.3.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -962,7 +968,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MARKETING_VERSION = 5.3;
+				MARKETING_VERSION = 5.3.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -65,7 +65,7 @@
                        @keypath(SRGSubdivision.new, markOut) : @"markOut",
                        @keypath(SRGSubdivision.new, hidden) : @"displayable",
                        @keypath(SRGSubdivision.new, event) : @"eventData",
-                       @keypath(SRGSubdivision.new, analyticsLabels) : @"webAnalytics",
+                       @keypath(SRGSubdivision.new, analyticsLabels) : @"analyticsMetadata",
                        @keypath(SRGSubdivision.new, comScoreAnalyticsLabels) : @"analyticsData",
                        @keypath(SRGSubdivision.new, subtitles) : @"subtitleList",
                        
@@ -209,3 +209,115 @@
 }
 
 @end
+
+NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *subdivisions)
+{
+    NSPredicate *validSubdivisionsPredicate = [NSPredicate predicateWithBlock:^BOOL(SRGSubdivision * _Nullable subdivision, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return subdivision.duration > 0 && subdivision.markIn < subdivision.markOut;
+    }];
+    subdivisions = [subdivisions filteredArrayUsingPredicate:validSubdivisionsPredicate];
+    
+    if (subdivisions.count == 0) {
+        return @[];
+    }
+    
+    // Make the inventory of all mark in and mark out increasing order
+    NSMutableSet<NSNumber *> *marks = [NSMutableSet set];
+    [subdivisions enumerateObjectsUsingBlock:^(SRGSubdivision * _Nonnull subdivision, NSUInteger idx, BOOL * _Nonnull stop) {
+        [marks addObject:@(subdivision.markIn)];
+        [marks addObject:@(subdivision.markOut)];
+    }];
+    
+    NSCAssert(marks.count >= 2, @"At least 2 marks are expected by construction");
+    NSSortDescriptor *markSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    NSArray<NSNumber *> *orderedMarks = [marks sortedArrayUsingDescriptors:@[markSortDescriptor]];
+    
+    // For each interval defined by consecutive marks, define the subdivision resulting from the superposition of all
+    // subdivisions, according to a set of fixed rules.
+    NSMutableArray<SRGSubdivision *> *sanitizedSubdivisions = [NSMutableArray array];
+    for (NSUInteger i = 0; i < orderedMarks.count - 1; ++i) {
+        NSTimeInterval markIn = orderedMarks[i].doubleValue;
+        NSTimeInterval markOut = orderedMarks[i+1].doubleValue;
+        
+        // Find all subdivisions which touch the mark-in and mark-out.
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(SRGSubdivision * _Nullable subdivision, NSDictionary<NSString *,id> * _Nullable bindings) {
+            return subdivision.markIn <= markIn && markOut <= subdivision.markOut;
+        }];
+        NSArray<SRGSubdivision *> *matchingSubdivisions = [subdivisions filteredArrayUsingPredicate:predicate];
+        if (matchingSubdivisions.count == 0) {
+            continue;
+        }
+        
+        // Find the winning subdivision amongst matches (from the least important to the most important one)
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES comparator:^NSComparisonResult(SRGSubdivision * _Nonnull subdivision1, SRGSubdivision * _Nonnull subdivision2) {
+            // Blocked subdivision must always win.
+            if (subdivision1.blockingReason != subdivision2.blockingReason) {
+                if (subdivision1.blockingReason == SRGBlockingReasonNone) {
+                    return NSOrderedAscending;
+                }
+                else if (subdivision2.blockingReason == SRGBlockingReasonNone) {
+                    return NSOrderedDescending;
+                }
+            }
+            
+            // Prefer visible subdivisions.
+            if (subdivision1.hidden != subdivision2.hidden) {
+                return subdivision1.hidden ? NSOrderedAscending : NSOrderedDescending;
+            }
+            
+            // Prefer subdivision starting at mark-in.
+            if (subdivision1.markIn != subdivision2.markIn) {
+                if (subdivision1.markIn == markIn) {
+                    return NSOrderedDescending;
+                }
+                else if (subdivision2.markIn == markIn) {
+                    return NSOrderedAscending;
+                }
+            }
+            
+            // Prefer shorter subdivisions (fine-grained structure).
+            if (subdivision1.duration != subdivision2.duration) {
+                if (subdivision1.duration < subdivision2.duration) {
+                    return NSOrderedDescending;
+                }
+                else {
+                    return NSOrderedAscending;
+                }
+            }
+            
+            // Order according to declared position, otherwise consider equal
+            if (subdivision1.position == subdivision2.position) {
+                return NSOrderedSame;
+            }
+            else if (subdivision1.position < subdivision2.position) {
+                return NSOrderedAscending;
+            }
+            else {
+                return NSOrderedDescending;
+            }
+        }];
+        
+        SRGSubdivision *matchingSubdivision = [[matchingSubdivisions sortedArrayUsingDescriptors:@[sortDescriptor]].lastObject copy];
+        SRGSubdivision *lastSubdivision = sanitizedSubdivisions.lastObject;
+        
+        // Add new subdivision if different from the last one we already have.
+        if (! [lastSubdivision isEqual:matchingSubdivision]) {
+            matchingSubdivision.position = lastSubdivision ? lastSubdivision.position + 1 : 0;
+            matchingSubdivision.markIn = markIn;
+            matchingSubdivision.markOut = markOut;
+            matchingSubdivision.duration = markOut - markIn;
+            [sanitizedSubdivisions addObject:matchingSubdivision];
+        }
+        // If the same subdivision is added again, merge with the existing one to have a single subdivision.
+        else {
+            lastSubdivision.markOut = markOut;
+            lastSubdivision.duration = markOut - lastSubdivision.markIn;
+        }
+    }
+    
+    // Remove small non-blocked segments which might result because of the flattening.
+    NSPredicate *meaningfulSubdivisionsPredicate = [NSPredicate predicateWithBlock:^BOOL(SRGSubdivision * _Nullable subdivision, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return subdivision.blockingReason != SRGBlockingReasonNone || subdivision.duration >= 1000;     // At least one second
+    }];
+    return [sanitizedSubdivisions filteredArrayUsingPredicate:meaningfulSubdivisionsPredicate];
+}

@@ -7,6 +7,7 @@
 #import "SRGChapter.h"
 
 #import "SRGJSONTransformers.h"
+#import "SRGSubdivision+Private.h"
 
 #import <libextobjc/libextobjc.h>
 
@@ -49,7 +50,21 @@
 
 + (NSValueTransformer *)segmentsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSegment class]];
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *JSONArray, BOOL *success, NSError *__autoreleasing *error) {
+            NSArray *objects = [MTLJSONAdapter modelsOfClass:[SRGSegment class] fromJSONArray:JSONArray error:error];
+            if (! objects) {
+                return nil;
+            }
+            
+            return SRGSanitizedSubdivisions(objects);
+        } reverseBlock:^id(NSArray *objects, BOOL *success, NSError *__autoreleasing *error) {
+            return [MTLJSONAdapter JSONArrayFromModels:objects error:error];
+        }];
+    });
+    return s_transformer;
 }
 
 + (NSValueTransformer *)preTrailerStartDateJSONTransformer
