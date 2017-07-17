@@ -240,16 +240,13 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
         
         // Find the winning subdivision amongst matches.
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES comparator:^NSComparisonResult(SRGSubdivision * _Nonnull subdivision1, SRGSubdivision * _Nonnull subdivision2) {
-            // Blocked subdivision must win. Arbitrary rely on the reason index order to create a stable order.
+            // Blocked subdivision must win.
             if (subdivision1.blockingReason != subdivision2.blockingReason) {
                 if (subdivision1.blockingReason == SRGBlockingReasonNone) {
                     return NSOrderedAscending;
                 }
                 else if (subdivision2.blockingReason == SRGBlockingReasonNone) {
                     return NSOrderedDescending;
-                }
-                else {
-                    return (subdivision1.blockingReason < subdivision2.blockingReason) ? NSOrderedDescending : NSOrderedAscending;
                 }
             }
             
