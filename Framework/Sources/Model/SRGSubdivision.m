@@ -252,11 +252,11 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
             
             // Prefer visible subdivisions.
             if (subdivision1.hidden != subdivision2.hidden) {
-                return subdivision1.hidden ? NSOrderedDescending : NSOrderedAscending;
+                return subdivision1.hidden ? NSOrderedAscending : NSOrderedDescending;
             }
             
             // Prefer subdivision starting at mark-in.
-            if (subdivision1.markIn != subdivision2.markOut) {
+            if (subdivision1.markIn != subdivision2.markIn) {
                 if (subdivision1.markIn == markIn) {
                     return NSOrderedDescending;
                 }
