@@ -9,8 +9,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Takes a list of subdivisions as input, and sanitizes it so that:
- *    - Invalid segments are removed (zero duration or mark in larger than mark out)
+ *  This function takes a list of subdivisions as input, and sanitizes it so that:
+ *    - Invalid segments are removed (zero duration or mark-in larger than mark-out)
  *    - Subdivisions are guaranteed to be disjoint.
  *    - Blocked content can never be played.
  *    - Segments might be repeated several times when cut by another segment.

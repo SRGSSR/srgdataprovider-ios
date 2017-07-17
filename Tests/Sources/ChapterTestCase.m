@@ -12,31 +12,6 @@
 
 @implementation ChapterTestCase
 
-// Test:
-//   - Two disjoint subdivisions (OK)
-//   - Two disjoint blocked subdivisions (OK)
-//   - Two overlapping subdivisions (OK)
-
-//   - Subdivision overlapping with blocked one (OK)
-//   - Blocked subdivion overlapping with normal one (OK)
-//   - Two overlapping blocked subdivisions (OK)
-
-//   - Two nested normal subdivisions (OK)
-//   - Blocked subdivision nested in non-blocked one (OK)
-//   - Non-blocked subdivision nested in blocked one (OK)
-//   - Two nested blocked subdivisions (OK)
-//   - Two overlapping suvdivisions with same markin, different durations (OK)
-//   - Two overlapping suvdivisions with same markout, different durations (won't)
-//   - Two identical subdivisions (OK)
-
-//   - No subdivisions (OK)
-//   - Empty subdivisions
-//   - Incorrect markout
-//   - Incorrect duration
-//   - Neigbhouring subdivisions
-
-//   - SRF use cases
-
 - (void)testDisjointNormalSubdivisions
 {
     NSError *error = nil;
