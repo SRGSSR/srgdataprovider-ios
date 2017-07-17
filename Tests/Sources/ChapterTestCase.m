@@ -25,8 +25,8 @@
 //   - Blocked subdivision nested in non-blocked one (OK)
 //   - Non-blocked subdivision nested in blocked one (OK)
 //   - Two nested blocked subdivisions (OK)
-//   - Two overlapping suvdivisions with same markin, different durations
-//   - Two overlapping suvdivisions with same markout, different durations
+//   - Two overlapping suvdivisions with same markin, different durations (OK)
+//   - Two overlapping suvdivisions with same markout, different durations (won't)
 //   - Two identical subdivisions
 
 //   - SRF use cases
@@ -463,7 +463,7 @@
     XCTAssertEqual(segment2.blockingReason, SRGBlockingReasonLegal);
 }
 
-- (void)testNestedNormalSubdivisionsWithSameMarkin
+- (void)testNestedNormalSubdivisionsWithSameMarkIn
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
@@ -501,6 +501,122 @@
     XCTAssertEqual(segment1.markOut, 60);
     XCTAssertEqual(segment1.duration, 20);
     XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonNone);
+}
+
+- (void)testNestedBlockedInNormalSubdivisionsWithSameMarkIn
+{
+    NSError *error = nil;
+    NSDictionary *JSONDictionary = @{ @"segmentList" : @[
+                                              @{ @"id" : @"A",
+                                                 @"position" : @0,
+                                                 @"markIn" : @10,
+                                                 @"markOut" : @60,
+                                                 @"duration" : @50 },
+                                              
+                                              @{ @"id" : @"B",
+                                                 @"position" : @1,
+                                                 @"markIn" : @10,
+                                                 @"markOut" : @40,
+                                                 @"duration" : @30,
+                                                 @"blockReason" : @"GEOBLOCK" }
+                                              ] };
+    
+    SRGChapter *chapter = [MTLJSONAdapter modelOfClass:[SRGChapter class] fromJSONDictionary:JSONDictionary error:&error];
+    XCTAssertNil(error);
+    
+    NSArray<SRGSegment *> *segments = chapter.segments;
+    XCTAssertEqual(segments.count, 2);
+    
+    SRGSubdivision *segment0 = segments[0];
+    XCTAssertEqual(segment0.uid, @"B");
+    XCTAssertEqual(segment0.position, 0);
+    XCTAssertEqual(segment0.markIn, 10);
+    XCTAssertEqual(segment0.markOut, 40);
+    XCTAssertEqual(segment0.duration, 30);
+    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonGeoblocking);
+    
+    SRGSubdivision *segment1 = segments[1];
+    XCTAssertEqual(segment1.uid, @"A");
+    XCTAssertEqual(segment1.position, 1);
+    XCTAssertEqual(segment1.markIn, 40);
+    XCTAssertEqual(segment1.markOut, 60);
+    XCTAssertEqual(segment1.duration, 20);
+    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonNone);
+}
+
+- (void)testNestedNormalInBlockedSubdivisionsWithSameMarkIn
+{
+    NSError *error = nil;
+    NSDictionary *JSONDictionary = @{ @"segmentList" : @[
+                                              @{ @"id" : @"A",
+                                                 @"position" : @0,
+                                                 @"markIn" : @10,
+                                                 @"markOut" : @60,
+                                                 @"duration" : @50,
+                                                 @"blockReason" : @"GEOBLOCK" },
+                                              
+                                              @{ @"id" : @"B",
+                                                 @"position" : @1,
+                                                 @"markIn" : @10,
+                                                 @"markOut" : @40,
+                                                 @"duration" : @30 }
+                                              ] };
+    
+    SRGChapter *chapter = [MTLJSONAdapter modelOfClass:[SRGChapter class] fromJSONDictionary:JSONDictionary error:&error];
+    XCTAssertNil(error);
+    
+    NSArray<SRGSegment *> *segments = chapter.segments;
+    XCTAssertEqual(segments.count, 1);
+    
+    SRGSubdivision *segment0 = segments[0];
+    XCTAssertEqual(segment0.uid, @"A");
+    XCTAssertEqual(segment0.position, 0);
+    XCTAssertEqual(segment0.markIn, 10);
+    XCTAssertEqual(segment0.markOut, 60);
+    XCTAssertEqual(segment0.duration, 50);
+    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonGeoblocking);
+}
+
+- (void)testNestedBlockedSubdivisionsWithSameMarkIn
+{
+    NSError *error = nil;
+    NSDictionary *JSONDictionary = @{ @"segmentList" : @[
+                                              @{ @"id" : @"A",
+                                                 @"position" : @0,
+                                                 @"markIn" : @10,
+                                                 @"markOut" : @60,
+                                                 @"duration" : @50,
+                                                 @"blockReason" : @"LEGAL" },
+                                              
+                                              @{ @"id" : @"B",
+                                                 @"position" : @1,
+                                                 @"markIn" : @10,
+                                                 @"markOut" : @40,
+                                                 @"duration" : @30,
+                                                 @"blockReason" : @"GEOBLOCK" }
+                                              ] };
+    
+    SRGChapter *chapter = [MTLJSONAdapter modelOfClass:[SRGChapter class] fromJSONDictionary:JSONDictionary error:&error];
+    XCTAssertNil(error);
+    
+    NSArray<SRGSegment *> *segments = chapter.segments;
+    XCTAssertEqual(segments.count, 2);
+    
+    SRGSubdivision *segment0 = segments[0];
+    XCTAssertEqual(segment0.uid, @"B");
+    XCTAssertEqual(segment0.position, 0);
+    XCTAssertEqual(segment0.markIn, 10);
+    XCTAssertEqual(segment0.markOut, 40);
+    XCTAssertEqual(segment0.duration, 30);
+    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonGeoblocking);
+    
+    SRGSubdivision *segment1 = segments[1];
+    XCTAssertEqual(segment1.uid, @"A");
+    XCTAssertEqual(segment1.position, 1);
+    XCTAssertEqual(segment1.markIn, 40);
+    XCTAssertEqual(segment1.markOut, 60);
+    XCTAssertEqual(segment1.duration, 20);
+    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonLegal);
 }
 
 @end
