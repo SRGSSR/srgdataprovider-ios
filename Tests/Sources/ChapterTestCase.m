@@ -21,8 +21,8 @@
 //   - Blocked subdivion overlapping with normal one (OK)
 //   - Two overlapping blocked subdivisions (OK)
 
-//   - Two nested normal subdivisions
-//   - Blocked subdivision nested in non-blocked one
+//   - Two nested normal subdivisions (OK)
+//   - Blocked subdivision nested in non-blocked one (OK)
 //   - Non-blocked subdivision nested in blocked one
 //   - Two nested blocked subdivisions
 //   - Two overlapping suvdivisions with same markin, different durations
@@ -378,6 +378,39 @@
     XCTAssertEqual(segment2.markOut, 60);
     XCTAssertEqual(segment2.duration, 20);
     XCTAssertEqual(segment2.blockingReason, SRGBlockingReasonNone);
+}
+
+- (void)testNestedNormalInBlockedSubdivisions
+{
+    NSError *error = nil;
+    NSDictionary *JSONDictionary = @{ @"segmentList" : @[
+                                              @{ @"id" : @"A",
+                                                 @"position" : @0,
+                                                 @"markIn" : @10,
+                                                 @"markOut" : @60,
+                                                 @"duration" : @50,
+                                                 @"blockReason" : @"GEOBLOCK" },
+                                              
+                                              @{ @"id" : @"B",
+                                                 @"position" : @1,
+                                                 @"markIn" : @20,
+                                                 @"markOut" : @40,
+                                                 @"duration" : @20 }
+                                              ] };
+    
+    SRGChapter *chapter = [MTLJSONAdapter modelOfClass:[SRGChapter class] fromJSONDictionary:JSONDictionary error:&error];
+    XCTAssertNil(error);
+    
+    NSArray<SRGSegment *> *segments = chapter.segments;
+    XCTAssertEqual(segments.count, 1);
+    
+    SRGSubdivision *segment0 = segments[0];
+    XCTAssertEqual(segment0.uid, @"A");
+    XCTAssertEqual(segment0.position, 0);
+    XCTAssertEqual(segment0.markIn, 10);
+    XCTAssertEqual(segment0.markOut, 60);
+    XCTAssertEqual(segment0.duration, 50);
+    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonGeoblocking);
 }
 
 @end
