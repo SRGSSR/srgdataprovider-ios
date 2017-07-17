@@ -212,10 +212,10 @@
 
 NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *subdivisions)
 {
-    NSPredicate *validPredicate = [NSPredicate predicateWithBlock:^BOOL(SRGSubdivision * _Nullable subdivision, NSDictionary<NSString *,id> * _Nullable bindings) {
+    NSPredicate *validSubdivisionsPredicate = [NSPredicate predicateWithBlock:^BOOL(SRGSubdivision * _Nullable subdivision, NSDictionary<NSString *,id> * _Nullable bindings) {
         return subdivision.duration > 0 && subdivision.markIn < subdivision.markOut;
     }];
-    subdivisions = [subdivisions filteredArrayUsingPredicate:validPredicate];
+    subdivisions = [subdivisions filteredArrayUsingPredicate:validSubdivisionsPredicate];
     
     if (subdivisions.count == 0) {
         return @[];
@@ -315,5 +315,9 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
         }
     }
     
-    return [sanitizedSubdivisions copy];
+    // Remove small non-blocked segments which might result because of the flattening.
+    NSPredicate *meaningfulSubdivisionsPredicate = [NSPredicate predicateWithBlock:^BOOL(SRGSubdivision * _Nullable subdivision, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return subdivision.blockingReason != SRGBlockingReasonNone || subdivision.duration >= 1000;     // At least one second
+    }];
+    return [sanitizedSubdivisions filteredArrayUsingPredicate:meaningfulSubdivisionsPredicate];
 }
