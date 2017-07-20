@@ -495,10 +495,11 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)videoMediaCompositionWithUid:(NSString *)videoUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
+- (SRGRequest *)videoMediaCompositionWithUid:(NSString *)videoUid chaptersOnly:(BOOL)chaptersOnly completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaComposition/video/%@.json", self.businessUnitIdentifier, videoUid];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    NSArray<NSURLQueryItem *> *queryItems = chaptersOnly ? @[ [NSURLQueryItem queryItemWithName:@"onlyChapters" value:@"true"] ] : nil;
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
     return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMediaComposition class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(object, error);
     }];
@@ -531,10 +532,11 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)audioMediaCompositionWithUid:(NSString *)audioUid completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
+- (SRGRequest *)audioMediaCompositionWithUid:(NSString *)audioUid chaptersOnly:(BOOL)chaptersOnly completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaComposition/audio/%@.json", self.businessUnitIdentifier, audioUid];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    NSArray<NSURLQueryItem *> *queryItems = chaptersOnly ? @[ [NSURLQueryItem queryItemWithName:@"onlyChapters" value:@"true"] ] : nil;
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
     return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMediaComposition class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(object, error);
     }];
@@ -568,10 +570,11 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGRequest *)mediaCompositionWithURN:(SRGMediaURN *)mediaURN completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
+- (SRGRequest *)mediaCompositionWithURN:(SRGMediaURN *)mediaURN chaptersOnly:(BOOL)chaptersOnly completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaComposition/byUrn/%@.json", mediaURN.URNString];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    NSArray<NSURLQueryItem *> *queryItems = chaptersOnly ? @[ [NSURLQueryItem queryItemWithName:@"onlyChapters" value:@"true"] ] : nil;
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
     return [self fetchObjectWithRequest:[NSURLRequest requestWithURL:URL] modelClass:[SRGMediaComposition class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(object, error);
     }];
