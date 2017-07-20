@@ -752,42 +752,52 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
     
-    // Video livestream
+    // RTS 'Actu en vidéo'. Collection of medias but without a full. Each clip can therefore be seen as its own full-length.
     XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider videoMediaCompositionWithUid:@"3608506" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
-        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"3608506");
+    [[self.dataProvider videoMediaCompositionWithUid:@"8787727" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"8787727");
         [expectation4 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
     
-    // Full-length AOD
+    // Video livestream
     XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider audioMediaCompositionWithUid:@"8533822" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
-        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"8533822");
+    [[self.dataProvider videoMediaCompositionWithUid:@"3608506" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"3608506");
         [expectation5 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
     
-    // AOD segment
+    // Full-length AOD
     XCTestExpectation *expectation6 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider audioMediaCompositionWithUid:@"8533813" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    [[self.dataProvider audioMediaCompositionWithUid:@"8533822" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"8533822");
         [expectation6 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
     
-    // Audio livestream
+    // AOD segment
     XCTestExpectation *expectation7 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider audioMediaCompositionWithUid:@"8533813" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"8533822");
+        [expectation7 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    // Audio livestream
+    XCTestExpectation *expectation8 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider audioMediaCompositionWithUid:@"3262320" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"3262320");
-        [expectation7 fulfill];
+        [expectation8 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

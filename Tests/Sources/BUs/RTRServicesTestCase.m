@@ -763,21 +763,11 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
     
-    // Full-length AOD
-    XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
-    
-    [[self.dataProvider audioMediaCompositionWithUid:@"d3be332c-42b6-4d2b-b937-456d94099c7c" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
-        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"d3be332c-42b6-4d2b-b937-456d94099c7c");
-        [expectation5 fulfill];
-    }] resume];
-    
-    [self waitForExpectationsWithTimeout:30. handler:nil];
-    
-    // AOD segment
+    // AOD (are their own full-length for RTR)
     XCTestExpectation *expectation6 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider audioMediaCompositionWithUid:@"1fc78a87-1ccb-4b8b-b103-980334d6ad94" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
-        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"d3be332c-42b6-4d2b-b937-456d94099c7c");
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"1fc78a87-1ccb-4b8b-b103-980334d6ad94");
         [expectation6 fulfill];
     }] resume];
     

@@ -69,9 +69,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) SRGSegment *mainSegment;
 
 /**
- *  Return the media object corresponding to the media composition full-length, if any.
+ *  Return the media object corresponding to the media composition full-length.
+ *
+ *  @param For medias which are not part of a full-length (and in this regard are their own full-length), the media
+ *         itself is returned.
  */
-@property (nonatomic, readonly, nullable) SRGMedia *fullLengthMedia;
+@property (nonatomic, readonly) SRGMedia *fullLengthMedia;
 
 @end
 
