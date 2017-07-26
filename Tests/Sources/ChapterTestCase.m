@@ -907,4 +907,46 @@
     XCTAssertEqual(segment3.blockingReason, SRGBlockingReasonNone);
 }
 
+- (void)testRelevantSubdivisions
+{
+    // After cut, a subdivision smaller than 1 second results but is discarded for this reason
+    NSError *error = nil;
+    NSDictionary *JSONDictionary = @{ @"segmentList" : @[
+                                              @{ @"id" : @"A",
+                                                 @"position" : @0,
+                                                 @"markIn" : @10000,
+                                                 @"markOut" : @60000,
+                                                 @"duration" : @50000 },
+                                              
+                                              @{ @"id" : @"B",
+                                                 @"position" : @1,
+                                                 @"markIn" : @10500,
+                                                 @"markOut" : @30000,
+                                                 @"duration" : @19500,
+                                                 @"blockReason" : @"GEOBLOCK" }
+                                              ] };
+    
+    SRGChapter *chapter = [MTLJSONAdapter modelOfClass:[SRGChapter class] fromJSONDictionary:JSONDictionary error:&error];
+    XCTAssertNil(error);
+    
+    NSArray<SRGSegment *> *segments = chapter.segments;
+    XCTAssertEqual(segments.count, 2);
+    
+    SRGSubdivision *segment0 = segments[0];
+    XCTAssertEqual(segment0.uid, @"B");
+    XCTAssertEqual(segment0.position, 0);
+    XCTAssertEqual(segment0.markIn, 10500);
+    XCTAssertEqual(segment0.markOut, 30000);
+    XCTAssertEqual(segment0.duration, 19500);
+    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonGeoblocking);
+    
+    SRGSubdivision *segment1 = segments[1];
+    XCTAssertEqual(segment1.uid, @"A");
+    XCTAssertEqual(segment1.position, 1);
+    XCTAssertEqual(segment1.markIn, 30000);
+    XCTAssertEqual(segment1.markOut, 60000);
+    XCTAssertEqual(segment1.duration, 30000);
+    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonNone);
+}
+
 @end
