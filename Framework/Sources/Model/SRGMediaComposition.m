@@ -96,7 +96,7 @@
     if (mainChapter.fullLengthURN) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGChapter.new, URN), mainChapter.fullLengthURN];
         SRGChapter *fullLengthChapter = [self.chapters filteredArrayUsingPredicate:predicate].firstObject;
-        return fullLengthChapter ? [self mediaForSubdivision:fullLengthChapter] : nil;
+        return fullLengthChapter ? [self mediaForSubdivision:fullLengthChapter] : [self mediaForSubdivision:mainChapter];
     }
     else {
         return [self mediaForSubdivision:mainChapter];
