@@ -1,9 +1,6 @@
 /* The main error message if multiple errors have been encountered. Finally, the developer could should which one to display, and not show this message. */
 "Several errors have been encountered" = "Verschiedene Fehler sind aufgetreten.";
 
-/* The error message when the audio request return nothing. */
-"The audio was not found" = "Das Audio wurde nicht gefunden.";
-
 /* A blocking reason message displayed to the user during the playback if a segment was skipped. */
 "The commercial content was skipped." = "Werbung darf in Play SRF nicht angezeigt werden und wird übersprungen.";
 
@@ -33,9 +30,6 @@
 
 /* The error message when the secure token cannot be retrieved to play the media stream. */
 "The stream could not be secured." = "Die Wiedergabe kann nicht abgesichert werden.";
-
-/* The error message when the video request return nothing. */
-"The video was not found" = "Das Video wurde nicht gefunden.";
 
 /* A blocking reason message displayed to the user if the media can't be played. */
 "This commercial media is not available." = "Dieses Werbe-Video ist nicht verfügbar.";
