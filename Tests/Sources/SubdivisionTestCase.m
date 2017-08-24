@@ -6,11 +6,11 @@
 
 #import "DataProviderBaseTestCase.h"
 
-@interface ChapterTestCase : DataProviderBaseTestCase
+@interface SubdivisionTestCase : DataProviderBaseTestCase
 
 @end
 
-@implementation ChapterTestCase
+@implementation SubdivisionTestCase
 
 - (void)testDisjointNormalSubdivisions
 {
