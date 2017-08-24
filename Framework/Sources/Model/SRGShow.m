@@ -125,7 +125,7 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
     }
     
     SRGShow *otherShow = object;
-    return [self.uid isEqualToString:otherShow.uid];
+    return [self.URN isEqual:otherShow.URN];
 }
 
 - (NSUInteger)hash

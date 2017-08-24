@@ -58,7 +58,7 @@
     }
     
     SRGEpisodeComposition *otherEpisodeComposition = object;
-    return [self.show.uid isEqualToString:otherEpisodeComposition.show.uid];
+    return [self.show.URN isEqual:otherEpisodeComposition.show.URN];
 }
 
 - (NSUInteger)hash

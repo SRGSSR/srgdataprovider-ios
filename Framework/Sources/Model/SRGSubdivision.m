@@ -200,7 +200,7 @@
     }
     
     SRGSubdivision *otherSubdivision = object;
-    return [self.uid isEqualToString:otherSubdivision.uid];
+    return [self.URN isEqual:otherSubdivision.URN];
 }
 
 - (NSUInteger)hash

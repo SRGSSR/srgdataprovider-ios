@@ -188,7 +188,7 @@
     }
     
     SRGMedia *otherMedia = object;
-    return [self.uid isEqualToString:otherMedia.uid];
+    return [self.URN isEqual:otherMedia.URN];
 }
 
 - (NSUInteger)hash
