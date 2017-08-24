@@ -108,12 +108,12 @@
 - (BOOL)containsSubdivision:(SRGSubdivision *)subdivision
 {
     for (SRGChapter *chapter in self.chapters) {
-        if (chapter == subdivision) {
+        if ([chapter isEqual:subdivision]) {
             return YES;
         }
         else {
             for (SRGSegment *chapterSegment in chapter.segments) {
-                if (chapterSegment == subdivision) {
+                if ([chapterSegment isEqual:subdivision]) {
                     return YES;
                 }
             }
