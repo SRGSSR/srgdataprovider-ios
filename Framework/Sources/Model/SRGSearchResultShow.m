@@ -75,7 +75,7 @@
     }
     
     SRGSearchResultShow *otherSearchResultShow = object;
-    return [self.uid isEqualToString:otherSearchResultShow.uid];
+    return [self.URN isEqual:otherSearchResultShow.URN];
 }
 
 - (NSUInteger)hash

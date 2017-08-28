@@ -96,7 +96,7 @@
     }
     
     SRGSearchResultMedia *otherSearchResultMedia = object;
-    return [self.uid isEqualToString:otherSearchResultMedia.uid];
+    return [self.URN isEqual:otherSearchResultMedia.URN];
 }
 
 - (NSUInteger)hash

@@ -96,7 +96,7 @@
     if (mainChapter.fullLengthURN) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGChapter.new, URN), mainChapter.fullLengthURN];
         SRGChapter *fullLengthChapter = [self.chapters filteredArrayUsingPredicate:predicate].firstObject;
-        return fullLengthChapter ? [self mediaForSubdivision:fullLengthChapter] : nil;
+        return fullLengthChapter ? [self mediaForSubdivision:fullLengthChapter] : [self mediaForSubdivision:mainChapter];
     }
     else {
         return [self mediaForSubdivision:mainChapter];
@@ -105,34 +105,37 @@
 
 #pragma mark Media and media composition generation
 
-- (BOOL)containsSubdivision:(SRGSubdivision *)subdivision
+// Return the media composition subdivision which matches the one provided as parameter, nil if not found.
+- (SRGSubdivision *)subdivisionMatchingSubdivision:(SRGSubdivision *)subdivision
 {
     for (SRGChapter *chapter in self.chapters) {
-        if (chapter == subdivision) {
-            return YES;
+        if ([chapter isEqual:subdivision]) {
+            return chapter;
         }
         else {
             for (SRGSegment *chapterSegment in chapter.segments) {
-                if (chapterSegment == subdivision) {
-                    return YES;
+                if ([chapterSegment isEqual:subdivision]) {
+                    return chapterSegment;
                 }
             }
         }
     }
     
-    return NO;
+    return nil;
 }
 
 - (SRGMedia *)mediaForSubdivision:(SRGSubdivision *)subdivision
 {
-    if (! [self containsSubdivision:subdivision]) {
+    SRGSubdivision *matchingSubdivision = [self subdivisionMatchingSubdivision:subdivision];
+    if (! matchingSubdivision) {
         return nil;
     }
     
     SRGMedia *media = [[SRGMedia alloc] init];
     
-    // Start from existing segment values
-    NSMutableDictionary *values = [subdivision.dictionaryValue mutableCopy];
+    // Start from the subdivision belonging to the media composition, so that values are as accurate as possible (the
+    // subdivision as parameter might namely have diverged).
+    NSMutableDictionary *values = [matchingSubdivision.dictionaryValue mutableCopy];
     
     // Merge with parent metadata available at the media composition level
     if (self.channel) {

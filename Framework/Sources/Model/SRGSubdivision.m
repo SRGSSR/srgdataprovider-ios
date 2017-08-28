@@ -200,7 +200,7 @@
     }
     
     SRGSubdivision *otherSubdivision = object;
-    return [self.uid isEqualToString:otherSubdivision.uid];
+    return [self.URN isEqual:otherSubdivision.URN];
 }
 
 - (NSUInteger)hash
@@ -302,7 +302,6 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
         
         // Add new subdivision if different from the last one we already have.
         if (! [lastSubdivision isEqual:matchingSubdivision]) {
-            matchingSubdivision.position = lastSubdivision ? lastSubdivision.position + 1 : 0;
             matchingSubdivision.markIn = markIn;
             matchingSubdivision.markOut = markOut;
             matchingSubdivision.duration = markOut - markIn;
@@ -319,5 +318,9 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
     NSPredicate *meaningfulSubdivisionsPredicate = [NSPredicate predicateWithBlock:^BOOL(SRGSubdivision * _Nullable subdivision, NSDictionary<NSString *,id> * _Nullable bindings) {
         return subdivision.blockingReason != SRGBlockingReasonNone || subdivision.duration >= 1000;     // At least one second
     }];
-    return [sanitizedSubdivisions filteredArrayUsingPredicate:meaningfulSubdivisionsPredicate];
+    NSArray<SRGSubdivision *> *meaningfulSubdivisions = [sanitizedSubdivisions filteredArrayUsingPredicate:meaningfulSubdivisionsPredicate];
+    [meaningfulSubdivisions enumerateObjectsUsingBlock:^(SRGSubdivision * _Nonnull subdivision, NSUInteger idx, BOOL * _Nonnull stop) {
+        subdivision.position = idx;
+    }];
+    return meaningfulSubdivisions;
 }
