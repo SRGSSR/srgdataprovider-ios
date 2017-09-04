@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, SRGMediaAvailability) {
     /**
      *  The media is not available yet.
      */
-    SRGMediaAvailabilityNotYet,
+    SRGMediaAvailabilityNotYetAvailable,
     /**
      *  The media is available.
      */
@@ -98,11 +98,12 @@ typedef NS_ENUM(NSInteger, SRGMediaAvailability) {
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGSocialCount *> *socialCounts;
 
-/**
- *  Return the availability of the media, depending of startDate and endDate.
- */
-@property (nonatomic, readonly) SRGMediaAvailability availability;
-
 @end
+
+/**
+ *  Return the availability of the given media metadata, depending of startDate and endDate.
+ */
+OBJC_EXTERN SRGMediaAvailability SRGDataProviderAvailabilityForMediaMetadata(id<SRGMediaMetadata> mediaMetadata);
+
 
 NS_ASSUME_NONNULL_END

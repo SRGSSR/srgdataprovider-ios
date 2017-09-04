@@ -191,22 +191,6 @@
     return [self.imageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
 }
 
-#pragma mark SRGMediaMetadata protocol
-
-- (SRGMediaAvailability)availability
-{
-    NSDate *nowDate = [NSDate date];
-    if (self.startDate && [nowDate compare:self.startDate] == NSOrderedAscending) {
-        return SRGMediaAvailabilityNotYet;
-    }
-    else if (self.endDate && [self.endDate compare:nowDate] == NSOrderedAscending) {
-        return SRGMediaAvailabilityExpired;
-    }
-    else {
-        return SRGMediaAvailabilityAvailable;
-    }
-}
-
 #pragma mark Equality
 
 - (BOOL)isEqual:(id)object
