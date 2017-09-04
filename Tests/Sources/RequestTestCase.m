@@ -371,11 +371,11 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testNoncompliantParameterURL
+- (void)testNonURLCompliantParameter
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
     
-    // Test an uid with a white space, to support all characters
+    // Test an uid topic with non supported characters in url path
     __block SRGRequest *request = [self.dataProvider tvLatestMediasForTopicWithUid:@"Edge Cases @IL" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssert(error);
         
