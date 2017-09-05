@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, SRGMediaAvailability) {
      */
     SRGMediaAvailabilityNone = 0,
     /**
-     *  The media is not available yet.
+     *  The media is not yet available.
      */
     SRGMediaAvailabilityNotYetAvailable,
     /**
@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, SRGMediaAvailability) {
     /**
      *  The media has expired and is not available anymore.
      */
-    SRGMediaAvailabilityExpired
+    SRGMediaAvailabilityNotAvailableAnymore
 };
 
 /**
@@ -101,9 +101,8 @@ typedef NS_ENUM(NSInteger, SRGMediaAvailability) {
 @end
 
 /**
- *  Return the availability of the given media metadata, depending of startDate and endDate.
+ *  Return the availability of the given media metadata.
  */
-OBJC_EXTERN SRGMediaAvailability SRGDataProviderAvailabilityForMediaMetadata(id<SRGMediaMetadata> mediaMetadata);
-
+OBJC_EXTERN SRGMediaAvailability SRGDataProviderAvailabilityForMediaMetadata(_Nullable id<SRGMediaMetadata> mediaMetadata);
 
 NS_ASSUME_NONNULL_END

@@ -14,6 +14,11 @@
 
 @implementation MediaAvailabilityTestCase
 
+- (void)testEmpty
+{
+    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(nil), SRGMediaAvailabilityNone);
+}
+
 - (void)testAlwaysAvailable
 {
     NSError *error = nil;
@@ -46,7 +51,7 @@
     SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
     XCTAssertNil(error);
     
-    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityExpired);
+    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityNotAvailableAnymore);
 }
 
 - (void)testAvailableBetweenDates
@@ -90,7 +95,7 @@
     SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
     XCTAssertNil(error);
     
-    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityExpired);
+    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityNotAvailableAnymore);
 }
 
 - (void)testAvailableWithFutureExpiredMedia

@@ -8,12 +8,16 @@
 
 SRGMediaAvailability SRGDataProviderAvailabilityForMediaMetadata(id<SRGMediaMetadata> mediaMetadata)
 {
+    if (! mediaMetadata) {
+        return SRGMediaAvailabilityNone;
+    }
+    
     NSDate *nowDate = [NSDate date];
     if (mediaMetadata.startDate && [nowDate compare:mediaMetadata.startDate] == NSOrderedAscending) {
         return SRGMediaAvailabilityNotYetAvailable;
     }
     else if (mediaMetadata.endDate && [mediaMetadata.endDate compare:nowDate] == NSOrderedAscending) {
-        return SRGMediaAvailabilityExpired;
+        return SRGMediaAvailabilityNotAvailableAnymore;
     }
     else {
         return SRGMediaAvailabilityAvailable;
