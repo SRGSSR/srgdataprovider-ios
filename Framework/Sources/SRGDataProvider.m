@@ -682,7 +682,8 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
 
 - (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(nullable NSArray<NSURLQueryItem *> *)queryItems
 {
-    NSURL *URL = [NSURL URLWithString:resourcePath relativeToURL:self.serviceURL];
+    NSURL *URL = [NSURL URLWithString:[resourcePath stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLPathAllowedCharacterSet]
+                        relativeToURL:self.serviceURL];
     NSURLComponents *URLComponents = [NSURLComponents componentsWithString:URL.absoluteString];
     
     NSMutableArray<NSURLQueryItem *> *fullQueryItems = [NSMutableArray array];
