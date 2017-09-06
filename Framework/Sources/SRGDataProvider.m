@@ -604,14 +604,26 @@ static SRGSocialCountEndpoint const SRGSocialCountEndpointLike = @"liked";
 
 #pragma mark Popularity services
 
+- (SRGRequest *)increaseViewCountForSubdivision:(SRGSubdivision *)subdivision
+                            withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
+{
+    return [self increaseSocialCountForEndpoint:SRGSocialCountEndpointView subdivision:subdivision withCompletionBlock:completionBlock];
+}
+
 - (SRGRequest *)increaseViewCountForMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
 {
-    return [self increaseSocialCountForEndpoint:SRGSocialCountEndpointView mediaComposition:mediaComposition withCompletionBlock:completionBlock];
+    return [self increaseSocialCountForEndpoint:SRGSocialCountEndpointView subdivision:mediaComposition.mainChapter withCompletionBlock:completionBlock];
+}
+
+- (SRGRequest *)increaseLikeCountForSubdivision:(SRGSubdivision *)subdivision
+                            withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
+{
+    return [self increaseSocialCountForEndpoint:SRGSocialCountEndpointLike subdivision:subdivision withCompletionBlock:completionBlock];
 }
 
 - (SRGRequest *)increaseLikeCountForMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
 {
-    return [self increaseSocialCountForEndpoint:SRGSocialCountEndpointLike mediaComposition:mediaComposition withCompletionBlock:completionBlock];
+    return [self increaseSocialCountForEndpoint:SRGSocialCountEndpointLike subdivision:mediaComposition.mainChapter withCompletionBlock:completionBlock];
 }
 
 #pragma mark Public module services
@@ -792,24 +804,23 @@ static SRGSocialCountEndpoint const SRGSocialCountEndpointLike = @"liked";
     }];
 }
 
-- (SRGRequest *)increaseSocialCountForEndpoint:(SRGSocialCountEndpoint)endPoint mediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
+- (SRGRequest *)increaseSocialCountForEndpoint:(SRGSocialCountEndpoint)endPoint subdivision:(SRGSubdivision *)subdivision withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
 {
     NSParameterAssert(endPoint);
+    NSParameterAssert(subdivision);
     
-    // Assert request parameters. Won't crash in release builds, but the request will most likely fail
-    SRGChapter *mainChapter = mediaComposition.mainChapter;
-    NSAssert(mainChapter, @"Expect a chapter");
-    NSAssert(mainChapter.event, @"Expect event information");
+    // Won't crash in release builds, but the request will most likely fail
+    NSAssert(subdivision.event, @"Expect event information");
     
-    NSString *mediaTypeString = (mainChapter.mediaType == SRGMediaTypeAudio) ? @"audio" : @"video";
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaStatistic/%@/%@/%@.json", self.businessUnitIdentifier, mediaTypeString, mainChapter.uid, endPoint];
+    NSString *mediaTypeString = (subdivision.mediaType == SRGMediaTypeAudio) ? @"audio" : @"video";
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaStatistic/%@/%@/%@.json", self.businessUnitIdentifier, mediaTypeString, subdivision.uid, endPoint];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
     request.HTTPMethod = @"POST";
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-    NSDictionary *bodyJSONDictionary = mediaComposition.mainChapter.event ? @{ @"eventData" : mediaComposition.mainChapter.event } : @{};
+    NSDictionary *bodyJSONDictionary = subdivision.event ? @{ @"eventData" : subdivision.event } : @{};
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyJSONDictionary options:0 error:NULL];
     
     return [self fetchObjectWithRequest:request modelClass:[SRGSocialCountOverview class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
