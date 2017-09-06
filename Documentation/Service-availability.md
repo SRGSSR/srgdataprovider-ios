@@ -129,10 +129,8 @@ These services can be used to increase popularity indicators.
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Increase view count for a subdivision | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Increase view count for media composition | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Increase like count for a subdivision | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Increase like count for a media composition | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+| Increase social count for a subdivision | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+| Increase social count for media composition | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 
 ## Module services
 

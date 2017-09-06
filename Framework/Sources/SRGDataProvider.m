@@ -45,11 +45,6 @@ static SRGDataProvider *s_currentDataProvider;
 
 static NSString *SRGDataProviderRequestDateString(NSDate *date);
 
-typedef NSString *SRGSocialCountEndpoint NS_STRING_ENUM;
-
-static SRGSocialCountEndpoint const SRGSocialCountEndpointView = @"clicked";
-static SRGSocialCountEndpoint const SRGSocialCountEndpointLike = @"liked";
-
 @interface SRGDataProvider ()
 
 @property (nonatomic) NSURL *serviceURL;
@@ -604,26 +599,45 @@ static SRGSocialCountEndpoint const SRGSocialCountEndpointLike = @"liked";
 
 #pragma mark Popularity services
 
-- (SRGRequest *)increaseViewCountForSubdivision:(SRGSubdivision *)subdivision
-                            withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
+- (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type subdivision:(SRGSubdivision *)subdivision withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
 {
-    return [self increaseSocialCountForEndpoint:SRGSocialCountEndpointView subdivision:subdivision withCompletionBlock:completionBlock];
+    NSParameterAssert(subdivision);
+    
+    // Won't crash in release builds, but the request will most likely fail
+    NSAssert(subdivision.event, @"Expect event information");
+    
+    static dispatch_once_t s_onceToken;
+    static NSDictionary<NSNumber *, NSString *> *s_endPoints;
+    dispatch_once(&s_onceToken, ^{
+        s_endPoints = @{ @(SRGSocialCountTypeSRGView) : @"clicked",
+                         @(SRGSocialCountTypeSRGLike) : @"liked",
+                         @(SRGSocialCountTypeFacebookShare) : @"shared/facebook",
+                         @(SRGSocialCountTypeTwitterShare) : @"shared/twitter",
+                         @(SRGSocialCountTypeGooglePlusShare) : @"shared/google",
+                         @(SRGSocialCountTypeWhatsAppShare) : @"shared/whatsapp" };
+    });
+    NSString *endPoint = s_endPoints[@(type)];
+    NSAssert(endPoint, @"A supported social count type must be provided");
+    
+    NSString *mediaTypeString = (subdivision.mediaType == SRGMediaTypeAudio) ? @"audio" : @"video";
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaStatistic/%@/%@/%@.json", self.businessUnitIdentifier, mediaTypeString, subdivision.uid, endPoint];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+    request.HTTPMethod = @"POST";
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSDictionary *bodyJSONDictionary = subdivision.event ? @{ @"eventData" : subdivision.event } : @{};
+    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyJSONDictionary options:0 error:NULL];
+    
+    return [self fetchObjectWithRequest:request modelClass:[SRGSocialCountOverview class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(object, error);
+    }];
 }
 
-- (SRGRequest *)increaseViewCountForMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
+- (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type mediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
 {
-    return [self increaseSocialCountForEndpoint:SRGSocialCountEndpointView subdivision:mediaComposition.mainChapter withCompletionBlock:completionBlock];
-}
-
-- (SRGRequest *)increaseLikeCountForSubdivision:(SRGSubdivision *)subdivision
-                            withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
-{
-    return [self increaseSocialCountForEndpoint:SRGSocialCountEndpointLike subdivision:subdivision withCompletionBlock:completionBlock];
-}
-
-- (SRGRequest *)increaseLikeCountForMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
-{
-    return [self increaseSocialCountForEndpoint:SRGSocialCountEndpointLike subdivision:mediaComposition.mainChapter withCompletionBlock:completionBlock];
+    return [self increaseSocialCountForType:type subdivision:mediaComposition.mainChapter withCompletionBlock:completionBlock];
 }
 
 #pragma mark Public module services
@@ -801,30 +815,6 @@ static SRGSocialCountEndpoint const SRGSocialCountEndpointLike = @"liked";
         }
         
         completionBlock(object, page, nextPage, nil);
-    }];
-}
-
-- (SRGRequest *)increaseSocialCountForEndpoint:(SRGSocialCountEndpoint)endPoint subdivision:(SRGSubdivision *)subdivision withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
-{
-    NSParameterAssert(endPoint);
-    NSParameterAssert(subdivision);
-    
-    // Won't crash in release builds, but the request will most likely fail
-    NSAssert(subdivision.event, @"Expect event information");
-    
-    NSString *mediaTypeString = (subdivision.mediaType == SRGMediaTypeAudio) ? @"audio" : @"video";
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaStatistic/%@/%@/%@.json", self.businessUnitIdentifier, mediaTypeString, subdivision.uid, endPoint];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-    request.HTTPMethod = @"POST";
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    NSDictionary *bodyJSONDictionary = subdivision.event ? @{ @"eventData" : subdivision.event } : @{};
-    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyJSONDictionary options:0 error:NULL];
-    
-    return [self fetchObjectWithRequest:request modelClass:[SRGSocialCountOverview class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(object, error);
     }];
 }
 

@@ -663,28 +663,18 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 @interface SRGDataProvider (PopularityServices)
 
 /**
- *  Increase the SRG view count from 1 unit for the specified subdivision.
+ *  Increase the specified social count from 1 unit for the specified subdivision.
  */
-- (SRGRequest *)increaseViewCountForSubdivision:(SRGSubdivision *)subdivision
-                            withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
+- (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
+                               subdivision:(SRGSubdivision *)subdivision
+                       withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
 
 /**
- *  Increase the SRG view count from 1 unit for the specified media composition.
+ *  Increase the specified social count from 1 unit for the specified subdivision.
  */
-- (SRGRequest *)increaseViewCountForMediaComposition:(SRGMediaComposition *)mediaComposition
-                                 withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
-
-/**
- *  Increase the SRG like count from 1 unit for the specified subdivision.
- */
-- (SRGRequest *)increaseLikeCountForSubdivision:(SRGSubdivision *)subdivision
-                            withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
-
-/**
- *  Increase the SRG like count from 1 unit for the specified media composition.
- */
-- (SRGRequest *)increaseLikeCountForMediaComposition:(SRGMediaComposition *)mediaComposition
-                                 withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
+- (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
+                          mediaComposition:(SRGMediaComposition *)mediaComposition
+                       withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
 
 @end
 
