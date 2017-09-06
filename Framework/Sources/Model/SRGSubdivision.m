@@ -205,7 +205,7 @@
 
 - (NSUInteger)hash
 {
-    return self.uid.hash;
+    return self.URN.hash;
 }
 
 @end
