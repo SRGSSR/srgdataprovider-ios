@@ -706,6 +706,156 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testIncreaseSocialCountWithMediaComposition
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
+            XCTAssertNotNil(socialCountOverview);
+            XCTAssertNil(error);
+            [expectation1 fulfill];
+        }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGLike mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
+            XCTAssertNotNil(socialCountOverview);
+            XCTAssertNil(error);
+            [expectation2 fulfill];
+        }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeFacebookShare mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
+            XCTAssertNotNil(socialCountOverview);
+            XCTAssertNil(error);
+            [expectation3 fulfill];
+        }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeTwitterShare mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
+            XCTAssertNotNil(socialCountOverview);
+            XCTAssertNil(error);
+            [expectation4 fulfill];
+        }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeGooglePlusShare mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
+            XCTAssertNotNil(socialCountOverview);
+            XCTAssertNil(error);
+            [expectation5 fulfill];
+        }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation6 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeWhatsAppShare mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
+            XCTAssertNotNil(socialCountOverview);
+            XCTAssertNil(error);
+            [expectation6 fulfill];
+        }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testIncreaseSocialCountWithSubdivision
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
+            XCTAssertNotNil(socialCountOverview);
+            XCTAssertNil(error);
+            [expectation1 fulfill];
+        }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGLike subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
+            XCTAssertNotNil(socialCountOverview);
+            XCTAssertNil(error);
+            [expectation2 fulfill];
+        }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeFacebookShare subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
+            XCTAssertNotNil(socialCountOverview);
+            XCTAssertNil(error);
+            [expectation3 fulfill];
+        }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeTwitterShare subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
+            XCTAssertNotNil(socialCountOverview);
+            XCTAssertNil(error);
+            [expectation4 fulfill];
+        }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeGooglePlusShare subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
+            XCTAssertNotNil(socialCountOverview);
+            XCTAssertNil(error);
+            [expectation5 fulfill];
+        }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation6 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeWhatsAppShare subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
+            XCTAssertNotNil(socialCountOverview);
+            XCTAssertNil(error);
+            [expectation6 fulfill];
+        }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testModules
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];

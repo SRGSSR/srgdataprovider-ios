@@ -31,6 +31,8 @@
 		6F8201DD1D9A3FAC001DA4DA /* DataProviderTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8201DC1D9A3FAC001DA4DA /* DataProviderTestCase.m */; };
 		6F8201E01D9A62D2001DA4DA /* RequestTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8201DF1D9A62D2001DA4DA /* RequestTestCase.m */; };
 		6F8201E31D9AA087001DA4DA /* RequestQueueTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8201E21D9AA087001DA4DA /* RequestQueueTestCase.m */; };
+		6F886E491F5FBA2600C8804D /* SRGSocialCountOverview.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F886E471F5FBA2600C8804D /* SRGSocialCountOverview.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6F886E4A1F5FBA2600C8804D /* SRGSocialCountOverview.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F886E481F5FBA2600C8804D /* SRGSocialCountOverview.m */; };
 		6F98DD6B1E8282EB008B0B22 /* SWIServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F98DD691E8282A9008B0B22 /* SWIServicesTestCase.m */; };
 		6FA09D821D9EB37600EDCA64 /* SRGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; };
 		6FA09D851D9EB39000EDCA64 /* SRGLogger.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -192,6 +194,8 @@
 		6F8201DC1D9A3FAC001DA4DA /* DataProviderTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataProviderTestCase.m; sourceTree = "<group>"; };
 		6F8201DF1D9A62D2001DA4DA /* RequestTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestTestCase.m; sourceTree = "<group>"; };
 		6F8201E21D9AA087001DA4DA /* RequestQueueTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestQueueTestCase.m; sourceTree = "<group>"; };
+		6F886E471F5FBA2600C8804D /* SRGSocialCountOverview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSocialCountOverview.h; sourceTree = "<group>"; };
+		6F886E481F5FBA2600C8804D /* SRGSocialCountOverview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSocialCountOverview.m; sourceTree = "<group>"; };
 		6F98DD691E8282A9008B0B22 /* SWIServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWIServicesTestCase.m; sourceTree = "<group>"; };
 		6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SRGLogger.framework; path = Carthage/Build/iOS/SRGLogger.framework; sourceTree = "<group>"; };
 		6FA09D861D9EB5CA00EDCA64 /* SRGDataProviderLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGDataProviderLogger.h; sourceTree = "<group>"; };
@@ -479,6 +483,8 @@
 				E6C2B3F71D392F1A00B6250B /* SRGShow.m */,
 				E67BB6671D3D2FB600E1FEA3 /* SRGSocialCount.h */,
 				E67BB6681D3D2FB600E1FEA3 /* SRGSocialCount.m */,
+				6F886E471F5FBA2600C8804D /* SRGSocialCountOverview.h */,
+				6F886E481F5FBA2600C8804D /* SRGSocialCountOverview.m */,
 				6FEFFEF81F02A08F00CD6FCA /* SRGSong.h */,
 				6FEFFEF91F02A08F00CD6FCA /* SRGSong.m */,
 				E68598A81D40CC750010000A /* SRGSubdivision.h */,
@@ -586,6 +592,7 @@
 				6FDF33BE1F013DDD00BA1D6E /* SRGShowURN.h in Headers */,
 				6F723D921E83FC9100BB5F33 /* SRGSessionDelegate.h in Headers */,
 				E6C2B3FC1D392F2300B6250B /* SRGChapter.h in Headers */,
+				6F886E491F5FBA2600C8804D /* SRGSocialCountOverview.h in Headers */,
 				6FDF33B71F013D5100BA1D6E /* SRGShowIdentifierMetadata.h in Headers */,
 				E6C2B3F81D392F1A00B6250B /* SRGShow.h in Headers */,
 				6FD909921E8592710071748C /* SRGFirstPageRequest.h in Headers */,
@@ -796,6 +803,7 @@
 				6FD909931E8592710071748C /* SRGFirstPageRequest.m in Sources */,
 				6F73CDCB1EEECDF400C7EC4A /* NSHTTPURLResponse+SRGDataProvider.m in Sources */,
 				E6AE51431D40A66C00572CE4 /* SRGRelatedContent.m in Sources */,
+				6F886E4A1F5FBA2600C8804D /* SRGSocialCountOverview.m in Sources */,
 				6FDF33D11F0236EB00BA1D6E /* SRGSegment.m in Sources */,
 				E62459B91D47828D00482BE9 /* SRGRequest.m in Sources */,
 				6FEFFEFB1F02A08F00CD6FCA /* SRGSong.m in Sources */,

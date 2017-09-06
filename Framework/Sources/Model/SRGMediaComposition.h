@@ -11,8 +11,6 @@
 #import "SRGModel.h"
 #import "SRGSegment.h"
 
-#import <Mantle/Mantle.h>
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**
