@@ -44,6 +44,7 @@
 #import "SRGShowIdentifierMetadata.h"
 #import "SRGShowURN.h"
 #import "SRGSocialCount.h"
+#import "SRGSocialCountOverview.h"
 #import "SRGSong.h"
 #import "SRGSubdivision.h"
 #import "SRGSubtitle.h"
@@ -79,6 +80,7 @@ typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medi
 typedef void (^SRGModuleListCompletionBlock)(NSArray<SRGModule *> * _Nullable modules, NSError * _Nullable error);
 typedef void (^SRGShowCompletionBlock)(SRGShow * _Nullable show, NSError * _Nullable error);
 typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error);
+typedef void (^SRGSocialCountOverviewCompletionBlock)(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error);
 typedef void (^SRGSongCompletionBlock)(SRGSong * _Nullable song, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error);
 typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable error);
@@ -652,6 +654,25 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  */
 - (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(SRGShowURN *)showURN
                                       completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
+
+@end
+
+/**
+ *  List of services for popularity measurements supported by the data provider.
+ */
+@interface SRGDataProvider (PopularityServices)
+
+/**
+ *  Increase the SRG view count from 1 unit for the specified media composition.
+ */
+- (SRGRequest *)increaseViewCountForMediaComposition:(SRGMediaComposition *)mediaComposition
+                                 withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
+
+/**
+ *  Increase the SRG like count from 1 unit for the specified media composition.
+ */
+- (SRGRequest *)increaseLikeCountForMediaComposition:(SRGMediaComposition *)mediaComposition
+                                 withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
 
 @end
 

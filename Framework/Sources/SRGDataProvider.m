@@ -45,6 +45,11 @@ static SRGDataProvider *s_currentDataProvider;
 
 static NSString *SRGDataProviderRequestDateString(NSDate *date);
 
+typedef NSString *SRGSocialCountEndpoint NS_STRING_ENUM;
+
+static SRGSocialCountEndpoint const SRGSocialCountEndpointView = @"clicked";
+static SRGSocialCountEndpoint const SRGSocialCountEndpointLike = @"liked";
+
 @interface SRGDataProvider ()
 
 @property (nonatomic) NSURL *serviceURL;
@@ -597,6 +602,18 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     return [self fetchObjectWithRequest:request modelClass:[SRGEpisodeComposition class] completionBlock:completionBlock];
 }
 
+#pragma mark Popularity services
+
+- (SRGRequest *)increaseViewCountForMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
+{
+    return [self increaseSocialCountForEndpoint:SRGSocialCountEndpointView mediaComposition:mediaComposition withCompletionBlock:completionBlock];
+}
+
+- (SRGRequest *)increaseLikeCountForMediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
+{
+    return [self increaseSocialCountForEndpoint:SRGSocialCountEndpointLike mediaComposition:mediaComposition withCompletionBlock:completionBlock];
+}
+
 #pragma mark Public module services
 
 - (SRGRequest *)modulesWithType:(SRGModuleType)moduleType completionBlock:(SRGModuleListCompletionBlock)completionBlock
@@ -772,6 +789,31 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
         }
         
         completionBlock(object, page, nextPage, nil);
+    }];
+}
+
+- (SRGRequest *)increaseSocialCountForEndpoint:(SRGSocialCountEndpoint)endPoint mediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
+{
+    NSParameterAssert(endPoint);
+    
+    // Assert request parameters. Won't crash in release builds, but the request will most likely fail
+    SRGChapter *mainChapter = mediaComposition.mainChapter;
+    NSAssert(mainChapter, @"Expect a chapter");
+    NSAssert(mainChapter.event, @"Expect event information");
+    
+    NSString *mediaTypeString = (mainChapter.mediaType == SRGMediaTypeAudio) ? @"audio" : @"video";
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaStatistic/%@/%@/%@.json", self.businessUnitIdentifier, mediaTypeString, mainChapter.uid, endPoint];
+    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+    request.HTTPMethod = @"POST";
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSDictionary *bodyJSONDictionary = mediaComposition.mainChapter.event ? @{ @"eventData" : mediaComposition.mainChapter.event } : @{};
+    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyJSONDictionary options:0 error:NULL];
+    
+    return [self fetchObjectWithRequest:request modelClass:[SRGSocialCountOverview class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(object, error);
     }];
 }
 
