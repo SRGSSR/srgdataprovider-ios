@@ -32,13 +32,20 @@ static SRGDataProviderURLOverridingBlock s_imageURLOverridingBlock = nil;
     
     // The audio SRF image resizing service (also used for RTR) does not support resizing
     NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-    if ([URLComponents.host isEqualToString:@"www.srfcdn.ch"] || [self.absoluteString containsString:@"srf.ch/static"]) {
+    if ([URLComponents.host isEqualToString:@"www.srfcdn.ch"] ||
+        ([URLComponents.host isEqualToString:@"www.srf.ch"] && [URLComponents.path containsString:@"/static/"])) {
         return self;
     }
     
     NSString *dimensionString = (dimension == SRGImageDimensionWidth) ? @"width" : @"height";
     NSString *sizeComponent = [NSString stringWithFormat:@"scale/%@/%@", dimensionString, @(value)];
     URLComponents.path = [URLComponents.path stringByAppendingPathComponent:sizeComponent];
+    
+    // For apigee URL, don't forget double / in path URL, removed by NSURLComponents
+    // It seems that our apigee API allows to have only :/ in path but have the same path is prefered
+    if ([self.path containsString:@"://"] && ! [URLComponents.path containsString:@"://"]) {
+        URLComponents.path = [URLComponents.path stringByReplacingOccurrencesOfString:@":/" withString:@"://"];
+    }
     
     return URLComponents.URL;
 }
