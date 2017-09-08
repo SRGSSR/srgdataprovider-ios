@@ -52,40 +52,6 @@
     XCTAssertTrue([pathComponents.lastObject isEqualToString:@"300"]);
 }
 
-- (void)testImageNoScaleWidth
-{
-    
-    NSURL *imageURL = [NSURL URLWithString:@"https://www.srf.ch/static/radio/modules/data/pictures/srf-4/international/2017/09-2017/481100.170906_echo_nordkorea_milliarden_rakete-624.jpg"];
-    NSURL *scaledImageURL = [imageURL srg_URLForDimension:SRGImageDimensionWidth
-                                                withValue:400.f
-                                                      uid:nil
-                                                     type:SRGImageTypeDefault];
-    XCTAssertNotNil(scaledImageURL);
-    
-    NSArray<NSString *> *pathComponents = scaledImageURL.pathComponents;
-    XCTAssertTrue([scaledImageURL.absoluteString containsString:imageURL.absoluteString]);
-    XCTAssertFalse([pathComponents[pathComponents.count - 3] isEqualToString:@"scale"]);
-    XCTAssertFalse([pathComponents[pathComponents.count - 2] isEqualToString:@"width"]);
-    XCTAssertFalse([pathComponents.lastObject isEqualToString:@"400"]);
-}
-
-- (void)testImageNoScaleHeight
-{
-    
-    NSURL *imageURL = [NSURL URLWithString:@"https://www.srf.ch/static/radio/modules/data/pictures/srf-4/international/2017/09-2017/481100.170906_echo_nordkorea_milliarden_rakete-624.jpg"];
-    NSURL *scaledImageURL = [imageURL srg_URLForDimension:SRGImageDimensionHeight
-                                                withValue:300.f
-                                                      uid:nil
-                                                     type:SRGImageTypeDefault];
-    XCTAssertNotNil(scaledImageURL);
-    
-    NSArray<NSString *> *pathComponents = scaledImageURL.pathComponents;
-    XCTAssertTrue([scaledImageURL.absoluteString containsString:imageURL.absoluteString]);
-    XCTAssertFalse([pathComponents[pathComponents.count - 3] isEqualToString:@"scale"]);
-    XCTAssertFalse([pathComponents[pathComponents.count - 2] isEqualToString:@"height"]);
-    XCTAssertFalse([pathComponents.lastObject isEqualToString:@"300"]);
-}
-
 - (void)testImageScaleWidthThroughApigee
 {
     
