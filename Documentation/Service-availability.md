@@ -150,3 +150,20 @@ Modules are collection of medias related to a specific context (e.g. an event).
 ### Remark
 
 The URL tokenization service is in common to all BUs.
+
+## Scale image URL services
+
+| Request | SRF | RTS | RSI | RTR | SWI |
+|:-- |:--:|:--:|:--:|:--:|:--:|
+| Video image with width | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Video image with correct width | ✅ | ✅ | ❌ | ✅ | ✅ |
+| Video image with height | ✅ | ✅ | ❌| ✅ | ❌ |
+| Video image with correct height | ✅ | ✅ | ❌ | ✅ | ❌ |
+| Audio image with width | ✅ | ✅ | ✅ | ✅ | N/A |
+| Audio image with correct width | ❌ | ✅ | ❌ | ❌ | N/A |
+| Audio image with height | ✅ | ✅ | ❌ | ✅ | N/A |
+| Audio image with correct height | ❌ | ✅ | ❌ | ❌ | N/A |
+
+### Remark
+
+Scale image URL services are BUs dependant
