@@ -36,12 +36,6 @@ static SRGDataProviderURLOverridingBlock s_imageURLOverridingBlock = nil;
     NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     URLComponents.path = [URLComponents.path stringByAppendingPathComponent:sizeComponent];
     
-    // For apigee URL, don't forget double / in path URL, removed by NSURLComponents
-    // It seems that our apigee API allows to have only :/ in path but have the same path is prefered
-    if ([self.path containsString:@"://"] && ! [URLComponents.path containsString:@"://"]) {
-        URLComponents.path = [URLComponents.path stringByReplacingOccurrencesOfString:@":/" withString:@"://"];
-    }
-    
     return URLComponents.URL;
 }
 
