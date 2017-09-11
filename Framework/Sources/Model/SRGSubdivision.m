@@ -181,7 +181,7 @@
 
 + (NSValueTransformer *)socialCountsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGRelatedContent class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSocialCount class]];
 }
 
 #pragma mark SRGImage protocol
