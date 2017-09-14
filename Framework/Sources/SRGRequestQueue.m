@@ -107,9 +107,15 @@ static NSMapTable<SRGRequestQueue *, NSHashTable<SRGRequest *> *> *s_relationshi
 
 - (void)reportError:(NSError *)error
 {
-    if (!error) {
+    if (! error) {
         return;
     }
+    
+    if (! self.running) {
+        SRGDataProviderLogWarning(@"Request Queue", @"The error %@ was reported to a non-running queue and will therefore be lost.", error);
+        return;
+    }
+    
     [self.errors addObject:error];
 }
 
