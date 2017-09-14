@@ -181,7 +181,7 @@
 
 + (NSValueTransformer *)socialCountsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGRelatedContent class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSocialCount class]];
 }
 
 #pragma mark SRGImage protocol
@@ -205,7 +205,7 @@
 
 - (NSUInteger)hash
 {
-    return self.uid.hash;
+    return self.URN.hash;
 }
 
 @end

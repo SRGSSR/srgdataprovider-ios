@@ -63,7 +63,7 @@
 
 - (NSUInteger)hash
 {
-    return self.show.uid.hash;
+    return self.show.URN.hash;
 }
 
 @end

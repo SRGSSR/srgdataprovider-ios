@@ -16,6 +16,28 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
+ *  Media availability.
+ */
+typedef NS_ENUM(NSInteger, SRGMediaAvailability) {
+    /**
+     *  Not specified.
+     */
+    SRGMediaAvailabilityNone = 0,
+    /**
+     *  The media is not yet available.
+     */
+    SRGMediaAvailabilityNotYetAvailable,
+    /**
+     *  The media is available.
+     */
+    SRGMediaAvailabilityAvailable,
+    /**
+     *  The media has expired and is not available anymore.
+     */
+    SRGMediaAvailabilityNotAvailableAnymore
+};
+
+/**
  *  Common protocol for medias.
  */
 @protocol SRGMediaMetadata <SRGMetadata, SRGMediaIdentifierMetadata, SRGImageMetadata>
@@ -77,5 +99,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) NSArray<SRGSocialCount *> *socialCounts;
 
 @end
+
+/**
+ *  Return the availability of the given media metadata.
+ */
+OBJC_EXTERN SRGMediaAvailability SRGDataProviderAvailabilityForMediaMetadata(_Nullable id<SRGMediaMetadata> mediaMetadata);
 
 NS_ASSUME_NONNULL_END

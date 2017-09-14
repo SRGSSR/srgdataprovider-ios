@@ -123,6 +123,15 @@ These services provide a way to access content from any business unit from any d
 | Show by URN | - |
 | Latest episodes for show with URN | - |
 
+## Popularity services
+
+These services can be used to increase popularity indicators.
+
+| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
+|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Increase social count for a subdivision | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+| Increase social count for media composition | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+
 ## Module services
 
 Modules are collection of medias related to a specific context (e.g. an event).
@@ -141,3 +150,20 @@ Modules are collection of medias related to a specific context (e.g. an event).
 ### Remark
 
 The URL tokenization service is in common to all BUs.
+
+## Scale image URL services
+
+| Request | SRF | RTS | RSI | RTR | SWI |
+|:-- |:--:|:--:|:--:|:--:|:--:|
+| Video image with width | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Video image with correct width | ✅ | ✅ | ❌ | ✅ | ✅ |
+| Video image with height | ✅ | ✅ | ❌| ✅ | ❌ |
+| Video image with correct height | ✅ | ✅ | ❌ | ✅ | ❌ |
+| Audio image with width | ✅ | ✅ | ✅ | ✅ | N/A |
+| Audio image with correct width | ❌ | ✅ | ❌ | ❌ | N/A |
+| Audio image with height | ✅ | ✅ | ❌ | ✅ | N/A |
+| Audio image with correct height | ❌ | ✅ | ❌ | ❌ | N/A |
+
+### Remark
+
+Scale image URL services are BUs dependant

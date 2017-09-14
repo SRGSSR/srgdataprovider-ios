@@ -30,14 +30,10 @@ static SRGDataProviderURLOverridingBlock s_imageURLOverridingBlock = nil;
         return self;
     }
     
-    // The audio SRF image resizing service (also used for RTR) does not support resizing
-    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-    if ([URLComponents.host isEqualToString:@"www.srfcdn.ch"] || [self.absoluteString containsString:@"srf.ch/static"]) {
-        return self;
-    }
-    
     NSString *dimensionString = (dimension == SRGImageDimensionWidth) ? @"width" : @"height";
     NSString *sizeComponent = [NSString stringWithFormat:@"scale/%@/%@", dimensionString, @(value)];
+    
+    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     URLComponents.path = [URLComponents.path stringByAppendingPathComponent:sizeComponent];
     
     return URLComponents.URL;
