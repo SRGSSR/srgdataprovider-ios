@@ -360,13 +360,13 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Latest episodes for a specific show.
  *
- *  @param oldestMonth The oldest month for which medias are returned (if `nil`, all medias are returned).
+ *  @param maximumPublicationMonth If not `nil`, medias up to the specified month are returned.
  *
  *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes 
  *              returned in the episode composition object).
  */
 - (SRGFirstPageRequest *)tvLatestEpisodesForShowWithUid:(NSString *)showUid
-                                            oldestMonth:(nullable NSDate *)oldestMonth
+                                maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
                                         completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
 /**
@@ -472,13 +472,13 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Latest episodes for a specific show.
  *
- *  @param oldestMonth The oldest month for which medias are returned (if `nil`, all medias are returned).
+ *  @param maximumPublicationMonth If not `nil`, medias up to the specified month are returned.
  *
  *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes 
  *              returned in the episode composition object).
  */
 - (SRGFirstPageRequest *)radioLatestEpisodesForShowWithUid:(NSString *)showUid
-                                               oldestMonth:(nullable NSDate *)oldestMonth
+                                   maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
                                            completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
 /**
@@ -648,14 +648,14 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Latest episodes for a specific show.
  *
- *  @param oldestMonth The oldest month for which medias are returned (if `nil`, all medias are returned).
+ *  @param maximumPublicationMonth If not `nil`, medias up to the specified month are returned.
  *
  *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes
  *              returned in the episode composition object). Unlike the equivalent TV and radio requests, this request
  *              does not support an optional date to filter only more recent media.
  */
 - (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(SRGShowURN *)showURN
-                                          oldestMonth:(nullable NSDate *)oldestMonth
+                              maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
                                       completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
 @end
