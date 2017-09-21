@@ -589,11 +589,23 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(SRGShowURN *)showURN
-                                      completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
+- (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(SRGShowURN *)showURN oldestMonth:(NSDate *)oldestMonth completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/episodeComposition/latestByShow/byUrn/%@.json", showURN.URNString];
-    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
+    
+    NSArray<NSURLQueryItem *> *queryItems = nil;
+    if (oldestMonth) {
+        static NSDateFormatter *s_dateFormatter;
+        static dispatch_once_t s_onceToken;
+        dispatch_once(&s_onceToken, ^{
+            s_dateFormatter = [[NSDateFormatter alloc] init];
+            s_dateFormatter.dateFormat = @"yyyy-MM";
+        });
+        
+        queryItems = @[ [NSURLQueryItem queryItemWithName:@"maxPublishedDate" value:[s_dateFormatter stringFromDate:oldestMonth]] ];
+    }
+    
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:queryItems];
     return [self fetchObjectWithRequest:request modelClass:[SRGEpisodeComposition class] completionBlock:completionBlock];
 }
 

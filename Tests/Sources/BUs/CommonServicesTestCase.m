@@ -167,10 +167,24 @@ static NSString * const kInvalidShowURN = @"urn:rts:show:tv:999999999999999";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider latestEpisodesForShowWithURN:[SRGShowURN showURNWithString:kShowURN] completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider latestEpisodesForShowWithURN:[SRGShowURN showURNWithString:kShowURN] oldestMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(episodeComposition);
         XCTAssertNil(error);
         [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    dateComponents.year = 2016;
+    dateComponents.month = 5;
+    
+    [[self.dataProvider latestEpisodesForShowWithURN:[SRGShowURN showURNWithString:kShowURN] oldestMonth:dateComponents.date completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(episodeComposition);
+        XCTAssertNil(error);
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
