@@ -817,7 +817,7 @@ NSString *SRGDataProviderMarketingVersion(void)
 
 static NSString *SRGDataProviderRequestDateString(NSDate *date)
 {
-    NSCAssert(date, @"Expect a date");
+    NSCParameterAssert(date);
     
     static NSDateFormatter *dateFormatter;
     static dispatch_once_t onceToken;
