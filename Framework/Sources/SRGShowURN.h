@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Convenience constructor.
  */
-+ (SRGShowURN *)showURNWithString:(NSString *)URNString;
++ (nullable SRGShowURN *)showURNWithString:(NSString *)URNString;
 
 /**
  *  Create a URN from a string representation. If the string representation is invalid, the method returns `nil`.

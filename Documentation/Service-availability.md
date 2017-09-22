@@ -151,18 +151,16 @@ Modules are collection of medias related to a specific context (e.g. an event).
 
 The URL tokenization service is in common to all BUs.
 
-## Scale image URL services
+## Image scaling services
+
+A ⚠️ means that a service is supported, but might not return an image with the exact requested dimension.
 
 | Request | SRF | RTS | RSI | RTR | SWI |
 |:-- |:--:|:--:|:--:|:--:|:--:|
-| Video image with width | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Video image with correct width | ✅ | ✅ | ❌ | ✅ | ✅ |
-| Video image with height | ✅ | ✅ | ❌| ✅ | ❌ |
-| Video image with correct height | ✅ | ✅ | ❌ | ✅ | ❌ |
-| Audio image with width | ✅ | ✅ | ✅ | ✅ | N/A |
-| Audio image with correct width | ❌ | ✅ | ❌ | ❌ | N/A |
-| Audio image with height | ✅ | ✅ | ❌ | ✅ | N/A |
-| Audio image with correct height | ❌ | ✅ | ❌ | ❌ | N/A |
+| Video image with width | ✅ | ✅ | ⚠️ | ✅ | ✅ |
+| Video image with height | ✅ | ✅ | ❌| ✅ | ⚠️ |
+| Audio image with width | ✅ | ✅ | ⚠️ | ✅ | N/A |
+| Audio image with height | ⚠️ | ✅ | ❌ | ⚠️ | N/A |
 
 ### Remark
 

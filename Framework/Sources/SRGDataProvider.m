@@ -44,6 +44,7 @@ static NSString * const SRGTokenServiceURLString = @"https://tp.srgssr.ch/akahd/
 static SRGDataProvider *s_currentDataProvider;
 
 static NSString *SRGDataProviderRequestDateString(NSDate *date);
+static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSDate *maximumPublicationMonth);
 
 @interface SRGDataProvider ()
 
@@ -276,23 +277,11 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGFirstPageRequest *)tvLatestEpisodesForShowWithUid:(NSString *)showUid oldestMonth:(NSDate *)oldestMonth completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
+- (SRGFirstPageRequest *)tvLatestEpisodesForShowWithUid:(NSString *)showUid maximumPublicationMonth:(NSDate *)maximumPublicationMonth completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/episodeComposition/latestByShow/tv/%@.json", self.businessUnitIdentifier, showUid];
-    
-    NSArray<NSURLQueryItem *> *queryItems = nil;
-    if (oldestMonth) {
-        static NSDateFormatter *s_dateFormatter;
-        static dispatch_once_t s_onceToken;
-        dispatch_once(&s_onceToken, ^{
-            s_dateFormatter = [[NSDateFormatter alloc] init];
-            s_dateFormatter.dateFormat = @"yyyy-MM";
-        });
-        
-        queryItems = @[ [NSURLQueryItem queryItemWithName:@"maxPublishedDate" value:[s_dateFormatter stringFromDate:oldestMonth]] ];
-    }
-    
-    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    NSArray<NSURLQueryItem *> *queryItems = maximumPublicationMonth ? @[ SRGDataProviderURLQueryItemForMaximumPublicationMonth(maximumPublicationMonth) ] : nil;
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:queryItems];
     return [self fetchObjectWithRequest:request modelClass:[SRGEpisodeComposition class] completionBlock:completionBlock];
 }
 
@@ -415,23 +404,11 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGFirstPageRequest *)radioLatestEpisodesForShowWithUid:(NSString *)showUid oldestMonth:(NSDate *)oldestMonth completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
+- (SRGFirstPageRequest *)radioLatestEpisodesForShowWithUid:(NSString *)showUid maximumPublicationMonth:(NSDate *)maximumPublicationMonth completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/episodeComposition/latestByShow/radio/%@.json", self.businessUnitIdentifier, showUid];
-    
-    NSArray<NSURLQueryItem *> *queryItems = nil;
-    if (oldestMonth) {
-        static NSDateFormatter *s_dateFormatter;
-        static dispatch_once_t s_onceToken;
-        dispatch_once(&s_onceToken, ^{
-            s_dateFormatter = [[NSDateFormatter alloc] init];
-            s_dateFormatter.dateFormat = @"yyyy-MM";
-        });
-        
-        queryItems = @[ [NSURLQueryItem queryItemWithName:@"maxPublishedDate" value:[s_dateFormatter stringFromDate:oldestMonth]] ];
-    }
-    
-    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    NSArray<NSURLQueryItem *> *queryItems = maximumPublicationMonth ? @[ SRGDataProviderURLQueryItemForMaximumPublicationMonth(maximumPublicationMonth) ] : nil;
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:queryItems];
     return [self fetchObjectWithRequest:request modelClass:[SRGEpisodeComposition class] completionBlock:completionBlock];
 }
 
@@ -589,11 +566,11 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date);
     }];
 }
 
-- (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(SRGShowURN *)showURN
-                                      completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
+- (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(SRGShowURN *)showURN maximumPublicationMonth:(NSDate *)maximumPublicationMonth completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/episodeComposition/latestByShow/byUrn/%@.json", showURN.URNString];
-    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
+    NSArray<NSURLQueryItem *> *queryItems = maximumPublicationMonth ? @[ SRGDataProviderURLQueryItemForMaximumPublicationMonth(maximumPublicationMonth) ] : nil;
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:queryItems];
     return [self fetchObjectWithRequest:request modelClass:[SRGEpisodeComposition class] completionBlock:completionBlock];
 }
 
@@ -840,7 +817,7 @@ NSString *SRGDataProviderMarketingVersion(void)
 
 static NSString *SRGDataProviderRequestDateString(NSDate *date)
 {
-    NSCAssert(date, @"Expect a date");
+    NSCParameterAssert(date);
     
     static NSDateFormatter *dateFormatter;
     static dispatch_once_t onceToken;
@@ -849,4 +826,18 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date)
         dateFormatter.dateFormat = @"yyyy-MM-dd";
     });
     return [dateFormatter stringFromDate:date];
+}
+
+static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSDate *maximumPublicationMonth)
+{
+    NSCParameterAssert(maximumPublicationMonth);
+    
+    static NSDateFormatter *s_dateFormatter;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_dateFormatter = [[NSDateFormatter alloc] init];
+        s_dateFormatter.dateFormat = @"yyyy-MM";
+    });
+    
+    return [NSURLQueryItem queryItemWithName:@"maxPublishedDate" value:[s_dateFormatter stringFromDate:maximumPublicationMonth]];
 }
