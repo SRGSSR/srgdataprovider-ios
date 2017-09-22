@@ -859,13 +859,13 @@ static NSString *SRGDataProviderRequestDateString(NSDate *date)
 {
     NSCParameterAssert(date);
     
-    static NSDateFormatter *dateFormatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"yyyy-MM-dd";
+    static NSDateFormatter *s_dateFormatter;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_dateFormatter = [[NSDateFormatter alloc] init];
+        s_dateFormatter.dateFormat = @"yyyy-MM-dd";
     });
-    return [dateFormatter stringFromDate:date];
+    return [s_dateFormatter stringFromDate:date];
 }
 
 static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSDate *maximumPublicationMonth)
