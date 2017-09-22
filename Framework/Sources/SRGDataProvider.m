@@ -442,6 +442,46 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
     }];
 }
 
+#pragma mark Online services
+
+- (SRGFirstPageRequest *)onlineShowsWithCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/online/alphabetical.json", self.businessUnitIdentifier];
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:request modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, error);
+    }];
+}
+
+- (SRGRequest *)onlineShowsWithUids:(NSArray<NSString *> *)showUids completionBlock:(SRGShowListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/online/byIds.json", self.businessUnitIdentifier];
+    NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"ids" value:[showUids componentsJoinedByString: @","]] ];
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:queryItems];
+    return [self listObjectsWithRequest:request modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(objects, error);
+    }];
+}
+
+- (SRGRequest *)onlineShowWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/show/online/%@.json", self.businessUnitIdentifier, showUid];
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
+    return [self fetchObjectWithRequest:request modelClass:[SRGShow class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(object, error);
+    }];
+}
+
+- (SRGFirstPageRequest *)onlineLatestEpisodesForShowWithUid:(NSString *)showUid
+                                    maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
+                                            completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/episodeComposition/latestByShow/online/%@.json", self.businessUnitIdentifier, showUid];
+    NSArray<NSURLQueryItem *> *queryItems = maximumPublicationMonth ? @[ SRGDataProviderURLQueryItemForMaximumPublicationMonth(maximumPublicationMonth) ] : nil;
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:queryItems];
+    return [self fetchObjectWithRequest:request modelClass:[SRGEpisodeComposition class] completionBlock:completionBlock];
+}
+
 #pragma mark Live center services
 
 - (SRGFirstPageRequest *)liveCenterVideosWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock

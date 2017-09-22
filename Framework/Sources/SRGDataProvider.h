@@ -510,6 +510,47 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 @end
 
 /**
+ *  List of online-oriented services supported by the data provider.
+ */
+@interface SRGDataProvider (OnlineServices)
+
+/**
+ *  @name Shows
+ */
+
+/**
+ *  Shows.
+ */
+- (SRGFirstPageRequest *)onlineShowsWithCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve shows matching a uid list.
+ *
+ *  @discussion The list must contain at least a uid, otherwise the result is undefined. Partial results can be
+ *              returned if some uids (but not all) are invalid.
+ */
+- (SRGRequest *)onlineShowsWithUids:(NSArray<NSString *> *)showUids completionBlock:(SRGShowListCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve the show having the specified uid.
+ */
+- (SRGRequest *)onlineShowWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock;
+
+/**
+ *  Latest episodes for a specific show.
+ *
+ *  @param maximumPublicationMonth If not `nil`, medias up to the specified month are returned.
+ *
+ *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes
+ *              returned in the episode composition object).
+ */
+- (SRGFirstPageRequest *)onlineLatestEpisodesForShowWithUid:(NSString *)showUid
+                                    maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
+                                            completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
+
+@end
+
+/**
  *  List of services offered by the SwissTXT Live Center.
  */
 @interface SRGDataProvider (LiveCenterServices)
