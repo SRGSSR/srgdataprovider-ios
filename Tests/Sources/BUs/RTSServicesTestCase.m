@@ -25,6 +25,9 @@ static NSString * const kTVShowUid = @"6454706";
 static NSString * const kTVShowOtherUid = @"6454717";
 static NSString * const kTVShowSearchQuery = @"entendeur";
 
+static NSString * const kOnlineShowUid = @"not_supported";
+static NSString * const kOnlineShowOtherUid = @"not_supported";
+
 static NSString * const kTopicUid = @"1081";
 
 static NSString * const kInvalidMediaId = @"999999999999999";
@@ -519,6 +522,74 @@ static NSString * const kInvalidMediaId = @"999999999999999";
         // The song might be nil if nothing is being played on air
         XCTAssertNil(error);
         [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// Not supported
+- (void)testOnlineShows
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider onlineShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNil(shows);
+        XCTAssertNotNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// Not supported
+- (void)testOnlineShowsWithUids
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider onlineShowsWithUids:@[kOnlineShowUid, kOnlineShowOtherUid] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertNil(shows);
+        XCTAssertNotNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// Not supported
+- (void)testOnlineShow
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider onlineShowWithUid:kOnlineShowUid completionBlock:^(SRGShow * _Nullable show, NSError * _Nullable error) {
+        XCTAssertNil(show);
+        XCTAssertNotNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// Not supported
+- (void)testOnlineLatestEpisodesForShow
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
+    
+    [[self.dataProvider onlineLatestEpisodesForShowWithUid:kOnlineShowUid maximumPublicationMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNil(episodeComposition);
+        XCTAssertNotNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
+    
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    dateComponents.year = 2016;
+    dateComponents.month = 5;
+    
+    [[self.dataProvider onlineLatestEpisodesForShowWithUid:kOnlineShowUid maximumPublicationMonth:dateComponents.date completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNil(episodeComposition);
+        XCTAssertNotNil(error);
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
