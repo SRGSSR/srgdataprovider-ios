@@ -446,7 +446,7 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
 
 - (SRGFirstPageRequest *)onlineShowsWithCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/online/alphabetical.json", self.businessUnitIdentifier];
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/online/alphabetical/all.json", self.businessUnitIdentifier];
     NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithRequest:request modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, error);

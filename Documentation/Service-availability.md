@@ -87,6 +87,18 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Recent songs | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 | Current song on air | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 
+## Online services
+
+### Shows
+
+| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
+|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| All shows | ✅ | N/A | ❌ | ✅ | ❌ | ✅ | ❌ |
+| Shows with specific identifiers | ✅ | N/A | ✅ | ✅ | ✅ | ❌ | N/A |
+| Single show | ✅ | N/A | ✅ | ✅ | ✅ | ❌ | N/A |
+| Latest episodes for a show | ✅ | N/A | ✅ | ✅ | ✅ | ✅ | ❌ |
+
+
 ## Live center services
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
