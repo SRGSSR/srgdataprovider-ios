@@ -65,6 +65,9 @@ typedef NS_ENUM(NSInteger, SRGMediaAvailability) {
 /**
  *  Return whether media playback should be blocked client-side. If `SRGBlockingReasonNone`, the media can be
  *  freely played.
+ *
+ *  @discussion Clients must check availability dates as well when deciding whether some content can be played,
+ *              @see `startDate`.
  */
 @property (nonatomic, readonly) SRGBlockingReason blockingReason;
 
@@ -80,11 +83,20 @@ typedef NS_ENUM(NSInteger, SRGMediaAvailability) {
 
 /**
  *  The start date at which the content should be made available, if such restrictions exist.
+ *
+ *  @discussion Client applications must rely on `startDate`, `endDate` and `blockingReason` to decide whether they
+ *              should allow content to be played, as follows:
+ *
+ *              - If `startDate` is not `nil` and the device date is earlier than it, do not play.
+ *              - If `endDate` is not `nil` and the device date is later than it, do not play.
+ *              - If a blocking reason is defined, do not play.
  */
 @property (nonatomic, readonly, nullable) NSDate *startDate;
 
 /**
  *  The end date at which the content should not be made available anymore, if such restrictions exist.
+ *
+ *  @discussion @see `startDate`.
  */
 @property (nonatomic, readonly, nullable) NSDate *endDate;
 
