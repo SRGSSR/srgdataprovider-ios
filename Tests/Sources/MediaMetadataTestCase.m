@@ -14,18 +14,13 @@
 
 @implementation MediaMetadataTestCase
 
-- (void)testEmpty
-{
-    XCTAssertEqual(SRGBlockingReasonForMediaMetadata(nil), SRGBlockingReasonNone);
-}
-
 - (void)testSimplestMedia
 {
     NSError *error = nil;
     SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:@{} error:&error];
     
     XCTAssertNil(error);
-    XCTAssertEqual(SRGBlockingReasonForMediaMetadata(media), SRGBlockingReasonNone);
+    XCTAssertEqual(media.blockingReason, SRGBlockingReasonNone);
 }
 
 - (void)testAvailableMedia
@@ -36,7 +31,7 @@
     SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
     
     XCTAssertNil(error);
-    XCTAssertEqual(SRGBlockingReasonForMediaMetadata(media), SRGBlockingReasonNone);
+    XCTAssertEqual(media.blockingReason, SRGBlockingReasonNone);
 }
 
 - (void)testNotYetAvailableMedia
@@ -46,7 +41,7 @@
     SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
     
     XCTAssertNil(error);
-    XCTAssertEqual(SRGBlockingReasonForMediaMetadata(media), SRGBlockingReasonStartDate);
+    XCTAssertEqual(media.blockingReason, SRGBlockingReasonStartDate);
 }
 
 - (void)testNotYetAvailableMedia2
@@ -56,7 +51,7 @@
     SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
     
     XCTAssertNil(error);
-    XCTAssertEqual(SRGBlockingReasonForMediaMetadata(media), SRGBlockingReasonStartDate);
+    XCTAssertEqual(media.blockingReason, SRGBlockingReasonStartDate);
 }
 
 - (void)testExpiredMedia
@@ -66,7 +61,7 @@
     SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
     
     XCTAssertNil(error);
-    XCTAssertEqual(SRGBlockingReasonForMediaMetadata(media), SRGBlockingReasonEndDate);
+    XCTAssertEqual(media.blockingReason, SRGBlockingReasonEndDate);
 }
 
 - (void)testExpiredMedia2
@@ -76,7 +71,7 @@
     SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
     
     XCTAssertNil(error);
-    XCTAssertEqual(SRGBlockingReasonForMediaMetadata(media), SRGBlockingReasonEndDate);
+    XCTAssertEqual(media.blockingReason, SRGBlockingReasonEndDate);
 }
 
 - (void)testStartDateBlockingReasonPrecedence1
@@ -87,7 +82,7 @@
     SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
     
     XCTAssertNil(error);
-    XCTAssertEqual(SRGBlockingReasonForMediaMetadata(media), SRGBlockingReasonStartDate);
+    XCTAssertEqual(media.blockingReason, SRGBlockingReasonStartDate);
 }
 
 - (void)testStartDateBlockingReasonPrecedence2
@@ -98,7 +93,7 @@
     SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
     
     XCTAssertNil(error);
-    XCTAssertEqual(SRGBlockingReasonForMediaMetadata(media), SRGBlockingReasonStartDate);
+    XCTAssertEqual(media.blockingReason, SRGBlockingReasonStartDate);
 }
 
 - (void)testEndDateBlockingReasonPrecedence1
@@ -109,7 +104,7 @@
     SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
     
     XCTAssertNil(error);
-    XCTAssertEqual(SRGBlockingReasonForMediaMetadata(media), SRGBlockingReasonEndDate);
+    XCTAssertEqual(media.blockingReason, SRGBlockingReasonEndDate);
 }
 
 - (void)testEndDateBlockingReasonPrecedence2
@@ -120,7 +115,7 @@
     SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
     
     XCTAssertNil(error);
-    XCTAssertEqual(SRGBlockingReasonForMediaMetadata(media), SRGBlockingReasonEndDate);
+    XCTAssertEqual(media.blockingReason, SRGBlockingReasonEndDate);
 }
 
 - (void)testOtherBlockingReasonPrecedence
@@ -132,7 +127,7 @@
     SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
     
     XCTAssertNil(error);
-    XCTAssertEqual(SRGBlockingReasonForMediaMetadata(media), SRGBlockingReasonLegal);
+    XCTAssertEqual(media.blockingReason, SRGBlockingReasonLegal);
 }
 
 @end

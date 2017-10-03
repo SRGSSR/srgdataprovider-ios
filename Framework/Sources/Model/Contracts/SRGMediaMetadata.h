@@ -43,8 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Return whether media playback should be blocked client-side. If `SRGBlockingReasonNone`, the media can be
  *  freely played.
- *
- *  @discussion To check whether a media is effectively blocked, use `SRGBlockingReasonForMediaMetadata`.
  */
 @property (nonatomic, readonly) SRGBlockingReason blockingReason;
 
@@ -60,15 +58,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  The start date at which the content should be made available, if such restrictions exist.
- *
- *  @discussion To check whether a media is effectively blocked, use `SRGBlockingReasonForMediaMetadata`.
  */
 @property (nonatomic, readonly, nullable) NSDate *startDate;
 
 /**
  *  The end date at which the content should not be made available anymore, if such restrictions exist.
- *
- *  @discussion To check whether a media is effectively blocked, use `SRGBlockingReasonForMediaMetadata`.
  */
 @property (nonatomic, readonly, nullable) NSDate *endDate;
 
@@ -83,13 +77,5 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) NSArray<SRGSocialCount *> *socialCounts;
 
 @end
-
-/**
- *  Return the effective blocking reason for a given media metadata.
- *
- *  @discussion This function combines several information from `SRGMediaMetadata` to determine whether a media is effectively
- *              blocked or not.
- */
-OBJC_EXTERN SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaMetadata> mediaMetadata);
 
 NS_ASSUME_NONNULL_END

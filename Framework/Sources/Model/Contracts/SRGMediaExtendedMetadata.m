@@ -4,16 +4,16 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGMediaMetadata.h"
+#import "SRGMediaExtendedMetadata.h"
 
-SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaMetadata> mediaMetadata)
+SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaExtendedMetadata> mediaMetadata)
 {
     if (! mediaMetadata) {
         return SRGBlockingReasonNone;
     }
     
-    if (mediaMetadata.blockingReason != SRGBlockingReasonNone) {
-        return mediaMetadata.blockingReason;
+    if (mediaMetadata.originalBlockingReason != SRGBlockingReasonNone) {
+        return mediaMetadata.originalBlockingReason;
     }
     
     NSDate *currentDate = [NSDate date];
