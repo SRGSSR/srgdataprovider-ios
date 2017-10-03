@@ -6,30 +6,24 @@
 
 #import "SRGMediaMetadata.h"
 
-SRGMediaAvailability SRGDataProviderAvailabilityForMediaMetadata(id<SRGMediaMetadata> mediaMetadata)
+SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaMetadata> mediaMetadata)
 {
     if (! mediaMetadata) {
-        return SRGMediaAvailabilityNone;
+        return SRGBlockingReasonNone;
     }
     
-    // Precedence: Blocking reasons first, then dates. Ending conditions are in both cases tested first.
+    if (mediaMetadata.blockingReason != SRGBlockingReasonNone) {
+        return mediaMetadata.blockingReason;
+    }
+    
     NSDate *currentDate = [NSDate date];
-    if (mediaMetadata.blockingReason == SRGBlockingReasonEndDate) {
-        return SRGMediaAvailabilityNotAvailableAnymore;
-    }
-    else if (mediaMetadata.blockingReason == SRGBlockingReasonStartDate) {
-        return SRGMediaAvailabilityNotYetAvailable;
-    }
-    else if (mediaMetadata.blockingReason != SRGBlockingReasonNone) {
-        return SRGMediaAvailabilityBlocked;
-    }
-    else if (mediaMetadata.endDate && [mediaMetadata.endDate compare:currentDate] == NSOrderedAscending) {
-        return SRGMediaAvailabilityNotAvailableAnymore;
+    if (mediaMetadata.endDate && [mediaMetadata.endDate compare:currentDate] == NSOrderedAscending) {
+        return SRGBlockingReasonEndDate;
     }
     else if (mediaMetadata.startDate && [currentDate compare:mediaMetadata.startDate] == NSOrderedAscending) {
-        return SRGMediaAvailabilityNotYetAvailable;
+        return SRGBlockingReasonStartDate;
     }
     else {
-        return SRGMediaAvailabilityAvailable;
+        return SRGBlockingReasonNone;
     }
 }

@@ -16,32 +16,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Media availability. Only contents which are available should be playable client-side.
- */
-typedef NS_ENUM(NSInteger, SRGMediaAvailability) {
-    /**
-     *  Not specified.
-     */
-    SRGMediaAvailabilityNone = 0,
-    /**
-     *  The media is not yet available.
-     */
-    SRGMediaAvailabilityNotYetAvailable,
-    /**
-     *  The media is available.
-     */
-    SRGMediaAvailabilityAvailable,
-    /**
-     *  The media has expired and is not available anymore.
-     */
-    SRGMediaAvailabilityNotAvailableAnymore,
-    /**
-     *  The media is blocked (for a reason other than its availability period).
-     */
-    SRGMediaAvailabilityBlocked
-};
-
-/**
  *  Common protocol for medias.
  */
 @protocol SRGMediaMetadata <SRGMetadata, SRGMediaIdentifierMetadata, SRGImageMetadata>
@@ -70,7 +44,7 @@ typedef NS_ENUM(NSInteger, SRGMediaAvailability) {
  *  Return whether media playback should be blocked client-side. If `SRGBlockingReasonNone`, the media can be
  *  freely played.
  *
- *  @discussion To check for media availability, use `SRGDataProviderAvailabilityForMediaMetadata`.
+ *  @discussion To check for media availability, use `SRGBlockingReasonForMediaMetadata`.
  */
 @property (nonatomic, readonly) SRGBlockingReason blockingReason;
 
@@ -87,14 +61,14 @@ typedef NS_ENUM(NSInteger, SRGMediaAvailability) {
 /**
  *  The start date at which the content should be made available, if such restrictions exist.
  *
- *  @discussion To check for media availability, use `SRGDataProviderAvailabilityForMediaMetadata`.
+ *  @discussion To check for media availability, use `SRGBlockingReasonForMediaMetadata`.
  */
 @property (nonatomic, readonly, nullable) NSDate *startDate;
 
 /**
  *  The end date at which the content should not be made available anymore, if such restrictions exist.
  *
- *  @discussion To check for media availability, use `SRGDataProviderAvailabilityForMediaMetadata`.
+ *  @discussion To check for media availability, use `SRGBlockingReasonForMediaMetadata`.
  */
 @property (nonatomic, readonly, nullable) NSDate *endDate;
 
@@ -111,11 +85,11 @@ typedef NS_ENUM(NSInteger, SRGMediaAvailability) {
 @end
 
 /**
- *  Return the availability of the given media metadata.
+ *  Return the effective blocking reason for a given media metadata.
  *
- *  @discussion This function combines several information from `SRGMediaMetadata` to determine media availability in
- *              a consistent and reliable way.
+ *  @discussion This function combines several information from `SRGMediaMetadata` to determine whether a media is blocked
+ *              or not.
  */
-OBJC_EXTERN SRGMediaAvailability SRGDataProviderAvailabilityForMediaMetadata(_Nullable id<SRGMediaMetadata> mediaMetadata);
+OBJC_EXTERN SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaMetadata> mediaMetadata);
 
 NS_ASSUME_NONNULL_END
