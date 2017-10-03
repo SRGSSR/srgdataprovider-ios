@@ -19,113 +19,120 @@
     XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(nil), SRGMediaAvailabilityNone);
 }
 
-- (void)testAlwaysAvailable
+- (void)testSimplestMedia
 {
     NSError *error = nil;
-    NSDictionary *JSONDictionary = @{};
+    SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:@{} error:&error];
     
-    SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
     XCTAssertNil(error);
-    
     XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityAvailable);
 }
 
-- (void)testNotYetAvailable
+- (void)testAvailableMedia
 {
-    NSString *futureDateString = [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:10]];
     NSError *error = nil;
-    NSDictionary *JSONDictionary = @{ @"validFrom": futureDateString };
-    
+    NSDictionary *JSONDictionary = @{ @"validFrom" : [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:-10]],
+                                      @"validTo" : [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:10]] };
     SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
-    XCTAssertNil(error);
     
+    XCTAssertNil(error);
+    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityAvailable);
+}
+
+- (void)testNotYetAvailableMedia
+{
+    NSError *error = nil;
+    NSDictionary *JSONDictionary = @{ @"validFrom" : [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:10]] };
+    SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
+    
+    XCTAssertNil(error);
     XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityNotYetAvailable);
 }
 
-- (void)testExpired
+- (void)testNotYetAvailableMedia2
 {
-    NSString *pastDateString = [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:-10]];
     NSError *error = nil;
-    NSDictionary *JSONDictionary = @{ @"validTo": pastDateString };
-    
+    NSDictionary *JSONDictionary = @{ @"blockReason" : [SRGBlockingReasonJSONTransformer() reverseTransformedValue:@(SRGBlockingReasonStartDate)] };
     SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
+    
     XCTAssertNil(error);
-    
-    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityNotAvailableAnymore);
-}
-
-- (void)testAvailableBetweenDates
-{
-    NSString *pastDateString = [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:-10]];
-    NSString *futureDateString = [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:10]];
-    NSError *error = nil;
-    NSDictionary *JSONDictionary = @{ @"validFrom": pastDateString,
-                                      @"validTo": futureDateString };
-    
-    SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
-    XCTAssertNil(error);
-    
-    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityAvailable);
-}
-
-- (void)testAvailableWithOldNotYetAvailableMedia
-{
-    NSString *pastDateString = [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:-10]];
-    NSString *startDateBlockReasonString = [SRGBlockingReasonJSONTransformer() reverseTransformedValue:@(SRGBlockingReasonStartDate)];
-    NSError *error = nil;
-    NSDictionary *JSONDictionary = @{ @"validFrom": pastDateString,
-                                      @"blockReason" : startDateBlockReasonString };
-    
-    SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
-    XCTAssertNil(error);
-    
-    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityAvailable);
-}
-
-- (void)testExpiredWithOldNotYetAvailableMedia
-{
-    NSString *pastDateString1 = [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:-10]];
-    NSString *pastDateString2 = [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:-5]];
-    NSString *startDateBlockReasonString = [SRGBlockingReasonJSONTransformer() reverseTransformedValue:@(SRGBlockingReasonStartDate)];
-    NSError *error = nil;
-    NSDictionary *JSONDictionary = @{ @"validFrom": pastDateString1,
-                                      @"validTo": pastDateString2,
-                                      @"blockReason" : startDateBlockReasonString };
-    
-    SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
-    XCTAssertNil(error);
-    
-    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityNotAvailableAnymore);
-}
-
-- (void)testAvailableWithFutureExpiredMedia
-{
-    NSString *futureDateString = [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:10]];
-    NSString *endDateBlockReasonString = [SRGBlockingReasonJSONTransformer() reverseTransformedValue:@(SRGBlockingReasonEndDate)];
-    NSError *error = nil;
-    NSDictionary *JSONDictionary = @{ @"validTo": futureDateString,
-                                      @"blockReason" : endDateBlockReasonString };
-    
-    SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
-    XCTAssertNil(error);
-    
-    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityAvailable);
-}
-
-- (void)testNotYetAvailableWithFutureExpiredMedia
-{
-    NSString *futureDateString1 = [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:5]];
-    NSString *futureDateString2 = [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:10]];
-    NSString *endDateBlockReasonString = [SRGBlockingReasonJSONTransformer() reverseTransformedValue:@(SRGBlockingReasonEndDate)];
-    NSError *error = nil;
-    NSDictionary *JSONDictionary = @{ @"validFrom": futureDateString1,
-                                      @"validTo": futureDateString2,
-                                      @"blockReason" : endDateBlockReasonString };
-    
-    SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
-    XCTAssertNil(error);
-    
     XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityNotYetAvailable);
+}
+
+- (void)testExpiredMedia
+{
+    NSError *error = nil;
+    NSDictionary *JSONDictionary = @{ @"validTo" : [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:-10]] };
+    SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
+    
+    XCTAssertNil(error);
+    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityNotAvailableAnymore);
+}
+
+- (void)testExpiredMedia2
+{
+    NSError *error = nil;
+    NSDictionary *JSONDictionary = @{ @"blockReason" : [SRGBlockingReasonJSONTransformer() reverseTransformedValue:@(SRGBlockingReasonEndDate)] };
+    SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
+    
+    XCTAssertNil(error);
+    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityNotAvailableAnymore);
+}
+
+- (void)testStartDateBlockingReasonPrecedence1
+{
+    NSError *error = nil;
+    NSDictionary *JSONDictionary = @{ @"validFrom" : [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:-10]],
+                                      @"blockReason" : [SRGBlockingReasonJSONTransformer() reverseTransformedValue:@(SRGBlockingReasonStartDate)] };
+    SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
+    
+    XCTAssertNil(error);
+    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityNotYetAvailable);
+}
+
+- (void)testStartDateBlockingReasonPrecedence2
+{
+    NSError *error = nil;
+    NSDictionary *JSONDictionary = @{ @"validTo" : [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:-5]],
+                                      @"blockReason" :  [SRGBlockingReasonJSONTransformer() reverseTransformedValue:@(SRGBlockingReasonStartDate)] };
+    SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
+    
+    XCTAssertNil(error);
+    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityNotYetAvailable);
+}
+
+- (void)testEndDateBlockingReasonPrecedence1
+{
+    NSError *error = nil;
+    NSDictionary *JSONDictionary = @{ @"validTo" : [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:10]],
+                                      @"blockReason" : [SRGBlockingReasonJSONTransformer() reverseTransformedValue:@(SRGBlockingReasonEndDate)] };
+    SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
+    
+    XCTAssertNil(error);
+    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityNotAvailableAnymore);
+}
+
+- (void)testEndDateBlockingReasonPrecedence2
+{
+    NSError *error = nil;
+    NSDictionary *JSONDictionary = @{ @"validFrom" : [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:5]],
+                                      @"blockReason" : [SRGBlockingReasonJSONTransformer() reverseTransformedValue:@(SRGBlockingReasonEndDate)] };
+    SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
+    
+    XCTAssertNil(error);
+    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityNotAvailableAnymore);
+}
+
+- (void)testOtherBlockingReasonPrecedence
+{
+    NSError *error = nil;
+    NSDictionary *JSONDictionary = @{ @"validFrom" : [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:-10]],
+                                      @"validTo" : [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:10]],
+                                      @"blockReason" : [SRGBlockingReasonJSONTransformer() reverseTransformedValue:@(SRGBlockingReasonLegal)] };
+    SRGMedia *media = [MTLJSONAdapter modelOfClass:[SRGMedia class] fromJSONDictionary:JSONDictionary error:&error];
+    
+    XCTAssertNil(error);
+    XCTAssertEqual(SRGDataProviderAvailabilityForMediaMetadata(media), SRGMediaAvailabilityBlocked);
 }
 
 @end
