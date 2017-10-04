@@ -34,7 +34,7 @@
     XCTAssertEqual(media.blockingReason, SRGBlockingReasonNone);
 }
 
-- (void)testNotYetAvailableMedia
+- (void)testNotYetAvailableMedia1
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"validFrom" : [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:10]] };
@@ -54,7 +54,7 @@
     XCTAssertEqual(media.blockingReason, SRGBlockingReasonStartDate);
 }
 
-- (void)testExpiredMedia
+- (void)testExpiredMedia1
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"validTo" : [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:-10]] };
