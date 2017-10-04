@@ -8,10 +8,11 @@
 
 #import "SRGJSONTransformers.h"
 #import "NSURL+SRGDataProvider.h"
+#import "SRGMediaExtendedMetadata.h"
 
 #import <libextobjc/libextobjc.h>
 
-@interface SRGSubdivision ()
+@interface SRGSubdivision () <SRGMediaExtendedMetadata>
 
 @property (nonatomic) SRGMediaURN *fullLengthURN;
 @property (nonatomic) NSInteger position;
@@ -40,7 +41,7 @@
 @property (nonatomic) SRGSource source;
 @property (nonatomic) NSDate *date;
 @property (nonatomic) NSTimeInterval duration;
-@property (nonatomic) SRGBlockingReason blockingReason;
+@property (nonatomic) SRGBlockingReason originalBlockingReason;
 @property (nonatomic) NSURL *podcastStandardDefinitionURL;
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
 @property (nonatomic) NSDate *startDate;
@@ -86,7 +87,7 @@
                        @keypath(SRGSubdivision.new, source) : @"assignedBy",
                        @keypath(SRGSubdivision.new, date) : @"date",
                        @keypath(SRGSubdivision.new, duration) : @"duration",
-                       @keypath(SRGSubdivision.new, blockingReason) : @"blockReason",
+                       @keypath(SRGSubdivision.new, originalBlockingReason) : @"blockReason",
                        @keypath(SRGSubdivision.new, podcastStandardDefinitionURL) : @"podcastSdUrl",
                        @keypath(SRGSubdivision.new, podcastHighDefinitionURL) : @"podcastHdUrl",
                        @keypath(SRGSubdivision.new, startDate) : @"validFrom",
@@ -95,6 +96,13 @@
                        @keypath(SRGSubdivision.new, socialCounts) : @"socialCountList" };
     });
     return s_mapping;
+}
+
+#pragma mark Getters and setters
+
+- (SRGBlockingReason)blockingReason
+{
+    return SRGBlockingReasonForMediaMetadata(self);
 }
 
 #pragma mark Transformers
@@ -144,7 +152,7 @@
     return SRGISO8601DateJSONTransformer();
 }
 
-+ (NSValueTransformer *)blockingReasonJSONTransformer
++ (NSValueTransformer *)originalBlockingReasonJSONTransformer
 {
     return SRGBlockingReasonJSONTransformer();
 }
