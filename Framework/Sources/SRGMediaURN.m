@@ -116,7 +116,7 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    return [[SRGMediaURN alloc] initWithURNString:self.URNString];
+    return [[[self class] allocWithZone:zone] initWithURNString:self.URNString];
 }
 
 #pragma mark Description

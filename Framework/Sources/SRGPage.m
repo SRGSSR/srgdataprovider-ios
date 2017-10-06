@@ -107,7 +107,7 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    return [[SRGPage allocWithZone:zone] initWithSize:self.size number:self.number URL:self.URL];
+    return [[[self class] allocWithZone:zone] initWithSize:self.size number:self.number URL:self.URL];
 }
 
 #pragma mark Description
