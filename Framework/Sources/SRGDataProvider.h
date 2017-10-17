@@ -228,7 +228,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 @property (nonatomic, readonly, copy) NSString *businessUnitIdentifier;
 
 /**
- *  Optional global headers will added to all requests.
+ *  Optional global headers which will added to all requests.
  */
 @property (nonatomic, nullable) NSDictionary<NSString *, NSString *> *globalHeaders;
 
