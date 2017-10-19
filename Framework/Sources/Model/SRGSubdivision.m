@@ -15,7 +15,6 @@
 @interface SRGSubdivision () <SRGMediaExtendedMetadata>
 
 @property (nonatomic) SRGMediaURN *fullLengthURN;
-@property (nonatomic) NSInteger position;
 @property (nonatomic) NSTimeInterval markIn;
 @property (nonatomic) NSTimeInterval markOut;
 @property (nonatomic, getter=isHidden) BOOL hidden;
@@ -61,7 +60,6 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @keypath(SRGSubdivision.new, fullLengthURN) : @"fullLengthUrn",
-                       @keypath(SRGSubdivision.new, position) : @"position",
                        @keypath(SRGSubdivision.new, markIn) : @"markIn",
                        @keypath(SRGSubdivision.new, markOut) : @"markOut",
                        @keypath(SRGSubdivision.new, hidden) : @"displayable",
@@ -293,16 +291,7 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
                 }
             }
             
-            // Order according to declared position, otherwise consider equal
-            if (subdivision1.position == subdivision2.position) {
-                return NSOrderedSame;
-            }
-            else if (subdivision1.position < subdivision2.position) {
-                return NSOrderedAscending;
-            }
-            else {
-                return NSOrderedDescending;
-            }
+            return NSOrderedSame;
         }];
         
         SRGSubdivision *matchingSubdivision = [[matchingSubdivisions sortedArrayUsingDescriptors:@[sortDescriptor]].lastObject copy];
@@ -326,9 +315,5 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
     NSPredicate *meaningfulSubdivisionsPredicate = [NSPredicate predicateWithBlock:^BOOL(SRGSubdivision * _Nullable subdivision, NSDictionary<NSString *,id> * _Nullable bindings) {
         return subdivision.blockingReason != SRGBlockingReasonNone || subdivision.duration >= 1000;     // At least one second
     }];
-    NSArray<SRGSubdivision *> *meaningfulSubdivisions = [sanitizedSubdivisions filteredArrayUsingPredicate:meaningfulSubdivisionsPredicate];
-    [meaningfulSubdivisions enumerateObjectsUsingBlock:^(SRGSubdivision * _Nonnull subdivision, NSUInteger idx, BOOL * _Nonnull stop) {
-        subdivision.position = idx;
-    }];
-    return meaningfulSubdivisions;
+    return [sanitizedSubdivisions filteredArrayUsingPredicate:meaningfulSubdivisionsPredicate];
 }

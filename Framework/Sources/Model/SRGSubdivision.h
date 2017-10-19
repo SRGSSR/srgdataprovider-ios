@@ -23,11 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) SRGMediaURN *fullLengthURN;
 
 /**
- *  An index specifying the order of sibling subdivisions in collections.
- */
-@property (nonatomic, readonly) NSInteger position;
-
-/**
  *  The time at which the subdivision starts, in milliseconds.
  */
 @property (nonatomic, readonly) NSTimeInterval markIn;
