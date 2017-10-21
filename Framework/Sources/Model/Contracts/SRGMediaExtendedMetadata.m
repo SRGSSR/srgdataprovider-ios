@@ -26,3 +26,31 @@ SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaExtende
         return SRGBlockingReasonNone;
     }
 }
+
+SRGMediaTimeAvailability SRGDataProviderTimeAvailabilityForMediaMetadata(id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date)
+{
+    if (! mediaMetadata) {
+        return SRGMediaTimeAvailabilityAvailable;
+    }
+    
+    if (mediaMetadata.originalBlockingReason == SRGBlockingReasonStartDate) {
+        return SRGMediaTimeAvailabilityNotYetAvailable;
+    }
+    else if (mediaMetadata.originalBlockingReason == SRGBlockingReasonEndDate) {
+        return SRGMediaTimeAvailabilityNotAvailableAnymore;
+    }
+    else {
+        if (mediaMetadata.startDate && [date compare:mediaMetadata.startDate] == NSOrderedAscending) {
+            return SRGMediaTimeAvailabilityNotYetAvailable;
+        }
+        else if (mediaMetadata.endDate && [mediaMetadata.endDate compare:date] == NSOrderedAscending) {
+            return SRGMediaTimeAvailabilityNotAvailableAnymore;
+        }
+        else if (mediaMetadata.endDate) {
+            return SRGMediaTimeAvailabilityAvailableWithExpiration;
+        }
+        else {
+            return SRGMediaTimeAvailabilityAvailable;
+        }
+    }
+}

@@ -16,6 +16,30 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
+ *  Media time availability.
+ *
+ *  @discussion Used only for UI. blockingReason property is the real reason if a media can't be played.
+ */
+typedef NS_ENUM(NSInteger, SRGMediaTimeAvailability) {
+    /**
+     *  The media has no restriction.
+     */
+    SRGMediaTimeAvailabilityAvailable = 0,
+    /**
+     *  The media is not yet available.
+     */
+    SRGMediaTimeAvailabilityNotYetAvailable,
+    /**
+     *  The media is available but will expire.
+     */
+    SRGMediaTimeAvailabilityAvailableWithExpiration,
+    /**
+     *  The media has expired and is not available anymore.
+     */
+    SRGMediaTimeAvailabilityNotAvailableAnymore
+};
+
+/**
  *  Common protocol for medias.
  */
 @protocol SRGMediaMetadata <SRGMetadata, SRGMediaIdentifierMetadata, SRGImageMetadata>
@@ -45,6 +69,13 @@ NS_ASSUME_NONNULL_BEGIN
  *  should be played iff the reason is `SRGBlockingReasonNone`.
  */
 - (SRGBlockingReason)blockingReasonAtDate:(NSDate *)date;
+
+/**
+ *  Return the time availability associated with the media, calculated at the specified date.
+ *
+ *  @discussion Used only for UI. `blockingReasonAtDate:` property is the real reason if a media cannot be played.
+ */
+- (SRGMediaTimeAvailability)timeAvailabilityAtDate:(NSDate *)date;
 
 /**
  *  The standard definition podcast URL.
