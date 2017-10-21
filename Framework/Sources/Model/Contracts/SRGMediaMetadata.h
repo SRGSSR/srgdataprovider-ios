@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Media time availability.
  *
- *  @discussion Used only for UI. blockingReason property is the real reason if a media can't be played.
+ *  @discussion Used only for UI. The `blockingReason` property is the real reason if a media can't be played.
  */
 typedef NS_ENUM(NSInteger, SRGMediaTimeAvailability) {
     /**
