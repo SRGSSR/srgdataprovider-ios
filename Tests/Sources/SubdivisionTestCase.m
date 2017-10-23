@@ -870,12 +870,20 @@
         SRGMedia *chapterMedia = [mediaComposition mediaForSubdivision:mediaComposition.mainChapter];
         XCTAssertEqualObjects(chapterMedia.URN, URN);
         
+        // ... and from a segment copy
+        SRGMedia *chapterMediaCopy = [mediaComposition mediaForSubdivision:[mediaComposition.mainChapter copy]];
+        XCTAssertEqualObjects(chapterMediaCopy.URN, URN);
+        
         // Derive a segment media
         SRGSegment *segment = mediaComposition.mainChapter.segments.firstObject;
         XCTAssertNotNil(segment);
         
         SRGMedia *segmentMedia = [mediaComposition mediaForSubdivision:segment];
         XCTAssertEqualObjects(segmentMedia.URN, segment.URN);
+        
+        // ... and from a chapter copy
+        SRGMedia *segmentMediaCopy = [mediaComposition mediaForSubdivision:[segment copy]];
+        XCTAssertEqualObjects(segmentMediaCopy.URN, segment.URN);
         
         [expectation fulfill];
     }] resume];
@@ -901,10 +909,20 @@
         XCTAssertEqualObjects(segmentMediaComposition.chapterURN, URN);
         XCTAssertEqualObjects(segmentMediaComposition.segmentURN, segment.URN);
         
+        // ... and from a segment copy
+        SRGMediaComposition *segmentCopyMediaComposition = [mediaComposition mediaCompositionForSubdivision:[segment copy]];
+        XCTAssertEqualObjects(segmentCopyMediaComposition.chapterURN, URN);
+        XCTAssertEqualObjects(segmentCopyMediaComposition.segmentURN, segment.URN);
+        
         // Derive the chapter media composition, but from the segment media composition. Must obtain the original media composition
         SRGMediaComposition *chapterMediaComposition = [segmentMediaComposition mediaCompositionForSubdivision:segmentMediaComposition.mainChapter];
         XCTAssertEqualObjects(chapterMediaComposition.chapterURN, URN);
         XCTAssertNil(chapterMediaComposition.segmentURN);
+        
+        // Do the same with a copy
+        SRGMediaComposition *chapterCopyMediaComposition = [segmentMediaComposition mediaCompositionForSubdivision:[segmentMediaComposition.mainChapter copy]];
+        XCTAssertEqualObjects(chapterCopyMediaComposition.chapterURN, URN);
+        XCTAssertNil(chapterCopyMediaComposition.segmentURN);
         
         [expectation fulfill];
     }] resume];
