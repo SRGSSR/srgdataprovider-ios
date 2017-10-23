@@ -30,10 +30,6 @@ typedef NS_ENUM(NSInteger, SRGMediaTimeAvailability) {
      */
     SRGMediaTimeAvailabilityNotYetAvailable,
     /**
-     *  The media is available but will expire.
-     */
-    SRGMediaTimeAvailabilityAvailableWithExpiration,
-    /**
      *  The media has expired and is not available anymore.
      */
     SRGMediaTimeAvailabilityNotAvailableAnymore

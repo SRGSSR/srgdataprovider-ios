@@ -46,9 +46,6 @@ SRGMediaTimeAvailability SRGDataProviderTimeAvailabilityForMediaMetadata(id<SRGM
         else if (mediaMetadata.endDate && [mediaMetadata.endDate compare:date] == NSOrderedAscending) {
             return SRGMediaTimeAvailabilityNotAvailableAnymore;
         }
-        else if (mediaMetadata.endDate) {
-            return SRGMediaTimeAvailabilityAvailableWithExpiration;
-        }
         else {
             return SRGMediaTimeAvailabilityAvailable;
         }
