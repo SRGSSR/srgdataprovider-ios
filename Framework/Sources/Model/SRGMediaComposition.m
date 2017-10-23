@@ -165,6 +165,7 @@
         if (chapter == subdivision) {
             SRGMediaComposition *mediaComposition = [self copy];
             mediaComposition.chapterURN = chapter.URN;
+            mediaComposition.segmentURN = nil;
             return mediaComposition;
         }
         else {
