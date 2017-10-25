@@ -8,6 +8,11 @@
 
 SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaExtendedMetadata> mediaMetadata)
 {
+    return SRGBlockingReasonForMediaMetadataAtDate(mediaMetadata, [NSDate date]);
+}
+
+SRGBlockingReason SRGBlockingReasonForMediaMetadataAtDate(_Nullable id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date)
+{
     if (! mediaMetadata) {
         return SRGBlockingReasonNone;
     }
@@ -16,11 +21,10 @@ SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaExtende
         return mediaMetadata.originalBlockingReason;
     }
     
-    NSDate *currentDate = [NSDate date];
-    if (mediaMetadata.endDate && [mediaMetadata.endDate compare:currentDate] == NSOrderedAscending) {
+    if (mediaMetadata.endDate && [mediaMetadata.endDate compare:date] == NSOrderedAscending) {
         return SRGBlockingReasonEndDate;
     }
-    else if (mediaMetadata.startDate && [currentDate compare:mediaMetadata.startDate] == NSOrderedAscending) {
+    else if (mediaMetadata.startDate && [date compare:mediaMetadata.startDate] == NSOrderedAscending) {
         return SRGBlockingReasonStartDate;
     }
     else {

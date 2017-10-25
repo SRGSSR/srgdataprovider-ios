@@ -88,6 +88,11 @@
 
 #pragma mark Getters and setters
 
+- (SRGBlockingReason)blockingReasonAtDate:(NSDate *)date
+{
+    return SRGBlockingReasonForMediaMetadataAtDate(self, date);
+}
+
 - (SRGBlockingReason)blockingReason
 {
     return SRGBlockingReasonForMediaMetadata(self);

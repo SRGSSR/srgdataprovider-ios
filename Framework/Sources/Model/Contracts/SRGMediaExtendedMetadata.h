@@ -6,6 +6,8 @@
 
 #import "SRGMediaMetadata.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  Extended media metadata protocol. For internal use only.
  */
@@ -25,3 +27,7 @@
  *              blocked or not.
  */
 OBJC_EXTERN SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaExtendedMetadata> mediaMetadata);
+
+OBJC_EXTERN SRGBlockingReason SRGBlockingReasonForMediaMetadataAtDate(_Nullable id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date);
+
+NS_ASSUME_NONNULL_END

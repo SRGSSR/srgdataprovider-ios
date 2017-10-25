@@ -46,6 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly) SRGBlockingReason blockingReason;
 
+- (SRGBlockingReason)blockingReasonAtDate:(NSDate *)date;
+
 /**
  *  The standard definition podcast URL.
  */
