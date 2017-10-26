@@ -105,7 +105,7 @@
 
 - (SRGMediaTimeAvailability)timeAvailabilityAtDate:(NSDate *)date
 {
-    return SRGDataProviderTimeAvailabilityForMediaMetadata(self, date);
+    return SRGTimeAvailabilityForMediaMetadata(self, date);
 }
 
 #pragma mark Transformers

@@ -33,6 +33,6 @@ OBJC_EXTERN SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRG
  *
  *  @discussion Used only for UI. `SRGBlockingReasonForMediaMetadata()` fonction is the real reason if a media cannot be played.
  */
-OBJC_EXTERN SRGMediaTimeAvailability SRGDataProviderTimeAvailabilityForMediaMetadata(_Nullable id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date);
+OBJC_EXTERN SRGMediaTimeAvailability SRGTimeAvailabilityForMediaMetadata(_Nullable id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date);
 
 NS_ASSUME_NONNULL_END

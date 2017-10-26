@@ -27,7 +27,7 @@ SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaExtende
     }
 }
 
-SRGMediaTimeAvailability SRGDataProviderTimeAvailabilityForMediaMetadata(id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date)
+SRGMediaTimeAvailability SRGTimeAvailabilityForMediaMetadata(id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date)
 {
     if (! mediaMetadata) {
         return SRGMediaTimeAvailabilityAvailable;
@@ -36,18 +36,18 @@ SRGMediaTimeAvailability SRGDataProviderTimeAvailabilityForMediaMetadata(id<SRGM
     if (mediaMetadata.originalBlockingReason == SRGBlockingReasonStartDate) {
         return SRGMediaTimeAvailabilityNotYetAvailable;
     }
-    else if (mediaMetadata.originalBlockingReason == SRGBlockingReasonEndDate) {
+    
+    if (mediaMetadata.originalBlockingReason == SRGBlockingReasonEndDate) {
         return SRGMediaTimeAvailabilityNotAvailableAnymore;
     }
+    
+    if (mediaMetadata.endDate && [mediaMetadata.endDate compare:date] == NSOrderedAscending) {
+        return SRGMediaTimeAvailabilityNotAvailableAnymore;
+    }
+    else if (mediaMetadata.startDate && [date compare:mediaMetadata.startDate] == NSOrderedAscending) {
+        return SRGMediaTimeAvailabilityNotYetAvailable;
+    }
     else {
-        if (mediaMetadata.startDate && [date compare:mediaMetadata.startDate] == NSOrderedAscending) {
-            return SRGMediaTimeAvailabilityNotYetAvailable;
-        }
-        else if (mediaMetadata.endDate && [mediaMetadata.endDate compare:date] == NSOrderedAscending) {
-            return SRGMediaTimeAvailabilityNotAvailableAnymore;
-        }
-        else {
-            return SRGMediaTimeAvailabilityAvailable;
-        }
+        return SRGMediaTimeAvailabilityAvailable;
     }
 }
