@@ -88,9 +88,9 @@
 
 #pragma mark Getters and setters
 
-- (SRGBlockingReason)blockingReason
+- (SRGBlockingReason)blockingReasonAtDate:(NSDate *)date
 {
-    return SRGBlockingReasonForMediaMetadata(self);
+    return SRGBlockingReasonForMediaMetadata(self, date);
 }
 
 #pragma mark Transformers

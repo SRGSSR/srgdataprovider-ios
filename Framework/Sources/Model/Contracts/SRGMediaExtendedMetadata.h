@@ -6,6 +6,8 @@
 
 #import "SRGMediaMetadata.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  Extended media metadata protocol. For internal use only.
  */
@@ -19,9 +21,11 @@
 @end
 
 /**
- *  Return the effective blocking reason for a given media metadata.
+ *  Return the effective blocking reason for a given media metadata, at the specified date.
  *
  *  @discussion This function combines several information from `SRGMediaMetadata` to determine whether a media is effectively
- *              blocked or not.
+ *              blocked or not at the given date.
  */
-OBJC_EXTERN SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaExtendedMetadata> mediaMetadata);
+OBJC_EXTERN SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date);
+
+NS_ASSUME_NONNULL_END

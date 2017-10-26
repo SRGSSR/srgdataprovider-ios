@@ -98,9 +98,9 @@
 
 #pragma mark Getters and setters
 
-- (SRGBlockingReason)blockingReason
+- (SRGBlockingReason)blockingReasonAtDate:(NSDate *)date
 {
-    return SRGBlockingReasonForMediaMetadata(self);
+    return SRGBlockingReasonForMediaMetadata(self, date);
 }
 
 #pragma mark Transformers
@@ -238,6 +238,8 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
     NSSortDescriptor *markSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
     NSArray<NSNumber *> *orderedMarks = [marks sortedArrayUsingDescriptors:@[markSortDescriptor]];
     
+    NSDate *currentDate = [NSDate date];
+    
     // For each interval defined by consecutive marks, define the subdivision resulting from the superposition of all
     // subdivisions, according to a set of fixed rules.
     NSMutableArray<SRGSubdivision *> *sanitizedSubdivisions = [NSMutableArray array];
@@ -257,11 +259,13 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
         // Find the winning subdivision amongst matches (from the least important to the most important one)
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES comparator:^NSComparisonResult(SRGSubdivision * _Nonnull subdivision1, SRGSubdivision * _Nonnull subdivision2) {
             // Blocked subdivision must always win.
-            if (subdivision1.blockingReason != subdivision2.blockingReason) {
-                if (subdivision1.blockingReason == SRGBlockingReasonNone) {
+            SRGBlockingReason blockingReason1 = [subdivision1 blockingReasonAtDate:currentDate];
+            SRGBlockingReason blockingReason2 = [subdivision2 blockingReasonAtDate:currentDate];
+            if (blockingReason1 != blockingReason2) {
+                if (blockingReason1 == SRGBlockingReasonNone) {
                     return NSOrderedAscending;
                 }
-                else if (subdivision2.blockingReason == SRGBlockingReasonNone) {
+                else if (blockingReason2 == SRGBlockingReasonNone) {
                     return NSOrderedDescending;
                 }
             }
@@ -313,7 +317,8 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
     
     // Remove small non-blocked segments which might result because of the flattening.
     NSPredicate *meaningfulSubdivisionsPredicate = [NSPredicate predicateWithBlock:^BOOL(SRGSubdivision * _Nullable subdivision, NSDictionary<NSString *,id> * _Nullable bindings) {
-        return subdivision.blockingReason != SRGBlockingReasonNone || subdivision.duration >= 1000;     // At least one second
+        SRGBlockingReason blockingReason = [subdivision blockingReasonAtDate:currentDate];
+        return blockingReason != SRGBlockingReasonNone || subdivision.duration >= 1000;     // At least one second
     }];
     return [sanitizedSubdivisions filteredArrayUsingPredicate:meaningfulSubdivisionsPredicate];
 }
