@@ -654,7 +654,7 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
 
 - (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type mediaComposition:(SRGMediaComposition *)mediaComposition withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
 {
-    return [self increaseSocialCountForType:type subdivision:mediaComposition.mainChapter withCompletionBlock:completionBlock];
+    return [self increaseSocialCountForType:type subdivision:mediaComposition.mainSegment ?: mediaComposition.mainChapter withCompletionBlock:completionBlock];
 }
 
 #pragma mark Public module services
