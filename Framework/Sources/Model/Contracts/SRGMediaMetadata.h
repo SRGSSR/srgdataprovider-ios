@@ -41,11 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSTimeInterval duration;
 
 /**
- *  Return whether media playback should be blocked client-side. If `SRGBlockingReasonNone`, the media can be
- *  freely played.
+ *  Return the blocking reason associated with the media (if any), calculated at the specified date. The media
+ *  should be played iff the reason is `SRGBlockingReasonNone`.
  */
-@property (nonatomic, readonly) SRGBlockingReason blockingReason;
-
 - (SRGBlockingReason)blockingReasonAtDate:(NSDate *)date;
 
 /**

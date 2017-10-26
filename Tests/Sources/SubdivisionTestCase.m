@@ -38,14 +38,14 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"B");
     XCTAssertEqual(segment1.markIn, 40000);
     XCTAssertEqual(segment1.markOut, 45000);
     XCTAssertEqual(segment1.duration, 5000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
 }
 
 - (void)testDisjointBlockedSubdivisions
@@ -76,14 +76,14 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonLegal);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonLegal);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"B");
     XCTAssertEqual(segment1.markIn, 40000);
     XCTAssertEqual(segment1.markOut, 45000);
     XCTAssertEqual(segment1.duration, 5000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonGeoblocking);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
 }
 
 - (void)testOverlappingNormalSubdivisions
@@ -112,14 +112,14 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 15000);
     XCTAssertEqual(segment0.duration, 5000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"B");
     XCTAssertEqual(segment1.markIn, 15000);
     XCTAssertEqual(segment1.markOut, 35000);
     XCTAssertEqual(segment1.duration, 20000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
 }
 
 - (void)testOverlappingNormalAndBlockedSubdivisions
@@ -149,14 +149,14 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 15000);
     XCTAssertEqual(segment0.duration, 5000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"B");
     XCTAssertEqual(segment1.markIn, 15000);
     XCTAssertEqual(segment1.markOut, 35000);
     XCTAssertEqual(segment1.duration, 20000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonGeoblocking);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
 }
 
 - (void)testOverlappingBlockedAndNormalSubdivisions
@@ -186,14 +186,14 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonGeoblocking);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"B");
     XCTAssertEqual(segment1.markIn, 20000);
     XCTAssertEqual(segment1.markOut, 35000);
     XCTAssertEqual(segment1.duration, 15000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
 }
 
 - (void)testOverlappingBlockedSubdivisions
@@ -224,14 +224,14 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 15000);
     XCTAssertEqual(segment0.duration, 5000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonLegal);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonLegal);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"B");
     XCTAssertEqual(segment1.markIn, 15000);
     XCTAssertEqual(segment1.markOut, 35000);
     XCTAssertEqual(segment1.duration, 20000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonGeoblocking);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
 }
 
 - (void)testNestedNormalSubdivisions
@@ -260,21 +260,21 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"B");
     XCTAssertEqual(segment1.markIn, 20000);
     XCTAssertEqual(segment1.markOut, 40000);
     XCTAssertEqual(segment1.duration, 20000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSubdivision *segment2 = segments[2];
     XCTAssertEqualObjects(segment2.URN.uid, @"A");
     XCTAssertEqual(segment2.markIn, 40000);
     XCTAssertEqual(segment2.markOut, 60000);
     XCTAssertEqual(segment2.duration, 20000);
-    XCTAssertEqual(segment2.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment2 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
 }
 
 - (void)testNestedBlockedInNormalSubdivisions
@@ -304,21 +304,21 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"B");
     XCTAssertEqual(segment1.markIn, 20000);
     XCTAssertEqual(segment1.markOut, 40000);
     XCTAssertEqual(segment1.duration, 20000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonGeoblocking);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
     
     SRGSubdivision *segment2 = segments[2];
     XCTAssertEqualObjects(segment2.URN.uid, @"A");
     XCTAssertEqual(segment2.markIn, 40000);
     XCTAssertEqual(segment2.markOut, 60000);
     XCTAssertEqual(segment2.duration, 20000);
-    XCTAssertEqual(segment2.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment2 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
 }
 
 - (void)testNestedNormalInBlockedSubdivisions
@@ -348,7 +348,7 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 60000);
     XCTAssertEqual(segment0.duration, 50000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonGeoblocking);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
 }
 
 - (void)testNestedBlockedSubdivisions
@@ -379,21 +379,21 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonLegal);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonLegal);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"B");
     XCTAssertEqual(segment1.markIn, 20000);
     XCTAssertEqual(segment1.markOut, 40000);
     XCTAssertEqual(segment1.duration, 20000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonGeoblocking);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
     
     SRGSubdivision *segment2 = segments[2];
     XCTAssertEqualObjects(segment2.URN.uid, @"A");
     XCTAssertEqual(segment2.markIn, 40000);
     XCTAssertEqual(segment2.markOut, 60000);
     XCTAssertEqual(segment2.duration, 20000);
-    XCTAssertEqual(segment2.blockingReason, SRGBlockingReasonLegal);
+    XCTAssertEqual([segment2 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonLegal);
 }
 
 - (void)testNestedNormalSubdivisionsWithSameMarkIn
@@ -422,14 +422,14 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 40000);
     XCTAssertEqual(segment0.duration, 30000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"A");
     XCTAssertEqual(segment1.markIn, 40000);
     XCTAssertEqual(segment1.markOut, 60000);
     XCTAssertEqual(segment1.duration, 20000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
 }
 
 - (void)testNestedBlockedInNormalSubdivisionsWithSameMarkIn
@@ -459,14 +459,14 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 40000);
     XCTAssertEqual(segment0.duration, 30000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonGeoblocking);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"A");
     XCTAssertEqual(segment1.markIn, 40000);
     XCTAssertEqual(segment1.markOut, 60000);
     XCTAssertEqual(segment1.duration, 20000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
 }
 
 - (void)testNestedNormalInBlockedSubdivisionsWithSameMarkIn
@@ -496,7 +496,7 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 60000);
     XCTAssertEqual(segment0.duration, 50000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonGeoblocking);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
 }
 
 - (void)testNestedBlockedSubdivisionsWithSameMarkIn
@@ -527,14 +527,14 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 40000);
     XCTAssertEqual(segment0.duration, 30000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonGeoblocking);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"A");
     XCTAssertEqual(segment1.markIn, 40000);
     XCTAssertEqual(segment1.markOut, 60000);
     XCTAssertEqual(segment1.duration, 20000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonLegal);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonLegal);
 }
 
 - (void)testIdenticalSubdivisions
@@ -563,7 +563,7 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 60000);
     XCTAssertEqual(segment0.duration, 50000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
 }
 
 - (void)testNeighboringSubdivisions
@@ -592,14 +592,14 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"B");
     XCTAssertEqual(segment1.markIn, 20000);
     XCTAssertEqual(segment1.markOut, 45000);
     XCTAssertEqual(segment1.duration, 25000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
 }
 
 - (void)testNoSubdivisions
@@ -668,21 +668,21 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"B");
     XCTAssertEqual(segment1.markIn, 20000);
     XCTAssertEqual(segment1.markOut, 50000);
     XCTAssertEqual(segment1.duration, 30000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSubdivision *segment2 = segments[2];
     XCTAssertEqualObjects(segment2.URN.uid, @"C");
     XCTAssertEqual(segment2.markIn, 60000);
     XCTAssertEqual(segment2.markOut, 90000);
     XCTAssertEqual(segment2.duration, 30000);
-    XCTAssertEqual(segment2.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment2 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
 }
 
 // See https://github.com/SRGSSR/srgletterbox-ios/issues/75
@@ -724,35 +724,35 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"B");
     XCTAssertEqual(segment1.markIn, 20000);
     XCTAssertEqual(segment1.markOut, 30000);
     XCTAssertEqual(segment1.duration, 10000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonLegal);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonLegal);
     
     SRGSubdivision *segment2 = segments[2];
     XCTAssertEqualObjects(segment2.URN.uid, @"C");
     XCTAssertEqual(segment2.markIn, 30000);
     XCTAssertEqual(segment2.markOut, 60000);
     XCTAssertEqual(segment2.duration, 30000);
-    XCTAssertEqual(segment2.blockingReason, SRGBlockingReasonCommercial);
+    XCTAssertEqual([segment2 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonCommercial);
     
     SRGSubdivision *segment3 = segments[3];
     XCTAssertEqualObjects(segment3.URN.uid, @"B");
     XCTAssertEqual(segment3.markIn, 60000);
     XCTAssertEqual(segment3.markOut, 70000);
     XCTAssertEqual(segment3.duration, 10000);
-    XCTAssertEqual(segment3.blockingReason, SRGBlockingReasonLegal);
+    XCTAssertEqual([segment3 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonLegal);
     
     SRGSubdivision *segment4 = segments[4];
     XCTAssertEqualObjects(segment4.URN.uid, @"D");
     XCTAssertEqual(segment4.markIn, 70000);
     XCTAssertEqual(segment4.markOut, 90000);
     XCTAssertEqual(segment4.duration, 20000);
-    XCTAssertEqual(segment4.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment4 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
 }
 
 // See https://github.com/SRGSSR/srgletterbox-ios/issues/75
@@ -794,28 +794,28 @@
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 30000);
     XCTAssertEqual(segment0.duration, 20000);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"B");
     XCTAssertEqual(segment1.markIn, 30000);
     XCTAssertEqual(segment1.markOut, 45000);
     XCTAssertEqual(segment1.duration, 15000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonLegal);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonLegal);
     
     SRGSubdivision *segment2 = segments[2];
     XCTAssertEqualObjects(segment2.URN.uid, @"C");
     XCTAssertEqual(segment2.markIn, 45000);
     XCTAssertEqual(segment2.markOut, 70000);
     XCTAssertEqual(segment2.duration, 25000);
-    XCTAssertEqual(segment2.blockingReason, SRGBlockingReasonCommercial);
+    XCTAssertEqual([segment2 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonCommercial);
     
     SRGSubdivision *segment3 = segments[3];
     XCTAssertEqualObjects(segment3.URN.uid, @"D");
     XCTAssertEqual(segment3.markIn, 70000);
     XCTAssertEqual(segment3.markOut, 80000);
     XCTAssertEqual(segment3.duration, 10000);
-    XCTAssertEqual(segment3.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment3 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
 }
 
 - (void)testRelevantSubdivisions
@@ -846,14 +846,14 @@
     XCTAssertEqual(segment0.markIn, 10500);
     XCTAssertEqual(segment0.markOut, 30000);
     XCTAssertEqual(segment0.duration, 19500);
-    XCTAssertEqual(segment0.blockingReason, SRGBlockingReasonGeoblocking);
+    XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
     
     SRGSubdivision *segment1 = segments[1];
     XCTAssertEqualObjects(segment1.URN.uid, @"A");
     XCTAssertEqual(segment1.markIn, 30000);
     XCTAssertEqual(segment1.markOut, 60000);
     XCTAssertEqual(segment1.duration, 30000);
-    XCTAssertEqual(segment1.blockingReason, SRGBlockingReasonNone);
+    XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
 }
 
 - (void)testMediaForSubdivision

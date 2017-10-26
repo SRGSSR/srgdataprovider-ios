@@ -6,12 +6,7 @@
 
 #import "SRGMediaExtendedMetadata.h"
 
-SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaExtendedMetadata> mediaMetadata)
-{
-    return SRGBlockingReasonForMediaMetadataAtDate(mediaMetadata, [NSDate date]);
-}
-
-SRGBlockingReason SRGBlockingReasonForMediaMetadataAtDate(_Nullable id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date)
+SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date)
 {
     if (! mediaMetadata) {
         return SRGBlockingReasonNone;

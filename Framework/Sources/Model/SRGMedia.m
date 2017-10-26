@@ -90,12 +90,7 @@
 
 - (SRGBlockingReason)blockingReasonAtDate:(NSDate *)date
 {
-    return SRGBlockingReasonForMediaMetadataAtDate(self, date);
-}
-
-- (SRGBlockingReason)blockingReason
-{
-    return SRGBlockingReasonForMediaMetadata(self);
+    return SRGBlockingReasonForMediaMetadata(self, date);
 }
 
 #pragma mark Transformers
