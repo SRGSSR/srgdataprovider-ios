@@ -453,3 +453,23 @@ typedef NS_ENUM(NSInteger, SRGImageDimension) {
      */
     SRGImageDimensionHeight
 };
+
+/**
+ *  Media time availability.
+ *
+ *  @discussion Used only for UI. The `blockingReason` property is the real reason if a media can't be played.
+ */
+typedef NS_ENUM(NSInteger, SRGMediaTimeAvailability) {
+    /**
+     *  The media has no restriction.
+     */
+    SRGMediaTimeAvailabilityAvailable = 0,
+    /**
+     *  The media is not yet available.
+     */
+    SRGMediaTimeAvailabilityNotYetAvailable,
+    /**
+     *  The media has expired and is not available anymore.
+     */
+    SRGMediaTimeAvailabilityNotAvailableAnymore
+};
