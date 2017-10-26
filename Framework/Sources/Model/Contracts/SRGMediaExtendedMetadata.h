@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Return the effective blocking reason for a given media metadata (at the specified date).
+ *  Return the effective blocking reason for a given media metadata, at the specified date.
  *
  *  @discussion This function combines several information from `SRGMediaMetadata` to determine whether a media is effectively
  *              blocked or not at the given date.
