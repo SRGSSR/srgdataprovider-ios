@@ -22,7 +22,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonNone);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityAvailable);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityAvailable);
 }
 
 - (void)testAvailableMedi1
@@ -35,7 +35,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonNone);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityAvailable);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityAvailable);
 }
 
 - (void)testAvailableMedia2
@@ -47,7 +47,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonNone);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityAvailable);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityAvailable);
 }
 
 - (void)testAvailableMedia3
@@ -59,7 +59,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonNone);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityAvailable);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityAvailable);
 }
 
 - (void)testNotYetAvailableMedia1
@@ -71,7 +71,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonStartDate);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityNotYetAvailable);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityNotYetAvailable);
 }
 
 - (void)testNotYetAvailableMedia2
@@ -83,7 +83,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonStartDate);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityNotYetAvailable);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityNotYetAvailable);
 }
 
 - (void)testExpiredMedia1
@@ -95,7 +95,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonEndDate);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityNotAvailableAnymore);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityNotAvailableAnymore);
 }
 
 - (void)testExpiredMedia2
@@ -107,7 +107,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonEndDate);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityNotAvailableAnymore);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityNotAvailableAnymore);
 }
 
 - (void)testStartDateBlockingReasonPrecedence1
@@ -120,7 +120,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonStartDate);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityNotYetAvailable);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityNotYetAvailable);
 }
 
 - (void)testStartDateBlockingReasonPrecedence2
@@ -133,7 +133,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonStartDate);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityNotYetAvailable);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityNotYetAvailable);
 }
 
 - (void)testEndDateBlockingReasonPrecedence1
@@ -146,7 +146,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonEndDate);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityNotAvailableAnymore);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityNotAvailableAnymore);
 }
 
 - (void)testEndDateBlockingReasonPrecedence2
@@ -159,7 +159,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonEndDate);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityNotAvailableAnymore);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityNotAvailableAnymore);
 }
 
 - (void)testOtherBlockingReasonPrecedence1
@@ -173,7 +173,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonLegal);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityAvailable);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityAvailable);
 }
 
 - (void)testOtherBlockingReasonPrecedence2
@@ -187,7 +187,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonLegal);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityNotYetAvailable);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityNotYetAvailable);
 }
 
 - (void)testOtherBlockingReasonPrecedence3
@@ -201,7 +201,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonLegal);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityNotAvailableAnymore);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityNotAvailableAnymore);
 }
 
 - (void)testOtherBlockingReasonPrecedence4
@@ -214,7 +214,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonLegal);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityAvailable);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityAvailable);
 }
 
 - (void)testBlockingReason
@@ -226,7 +226,7 @@
     
     XCTAssertNil(error);
     XCTAssertEqual([media blockingReasonAtDate:currentDate], SRGBlockingReasonLegal);
-    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGMediaTimeAvailabilityAvailable);
+    XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityAvailable);
 }
 
 @end

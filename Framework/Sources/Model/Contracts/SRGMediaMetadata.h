@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @discussion Used only for UI. `blockingReasonAtDate:` property is the real reason if a media cannot be played.
  */
-- (SRGMediaTimeAvailability)timeAvailabilityAtDate:(NSDate *)date;
+- (SRGTimeAvailability)timeAvailabilityAtDate:(NSDate *)date;
 
 /**
  *  The standard definition podcast URL.

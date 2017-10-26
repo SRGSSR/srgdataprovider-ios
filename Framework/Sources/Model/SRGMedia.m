@@ -93,7 +93,7 @@
     return SRGBlockingReasonForMediaMetadata(self, date);
 }
 
-- (SRGMediaTimeAvailability)timeAvailabilityAtDate:(NSDate *)date
+- (SRGTimeAvailability)timeAvailabilityAtDate:(NSDate *)date
 {
     return SRGTimeAvailabilityForMediaMetadata(self, date);
 }

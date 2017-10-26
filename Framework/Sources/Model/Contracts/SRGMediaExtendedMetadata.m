@@ -27,27 +27,27 @@ SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaExtende
     }
 }
 
-SRGMediaTimeAvailability SRGTimeAvailabilityForMediaMetadata(id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date)
+SRGTimeAvailability SRGTimeAvailabilityForMediaMetadata(id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date)
 {
     if (! mediaMetadata) {
-        return SRGMediaTimeAvailabilityAvailable;
+        return SRGTimeAvailabilityAvailable;
     }
     
     if (mediaMetadata.originalBlockingReason == SRGBlockingReasonStartDate) {
-        return SRGMediaTimeAvailabilityNotYetAvailable;
+        return SRGTimeAvailabilityNotYetAvailable;
     }
     
     if (mediaMetadata.originalBlockingReason == SRGBlockingReasonEndDate) {
-        return SRGMediaTimeAvailabilityNotAvailableAnymore;
+        return SRGTimeAvailabilityNotAvailableAnymore;
     }
     
     if (mediaMetadata.endDate && [mediaMetadata.endDate compare:date] == NSOrderedAscending) {
-        return SRGMediaTimeAvailabilityNotAvailableAnymore;
+        return SRGTimeAvailabilityNotAvailableAnymore;
     }
     else if (mediaMetadata.startDate && [date compare:mediaMetadata.startDate] == NSOrderedAscending) {
-        return SRGMediaTimeAvailabilityNotYetAvailable;
+        return SRGTimeAvailabilityNotYetAvailable;
     }
     else {
-        return SRGMediaTimeAvailabilityAvailable;
+        return SRGTimeAvailabilityAvailable;
     }
 }
