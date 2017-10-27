@@ -31,7 +31,7 @@ OBJC_EXTERN SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRG
 /**
  *  Return the time availability associated with the media, calculated at the specified date.
  *
- *  @discussion Used only for UI. `SRGBlockingReasonForMediaMetadata()` fonction is the real reason if a media cannot be played.
+ *  @discussion Used only for UI. `SRGBlockingReasonForMediaMetadata()` fonction is the real reason if a media cannot play.
  */
 OBJC_EXTERN SRGTimeAvailability SRGTimeAvailabilityForMediaMetadata(_Nullable id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date);
 
