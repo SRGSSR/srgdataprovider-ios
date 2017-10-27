@@ -103,6 +103,11 @@
     return SRGBlockingReasonForMediaMetadata(self, date);
 }
 
+- (SRGTimeAvailability)timeAvailabilityAtDate:(NSDate *)date
+{
+    return SRGTimeAvailabilityForMediaMetadata(self, date);
+}
+
 #pragma mark Transformers
 
 + (NSValueTransformer *)fullLengthURNJSONTransformer

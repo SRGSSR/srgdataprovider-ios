@@ -42,9 +42,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Return the blocking reason associated with the media (if any), calculated at the specified date. The media
- *  should be played iff the reason is `SRGBlockingReasonNone`.
+ *  should be playable client-side iff the reason is `SRGBlockingReasonNone`.
  */
 - (SRGBlockingReason)blockingReasonAtDate:(NSDate *)date;
+
+/**
+ *  Return the time availability associated with the media at the specified date.
+ *
+ *  @discussion Time availability is only intended for informative purposes. To decide whether a media should be playable
+ *              client-side, use `-blockingReasonAtDate:`.
+ */
+- (SRGTimeAvailability)timeAvailabilityAtDate:(NSDate *)date;
 
 /**
  *  The standard definition podcast URL.

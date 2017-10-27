@@ -453,3 +453,21 @@ typedef NS_ENUM(NSInteger, SRGImageDimension) {
      */
     SRGImageDimensionHeight
 };
+
+/**
+ *  Media time availability.
+ */
+typedef NS_ENUM(NSInteger, SRGTimeAvailability) {
+    /**
+     *  The media is available.
+     */
+    SRGTimeAvailabilityAvailable = 0,
+    /**
+     *  The media is not yet available.
+     */
+    SRGTimeAvailabilityNotYetAvailable,
+    /**
+     *  The media is not available anymore.
+     */
+    SRGTimeAvailabilityNotAvailableAnymore
+};
