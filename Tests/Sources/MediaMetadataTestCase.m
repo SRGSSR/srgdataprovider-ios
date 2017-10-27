@@ -25,7 +25,7 @@
     XCTAssertEqual([media timeAvailabilityAtDate:currentDate], SRGTimeAvailabilityAvailable);
 }
 
-- (void)testAvailableMedi1
+- (void)testAvailableMedia1
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"validFrom" : [SRGISO8601DateJSONTransformer() reverseTransformedValue:[[NSDate date] dateByAddingTimeInterval:-10]],

@@ -6,12 +6,8 @@
 
 #import "SRGMediaExtendedMetadata.h"
 
-SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date)
+SRGBlockingReason SRGBlockingReasonForMediaMetadata(id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date)
 {
-    if (! mediaMetadata) {
-        return SRGBlockingReasonNone;
-    }
-    
     if (mediaMetadata.originalBlockingReason != SRGBlockingReasonNone) {
         return mediaMetadata.originalBlockingReason;
     }
@@ -29,10 +25,6 @@ SRGBlockingReason SRGBlockingReasonForMediaMetadata(_Nullable id<SRGMediaExtende
 
 SRGTimeAvailability SRGTimeAvailabilityForMediaMetadata(id<SRGMediaExtendedMetadata> mediaMetadata, NSDate *date)
 {
-    if (! mediaMetadata) {
-        return SRGTimeAvailabilityAvailable;
-    }
-    
     if (mediaMetadata.originalBlockingReason == SRGBlockingReasonStartDate) {
         return SRGTimeAvailabilityNotYetAvailable;
     }
