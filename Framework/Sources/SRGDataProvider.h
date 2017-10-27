@@ -228,7 +228,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 @property (nonatomic, readonly, copy) NSString *businessUnitIdentifier;
 
 /**
- *  Optional global headers will added to all requests.
+ *  Optional global headers which will added to all requests.
  */
 @property (nonatomic, nullable) NSDictionary<NSString *, NSString *> *globalHeaders;
 
@@ -360,13 +360,13 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Latest episodes for a specific show.
  *
- *  @param oldestMonth The oldest month for which medias are returned (if `nil`, all medias are returned).
+ *  @param maximumPublicationMonth If not `nil`, medias up to the specified month are returned.
  *
  *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes 
  *              returned in the episode composition object).
  */
 - (SRGFirstPageRequest *)tvLatestEpisodesForShowWithUid:(NSString *)showUid
-                                            oldestMonth:(nullable NSDate *)oldestMonth
+                                maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
                                         completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
 /**
@@ -472,13 +472,13 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Latest episodes for a specific show.
  *
- *  @param oldestMonth The oldest month for which medias are returned (if `nil`, all medias are returned).
+ *  @param maximumPublicationMonth If not `nil`, medias up to the specified month are returned.
  *
  *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes 
  *              returned in the episode composition object).
  */
 - (SRGFirstPageRequest *)radioLatestEpisodesForShowWithUid:(NSString *)showUid
-                                               oldestMonth:(nullable NSDate *)oldestMonth
+                                   maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
                                            completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
 /**
@@ -506,6 +506,47 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  */
 - (SRGRequest *)radioCurrentSongForChannelWithUid:(NSString *)channelUid
                                   completionBlock:(SRGSongCompletionBlock)completionBlock;
+
+@end
+
+/**
+ *  List of online-oriented services supported by the data provider.
+ */
+@interface SRGDataProvider (OnlineServices)
+
+/**
+ *  @name Shows
+ */
+
+/**
+ *  Shows.
+ */
+- (SRGFirstPageRequest *)onlineShowsWithCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve shows matching a uid list.
+ *
+ *  @discussion The list must contain at least a uid, otherwise the result is undefined. Partial results can be
+ *              returned if some uids (but not all) are invalid.
+ */
+- (SRGRequest *)onlineShowsWithUids:(NSArray<NSString *> *)showUids completionBlock:(SRGShowListCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve the show having the specified uid.
+ */
+- (SRGRequest *)onlineShowWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock;
+
+/**
+ *  Latest episodes for a specific show.
+ *
+ *  @param maximumPublicationMonth If not `nil`, medias up to the specified month are returned.
+ *
+ *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes
+ *              returned in the episode composition object).
+ */
+- (SRGFirstPageRequest *)onlineLatestEpisodesForShowWithUid:(NSString *)showUid
+                                    maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
+                                            completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
 @end
 
@@ -648,11 +689,14 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Latest episodes for a specific show.
  *
+ *  @param maximumPublicationMonth If not `nil`, medias up to the specified month are returned.
+ *
  *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes
  *              returned in the episode composition object). Unlike the equivalent TV and radio requests, this request
  *              does not support an optional date to filter only more recent media.
  */
 - (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(SRGShowURN *)showURN
+                              maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
                                       completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
 @end
@@ -670,7 +714,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                        withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
 
 /**
- *  Increase the specified social count from 1 unit for the specified subdivision.
+ *  Increase the specified social count from 1 unit for the specified media composition.
  */
 - (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
                           mediaComposition:(SRGMediaComposition *)mediaComposition

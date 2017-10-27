@@ -25,6 +25,9 @@ static NSString * const kTVShowUid = @"c38cc259-b5cd-4ac1-b901-e3fddd901a3d";
 static NSString * const kTVShowOtherUid = @"6fd27ab0-d10f-450f-aaa9-836f1cac97bd";
 static NSString * const kTVShowSearchQuery = @"kassensturz";
 
+static NSString * const kOnlineShowUid = @"fd705045-7dba-49cb-b7c5-7593df25891e";
+static NSString * const kOnlineShowOtherUid = @"c1d837af-0e8d-474e-a65b-d7f6ab57a2e6";
+
 static NSString * const kTopicUid = @"a709c610-b275-4c0c-a496-cba304c36712";
 
 static NSString * const kInvalidMediaId = @"999999999999999";
@@ -266,7 +269,7 @@ static NSString * const kInvalidMediaId = @"999999999999999";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    [[self.dataProvider tvLatestEpisodesForShowWithUid:kTVShowUid oldestMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvLatestEpisodesForShowWithUid:kTVShowUid maximumPublicationMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(episodeComposition);
         XCTAssertNil(error);
         [expectation1 fulfill];
@@ -278,7 +281,7 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     dateComponents.year = 2016;
     dateComponents.month = 5;
     
-    [[self.dataProvider tvLatestEpisodesForShowWithUid:kTVShowUid oldestMonth:dateComponents.date completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvLatestEpisodesForShowWithUid:kTVShowUid maximumPublicationMonth:dateComponents.date completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(episodeComposition);
         XCTAssertNil(error);
         [expectation2 fulfill];
@@ -464,7 +467,7 @@ static NSString * const kInvalidMediaId = @"999999999999999";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    [[self.dataProvider radioLatestEpisodesForShowWithUid:kRadioShowUid oldestMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioLatestEpisodesForShowWithUid:kRadioShowUid maximumPublicationMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(episodeComposition);
         XCTAssertNil(error);
         [expectation1 fulfill];
@@ -476,7 +479,7 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     dateComponents.year = 2016;
     dateComponents.month = 5;
     
-    [[self.dataProvider radioLatestEpisodesForShowWithUid:kRadioShowUid oldestMonth:dateComponents.date completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioLatestEpisodesForShowWithUid:kRadioShowUid maximumPublicationMonth:dateComponents.date completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(episodeComposition);
         XCTAssertNil(error);
         [expectation2 fulfill];
@@ -520,6 +523,70 @@ static NSString * const kInvalidMediaId = @"999999999999999";
         // The song might be nil if nothing is being played on air
         XCTAssertNil(error);
         [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testOnlineShows
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider onlineShowsWithCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(shows);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testOnlineShowsWithUids
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider onlineShowsWithUids:@[kOnlineShowUid, kOnlineShowOtherUid] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertNotNil(shows);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testOnlineShow
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider onlineShowWithUid:kOnlineShowUid completionBlock:^(SRGShow * _Nullable show, NSError * _Nullable error) {
+        XCTAssertNotNil(show);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testOnlineLatestEpisodesForShow
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
+    
+    [[self.dataProvider onlineLatestEpisodesForShowWithUid:kOnlineShowUid maximumPublicationMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(episodeComposition);
+        XCTAssertNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
+    
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    dateComponents.year = 2016;
+    dateComponents.month = 5;
+    
+    [[self.dataProvider onlineLatestEpisodesForShowWithUid:kOnlineShowUid maximumPublicationMonth:dateComponents.date completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(episodeComposition);
+        XCTAssertNil(error);
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
@@ -711,6 +778,8 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        
         [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
             XCTAssertNotNil(socialCountOverview);
             XCTAssertNil(error);
@@ -723,6 +792,8 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        
         [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGLike mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
             XCTAssertNotNil(socialCountOverview);
             XCTAssertNil(error);
@@ -735,6 +806,8 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        
         [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeFacebookShare mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
             XCTAssertNotNil(socialCountOverview);
             XCTAssertNil(error);
@@ -747,6 +820,8 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        
         [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeTwitterShare mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
             XCTAssertNotNil(socialCountOverview);
             XCTAssertNil(error);
@@ -759,6 +834,8 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        
         [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeGooglePlusShare mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
             XCTAssertNotNil(socialCountOverview);
             XCTAssertNil(error);
@@ -771,6 +848,8 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     XCTestExpectation *expectation6 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        
         [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeWhatsAppShare mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
             XCTAssertNotNil(socialCountOverview);
             XCTAssertNil(error);
@@ -786,6 +865,8 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        
         [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
             XCTAssertNotNil(socialCountOverview);
             XCTAssertNil(error);
@@ -798,6 +879,8 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        
         [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGLike subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
             XCTAssertNotNil(socialCountOverview);
             XCTAssertNil(error);
@@ -810,6 +893,8 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        
         [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeFacebookShare subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
             XCTAssertNotNil(socialCountOverview);
             XCTAssertNil(error);
@@ -822,6 +907,8 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        
         [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeTwitterShare subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
             XCTAssertNotNil(socialCountOverview);
             XCTAssertNil(error);
@@ -834,6 +921,8 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        
         [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeGooglePlusShare subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
             XCTAssertNotNil(socialCountOverview);
             XCTAssertNil(error);
@@ -846,6 +935,8 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     XCTestExpectation *expectation6 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videoMediaCompositionWithUid:kVideoUid chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaComposition);
+        
         [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeWhatsAppShare subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
             XCTAssertNotNil(socialCountOverview);
             XCTAssertNil(error);
@@ -946,19 +1037,17 @@ static NSString * const kInvalidMediaId = @"999999999999999";
 
 - (void)testVideoImageScaleWidth
 {
-    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videoWithUid:kVideoUid completionBlock:^(SRGMedia * _Nullable media, NSError * _Nullable error) {
         XCTAssertNotNil(media);
         XCTAssertNil(error);
         
-        NSURL *imageUrl = [media imageURLForDimension:SRGImageDimensionWidth withValue:300.f type:SRGImageTypeDefault];
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
-        
-        XCTAssertNotNil(image);
+        NSURL *imageURL = [media imageURLForDimension:SRGImageDimensionWidth withValue:300.f type:SRGImageTypeDefault];
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
         XCTAssertEqual(image.size.width, 300.);
         
-        [expectation1 fulfill];
+        [expectation fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
@@ -966,19 +1055,17 @@ static NSString * const kInvalidMediaId = @"999999999999999";
 
 - (void)testVideoImageScaleHeight
 {
-    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videoWithUid:kVideoUid completionBlock:^(SRGMedia * _Nullable media, NSError * _Nullable error) {
         XCTAssertNotNil(media);
         XCTAssertNil(error);
         
-        NSURL *imageUrl = [media imageURLForDimension:SRGImageDimensionHeight withValue:300.f type:SRGImageTypeDefault];
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
-        
-        XCTAssertNotNil(image);
+        NSURL *imageURL = [media imageURLForDimension:SRGImageDimensionHeight withValue:300.f type:SRGImageTypeDefault];
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
         XCTAssertEqual(image.size.height, 300.);
         
-        [expectation1 fulfill];
+        [expectation fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
@@ -986,21 +1073,17 @@ static NSString * const kInvalidMediaId = @"999999999999999";
 
 - (void)testAudioImageScaleWidth
 {
-    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider audioWithUid:kAudioUid completionBlock:^(SRGMedia * _Nullable media, NSError * _Nullable error) {
         XCTAssertNotNil(media);
         XCTAssertNil(error);
         
-        NSURL *imageUrl = [media imageURLForDimension:SRGImageDimensionWidth withValue:300.f type:SRGImageTypeDefault];
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
+        NSURL *imageURL = [media imageURLForDimension:SRGImageDimensionWidth withValue:300.f type:SRGImageTypeDefault];
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
+        XCTAssertEqual(image.size.width, 300.);
         
-        XCTAssertNotNil(image);
-        // Not resizable
-        XCTAssertNotEqual(image.size.width, 300.);
-//        XCTAssertEqual(image.size.width, 300.);
-        
-        [expectation1 fulfill];
+        [expectation fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
@@ -1008,21 +1091,19 @@ static NSString * const kInvalidMediaId = @"999999999999999";
 
 - (void)testAudioImageScaleHeight
 {
-    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider audioWithUid:kAudioUid completionBlock:^(SRGMedia * _Nullable media, NSError * _Nullable error) {
         XCTAssertNotNil(media);
         XCTAssertNil(error);
         
-        NSURL *imageUrl = [media imageURLForDimension:SRGImageDimensionHeight withValue:300.f type:SRGImageTypeDefault];
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
+        NSURL *imageURL = [media imageURLForDimension:SRGImageDimensionHeight withValue:300.f type:SRGImageTypeDefault];
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
         
+        // Resizing not well supported at the moment (image size not guaranteed). Only check image availability.
         XCTAssertNotNil(image);
-        // Not resizable
-        XCTAssertNotEqual(image.size.width, 300.);
-//        XCTAssertEqual(image.size.height, 300.);
         
-        [expectation1 fulfill];
+        [expectation fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

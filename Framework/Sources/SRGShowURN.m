@@ -99,7 +99,7 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    return [[SRGShowURN alloc] initWithURNString:self.URNString];
+    return [[[self class] allocWithZone:zone] initWithURNString:self.URNString];
 }
 
 #pragma mark Description

@@ -16,28 +16,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Media availability.
- */
-typedef NS_ENUM(NSInteger, SRGMediaAvailability) {
-    /**
-     *  Not specified.
-     */
-    SRGMediaAvailabilityNone = 0,
-    /**
-     *  The media is not yet available.
-     */
-    SRGMediaAvailabilityNotYetAvailable,
-    /**
-     *  The media is available.
-     */
-    SRGMediaAvailabilityAvailable,
-    /**
-     *  The media has expired and is not available anymore.
-     */
-    SRGMediaAvailabilityNotAvailableAnymore
-};
-
-/**
  *  Common protocol for medias.
  */
 @protocol SRGMediaMetadata <SRGMetadata, SRGMediaIdentifierMetadata, SRGImageMetadata>
@@ -63,10 +41,18 @@ typedef NS_ENUM(NSInteger, SRGMediaAvailability) {
 @property (nonatomic, readonly) NSTimeInterval duration;
 
 /**
- *  Return whether media playback should be blocked client-side. If `SRGBlockingReasonNone`, the media can be
- *  freely played.
+ *  Return the blocking reason associated with the media (if any), calculated at the specified date. The media
+ *  should be playable client-side iff the reason is `SRGBlockingReasonNone`.
  */
-@property (nonatomic, readonly) SRGBlockingReason blockingReason;
+- (SRGBlockingReason)blockingReasonAtDate:(NSDate *)date;
+
+/**
+ *  Return the time availability associated with the media at the specified date.
+ *
+ *  @discussion Time availability is only intended for informative purposes. To decide whether a media should be playable
+ *              client-side, use `-blockingReasonAtDate:`.
+ */
+- (SRGTimeAvailability)timeAvailabilityAtDate:(NSDate *)date;
 
 /**
  *  The standard definition podcast URL.
@@ -99,10 +85,5 @@ typedef NS_ENUM(NSInteger, SRGMediaAvailability) {
 @property (nonatomic, readonly, nullable) NSArray<SRGSocialCount *> *socialCounts;
 
 @end
-
-/**
- *  Return the availability of the given media metadata.
- */
-OBJC_EXTERN SRGMediaAvailability SRGDataProviderAvailabilityForMediaMetadata(_Nullable id<SRGMediaMetadata> mediaMetadata);
 
 NS_ASSUME_NONNULL_END

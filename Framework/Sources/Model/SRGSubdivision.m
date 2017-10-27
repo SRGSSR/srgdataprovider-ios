@@ -8,13 +8,13 @@
 
 #import "SRGJSONTransformers.h"
 #import "NSURL+SRGDataProvider.h"
+#import "SRGMediaExtendedMetadata.h"
 
 #import <libextobjc/libextobjc.h>
 
-@interface SRGSubdivision ()
+@interface SRGSubdivision () <SRGMediaExtendedMetadata>
 
 @property (nonatomic) SRGMediaURN *fullLengthURN;
-@property (nonatomic) NSInteger position;
 @property (nonatomic) NSTimeInterval markIn;
 @property (nonatomic) NSTimeInterval markOut;
 @property (nonatomic, getter=isHidden) BOOL hidden;
@@ -40,7 +40,7 @@
 @property (nonatomic) SRGSource source;
 @property (nonatomic) NSDate *date;
 @property (nonatomic) NSTimeInterval duration;
-@property (nonatomic) SRGBlockingReason blockingReason;
+@property (nonatomic) SRGBlockingReason originalBlockingReason;
 @property (nonatomic) NSURL *podcastStandardDefinitionURL;
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
 @property (nonatomic) NSDate *startDate;
@@ -60,7 +60,6 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @keypath(SRGSubdivision.new, fullLengthURN) : @"fullLengthUrn",
-                       @keypath(SRGSubdivision.new, position) : @"position",
                        @keypath(SRGSubdivision.new, markIn) : @"markIn",
                        @keypath(SRGSubdivision.new, markOut) : @"markOut",
                        @keypath(SRGSubdivision.new, hidden) : @"displayable",
@@ -86,7 +85,7 @@
                        @keypath(SRGSubdivision.new, source) : @"assignedBy",
                        @keypath(SRGSubdivision.new, date) : @"date",
                        @keypath(SRGSubdivision.new, duration) : @"duration",
-                       @keypath(SRGSubdivision.new, blockingReason) : @"blockReason",
+                       @keypath(SRGSubdivision.new, originalBlockingReason) : @"blockReason",
                        @keypath(SRGSubdivision.new, podcastStandardDefinitionURL) : @"podcastSdUrl",
                        @keypath(SRGSubdivision.new, podcastHighDefinitionURL) : @"podcastHdUrl",
                        @keypath(SRGSubdivision.new, startDate) : @"validFrom",
@@ -95,6 +94,18 @@
                        @keypath(SRGSubdivision.new, socialCounts) : @"socialCountList" };
     });
     return s_mapping;
+}
+
+#pragma mark Getters and setters
+
+- (SRGBlockingReason)blockingReasonAtDate:(NSDate *)date
+{
+    return SRGBlockingReasonForMediaMetadata(self, date);
+}
+
+- (SRGTimeAvailability)timeAvailabilityAtDate:(NSDate *)date
+{
+    return SRGTimeAvailabilityForMediaMetadata(self, date);
 }
 
 #pragma mark Transformers
@@ -144,7 +155,7 @@
     return SRGISO8601DateJSONTransformer();
 }
 
-+ (NSValueTransformer *)blockingReasonJSONTransformer
++ (NSValueTransformer *)originalBlockingReasonJSONTransformer
 {
     return SRGBlockingReasonJSONTransformer();
 }
@@ -232,6 +243,8 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
     NSSortDescriptor *markSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
     NSArray<NSNumber *> *orderedMarks = [marks sortedArrayUsingDescriptors:@[markSortDescriptor]];
     
+    NSDate *currentDate = [NSDate date];
+    
     // For each interval defined by consecutive marks, define the subdivision resulting from the superposition of all
     // subdivisions, according to a set of fixed rules.
     NSMutableArray<SRGSubdivision *> *sanitizedSubdivisions = [NSMutableArray array];
@@ -251,11 +264,13 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
         // Find the winning subdivision amongst matches (from the least important to the most important one)
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES comparator:^NSComparisonResult(SRGSubdivision * _Nonnull subdivision1, SRGSubdivision * _Nonnull subdivision2) {
             // Blocked subdivision must always win.
-            if (subdivision1.blockingReason != subdivision2.blockingReason) {
-                if (subdivision1.blockingReason == SRGBlockingReasonNone) {
+            SRGBlockingReason blockingReason1 = [subdivision1 blockingReasonAtDate:currentDate];
+            SRGBlockingReason blockingReason2 = [subdivision2 blockingReasonAtDate:currentDate];
+            if (blockingReason1 != blockingReason2) {
+                if (blockingReason1 == SRGBlockingReasonNone) {
                     return NSOrderedAscending;
                 }
-                else if (subdivision2.blockingReason == SRGBlockingReasonNone) {
+                else if (blockingReason2 == SRGBlockingReasonNone) {
                     return NSOrderedDescending;
                 }
             }
@@ -285,16 +300,7 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
                 }
             }
             
-            // Order according to declared position, otherwise consider equal
-            if (subdivision1.position == subdivision2.position) {
-                return NSOrderedSame;
-            }
-            else if (subdivision1.position < subdivision2.position) {
-                return NSOrderedAscending;
-            }
-            else {
-                return NSOrderedDescending;
-            }
+            return NSOrderedSame;
         }];
         
         SRGSubdivision *matchingSubdivision = [[matchingSubdivisions sortedArrayUsingDescriptors:@[sortDescriptor]].lastObject copy];
@@ -316,11 +322,8 @@ NSArray<SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *s
     
     // Remove small non-blocked segments which might result because of the flattening.
     NSPredicate *meaningfulSubdivisionsPredicate = [NSPredicate predicateWithBlock:^BOOL(SRGSubdivision * _Nullable subdivision, NSDictionary<NSString *,id> * _Nullable bindings) {
-        return subdivision.blockingReason != SRGBlockingReasonNone || subdivision.duration >= 1000;     // At least one second
+        SRGBlockingReason blockingReason = [subdivision blockingReasonAtDate:currentDate];
+        return blockingReason != SRGBlockingReasonNone || subdivision.duration >= 1000;     // At least one second
     }];
-    NSArray<SRGSubdivision *> *meaningfulSubdivisions = [sanitizedSubdivisions filteredArrayUsingPredicate:meaningfulSubdivisionsPredicate];
-    [meaningfulSubdivisions enumerateObjectsUsingBlock:^(SRGSubdivision * _Nonnull subdivision, NSUInteger idx, BOOL * _Nonnull stop) {
-        subdivision.position = idx;
-    }];
-    return meaningfulSubdivisions;
+    return [sanitizedSubdivisions filteredArrayUsingPredicate:meaningfulSubdivisionsPredicate];
 }

@@ -162,14 +162,15 @@
 - (SRGMediaComposition *)mediaCompositionForSubdivision:(SRGSubdivision *)subdivision
 {
     for (SRGChapter *chapter in self.chapters) {
-        if (chapter == subdivision) {
+        if ([chapter isEqual:subdivision]) {
             SRGMediaComposition *mediaComposition = [self copy];
             mediaComposition.chapterURN = chapter.URN;
+            mediaComposition.segmentURN = nil;
             return mediaComposition;
         }
         else {
             for (SRGSegment *chapterSegment in chapter.segments) {
-                if (chapterSegment == subdivision) {
+                if ([chapterSegment isEqual:subdivision]) {
                     SRGMediaComposition *mediaComposition = [self copy];
                     mediaComposition.chapterURN = chapter.URN;
                     mediaComposition.segmentURN = chapterSegment.URN;
@@ -187,7 +188,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (!object || ![object isKindOfClass:[self class]]) {
+    if (! object || ! [object isKindOfClass:[self class]]) {
         return NO;
     }
     
