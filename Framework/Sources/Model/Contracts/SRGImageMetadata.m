@@ -6,4 +6,4 @@
 
 #import "SRGImageMetadata.h"
 
-NSString * const SRGImageTypeDefault = @"default";
+SRGImageType const SRGImageTypeDefault = @"default";

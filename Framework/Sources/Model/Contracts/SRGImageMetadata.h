@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Supported image types
 typedef NSString * SRGImageType NS_STRING_ENUM;
 
-OBJC_EXPORT NSString * const SRGImageTypeDefault;          // Default image.
+OBJC_EXPORT SRGImageType const SRGImageTypeDefault;          // Default image.
 
 /**
  *  Common protocol for model objects having an image.
