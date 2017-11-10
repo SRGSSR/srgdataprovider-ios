@@ -69,6 +69,7 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Most popular medias | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 | Latest episodes | ✅ | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ |
 | Episodes by date | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
+| Latest videos | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ |
 
 ### Shows
 

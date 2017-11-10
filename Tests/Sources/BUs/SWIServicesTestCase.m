@@ -419,6 +419,19 @@ static NSString * const kInvalidMediaId = @"999999999999999";
 }
 
 // Not supported for SWI
+- (void)testRadioLatestVideosForChannel
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider radioLatestVideosForChannelWithUid:kRadioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// Not supported for SWI
 - (void)testRadioShowsForChannel
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
