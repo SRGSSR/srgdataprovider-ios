@@ -44,7 +44,7 @@ static NSString * const kInvalidMediaId = @"999999999999999";
 
 - (void)setUp
 {
-    self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerTestServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
+    self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
 }
 
 - (void)tearDown
