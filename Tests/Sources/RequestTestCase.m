@@ -12,8 +12,6 @@
 
 @property (nonatomic) SRGDataProvider *dataProvider;
 
-@property (nonatomic) SRGFirstPageRequest *firstPageRequest;
-
 @end
 
 @implementation RequestTestCase
@@ -421,19 +419,19 @@
     
     NSString *originalHost1 = self.dataProvider.serviceURL.host;
     
-    self.firstPageRequest = [self.dataProvider tvLatestMediasForTopicWithUid:@"1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    __block SRGFirstPageRequest *request = [self.dataProvider tvLatestMediasForTopicWithUid:@"1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
-        XCTAssertEqualObjects(originalHost1, [self.firstPageRequest requestWithPage:nextPage].request.URL.host);
+        XCTAssertEqualObjects(originalHost1, [request requestWithPage:nextPage].request.URL.host);
         [expectation1 fulfill];
     }];
-    [self.firstPageRequest  resume];
+    [request  resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
     
-    self.firstPageRequest = nil;
     self.dataProvider = nil;
+    request = nil;
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
@@ -441,14 +439,14 @@
     
     NSString *originalHost2 = self.dataProvider.serviceURL.host;
     
-    self.firstPageRequest = [self.dataProvider tvLatestMediasForTopicWithUid:@"1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    request = [self.dataProvider tvLatestMediasForTopicWithUid:@"1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
-        XCTAssertEqualObjects(originalHost2, [self.firstPageRequest requestWithPage:nextPage].request.URL.host);
+        XCTAssertEqualObjects(originalHost2, [request requestWithPage:nextPage].request.URL.host);
         [expectation2 fulfill];
     }];
-    [self.firstPageRequest  resume];
+    [request  resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
@@ -459,14 +457,14 @@
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    self.firstPageRequest = [self.dataProvider tvLatestMediasForTopicWithUid:@"1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+     __block SRGFirstPageRequest *request = [self.dataProvider tvLatestMediasForTopicWithUid:@"1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
-        XCTAssertEqualObjects([self.firstPageRequest requestWithPage:nextPage].request.allHTTPHeaderFields[@"X-Location"], @"WW");
+        XCTAssertEqualObjects([request requestWithPage:nextPage].request.allHTTPHeaderFields[@"X-Location"], @"WW");
         [expectation fulfill];
     }];
-    [self.firstPageRequest  resume];
+    [request  resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
