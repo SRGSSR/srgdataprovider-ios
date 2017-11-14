@@ -29,18 +29,18 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
 + (NSURLRequest *)request:(NSURLRequest *)request withPage:(SRGPage *)page
 {
     if (page.URL) {
-        if ([page.URL.host isEqualToString:request.URL.host]) {
-            return [NSURLRequest requestWithURL:page.URL];
-        }
-        else {
+        NSURL *nextPageURL = page.URL;
+        if (! [page.URL.host isEqualToString:request.URL.host]) {
             NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:page.URL resolvingAgainstBaseURL:NO];
             URLComponents.host = request.URL.host;
-            NSMutableURLRequest *pageRequest = [NSMutableURLRequest requestWithURL:URLComponents.URL];
-            [request.allHTTPHeaderFields enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull field, NSString * _Nonnull value, BOOL * _Nonnull stop) {
-                [pageRequest setValue:value forHTTPHeaderField:field];
-            }];
-            return [pageRequest copy];
+            nextPageURL = URLComponents.URL;
         }
+        
+        NSMutableURLRequest *pageRequest = [NSMutableURLRequest requestWithURL:nextPageURL];
+        [request.allHTTPHeaderFields enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull field, NSString * _Nonnull value, BOOL * _Nonnull stop) {
+            [pageRequest setValue:value forHTTPHeaderField:field];
+        }];
+        return [pageRequest copy];
     }
     else {
         NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:NO];
