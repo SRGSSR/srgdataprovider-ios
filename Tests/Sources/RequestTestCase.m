@@ -413,58 +413,25 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testSameHostInNextPageRequest
+- (void)testNextPageRequestConsistency
 {
-    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
-    
-    NSString *originalHost1 = self.dataProvider.serviceURL.host;
-    
-    __block SRGFirstPageRequest *request = [self.dataProvider tvLatestMediasForTopicWithUid:@"1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(medias);
-        XCTAssertNil(error);
-        XCTAssertNotNil(nextPage);
-        XCTAssertEqualObjects(originalHost1, [request requestWithPage:nextPage].request.URL.host);
-        [expectation1 fulfill];
-    }];
-    [request  resume];
-    
-    [self waitForExpectationsWithTimeout:30. handler:nil];
-    
-    self.dataProvider = nil;
-    request = nil;
-    
-    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
-    
-    self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:[NSURL URLWithString:@"http://intlayer.production.srf.ch"] businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSWI];
-    
-    NSString *originalHost2 = self.dataProvider.serviceURL.host;
-    
-    request = [self.dataProvider tvLatestMediasForTopicWithUid:@"1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        XCTAssertNotNil(medias);
-        XCTAssertNil(error);
-        XCTAssertNotNil(nextPage);
-        XCTAssertEqualObjects(originalHost2, [request requestWithPage:nextPage].request.URL.host);
-        [expectation2 fulfill];
-    }];
-    [request  resume];
-    
-    [self waitForExpectationsWithTimeout:30. handler:nil];
-}
-
-- (void)testContainGlobalHeadersForNextPage
-{
-    self.dataProvider.globalHeaders = @{ @"X-Location" : @"WW" };
-    
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-     __block SRGFirstPageRequest *request = [self.dataProvider tvLatestMediasForTopicWithUid:@"1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    NSURL *serviceURL = [NSURL URLWithString:@"http://intlayer.production.srf.ch"];
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSWI];
+    dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
+    
+    __block SRGFirstPageRequest *request = [dataProvider tvLatestMediasForTopicWithUid:@"1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
-        XCTAssertEqualObjects([request requestWithPage:nextPage].request.allHTTPHeaderFields[@"X-Location"], @"WW");
+        
+        NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].request;
+        XCTAssertEqualObjects(serviceURL.host, nextPageURLRequest.URL.host);
+        XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
         [expectation fulfill];
     }];
-    [request  resume];
+    [request resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
