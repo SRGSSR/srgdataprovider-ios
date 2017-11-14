@@ -417,6 +417,27 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
+    self.dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
+    
+    __block SRGFirstPageRequest *request = [self.dataProvider tvLatestMediasForTopicWithUid:@"1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        XCTAssertNotNil(nextPage);
+        
+        NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].request;
+        XCTAssertEqualObjects(self.dataProvider.serviceURL.host, nextPageURLRequest.URL.host);
+        XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+        [expectation fulfill];
+    }];
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testNextPageRequestConsistencyWithCustomServiceURL
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
     NSURL *serviceURL = [NSURL URLWithString:@"http://intlayer.production.srf.ch"];
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSWI];
     dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
