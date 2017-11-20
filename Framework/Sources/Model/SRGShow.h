@@ -15,6 +15,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// Supported alternative image types
 OBJC_EXPORT SRGImageType const SRGImageTypeShowBanner;          // Show banner image.
 
 /**

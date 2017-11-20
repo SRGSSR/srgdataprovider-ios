@@ -447,6 +447,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                               completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
+ *  Latest video medias for a specific channel.
+ */
+- (SRGFirstPageRequest *)radioLatestVideosForChannelWithUid:(NSString *)channelUid
+                                            completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
  *  @name Shows
  */
 
