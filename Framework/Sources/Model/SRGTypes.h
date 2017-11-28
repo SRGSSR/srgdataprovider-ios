@@ -427,6 +427,10 @@ typedef NS_ENUM(NSInteger, SRGVideoCodec) {
  */
 typedef NS_ENUM(NSInteger, SRGStreamType) {
     /**
+     *  Not specified.
+     */
+    SRGStreamTypeNone,
+    /**
      *  On-demand stream.
      */
     SRGStreamTypeOnDemand,
