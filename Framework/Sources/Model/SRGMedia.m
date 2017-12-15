@@ -106,6 +106,11 @@
 
 #pragma mark Transformers
 
++ (NSValueTransformer *)presentationJSONTransformer
+{
+    return SRGPresentationJSONTransformer();
+}
+
 + (NSValueTransformer *)channelJSONTransformer
 {
     return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGChannel class]];
