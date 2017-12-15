@@ -14,6 +14,8 @@
 
 @interface SRGMedia () <SRGMediaExtendedMetadata>
 
+@property (nonatomic) SRGPresentation presentation;
+
 @property (nonatomic) SRGChannel *channel;
 @property (nonatomic) SRGEpisode *episode;
 @property (nonatomic) SRGShow *show;
@@ -55,7 +57,9 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @keypath(SRGMedia.new, channel) : @"channel",
+        s_mapping = @{ @keypath(SRGMedia.new, presentation) : @"presentation",
+                      
+                       @keypath(SRGMedia.new, channel) : @"channel",
                        @keypath(SRGMedia.new, episode) : @"episode",
                        @keypath(SRGMedia.new, show) : @"show",
                        

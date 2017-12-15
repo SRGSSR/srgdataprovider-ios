@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGQuality quality;
 
 /**
- *  The recommended way to present the media.
+ *  The recommended way to present the resource.
  */
 @property (nonatomic, readonly) SRGPresentation presentation;
 
