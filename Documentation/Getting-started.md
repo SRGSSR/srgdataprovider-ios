@@ -1,7 +1,7 @@
 Getting started
 ===============
 
-This getting started guide discusses all concepts required to use the SRG SSR data provider library. It covers basic topics like data provider instantiation and requests, as well as more advanced topics like request queues and pagination.
+This getting started guide discusses all concepts required to use the SRG Data Provider library. It covers basic topics like data provider instantiation and requests, as well as more advanced topics like request queues and pagination.
 
 ## Data provider instantation and access
 
