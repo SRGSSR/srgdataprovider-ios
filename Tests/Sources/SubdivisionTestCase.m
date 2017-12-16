@@ -47,6 +47,28 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testMedia360ForSubdivision
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:[NSURL URLWithString:@"http://play-mmf.herokuapp.com"] businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
+    SRGMediaURN *URN = [SRGMediaURN mediaURNWithString:@"urn:rts:video:_gothard"];
+    [[dataProvider mediaCompositionWithURN:URN chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertEqualObjects(mediaComposition.chapterURN, URN);
+        XCTAssertNil(mediaComposition.segmentURN);
+        XCTAssertEqual(mediaComposition.mainChapter.resources.firstObject.presentation, SRGPresentation360);
+        
+        // Derive the chapter media
+        SRGMedia *chapterMedia = [mediaComposition mediaForSubdivision:mediaComposition.mainChapter];
+        XCTAssertEqualObjects(chapterMedia.URN, URN);
+        XCTAssertEqual(chapterMedia.presentation, SRGPresentation360);
+        
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testMediaCompositionForSubdivision
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
