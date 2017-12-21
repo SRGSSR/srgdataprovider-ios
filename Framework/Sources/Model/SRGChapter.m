@@ -33,6 +33,8 @@
         NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
         [mapping addEntriesFromDictionary:@{ @keypath(SRGChapter.new, resources) : @"resourceList",
                                              @keypath(SRGChapter.new, segments) : @"segmentList",
+                                             @keypath(SRGChapter.new, fullLengthMarkIn) : @"fullLengthMarkIn",
+                                             @keypath(SRGChapter.new, fullLengthMarkOut) : @"fullLengthMarkOut",
                                               
                                              @keypath(SRGChapter.new, preTrailerStartDate) : @"preTrailerStart",
                                              @keypath(SRGChapter.new, postTrailerEndDate) : @"postTrailerStop" }];

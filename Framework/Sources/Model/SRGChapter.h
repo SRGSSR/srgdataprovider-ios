@@ -33,6 +33,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGSegment *> *segments;
 
+/**
+ *  The time at which the chapter starts in milliseconds, if `fullLengthURN` isn't nil, otherwise, set to 0.
+ */
+@property (nonatomic) NSTimeInterval fullLengthMarkIn;
+
+/**
+ *  The time at which the segment ends, in milliseconds, if `fullLengthURN` isn't nil, otherwise, set to 0.
+ */
+@property (nonatomic, readonly) NSTimeInterval fullLengthMarkOut;
+
 @end
 
 @interface SRGChapter (Resources)
