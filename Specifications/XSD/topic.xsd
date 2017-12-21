@@ -8,7 +8,7 @@
 
     <xs:include schemaLocation="common.xsd"/>
 
-    <xs:complexType name="topic">
+    <xs:complexType name="baseTopic" abstract="true">
         <xs:annotation>
             <xs:documentation>A topic is kind of a keyword or category</xs:documentation>
         </xs:annotation>
@@ -19,6 +19,28 @@
             <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
         </xs:sequence>
         <xs:anyAttribute processContents="lax" namespace="##other"/>
+    </xs:complexType>
+
+    <xs:complexType name="topic">
+        <xs:annotation>
+            <xs:documentation>A root topic can include none, one or many subtopics</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="baseTopic">
+                <xs:sequence>
+                    <xs:element name="subTopicList" type="subTopic" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="subTopic">
+        <xs:annotation>
+            <xs:documentation>A sub topic belongs to one root topic</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="baseTopic"/>
+        </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="topicList">

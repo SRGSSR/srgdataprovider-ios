@@ -61,6 +61,7 @@
             <xs:enumeration value="HTTP"/>
             <xs:enumeration value="HTTPS" />
             <xs:enumeration value="HTTP-M3U"/>
+            <xs:enumeration value="HTTP-AAC-STREAM"/>
             <xs:enumeration value="HTTP-MP3-STREAM"/>
         </xs:restriction>
     </xs:simpleType>
