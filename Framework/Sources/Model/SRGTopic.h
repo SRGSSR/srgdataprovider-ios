@@ -4,20 +4,20 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGMetadata.h"
-#import "SRGModel.h"
+#import "SRGBaseTopic.h"
+#import "SRGSubTopic.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Topic (e.g. sports, kids, etc.) information.
  */
-@interface SRGTopic : SRGModel <SRGMetadata>
+@interface SRGTopic : SRGBaseTopic
 
 /**
- *  The unique topic identifier.
+ *  The sub topic list.
  */
-@property (nonatomic, readonly, copy) NSString *uid;
+@property (nonatomic, readonly, nullable) NSArray<SRGSubTopic *> *subTopics;
 
 @end
 

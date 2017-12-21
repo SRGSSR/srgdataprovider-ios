@@ -178,6 +178,10 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     [[self.dataProvider tvTopicsWithCompletionBlock:^(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error) {
         XCTAssertNotNil(topics);
         XCTAssertNil(error);
+        
+        SRGTopic *topic = topics.firstObject;
+        XCTAssertNotNil(topic);
+        XCTAssertNotNil(topic.subTopics);
         [expectation fulfill];
     }] resume];
     
