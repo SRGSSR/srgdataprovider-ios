@@ -17,6 +17,10 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
 
 @property (nonatomic) NSURL *homepageURL;
 @property (nonatomic) NSURL *podcastSubscriptionURL;
+@property (nonatomic) NSURL *podcastFeedSdURL;
+@property (nonatomic) NSURL *podcastFeedHdURL;
+@property (nonatomic) NSURL *podcastDeezerURL;
+@property (nonatomic) NSURL *podcastSpotifyURL;
 @property (nonatomic, copy) NSString *primaryChannelUid;
 @property (nonatomic) NSURL *bannerImageURL;
 @property (nonatomic) NSInteger numberOfEpisodes;
@@ -47,6 +51,10 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @keypath(SRGShow.new, homepageURL) : @"homepageUrl",
                        @keypath(SRGShow.new, podcastSubscriptionURL) : @"podcastSubscriptionUrl",
+                       @keypath(SRGShow.new, podcastFeedSdURL) : @"podcastFeedSdUrl",
+                       @keypath(SRGShow.new, podcastFeedHdURL) : @"podcastFeedHdUrl",
+                       @keypath(SRGShow.new, podcastDeezerURL) : @"podcastDeezerUrl",
+                       @keypath(SRGShow.new, podcastSpotifyURL) : @"podcastSpotifyUrl",
                        @keypath(SRGShow.new, primaryChannelUid) : @"primaryChannelId",
                        @keypath(SRGShow.new, numberOfEpisodes) : @"numberOfEpisodes",
                        @keypath(SRGShow.new, bannerImageURL) : @"bannerImageUrl",
@@ -58,7 +66,7 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
                        @keypath(SRGShow.new, imageURL) : @"imageUrl",
                        @keypath(SRGShow.new, imageTitle) : @"imageTitle",
                        @keypath(SRGShow.new, imageCopyright) : @"imageCopyright",
-                        
+                       
                        @keypath(SRGShow.new, uid) : @"id",
                        @keypath(SRGShow.new, URN) : @"urn",
                        @keypath(SRGShow.new, transmission) : @"transmission",
@@ -75,6 +83,26 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
 }
 
 + (NSValueTransformer *)podcastSubscriptionURLJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)podcastFeedSdURLJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)podcastFeedHdURLJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)podcastDeezerURLJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)podcastSpotifyURLJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
