@@ -4,18 +4,27 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGSubdivision.h"
+#import "SRGSegment.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface SRGSubdivision (Private)
+
 /**
- *  This function takes a list of subdivisions as input, and sanitizes it so that:
+ *  The media duration in milliseconds.
+ */
+@property (nonatomic) NSTimeInterval duration;
+
+@end
+
+/**
+ *  This function takes a list of segments as input, and sanitizes it so that:
  *    - Invalid segments are removed (zero duration or mark-in larger than mark-out)
- *    - Subdivisions are guaranteed to be disjoint.
+ *    - Segments are guaranteed to be disjoint.
  *    - Blocked content can never be played.
  *    - Segments might be repeated several times when cut by another segment.
  *    - Positions are fixed to match the cleaned up list.
  */
-OBJC_EXTERN NSArray<__kindof SRGSubdivision *> *SRGSanitizedSubdivisions(NSArray<SRGSubdivision *> *subdivisions);
+OBJC_EXTERN NSArray<__kindof SRGSegment *> *SRGSanitizedSegments(NSArray<SRGSegment *> *segments);
 
 NS_ASSUME_NONNULL_END

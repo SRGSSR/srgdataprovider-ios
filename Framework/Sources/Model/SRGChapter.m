@@ -59,7 +59,7 @@
                 return nil;
             }
             
-            return SRGSanitizedSubdivisions(objects);
+            return SRGSanitizedSegments(objects);
         } reverseBlock:^id(NSArray *objects, BOOL *success, NSError *__autoreleasing *error) {
             return [MTLJSONAdapter JSONArrayFromModels:objects error:error];
         }];

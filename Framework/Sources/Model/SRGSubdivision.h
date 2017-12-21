@@ -23,16 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) SRGMediaURN *fullLengthURN;
 
 /**
- *  The time at which the subdivision starts, in milliseconds.
- */
-@property (nonatomic, readonly) NSTimeInterval markIn;
-
-/**
- *  The time at which the subdivision ends, in milliseconds.
- */
-@property (nonatomic, readonly) NSTimeInterval markOut;
-
-/**
  *  Return whether the subdivision must be hidden client-side.
  */
 @property (nonatomic, readonly, getter=isHidden) BOOL hidden;
