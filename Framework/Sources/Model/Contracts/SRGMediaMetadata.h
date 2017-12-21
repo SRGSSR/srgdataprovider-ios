@@ -75,6 +75,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) NSDate *endDate;
 
 /**
+ *  Alternative description for disabled persons.
+ */
+@property (nonatomic, readonly, nullable) NSString *accessibilityTitle;
+
+/**
  *  The list of contents related to the media.
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGRelatedContent *> *relatedContents;

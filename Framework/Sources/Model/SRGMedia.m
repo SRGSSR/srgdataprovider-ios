@@ -40,6 +40,7 @@
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
 @property (nonatomic) NSDate *startDate;
 @property (nonatomic) NSDate *endDate;
+@property (nonatomic) NSString *accessibilityTitle;
 @property (nonatomic) NSArray<SRGRelatedContent *> *relatedContents;
 @property (nonatomic) NSArray<SRGSocialCount *> *socialCounts;
 
@@ -57,7 +58,7 @@
         s_mapping = @{ @keypath(SRGMedia.new, channel) : @"channel",
                        @keypath(SRGMedia.new, episode) : @"episode",
                        @keypath(SRGMedia.new, show) : @"show",
-                      
+                       
                        @keypath(SRGMedia.new, title) : @"title",
                        @keypath(SRGMedia.new, lead) : @"lead",
                        @keypath(SRGMedia.new, summary) : @"description",
@@ -80,6 +81,7 @@
                        @keypath(SRGMedia.new, podcastHighDefinitionURL) : @"podcastHdUrl",
                        @keypath(SRGMedia.new, startDate) : @"validFrom",
                        @keypath(SRGMedia.new, endDate) : @"validTo",
+                       @keypath(SRGMedia.new, accessibilityTitle) : @"mediaDescription",
                        @keypath(SRGMedia.new, relatedContents) : @"relatedContentList",
                        @keypath(SRGMedia.new, socialCounts) : @"socialCountList" };
     });

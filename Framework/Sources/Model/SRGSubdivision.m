@@ -45,6 +45,7 @@
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
 @property (nonatomic) NSDate *startDate;
 @property (nonatomic) NSDate *endDate;
+@property (nonatomic) NSString *accessibilityTitle;
 @property (nonatomic) NSArray<SRGRelatedContent *> *relatedContents;
 @property (nonatomic) NSArray<SRGSocialCount *> *socialCounts;
 
@@ -90,6 +91,7 @@
                        @keypath(SRGSubdivision.new, podcastHighDefinitionURL) : @"podcastHdUrl",
                        @keypath(SRGSubdivision.new, startDate) : @"validFrom",
                        @keypath(SRGSubdivision.new, endDate) : @"validTo",
+                       @keypath(SRGSubdivision.new, accessibilityTitle) : @"mediaDescription",
                        @keypath(SRGSubdivision.new, relatedContents) : @"relatedContentList",
                        @keypath(SRGSubdivision.new, socialCounts) : @"socialCountList" };
     });
