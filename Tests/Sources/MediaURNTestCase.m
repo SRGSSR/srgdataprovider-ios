@@ -57,6 +57,18 @@
     XCTAssertTrue(mediaURN.liveCenterEvent);
 }
 
+- (void)testSatelliteRadioURN
+{
+    NSString *URNString = @"urn:rts:ssatr:audio:rsp";
+    
+    SRGMediaURN *mediaURN = [[SRGMediaURN alloc] initWithURNString:URNString];
+    XCTAssertEqualObjects(mediaURN.uid, @"rsp");
+    XCTAssertEqualObjects(@(mediaURN.mediaType), @(SRGMediaTypeAudio));
+    XCTAssertEqualObjects(@(mediaURN.vendor), @(SRGVendorRTS));
+    XCTAssertEqualObjects(mediaURN.URNString, URNString);
+    XCTAssertFalse(mediaURN.liveCenterEvent);
+}
+
 - (void)testIncorrectURNs
 {
     SRGMediaURN *mediaURN1 = [[SRGMediaURN alloc] initWithURNString:@"fakeURN:swi:video:41981254"];
@@ -73,6 +85,9 @@
     
     SRGMediaURN *mediaURN5 = [[SRGMediaURN alloc] initWithURNString:@"urn:swisstxt:"];
     XCTAssertNil(mediaURN5);
+    
+    SRGMediaURN *mediaURN6 = [[SRGMediaURN alloc] initWithURNString:@"urn:ssatr:audio:rts:rsp"];
+    XCTAssertNil(mediaURN6);
 }
 
 - (void)testEquality

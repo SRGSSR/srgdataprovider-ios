@@ -57,7 +57,7 @@
     }
     
     // Special case of SwissTXT URLs
-    if ([components[1] isEqualToString:@"swisstxt"]) {
+    if ([components[1].lowercaseString isEqualToString:@"swisstxt"]) {
         if (components.count != 5) {
             return NO;
         }
@@ -71,6 +71,10 @@
         
         NSString *shortURNString = [components componentsJoinedByString:@":"];
         return [self parseURNString:shortURNString];
+    }
+    
+    if ([components[2].lowercaseString isEqualToString:@"ssatr"]) {
+        [components removeObjectAtIndex:2];
     }
     
     SRGMediaType mediaType = [[SRGMediaTypeJSONTransformer() transformedValue:components[2].uppercaseString] integerValue];
