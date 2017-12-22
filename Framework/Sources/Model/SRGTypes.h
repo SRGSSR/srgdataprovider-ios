@@ -475,3 +475,21 @@ typedef NS_ENUM(NSInteger, SRGTimeAvailability) {
      */
     SRGTimeAvailabilityNotAvailableAnymore
 };
+
+/**
+ *  Stream providers options.
+ */
+typedef NS_ENUM(NSInteger, SRGStreamProvidersOption) {
+    /**
+     *  SRG providers.
+     */
+    SRGStreamProvidersOptionDefault = 0,
+    /**
+     *  SRG providers and third party providers.
+     */
+    SRGStreamProvidersOptionIncludeThirdParty,
+    /**
+     *  Only third party providers.
+     */
+    SRGStreamProvidersOptionOnlyThirdParty
+};

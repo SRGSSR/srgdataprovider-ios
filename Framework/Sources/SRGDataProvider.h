@@ -407,13 +407,22 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                     completionBlock:(SRGChannelCompletionBlock)completionBlock;
 
 /**
- *  List of livestreams.
+ *  List of radio livestreams for a channel.
  *
- *  @param channelUid The channel uid for which audio live streams (main and regional) must be retrieved. If not specified,
- *                    all main live streams are returned.
+ *  @param channelUid The channel uid for which audio live streams (main and regional) must be retrieved.
  */
-- (SRGRequest *)radioLivestreamsForChannelWithUid:(nullable NSString *)channelUid
+- (SRGRequest *)radioLivestreamsForChannelWithUid:(NSString *)channelUid
                                   completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  List of radio livestreams with a stream provider option.
+ *
+ *  @param `streamProvidersOption SRGStreamProvidersOptionDefault` returns all main SRG livestreams.
+ *
+ *  @discussion `SRGStreamProvidersOptionOnlyThirdParty`option only supports Swiss satellite radio for now.
+ */
+- (SRGRequest *)radioLivestreamsWithStreamProvidersOption:(SRGStreamProvidersOption)streamProvidersOption
+                                          completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Media and episode retrieval
