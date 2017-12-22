@@ -56,7 +56,7 @@
         return NO;
     }
     
-    // Special case of SwissTXT URLs
+    // Special case of SwissTXT URNs
     if ([components[1].lowercaseString isEqualToString:@"swisstxt"]) {
         if (components.count != 5) {
             return NO;
@@ -73,7 +73,10 @@
         return [self parseURNString:shortURNString];
     }
     
-    if ([components[2].lowercaseString isEqualToString:@"ssatr"]) {
+    // Special case of Swiss Satellite radios, new livestream and Scheduled livestream URNs
+    if ([components[2].lowercaseString isEqualToString:@"ssatr"]
+        || [components[2].lowercaseString isEqualToString:@"scheduled_livestream"]
+        || [components[2].lowercaseString isEqualToString:@"livestream"]) {
         [components removeObjectAtIndex:2];
     }
     

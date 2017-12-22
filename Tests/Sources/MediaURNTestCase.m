@@ -69,6 +69,30 @@
     XCTAssertFalse(mediaURN.liveCenterEvent);
 }
 
+- (void)testScheduledLivestreamURN
+{
+    NSString *URNString = @"urn:rts:scheduled_livestream:video:ea4af24f-311d-45d0-a697-be56c8b3f59e";
+    
+    SRGMediaURN *mediaURN = [[SRGMediaURN alloc] initWithURNString:URNString];
+    XCTAssertEqualObjects(mediaURN.uid, @"ea4af24f-311d-45d0-a697-be56c8b3f59e");
+    XCTAssertEqualObjects(@(mediaURN.mediaType), @(SRGMediaTypeVideo));
+    XCTAssertEqualObjects(@(mediaURN.vendor), @(SRGVendorRTS));
+    XCTAssertEqualObjects(mediaURN.URNString, URNString);
+    XCTAssertFalse(mediaURN.liveCenterEvent);
+}
+
+- (void)testNewLivestreamURN
+{
+    NSString *URNString = @"urn:rts:livestream:video:ea4af24f-311d-45d0-a697-be56c8b3f59e";
+    
+    SRGMediaURN *mediaURN = [[SRGMediaURN alloc] initWithURNString:URNString];
+    XCTAssertEqualObjects(mediaURN.uid, @"ea4af24f-311d-45d0-a697-be56c8b3f59e");
+    XCTAssertEqualObjects(@(mediaURN.mediaType), @(SRGMediaTypeVideo));
+    XCTAssertEqualObjects(@(mediaURN.vendor), @(SRGVendorRTS));
+    XCTAssertEqualObjects(mediaURN.URNString, URNString);
+    XCTAssertFalse(mediaURN.liveCenterEvent);
+}
+
 - (void)testIncorrectURNs
 {
     SRGMediaURN *mediaURN1 = [[SRGMediaURN alloc] initWithURNString:@"fakeURN:swi:video:41981254"];
