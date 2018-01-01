@@ -31,6 +31,7 @@ static NSURL *ServiceTestURL(void)
         XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodHLS].count, 2);
         XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodHDS].count, 2);
         XCTAssertEqual(mainChapter.recommendedStreamingMethod, SRGStreamingMethodHLS);
+        XCTAssertEqual(mainChapter.recommendedSubtitleFormat, SRGSubtitleFormatVTT);
         [expectation fulfill];
     }] resume];
     
@@ -49,6 +50,7 @@ static NSURL *ServiceTestURL(void)
         XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodHLS].count, 2);
         XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodHDS].count, 2);
         XCTAssertEqual(mainChapter.recommendedStreamingMethod, SRGStreamingMethodHLS);
+        XCTAssertEqual(mainChapter.recommendedSubtitleFormat, SRGSubtitleFormatNone);
         [expectation fulfill];
     }] resume];
     
@@ -67,6 +69,7 @@ static NSURL *ServiceTestURL(void)
         XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodRTMP].count, 1);
         XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodProgressive].count, 1);
         XCTAssertEqual(mainChapter.recommendedStreamingMethod, SRGStreamingMethodProgressive);
+        XCTAssertEqual(mainChapter.recommendedSubtitleFormat, SRGSubtitleFormatNone);
         [expectation fulfill];
     }] resume];
     
@@ -87,6 +90,7 @@ static NSURL *ServiceTestURL(void)
         XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodRTMP].count, 1);
         XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodProgressive].count, 1);
         XCTAssertEqual(mainChapter.recommendedStreamingMethod, SRGStreamingMethodHLS);
+        XCTAssertEqual(mainChapter.recommendedSubtitleFormat, SRGSubtitleFormatNone);
         [expectation fulfill];
     }] resume];
     

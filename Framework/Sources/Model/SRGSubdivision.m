@@ -218,3 +218,26 @@
 }
 
 @end
+
+@implementation SRGSubdivision (Subtitles)
+
+- (SRGSubtitleFormat)recommendedSubtitleFormat
+{
+    NSArray<NSNumber *> *subtitleFormats = @[ @(SRGSubtitleFormatVTT), @(SRGSubtitleFormatTTML) ];
+    for (NSNumber *subtitleFormatNumber in subtitleFormats) {
+        SRGSubtitleFormat subtitleFormat = subtitleFormatNumber.integerValue;
+        if ([self subtitlesWithFormat:subtitleFormat].count != 0) {
+            return subtitleFormat;
+        }
+    }
+    
+    return SRGSubtitleFormatNone;
+}
+
+- (NSArray<SRGSubtitle *> *)subtitlesWithFormat:(SRGSubtitleFormat)format
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGSubtitle.new, format), @(format)];
+    return [self.subtitles filteredArrayUsingPredicate:predicate];
+}
+
+@end

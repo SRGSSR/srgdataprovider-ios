@@ -51,4 +51,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface SRGSubdivision (Subtitles)
+
+/**
+ *  The recommended subtitle format to use. Might return `SRGSubtitleFormatNone` if no good match is found.
+ */
+@property (nonatomic, readonly) SRGSubtitleFormat recommendedSubtitleFormat;
+
+/**
+ *  Return subtitles matching the specified format.
+ */
+- (nullable NSArray<SRGSubtitle *> *)subtitlesWithFormat:(SRGSubtitleFormat)format;
+
+@end
+
 NS_ASSUME_NONNULL_END
