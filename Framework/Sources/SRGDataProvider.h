@@ -420,14 +420,14 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                                   completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
- *  List of radio livestreams with a stream provider option.
+ *  List of radio livestreams with a broadcasters option.
  *
- *  @param `streamProvidersOption SRGStreamProvidersOptionDefault` returns all main SRG livestreams.
+ *  @param broadcasters `SRGBroadcastersDefault` returns all main SRG livestreams.
  *
- *  @discussion `SRGStreamProvidersOptionOnlyThirdParty`option only supports Swiss satellite radio for now.
+ *  @discussion `SRGBroadcastersOnlyThirdParty` option only supports Swiss satellite radios for now.
  */
-- (SRGRequest *)radioLivestreamsWithStreamProvidersOption:(SRGStreamProvidersOption)streamProvidersOption
-                                          completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)radioLivestreamsForBroadcasters:(SRGBroadcasters)broadcasters
+                                completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Media and episode retrieval

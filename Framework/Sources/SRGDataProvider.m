@@ -339,14 +339,14 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
     }];
 }
 
-- (SRGRequest *)radioLivestreamsWithStreamProvidersOption:(SRGStreamProvidersOption)streamProvidersOption completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)radioLivestreamsForBroadcasters:(SRGBroadcasters)broadcasters completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/livestreams.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = nil;
-    if (streamProvidersOption == SRGStreamProvidersOptionIncludeThirdParty) {
+    if (broadcasters == SRGBroadcastersIncludeThirdParty) {
         queryItems = @[ [NSURLQueryItem queryItemWithName:@"includeThirdPartyStreams" value:@"true" ] ];
     }
-    else if (streamProvidersOption == SRGStreamProvidersOptionOnlyThirdParty) {
+    else if (broadcasters == SRGBroadcastersOnlyThirdParty) {
         queryItems = @[ [NSURLQueryItem queryItemWithName:@"onlyThirdPartyContentProvider" value:@"ssatr" ] ];
     }
     NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:queryItems];

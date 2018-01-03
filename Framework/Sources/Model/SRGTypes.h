@@ -477,19 +477,19 @@ typedef NS_ENUM(NSInteger, SRGTimeAvailability) {
 };
 
 /**
- *  Stream providers options.
+ *  Broadcasters options.
  */
-typedef NS_ENUM(NSInteger, SRGStreamProvidersOption) {
+typedef NS_ENUM(NSInteger, SRGBroadcasters) {
     /**
-     *  SRG providers.
+     *  SRG broadcasters.
      */
-    SRGStreamProvidersOptionDefault = 0,
+    SRGBroadcastersDefault = 0,
     /**
      *  SRG providers and third party providers.
      */
-    SRGStreamProvidersOptionIncludeThirdParty,
+    SRGBroadcastersIncludeThirdParty,
     /**
-     *  Only third party providers.
+     *  Only third party broadcasters.
      */
-    SRGStreamProvidersOptionOnlyThirdParty
+    SRGBroadcastersOnlyThirdParty
 };
