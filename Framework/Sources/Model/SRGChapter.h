@@ -17,12 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGChapter : SRGSubdivision <SRGScheduledLivestreamMetadata>
 
 /**
- *  The time at which the chapter starts, in milliseconds.
+ *  The time at which the chapter starts within its full-length (if any), in milliseconds.
  */
 @property (nonatomic, readonly) NSTimeInterval fullLengthMarkIn;
 
 /**
- *  The time at which the segment ends, in milliseconds.
+ *  The time at which the segment ends within its full-length (if any), in milliseconds.
  */
 @property (nonatomic, readonly) NSTimeInterval fullLengthMarkOut;
 
