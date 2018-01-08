@@ -57,7 +57,7 @@ For SWI, shows represent content categories (Business, Culture, etc.), and searc
 | Channels | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Single channel | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Livestreams by channel | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
-| Livestreams with provider options | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
+| Livestreams for content provider | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 
 #### Remark
 

@@ -73,10 +73,10 @@
         return [self parseURNString:shortURNString];
     }
     
-    // Special case of Swiss Satellite radios, new livestream and Scheduled livestream URNs
+    // Special case of Swiss Satellite radios, livestream and scheduled livestream URNs
     if ([components[2] isEqualToString:@"ssatr"]
-        || [components[2] isEqualToString:@"scheduled_livestream"]
-        || [components[2] isEqualToString:@"livestream"]) {
+            || [components[2] isEqualToString:@"scheduled_livestream"]
+            || [components[2] isEqualToString:@"livestream"]) {
         [components removeObjectAtIndex:2];
     }
     

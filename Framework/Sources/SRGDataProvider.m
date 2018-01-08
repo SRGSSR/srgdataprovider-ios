@@ -339,16 +339,27 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
     }];
 }
 
-- (SRGRequest *)radioLivestreamsForBroadcasters:(SRGBroadcasters)broadcasters completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)radioLivestreamsForContentProviders:(SRGContentProviders)contentProviders completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/livestreams.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = nil;
-    if (broadcasters == SRGBroadcastersIncludeThirdParty) {
-        queryItems = @[ [NSURLQueryItem queryItemWithName:@"includeThirdPartyStreams" value:@"true" ] ];
+    
+    switch (contentProviders) {
+        case SRGContentProvidersAll: {
+            queryItems = @[ [NSURLQueryItem queryItemWithName:@"includeThirdPartyStreams" value:@"true" ] ];
+            break;
+        }
+            
+        case SRGContentProvidersSwissSatelliteRadio: {
+            queryItems = @[ [NSURLQueryItem queryItemWithName:@"onlyThirdPartyContentProvider" value:@"ssatr" ] ];
+            break;
+        }
+            
+        default: {
+            break;
+        }
     }
-    else if (broadcasters == SRGBroadcastersOnlyThirdParty) {
-        queryItems = @[ [NSURLQueryItem queryItemWithName:@"onlyThirdPartyContentProvider" value:@"ssatr" ] ];
-    }
+    
     NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:queryItems];
     return [self listObjectsWithRequest:request modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(objects, error);
