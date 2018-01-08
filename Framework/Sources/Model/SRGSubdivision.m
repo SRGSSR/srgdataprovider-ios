@@ -43,7 +43,7 @@
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
 @property (nonatomic) NSDate *startDate;
 @property (nonatomic) NSDate *endDate;
-@property (nonatomic) NSString *accessibilityTitle;
+@property (nonatomic, copy) NSString *accessibilityTitle;
 @property (nonatomic) NSArray<SRGRelatedContent *> *relatedContents;
 @property (nonatomic) NSArray<SRGSocialCount *> *socialCounts;
 
