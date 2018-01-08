@@ -7,7 +7,7 @@
 #import "SRGChapter.h"
 
 #import "SRGJSONTransformers.h"
-#import "SRGSubdivision+Private.h"
+#import "SRGSegment+Private.h"
 
 #import <libextobjc/libextobjc.h>
 
@@ -31,7 +31,9 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
-        [mapping addEntriesFromDictionary:@{ @keypath(SRGChapter.new, resources) : @"resourceList",
+        [mapping addEntriesFromDictionary:@{ @keypath(SRGChapter.new, fullLengthMarkIn) : @"fullLengthMarkIn",
+                                             @keypath(SRGChapter.new, fullLengthMarkOut) : @"fullLengthMarkOut",
+                                             @keypath(SRGChapter.new, resources) : @"resourceList",
                                              @keypath(SRGChapter.new, segments) : @"segmentList",
                                               
                                              @keypath(SRGChapter.new, preTrailerStartDate) : @"preTrailerStart",
@@ -54,12 +56,12 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *JSONArray, BOOL *success, NSError *__autoreleasing *error) {
-            NSArray *objects = [MTLJSONAdapter modelsOfClass:[SRGSegment class] fromJSONArray:JSONArray error:error];
-            if (! objects) {
+            NSArray<SRGSegment *> *segments = [MTLJSONAdapter modelsOfClass:[SRGSegment class] fromJSONArray:JSONArray error:error];
+            if (! segments) {
                 return nil;
             }
             
-            return SRGSanitizedSubdivisions(objects);
+            return SRGSanitizedSegments(segments);
         } reverseBlock:^id(NSArray *objects, BOOL *success, NSError *__autoreleasing *error) {
             return [MTLJSONAdapter JSONArrayFromModels:objects error:error];
         }];

@@ -1,7 +1,7 @@
 <!DOCTYPE xs:schema [
         <!ENTITY uuidPattern "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}">
         <!ENTITY ssatrChannelIds "(rsc-de|rsc-fr|rsc-it|rsj|rsp)">
-        <!ENTITY buSpecificIdPattern "(\d+|&uuidPattern;|livestream_\S*|[0-9a-z\-]+|\d+_\w+)">
+        <!ENTITY buSpecificIdPattern "(\d+|&uuidPattern;|livestream_\S*|[0-9a-z\-]+(_\w+)?)">
         <!ENTITY showIdPattern "(\d+|&uuidPattern;)">
         ]>
 <xs:schema id="common"
@@ -95,7 +95,7 @@
             </xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:pattern value="|urn:(srf|rtr|rts|rsi|swi|tvo|ca|swisstxt)(:livestream)?(:ssatr)?:(video|audio|show)(:(srf|rtr|rts|rsi))?:(&buSpecificIdPattern;|&ssatrChannelIds;)"/>
+            <xs:pattern value="|urn:(srf|rtr|rts|rsi|swi|tvo|ca|swisstxt)(:(livestream|scheduled_livestream))?(:ssatr)?:(video|audio|show)(:(srf|rtr|rts|rsi))?:(&buSpecificIdPattern;|&ssatrChannelIds;)"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -338,9 +338,9 @@
             <xs:element name="media_show" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="media_episode" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="media_type" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="media_episode_id_of_referring_episode" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_segment_id" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="media_episode_length" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="media_clip_length" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_segment_length" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="media_is_geoblocked" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="media_is_livestream" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="media_full_length" type="xs:string" minOccurs="0" maxOccurs="1" />
@@ -354,6 +354,19 @@
             <xs:element name="media_livestream_encoder" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="media_tv_id" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="media_is_tvsvizzera" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_urn" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_assigned_tags" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_thumbnail" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_publication_date" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_publication_time" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_publication_datetime" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_content_group" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_channel_id" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_channel_name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_language" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_since_publication_d" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_since_publication_h" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_url" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -464,7 +477,7 @@
             <xs:element name="returnCode" type="xs:int" minOccurs="1" maxOccurs="1"/>
             <xs:element name="next" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
             <xs:element name="outgoingRequests" type="outgoingRequest" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="validationResult" type="validationResult" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="validationResultList" type="validationResultList" minOccurs="0" maxOccurs="1"/>
             <xs:element name="steps" type="step" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
@@ -482,7 +495,16 @@
             <xs:element name="url" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
             <xs:element name="method" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
             <xs:element name="body" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="returnCode" type="xs:int" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="returnCode" type="xs:int" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Return code from server</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="internalReturnCode" type="xs:int" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Return code based on internal functionality (service not available, mapping problems, etc.)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="duration" type="xs:long" minOccurs="0" maxOccurs="1"/>
             <xs:element name="exceptionMessage" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="timestamp" type="xs:long" minOccurs="1" maxOccurs="1"/>
@@ -491,9 +513,18 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="validationResultList">
+        <xs:sequence>
+            <xs:element name="list" type="validationResult" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:complexType name="validationResult">
         <xs:sequence>
+            <xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="msgs" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="json" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="httpStatus" type="xs:string" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 

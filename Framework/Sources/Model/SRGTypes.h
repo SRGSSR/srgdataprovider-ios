@@ -423,13 +423,31 @@ typedef NS_ENUM(NSInteger, SRGVideoCodec) {
  */
 
 /**
+ *  Content providers.
+ */
+typedef NS_ENUM(NSInteger, SRGContentProviders) {
+    /**
+     *  Default behavior (does not include third party content).
+     */
+    SRGContentProvidersDefault = 0,
+    /**
+     *  SRG SSR and and all third party content.
+     */
+    SRGContentProvidersAll,
+    /**
+     *  Swiss Satellite Radio content only.
+     */
+    SRGContentProvidersSwissSatelliteRadio
+};
+
+/**
  *  Stream types.
  */
 typedef NS_ENUM(NSInteger, SRGStreamType) {
     /**
      *  Not specified.
      */
-    SRGStreamTypeNone,
+    SRGStreamTypeNone = 0,
     /**
      *  On-demand stream.
      */

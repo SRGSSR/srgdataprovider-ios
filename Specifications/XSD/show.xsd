@@ -19,6 +19,10 @@
             <xs:element name="bannerImageUrl" type="xs:anyURI" minOccurs="0" maxOccurs="1" />
             <xs:element name="homepageUrl" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
             <xs:element name="podcastSubscriptionUrl" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="podcastFeedSdUrl" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="podcastFeedHdUrl" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="podcastDeezerUrl" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="podcastSpotifyUrl" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
             <xs:element name="primaryChannelId" type="xs:string" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>Id of the channel on which this content is primarily broadcasted. The content might also appear on other channels, e.g. for recurrences</xs:documentation>

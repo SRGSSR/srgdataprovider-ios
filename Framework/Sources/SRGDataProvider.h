@@ -9,6 +9,7 @@
 // Public framework imports.
 #import "SRGAlbum.h"
 #import "SRGArtist.h"
+#import "SRGBaseTopic.h"
 #import "SRGChannel.h"
 #import "SRGChapter.h"
 #import "SRGDataProvider.h"
@@ -48,6 +49,7 @@
 #import "SRGSong.h"
 #import "SRGSubdivision.h"
 #import "SRGSubtitle.h"
+#import "SRGSubtopic.h"
 #import "SRGTopic.h"
 #import "SRGTypes.h"
 #import "SRGMediaURN.h"
@@ -262,6 +264,11 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 - (SRGRequest *)tvLivestreamsWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
+ *  List of TV scheduled livestreams.
+ */
+- (SRGFirstPageRequest *)tvScheduledLivestreamsWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
  *  @name Media and episode retrieval
  */
 
@@ -407,13 +414,20 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                     completionBlock:(SRGChannelCompletionBlock)completionBlock;
 
 /**
- *  List of livestreams.
+ *  List of radio livestreams for a channel.
  *
- *  @param channelUid The channel uid for which audio live streams (main and regional) must be retrieved. If not specified,
- *                    all main live streams are returned.
+ *  @param channelUid The channel uid for which audio live streams (main and regional) must be retrieved.
  */
-- (SRGRequest *)radioLivestreamsForChannelWithUid:(nullable NSString *)channelUid
+- (SRGRequest *)radioLivestreamsForChannelWithUid:(NSString *)channelUid
                                   completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  List of radio livestreams.
+ *
+ *  @param contentProviders The content providers to return radio livestreams for.
+ */
+- (SRGRequest *)radioLivestreamsForContentProviders:(SRGContentProviders)contentProviders
+                                    completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Media and episode retrieval

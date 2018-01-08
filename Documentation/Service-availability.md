@@ -14,6 +14,7 @@ The maximum page size for all services supporting pagination is 100. The default
 | Channels | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Single channel | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Livestreams | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
+| Scheduled livestreams | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 
 ### Media and episode retrieval
 
@@ -55,7 +56,8 @@ For SWI, shows represent content categories (Business, Culture, etc.), and searc
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Channels | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Single channel | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
-| Livestreams | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
+| Livestreams by channel | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
+| Livestreams for content provider | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 
 #### Remark
 

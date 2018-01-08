@@ -57,6 +57,42 @@
     XCTAssertTrue(mediaURN.liveCenterEvent);
 }
 
+- (void)testSwissSatelliteRadioURN
+{
+    NSString *URNString = @"urn:rts:ssatr:audio:rsp";
+    
+    SRGMediaURN *mediaURN = [[SRGMediaURN alloc] initWithURNString:URNString];
+    XCTAssertEqualObjects(mediaURN.uid, @"rsp");
+    XCTAssertEqualObjects(@(mediaURN.mediaType), @(SRGMediaTypeAudio));
+    XCTAssertEqualObjects(@(mediaURN.vendor), @(SRGVendorRTS));
+    XCTAssertEqualObjects(mediaURN.URNString, URNString);
+    XCTAssertFalse(mediaURN.liveCenterEvent);
+}
+
+- (void)testScheduledLivestreamURN
+{
+    NSString *URNString = @"urn:rts:scheduled_livestream:video:ea4af24f-311d-45d0-a697-be56c8b3f59e";
+    
+    SRGMediaURN *mediaURN = [[SRGMediaURN alloc] initWithURNString:URNString];
+    XCTAssertEqualObjects(mediaURN.uid, @"ea4af24f-311d-45d0-a697-be56c8b3f59e");
+    XCTAssertEqualObjects(@(mediaURN.mediaType), @(SRGMediaTypeVideo));
+    XCTAssertEqualObjects(@(mediaURN.vendor), @(SRGVendorRTS));
+    XCTAssertEqualObjects(mediaURN.URNString, URNString);
+    XCTAssertFalse(mediaURN.liveCenterEvent);
+}
+
+- (void)testLivestreamURN
+{
+    NSString *URNString = @"urn:rts:livestream:video:ea4af24f-311d-45d0-a697-be56c8b3f59e";
+    
+    SRGMediaURN *mediaURN = [[SRGMediaURN alloc] initWithURNString:URNString];
+    XCTAssertEqualObjects(mediaURN.uid, @"ea4af24f-311d-45d0-a697-be56c8b3f59e");
+    XCTAssertEqualObjects(@(mediaURN.mediaType), @(SRGMediaTypeVideo));
+    XCTAssertEqualObjects(@(mediaURN.vendor), @(SRGVendorRTS));
+    XCTAssertEqualObjects(mediaURN.URNString, URNString);
+    XCTAssertFalse(mediaURN.liveCenterEvent);
+}
+
 - (void)testIncorrectURNs
 {
     SRGMediaURN *mediaURN1 = [[SRGMediaURN alloc] initWithURNString:@"fakeURN:swi:video:41981254"];
@@ -73,6 +109,9 @@
     
     SRGMediaURN *mediaURN5 = [[SRGMediaURN alloc] initWithURNString:@"urn:swisstxt:"];
     XCTAssertNil(mediaURN5);
+    
+    SRGMediaURN *mediaURN6 = [[SRGMediaURN alloc] initWithURNString:@"urn:ssatr:audio:rts:rsp"];
+    XCTAssertNil(mediaURN6);
 }
 
 - (void)testEquality

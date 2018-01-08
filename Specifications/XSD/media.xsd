@@ -93,6 +93,11 @@
         <xs:sequence>
             <xs:group ref="mediaIdentifierGroup" minOccurs="1" maxOccurs="1"/>
             <xs:group ref="metaDataGroup" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="mediaDescription" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Alternative description for disabled persons</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:group ref="imageGroup" minOccurs="1" maxOccurs="1"/>
             <xs:element name="blockReason" type="blockReason" minOccurs="0" maxOccurs="1"/>
             <xs:element name="type" type="type" minOccurs="1" maxOccurs="1"/>

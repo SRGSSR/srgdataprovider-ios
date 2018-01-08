@@ -56,7 +56,7 @@
         return NO;
     }
     
-    // Special case of SwissTXT URLs
+    // Special case of SwissTXT URNs
     if ([components[1] isEqualToString:@"swisstxt"]) {
         if (components.count != 5) {
             return NO;
@@ -71,6 +71,13 @@
         
         NSString *shortURNString = [components componentsJoinedByString:@":"];
         return [self parseURNString:shortURNString];
+    }
+    
+    // Special case of Swiss Satellite radios, livestream and scheduled livestream URNs
+    if ([components[2] isEqualToString:@"ssatr"]
+            || [components[2] isEqualToString:@"scheduled_livestream"]
+            || [components[2] isEqualToString:@"livestream"]) {
+        [components removeObjectAtIndex:2];
     }
     
     SRGMediaType mediaType = [[SRGMediaTypeJSONTransformer() transformedValue:components[2].uppercaseString] integerValue];
