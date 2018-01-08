@@ -31,10 +31,10 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
-        [mapping addEntriesFromDictionary:@{ @keypath(SRGChapter.new, resources) : @"resourceList",
-                                             @keypath(SRGChapter.new, segments) : @"segmentList",
-                                             @keypath(SRGChapter.new, fullLengthMarkIn) : @"fullLengthMarkIn",
+        [mapping addEntriesFromDictionary:@{ @keypath(SRGChapter.new, fullLengthMarkIn) : @"fullLengthMarkIn",
                                              @keypath(SRGChapter.new, fullLengthMarkOut) : @"fullLengthMarkOut",
+                                             @keypath(SRGChapter.new, resources) : @"resourceList",
+                                             @keypath(SRGChapter.new, segments) : @"segmentList",
                                               
                                              @keypath(SRGChapter.new, preTrailerStartDate) : @"preTrailerStart",
                                              @keypath(SRGChapter.new, postTrailerEndDate) : @"postTrailerStop" }];
