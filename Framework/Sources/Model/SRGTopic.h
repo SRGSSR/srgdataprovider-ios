@@ -5,7 +5,7 @@
 //
 
 #import "SRGBaseTopic.h"
-#import "SRGSubTopic.h"
+#import "SRGSubtopic.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,9 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGTopic : SRGBaseTopic
 
 /**
- *  The sub topic list.
+ *  The subtopic list.
  */
-@property (nonatomic, readonly, nullable) NSArray<SRGSubTopic *> *subTopics;
+@property (nonatomic, readonly, nullable) NSArray<SRGSubtopic *> *subtopics;
 
 @end
 

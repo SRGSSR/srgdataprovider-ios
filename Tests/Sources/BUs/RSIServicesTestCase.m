@@ -194,7 +194,7 @@ static NSString * const kInvalidMediaId = @"999999999999999";
         
         SRGTopic *topic = topics.firstObject;
         XCTAssertNotNil(topic);
-        XCTAssertNotNil(topic.subTopics);
+        XCTAssertNotNil(topic.subtopics);
         [expectation fulfill];
     }] resume];
     

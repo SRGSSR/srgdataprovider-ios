@@ -9,10 +9,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Sub topic (e.g. Hockey, Football, etc.) information.
+ *  Subtopic information. For example, a sports topic could have football or hockey as subtopic.
  */
-
-@interface SRGSubTopic : SRGBaseTopic
+@interface SRGSubtopic : SRGBaseTopic
 
 @end
 

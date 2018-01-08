@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Abstract base class representing a topic (e.g. sports, kids, etc.) information.
+ *  Abstract base class for topic representation.
  */
 @interface SRGBaseTopic : SRGModel <SRGMetadata>
 

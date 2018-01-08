@@ -10,7 +10,7 @@
 
 @interface SRGTopic ()
 
-@property (nonatomic) NSArray<SRGSubTopic *> *subTopics;
+@property (nonatomic) NSArray<SRGSubtopic *> *subtopics;
 
 @end
 
@@ -24,7 +24,7 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
-        [mapping addEntriesFromDictionary:@{ @keypath(SRGTopic.new, subTopics) : @"subTopicList" }];
+        [mapping addEntriesFromDictionary:@{ @keypath(SRGTopic.new, subtopics) : @"subTopicList" }];
         s_mapping = [mapping copy];
     });
     return s_mapping;
@@ -32,9 +32,9 @@
 
 #pragma mark Transformers
 
-+ (NSValueTransformer *)subTopicsJSONTransformer
++ (NSValueTransformer *)subtopicsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSubTopic class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSubtopic class]];
 }
 
 @end

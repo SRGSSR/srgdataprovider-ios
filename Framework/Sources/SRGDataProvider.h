@@ -9,6 +9,7 @@
 // Public framework imports.
 #import "SRGAlbum.h"
 #import "SRGArtist.h"
+#import "SRGBaseTopic.h"
 #import "SRGChannel.h"
 #import "SRGChapter.h"
 #import "SRGDataProvider.h"
@@ -48,6 +49,7 @@
 #import "SRGSong.h"
 #import "SRGSubdivision.h"
 #import "SRGSubtitle.h"
+#import "SRGSubtopic.h"
 #import "SRGTopic.h"
 #import "SRGTypes.h"
 #import "SRGMediaURN.h"

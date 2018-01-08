@@ -4,8 +4,8 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGSubTopic.h"
+#import "SRGSubtopic.h"
 
-@implementation SRGSubTopic
+@implementation SRGSubtopic
 
 @end
