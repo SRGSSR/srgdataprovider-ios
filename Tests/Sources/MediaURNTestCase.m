@@ -57,7 +57,7 @@
     XCTAssertTrue(mediaURN.liveCenterEvent);
 }
 
-- (void)testSatelliteRadioURN
+- (void)testSwissSatelliteRadioURN
 {
     NSString *URNString = @"urn:rts:ssatr:audio:rsp";
     
@@ -81,7 +81,7 @@
     XCTAssertFalse(mediaURN.liveCenterEvent);
 }
 
-- (void)testNewLivestreamURN
+- (void)testLivestreamURN
 {
     NSString *URNString = @"urn:rts:livestream:video:ea4af24f-311d-45d0-a697-be56c8b3f59e";
     
