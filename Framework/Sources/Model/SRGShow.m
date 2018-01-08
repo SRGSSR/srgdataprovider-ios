@@ -17,8 +17,8 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
 
 @property (nonatomic) NSURL *homepageURL;
 @property (nonatomic) NSURL *podcastSubscriptionURL;
-@property (nonatomic) NSURL *podcastFeedSdURL;
-@property (nonatomic) NSURL *podcastFeedHdURL;
+@property (nonatomic) NSURL *podcastStandardDefinitionURL;
+@property (nonatomic) NSURL *podcastHighDefinitionURL;
 @property (nonatomic) NSURL *podcastDeezerURL;
 @property (nonatomic) NSURL *podcastSpotifyURL;
 @property (nonatomic, copy) NSString *primaryChannelUid;
@@ -51,8 +51,8 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @keypath(SRGShow.new, homepageURL) : @"homepageUrl",
                        @keypath(SRGShow.new, podcastSubscriptionURL) : @"podcastSubscriptionUrl",
-                       @keypath(SRGShow.new, podcastFeedSdURL) : @"podcastFeedSdUrl",
-                       @keypath(SRGShow.new, podcastFeedHdURL) : @"podcastFeedHdUrl",
+                       @keypath(SRGShow.new, podcastStandardDefinitionURL) : @"podcastFeedSdUrl",
+                       @keypath(SRGShow.new, podcastHighDefinitionURL) : @"podcastFeedHdUrl",
                        @keypath(SRGShow.new, podcastDeezerURL) : @"podcastDeezerUrl",
                        @keypath(SRGShow.new, podcastSpotifyURL) : @"podcastSpotifyUrl",
                        @keypath(SRGShow.new, primaryChannelUid) : @"primaryChannelId",
