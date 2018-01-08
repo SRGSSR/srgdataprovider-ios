@@ -75,9 +75,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) NSDate *endDate;
 
 /**
- *  Alternative description for disabled persons.
+ *  Title suited for accessibility purposes (e.g. VoiceOver).
  */
-@property (nonatomic, readonly, nullable) NSString *accessibilityTitle;
+@property (nonatomic, readonly, nullable, copy) NSString *accessibilityTitle;
 
 /**
  *  The list of contents related to the media.
