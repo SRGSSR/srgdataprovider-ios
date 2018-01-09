@@ -51,8 +51,8 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:[NSURL URLWithString:@"http://play-mmf.herokuapp.com"] businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
-    SRGMediaURN *URN = [SRGMediaURN mediaURNWithString:@"urn:rts:video:_gothard"];
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
+    SRGMediaURN *URN = [SRGMediaURN mediaURNWithString:@"urn:rts:video:8414077"];
     [[dataProvider mediaCompositionWithURN:URN chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         XCTAssertEqualObjects(mediaComposition.chapterURN, URN);
         XCTAssertNil(mediaComposition.segmentURN);
