@@ -266,7 +266,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  List of TV scheduled livestreams.
  */
-- (SRGFirstPageRequest *)tvScheduledLivestreamsWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvScheduledLivestreamsWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Media and episode retrieval
