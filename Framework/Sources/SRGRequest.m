@@ -107,6 +107,14 @@ static NSInteger s_numberOfRunningRequests = 0;
                 SRGDataProviderLogDebug(@"Request", @"Cancelled %@", self.request.URL);
                 requestCompletionBlock(NO, nil, error);
             }
+            else if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorServerCertificateUntrusted) {
+                SRGDataProviderLogDebug(@"Request", @"Ended %@ with certificate trust error: %@", self.request.URL, error);
+                NSError *friendlyError = [NSError errorWithDomain:error.domain
+                                                             code:error.code
+                                                         userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"You are likely connected to a public wifi network with no Internet access", @"The error message when request a media or a media list on a public network with no Internet access (e.g. SBB)"),
+                                                                     NSURLErrorKey : self.request.URL }];
+                requestCompletionBlock(YES, nil, friendlyError);
+            }
             else {
                 SRGDataProviderLogDebug(@"Request", @"Ended %@ with an error: %@", self.request.URL, error);
                 requestCompletionBlock(YES, nil, error);
