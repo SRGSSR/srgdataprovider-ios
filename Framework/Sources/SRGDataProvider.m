@@ -734,6 +734,10 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
     NSParameterAssert(URL);
     NSParameterAssert(completionBlock);
     
+    if (! [URL.host containsString:@"akamai"]) {
+        return nil;
+    }
+    
     NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
     NSString *acl = [URLComponents.path.stringByDeletingLastPathComponent stringByAppendingPathComponent:@"*"];
     

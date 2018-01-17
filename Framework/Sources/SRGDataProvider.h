@@ -777,9 +777,10 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  Return the provided URL, tokenized for playback.
  *
  *  @discussion The token is valid for a small amount of time (currently 30 seconds), be sure to use the tokenized URL
- *              as soon as possible.
+ *              as soon as possible. If the URL cannot be tokenized, the method returns `nil` (in which case the URL
+ *              must be used as is).
  */
-+ (SRGRequest *)tokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock;
++ (nullable SRGRequest *)tokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock;
 
 @end
 
