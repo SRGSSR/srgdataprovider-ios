@@ -18,8 +18,8 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    NSURL *URL = [NSURL URLWithString:@"https://rtsvodww-vh.akamaihd.net/i/tj/2017/tj_20171011_full_f_1040162-,301k,101k,701k,1201k,2001k,.mp4.csmil/master.m3u8"];
-    SRGRequest *request = [SRGDataProvider tokenizeURL:URL withCompletionBlock:^(NSURL * _Nullable URL, NSError * _Nullable error) {
+    NSURL *originalURL = [NSURL URLWithString:@"https://rtsvodww-vh.akamaihd.net/i/tj/2017/tj_20171011_full_f_1040162-,301k,101k,701k,1201k,2001k,.mp4.csmil/master.m3u8"];
+    SRGRequest *request = [SRGDataProvider tokenizeURL:originalURL withCompletionBlock:^(NSURL * _Nullable URL, NSError * _Nullable error) {
         XCTAssertNotNil(URL);
         XCTAssertNil(error);
         
@@ -37,11 +37,18 @@
 
 - (void)testTokenizeNonAkamaiURL
 {
-    NSURL *URL = [NSURL URLWithString:@"http://stream-i.rts.ch/i/bidbi/2007/bidbi_01082007-,450,k.mp4.csmil/master.m3u8"];
-    SRGRequest *request = [SRGDataProvider tokenizeURL:URL withCompletionBlock:^(NSURL * _Nullable URL, NSError * _Nullable error) {
-        // Nothing
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    NSURL *originalURL = [NSURL URLWithString:@"http://stream-i.rts.ch/i/bidbi/2007/bidbi_01082007-,450,k.mp4.csmil/master.m3u8"];
+    SRGRequest *request = [SRGDataProvider tokenizeURL:originalURL withCompletionBlock:^(NSURL * _Nullable URL, NSError * _Nullable error) {
+        XCTAssertEqualObjects(originalURL, URL);
+        XCTAssertNil(error);
+        [expectation fulfill];
     }];
-    XCTAssertNil(request);
+    XCTAssertNotNil(request);
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
 @end

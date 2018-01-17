@@ -734,10 +734,6 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
     NSParameterAssert(URL);
     NSParameterAssert(completionBlock);
     
-    if (! [URL.host containsString:@"akamai"]) {
-        return nil;
-    }
-    
     NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
     NSString *acl = [URLComponents.path.stringByDeletingLastPathComponent stringByAppendingPathComponent:@"*"];
     
@@ -751,34 +747,41 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
             return;
         }
         
-        NSString *token = nil;
-        
-        id tokenDictionary = JSONDictionary[@"token"];
-        if ([tokenDictionary isKindOfClass:[NSDictionary class]]) {
-            token = [tokenDictionary objectForKey:@"authparams"];
+        // FIXME: SRGRequest is a concrete class, but will be turned into an abstract class soon. Until then, there is no way to
+        //        perform dummy requests when no tokenization is required (which can be decided a priori based on the host). Until
+        //        we have a mechanism to perform dummy requests, and since we cannot return nil (this would break how requests are
+        //        dealt with at higher levels), we still perform the token request, but discard the result
+        NSURL *tokenizedURL = URL;
+        if ([URL.host containsString:@"akamai"]) {
+            NSString *token = nil;
+            
+            id tokenDictionary = JSONDictionary[@"token"];
+            if ([tokenDictionary isKindOfClass:[NSDictionary class]]) {
+                token = [tokenDictionary objectForKey:@"authparams"];
+            }
+            
+            if (!token) {
+                completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                         code:SRGDataProviderErrorCodeInvalidData
+                                                     userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The stream could not be secured.", @"The error message when the secure token cannot be retrieved to play the media stream.") }]);
+                return;
+            }
+            
+            // Use components to properly extract the token as query items
+            NSURLComponents *tokenURLComponents = [[NSURLComponents alloc] init];
+            tokenURLComponents.query = token;
+            
+            // Build the tokenized URL, merging token components with existing ones
+            NSURLComponents *tokenizedURLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
+            
+            NSMutableArray *queryItems = [tokenizedURLComponents.queryItems mutableCopy] ?: [NSMutableArray array];
+            if (tokenURLComponents.queryItems) {
+                [queryItems addObjectsFromArray:tokenURLComponents.queryItems];
+            }
+            tokenizedURLComponents.queryItems = [queryItems copy];
+            tokenizedURL = tokenizedURLComponents.URL;
         }
-        
-        if (!token) {
-            completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                     code:SRGDataProviderErrorCodeInvalidData
-                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The stream could not be secured.", @"The error message when the secure token cannot be retrieved to play the media stream.") }]);
-            return;
-        }
-        
-        // Use components to properly extract the token as query items
-        NSURLComponents *tokenURLComponents = [[NSURLComponents alloc] init];
-        tokenURLComponents.query = token;
-        
-        // Build the tokenized URL, merging token components with existing ones
-        NSURLComponents *tokenizedURLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
-        
-        NSMutableArray *queryItems = [tokenizedURLComponents.queryItems mutableCopy] ?: [NSMutableArray array];
-        if (tokenURLComponents.queryItems) {
-            [queryItems addObjectsFromArray:tokenURLComponents.queryItems];
-        }
-        tokenizedURLComponents.queryItems = [queryItems copy];
-        
-        completionBlock(tokenizedURLComponents.URL, nil);
+        completionBlock(tokenizedURL, nil);
     }];
 }
 
