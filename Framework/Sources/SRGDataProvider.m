@@ -337,7 +337,7 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
     }];
 }
 
-- (SRGRequest *)radioLivestreamsForContentProviders:(SRGContentProviders)contentProviders completionBlock:(SRGMediaListCompletionBlock)completionBlock
+- (SRGRequest *)radioLivestreamsForContentProviders:(SRGContentProviders)contentProviders withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/livestreams.json", self.businessUnitIdentifier];
     NSArray<NSURLQueryItem *> *queryItems = nil;

@@ -427,7 +427,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  @param contentProviders The content providers to return radio livestreams for.
  */
 - (SRGRequest *)radioLivestreamsForContentProviders:(SRGContentProviders)contentProviders
-                                    completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+                                withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Media and episode retrieval
