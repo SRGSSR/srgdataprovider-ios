@@ -416,7 +416,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  List of radio livestreams for a channel.
  *
- *  @param channelUid The channel uid for which audio live streams (main and regional) must be retrieved.
+ *  @param channelUid The channel uid for which audio livestreams (main and regional) must be retrieved.
  */
 - (SRGRequest *)radioLivestreamsForChannelWithUid:(NSString *)channelUid
                                   completionBlock:(SRGMediaListCompletionBlock)completionBlock;
@@ -427,7 +427,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  @param contentProviders The content providers to return radio livestreams for.
  */
 - (SRGRequest *)radioLivestreamsForContentProviders:(SRGContentProviders)contentProviders
-                                    completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+                                withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Media and episode retrieval
@@ -777,7 +777,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  Return the provided URL, tokenized for playback.
  *
  *  @discussion The token is valid for a small amount of time (currently 30 seconds), be sure to use the tokenized URL
- *              as soon as possible.
+ *              as soon as possible. The returned URL might be the same as the input URL when no tokenization was
+ *              required.
  */
 + (SRGRequest *)tokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock;
 
