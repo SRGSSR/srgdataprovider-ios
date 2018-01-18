@@ -416,7 +416,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  List of radio livestreams for a channel.
  *
- *  @param channelUid The channel uid for which audio live streams (main and regional) must be retrieved.
+ *  @param channelUid The channel uid for which audio livestreams (main and regional) must be retrieved.
  */
 - (SRGRequest *)radioLivestreamsForChannelWithUid:(NSString *)channelUid
                                   completionBlock:(SRGMediaListCompletionBlock)completionBlock;
