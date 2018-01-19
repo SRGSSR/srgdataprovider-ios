@@ -4,24 +4,24 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGShowURN.h"
+#import "SRGModuleURN.h"
 
 #import "SRGJSONTransformers.h"
 
-@interface SRGShowURN ()
+@interface SRGModuleURN ()
 
 @property (nonatomic, copy) NSString *uid;
-@property (nonatomic) SRGTransmission transmission;
+@property (nonatomic) SRGModuleType type;
 @property (nonatomic) SRGVendor vendor;
 @property (nonatomic, copy) NSString *URNString;
 
 @end
 
-@implementation SRGShowURN
+@implementation SRGModuleURN
 
 #pragma mark Class methods
 
-+ (SRGShowURN *)showURNWithString:(NSString *)URNString
++ (SRGShowURN *)moduleURNWithString:(NSString *)URNString
 {
     return [[[self class] alloc] initWithURNString:URNString];
 }
@@ -52,12 +52,12 @@
 {
     NSMutableArray<NSString *> *components = [[URNString componentsSeparatedByString:@":"] mutableCopy];
     if (components.count != 5 || ! [components.firstObject.lowercaseString isEqualToString:@"urn"]
-            || ! [components[2].lowercaseString isEqualToString:@"show"]) {
+            || ! [components[2].lowercaseString isEqualToString:@"module"]) {
         return NO;
     }
     
-    SRGTransmission transmission = [[SRGTransmissionJSONTransformer() transformedValue:components[3].uppercaseString] integerValue];
-    if (transmission == SRGTransmissionNone) {
+    SRGModuleType type = [[SRGModuleTypeJSONTransformer() transformedValue:components[3].uppercaseString] integerValue];
+    if (type == SRGModuleTypeNone) {
         return NO;
     }
     
@@ -72,7 +72,7 @@
     }
     
     self.uid = uid;
-    self.transmission = transmission;
+    self.type = type;
     self.vendor = vendor;
     
     return YES;
@@ -86,8 +86,8 @@
         return NO;
     }
     
-    SRGShowURN *otherShowURN = object;
-    return [self.URNString isEqualToString:otherShowURN.URNString];
+    SRGModuleURN *otherModuleURN = object;
+    return [self.URNString isEqualToString:otherModuleURN.URNString];
 }
 
 - (NSUInteger)hash
@@ -106,11 +106,11 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p; uid: %@; transmission: %@; URNString: %@>",
+    return [NSString stringWithFormat:@"<%@: %p; uid: %@; type: %@; URNString: %@>",
             [self class],
             self,
             self.uid,
-            [[SRGTransmissionJSONTransformer() reverseTransformedValue:@(self.transmission)] lowercaseString],
+            [[SRGModuleTypeJSONTransformer() reverseTransformedValue:@(self.type)] lowercaseString],
             self.URNString];
 }
 

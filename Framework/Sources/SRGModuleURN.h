@@ -11,14 +11,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  The Uniform Resource Name (URN) of a show. A URN encompasses the whole information required to identify a show.
+ *  The Uniform Resource Name (URN) of a module. A URN encompasses the whole information required to identify a module.
  */
-@interface SRGShowURN : NSObject
+@interface SRGModuleURN : NSObject
 
 /**
  *  Convenience constructor.
  */
-+ (nullable SRGShowURN *)showURNWithString:(NSString *)URNString;
++ (nullable SRGModuleURN *)moduleURNWithString:(NSString *)URNString;
 
 /**
  *  Create a URN from a string representation. If the string representation is invalid, the method returns `nil`.
@@ -26,17 +26,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable instancetype)initWithURNString:(NSString *)URNString NS_DESIGNATED_INITIALIZER;
 
 /**
- *  The unique show identifier.
+ *  The unique module identifier.
  */
 @property (nonatomic, readonly, copy) NSString *uid;
 
 /**
- *  The show transmission.
+ *  The module type.
  */
-@property (nonatomic, readonly) SRGTransmission transmission;
+@property (nonatomic, readonly) SRGModuleType type;
 
 /**
- *  The business unit which the show belongs to.
+ *  The business unit which the module belongs to.
  */
 @property (nonatomic, readonly) SRGVendor vendor;
 
@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface SRGShowURN (Unavailable)
+@interface SRGModuleURN (Unavailable)
 
 - (instancetype)init NS_UNAVAILABLE;
 

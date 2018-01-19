@@ -4,11 +4,11 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGShowURN.h"
+#import "SRGTopicURN.h"
 
 #import "SRGJSONTransformers.h"
 
-@interface SRGShowURN ()
+@interface SRGTopicURN ()
 
 @property (nonatomic, copy) NSString *uid;
 @property (nonatomic) SRGTransmission transmission;
@@ -17,11 +17,11 @@
 
 @end
 
-@implementation SRGShowURN
+@implementation SRGTopicURN
 
 #pragma mark Class methods
 
-+ (SRGShowURN *)showURNWithString:(NSString *)URNString
++ (SRGShowURN *)topicURNWithString:(NSString *)URNString
 {
     return [[[self class] alloc] initWithURNString:URNString];
 }
@@ -86,8 +86,8 @@
         return NO;
     }
     
-    SRGShowURN *otherShowURN = object;
-    return [self.URNString isEqualToString:otherShowURN.URNString];
+    SRGTopicURN *otherTopicURN = object;
+    return [self.URNString isEqualToString:otherTopicURN.URNString];
 }
 
 - (NSUInteger)hash

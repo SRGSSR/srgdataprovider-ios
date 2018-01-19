@@ -27,6 +27,7 @@
 #import "SRGMetadata.h"
 #import "SRGModel.h"
 #import "SRGModule.h"
+#import "SRGModuleURN.h"
 #import "SRGPage.h"
 #import "SRGPageRequest.h"
 #import "SRGPresenter.h"
@@ -51,6 +52,7 @@
 #import "SRGSubtitle.h"
 #import "SRGSubtopic.h"
 #import "SRGTopic.h"
+#import "SRGTopicURN.h"
 #import "SRGTypes.h"
 #import "SRGMediaURN.h"
 
