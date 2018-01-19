@@ -85,16 +85,6 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="presentation">
-        <xs:annotation>
-            <xs:documentation>How the resource should be presented</xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="DEFAULT"/>
-            <xs:enumeration value="VIDEO_360"/>
-        </xs:restriction>
-    </xs:simpleType>
-
     <xs:simpleType name="streaming">
         <xs:annotation>
             <xs:documentation>How the resource can be streamed</xs:documentation>

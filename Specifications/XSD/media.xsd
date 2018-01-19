@@ -24,6 +24,7 @@
             <xs:element name="channel" type="channel" minOccurs="0" maxOccurs="1"/>
             <xs:element name="userProperties" type="userProperties" minOccurs="0" maxOccurs="1"/>
             <xs:element name="playerProperties" type="playerProperty" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="presentation" type="presentation" minOccurs="0" maxOccurs="1"/>
             <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
         </xs:sequence>
         <xs:anyAttribute processContents="lax" namespace="##other"/>

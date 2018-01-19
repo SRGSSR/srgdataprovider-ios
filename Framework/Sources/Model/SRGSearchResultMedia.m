@@ -16,6 +16,7 @@
 
 @property (nonatomic) NSDate *date;
 @property (nonatomic) NSTimeInterval duration;
+@property (nonatomic) SRGPresentation presentation;
 @property (nonatomic, copy) NSString *episodeUid;
 @property (nonatomic, copy) NSString *episodeTitle;
 @property (nonatomic, copy) NSString *showUid;
@@ -41,6 +42,7 @@
         NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
         [mapping addEntriesFromDictionary:@{ @keypath(SRGSearchResultMedia.new, date) : @"date",
                                              @keypath(SRGSearchResultMedia.new, duration) : @"duration",
+                                             @keypath(SRGSearchResultMedia.new, presentation) : @"presentation",
                                              @keypath(SRGSearchResultMedia.new, episodeUid) : @"episode.id",
                                              @keypath(SRGSearchResultMedia.new, episodeTitle) : @"episode.title",
                                              @keypath(SRGSearchResultMedia.new, showUid) : @"show.id",
@@ -76,6 +78,11 @@
 + (NSValueTransformer *)vendorJSONTransformer
 {
     return SRGVendorJSONTransformer();
+}
+
++ (NSValueTransformer *)presentationJSONTransformer
+{
+    return SRGPresentationJSONTransformer();
 }
 
 #pragma mark Overrides

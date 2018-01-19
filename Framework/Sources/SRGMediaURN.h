@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  The Uniform Resource Name (URN) of a media. A URN encompasses the whole information required to locate a media.
+ *  The Uniform Resource Name (URN) of a media. A URN encompasses the whole information required to identify a media.
  */
 @interface SRGMediaURN : NSObject <NSCopying>
 

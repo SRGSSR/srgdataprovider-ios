@@ -367,6 +367,7 @@
             <xs:element name="media_since_publication_d" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="media_since_publication_h" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="media_url" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="media_player_display" type="xs:string" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -535,5 +536,22 @@
             <xs:element name="timestamp" type="xs:long" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
+
+    <xs:complexType name="httpStatus">
+        <xs:sequence>
+            <xs:element name="code" type="xs:int" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="reasonPhrase" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="presentation">
+        <xs:annotation>
+            <xs:documentation>How the resource should be presented</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="DEFAULT"/>
+            <xs:enumeration value="VIDEO_360"/>
+        </xs:restriction>
+    </xs:simpleType>
 
 </xs:schema>

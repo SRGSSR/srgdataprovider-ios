@@ -1,3 +1,7 @@
+<!DOCTYPE xs:schema [
+        <!ENTITY uuidPattern "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}">
+        <!ENTITY topicIdPattern "(\d+|&uuidPattern;)">
+        ]>
 <xs:schema id="topic"
            version="1.0"
            xmlns="http://www.srgssr.ch"
@@ -8,12 +12,34 @@
 
     <xs:include schemaLocation="common.xsd"/>
 
+    <xs:simpleType name="topicUrn">
+        <xs:annotation>
+            <xs:documentation>The fully qualified name of the specific element.
+                It holds the vendor, transmission and the id of the specific element concatenated with a colon.
+                'urn:rsi:topic:tv:10'
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern
+                    value="urn:(srf|rtr|rts|rsi|swi):topic:(tv|radio):&topicIdPattern;"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:group name="topicIdentifierGroup">
+        <xs:sequence>
+            <xs:element name="id" type="id" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="vendor" type="vendor" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="transmission" type="transmission" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="urn" type="topicUrn" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+
     <xs:complexType name="baseTopic" abstract="true">
         <xs:annotation>
             <xs:documentation>A topic is kind of a keyword or category</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="id" type="id" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="topicIdentifierGroup" minOccurs="1" maxOccurs="1"/>
             <xs:group ref="metaDataGroup"/>
             <xs:element name="viewedMedias" type="xs:int" minOccurs="0" maxOccurs="1"/>
             <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" namespace="##other"/>

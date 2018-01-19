@@ -625,6 +625,24 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
     }];
 }
 
+- (SRGFirstPageRequest *)latestMediasForTopicWithURN:(SRGTopicURN *)topicURN completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/latest/byTopicUrn/%@.json", topicURN.URNString];
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:request modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, error);
+    }];
+}
+
+- (SRGFirstPageRequest *)mostPopularMediasForTopicWithURN:(SRGTopicURN *)topicURN completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/mostClicked/byTopicUrn/%@.json", topicURN.URNString];
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:request modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, error);
+    }];
+}
+
 - (SRGRequest *)mediaCompositionWithURN:(SRGMediaURN *)mediaURN chaptersOnly:(BOOL)chaptersOnly completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaComposition/byUrn/%@.json", mediaURN.URNString];
@@ -650,6 +668,15 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
     NSArray<NSURLQueryItem *> *queryItems = maximumPublicationMonth ? @[ SRGDataProviderURLQueryItemForMaximumPublicationMonth(maximumPublicationMonth) ] : nil;
     NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:queryItems];
     return [self fetchObjectWithRequest:request modelClass:[SRGEpisodeComposition class] completionBlock:completionBlock];
+}
+
+- (SRGFirstPageRequest *)latestMediasForModuleWithURN:(SRGModuleURN *)moduleURN completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/latestByModuleConfigUrn/%@.json", moduleURN.URNString];
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:request modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, error);
+    }];
 }
 
 #pragma mark Popularity services

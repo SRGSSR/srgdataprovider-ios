@@ -18,10 +18,8 @@ SRGImageType const SRGImageTypeModuleLogo = @"logo";
 
 @interface SRGModule ()
 
-@property (nonatomic, copy) NSString *uid;
 @property (nonatomic) NSDate *startDate;
 @property (nonatomic) NSDate *endDate;
-@property (nonatomic) SRGModuleType moduleType;
 @property (nonatomic, copy) NSString *seoName;
 @property (nonatomic) NSURL *backgroundImageURL;
 @property (nonatomic) UIColor *headerBackgroundColor;
@@ -39,6 +37,11 @@ SRGImageType const SRGImageTypeModuleLogo = @"logo";
 @property (nonatomic, copy) NSString *lead;
 @property (nonatomic, copy) NSString *summary;
 
+@property (nonatomic, copy) NSString *uid;
+@property (nonatomic) SRGModuleURN *URN;
+@property (nonatomic) SRGModuleType moduleType;
+@property (nonatomic) SRGVendor vendor;
+
 @end
 
 @implementation SRGModule
@@ -50,10 +53,8 @@ SRGImageType const SRGImageTypeModuleLogo = @"logo";
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @keypath(SRGModule.new, uid) : @"id",
-                       @keypath(SRGModule.new, startDate) : @"publishStartTimestamp",
+        s_mapping = @{ @keypath(SRGModule.new, startDate) : @"publishStartTimestamp",
                        @keypath(SRGModule.new, endDate) : @"publishEndTimestamp",
-                       @keypath(SRGModule.new, moduleType) : @"moduleConfigType",
                        @keypath(SRGModule.new, seoName) : @"seoName",
                        @keypath(SRGModule.new, backgroundImageURL) : @"bgImageUrl",
                        @keypath(SRGModule.new, headerBackgroundColor) : @"headerBackgroundColor",
@@ -69,7 +70,12 @@ SRGImageType const SRGImageTypeModuleLogo = @"logo";
                        
                        @keypath(SRGModule.new, title) : @"title",
                        @keypath(SRGModule.new, lead) : @"lead",
-                       @keypath(SRGModule.new, summary) : @"description" };
+                       @keypath(SRGModule.new, summary) : @"description",
+                        
+                       @keypath(SRGModule.new, uid) : @"id",
+                       @keypath(SRGModule.new, URN) : @"urn",
+                       @keypath(SRGModule.new, moduleType) : @"moduleConfigType",
+                       @keypath(SRGModule.new, vendor) : @"vendor" };
     });
     return s_mapping;
 }
@@ -84,11 +90,6 @@ SRGImageType const SRGImageTypeModuleLogo = @"logo";
 + (NSValueTransformer *)endDateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
-}
-
-+ (NSValueTransformer *)moduleTypeJSONTransformer
-{
-    return SRGModuleTypeJSONTransformer();
 }
 
 + (NSValueTransformer *)backgroundImageURLJSONTransformer
@@ -134,6 +135,21 @@ SRGImageType const SRGImageTypeModuleLogo = @"logo";
 + (NSValueTransformer *)sectionsJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSection class]];
+}
+
++ (NSValueTransformer *)URNJSONTransformer
+{
+    return SRGModuleURNJSONTransformer();
+}
+
++ (NSValueTransformer *)moduleTypeJSONTransformer
+{
+    return SRGModuleTypeJSONTransformer();
+}
+
++ (NSValueTransformer *)vendorJSONTransformer
+{
+    return SRGVendorJSONTransformer();
 }
 
 #pragma mark SRGImage protocol

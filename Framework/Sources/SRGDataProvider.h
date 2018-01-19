@@ -27,6 +27,8 @@
 #import "SRGMetadata.h"
 #import "SRGModel.h"
 #import "SRGModule.h"
+#import "SRGModuleIdentifierMetadata.h"
+#import "SRGModuleURN.h"
 #import "SRGPage.h"
 #import "SRGPageRequest.h"
 #import "SRGPresenter.h"
@@ -51,6 +53,8 @@
 #import "SRGSubtitle.h"
 #import "SRGSubtopic.h"
 #import "SRGTopic.h"
+#import "SRGTopicIdentifierMetadata.h"
+#import "SRGTopicURN.h"
 #import "SRGTypes.h"
 #import "SRGMediaURN.h"
 
@@ -692,6 +696,22 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
+ *  Latest medias for a specific topic.
+ *
+ *  @param topicURN The unique topic URN.
+ */
+- (SRGFirstPageRequest *)latestMediasForTopicWithURN:(SRGTopicURN *)topicURN
+                                     completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
+ *  Most popular videos for a specific topic.
+ *
+ *  @param topicURN The unique topic URN.
+ */
+- (SRGFirstPageRequest *)mostPopularMediasForTopicWithURN:(SRGTopicURN *)topicURN
+                                          completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
  *  Full media information needed to play a media.
  *
  *  @param chaptersOnly If set to `YES`, the returned media composition is only made of chapters. If set to `NO`, it
@@ -718,6 +738,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 - (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(SRGShowURN *)showURN
                               maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
                                       completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
+
+/**
+ *  List medias for a specific module.
+ */
+- (SRGFirstPageRequest *)latestMediasForModuleWithURN:(SRGModuleURN *)moduleURN
+                                      completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 @end
 
