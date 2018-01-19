@@ -909,6 +909,26 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation7 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider liveCenterVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotEqual(medias.count, 0);
+        XCTAssertNil(error);
+        
+        [[self.dataProvider mediaCompositionWithURN:medias.firstObject.URN chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+            XCTAssertNotNil(mediaComposition);
+            
+            [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
+                XCTAssertNotNil(socialCountOverview);
+                XCTAssertNil(error);
+                [expectation7 fulfill];
+            }] resume];
+        }] resume];
+        
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
 - (void)testIncreaseSocialCountWithSubdivision
@@ -993,6 +1013,26 @@ static NSString * const kInvalidMediaId = @"999999999999999";
             XCTAssertNil(error);
             [expectation6 fulfill];
         }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation7 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider liveCenterVideosWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotEqual(medias.count, 0);
+        XCTAssertNil(error);
+        
+        [[self.dataProvider mediaCompositionWithURN:medias.firstObject.URN chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+            XCTAssertNotNil(mediaComposition);
+            
+            [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error) {
+                XCTAssertNotNil(socialCountOverview);
+                XCTAssertNil(error);
+                [expectation7 fulfill];
+            }] resume];
+        }] resume];
+        
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
