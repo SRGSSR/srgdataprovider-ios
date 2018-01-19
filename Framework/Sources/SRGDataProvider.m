@@ -662,19 +662,19 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
     NSAssert(subdivision.event, @"Expect event information");
     
     static dispatch_once_t s_onceToken;
-    static NSDictionary<NSNumber *, NSString *> *s_endPoints;
+    static NSDictionary<NSNumber *, NSString *> *s_endpoints;
     dispatch_once(&s_onceToken, ^{
-        s_endPoints = @{ @(SRGSocialCountTypeSRGView) : @"clicked",
+        s_endpoints = @{ @(SRGSocialCountTypeSRGView) : @"clicked",
                          @(SRGSocialCountTypeSRGLike) : @"liked",
                          @(SRGSocialCountTypeFacebookShare) : @"shared/facebook",
                          @(SRGSocialCountTypeTwitterShare) : @"shared/twitter",
                          @(SRGSocialCountTypeGooglePlusShare) : @"shared/google",
                          @(SRGSocialCountTypeWhatsAppShare) : @"shared/whatsapp" };
     });
-    NSString *endPoint = s_endPoints[@(type)];
-    NSAssert(endPoint, @"A supported social count type must be provided");
+    NSString *endpoint = s_endpoints[@(type)];
+    NSAssert(endpoint, @"A supported social count type must be provided");
     
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaStatistic/byUrn/%@/%@.json", subdivision.URN.URNString, endPoint];
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaStatistic/byUrn/%@/%@.json", subdivision.URN.URNString, endpoint];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
