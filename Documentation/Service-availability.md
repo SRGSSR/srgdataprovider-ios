@@ -130,13 +130,16 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 
 These services provide a way to access content from any business unit from any data provider.
 
-| Request | Remarks |
-|:-- |:--:|
-| Single media by URN | - |
-| List of medias by URNs | For the request to succeed, URNs must all have the same type (only videos or only audios), and must belong to the same business unit |
-| Media composition by URN | - |
-| Show by URN | - |
-| Latest episodes for show with URN | - |
+| Request | Pagination | Unlimited page size | Remarks |
+|:-- |:--:|:--:|:--:|
+| Single media by URN | ❌ | N/A | - |
+| List of medias by URNs | ✅ | ❌ | For the request to succeed, URNs must all have the same type (only videos or only audios), and must belong to the same business unit |
+| Latest medias by topic URN | ✅ | ❌ | - |
+| Most popular medias by topic URN | ✅ | ❌ | - |
+| Media composition by URN | ❌ | N/A | - |
+| Show by URN | ❌ | N/A | - |
+| Latest episodes for show with URN | ✅ | ❌ | - |
+| Latest medias by module URN | ✅ | ❌ | - |
 
 ## Popularity services
 
