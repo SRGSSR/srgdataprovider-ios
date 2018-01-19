@@ -52,7 +52,7 @@
 {
     NSMutableArray<NSString *> *components = [[URNString componentsSeparatedByString:@":"] mutableCopy];
     if (components.count != 5 || ! [components.firstObject.lowercaseString isEqualToString:@"urn"]
-            || ! [components[2].lowercaseString isEqualToString:@"show"]) {
+            || ! [components[2].lowercaseString isEqualToString:@"topic"]) {
         return NO;
     }
     

@@ -11,7 +11,7 @@
 @interface SRGModuleURN ()
 
 @property (nonatomic, copy) NSString *uid;
-@property (nonatomic) SRGModuleType type;
+@property (nonatomic) SRGModuleType moduleType;
 @property (nonatomic) SRGVendor vendor;
 @property (nonatomic, copy) NSString *URNString;
 
@@ -56,8 +56,8 @@
         return NO;
     }
     
-    SRGModuleType type = [[SRGModuleTypeJSONTransformer() transformedValue:components[3].uppercaseString] integerValue];
-    if (type == SRGModuleTypeNone) {
+    SRGModuleType moduleType = [[SRGModuleTypeJSONTransformer() transformedValue:components[3].uppercaseString] integerValue];
+    if (moduleType == SRGModuleTypeNone) {
         return NO;
     }
     
@@ -72,7 +72,7 @@
     }
     
     self.uid = uid;
-    self.type = type;
+    self.moduleType = moduleType;
     self.vendor = vendor;
     
     return YES;
@@ -106,11 +106,11 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p; uid: %@; type: %@; URNString: %@>",
+    return [NSString stringWithFormat:@"<%@: %p; uid: %@; tmoduleTypeype: %@; URNString: %@>",
             [self class],
             self,
             self.uid,
-            [[SRGModuleTypeJSONTransformer() reverseTransformedValue:@(self.type)] lowercaseString],
+            [[SRGModuleTypeJSONTransformer() reverseTransformedValue:@(self.moduleType)] lowercaseString],
             self.URNString];
 }
 

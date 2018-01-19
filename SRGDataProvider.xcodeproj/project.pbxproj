@@ -75,6 +75,8 @@
 		6FDB9A892011DB9800EBEB3C /* SRGModuleURN.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FDB9A852011DB9800EBEB3C /* SRGModuleURN.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FDB9A8C2011DEF800EBEB3C /* SRGModuleIdentifierMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FDB9A8A2011DEF700EBEB3C /* SRGModuleIdentifierMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FDB9A8D2011DEF800EBEB3C /* SRGTopicIdentifierMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FDB9A8B2011DEF800EBEB3C /* SRGTopicIdentifierMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6FDB9A902011EBE500EBEB3C /* TopicURNTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB9A8E2011EBE500EBEB3C /* TopicURNTestCase.m */; };
+		6FDB9A912011EBE500EBEB3C /* ModuleURNTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB9A8F2011EBE500EBEB3C /* ModuleURNTestCase.m */; };
 		6FDF33B71F013D5100BA1D6E /* SRGShowIdentifierMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FDF33B61F013D5100BA1D6E /* SRGShowIdentifierMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FDF33BE1F013DDD00BA1D6E /* SRGShowURN.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FDF33BC1F013DDD00BA1D6E /* SRGShowURN.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FDF33BF1F013DDD00BA1D6E /* SRGShowURN.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDF33BD1F013DDD00BA1D6E /* SRGShowURN.m */; };
@@ -252,6 +254,8 @@
 		6FDB9A852011DB9800EBEB3C /* SRGModuleURN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGModuleURN.h; sourceTree = "<group>"; };
 		6FDB9A8A2011DEF700EBEB3C /* SRGModuleIdentifierMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGModuleIdentifierMetadata.h; sourceTree = "<group>"; };
 		6FDB9A8B2011DEF800EBEB3C /* SRGTopicIdentifierMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGTopicIdentifierMetadata.h; sourceTree = "<group>"; };
+		6FDB9A8E2011EBE500EBEB3C /* TopicURNTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicURNTestCase.m; sourceTree = "<group>"; };
+		6FDB9A8F2011EBE500EBEB3C /* ModuleURNTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleURNTestCase.m; sourceTree = "<group>"; };
 		6FDF33B61F013D5100BA1D6E /* SRGShowIdentifierMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGShowIdentifierMetadata.h; sourceTree = "<group>"; };
 		6FDF33BC1F013DDD00BA1D6E /* SRGShowURN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGShowURN.h; sourceTree = "<group>"; };
 		6FDF33BD1F013DDD00BA1D6E /* SRGShowURN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGShowURN.m; sourceTree = "<group>"; };
@@ -405,11 +409,12 @@
 			isa = PBXGroup;
 			children = (
 				6F6BDCE41E8262C4004BC726 /* BUs */,
+				6FD1EAEB1E8A6517007940EE /* Helpers */,
 				6F6BFCFE1FCBDB4700378FD9 /* ChapterTestCase.m */,
 				6F8201DC1D9A3FAC001DA4DA /* DataProviderTestCase.m */,
-				6FD1EAEB1E8A6517007940EE /* Helpers */,
 				087C58CF1F5D75A60058D310 /* MediaMetadataTestCase.m */,
 				08FA0D2E1E31279A000C94EF /* MediaURNTestCase.m */,
+				6FDB9A8F2011EBE500EBEB3C /* ModuleURNTestCase.m */,
 				6F73CDCC1EEED12700C7EC4A /* NSHTTPURLResponse_DataProviderTestCase.m */,
 				6F8201E21D9AA087001DA4DA /* RequestQueueTestCase.m */,
 				6F8201DF1D9A62D2001DA4DA /* RequestTestCase.m */,
@@ -417,6 +422,7 @@
 				E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */,
 				6FDF33C01F014B9200BA1D6E /* ShowURNTestCase.m */,
 				08879C011FEC6C1200CF3980 /* SubdivisionTestCase.m */,
+				6FDB9A8E2011EBE500EBEB3C /* TopicURNTestCase.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -808,6 +814,8 @@
 				6FC361B31ECD7C8B00E01022 /* CommonServicesTestCase.m in Sources */,
 				6F8201DD1D9A3FAC001DA4DA /* DataProviderTestCase.m in Sources */,
 				E600FE731D94242F000B8A1D /* ServicesTestCase.m in Sources */,
+				6FDB9A902011EBE500EBEB3C /* TopicURNTestCase.m in Sources */,
+				6FDB9A912011EBE500EBEB3C /* ModuleURNTestCase.m in Sources */,
 				6F8201E31D9AA087001DA4DA /* RequestQueueTestCase.m in Sources */,
 				6F98DD6B1E8282EB008B0B22 /* SWIServicesTestCase.m in Sources */,
 				6F6BDCEA1E826A5C004BC726 /* RSIServicesTestCase.m in Sources */,

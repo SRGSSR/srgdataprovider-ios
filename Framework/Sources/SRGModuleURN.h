@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The module type.
  */
-@property (nonatomic, readonly) SRGModuleType type;
+@property (nonatomic, readonly) SRGModuleType moduleType;
 
 /**
  *  The business unit which the module belongs to.
