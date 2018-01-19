@@ -11,6 +11,7 @@
 @interface SRGModuleURN ()
 
 @property (nonatomic, copy) NSString *uid;
+@property (nonatomic, copy) NSString *sectionUid;
 @property (nonatomic) SRGModuleType moduleType;
 @property (nonatomic) SRGVendor vendor;
 @property (nonatomic, copy) NSString *URNString;
@@ -51,7 +52,7 @@
 - (BOOL)parseURNString:(NSString *)URNString
 {
     NSMutableArray<NSString *> *components = [[URNString componentsSeparatedByString:@":"] mutableCopy];
-    if (components.count != 5 || ! [components.firstObject.lowercaseString isEqualToString:@"urn"]
+    if ((components.count != 5 && components.count != 6) || ! [components.firstObject.lowercaseString isEqualToString:@"urn"]
             || ! [components[2].lowercaseString isEqualToString:@"module"]) {
         return NO;
     }
@@ -71,7 +72,16 @@
         return nil;
     }
     
+    NSString *sectionUid = nil;
+    if (components.count == 6) {
+        sectionUid = components[5];
+        if (sectionUid.length == 0) {
+            return nil;
+        }
+    }
+    
     self.uid = uid;
+    self.sectionUid = sectionUid;
     self.moduleType = moduleType;
     self.vendor = vendor;
     
@@ -106,10 +116,11 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p; uid: %@; tmoduleTypeype: %@; URNString: %@>",
+    return [NSString stringWithFormat:@"<%@: %p; uid: %@; sectionUid: %@; moduleType: %@; URNString: %@>",
             [self class],
             self,
             self.uid,
+            self.sectionUid,
             [[SRGModuleTypeJSONTransformer() reverseTransformedValue:@(self.moduleType)] lowercaseString],
             self.URNString];
 }

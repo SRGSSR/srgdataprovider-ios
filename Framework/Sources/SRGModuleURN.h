@@ -31,6 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, copy) NSString *uid;
 
 /**
+ *  The unique section identifier.
+ */
+@property (nonatomic, readonly, copy) NSString *sectionUid;
+
+/**
  *  The module type.
  */
 @property (nonatomic, readonly) SRGModuleType moduleType;

@@ -16,13 +16,21 @@
 
 - (void)testCreation
 {
-    NSString *URNString = @"urn:rts:module:event:cb1af673-7724-462b-923a-a60e7aee8437";
+    NSString *URNString1 = @"urn:rts:module:event:cb1af673-7724-462b-923a-a60e7aee8437";
+    SRGModuleURN *moduleURN1 = [[SRGModuleURN alloc] initWithURNString:URNString1];
+    XCTAssertEqualObjects(moduleURN1.uid, @"cb1af673-7724-462b-923a-a60e7aee8437");
+    XCTAssertNil(moduleURN1.sectionUid);
+    XCTAssertEqualObjects(@(moduleURN1.moduleType), @(SRGModuleTypeEvent));
+    XCTAssertEqualObjects(@(moduleURN1.vendor), @(SRGVendorRTS));
+    XCTAssertEqualObjects(moduleURN1.URNString, URNString1);
     
-    SRGModuleURN *moduleURN = [[SRGModuleURN alloc] initWithURNString:URNString];
-    XCTAssertEqualObjects(moduleURN.uid, @"cb1af673-7724-462b-923a-a60e7aee8437");
-    XCTAssertEqualObjects(@(moduleURN.moduleType), @(SRGModuleTypeEvent));
-    XCTAssertEqualObjects(@(moduleURN.vendor), @(SRGVendorRTS));
-    XCTAssertEqualObjects(moduleURN.URNString, URNString);
+    NSString *URNString2 = @"urn:rts:module:event:cb1af673-7724-462b-923a-a60e7aee8437:400741a5-0289-474b-807c-01679a6986c0";
+    SRGModuleURN *moduleURN2 = [[SRGModuleURN alloc] initWithURNString:URNString2];
+    XCTAssertEqualObjects(moduleURN2.uid, @"cb1af673-7724-462b-923a-a60e7aee8437");
+    XCTAssertEqualObjects(moduleURN2.sectionUid, @"400741a5-0289-474b-807c-01679a6986c0");
+    XCTAssertEqualObjects(@(moduleURN2.moduleType), @(SRGModuleTypeEvent));
+    XCTAssertEqualObjects(@(moduleURN2.vendor), @(SRGVendorRTS));
+    XCTAssertEqualObjects(moduleURN2.URNString, URNString2);
 }
 
 - (void)testCaseInsensitive
@@ -39,9 +47,14 @@
 
 - (void)testCaseSensitive
 {
-    SRGModuleURN *moduleURN = [[SRGModuleURN alloc] initWithURNString:@"urn:rts:module:event:TeStUrN"];
-    XCTAssertNotNil(moduleURN);
-    XCTAssertEqualObjects(moduleURN.uid, @"TeStUrN");
+    SRGModuleURN *moduleURN1 = [[SRGModuleURN alloc] initWithURNString:@"urn:rts:module:event:TeStUrN"];
+    XCTAssertNotNil(moduleURN1);
+    XCTAssertEqualObjects(moduleURN1.uid, @"TeStUrN");
+    
+    SRGModuleURN *moduleURN2 = [[SRGModuleURN alloc] initWithURNString:@"urn:rts:module:event:TeStUrN:SeCtIoNuRn"];
+    XCTAssertNotNil(moduleURN2);
+    XCTAssertEqualObjects(moduleURN2.uid, @"TeStUrN");
+    XCTAssertEqualObjects(moduleURN2.sectionUid, @"SeCtIoNuRn");
 }
 
 - (void)testIncorrectURNs
@@ -60,6 +73,9 @@
     
     SRGModuleURN *moduleURN5 = [[SRGModuleURN alloc] initWithURNString:@"urn:rts:module:dummy:cb1af673-7724-462b-923a-a60e7aee8437"];
     XCTAssertNil(moduleURN5);
+    
+    SRGModuleURN *moduleURN6 = [[SRGModuleURN alloc] initWithURNString:@"urn:rts:module:event:cb1af673-7724-462b-923a-a60e7aee8437:"];
+    XCTAssertNil(moduleURN6);
 }
 
 - (void)testEquality
@@ -68,10 +84,16 @@
     SRGModuleURN *moduleURN2 = [[SRGModuleURN alloc] initWithURNString:@"urn:rts:module:event:1"];
     SRGModuleURN *moduleURN3 = [[SRGModuleURN alloc] initWithURNString:@"urn:srf:module:event:1"];
     SRGModuleURN *moduleURN4 = [[SRGModuleURN alloc] initWithURNString:@"urn:swi:show:radio:100"];
+    SRGModuleURN *moduleURN5 = [[SRGModuleURN alloc] initWithURNString:@"urn:rts:module:event:1:100"];
+    SRGModuleURN *moduleURN6 = [[SRGModuleURN alloc] initWithURNString:@"urn:rts:module:event:1:100"];
+    SRGModuleURN *moduleURN7 = [[SRGModuleURN alloc] initWithURNString:@"urn:rts:module:event:1:99"];
     
     XCTAssertTrue([moduleURN1 isEqual:moduleURN2]);
     XCTAssertFalse([moduleURN1 isEqual:moduleURN3]);
     XCTAssertFalse([moduleURN1 isEqual:moduleURN4]);
+    XCTAssertFalse([moduleURN1 isEqual:moduleURN5]);
+    XCTAssertTrue([moduleURN5 isEqual:moduleURN6]);
+    XCTAssertFalse([moduleURN5 isEqual:moduleURN7]);
 }
 
 @end
