@@ -7,6 +7,7 @@
 #import "SRGImageMetadata.h"
 #import "SRGMetadata.h"
 #import "SRGModel.h"
+#import "SRGModuleIdentifierMetadata.h"
 #import "SRGSection.h"
 #import "SRGTypes.h"
 
@@ -21,12 +22,7 @@ OBJC_EXPORT SRGImageType const SRGImageTypeModuleLogo;                // Module 
 /**
  *  Module (collection of medias grouped for a special occasion, like an event).
  */
-@interface SRGModule : SRGModel <SRGImage, SRGMetadata>
-
-/**
- *  The module unique identifier.
- */
-@property (nonatomic, readonly, copy) NSString *uid;
+@interface SRGModule : SRGModel <SRGImage, SRGMetadata, SRGModuleIdentifierMetadata>
 
 /**
  *  The start date at which the module should be made available.
@@ -37,11 +33,6 @@ OBJC_EXPORT SRGImageType const SRGImageTypeModuleLogo;                // Module 
  *  The start date at which the module should not be made available anymore.
  */
 @property (nonatomic, readonly) NSDate *endDate;
-
-/**
- *  Type of the module.
- */
-@property (nonatomic, readonly) SRGModuleType moduleType;
 
 /**
  *  The search engine optimization name.

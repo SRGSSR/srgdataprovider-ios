@@ -73,6 +73,8 @@
 		6FDB9A872011DB9800EBEB3C /* SRGTopicURN.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB9A832011DB9800EBEB3C /* SRGTopicURN.m */; };
 		6FDB9A882011DB9800EBEB3C /* SRGModuleURN.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB9A842011DB9800EBEB3C /* SRGModuleURN.m */; };
 		6FDB9A892011DB9800EBEB3C /* SRGModuleURN.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FDB9A852011DB9800EBEB3C /* SRGModuleURN.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6FDB9A8C2011DEF800EBEB3C /* SRGModuleIdentifierMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FDB9A8A2011DEF700EBEB3C /* SRGModuleIdentifierMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6FDB9A8D2011DEF800EBEB3C /* SRGTopicIdentifierMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FDB9A8B2011DEF800EBEB3C /* SRGTopicIdentifierMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FDF33B71F013D5100BA1D6E /* SRGShowIdentifierMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FDF33B61F013D5100BA1D6E /* SRGShowIdentifierMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FDF33BE1F013DDD00BA1D6E /* SRGShowURN.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FDF33BC1F013DDD00BA1D6E /* SRGShowURN.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FDF33BF1F013DDD00BA1D6E /* SRGShowURN.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDF33BD1F013DDD00BA1D6E /* SRGShowURN.m */; };
@@ -248,6 +250,8 @@
 		6FDB9A832011DB9800EBEB3C /* SRGTopicURN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGTopicURN.m; sourceTree = "<group>"; };
 		6FDB9A842011DB9800EBEB3C /* SRGModuleURN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGModuleURN.m; sourceTree = "<group>"; };
 		6FDB9A852011DB9800EBEB3C /* SRGModuleURN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGModuleURN.h; sourceTree = "<group>"; };
+		6FDB9A8A2011DEF700EBEB3C /* SRGModuleIdentifierMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGModuleIdentifierMetadata.h; sourceTree = "<group>"; };
+		6FDB9A8B2011DEF800EBEB3C /* SRGTopicIdentifierMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGTopicIdentifierMetadata.h; sourceTree = "<group>"; };
 		6FDF33B61F013D5100BA1D6E /* SRGShowIdentifierMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGShowIdentifierMetadata.h; sourceTree = "<group>"; };
 		6FDF33BC1F013DDD00BA1D6E /* SRGShowURN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGShowURN.h; sourceTree = "<group>"; };
 		6FDF33BD1F013DDD00BA1D6E /* SRGShowURN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGShowURN.m; sourceTree = "<group>"; };
@@ -546,8 +550,10 @@
 				E68598B41D40CEEE0010000A /* SRGMediaMetadata.h */,
 				083F41551DB6D59F00FEA340 /* SRGMediaParentMetadata.h */,
 				E68598AE1D40CEB90010000A /* SRGMetadata.h */,
+				6FDB9A8A2011DEF700EBEB3C /* SRGModuleIdentifierMetadata.h */,
 				6FDF33C81F0230D800BA1D6E /* SRGScheduledLivestreamMetadata.h */,
 				6FDF33B61F013D5100BA1D6E /* SRGShowIdentifierMetadata.h */,
+				6FDB9A8B2011DEF800EBEB3C /* SRGTopicIdentifierMetadata.h */,
 			);
 			path = Contracts;
 			sourceTree = "<group>";
@@ -657,6 +663,7 @@
 				E67BB6751D3E01C900E1FEA3 /* SRGTypes.h in Headers */,
 				6F73CDCA1EEECDF400C7EC4A /* NSHTTPURLResponse+SRGDataProvider.h in Headers */,
 				E688C4F11D4756D60084DE4D /* SRGPage.h in Headers */,
+				6FDB9A8C2011DEF800EBEB3C /* SRGModuleIdentifierMetadata.h in Headers */,
 				E67BB6791D3E041900E1FEA3 /* SRGJSONTransformers.h in Headers */,
 				6F57EA741F83CE560038153F /* SRGMediaExtendedMetadata.h in Headers */,
 				E6AE51421D40A66C00572CE4 /* SRGRelatedContent.h in Headers */,
@@ -666,6 +673,7 @@
 				E6AE513E1D40A1FA00572CE4 /* SRGRequestQueue.h in Headers */,
 				08FA0D2C1E311792000C94EF /* SRGMediaURN.h in Headers */,
 				083F41561DB6D59F00FEA340 /* SRGMediaParentMetadata.h in Headers */,
+				6FDB9A8D2011DEF800EBEB3C /* SRGTopicIdentifierMetadata.h in Headers */,
 				E6AE51461D40AA0100572CE4 /* SRGSubtitle.h in Headers */,
 				E68598C01D40FF950010000A /* SRGProgram.h in Headers */,
 				6F00E3801E88EB3400817EC2 /* SRGPageRequest+Private.h in Headers */,
