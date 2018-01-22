@@ -167,11 +167,9 @@
         values[@keypath(media.show)] = self.show;
     }
     
-    // Fill the presenation property
+    // Fill the presentation property
     SRGChapter *chapter = [self chapterMatchingSubdivision:subdivision];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGResource.new, presentation), @(SRGPresentation360)];
-    SRGResource *resource360 = [chapter.resources filteredArrayUsingPredicate:predicate].firstObject;
-    values[@keypath(media.presentation)] = (resource360) ? @(SRGPresentation360) : @(SRGPresentationDefault);
+    values[@keypath(media.presentation)] = @(chapter.presentation);
     
     // Fill the media object
     for (NSString *key in [SRGMedia propertyKeys]) {

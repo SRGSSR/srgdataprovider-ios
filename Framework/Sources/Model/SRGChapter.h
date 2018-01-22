@@ -45,6 +45,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface SRGChapter (Presentation)
+
+/**
+ *  The recommended way to present the chapter.
+ */
+@property (nonatomic, readonly) SRGPresentation presentation;
+
+@end
+
 @interface SRGChapter (Resources)
 
 /**

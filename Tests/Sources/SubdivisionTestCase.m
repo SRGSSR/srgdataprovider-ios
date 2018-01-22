@@ -47,7 +47,30 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testMedia360ForSubdivision
+- (void)testMediaWithDefaultPresentation
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
+    SRGMediaURN *URN = [SRGMediaURN mediaURNWithString:@"urn:srf:video:2c685129-bad8-4ea0-93f5-0d6cff8cb156"];
+    [[dataProvider mediaCompositionWithURN:URN chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        XCTAssertEqualObjects(mediaComposition.chapterURN, URN);
+        XCTAssertNil(mediaComposition.segmentURN);
+        XCTAssertEqual(mediaComposition.mainChapter.presentation, SRGPresentationDefault);
+        XCTAssertEqual(mediaComposition.mainChapter.resources.firstObject.presentation, SRGPresentationDefault);
+        
+        // Derive the chapter media
+        SRGMedia *chapterMedia = [mediaComposition mediaForSubdivision:mediaComposition.mainChapter];
+        XCTAssertEqualObjects(chapterMedia.URN, URN);
+        XCTAssertEqual(chapterMedia.presentation, SRGPresentationDefault);
+        
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testMediaWith360Presentation
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
@@ -56,6 +79,7 @@
     [[dataProvider mediaCompositionWithURN:URN chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         XCTAssertEqualObjects(mediaComposition.chapterURN, URN);
         XCTAssertNil(mediaComposition.segmentURN);
+        XCTAssertEqual(mediaComposition.mainChapter.presentation, SRGPresentation360);
         XCTAssertEqual(mediaComposition.mainChapter.resources.firstObject.presentation, SRGPresentation360);
         
         // Derive the chapter media

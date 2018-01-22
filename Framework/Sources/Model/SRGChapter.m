@@ -81,6 +81,17 @@
 
 @end
 
+@implementation SRGChapter (Presentation)
+
+- (SRGPresentation)presentation
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGResource.new, presentation), @(SRGPresentation360)];
+    SRGResource *resource360 = [self.resources filteredArrayUsingPredicate:predicate].firstObject;
+    return resource360 ? SRGPresentation360 : SRGPresentationDefault;
+}
+
+@end
+
 @implementation SRGChapter (Resources)
 
 + (NSArray<NSNumber *> *)supportedStreamingMethods
