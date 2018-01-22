@@ -87,7 +87,7 @@
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGResource.new, presentation), @(SRGPresentation360)];
     SRGResource *resource360 = [self.resources filteredArrayUsingPredicate:predicate].firstObject;
-    return (resource360) ? SRGPresentation360 : SRGPresentationDefault;
+    return resource360 ? SRGPresentation360 : SRGPresentationDefault;
 }
 
 @end
