@@ -9,6 +9,7 @@
 // Public framework imports.
 #import "SRGAlbum.h"
 #import "SRGArtist.h"
+#import "SRGBaseTopic.h"
 #import "SRGChannel.h"
 #import "SRGChapter.h"
 #import "SRGDataProvider.h"
@@ -26,6 +27,8 @@
 #import "SRGMetadata.h"
 #import "SRGModel.h"
 #import "SRGModule.h"
+#import "SRGModuleIdentifierMetadata.h"
+#import "SRGModuleURN.h"
 #import "SRGPage.h"
 #import "SRGPageRequest.h"
 #import "SRGPresenter.h"
@@ -48,7 +51,10 @@
 #import "SRGSong.h"
 #import "SRGSubdivision.h"
 #import "SRGSubtitle.h"
+#import "SRGSubtopic.h"
 #import "SRGTopic.h"
+#import "SRGTopicIdentifierMetadata.h"
+#import "SRGTopicURN.h"
 #import "SRGTypes.h"
 #import "SRGMediaURN.h"
 
@@ -262,6 +268,11 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 - (SRGRequest *)tvLivestreamsWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
+ *  List of TV scheduled livestreams.
+ */
+- (SRGFirstPageRequest *)tvScheduledLivestreamsWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
  *  @name Media and episode retrieval
  */
 
@@ -407,13 +418,20 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                     completionBlock:(SRGChannelCompletionBlock)completionBlock;
 
 /**
- *  List of livestreams.
+ *  List of radio livestreams for a channel.
  *
- *  @param channelUid The channel uid for which audio live streams (main and regional) must be retrieved. If not specified,
- *                    all main live streams are returned.
+ *  @param channelUid The channel uid for which audio livestreams (main and regional) must be retrieved.
  */
-- (SRGRequest *)radioLivestreamsForChannelWithUid:(nullable NSString *)channelUid
+- (SRGRequest *)radioLivestreamsForChannelWithUid:(NSString *)channelUid
                                   completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
+ *  List of radio livestreams.
+ *
+ *  @param contentProviders The content providers to return radio livestreams for.
+ */
+- (SRGRequest *)radioLivestreamsForContentProviders:(SRGContentProviders)contentProviders
+                                withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Media and episode retrieval
@@ -678,6 +696,22 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
+ *  Latest medias for a specific topic.
+ *
+ *  @param topicURN The unique topic URN.
+ */
+- (SRGFirstPageRequest *)latestMediasForTopicWithURN:(SRGTopicURN *)topicURN
+                                     completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
+ *  Most popular videos for a specific topic.
+ *
+ *  @param topicURN The unique topic URN.
+ */
+- (SRGFirstPageRequest *)mostPopularMediasForTopicWithURN:(SRGTopicURN *)topicURN
+                                          completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
  *  Full media information needed to play a media.
  *
  *  @param chaptersOnly If set to `YES`, the returned media composition is only made of chapters. If set to `NO`, it
@@ -704,6 +738,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 - (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(SRGShowURN *)showURN
                               maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
                                       completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
+
+/**
+ *  List medias for a specific module.
+ */
+- (SRGFirstPageRequest *)latestMediasForModuleWithURN:(SRGModuleURN *)moduleURN
+                                      completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 @end
 
@@ -763,7 +803,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  Return the provided URL, tokenized for playback.
  *
  *  @discussion The token is valid for a small amount of time (currently 30 seconds), be sure to use the tokenized URL
- *              as soon as possible.
+ *              as soon as possible. The returned URL might be the same as the input URL when no tokenization was
+ *              required.
  */
 + (SRGRequest *)tokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock;
 

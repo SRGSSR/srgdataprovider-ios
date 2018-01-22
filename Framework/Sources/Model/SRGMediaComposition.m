@@ -124,6 +124,25 @@
     return nil;
 }
 
+// Return the media composition chapter which matches the subdivision provided as parameter, it-self, it chapter parent, nil if not found.
+- (SRGChapter *)chapterMatchingSubdivision:(SRGSubdivision *)subdivision
+{
+    for (SRGChapter *chapter in self.chapters) {
+        if ([chapter isEqual:subdivision]) {
+            return chapter;
+        }
+        else {
+            for (SRGSegment *chapterSegment in chapter.segments) {
+                if ([chapterSegment isEqual:subdivision]) {
+                    return chapter;
+                }
+            }
+        }
+    }
+    
+    return nil;
+}
+
 - (SRGMedia *)mediaForSubdivision:(SRGSubdivision *)subdivision
 {
     SRGSubdivision *matchingSubdivision = [self subdivisionMatchingSubdivision:subdivision];
@@ -147,6 +166,10 @@
     if (self.show) {
         values[@keypath(media.show)] = self.show;
     }
+    
+    // Fill the presentation property
+    SRGChapter *chapter = [self chapterMatchingSubdivision:subdivision];
+    values[@keypath(media.presentation)] = @(chapter.presentation);
     
     // Fill the media object
     for (NSString *key in [SRGMedia propertyKeys]) {

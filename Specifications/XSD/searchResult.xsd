@@ -15,6 +15,7 @@
                     <xs:group ref="mediaIdentifierGroup" minOccurs="1" maxOccurs="1"/>
                     <xs:element name="date" type="dateTime" minOccurs="0" maxOccurs="1"/>
                     <xs:element name="duration" type="xs:long" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="presentation" type="presentation" minOccurs="0" maxOccurs="1"/>
                     <xs:element name="episode" minOccurs="0" maxOccurs="1">
                         <xs:complexType>
                             <xs:sequence>

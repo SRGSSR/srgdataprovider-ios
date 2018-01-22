@@ -137,6 +137,15 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
     }];
 }
 
+- (SRGFirstPageRequest *)tvScheduledLivestreamsWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/scheduledLivestreams.json", self.businessUnitIdentifier];
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:request modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, error);
+    }];
+}
+
 - (SRGFirstPageRequest *)tvEditorialMediasWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/editorial.json", self.businessUnitIdentifier];
@@ -321,15 +330,35 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
 
 - (SRGRequest *)radioLivestreamsForChannelWithUid:(NSString *)channelUid completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = nil;
-    if (channelUid) {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/livestreamsByChannel/%@.json", self.businessUnitIdentifier, channelUid];
-    }
-    else {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/livestreams.json", self.businessUnitIdentifier];
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/livestreamsByChannel/%@.json", self.businessUnitIdentifier, channelUid];
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:request modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(objects, error);
+    }];
+}
+
+- (SRGRequest *)radioLivestreamsForContentProviders:(SRGContentProviders)contentProviders withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/livestreams.json", self.businessUnitIdentifier];
+    NSArray<NSURLQueryItem *> *queryItems = nil;
+    
+    switch (contentProviders) {
+        case SRGContentProvidersAll: {
+            queryItems = @[ [NSURLQueryItem queryItemWithName:@"includeThirdPartyStreams" value:@"true" ] ];
+            break;
+        }
+            
+        case SRGContentProvidersSwissSatelliteRadio: {
+            queryItems = @[ [NSURLQueryItem queryItemWithName:@"onlyThirdPartyContentProvider" value:@"ssatr" ] ];
+            break;
+        }
+            
+        default: {
+            break;
+        }
     }
     
-    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:queryItems];
     return [self listObjectsWithRequest:request modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(objects, error);
     }];
@@ -596,6 +625,24 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
     }];
 }
 
+- (SRGFirstPageRequest *)latestMediasForTopicWithURN:(SRGTopicURN *)topicURN completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/latest/byTopicUrn/%@.json", topicURN.URNString];
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:request modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, error);
+    }];
+}
+
+- (SRGFirstPageRequest *)mostPopularMediasForTopicWithURN:(SRGTopicURN *)topicURN completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/mostClicked/byTopicUrn/%@.json", topicURN.URNString];
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:request modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, error);
+    }];
+}
+
 - (SRGRequest *)mediaCompositionWithURN:(SRGMediaURN *)mediaURN chaptersOnly:(BOOL)chaptersOnly completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaComposition/byUrn/%@.json", mediaURN.URNString];
@@ -623,6 +670,15 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
     return [self fetchObjectWithRequest:request modelClass:[SRGEpisodeComposition class] completionBlock:completionBlock];
 }
 
+- (SRGFirstPageRequest *)latestMediasForModuleWithURN:(SRGModuleURN *)moduleURN completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/latestByModuleConfigUrn/%@.json", moduleURN.URNString];
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:request modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, error);
+    }];
+}
+
 #pragma mark Popularity services
 
 - (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type subdivision:(SRGSubdivision *)subdivision withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
@@ -633,20 +689,19 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
     NSAssert(subdivision.event, @"Expect event information");
     
     static dispatch_once_t s_onceToken;
-    static NSDictionary<NSNumber *, NSString *> *s_endPoints;
+    static NSDictionary<NSNumber *, NSString *> *s_endpoints;
     dispatch_once(&s_onceToken, ^{
-        s_endPoints = @{ @(SRGSocialCountTypeSRGView) : @"clicked",
+        s_endpoints = @{ @(SRGSocialCountTypeSRGView) : @"clicked",
                          @(SRGSocialCountTypeSRGLike) : @"liked",
                          @(SRGSocialCountTypeFacebookShare) : @"shared/facebook",
                          @(SRGSocialCountTypeTwitterShare) : @"shared/twitter",
                          @(SRGSocialCountTypeGooglePlusShare) : @"shared/google",
                          @(SRGSocialCountTypeWhatsAppShare) : @"shared/whatsapp" };
     });
-    NSString *endPoint = s_endPoints[@(type)];
-    NSAssert(endPoint, @"A supported social count type must be provided");
+    NSString *endpoint = s_endpoints[@(type)];
+    NSAssert(endpoint, @"A supported social count type must be provided");
     
-    NSString *mediaTypeString = (subdivision.mediaType == SRGMediaTypeAudio) ? @"audio" : @"video";
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaStatistic/%@/%@/%@.json", self.businessUnitIdentifier, mediaTypeString, subdivision.uid, endPoint];
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaStatistic/byUrn/%@/%@.json", subdivision.URN.URNString, endpoint];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
@@ -716,34 +771,41 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
             return;
         }
         
-        NSString *token = nil;
-        
-        id tokenDictionary = JSONDictionary[@"token"];
-        if ([tokenDictionary isKindOfClass:[NSDictionary class]]) {
-            token = [tokenDictionary objectForKey:@"authparams"];
+        // FIXME: SRGRequest is a concrete class, but will be turned into an abstract class soon. Until then, there is no way to
+        //        perform dummy requests when no tokenization is required (which can be decided a priori based on the host). Until
+        //        we have a mechanism to perform dummy requests, and since we cannot return nil (this would break how requests are
+        //        dealt with at higher levels), we still perform the token request, but discard the result
+        NSURL *tokenizedURL = URL;
+        if ([URL.host containsString:@"akamai"]) {
+            NSString *token = nil;
+            
+            id tokenDictionary = JSONDictionary[@"token"];
+            if ([tokenDictionary isKindOfClass:[NSDictionary class]]) {
+                token = [tokenDictionary objectForKey:@"authparams"];
+            }
+            
+            if (!token) {
+                completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                         code:SRGDataProviderErrorCodeInvalidData
+                                                     userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The stream could not be secured.", @"The error message when the secure token cannot be retrieved to play the media stream.") }]);
+                return;
+            }
+            
+            // Use components to properly extract the token as query items
+            NSURLComponents *tokenURLComponents = [[NSURLComponents alloc] init];
+            tokenURLComponents.query = token;
+            
+            // Build the tokenized URL, merging token components with existing ones
+            NSURLComponents *tokenizedURLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
+            
+            NSMutableArray *queryItems = [tokenizedURLComponents.queryItems mutableCopy] ?: [NSMutableArray array];
+            if (tokenURLComponents.queryItems) {
+                [queryItems addObjectsFromArray:tokenURLComponents.queryItems];
+            }
+            tokenizedURLComponents.queryItems = [queryItems copy];
+            tokenizedURL = tokenizedURLComponents.URL;
         }
-        
-        if (!token) {
-            completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                     code:SRGDataProviderErrorCodeInvalidData
-                                                 userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The stream could not be secured.", @"The error message when the secure token cannot be retrieved to play the media stream.") }]);
-            return;
-        }
-        
-        // Use components to properly extract the token as query items
-        NSURLComponents *tokenURLComponents = [[NSURLComponents alloc] init];
-        tokenURLComponents.query = token;
-        
-        // Build the tokenized URL, merging token components with existing ones
-        NSURLComponents *tokenizedURLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
-        
-        NSMutableArray *queryItems = [tokenizedURLComponents.queryItems mutableCopy] ?: [NSMutableArray array];
-        if (tokenURLComponents.queryItems) {
-            [queryItems addObjectsFromArray:tokenURLComponents.queryItems];
-        }
-        tokenizedURLComponents.queryItems = [queryItems copy];
-        
-        completionBlock(tokenizedURLComponents.URL, nil);
+        completionBlock(tokenizedURL, nil);
     }];
 }
 

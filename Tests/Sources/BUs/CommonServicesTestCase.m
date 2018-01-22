@@ -15,6 +15,8 @@ static NSString * const kMediaSRFURN = @"urn:srf:video:e7cfd700-e14e-43b4-9710-3
 
 static NSString * const kShowURN = @"urn:srf:show:tv:6fd27ab0-d10f-450f-aaa9-836f1cac97bd";
 
+static NSString * const kTopicURN = @"urn:rts:topic:tv:1081";
+
 static NSString * const kInvalidMediaURN = @"urn:rts:video:999999999999999";
 static NSString * const kInvalidShowURN = @"urn:rts:show:tv:999999999999999";
 
@@ -117,6 +119,32 @@ static NSString * const kInvalidShowURN = @"urn:rts:show:tv:999999999999999";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testLatestMediasForTopicWithURN
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider latestMediasForTopicWithURN:[SRGTopicURN topicURNWithString:kTopicURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testMostPopularMediasForTopicWithURN
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider mostPopularMediasForTopicWithURN:[SRGTopicURN topicURNWithString:kTopicURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testMediaCompositionWithURN
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
@@ -189,5 +217,7 @@ static NSString * const kInvalidShowURN = @"urn:rts:show:tv:999999999999999";
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
+
+// Cannot test -latestMediasForModuleWithURN:completionBlock: yet due to missing reliable data
 
 @end

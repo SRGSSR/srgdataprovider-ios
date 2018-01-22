@@ -17,6 +17,16 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGChapter : SRGSubdivision <SRGScheduledLivestreamMetadata>
 
 /**
+ *  The time at which the chapter starts within its full-length (if any), in milliseconds.
+ */
+@property (nonatomic, readonly) NSTimeInterval fullLengthMarkIn;
+
+/**
+ *  The time at which the segment ends within its full-length (if any), in milliseconds.
+ */
+@property (nonatomic, readonly) NSTimeInterval fullLengthMarkOut;
+
+/**
  *  The list of available resources.
  *
  *  @discussion The list contains the raw resource list available for a chapter. Some resources might not be supported 
@@ -32,6 +42,15 @@ NS_ASSUME_NONNULL_BEGIN
  *              remove all kinds of overlaps or nested segments.
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGSegment *> *segments;
+
+@end
+
+@interface SRGChapter (Presentation)
+
+/**
+ *  The recommended way to present the chapter.
+ */
+@property (nonatomic, readonly) SRGPresentation presentation;
 
 @end
 

@@ -13,6 +13,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface SRGSegment : SRGSubdivision
 
+/**
+ *  The time at which the segment starts, in milliseconds.
+ */
+@property (nonatomic, readonly) NSTimeInterval markIn;
+
+/**
+ *  The time at which the segment ends, in milliseconds.
+ */
+@property (nonatomic, readonly) NSTimeInterval markOut;
+
 @end
 
 NS_ASSUME_NONNULL_END

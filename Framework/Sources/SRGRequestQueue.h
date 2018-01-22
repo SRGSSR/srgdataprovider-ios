@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  ## Lifetime
  *
  *  A request queue must be retained somewhere, otherwise all requests associated with it will be cancelled when
- *  the queue is dealllocated. 
+ *  the queue is deallocated. 
  *
  *  By design, a request queue is not intended to be reused (you cannot remove connections added to a queue). 
  *  If you need another queue for the same requests, start with a fresh one.

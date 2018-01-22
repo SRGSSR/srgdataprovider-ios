@@ -1,3 +1,8 @@
+<!DOCTYPE xs:schema [
+        <!ENTITY uuidPattern "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}">
+        <!ENTITY moduleConfigPattern "(\d+|&uuidPattern;)">
+        <!ENTITY moduleSectionConfigPattern "(\d+|&uuidPattern;):(\d+|&uuidPattern;)">
+        ]>
 <xs:schema id="moduleConfig"
            version="1.0"
            xmlns="http://www.srgssr.ch"
@@ -8,17 +13,38 @@
 
     <xs:include schemaLocation="common.xsd"/>
 
+    <xs:simpleType name="moduleConfigUrn">
+        <xs:annotation>
+            <xs:documentation>The fully qualified name of the specific element.
+                It holds the vendor, moduleType and the id of the specific element concatenated with a colon.
+                'urn:srf:module:event:75f93465-6086-4164-a37e-19214bc53c3c'
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern
+                    value="urn:(srf|rtr|rts|rsi|swi):module:(event):&moduleConfigPattern;"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:group name="moduleConfigIdentifierGroup">
+        <xs:sequence>
+            <xs:element name="id" type="id" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="vendor" type="vendor" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="moduleConfigType" type="moduleConfigType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="urn" type="moduleConfigUrn" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+
     <xs:complexType name="moduleConfig">
         <xs:annotation>
             <xs:documentation>Object which holds all relevant metadata information to display special modules and
                 request corresponding lists of medias, e.g. events.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="id" type="id" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="moduleConfigIdentifierGroup" minOccurs="1" maxOccurs="1"/>
             <xs:group ref="metaDataGroup" minOccurs="1" maxOccurs="1"/>
             <xs:element name="publishStartTimestamp" type="dateTime" minOccurs="1" maxOccurs="1"/>
             <xs:element name="publishEndTimestamp" type="dateTime" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="moduleConfigType" type="moduleConfigType" minOccurs="1" maxOccurs="1"/>
             <xs:element name="seoName" type="seoName" minOccurs="1" maxOccurs="1"/>
             <xs:element name="bgImageUrl" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
             <xs:element name="bgImageExtId" type="id" minOccurs="1" maxOccurs="1"/>
@@ -52,9 +78,32 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="moduleSectionConfig">
+    <xs:simpleType name="moduleSectionConfigUrn">
+        <xs:annotation>
+            <xs:documentation>The fully qualified name of the specific element.
+                It holds the vendor, moduleType and the id and sectionId of the specific element concatenated with a colon.
+                'urn:srf:module:event:75f93465-6086-4164-a37e-19214bc53c3c:c0cb3f6e-eb1e-11e7-9931-87704bef3886'
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern
+                    value="urn:(srf|rtr|rts|rsi|swi):module:(event):&moduleSectionConfigPattern;"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:group name="moduleSectionConfigIdentifierGroup">
         <xs:sequence>
             <xs:element name="id" type="id" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="moduleId" type="id" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="vendor" type="vendor" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="moduleConfigType" type="moduleConfigType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="urn" type="moduleSectionConfigUrn" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:complexType name="moduleSectionConfig">
+        <xs:sequence>
+            <xs:group ref="moduleSectionConfigIdentifierGroup" minOccurs="1" maxOccurs="1"/>
             <xs:group ref="metaDataGroup" minOccurs="1" maxOccurs="1"/>
             <xs:element name="publishStartTimestamp" type="dateTime" minOccurs="1" maxOccurs="1"/>
             <xs:element name="publishEndTimestamp" type="dateTime" minOccurs="1" maxOccurs="1"/>

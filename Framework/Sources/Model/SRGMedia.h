@@ -16,6 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface SRGMedia : SRGModel <SRGMediaMetadata, SRGMediaParentMetadata>
 
+/**
+ *  The recommended way to present the media.
+ */
+@property (nonatomic, readonly) SRGPresentation presentation;
+
 @end
 
 NS_ASSUME_NONNULL_END

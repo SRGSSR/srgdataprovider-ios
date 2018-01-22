@@ -14,6 +14,8 @@
 
 @interface SRGMedia () <SRGMediaExtendedMetadata>
 
+@property (nonatomic) SRGPresentation presentation;
+
 @property (nonatomic) SRGChannel *channel;
 @property (nonatomic) SRGEpisode *episode;
 @property (nonatomic) SRGShow *show;
@@ -40,6 +42,7 @@
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
 @property (nonatomic) NSDate *startDate;
 @property (nonatomic) NSDate *endDate;
+@property (nonatomic) NSString *accessibilityTitle;
 @property (nonatomic) NSArray<SRGRelatedContent *> *relatedContents;
 @property (nonatomic) NSArray<SRGSocialCount *> *socialCounts;
 
@@ -54,10 +57,12 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @keypath(SRGMedia.new, channel) : @"channel",
+        s_mapping = @{ @keypath(SRGMedia.new, presentation) : @"presentation",
+                      
+                       @keypath(SRGMedia.new, channel) : @"channel",
                        @keypath(SRGMedia.new, episode) : @"episode",
                        @keypath(SRGMedia.new, show) : @"show",
-                      
+                       
                        @keypath(SRGMedia.new, title) : @"title",
                        @keypath(SRGMedia.new, lead) : @"lead",
                        @keypath(SRGMedia.new, summary) : @"description",
@@ -80,6 +85,7 @@
                        @keypath(SRGMedia.new, podcastHighDefinitionURL) : @"podcastHdUrl",
                        @keypath(SRGMedia.new, startDate) : @"validFrom",
                        @keypath(SRGMedia.new, endDate) : @"validTo",
+                       @keypath(SRGMedia.new, accessibilityTitle) : @"mediaDescription",
                        @keypath(SRGMedia.new, relatedContents) : @"relatedContentList",
                        @keypath(SRGMedia.new, socialCounts) : @"socialCountList" };
     });
@@ -99,6 +105,11 @@
 }
 
 #pragma mark Transformers
+
++ (NSValueTransformer *)presentationJSONTransformer
+{
+    return SRGPresentationJSONTransformer();
+}
 
 + (NSValueTransformer *)channelJSONTransformer
 {

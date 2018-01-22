@@ -4,16 +4,14 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGSegment.h"
+#import "SRGBaseTopic.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SRGSubdivision (Private)
-
 /**
- *  The media duration in milliseconds.
+ *  Subtopic information. For example, a sports topic could have football or hockey as subtopic.
  */
-@property (nonatomic) NSTimeInterval duration;
+@interface SRGSubtopic : SRGBaseTopic
 
 @end
 

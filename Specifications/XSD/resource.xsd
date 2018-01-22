@@ -61,6 +61,7 @@
             <xs:enumeration value="HTTP"/>
             <xs:enumeration value="HTTPS" />
             <xs:enumeration value="HTTP-M3U"/>
+            <xs:enumeration value="HTTP-AAC-STREAM"/>
             <xs:enumeration value="HTTP-MP3-STREAM"/>
         </xs:restriction>
     </xs:simpleType>
@@ -81,16 +82,6 @@
             <xs:enumeration value="MP3"/>
             <xs:enumeration value="MP2"/>
             <xs:enumeration value="WMAV2"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:simpleType name="presentation">
-        <xs:annotation>
-            <xs:documentation>How the resource should be presented</xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="DEFAULT"/>
-            <xs:enumeration value="VIDEO_360"/>
         </xs:restriction>
     </xs:simpleType>
 

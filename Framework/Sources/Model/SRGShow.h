@@ -34,6 +34,26 @@ OBJC_EXPORT SRGImageType const SRGImageTypeShowBanner;          // Show banner i
 @property (nonatomic, readonly, nullable) NSURL *podcastSubscriptionURL;
 
 /**
+ *  The high-definition podcast URL.
+ */
+@property (nonatomic, readonly, nullable) NSURL *podcastStandardDefinitionURL;
+
+/**
+ *  The standard definition podcast URL.
+ */
+@property (nonatomic, readonly, nullable) NSURL *podcastHighDefinitionURL;
+
+/**
+ *  The URL for podcast on Deezer.
+ */
+@property (nonatomic, readonly, nullable) NSURL *podcastDeezerURL;
+
+/**
+ *  The URL for podcast on Spotify.
+ */
+@property (nonatomic, readonly, nullable) NSURL *podcastSpotifyURL;
+
+/**
  *  The unique identifier of the channel to which the show belongs.
  */
 @property (nonatomic, readonly, copy, nullable) NSString *primaryChannelUid;

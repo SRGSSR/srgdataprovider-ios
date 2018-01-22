@@ -10,11 +10,7 @@
 
 @interface SRGTopic ()
 
-@property (nonatomic, copy) NSString *uid;
-
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *lead;
-@property (nonatomic, copy) NSString *summary;
+@property (nonatomic) NSArray<SRGSubtopic *> *subtopics;
 
 @end
 
@@ -27,30 +23,18 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @keypath(SRGTopic.new, uid) : @"id",
-                       
-                       @keypath(SRGTopic.new, title) : @"title",
-                       @keypath(SRGTopic.new, lead) : @"lead",
-                       @keypath(SRGTopic.new, summary) : @"description" };
+        NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
+        [mapping addEntriesFromDictionary:@{ @keypath(SRGTopic.new, subtopics) : @"subTopicList" }];
+        s_mapping = [mapping copy];
     });
     return s_mapping;
 }
 
-#pragma mark Equality
+#pragma mark Transformers
 
-- (BOOL)isEqual:(id)object
++ (NSValueTransformer *)subtopicsJSONTransformer
 {
-    if (!object || ![object isKindOfClass:[self class]]) {
-        return NO;
-    }
-    
-    SRGTopic *otherTopic = object;
-    return [self.uid isEqualToString:otherTopic.uid];
-}
-
-- (NSUInteger)hash
-{
-    return self.uid.hash;
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSubtopic class]];
 }
 
 @end

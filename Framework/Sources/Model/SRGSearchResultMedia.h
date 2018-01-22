@@ -28,6 +28,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSTimeInterval duration;
 
 /**
+ *  The recommended way to present the media.
+ */
+@property (nonatomic, readonly) SRGPresentation presentation;
+
+/**
  *  The uid of the episode which the media belongs to.
  */
 @property (nonatomic, readonly, copy, nullable) NSString *episodeUid;

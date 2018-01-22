@@ -4,24 +4,25 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGShowURN.h"
+#import "SRGModuleURN.h"
 
 #import "SRGJSONTransformers.h"
 
-@interface SRGShowURN ()
+@interface SRGModuleURN ()
 
 @property (nonatomic, copy) NSString *uid;
-@property (nonatomic) SRGTransmission transmission;
+@property (nonatomic, copy) NSString *sectionUid;
+@property (nonatomic) SRGModuleType moduleType;
 @property (nonatomic) SRGVendor vendor;
 @property (nonatomic, copy) NSString *URNString;
 
 @end
 
-@implementation SRGShowURN
+@implementation SRGModuleURN
 
 #pragma mark Class methods
 
-+ (SRGShowURN *)showURNWithString:(NSString *)URNString
++ (SRGShowURN *)moduleURNWithString:(NSString *)URNString
 {
     return [[[self class] alloc] initWithURNString:URNString];
 }
@@ -51,13 +52,13 @@
 - (BOOL)parseURNString:(NSString *)URNString
 {
     NSMutableArray<NSString *> *components = [[URNString componentsSeparatedByString:@":"] mutableCopy];
-    if (components.count != 5 || ! [components.firstObject.lowercaseString isEqualToString:@"urn"]
-            || ! [components[2].lowercaseString isEqualToString:@"show"]) {
+    if ((components.count != 5 && components.count != 6) || ! [components.firstObject.lowercaseString isEqualToString:@"urn"]
+            || ! [components[2].lowercaseString isEqualToString:@"module"]) {
         return NO;
     }
     
-    SRGTransmission transmission = [[SRGTransmissionJSONTransformer() transformedValue:components[3].uppercaseString] integerValue];
-    if (transmission == SRGTransmissionNone) {
+    SRGModuleType moduleType = [[SRGModuleTypeJSONTransformer() transformedValue:components[3].uppercaseString] integerValue];
+    if (moduleType == SRGModuleTypeNone) {
         return NO;
     }
     
@@ -71,8 +72,17 @@
         return nil;
     }
     
+    NSString *sectionUid = nil;
+    if (components.count == 6) {
+        sectionUid = components[5];
+        if (sectionUid.length == 0) {
+            return nil;
+        }
+    }
+    
     self.uid = uid;
-    self.transmission = transmission;
+    self.sectionUid = sectionUid;
+    self.moduleType = moduleType;
     self.vendor = vendor;
     
     return YES;
@@ -86,8 +96,8 @@
         return NO;
     }
     
-    SRGShowURN *otherShowURN = object;
-    return [self.URNString isEqualToString:otherShowURN.URNString];
+    SRGModuleURN *otherModuleURN = object;
+    return [self.URNString isEqualToString:otherModuleURN.URNString];
 }
 
 - (NSUInteger)hash
@@ -106,11 +116,12 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p; uid: %@; transmission: %@; URNString: %@>",
+    return [NSString stringWithFormat:@"<%@: %p; uid: %@; sectionUid: %@; moduleType: %@; URNString: %@>",
             [self class],
             self,
             self.uid,
-            [[SRGTransmissionJSONTransformer() reverseTransformedValue:@(self.transmission)] lowercaseString],
+            self.sectionUid,
+            [[SRGModuleTypeJSONTransformer() reverseTransformedValue:@(self.moduleType)] lowercaseString],
             self.URNString];
 }
 

@@ -21,8 +21,8 @@ static NSString * const kVideoUid = @"63cc0629-615c-4e97-93cc-f770d2ce4e79";
 static NSString * const kVideoOtherUid = @"6c326059-3acc-467e-bca3-73bd7d3057fe";
 
 static NSString * const kTVChannelUid = @"none_yet";
-static NSString * const kTVShowUid = @"c482ada1-acc0-0001-8415-847c2ad01c59";
-static NSString * const kTVShowOtherUid = @"c632f275-6e80-0001-23e4-12c019808ec0";
+static NSString * const kTVShowUid = @"c70b9b6d-5cc0-0001-68ab-1cf01c502e60";
+static NSString * const kTVShowOtherUid = @"c6027339-38d0-0001-2720-fad31ff21478";
 static NSString * const kTVShowSearchQuery = @"controvers";
 
 static NSString * const kOnlineShowUid = @"c6d3dfe6-62d0-0001-7d23-bc2e11a04a10";
@@ -84,6 +84,19 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider tvLivestreamsWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testTVScheduledLivestreams
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider tvScheduledLivestreamsWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -337,22 +350,47 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testRadioLivestreams
+- (void)testRadioLivestreamsForContentProviders
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    [[self.dataProvider radioLivestreamsForChannelWithUid:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    [[self.dataProvider radioLivestreamsForContentProviders:SRGContentProvidersDefault withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation1 fulfill];
     }] resume];
     
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
+    
+    [[self.dataProvider radioLivestreamsForContentProviders:SRGContentProvidersAll withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request 3 succeeded"];
+    
+    [[self.dataProvider radioLivestreamsForContentProviders:SRGContentProvidersSwissSatelliteRadio withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation3 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testRadioLivestreamsForChannel
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider radioLivestreamsForChannelWithUid:kRadioChannelUid completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        [expectation2 fulfill];
+        [expectation fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
