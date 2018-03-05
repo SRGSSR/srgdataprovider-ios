@@ -118,11 +118,11 @@ For Objective-C codebases, you can use the bundled `libextobjc` framework which 
 
 ### Request availability
 
-Request availability depends on the business unit. Refer to the provided [compatibility matrix](Service-availability.md) for reference.
+Request availability depends on the business unit. Refer to the provided [service compatibility matrix](Service-availability.md) for reference.
 
 ## Pagination
 
-Pagination is a way to retrieve results in pages of constrained size, e.g. 20 items at most per page. All requests which return an `SRGFirstPageRequest` instance support pagination. Refer to the [service matrix](`Documentation/Service-availability.md`) for more information about pagination availability and page size constraints. By default, services use a page size of 10 items.
+Pagination is a way to retrieve results in pages of constrained size, e.g. 20 items at most per page. All requests which return an `SRGFirstPageRequest` instance support pagination. Refer to the [service compatibility matrix](Service-availability.md) for more information about pagination availability and page size constraints. By default, services use a page size of 10 items.
 
 ### Fundamentals 
 

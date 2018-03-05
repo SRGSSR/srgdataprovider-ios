@@ -62,7 +62,7 @@ import SRGDataProvider
 
 ### Working with the library
 
-To learn about how the library can be used, have a look at the [getting started guide](Documentation/Getting-started.md).
+To learn about how the library can be used, have a look at the [getting started guide](Getting-started.md).
 
 ### Logging
 
@@ -70,7 +70,7 @@ The library internally uses the [SRG Logger](https://github.com/SRGSSR/srglogger
 
 ## Supported requests
 
-The supported requests vary depending on the business unit. A [compatibility matrix](Documentation/Service-availability.md) is provided for reference.
+The supported requests vary depending on the business unit. A [compatibility matrix](Service-availability.md) is provided for reference.
 
 ## Examples
 
@@ -78,8 +78,8 @@ To see examples of use, have a look a the unit test suite bundled with the proje
 
 ## Migration from versions previous versions
 
-For information about changes introduced with version 5 of the library, please read the [migration guide](Documentation/Migration-guide.md).
+For information about changes introduced with version 5 of the library, please read the [migration guide](Migration-guide.md).
 
 ## License
 
-See the [LICENSE](LICENSE) file for more information.
+See the [LICENSE](../LICENSE) file for more information.
