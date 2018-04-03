@@ -4,7 +4,6 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGTopicURN.h"
 #import "SRGTypes.h"
 
 #import <Foundation/Foundation.h>
@@ -24,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The Uniform Resource Name identifying the topic.
  */
-@property (nonatomic, readonly) SRGTopicURN *URN;
+@property (nonatomic, readonly, copy) NSString *URN;
 
 /**
  *  The topic transmission.

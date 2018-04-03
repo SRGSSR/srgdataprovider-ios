@@ -38,7 +38,7 @@ SRGImageType const SRGImageTypeModuleLogo = @"logo";
 @property (nonatomic, copy) NSString *summary;
 
 @property (nonatomic, copy) NSString *uid;
-@property (nonatomic) SRGModuleURN *URN;
+@property (nonatomic, copy) NSString *URN;
 @property (nonatomic) SRGModuleType moduleType;
 @property (nonatomic) SRGVendor vendor;
 
@@ -135,11 +135,6 @@ SRGImageType const SRGImageTypeModuleLogo = @"logo";
 + (NSValueTransformer *)sectionsJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSection class]];
-}
-
-+ (NSValueTransformer *)URNJSONTransformer
-{
-    return SRGModuleURNJSONTransformer();
 }
 
 + (NSValueTransformer *)moduleTypeJSONTransformer

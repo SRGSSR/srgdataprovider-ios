@@ -24,7 +24,7 @@
 @property (nonatomic, copy) NSString *channelUid;
 
 @property (nonatomic, copy) NSString *uid;
-@property (nonatomic) SRGMediaURN *URN;
+@property (nonatomic, copy) NSString *URN;
 @property (nonatomic) SRGMediaType mediaType;
 @property (nonatomic) SRGVendor vendor;
 
@@ -63,11 +63,6 @@
 + (NSValueTransformer *)dateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
-}
-
-+ (NSValueTransformer *)URNJSONTransformer
-{
-    return SRGMediaURNJSONTransformer();
 }
 
 + (NSValueTransformer *)mediaTypeJSONTransformer

@@ -155,20 +155,6 @@ NSValueTransformer *SRGMediaTypeJSONTransformer(void)
     return s_transformer;
 }
 
-NSValueTransformer *SRGMediaURNJSONTransformer(void)
-{
-    static NSValueTransformer *s_transformer;
-    static dispatch_once_t s_onceToken;
-    dispatch_once(&s_onceToken, ^{
-        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *URNString, BOOL *success, NSError *__autoreleasing *error) {
-            return [SRGMediaURN mediaURNWithString:URNString];
-        } reverseBlock:^id(SRGMediaURN *mediaURN, BOOL *success, NSError *__autoreleasing *error) {
-            return mediaURN.URNString;
-        }];
-    });
-    return s_transformer;
-}
-
 NSValueTransformer *SRGModuleTypeJSONTransformer(void)
 {
     static NSValueTransformer *s_transformer;
@@ -177,20 +163,6 @@ NSValueTransformer *SRGModuleTypeJSONTransformer(void)
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"EVENT" : @(SRGModuleTypeEvent) }
                                                                          defaultValue:@(SRGModuleTypeNone)
                                                                   reverseDefaultValue:nil];
-    });
-    return s_transformer;
-}
-
-NSValueTransformer *SRGModuleURNJSONTransformer(void)
-{
-    static NSValueTransformer *s_transformer;
-    static dispatch_once_t s_onceToken;
-    dispatch_once(&s_onceToken, ^{
-        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *URNString, BOOL *success, NSError *__autoreleasing *error) {
-            return [SRGModuleURN moduleURNWithString:URNString];
-        } reverseBlock:^id(SRGModuleURN *moduleURN, BOOL *success, NSError *__autoreleasing *error) {
-            return moduleURN.URNString;
-        }];
     });
     return s_transformer;
 }
@@ -218,20 +190,6 @@ NSValueTransformer *SRGQualityJSONTransformer(void)
                                                                                          @"HQ" : @(SRGQualityHQ) }
                                                                          defaultValue:@(SRGQualityNone)
                                                                   reverseDefaultValue:nil];
-    });
-    return s_transformer;
-}
-
-NSValueTransformer *SRGShowURNJSONTransformer(void)
-{
-    static NSValueTransformer *s_transformer;
-    static dispatch_once_t s_onceToken;
-    dispatch_once(&s_onceToken, ^{
-        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *URNString, BOOL *success, NSError *__autoreleasing *error) {
-            return [SRGShowURN showURNWithString:URNString];
-        } reverseBlock:^id(SRGShowURN *showURN, BOOL *success, NSError *__autoreleasing *error) {
-            return showURN.URNString;
-        }];
     });
     return s_transformer;
 }
@@ -295,20 +253,6 @@ NSValueTransformer *SRGSubtitleFormatJSONTransformer(void)
                                                                                          @"VTT" : @(SRGSubtitleFormatVTT) }
                                                                          defaultValue:@(SRGSubtitleFormatNone)
                                                                   reverseDefaultValue:nil];
-    });
-    return s_transformer;
-}
-
-NSValueTransformer *SRGTopicURNJSONTransformer(void)
-{
-    static NSValueTransformer *s_transformer;
-    static dispatch_once_t s_onceToken;
-    dispatch_once(&s_onceToken, ^{
-        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *URNString, BOOL *success, NSError *__autoreleasing *error) {
-            return [SRGTopicURN topicURNWithString:URNString];
-        } reverseBlock:^id(SRGTopicURN *topicURN, BOOL *success, NSError *__autoreleasing *error) {
-            return topicURN.URNString;
-        }];
     });
     return s_transformer;
 }

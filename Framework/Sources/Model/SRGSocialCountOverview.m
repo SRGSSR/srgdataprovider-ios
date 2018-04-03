@@ -15,7 +15,7 @@
 @property (nonatomic) NSArray<SRGSocialCount *> *socialCounts;
 
 @property (nonatomic, copy) NSString *uid;
-@property (nonatomic) SRGMediaURN *URN;
+@property (nonatomic, copy) NSString *URN;
 @property (nonatomic) SRGMediaType mediaType;
 @property (nonatomic) SRGVendor vendor;
 
@@ -45,11 +45,6 @@
 + (NSValueTransformer *)socialCountsJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSocialCount class]];
-}
-
-+ (NSValueTransformer *)URNJSONTransformer
-{
-    return SRGMediaURNJSONTransformer();
 }
 
 + (NSValueTransformer *)mediaTypeJSONTransformer

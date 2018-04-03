@@ -16,12 +16,12 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @20000,
                                                  @"duration" : @10000 },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @40000,
                                                  @"markOut" : @45000,
                                                  @"duration" : @5000 }
@@ -34,14 +34,14 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"A");
+    XCTAssertEqualObjects(segment0.URN, @"A");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"B");
+    XCTAssertEqualObjects(segment1.URN, @"B");
     XCTAssertEqual(segment1.markIn, 40000);
     XCTAssertEqual(segment1.markOut, 45000);
     XCTAssertEqual(segment1.duration, 5000);
@@ -52,13 +52,13 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @20000,
                                                  @"duration" : @10000,
                                                  @"blockReason" : @"LEGAL" },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @40000,
                                                  @"markOut" : @45000,
                                                  @"duration" : @5000,
@@ -72,14 +72,14 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"A");
+    XCTAssertEqualObjects(segment0.URN, @"A");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonLegal);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"B");
+    XCTAssertEqualObjects(segment1.URN, @"B");
     XCTAssertEqual(segment1.markIn, 40000);
     XCTAssertEqual(segment1.markOut, 45000);
     XCTAssertEqual(segment1.duration, 5000);
@@ -90,12 +90,12 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @20000,
                                                  @"duration" : @10000 },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @15000,
                                                  @"markOut" : @35000,
                                                  @"duration" : @20000 }
@@ -108,14 +108,14 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"A");
+    XCTAssertEqualObjects(segment0.URN, @"A");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 15000);
     XCTAssertEqual(segment0.duration, 5000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"B");
+    XCTAssertEqualObjects(segment1.URN, @"B");
     XCTAssertEqual(segment1.markIn, 15000);
     XCTAssertEqual(segment1.markOut, 35000);
     XCTAssertEqual(segment1.duration, 20000);
@@ -126,12 +126,12 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @20000,
                                                  @"duration" : @10000 },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @15000,
                                                  @"markOut" : @35000,
                                                  @"duration" : @20000,
@@ -145,14 +145,14 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"A");
+    XCTAssertEqualObjects(segment0.URN, @"A");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 15000);
     XCTAssertEqual(segment0.duration, 5000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"B");
+    XCTAssertEqualObjects(segment1.URN, @"B");
     XCTAssertEqual(segment1.markIn, 15000);
     XCTAssertEqual(segment1.markOut, 35000);
     XCTAssertEqual(segment1.duration, 20000);
@@ -163,13 +163,13 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @20000,
                                                  @"duration" : @10000,
                                                  @"blockReason" : @"GEOBLOCK" },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @15000,
                                                  @"markOut" : @35000,
                                                  @"duration" : @20000 }
@@ -182,14 +182,14 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"A");
+    XCTAssertEqualObjects(segment0.URN, @"A");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"B");
+    XCTAssertEqualObjects(segment1.URN, @"B");
     XCTAssertEqual(segment1.markIn, 20000);
     XCTAssertEqual(segment1.markOut, 35000);
     XCTAssertEqual(segment1.duration, 15000);
@@ -200,13 +200,13 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @20000,
                                                  @"duration" : @10000,
                                                  @"blockReason" : @"LEGAL" },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @15000,
                                                  @"markOut" : @35000,
                                                  @"duration" : @20000,
@@ -220,14 +220,14 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"A");
+    XCTAssertEqualObjects(segment0.URN, @"A");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 15000);
     XCTAssertEqual(segment0.duration, 5000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonLegal);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"B");
+    XCTAssertEqualObjects(segment1.URN, @"B");
     XCTAssertEqual(segment1.markIn, 15000);
     XCTAssertEqual(segment1.markOut, 35000);
     XCTAssertEqual(segment1.duration, 20000);
@@ -238,12 +238,12 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @60000,
                                                  @"duration" : @50000 },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @20000,
                                                  @"markOut" : @40000,
                                                  @"duration" : @20000 }
@@ -256,21 +256,21 @@
     XCTAssertEqual(segments.count, 3);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"A");
+    XCTAssertEqualObjects(segment0.URN, @"A");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"B");
+    XCTAssertEqualObjects(segment1.URN, @"B");
     XCTAssertEqual(segment1.markIn, 20000);
     XCTAssertEqual(segment1.markOut, 40000);
     XCTAssertEqual(segment1.duration, 20000);
     XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSegment *segment2 = segments[2];
-    XCTAssertEqualObjects(segment2.URN.uid, @"A");
+    XCTAssertEqualObjects(segment2.URN, @"A");
     XCTAssertEqual(segment2.markIn, 40000);
     XCTAssertEqual(segment2.markOut, 60000);
     XCTAssertEqual(segment2.duration, 20000);
@@ -281,12 +281,12 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @60000,
                                                  @"duration" : @50000 },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @20000,
                                                  @"markOut" : @40000,
                                                  @"duration" : @20000,
@@ -300,21 +300,21 @@
     XCTAssertEqual(segments.count, 3);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"A");
+    XCTAssertEqualObjects(segment0.URN, @"A");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"B");
+    XCTAssertEqualObjects(segment1.URN, @"B");
     XCTAssertEqual(segment1.markIn, 20000);
     XCTAssertEqual(segment1.markOut, 40000);
     XCTAssertEqual(segment1.duration, 20000);
     XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
     
     SRGSegment *segment2 = segments[2];
-    XCTAssertEqualObjects(segment2.URN.uid, @"A");
+    XCTAssertEqualObjects(segment2.URN, @"A");
     XCTAssertEqual(segment2.markIn, 40000);
     XCTAssertEqual(segment2.markOut, 60000);
     XCTAssertEqual(segment2.duration, 20000);
@@ -325,13 +325,13 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @60000,
                                                  @"duration" : @50000,
                                                  @"blockReason" : @"GEOBLOCK" },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @20000,
                                                  @"markOut" : @40000,
                                                  @"duration" : @20000 }
@@ -344,7 +344,7 @@
     XCTAssertEqual(segments.count, 1);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"A");
+    XCTAssertEqualObjects(segment0.URN, @"A");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 60000);
     XCTAssertEqual(segment0.duration, 50000);
@@ -355,13 +355,13 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @60000,
                                                  @"duration" : @50000,
                                                  @"blockReason" : @"LEGAL" },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @20000,
                                                  @"markOut" : @40000,
                                                  @"duration" : @20000,
@@ -375,21 +375,21 @@
     XCTAssertEqual(segments.count, 3);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"A");
+    XCTAssertEqualObjects(segment0.URN, @"A");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonLegal);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"B");
+    XCTAssertEqualObjects(segment1.URN, @"B");
     XCTAssertEqual(segment1.markIn, 20000);
     XCTAssertEqual(segment1.markOut, 40000);
     XCTAssertEqual(segment1.duration, 20000);
     XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
     
     SRGSegment *segment2 = segments[2];
-    XCTAssertEqualObjects(segment2.URN.uid, @"A");
+    XCTAssertEqualObjects(segment2.URN, @"A");
     XCTAssertEqual(segment2.markIn, 40000);
     XCTAssertEqual(segment2.markOut, 60000);
     XCTAssertEqual(segment2.duration, 20000);
@@ -400,12 +400,12 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @60000,
                                                  @"duration" : @50000 },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @40000,
                                                  @"duration" : @30000 }
@@ -418,14 +418,14 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"B");
+    XCTAssertEqualObjects(segment0.URN, @"B");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 40000);
     XCTAssertEqual(segment0.duration, 30000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"A");
+    XCTAssertEqualObjects(segment1.URN, @"A");
     XCTAssertEqual(segment1.markIn, 40000);
     XCTAssertEqual(segment1.markOut, 60000);
     XCTAssertEqual(segment1.duration, 20000);
@@ -436,12 +436,12 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @60000,
                                                  @"duration" : @50000 },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @40000,
                                                  @"duration" : @30000,
@@ -455,14 +455,14 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"B");
+    XCTAssertEqualObjects(segment0.URN, @"B");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 40000);
     XCTAssertEqual(segment0.duration, 30000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"A");
+    XCTAssertEqualObjects(segment1.URN, @"A");
     XCTAssertEqual(segment1.markIn, 40000);
     XCTAssertEqual(segment1.markOut, 60000);
     XCTAssertEqual(segment1.duration, 20000);
@@ -473,13 +473,13 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @60000,
                                                  @"duration" : @50000,
                                                  @"blockReason" : @"GEOBLOCK" },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @40000,
                                                  @"duration" : @30000 }
@@ -492,7 +492,7 @@
     XCTAssertEqual(segments.count, 1);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"A");
+    XCTAssertEqualObjects(segment0.URN, @"A");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 60000);
     XCTAssertEqual(segment0.duration, 50000);
@@ -503,13 +503,13 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @60000,
                                                  @"duration" : @50000,
                                                  @"blockReason" : @"LEGAL" },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @40000,
                                                  @"duration" : @30000,
@@ -523,14 +523,14 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"B");
+    XCTAssertEqualObjects(segment0.URN, @"B");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 40000);
     XCTAssertEqual(segment0.duration, 30000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"A");
+    XCTAssertEqualObjects(segment1.URN, @"A");
     XCTAssertEqual(segment1.markIn, 40000);
     XCTAssertEqual(segment1.markOut, 60000);
     XCTAssertEqual(segment1.duration, 20000);
@@ -541,12 +541,12 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @60000,
                                                  @"duration" : @50000 },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @60000,
                                                  @"duration" : @50000 }
@@ -559,7 +559,7 @@
     XCTAssertEqual(segments.count, 1);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"B");
+    XCTAssertEqualObjects(segment0.URN, @"B");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 60000);
     XCTAssertEqual(segment0.duration, 50000);
@@ -570,12 +570,12 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @20000,
                                                  @"duration" : @10000 },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @20000,
                                                  @"markOut" : @45000,
                                                  @"duration" : @25000 }
@@ -588,14 +588,14 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"A");
+    XCTAssertEqualObjects(segment0.URN, @"A");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"B");
+    XCTAssertEqualObjects(segment1.URN, @"B");
     XCTAssertEqual(segment1.markIn, 20000);
     XCTAssertEqual(segment1.markOut, 45000);
     XCTAssertEqual(segment1.duration, 25000);
@@ -618,12 +618,12 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @10000,
                                                  @"duration" : @0 },
                                               
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @60000,
                                                  @"markOut" : @10000,
                                                  @"duration" : @50000 }
@@ -641,17 +641,17 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @40000,
                                                  @"duration" : @30000 },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @20000,
                                                  @"markOut" : @50000,
                                                  @"duration" : @30000 },
                                               
-                                              @{ @"urn" : @"urn:rts:video:C",
+                                              @{ @"urn" : @"C",
                                                  @"markIn" : @60000,
                                                  @"markOut" : @90000,
                                                  @"duration" : @30000 }
@@ -664,21 +664,21 @@
     XCTAssertEqual(segments.count, 3);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"A");
+    XCTAssertEqualObjects(segment0.URN, @"A");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"B");
+    XCTAssertEqualObjects(segment1.URN, @"B");
     XCTAssertEqual(segment1.markIn, 20000);
     XCTAssertEqual(segment1.markOut, 50000);
     XCTAssertEqual(segment1.duration, 30000);
     XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSegment *segment2 = segments[2];
-    XCTAssertEqualObjects(segment2.URN.uid, @"C");
+    XCTAssertEqualObjects(segment2.URN, @"C");
     XCTAssertEqual(segment2.markIn, 60000);
     XCTAssertEqual(segment2.markOut, 90000);
     XCTAssertEqual(segment2.duration, 30000);
@@ -690,24 +690,24 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @40000,
                                                  @"duration" : @30000 },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @20000,
                                                  @"markOut" : @70000,
                                                  @"duration" : @50000,
                                                  @"blockReason" : @"LEGAL" },
                                               
-                                              @{ @"urn" : @"urn:rts:video:C",
+                                              @{ @"urn" : @"C",
                                                  @"markIn" : @30000,
                                                  @"markOut" : @60000,
                                                  @"duration" : @30000,
                                                  @"blockReason" : @"COMMERCIAL" },
                                               
-                                              @{ @"urn" : @"urn:rts:video:D",
+                                              @{ @"urn" : @"D",
                                                  @"markIn" : @60000,
                                                  @"markOut" : @90000,
                                                  @"duration" : @30000 }
@@ -720,35 +720,35 @@
     XCTAssertEqual(segments.count, 5);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"A");
+    XCTAssertEqualObjects(segment0.URN, @"A");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 20000);
     XCTAssertEqual(segment0.duration, 10000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"B");
+    XCTAssertEqualObjects(segment1.URN, @"B");
     XCTAssertEqual(segment1.markIn, 20000);
     XCTAssertEqual(segment1.markOut, 30000);
     XCTAssertEqual(segment1.duration, 10000);
     XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonLegal);
     
     SRGSegment *segment2 = segments[2];
-    XCTAssertEqualObjects(segment2.URN.uid, @"C");
+    XCTAssertEqualObjects(segment2.URN, @"C");
     XCTAssertEqual(segment2.markIn, 30000);
     XCTAssertEqual(segment2.markOut, 60000);
     XCTAssertEqual(segment2.duration, 30000);
     XCTAssertEqual([segment2 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonCommercial);
     
     SRGSegment *segment3 = segments[3];
-    XCTAssertEqualObjects(segment3.URN.uid, @"B");
+    XCTAssertEqualObjects(segment3.URN, @"B");
     XCTAssertEqual(segment3.markIn, 60000);
     XCTAssertEqual(segment3.markOut, 70000);
     XCTAssertEqual(segment3.duration, 10000);
     XCTAssertEqual([segment3 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonLegal);
     
     SRGSegment *segment4 = segments[4];
-    XCTAssertEqualObjects(segment4.URN.uid, @"D");
+    XCTAssertEqualObjects(segment4.URN, @"D");
     XCTAssertEqual(segment4.markIn, 70000);
     XCTAssertEqual(segment4.markOut, 90000);
     XCTAssertEqual(segment4.duration, 20000);
@@ -760,24 +760,24 @@
 {
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @30000,
                                                  @"duration" : @20000 },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @30000,
                                                  @"markOut" : @50000,
                                                  @"duration" : @20000,
                                                  @"blockReason" : @"LEGAL" },
                                               
-                                              @{ @"urn" : @"urn:rts:video:C",
+                                              @{ @"urn" : @"C",
                                                  @"markIn" : @45000,
                                                  @"markOut" : @70000,
                                                  @"duration" : @25000,
                                                  @"blockReason" : @"COMMERCIAL" },
                                               
-                                              @{ @"urn" : @"urn:rts:video:D",
+                                              @{ @"urn" : @"D",
                                                  @"markIn" : @65000,
                                                  @"markOut" : @80000,
                                                  @"duration" : @15000 }
@@ -790,28 +790,28 @@
     XCTAssertEqual(segments.count, 4);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"A");
+    XCTAssertEqualObjects(segment0.URN, @"A");
     XCTAssertEqual(segment0.markIn, 10000);
     XCTAssertEqual(segment0.markOut, 30000);
     XCTAssertEqual(segment0.duration, 20000);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonNone);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"B");
+    XCTAssertEqualObjects(segment1.URN, @"B");
     XCTAssertEqual(segment1.markIn, 30000);
     XCTAssertEqual(segment1.markOut, 45000);
     XCTAssertEqual(segment1.duration, 15000);
     XCTAssertEqual([segment1 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonLegal);
     
     SRGSegment *segment2 = segments[2];
-    XCTAssertEqualObjects(segment2.URN.uid, @"C");
+    XCTAssertEqualObjects(segment2.URN, @"C");
     XCTAssertEqual(segment2.markIn, 45000);
     XCTAssertEqual(segment2.markOut, 70000);
     XCTAssertEqual(segment2.duration, 25000);
     XCTAssertEqual([segment2 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonCommercial);
     
     SRGSegment *segment3 = segments[3];
-    XCTAssertEqualObjects(segment3.URN.uid, @"D");
+    XCTAssertEqualObjects(segment3.URN, @"D");
     XCTAssertEqual(segment3.markIn, 70000);
     XCTAssertEqual(segment3.markOut, 80000);
     XCTAssertEqual(segment3.duration, 10000);
@@ -823,12 +823,12 @@
     // After cut, a segment smaller than 1 second results but is discarded for this reason
     NSError *error = nil;
     NSDictionary *JSONDictionary = @{ @"segmentList" : @[
-                                              @{ @"urn" : @"urn:rts:video:A",
+                                              @{ @"urn" : @"A",
                                                  @"markIn" : @10000,
                                                  @"markOut" : @60000,
                                                  @"duration" : @50000 },
                                               
-                                              @{ @"urn" : @"urn:rts:video:B",
+                                              @{ @"urn" : @"B",
                                                  @"markIn" : @10500,
                                                  @"markOut" : @30000,
                                                  @"duration" : @19500,
@@ -842,14 +842,14 @@
     XCTAssertEqual(segments.count, 2);
     
     SRGSegment *segment0 = segments[0];
-    XCTAssertEqualObjects(segment0.URN.uid, @"B");
+    XCTAssertEqualObjects(segment0.URN, @"B");
     XCTAssertEqual(segment0.markIn, 10500);
     XCTAssertEqual(segment0.markOut, 30000);
     XCTAssertEqual(segment0.duration, 19500);
     XCTAssertEqual([segment0 blockingReasonAtDate:[NSDate date]], SRGBlockingReasonGeoblocking);
     
     SRGSegment *segment1 = segments[1];
-    XCTAssertEqualObjects(segment1.URN.uid, @"A");
+    XCTAssertEqualObjects(segment1.URN, @"A");
     XCTAssertEqual(segment1.markIn, 30000);
     XCTAssertEqual(segment1.markOut, 60000);
     XCTAssertEqual(segment1.duration, 30000);

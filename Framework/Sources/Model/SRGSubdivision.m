@@ -14,7 +14,7 @@
 
 @interface SRGSubdivision () <SRGMediaExtendedMetadata>
 
-@property (nonatomic) SRGMediaURN *fullLengthURN;
+@property (nonatomic, copy) NSString *fullLengthURN;
 @property (nonatomic, getter=isHidden) BOOL hidden;
 @property (nonatomic, copy) NSString *event;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
@@ -26,7 +26,7 @@
 @property (nonatomic, copy) NSString *summary;
 
 @property (nonatomic, copy) NSString *uid;
-@property (nonatomic) SRGMediaURN *URN;
+@property (nonatomic, copy) NSString *URN;
 @property (nonatomic) SRGMediaType mediaType;
 @property (nonatomic) SRGVendor vendor;
 
@@ -108,19 +108,9 @@
 
 #pragma mark Transformers
 
-+ (NSValueTransformer *)fullLengthURNJSONTransformer
-{
-    return SRGMediaURNJSONTransformer();
-}
-
 + (NSValueTransformer *)subtitlesJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSubtitle class]];
-}
-
-+ (NSValueTransformer *)URNJSONTransformer
-{
-    return SRGMediaURNJSONTransformer();
 }
 
 + (NSValueTransformer *)mediaTypeJSONTransformer

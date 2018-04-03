@@ -17,7 +17,7 @@
 @property (nonatomic, copy) NSString *summary;
 
 @property (nonatomic, copy) NSString *uid;
-@property (nonatomic) SRGTopicURN *URN;
+@property (nonatomic, copy) NSString *URN;
 @property (nonatomic) SRGTransmission transmission;
 @property (nonatomic) SRGVendor vendor;
 
@@ -45,11 +45,6 @@
 }
 
 #pragma mark Transformers
-
-+ (NSValueTransformer *)URNJSONTransformer
-{
-    return SRGTopicURNJSONTransformer();
-}
 
 + (NSValueTransformer *)transmissionJSONTransformer
 {
