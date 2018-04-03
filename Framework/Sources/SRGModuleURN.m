@@ -41,11 +41,16 @@
     return self;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (instancetype)init
 {
     [self doesNotRecognizeSelector:_cmd];
     return [self initWithURNString:@""];
 }
+
+#pragma clang diagnostic pop
 
 #pragma mark Parsing
 
