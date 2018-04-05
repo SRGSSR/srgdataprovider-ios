@@ -20,7 +20,7 @@
 
 - (void)setUp
 {
-    self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSWI];
+    self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitSWI];
 }
 
 - (void)tearDown
@@ -122,7 +122,7 @@
 #pragma clang diagnostic ignored "-Warc-unsafe-retained-assign"
     __weak SRGDataProvider *dataProvider;
     @autoreleasepool {
-        dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSWI];
+        dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitSWI];
         SRGRequest *request = [dataProvider tvLatestEpisodesWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
             XCTFail(@"Must not be called since the request must be cancelled if the associated provider was deallocated");
         }];
@@ -439,7 +439,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     NSURL *serviceURL = [NSURL URLWithString:@"http://intlayer.production.srf.ch"];
-    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierSWI];
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL businessUnitIdentifier:SRGDataProviderBusinessUnitSWI];
     dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
     
     __block SRGFirstPageRequest *request = [dataProvider tvLatestMediasForTopicWithUid:@"1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
