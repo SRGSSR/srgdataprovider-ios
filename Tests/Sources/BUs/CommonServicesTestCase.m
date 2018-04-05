@@ -33,7 +33,7 @@ static NSString * const kInvalidShowURN = @"urn:rts:show:tv:999999999999999";
 - (void)setUp
 {
     // Data provider business unit is irrelevant, such services can be accessed from any data provider.
-    self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitSWI];
+    self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
 }
 
 - (void)tearDown

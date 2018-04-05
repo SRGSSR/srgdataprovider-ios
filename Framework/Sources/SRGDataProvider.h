@@ -575,18 +575,16 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Increase the specified social count from 1 unit for the specified subdivision.
  */
-- (SRGRequest *)increaseSocialCountForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                              type:(SRGSocialCountType)type
-                                       subdivision:(SRGSubdivision *)subdivision
-                               withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
+- (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
+                               subdivision:(SRGSubdivision *)subdivision
+                       withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
 
 /**
  *  Increase the specified social count from 1 unit for the specified media composition.
  */
-- (SRGRequest *)increaseSocialCountForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                              type:(SRGSocialCountType)type
-                                  mediaComposition:(SRGMediaComposition *)mediaComposition
-                               withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
+- (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
+                          mediaComposition:(SRGMediaComposition *)mediaComposition
+                       withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
 
 @end
 

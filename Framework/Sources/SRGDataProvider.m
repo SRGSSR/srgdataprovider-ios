@@ -515,10 +515,9 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
 
 #pragma mark Popularity services
 
-- (SRGRequest *)increaseSocialCountForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                              type:(SRGSocialCountType)type
-                                       subdivision:(SRGSubdivision *)subdivision
-                               withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
+- (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
+                               subdivision:(SRGSubdivision *)subdivision
+                       withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
 {
     NSParameterAssert(subdivision);
     
@@ -553,12 +552,11 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
     }];
 }
 
-- (SRGRequest *)increaseSocialCountForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                              type:(SRGSocialCountType)type
-                                  mediaComposition:(SRGMediaComposition *)mediaComposition
-                               withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
+- (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
+                          mediaComposition:(SRGMediaComposition *)mediaComposition
+                       withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
 {
-    return [self increaseSocialCountForBusinessUnit:businessUnit type:type subdivision:mediaComposition.mainSegment ?: mediaComposition.mainChapter withCompletionBlock:completionBlock];
+    return [self increaseSocialCountForType:type subdivision:mediaComposition.mainSegment ?: mediaComposition.mainChapter withCompletionBlock:completionBlock];
 }
 
 #pragma mark URN services
