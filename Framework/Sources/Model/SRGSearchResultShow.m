@@ -15,7 +15,7 @@
 @interface SRGSearchResultShow ()
 
 @property (nonatomic, copy) NSString *uid;
-@property (nonatomic) SRGShowURN *URN;
+@property (nonatomic, copy) NSString *URN;
 @property (nonatomic) SRGTransmission transmission;
 @property (nonatomic) SRGVendor vendor;
 
@@ -41,11 +41,6 @@
 }
 
 #pragma mark Transformers
-
-+ (NSValueTransformer *)URNJSONTransformer
-{
-    return SRGShowURNJSONTransformer();
-}
 
 + (NSValueTransformer *)transmissionJSONTransformer
 {

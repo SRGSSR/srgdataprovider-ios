@@ -62,11 +62,6 @@
     return SRGISO8601DateJSONTransformer();
 }
 
-+ (NSValueTransformer *)fullLengthURNJSONTransformer
-{
-    return SRGMediaURNJSONTransformer();
-}
-
 + (NSValueTransformer *)mediasJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGMedia class]];

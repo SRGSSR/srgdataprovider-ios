@@ -12,8 +12,8 @@
 
 @interface SRGMediaComposition ()
 
-@property (nonatomic) SRGMediaURN *chapterURN;
-@property (nonatomic) SRGMediaURN *segmentURN;
+@property (nonatomic, copy) NSString *chapterURN;
+@property (nonatomic, copy) NSString *segmentURN;
 @property (nonatomic) SRGChannel *channel;
 @property (nonatomic) SRGEpisode *episode;
 @property (nonatomic) SRGShow *show;
@@ -45,16 +45,6 @@
 }
 
 #pragma mark Transformers
-
-+ (NSValueTransformer *)chapterURNJSONTransformer
-{
-    return SRGMediaURNJSONTransformer();
-}
-
-+ (NSValueTransformer *)segmentURNJSONTransformer
-{
-    return SRGMediaURNJSONTransformer();
-}
 
 + (NSValueTransformer *)channelJSONTransformer
 {

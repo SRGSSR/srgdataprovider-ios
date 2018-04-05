@@ -23,12 +23,10 @@
 #import "SRGMediaIdentifierMetadata.h"
 #import "SRGMediaMetadata.h"
 #import "SRGMediaParentMetadata.h"
-#import "SRGMediaURN.h"
 #import "SRGMetadata.h"
 #import "SRGModel.h"
 #import "SRGModule.h"
 #import "SRGModuleIdentifierMetadata.h"
-#import "SRGModuleURN.h"
 #import "SRGPage.h"
 #import "SRGPageRequest.h"
 #import "SRGPresenter.h"
@@ -45,7 +43,6 @@
 #import "SRGSegment.h"
 #import "SRGShow.h"
 #import "SRGShowIdentifierMetadata.h"
-#import "SRGShowURN.h"
 #import "SRGSocialCount.h"
 #import "SRGSocialCountOverview.h"
 #import "SRGSong.h"
@@ -54,9 +51,7 @@
 #import "SRGSubtopic.h"
 #import "SRGTopic.h"
 #import "SRGTopicIdentifierMetadata.h"
-#import "SRGTopicURN.h"
 #import "SRGTypes.h"
-#import "SRGMediaURN.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -683,7 +678,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *
  *  @discussion If you need to retrieve several medias, use `-mediasWithURNs:completionBlock:` instead.
  */
-- (SRGRequest *)mediaWithURN:(SRGMediaURN *)mediaURN completionBlock:(SRGMediaCompletionBlock)completionBlock;
+- (SRGRequest *)mediaWithURN:(NSString *)mediaURN completionBlock:(SRGMediaCompletionBlock)completionBlock;
 
 /**
  *  Retrieve medias matching a URN list.
@@ -692,7 +687,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *              returned if some URNs (but not all) are invalid. Note that you cannot mix audio and video URNs, 
  *              or URNs from different business units, otherwise the request will fail.
  */
-- (SRGRequest *)mediasWithURNs:(NSArray<SRGMediaURN *> *)mediaURNs
+- (SRGRequest *)mediasWithURNs:(NSArray<NSString *> *)mediaURNs
                completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
@@ -700,7 +695,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *
  *  @param topicURN The unique topic URN.
  */
-- (SRGFirstPageRequest *)latestMediasForTopicWithURN:(SRGTopicURN *)topicURN
+- (SRGFirstPageRequest *)latestMediasForTopicWithURN:(NSString *)topicURN
                                      completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
@@ -708,7 +703,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *
  *  @param topicURN The unique topic URN.
  */
-- (SRGFirstPageRequest *)mostPopularMediasForTopicWithURN:(SRGTopicURN *)topicURN
+- (SRGFirstPageRequest *)mostPopularMediasForTopicWithURN:(NSString *)topicURN
                                           completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
@@ -717,14 +712,14 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  @param chaptersOnly If set to `YES`, the returned media composition is only made of chapters. If set to `NO`, it
  *                      may contain a mixture of chapters and segments.
  */
-- (SRGRequest *)mediaCompositionWithURN:(SRGMediaURN *)mediaURN
+- (SRGRequest *)mediaCompositionWithURN:(NSString *)mediaURN
                            chaptersOnly:(BOOL)chaptersOnly
                         completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
 /**
  *  Retrieve the show having the specified URN.
  */
-- (SRGRequest *)showWithURN:(SRGShowURN *)showURN completionBlock:(SRGShowCompletionBlock)completionBlock;
+- (SRGRequest *)showWithURN:(NSString *)showURN completionBlock:(SRGShowCompletionBlock)completionBlock;
 
 /**
  *  Latest episodes for a specific show.
@@ -735,14 +730,14 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *              returned in the episode composition object). Unlike the equivalent TV and radio requests, this request
  *              does not support an optional date to filter only more recent media.
  */
-- (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(SRGShowURN *)showURN
+- (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(NSString *)showURN
                               maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
                                       completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
 /**
  *  List medias for a specific module.
  */
-- (SRGFirstPageRequest *)latestMediasForModuleWithURN:(SRGModuleURN *)moduleURN
+- (SRGFirstPageRequest *)latestMediasForModuleWithURN:(NSString *)moduleURN
                                       completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 @end

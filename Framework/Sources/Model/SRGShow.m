@@ -34,7 +34,7 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
 @property (nonatomic, copy) NSString *imageCopyright;
 
 @property (nonatomic, copy) NSString *uid;
-@property (nonatomic, copy) SRGShowURN *URN;
+@property (nonatomic, copy) NSString *URN;
 @property (nonatomic) SRGTransmission transmission;
 @property (nonatomic) SRGVendor vendor;
 
@@ -115,11 +115,6 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
 + (NSValueTransformer *)bannerImageURLJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
-}
-
-+ (NSValueTransformer *)URNJSONTransformer
-{
-    return SRGShowURNJSONTransformer();
 }
 
 + (NSValueTransformer *)transmissionJSONTransformer
