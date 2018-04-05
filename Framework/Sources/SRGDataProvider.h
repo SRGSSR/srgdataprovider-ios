@@ -276,6 +276,18 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                                       withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
+ *  Latest medias.
+ */
+- (SRGFirstPageRequest *)tvLatestMediasForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
+                                   withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
+ *  Most popular medias.
+ */
+- (SRGFirstPageRequest *)tvMostPopularMediasForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
+                                        withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
  *  Medias which will soon expire.
  */
 - (SRGFirstPageRequest *)tvSoonExpiringMediasForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
@@ -419,9 +431,9 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Latest episodes for a specific channel.
  */
-- (SRGFirstPageRequest *)radioLatestEpisodesForForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                                    channelUid:(NSString *)channelUid
-                                           withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioLatestEpisodesForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
+                                                 channelUid:(NSString *)channelUid
+                                        withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Episodes available for the day containing the given date, for the specific channel.

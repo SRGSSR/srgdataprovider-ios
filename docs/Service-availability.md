@@ -21,6 +21,8 @@ The maximum page size for all services supporting pagination is 100. The default
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Editorial medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| Latest medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| Most popular medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 | Soon expiring medias | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ |
 | Trending medias | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Latest episodes | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
