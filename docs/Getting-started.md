@@ -5,15 +5,13 @@ This getting started guide discusses all concepts required to use the SRG Data P
 
 ## Data provider instantation and access
 
-At its core, the SRG Data Provider library reduces to a single data provider class, `SRGDataProvider`, which you instantiate for a business unit and a service URL, for example:
+At its core, the SRG Data Provider library reduces to a single data provider class, `SRGDataProvider`, which you instantiate for a service URL, for example:
 
 ```objective-c
-SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
+SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
 ```
 
-A set of constants for common service URLs (production, staging and test) and business unit identifiers is provided. You can have several data providers in an application, most notably if you want to gather data from different business units from the same application. 
-
-In general, though, most applications should only need a single data provider, since they probably target one business unit only. To make it easier to access the main data provider throughout your application, the `SRGDataProvider` class provides class methods to set it as shared instance:
+A set of constants for common service URLs (production, staging and test) is provided. You can have several data providers in an application, though most applications should require only one. To make it easier to access the main data provider of an application, the `SRGDataProvider` class provides class methods to set it as shared instance:
 
 ```objective-c
 SRGDataProvider *dataProvider = ...;
@@ -32,10 +30,10 @@ For simplicity, this getting started guide assumes that a shared data provider h
 
 To request data, use the methods available from one of the `SRGDataProvider` _Services_ category. All service methods return an `SRGRequest` instance (or an instance of a subclass thereof), providing you with a common interface to manage requests.
 
-For example, to get the list of TV livestreams, simply call:
+For example, to get the list of SRF TV livestream list, simply call:
 
 ```objective-c
-SRGRequest *request = [[SRGDataProvider currentDataProvider] tvLivestreamsWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+SRGRequest *request = [[SRGDataProvider currentDataProvider] tvLivestreamsForBusinessUnit:SRGBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
     if (error) {
         // Deal with the error
         return;
@@ -65,7 +63,7 @@ Set this request property when a refresh is performed:
 ```objective-c
 - (void)refresh
 {
-    self.request = [[SRGDataProvider currentDataProvider] tvLivestreamsWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    self.request = [[SRGDataProvider currentDataProvider] tvLivestreamsForBusinessUnit:SRGBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         // ....
     }];
     [self.request resume];
@@ -93,7 +91,7 @@ If `self` retains the request and is referenced from its completion block, you w
 - (void)refresh
 {
     __weak __typeof(self) weakSelf = self;
-    self.request = [[SRGDataProvider currentDataProvider] tvLivestreamsWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    self.request = [[SRGDataProvider currentDataProvider] tvLivestreamsForBusinessUnit:SRGBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         [weakSelf doStuff];
     }];
     [self.request resume];
@@ -108,7 +106,7 @@ For Objective-C codebases, you can use the bundled `libextobjc` framework which 
 - (void)refresh
 {
     @weakify(self)
-    self.request = [[SRGDataProvider currentDataProvider] tvLivestreamsWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    self.request = [[SRGDataProvider currentDataProvider] tvLivestreamsForBusinessUnit:SRGBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         @strongify(self)
         [self doStuff];
     }];
@@ -147,7 +145,7 @@ When calling `-requestWithPage:`, a page parameter of type `SRGPage` must be sup
 Here is a simple illustration of the way page retrieval conceptually works:
 
 ```objective-c
-SRGFirstPageRequest *request = [[SRGDataProvider currentDataProvider] tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+SRGFirstPageRequest *request = [[SRGDataProvider currentDataProvider] tvEditorialMediasForBusinessUnit:SRGBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
    if (error) {
        // Deal with the error
        // ...
@@ -249,13 +247,13 @@ If a request does not depend on the result of another request (e.g. requesting e
     }];
     
     // Results are stored in additional NSArray properties for editorial and trending medias
-    SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] tvEditorialMediasForBusinessUnit:SRGBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         [requestQueue reportError:error];
         self.editorialMedias = medias;
     }];
     [requestQueue addRequest:editorialRequest resume:YES];
     
-    SRGRequest *trendingRequest = [[SRGDataProvider currentDataProvider] tvTrendingMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *trendingRequest = [[SRGDataProvider currentDataProvider] tvTrendingMediasForBusinessUnit:SRGBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         [requestQueue reportError:error];
         self.trendingMedias = medias;
     }];
@@ -309,14 +307,14 @@ If a request depends on the result of another request, you can similarly use a r
         // ...
     }];
 
-    SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] tvEditorialMediasForBusinessUnit:SRGBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
             [requestQueue reportError:error];
             return;
         }
         
         SRGMedia *firstMedia = medias.firstObject;
-        SRGRequest *mediaCompositionRequest = [[SRGDataProvider currentDataProvider] videoCompositionWithUid:firstMedia.uid completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        SRGRequest *mediaCompositionRequest = [[SRGDataProvider currentDataProvider] mediaCompositionWithURN:firstMedia.URN completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
              if (error) {
                 [requestQueue reportError:error];
                 return;
@@ -364,7 +362,7 @@ When a full refresh is needed, create the first request and a queue which will r
         }
     }];
 
-    self.firstPageRequest = [[SRGDataProvider currentDataProvider] tvEditorialMediasWithCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    self.firstPageRequest = [[SRGDataProvider currentDataProvider] tvEditorialMediasForBusinessUnit:SRGBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
             [self.requestQueue reportError:error];
             return;

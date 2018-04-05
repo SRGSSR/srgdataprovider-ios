@@ -140,13 +140,14 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  To request data, use the methods from the various 'Services' category. These methods return an request objects which
  *  let you manage the request process itself (starting or cancelling data retrieval), and are basically separated in
  *  several major groups:
- *    - TV-related services, whose methods start with `tv`. These requests return TV-specific content.
+ *    - TV-related services, whose methods start with `tv`. These requests return TV-specific content and require a
+ *      business unit to be specified.
  *    - Radio related services (which commonly require a channel identifier to be specified), whose methods start with
- *      `radio`. These requests return radio-specific content.
- *    - Video services, whose methods start with `video`. These requests retrieve videos only. Note that radios sometimes
- *      also provide content as videos.
- *    - Audio services, whose methods start with `audio`. These requests retrieve audios only.
- *    - Other services (modules and playback token retrieval).
+ *      `radio`. These requests return radio-specific content and require a business unit to be specified.
+ *    - Search services, whose methods start with `video` or `audio. These requests require a business unit to be specified
+ *      Note that radio channels sometimes also provide content as videos.
+ *    - URN-based services.
+ *    - Token retrieval services.
  *
  *  Data provider methods return two kinds of request objects:
  *    - `SRGRequest` instances for standard requests without pagination support.
@@ -210,8 +211,6 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  @param serviceURL             The Integration Layer service base URL (which must expose service endpoints
  *                                starting with '/integrationlayer'). Official service URLs are available at
  *                                the top of this header file.
- *  @param businessUnitIdentifier The identifier of the SRG SSR business unit to retrieve data for. Use constants
- *                                available at the top of this file for the officially supported values.
  */
 - (instancetype)initWithServiceURL:(NSURL *)serviceURL NS_DESIGNATED_INITIALIZER;
 
@@ -582,8 +581,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  List of URN-based services supported by the data provider. Such services do not need explicit knowledge of what
  *  is requested (audio / video, for example) or of the business unit. They provide a way to retrieve content
- *  from any business unit, even with a data provider instantiated for another business unit. Some restrictions
- *  may apply, though, refer to the documentation of each request for more information.
+ *  from any business unit. Some restrictions may apply, though, please refer to the documentation of each request
+ *  for more information.
  */
 @interface SRGDataProvider (URNServices)
 
