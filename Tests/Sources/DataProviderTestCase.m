@@ -48,6 +48,7 @@
     XCTAssertEqualObjects(SRGDataProviderBusinessUnitForVendor(SRGVendorRTS), SRGDataProviderBusinessUnitRTS);
     XCTAssertEqualObjects(SRGDataProviderBusinessUnitForVendor(SRGVendorSRF), SRGDataProviderBusinessUnitSRF);
     XCTAssertEqualObjects(SRGDataProviderBusinessUnitForVendor(SRGVendorSWI), SRGDataProviderBusinessUnitSWI);
+    XCTAssertNil(SRGDataProviderBusinessUnitForVendor(SRGVendorNone));
     XCTAssertNil(SRGDataProviderBusinessUnitForVendor(SRGVendorTVO));
     XCTAssertNil(SRGDataProviderBusinessUnitForVendor(SRGVendorCanalAlpha));
 }

@@ -52,10 +52,10 @@ SRGDataProviderBusinessUnit SRGDataProviderBusinessUnitForVendor(SRGVendor vendo
     static NSDictionary<NSNumber *, SRGDataProviderBusinessUnit> *s_businessUnits;
     dispatch_once(&s_onceToken, ^{
         s_businessUnits = @{ @(SRGVendorRSI) : SRGDataProviderBusinessUnitRSI,
-                             @(SRGVendorRSI) : SRGDataProviderBusinessUnitRTR,
-                             @(SRGVendorRSI) : SRGDataProviderBusinessUnitRTS,
-                             @(SRGVendorRSI) : SRGDataProviderBusinessUnitSRF,
-                             @(SRGVendorRSI) : SRGDataProviderBusinessUnitSWI };
+                             @(SRGVendorRTR) : SRGDataProviderBusinessUnitRTR,
+                             @(SRGVendorRTS) : SRGDataProviderBusinessUnitRTS,
+                             @(SRGVendorSRF) : SRGDataProviderBusinessUnitSRF,
+                             @(SRGVendorSWI) : SRGDataProviderBusinessUnitSWI };
     });
     return s_businessUnits[@(vendor)];
 }
