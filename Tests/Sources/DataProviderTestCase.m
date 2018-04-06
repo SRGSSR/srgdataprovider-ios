@@ -41,4 +41,15 @@
 #pragma clang diagnostic pop
 }
 
+- (void)testBusinessUnitForVendor
+{
+    XCTAssertEqualObjects(SRGDataProviderBusinessUnitForVendor(SRGVendorRSI), SRGDataProviderBusinessUnitRSI);
+    XCTAssertEqualObjects(SRGDataProviderBusinessUnitForVendor(SRGVendorRTR), SRGDataProviderBusinessUnitRTR);
+    XCTAssertEqualObjects(SRGDataProviderBusinessUnitForVendor(SRGVendorRTS), SRGDataProviderBusinessUnitRTS);
+    XCTAssertEqualObjects(SRGDataProviderBusinessUnitForVendor(SRGVendorSRF), SRGDataProviderBusinessUnitSRF);
+    XCTAssertEqualObjects(SRGDataProviderBusinessUnitForVendor(SRGVendorSWI), SRGDataProviderBusinessUnitSWI);
+    XCTAssertNil(SRGDataProviderBusinessUnitForVendor(SRGVendorTVO));
+    XCTAssertNil(SRGDataProviderBusinessUnitForVendor(SRGVendorCanalAlpha));
+}
+
 @end

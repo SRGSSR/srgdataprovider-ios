@@ -95,6 +95,11 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullable songs, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 
 /**
+ *  Return the business unit identifier matching a vendor (`nil` if no match is found).
+ */
+OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitForVendor(SRGVendor vendor);
+
+/**
  *  A data provider supplies metadata for all SRG SSR business units (media and show lists, mostly). Several data providers
  *  can coexist in an application, though most applications should only require one.
  *

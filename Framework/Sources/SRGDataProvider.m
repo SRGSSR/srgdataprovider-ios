@@ -18,6 +18,19 @@
 #import <libextobjc/libextobjc.h>
 #import <Mantle/Mantle.h>
 
+SRGDataProviderBusinessUnit const SRGDataProviderBusinessUnitRSI = @"rsi";
+SRGDataProviderBusinessUnit const SRGDataProviderBusinessUnitRTR = @"rtr";
+SRGDataProviderBusinessUnit const SRGDataProviderBusinessUnitRTS = @"rts";
+SRGDataProviderBusinessUnit const SRGDataProviderBusinessUnitSRF = @"srf";
+SRGDataProviderBusinessUnit const SRGDataProviderBusinessUnitSWI = @"swi";
+
+static NSString * const SRGTokenServiceURLString = @"https://tp.srgssr.ch/akahd/token";
+
+static SRGDataProvider *s_currentDataProvider;
+
+static NSString *SRGDataProviderRequestDateString(NSDate *date);
+static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSDate *maximumPublicationMonth);
+
 NSURL *SRGIntegrationLayerProductionServiceURL(void)
 {
     return [NSURL URLWithString:@"https://il.srgssr.ch"];
@@ -33,18 +46,19 @@ NSURL *SRGIntegrationLayerTestServiceURL(void)
     return [NSURL URLWithString:@"https://il-test.srgssr.ch"];
 }
 
-SRGDataProviderBusinessUnit const SRGDataProviderBusinessUnitRSI = @"rsi";
-SRGDataProviderBusinessUnit const SRGDataProviderBusinessUnitRTR = @"rtr";
-SRGDataProviderBusinessUnit const SRGDataProviderBusinessUnitRTS = @"rts";
-SRGDataProviderBusinessUnit const SRGDataProviderBusinessUnitSRF = @"srf";
-SRGDataProviderBusinessUnit const SRGDataProviderBusinessUnitSWI = @"swi";
-
-static NSString * const SRGTokenServiceURLString = @"https://tp.srgssr.ch/akahd/token";
-
-static SRGDataProvider *s_currentDataProvider;
-
-static NSString *SRGDataProviderRequestDateString(NSDate *date);
-static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSDate *maximumPublicationMonth);
+SRGDataProviderBusinessUnit SRGDataProviderBusinessUnitForVendor(SRGVendor vendor)
+{
+    static dispatch_once_t s_onceToken;
+    static NSDictionary<NSNumber *, SRGDataProviderBusinessUnit> *s_businessUnits;
+    dispatch_once(&s_onceToken, ^{
+        s_businessUnits = @{ @(SRGVendorRSI) : SRGDataProviderBusinessUnitRSI,
+                             @(SRGVendorRSI) : SRGDataProviderBusinessUnitRTR,
+                             @(SRGVendorRSI) : SRGDataProviderBusinessUnitRTS,
+                             @(SRGVendorRSI) : SRGDataProviderBusinessUnitSRF,
+                             @(SRGVendorRSI) : SRGDataProviderBusinessUnitSWI };
+    });
+    return s_businessUnits[@(vendor)];
+}
 
 @interface SRGDataProvider ()
 
