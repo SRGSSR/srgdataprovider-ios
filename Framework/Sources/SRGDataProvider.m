@@ -304,7 +304,7 @@ SRGDataProviderBusinessUnit SRGDataProviderBusinessUnitForVendor(SRGVendor vendo
 }
 
 - (SRGRequest *)radioChannelForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                             withChannelUid:(NSString *)channelUid
+                                    withUid:(NSString *)channelUid
                               livestreamUid:(NSString *)livestreamUid
                             completionBlock:(SRGChannelCompletionBlock)completionBlock
 {

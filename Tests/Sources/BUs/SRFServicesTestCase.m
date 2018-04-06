@@ -254,7 +254,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    [[self.dataProvider radioChannelForBusinessUnit:SRGDataProviderBusinessUnitSRF withChannelUid:kRadioChannelUid livestreamUid:nil completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
+    [[self.dataProvider radioChannelForBusinessUnit:SRGDataProviderBusinessUnitSRF withUid:kRadioChannelUid livestreamUid:nil completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
         XCTAssertNotNil(channel);
         XCTAssertNil(error);
         [expectation1 fulfill];
@@ -262,7 +262,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
-    [[self.dataProvider radioChannelForBusinessUnit:SRGDataProviderBusinessUnitSRF withChannelUid:kRadioChannelUid livestreamUid:kRadioLivestreamUid completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
+    [[self.dataProvider radioChannelForBusinessUnit:SRGDataProviderBusinessUnitSRF withUid:kRadioChannelUid livestreamUid:kRadioLivestreamUid completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
         XCTAssertNotNil(channel);
         XCTAssertNil(error);
         [expectation2 fulfill];

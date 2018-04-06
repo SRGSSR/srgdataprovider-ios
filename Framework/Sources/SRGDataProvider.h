@@ -393,7 +393,7 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
  *                       the program of the specified live stream is used, otherwise the one of the main channel.
  */
 - (SRGRequest *)radioChannelForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                             withChannelUid:(NSString *)channelUid
+                                    withUid:(NSString *)channelUid
                               livestreamUid:(nullable NSString *)livestreamUid
                             completionBlock:(SRGChannelCompletionBlock)completionBlock;
 
