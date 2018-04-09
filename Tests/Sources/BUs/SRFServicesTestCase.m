@@ -45,7 +45,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvChannelsForBusinessUnit:SRGDataProviderBusinessUnitSRF withCompletionBlock:^(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error) {
+    [[self.dataProvider tvChannelsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error) {
         XCTAssertNotNil(channels);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -58,7 +58,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvChannelForBusinessUnit:SRGDataProviderBusinessUnitSRF withUid:kTVChannelUid completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
+    [[self.dataProvider tvChannelForVendor:SRGVendorSRF withUid:kTVChannelUid completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
         XCTAssertNotNil(channel);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -71,7 +71,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvLivestreamsForBusinessUnit:SRGDataProviderBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    [[self.dataProvider tvLivestreamsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -84,7 +84,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvScheduledLivestreamsForBusinessUnit:SRGDataProviderBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvScheduledLivestreamsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -97,7 +97,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvEditorialMediasForBusinessUnit:SRGDataProviderBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvEditorialMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -110,7 +110,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    [[self.dataProvider tvLatestMediasForBusinessUnit:SRGDataProviderBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvLatestMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -123,7 +123,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    [[self.dataProvider tvMostPopularMediasForBusinessUnit:SRGDataProviderBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvMostPopularMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -136,7 +136,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvSoonExpiringMediasForBusinessUnit:SRGDataProviderBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvSoonExpiringMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -149,7 +149,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvTrendingMediasForBusinessUnit:SRGDataProviderBusinessUnitSRF withLimit:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    [[self.dataProvider tvTrendingMediasForVendor:SRGVendorSRF withLimit:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -162,7 +162,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvLatestEpisodesForBusinessUnit:SRGDataProviderBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvLatestEpisodesForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -175,7 +175,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    [[self.dataProvider tvEpisodesForBusinessUnit:SRGDataProviderBusinessUnitSRF date:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvEpisodesForVendor:SRGVendorSRF date:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation1 fulfill];
@@ -188,7 +188,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
     dateComponents.month = 5;
     dateComponents.day = 12;
     
-    [[self.dataProvider tvEpisodesForBusinessUnit:SRGDataProviderBusinessUnitSRF date:dateComponents.date withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvEpisodesForVendor:SRGVendorSRF date:dateComponents.date withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation2 fulfill];
@@ -201,7 +201,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvTopicsForBusinessUnit:SRGDataProviderBusinessUnitSRF withCompletionBlock:^(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error) {
+    [[self.dataProvider tvTopicsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error) {
         XCTAssertNotNil(topics);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -214,7 +214,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvShowsForBusinessUnit:SRGDataProviderBusinessUnitSRF withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvShowsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(shows);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -227,7 +227,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvShowsForBusinessUnit:SRGDataProviderBusinessUnitSRF matchingQuery:kTVShowSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultShow *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider tvShowsForVendor:SRGVendorSRF matchingQuery:kTVShowSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultShow *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(searchResults);
         XCTAssertNotNil(total);
         XCTAssertNil(error);
@@ -241,7 +241,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider radioChannelsForBusinessUnit:SRGDataProviderBusinessUnitSRF withCompletionBlock:^(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error) {
+    [[self.dataProvider radioChannelsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error) {
         XCTAssertNotNil(channels);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -254,7 +254,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    [[self.dataProvider radioChannelForBusinessUnit:SRGDataProviderBusinessUnitSRF withUid:kRadioChannelUid livestreamUid:nil completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
+    [[self.dataProvider radioChannelForVendor:SRGVendorSRF withUid:kRadioChannelUid livestreamUid:nil completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
         XCTAssertNotNil(channel);
         XCTAssertNil(error);
         [expectation1 fulfill];
@@ -262,7 +262,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
-    [[self.dataProvider radioChannelForBusinessUnit:SRGDataProviderBusinessUnitSRF withUid:kRadioChannelUid livestreamUid:kRadioLivestreamUid completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
+    [[self.dataProvider radioChannelForVendor:SRGVendorSRF withUid:kRadioChannelUid livestreamUid:kRadioLivestreamUid completionBlock:^(SRGChannel * _Nullable channel, NSError * _Nullable error) {
         XCTAssertNotNil(channel);
         XCTAssertNil(error);
         [expectation2 fulfill];
@@ -275,7 +275,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    [[self.dataProvider radioLivestreamsForBusinessUnit:SRGDataProviderBusinessUnitSRF contentProviders:SRGContentProvidersDefault withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    [[self.dataProvider radioLivestreamsForVendor:SRGVendorSRF contentProviders:SRGContentProvidersDefault withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation1 fulfill];
@@ -285,7 +285,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
-    [[self.dataProvider radioLivestreamsForBusinessUnit:SRGDataProviderBusinessUnitSRF contentProviders:SRGContentProvidersAll withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    [[self.dataProvider radioLivestreamsForVendor:SRGVendorSRF contentProviders:SRGContentProvidersAll withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation2 fulfill];
@@ -295,7 +295,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
     
     XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request 3 succeeded"];
     
-    [[self.dataProvider radioLivestreamsForBusinessUnit:SRGDataProviderBusinessUnitSRF contentProviders:SRGContentProvidersSwissSatelliteRadio withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    [[self.dataProvider radioLivestreamsForVendor:SRGVendorSRF contentProviders:SRGContentProvidersSwissSatelliteRadio withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation3 fulfill];
@@ -308,7 +308,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider radioLivestreamsForBusinessUnit:SRGDataProviderBusinessUnitSRF channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    [[self.dataProvider radioLivestreamsForVendor:SRGVendorSRF channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -321,7 +321,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider radioLatestMediasForBusinessUnit:SRGDataProviderBusinessUnitSRF channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioLatestMediasForVendor:SRGVendorSRF channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -334,7 +334,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider radioMostPopularMediasForBusinessUnit:SRGDataProviderBusinessUnitSRF channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioMostPopularMediasForVendor:SRGVendorSRF channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -347,7 +347,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider radioLatestEpisodesForBusinessUnit:SRGDataProviderBusinessUnitSRF channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioLatestEpisodesForVendor:SRGVendorSRF channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -360,7 +360,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    [[self.dataProvider radioEpisodesForBusinessUnit:SRGDataProviderBusinessUnitSRF date:nil channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioEpisodesForVendor:SRGVendorSRF date:nil channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation1 fulfill];
@@ -373,7 +373,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
     dateComponents.month = 5;
     dateComponents.day = 12;
     
-    [[self.dataProvider radioEpisodesForBusinessUnit:SRGDataProviderBusinessUnitSRF date:dateComponents.date channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioEpisodesForVendor:SRGVendorSRF date:dateComponents.date channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation2 fulfill];
@@ -387,7 +387,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider radioLatestVideosForBusinessUnit:SRGDataProviderBusinessUnitSRF channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioLatestVideosForVendor:SRGVendorSRF channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         [expectation fulfill];
     }] resume];
@@ -399,7 +399,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider radioShowsForBusinessUnit:SRGDataProviderBusinessUnitSRF channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioShowsForVendor:SRGVendorSRF channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(shows);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -412,7 +412,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider radioShowsForBusinessUnit:SRGDataProviderBusinessUnitSRF matchingQuery:kRadioShowSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultShow *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioShowsForVendor:SRGVendorSRF matchingQuery:kRadioShowSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultShow *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(searchResults);
         XCTAssertNotNil(total);
         XCTAssertNil(error);
@@ -426,7 +426,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider radioSongsForBusinessUnit:SRGDataProviderBusinessUnitSRF channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGSong *> * _Nullable songs, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider radioSongsForVendor:SRGVendorSRF channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGSong *> * _Nullable songs, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(songs);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -439,7 +439,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider radioCurrentSongForBusinessUnit:SRGDataProviderBusinessUnitSRF channelUid:kRadioChannelUid withCompletionBlock:^(SRGSong * _Nullable song, NSError * _Nullable error) {
+    [[self.dataProvider radioCurrentSongForVendor:SRGVendorSRF channelUid:kRadioChannelUid withCompletionBlock:^(SRGSong * _Nullable song, NSError * _Nullable error) {
         // The song might be nil if nothing is being played on air
         XCTAssertNil(error);
         [expectation fulfill];
@@ -452,7 +452,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider onlineShowsForBusinessUnit:SRGDataProviderBusinessUnitSRF withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider onlineShowsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(shows);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -465,7 +465,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider liveCenterVideosForBusinessUnit:SRGDataProviderBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider liveCenterVideosForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -478,7 +478,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider videosForBusinessUnit:SRGDataProviderBusinessUnitSRF matchingQuery:kVideoSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider videosForVendor:SRGVendorSRF matchingQuery:kVideoSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(searchResults);
         XCTAssertNotNil(total);
         XCTAssertNil(error);
@@ -492,7 +492,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider audiosForBusinessUnit:SRGDataProviderBusinessUnitSRF matchingQuery:kAudioSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider audiosForVendor:SRGVendorSRF matchingQuery:kAudioSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(searchResults);
         XCTAssertNotNil(total);
         XCTAssertNil(error);
@@ -590,7 +590,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
     
     XCTestExpectation *expectation7 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider liveCenterVideosForBusinessUnit:SRGDataProviderBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider liveCenterVideosForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotEqual(medias.count, 0);
         XCTAssertNil(error);
         
@@ -697,7 +697,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
     
     XCTestExpectation *expectation7 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider liveCenterVideosForBusinessUnit:SRGDataProviderBusinessUnitSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider liveCenterVideosForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotEqual(medias.count, 0);
         XCTAssertNil(error);
         
@@ -720,7 +720,7 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider modulesForBusinessUnit:SRGDataProviderBusinessUnitSRF type:SRGModuleTypeEvent withCompletionBlock:^(NSArray<SRGModule *> * _Nullable modules, NSError * _Nullable error) {
+    [[self.dataProvider modulesForVendor:SRGVendorSRF type:SRGModuleTypeEvent withCompletionBlock:^(NSArray<SRGModule *> * _Nullable modules, NSError * _Nullable error) {
         XCTAssertNotNil(modules);
         XCTAssertNil(error);
         [expectation fulfill];

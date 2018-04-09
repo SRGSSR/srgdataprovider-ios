@@ -63,15 +63,6 @@ OBJC_EXPORT NSURL *SRGIntegrationLayerProductionServiceURL(void);
 OBJC_EXPORT NSURL *SRGIntegrationLayerStagingServiceURL(void);
 OBJC_EXPORT NSURL *SRGIntegrationLayerTestServiceURL(void);
 
-// Official business identifiers.
-typedef NSString * SRGDataProviderBusinessUnit NS_STRING_ENUM;
-
-OBJC_EXPORT SRGDataProviderBusinessUnit const SRGDataProviderBusinessUnitRSI;
-OBJC_EXPORT SRGDataProviderBusinessUnit const SRGDataProviderBusinessUnitRTR;
-OBJC_EXPORT SRGDataProviderBusinessUnit const SRGDataProviderBusinessUnitRTS;
-OBJC_EXPORT SRGDataProviderBusinessUnit const SRGDataProviderBusinessUnitSRF;
-OBJC_EXPORT SRGDataProviderBusinessUnit const SRGDataProviderBusinessUnitSWI;
-
 // Completion block signatures (without pagination support).
 typedef void (^SRGChannelCompletionBlock)(SRGChannel * _Nullable channel, NSError * _Nullable error);
 typedef void (^SRGChannelListCompletionBlock)(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error);
@@ -93,11 +84,6 @@ typedef void (^SRGPaginatedSearchResultMediaListCompletionBlock)(NSArray<SRGSear
 typedef void (^SRGPaginatedSearchResultShowListCompletionBlock)(NSArray<SRGSearchResultShow *> * _Nullable searchResults, NSNumber *total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullable songs, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
-
-/**
- *  Return the business unit identifier matching a vendor (`nil` if no match is found).
- */
-OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitForVendor(SRGVendor vendor);
 
 /**
  *  A data provider supplies metadata for all SRG SSR business units (media and show lists, mostly). Several data providers
@@ -246,29 +232,29 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
 /**
  *  List of TV channels.
  */
-- (SRGRequest *)tvChannelsForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                      withCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
+- (SRGRequest *)tvChannelsForVendor:(SRGVendor)vendor
+                withCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
 
 /**
  *  Specific TV channel. Use this request to obtain complete channel information, including current and next programs).
  *
  *  Please https://github.com/SRGSSR/srgdataprovider-ios/wiki/Channel-information for more information about this method.
  */
-- (SRGRequest *)tvChannelForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                 withUid:(NSString *)channelUid
-                         completionBlock:(SRGChannelCompletionBlock)completionBlock;
+- (SRGRequest *)tvChannelForVendor:(SRGVendor)vendor
+                           withUid:(NSString *)channelUid
+                   completionBlock:(SRGChannelCompletionBlock)completionBlock;
 
 /**
  *  List of TV livestreams.
  */
-- (SRGRequest *)tvLivestreamsForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                         withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)tvLivestreamsForVendor:(SRGVendor)vendor
+                   withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List of TV scheduled livestreams.
  */
-- (SRGFirstPageRequest *)tvScheduledLivestreamsForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                           withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvScheduledLivestreamsForVendor:(SRGVendor)vendor
+                                     withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Media and episode retrieval
@@ -277,35 +263,35 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
 /**
  *  Medias which have been picked by editors.
  */
-- (SRGFirstPageRequest *)tvEditorialMediasForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                      withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvEditorialMediasForVendor:(SRGVendor)vendor
+                                withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Latest medias.
  */
-- (SRGFirstPageRequest *)tvLatestMediasForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                   withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvLatestMediasForVendor:(SRGVendor)vendor
+                             withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Most popular medias.
  */
-- (SRGFirstPageRequest *)tvMostPopularMediasForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                        withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvMostPopularMediasForVendor:(SRGVendor)vendor
+                                  withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Medias which will soon expire.
  */
-- (SRGFirstPageRequest *)tvSoonExpiringMediasForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                         withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvSoonExpiringMediasForVendor:(SRGVendor)vendor
+                                   withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Trending medias (with all editorial recommendations).
  *
  *  @param limit The maximum number of results returned (if `nil`, 10 results at most will be returned).
  */
-- (SRGRequest *)tvTrendingMediasForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                      withLimit:(nullable NSNumber *)limit
-                                completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)tvTrendingMediasForVendor:(SRGVendor)vendor
+                                withLimit:(nullable NSNumber *)limit
+                          completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  Trending medias. A limit can be set on editorial recommendations and results can be restricted to episodes only
@@ -316,26 +302,26 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
  *  @param editorialLimit The maximum number of editorial recommendations returned (if `nil`, all are returned).
  *  @param episodesOnly   Whether only episodes must be returned.
  */
-- (SRGRequest *)tvTrendingMediasForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                      withLimit:(nullable NSNumber *)limit
-                                 editorialLimit:(nullable NSNumber *)editorialLimit
-                                   episodesOnly:(BOOL)episodesOnly
-                                completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)tvTrendingMediasForVendor:(SRGVendor)vendor
+                                withLimit:(nullable NSNumber *)limit
+                           editorialLimit:(nullable NSNumber *)editorialLimit
+                             episodesOnly:(BOOL)episodesOnly
+                          completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  Latest episodes.
  */
-- (SRGFirstPageRequest *)tvLatestEpisodesForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                     withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvLatestEpisodesForVendor:(SRGVendor)vendor
+                               withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Episodes available for the day containing the given date.
  *
  *  @param date The date. If `nil`, today is used.
  */
-- (SRGFirstPageRequest *)tvEpisodesForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                              date:(nullable NSDate *)date
-                               withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvEpisodesForVendor:(SRGVendor)vendor
+                                        date:(nullable NSDate *)date
+                         withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Topics
@@ -344,8 +330,8 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
 /**
  *  Topics.
  */
-- (SRGRequest *)tvTopicsForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                    withCompletionBlock:(SRGTopicListCompletionBlock)completionBlock;
+- (SRGRequest *)tvTopicsForVendor:(SRGVendor)vendor
+              withCompletionBlock:(SRGTopicListCompletionBlock)completionBlock;
 
 /**
  *  @name Shows
@@ -354,17 +340,17 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
 /**
  *  Shows.
  */
-- (SRGFirstPageRequest *)tvShowsForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                            withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvShowsForVendor:(SRGVendor)vendor
+                      withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 
 /**
  *  Search shows matching a specific query.
  *
  *  @discussion Some business units only support full-text search, not partial matching.
  */
-- (SRGFirstPageRequest *)tvShowsForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                  matchingQuery:(NSString *)query
-                            withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvShowsForVendor:(SRGVendor)vendor
+                            matchingQuery:(NSString *)query
+                      withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
 
 @end
 
@@ -381,8 +367,8 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
 /**
  *  List of radio channels.
  */
-- (SRGRequest *)radioChannelsForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                         withCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
+- (SRGRequest *)radioChannelsForVendor:(SRGVendor)vendor
+                   withCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
 
 /**
  *  Specific radio channel. Use this request to obtain complete channel information, including current and next programs).
@@ -392,28 +378,28 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
  *  @param livestreamUid An optional radio channel unique identifier (usually regional, but might be the main one). If provided,
  *                       the program of the specified live stream is used, otherwise the one of the main channel.
  */
-- (SRGRequest *)radioChannelForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                    withUid:(NSString *)channelUid
-                              livestreamUid:(nullable NSString *)livestreamUid
-                            completionBlock:(SRGChannelCompletionBlock)completionBlock;
+- (SRGRequest *)radioChannelForVendor:(SRGVendor)vendor
+                              withUid:(NSString *)channelUid
+                        livestreamUid:(nullable NSString *)livestreamUid
+                      completionBlock:(SRGChannelCompletionBlock)completionBlock;
 
 /**
  *  List of radio livestreams for a channel.
  *
  *  @param channelUid The channel uid for which audio livestreams (main and regional) must be retrieved.
  */
-- (SRGRequest *)radioLivestreamsForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                     channelUid:(NSString *)channelUid
-                            withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)radioLivestreamsForVendor:(SRGVendor)vendor
+                               channelUid:(NSString *)channelUid
+                      withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List of radio livestreams.
  *
  *  @param contentProviders The content providers to return radio livestreams for.
  */
-- (SRGRequest *)radioLivestreamsForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                               contentProviders:(SRGContentProviders)contentProviders
-                            withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)radioLivestreamsForVendor:(SRGVendor)vendor
+                         contentProviders:(SRGContentProviders)contentProviders
+                      withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Media and episode retrieval
@@ -422,40 +408,40 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
 /**
  *  Latest medias for a specific channel.
  */
-- (SRGFirstPageRequest *)radioLatestMediasForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                               channelUid:(NSString *)channelUid
-                                      withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioLatestMediasForVendor:(SRGVendor)vendor
+                                         channelUid:(NSString *)channelUid
+                                withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Most popular medias for a specific channel.
  */
-- (SRGFirstPageRequest *)radioMostPopularMediasForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                                    channelUid:(NSString *)channelUid
-                                           withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioMostPopularMediasForVendor:(SRGVendor)vendor
+                                              channelUid:(NSString *)channelUid
+                                     withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Latest episodes for a specific channel.
  */
-- (SRGFirstPageRequest *)radioLatestEpisodesForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                                 channelUid:(NSString *)channelUid
-                                        withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioLatestEpisodesForVendor:(SRGVendor)vendor
+                                           channelUid:(NSString *)channelUid
+                                  withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Episodes available for the day containing the given date, for the specific channel.
  *
  *  @param date The date. If `nil`, today is used.
  */
-- (SRGFirstPageRequest *)radioEpisodesForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                                 date:(nullable NSDate *)date
-                                           channelUid:(NSString *)channelUid
-                                  withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioEpisodesForVendor:(SRGVendor)vendor
+                                           date:(nullable NSDate *)date
+                                     channelUid:(NSString *)channelUid
+                            withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Latest video medias for a specific channel.
  */
-- (SRGFirstPageRequest *)radioLatestVideosForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                               channelUid:(NSString *)channelUid
-                                      withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioLatestVideosForVendor:(SRGVendor)vendor
+                                         channelUid:(NSString *)channelUid
+                                withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Shows
@@ -464,18 +450,18 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
 /**
  *  Shows by channel.
  */
-- (SRGFirstPageRequest *)radioShowsForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                        channelUid:(NSString *)channelUid
-                               withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioShowsForVendor:(SRGVendor)vendor
+                                  channelUid:(NSString *)channelUid
+                         withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 
 /**
  *  Search shows matching a specific query.
  *
  *  @discussion Some business units only support full-text search, not partial matching.
  */
-- (SRGFirstPageRequest *)radioShowsForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                     matchingQuery:(NSString *)query
-                               withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioShowsForVendor:(SRGVendor)vendor
+                               matchingQuery:(NSString *)query
+                         withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
 
 /**
  *  @name Song list
@@ -484,18 +470,18 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
 /**
  *  Song list by channel.
  */
-- (SRGFirstPageRequest *)radioSongsForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                        channelUid:(NSString *)channelUid
-                               withCompletionBlock:(SRGPaginatedSongListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioSongsForVendor:(SRGVendor)vendor
+                                  channelUid:(NSString *)channelUid
+                         withCompletionBlock:(SRGPaginatedSongListCompletionBlock)completionBlock;
 
 /**
  *  Current song by channel.
  *
  *  @discussion If no song is currently being played, the completion block is called with both song and error set to `nil`.
  */
-- (SRGRequest *)radioCurrentSongForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                     channelUid:(NSString *)channelUid
-                            withCompletionBlock:(SRGSongCompletionBlock)completionBlock;
+- (SRGRequest *)radioCurrentSongForVendor:(SRGVendor)vendor
+                               channelUid:(NSString *)channelUid
+                      withCompletionBlock:(SRGSongCompletionBlock)completionBlock;
 
 @end
 
@@ -511,8 +497,8 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
 /**
  *  Shows.
  */
-- (SRGFirstPageRequest *)onlineShowsForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)onlineShowsForVendor:(SRGVendor)vendor
+                          withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 
 @end
 
@@ -524,8 +510,8 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
 /**
  *  List of videos available from the Live Center.
  */
-- (SRGFirstPageRequest *)liveCenterVideosForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                     withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)liveCenterVideosForVendor:(SRGVendor)vendor
+                               withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 @end
 
@@ -540,9 +526,9 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
  *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
  *              `-videosWithUids:completionBlock:` request with the returned search results uid list.
  */
-- (SRGFirstPageRequest *)videosForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                 matchingQuery:(NSString *)query
-                           withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)videosForVendor:(SRGVendor)vendor
+                           matchingQuery:(NSString *)query
+                     withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
 
 /**
  *  Search audios matching a specific query.
@@ -550,9 +536,9 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
  *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
  *              `-audiosWithUids:completionBlock:` request with the returned search results uid list.
  */
-- (SRGFirstPageRequest *)audiosForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                 matchingQuery:(NSString *)query
-                           withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)audiosForVendor:(SRGVendor)vendor
+                           matchingQuery:(NSString *)query
+                     withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
 
 @end
 
@@ -566,9 +552,9 @@ OBJC_EXPORT SRGDataProviderBusinessUnit _Nullable SRGDataProviderBusinessUnitFor
  *
  *  @param moduleType A specific module type.
  */
-- (SRGRequest *)modulesForBusinessUnit:(SRGDataProviderBusinessUnit)businessUnit
-                                  type:(SRGModuleType)moduleType
-                   withCompletionBlock:(SRGModuleListCompletionBlock)completionBlock;
+- (SRGRequest *)modulesForVendor:(SRGVendor)vendor
+                            type:(SRGModuleType)moduleType
+             withCompletionBlock:(SRGModuleListCompletionBlock)completionBlock;
 
 @end
 

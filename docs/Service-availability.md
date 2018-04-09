@@ -5,6 +5,10 @@ Integration Layer services are not available for all business units. The followi
 
 The maximum page size for all services supporting pagination is 100. The default page size is 10. A special _unlimited_ page size is available for some requests to return all entries at once.
 
+#### Remark
+
+Services are currently only available for SRG SSR vendors (SRF, RTS, RSI, RTR and SWI), not for regional vendors (TVO, Canal Alpha).
+
 ## TV services
 
 ### Channels and livestreams
