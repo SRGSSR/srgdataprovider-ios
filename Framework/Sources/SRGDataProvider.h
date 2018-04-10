@@ -63,15 +63,6 @@ OBJC_EXPORT NSURL *SRGIntegrationLayerProductionServiceURL(void);
 OBJC_EXPORT NSURL *SRGIntegrationLayerStagingServiceURL(void);
 OBJC_EXPORT NSURL *SRGIntegrationLayerTestServiceURL(void);
 
-// Official business identifiers.
-typedef NSString * SRGDataProviderBusinessUnitIdentifier NS_STRING_ENUM;
-
-OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierRSI;
-OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierRTR;
-OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierRTS;
-OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierSRF;
-OBJC_EXPORT SRGDataProviderBusinessUnitIdentifier const SRGDataProviderBusinessUnitIdentifierSWI;
-
 // Completion block signatures (without pagination support).
 typedef void (^SRGChannelCompletionBlock)(SRGChannel * _Nullable channel, NSError * _Nullable error);
 typedef void (^SRGChannelListCompletionBlock)(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error);
@@ -95,7 +86,7 @@ typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullab
 typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullable songs, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
 
 /**
- *  A data provider supplies metadata for an SRG SSR business unit (media and show lists, mostly). Several data providers
+ *  A data provider supplies metadata for all SRG SSR business units (media and show lists, mostly). Several data providers
  *  can coexist in an application, though most applications should only require one.
  *
  *  The data provider requests data from the Integration Layer, the SRG SSR service responsible of delivering metadata
@@ -104,14 +95,14 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *
  *  ## Instantiation
  *
- *  You instantiate a data provider with a service base URL and a business unit identifier. The service URL must expose
- *  services whose endpoints start with 'integrationlayer/', corresponding to a working Integration Layer installation.
- *  Official server URLs are available at the top of this header files.
+ *  You instantiate a data provider with a service base URL. The service URL must expose services whose endpoints start
+ *  with 'integrationlayer/', corresponding to a working Integration Layer installation. Official server URLs are available
+ *  at the top of this header files.
  *
- *  If your application only requires data from a single business unit, you can use the data provider you need like a singleton
- *  by instantiating it early in your application lifecycle (e.g. in your `-applicationDidFinishLaunching:withOptions:`
- *  implementation) and setting it as global shared instance by calling `-[SRGDataProvider setCurrentDataProvider:]`.
- *  You can then conveniently retrieve this shared instance with `-[SRGDataProvider currentDataProvider]`.
+ *  In general, a single data provider suffices, which can be used like a singleton by instantiating it early in your application
+ *  lifecycle (e.g. in your `-applicationDidFinishLaunching:withOptions:` implementation) and setting it as global shared instance
+ *  by calling `-[SRGDataProvider setCurrentDataProvider:]`. You can then conveniently retrieve this shared instance with
+ *  `-[SRGDataProvider currentDataProvider]`.
  *
  *  ## Lifetime
  *
@@ -122,7 +113,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  ## Thread-safety
  *
  *  The data provider library does not make any guarantees regarding thread safety. Though highly asynchronous in nature
- *  during data retrieval and parsing, the library components and methods are meant to be used from the main thread only. 
+ *  during data retrieval and parsing, the library components and methods are meant to be used from the main thread only.
  *  Data provider creation and requests must be performed from the main thread. Accordingly, completion blocks are guaranteed
  *  to be called on the main thread as well.
  *
@@ -138,23 +129,24 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  ## Requesting data
  *
  *  To request data, use the methods from the various 'Services' category. These methods return an request objects which
- *  let you manage the request process itself (starting or cancelling data retrieval), and are basically separated in 
+ *  let you manage the request process itself (starting or cancelling data retrieval), and are basically separated in
  *  several major groups:
- *    - TV-related services, whose methods start with `tv`. These requests return TV-specific content.
+ *    - TV-related services, whose methods start with `tv`. These requests return TV-specific content and require a
+ *      business unit to be specified.
  *    - Radio related services (which commonly require a channel identifier to be specified), whose methods start with
- *      `radio`. These requests return radio-specific content.
- *    - Video services, whose methods start with `video`. These requests retrieve videos only. Note that radios sometimes
- *      also provide content as videos.
- *    - Audio services, whose methods start with `audio`. These requests retrieve audios only.
- *    - Other services (modules and playback token retrieval).
+ *      `radio`. These requests return radio-specific content and require a business unit to be specified.
+ *    - Search services, whose methods start with `video` or `audio. These requests require a business unit to be specified
+ *      Note that radio channels sometimes also provide content as videos.
+ *    - URN-based services.
+ *    - Token retrieval services.
  *
  *  Data provider methods return two kinds of request objects:
  *    - `SRGRequest` instances for standard requests without pagination support.
  *    - `SRGFirstPageRequest` instances for requests supporting pagination.
  *
  *  Requests must be started when needed by calling the `-resume` method, and expect a mandatory completion block,
- *  called when the request finishes (either normally or with an error). You can keep a reference to an `SRGRequest` 
- *  you have started to cancel it later if needed. Note that the completion block will not be called when a request 
+ *  called when the request finishes (either normally or with an error). You can keep a reference to an `SRGRequest`
+ *  you have started to cancel it later if needed. Note that the completion block will not be called when a request
  *  is cancelled.
  *
  *  ## Requests with pagination support
@@ -210,11 +202,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  @param serviceURL             The Integration Layer service base URL (which must expose service endpoints
  *                                starting with '/integrationlayer'). Official service URLs are available at
  *                                the top of this header file.
- *  @param businessUnitIdentifier The identifier of the SRG SSR business unit to retrieve data for. Use constants
- *                                available at the top of this file for the officially supported values.
  */
-- (instancetype)initWithServiceURL:(NSURL *)serviceURL
-            businessUnitIdentifier:(NSString *)businessUnitIdentifier NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithServiceURL:(NSURL *)serviceURL NS_DESIGNATED_INITIALIZER;
 
 /**
  *  The service URL which has been set.
@@ -222,11 +211,6 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  @discussion Always ends with a slash, even if the service URL set at creation wasn't.
  */
 @property (nonatomic, readonly) NSURL *serviceURL;
-
-/**
- *  The business unit identifier which has been set.
- */
-@property (nonatomic, readonly, copy) NSString *businessUnitIdentifier;
 
 /**
  *  Optional global headers which will added to all requests.
@@ -248,24 +232,29 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  List of TV channels.
  */
-- (SRGRequest *)tvChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
+- (SRGRequest *)tvChannelsForVendor:(SRGVendor)vendor
+                withCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
 
 /**
  *  Specific TV channel. Use this request to obtain complete channel information, including current and next programs).
  *
  *  Please https://github.com/SRGSSR/srgdataprovider-ios/wiki/Channel-information for more information about this method.
  */
-- (SRGRequest *)tvChannelWithUid:(NSString *)channelUid completionBlock:(SRGChannelCompletionBlock)completionBlock;
+- (SRGRequest *)tvChannelForVendor:(SRGVendor)vendor
+                           withUid:(NSString *)channelUid
+                   completionBlock:(SRGChannelCompletionBlock)completionBlock;
 
 /**
  *  List of TV livestreams.
  */
-- (SRGRequest *)tvLivestreamsWithCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)tvLivestreamsForVendor:(SRGVendor)vendor
+                   withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List of TV scheduled livestreams.
  */
-- (SRGFirstPageRequest *)tvScheduledLivestreamsWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvScheduledLivestreamsForVendor:(SRGVendor)vendor
+                                     withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Media and episode retrieval
@@ -274,19 +263,34 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Medias which have been picked by editors.
  */
-- (SRGFirstPageRequest *)tvEditorialMediasWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvEditorialMediasForVendor:(SRGVendor)vendor
+                                withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
+ *  Latest medias.
+ */
+- (SRGFirstPageRequest *)tvLatestMediasForVendor:(SRGVendor)vendor
+                             withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
+ *  Most popular medias.
+ */
+- (SRGFirstPageRequest *)tvMostPopularMediasForVendor:(SRGVendor)vendor
+                                  withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Medias which will soon expire.
  */
-- (SRGFirstPageRequest *)tvSoonExpiringMediasWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvSoonExpiringMediasForVendor:(SRGVendor)vendor
+                                   withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Trending medias (with all editorial recommendations).
  *
  *  @param limit The maximum number of results returned (if `nil`, 10 results at most will be returned).
  */
-- (SRGRequest *)tvTrendingMediasWithLimit:(nullable NSNumber *)limit
+- (SRGRequest *)tvTrendingMediasForVendor:(SRGVendor)vendor
+                                withLimit:(nullable NSNumber *)limit
                           completionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
@@ -298,7 +302,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  @param editorialLimit The maximum number of editorial recommendations returned (if `nil`, all are returned).
  *  @param episodesOnly   Whether only episodes must be returned.
  */
-- (SRGRequest *)tvTrendingMediasWithLimit:(nullable NSNumber *)limit
+- (SRGRequest *)tvTrendingMediasForVendor:(SRGVendor)vendor
+                                withLimit:(nullable NSNumber *)limit
                            editorialLimit:(nullable NSNumber *)editorialLimit
                              episodesOnly:(BOOL)episodesOnly
                           completionBlock:(SRGMediaListCompletionBlock)completionBlock;
@@ -306,15 +311,17 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Latest episodes.
  */
-- (SRGFirstPageRequest *)tvLatestEpisodesWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvLatestEpisodesForVendor:(SRGVendor)vendor
+                               withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Episodes available for the day containing the given date.
  *
  *  @param date The date. If `nil`, today is used.
  */
-- (SRGFirstPageRequest *)tvEpisodesForDate:(nullable NSDate *)date
-                       withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvEpisodesForVendor:(SRGVendor)vendor
+                                        date:(nullable NSDate *)date
+                         withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Topics
@@ -323,23 +330,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Topics.
  */
-- (SRGRequest *)tvTopicsWithCompletionBlock:(SRGTopicListCompletionBlock)completionBlock;
-
-/**
- *  Latest medias for a specific topic.
- *
- *  @param topicUid The unique topic identifier. If none is specified, medias for any topic will be returned.
- */
-- (SRGFirstPageRequest *)tvLatestMediasForTopicWithUid:(nullable NSString *)topicUid
-                                       completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
-
-/**
- *  Most popular videos for a specific topic.
- *
- *  @param topicUid The unique topic identifier. If none is specified, medias for any topic will be returned.
- */
-- (SRGFirstPageRequest *)tvMostPopularMediasForTopicWithUid:(nullable NSString *)topicUid
-                                            completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)tvTopicsForVendor:(SRGVendor)vendor
+              withCompletionBlock:(SRGTopicListCompletionBlock)completionBlock;
 
 /**
  *  @name Shows
@@ -348,40 +340,17 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Shows.
  */
-- (SRGFirstPageRequest *)tvShowsWithCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
-
-/**
- *  Retrieve shows matching a uid list.
- *
- *  @discussion The list must contain at least a uid, otherwise the result is undefined. Partial results can be
- *              returned if some uids (but not all) are invalid.
- */
-- (SRGRequest *)tvShowsWithUids:(NSArray<NSString *> *)showUids completionBlock:(SRGShowListCompletionBlock)completionBlock;
-
-/**
- *  Retrieve the show having the specified uid.
- */
-- (SRGRequest *)tvShowWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock;
-
-/**
- *  Latest episodes for a specific show.
- *
- *  @param maximumPublicationMonth If not `nil`, medias up to the specified month are returned.
- *
- *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes 
- *              returned in the episode composition object).
- */
-- (SRGFirstPageRequest *)tvLatestEpisodesForShowWithUid:(NSString *)showUid
-                                maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
-                                        completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvShowsForVendor:(SRGVendor)vendor
+                      withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 
 /**
  *  Search shows matching a specific query.
  *
  *  @discussion Some business units only support full-text search, not partial matching.
  */
-- (SRGFirstPageRequest *)tvShowsMatchingQuery:(NSString *)query
-                          withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvShowsForVendor:(SRGVendor)vendor
+                            matchingQuery:(NSString *)query
+                      withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
 
 @end
 
@@ -398,7 +367,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  List of radio channels.
  */
-- (SRGRequest *)radioChannelsWithCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
+- (SRGRequest *)radioChannelsForVendor:(SRGVendor)vendor
+                   withCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
 
 /**
  *  Specific radio channel. Use this request to obtain complete channel information, including current and next programs).
@@ -408,25 +378,28 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  @param livestreamUid An optional radio channel unique identifier (usually regional, but might be the main one). If provided,
  *                       the program of the specified live stream is used, otherwise the one of the main channel.
  */
-- (SRGRequest *)radioChannelWithUid:(NSString *)channelUid
-                      livestreamUid:(nullable NSString *)livestreamUid
-                    completionBlock:(SRGChannelCompletionBlock)completionBlock;
+- (SRGRequest *)radioChannelForVendor:(SRGVendor)vendor
+                              withUid:(NSString *)channelUid
+                        livestreamUid:(nullable NSString *)livestreamUid
+                      completionBlock:(SRGChannelCompletionBlock)completionBlock;
 
 /**
  *  List of radio livestreams for a channel.
  *
  *  @param channelUid The channel uid for which audio livestreams (main and regional) must be retrieved.
  */
-- (SRGRequest *)radioLivestreamsForChannelWithUid:(NSString *)channelUid
-                                  completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)radioLivestreamsForVendor:(SRGVendor)vendor
+                               channelUid:(NSString *)channelUid
+                      withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  List of radio livestreams.
  *
  *  @param contentProviders The content providers to return radio livestreams for.
  */
-- (SRGRequest *)radioLivestreamsForContentProviders:(SRGContentProviders)contentProviders
-                                withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGRequest *)radioLivestreamsForVendor:(SRGVendor)vendor
+                         contentProviders:(SRGContentProviders)contentProviders
+                      withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Media and episode retrieval
@@ -435,35 +408,40 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Latest medias for a specific channel.
  */
-- (SRGFirstPageRequest *)radioLatestMediasForChannelWithUid:(NSString *)channelUid
-                                            completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioLatestMediasForVendor:(SRGVendor)vendor
+                                         channelUid:(NSString *)channelUid
+                                withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Most popular medias for a specific channel.
  */
-- (SRGFirstPageRequest *)radioMostPopularMediasForChannelWithUid:(NSString *)channelUid
-                                                 completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioMostPopularMediasForVendor:(SRGVendor)vendor
+                                              channelUid:(NSString *)channelUid
+                                     withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Latest episodes for a specific channel.
  */
-- (SRGFirstPageRequest *)radioLatestEpisodesForChannelWithUid:(NSString *)channelUid
-                                              completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioLatestEpisodesForVendor:(SRGVendor)vendor
+                                           channelUid:(NSString *)channelUid
+                                  withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Episodes available for the day containing the given date, for the specific channel.
  *
  *  @param date The date. If `nil`, today is used.
  */
-- (SRGFirstPageRequest *)radioEpisodesForDate:(nullable NSDate *)date
-                               withChannelUid:(NSString *)channelUid
-                              completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioEpisodesForVendor:(SRGVendor)vendor
+                                           date:(nullable NSDate *)date
+                                     channelUid:(NSString *)channelUid
+                            withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Latest video medias for a specific channel.
  */
-- (SRGFirstPageRequest *)radioLatestVideosForChannelWithUid:(NSString *)channelUid
-                                            completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioLatestVideosForVendor:(SRGVendor)vendor
+                                         channelUid:(NSString *)channelUid
+                                withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  @name Shows
@@ -472,41 +450,18 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Shows by channel.
  */
-- (SRGFirstPageRequest *)radioShowsForChannelWithUid:(NSString *)channelUid
-                                     completionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
-
-/**
- *  Retrieve shows matching a uid list.
- *
- *  @discussion The list must contain at least a uid, otherwise the result is undefined. Partial results can be
- *              returned if some uids (but not all) are invalid.
- */
-- (SRGRequest *)radioShowsWithUids:(NSArray<NSString *> *)showUids completionBlock:(SRGShowListCompletionBlock)completionBlock;
-
-/**
- *  Retrieve the show having the specified uid.
- */
-- (SRGRequest *)radioShowWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock;
-
-/**
- *  Latest episodes for a specific show.
- *
- *  @param maximumPublicationMonth If not `nil`, medias up to the specified month are returned.
- *
- *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes 
- *              returned in the episode composition object).
- */
-- (SRGFirstPageRequest *)radioLatestEpisodesForShowWithUid:(NSString *)showUid
-                                   maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
-                                           completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioShowsForVendor:(SRGVendor)vendor
+                                  channelUid:(NSString *)channelUid
+                         withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 
 /**
  *  Search shows matching a specific query.
  *
  *  @discussion Some business units only support full-text search, not partial matching.
  */
-- (SRGFirstPageRequest *)radioShowsMatchingQuery:(NSString *)query
-                             withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioShowsForVendor:(SRGVendor)vendor
+                               matchingQuery:(NSString *)query
+                         withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
 
 /**
  *  @name Song list
@@ -515,16 +470,18 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Song list by channel.
  */
-- (SRGFirstPageRequest *)radioSongsForChannelWithUid:(NSString *)channelUid
-                                     completionBlock:(SRGPaginatedSongListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)radioSongsForVendor:(SRGVendor)vendor
+                                  channelUid:(NSString *)channelUid
+                         withCompletionBlock:(SRGPaginatedSongListCompletionBlock)completionBlock;
 
 /**
  *  Current song by channel.
  *
  *  @discussion If no song is currently being played, the completion block is called with both song and error set to `nil`.
  */
-- (SRGRequest *)radioCurrentSongForChannelWithUid:(NSString *)channelUid
-                                  completionBlock:(SRGSongCompletionBlock)completionBlock;
+- (SRGRequest *)radioCurrentSongForVendor:(SRGVendor)vendor
+                               channelUid:(NSString *)channelUid
+                      withCompletionBlock:(SRGSongCompletionBlock)completionBlock;
 
 @end
 
@@ -540,32 +497,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Shows.
  */
-- (SRGFirstPageRequest *)onlineShowsWithCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
-
-/**
- *  Retrieve shows matching a uid list.
- *
- *  @discussion The list must contain at least a uid, otherwise the result is undefined. Partial results can be
- *              returned if some uids (but not all) are invalid.
- */
-- (SRGRequest *)onlineShowsWithUids:(NSArray<NSString *> *)showUids completionBlock:(SRGShowListCompletionBlock)completionBlock;
-
-/**
- *  Retrieve the show having the specified uid.
- */
-- (SRGRequest *)onlineShowWithUid:(NSString *)showUid completionBlock:(SRGShowCompletionBlock)completionBlock;
-
-/**
- *  Latest episodes for a specific show.
- *
- *  @param maximumPublicationMonth If not `nil`, medias up to the specified month are returned.
- *
- *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes
- *              returned in the episode composition object).
- */
-- (SRGFirstPageRequest *)onlineLatestEpisodesForShowWithUid:(NSString *)showUid
-                                    maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
-                                            completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)onlineShowsForVendor:(SRGVendor)vendor
+                          withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 
 @end
 
@@ -577,40 +510,15 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  List of videos available from the Live Center.
  */
-- (SRGFirstPageRequest *)liveCenterVideosWithCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)liveCenterVideosForVendor:(SRGVendor)vendor
+                               withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 @end
 
 /**
- *  List of video-oriented services supported by the data provider.
+ *  List of media search-oriented services supported by the data provider.
  */
-@interface SRGDataProvider (VideoServices)
-
-/**
- *  Retrieve the video having the specified uid.
- *
- *  @discussion If you need to retrieve several videos, use `-videosWithUids:completionBlock:` instead.
- */
-- (SRGRequest *)videoWithUid:(NSString *)videoUid completionBlock:(SRGMediaCompletionBlock)completionBlock;
-
-/**
- *  Retrieve videos matching a uid list.
- *
- *  @discussion The list must contain at least a uid, otherwise the result is undefined. Partial results can be
- *              returned if some uids (but not all) are invalid.
- */
-- (SRGRequest *)videosWithUids:(NSArray<NSString *> *)videoUids
-               completionBlock:(SRGMediaListCompletionBlock)completionBlock;
-
-/**
- *  Full media information needed to play a video.
- *
- *  @param chaptersOnly If set to `YES`, the returned media composition is only made of chapters. If set to `NO`, it
- *                      may contain a mixture of chapters and segments.
- */
-- (SRGRequest *)videoMediaCompositionWithUid:(NSString *)videoUid
-                                chaptersOnly:(BOOL)chaptersOnly
-                             completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
+@interface SRGDataProvider (MediaSearchServices)
 
 /**
  *  Search videos matching a specific query.
@@ -618,41 +526,9 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
  *              `-videosWithUids:completionBlock:` request with the returned search results uid list.
  */
-- (SRGFirstPageRequest *)videosMatchingQuery:(NSString *)query
-                         withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
-
-@end
-
-/**
- *  List of audio-oriented services supported by the data provider.
- */
-@interface SRGDataProvider (AudioServices)
-
-/**
- *  Retrieve the audio having the specified uid.
- *
- *  @discussion If you need to retrieve several audios, use `-audiosWithUids:completionBlock:` instead.
- */
-- (SRGRequest *)audioWithUid:(NSString *)audioUid completionBlock:(SRGMediaCompletionBlock)completionBlock;
-
-/**
- *  Retrieve audios matching a uid list.
- *
- *  @discussion The list must contain at least a uid, otherwise the result is undefined. Partial results can be
- *              returned if some uids (but not all) are invalid.
- */
-- (SRGRequest *)audiosWithUids:(NSArray<NSString *> *)audioUids
-               completionBlock:(SRGMediaListCompletionBlock)completionBlock;
-
-/**
- *  Full media information needed to play an audio.
- *
- *  @param chaptersOnly If set to `YES`, the returned media composition is only made of chapters. If set to `NO`, it
- *                      may contain a mixture of chapters and segments.
- */
-- (SRGRequest *)audioMediaCompositionWithUid:(NSString *)audioUid
-                                chaptersOnly:(BOOL)chaptersOnly
-                             completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)videosForVendor:(SRGVendor)vendor
+                           matchingQuery:(NSString *)query
+                     withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
 
 /**
  *  Search audios matching a specific query.
@@ -660,18 +536,56 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
  *              `-audiosWithUids:completionBlock:` request with the returned search results uid list.
  */
-- (SRGFirstPageRequest *)audiosMatchingQuery:(NSString *)query
-                         withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)audiosForVendor:(SRGVendor)vendor
+                           matchingQuery:(NSString *)query
+                     withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
 
 @end
 
 /**
- *  List of common services supported by the data provider. Such services do not need explicit knowledge of what
- *  is requested (audio / video, for example) or of the business unit. They provide a way to retrieve content
- *  from any business unit, even with a data provider instantiated for another business unit. Some restrictions 
- *  may apply, though, refer to the documentation of each request for more information.
+ *  List of module services (e.g. events) supported by the data provider.
  */
-@interface SRGDataProvider (CommonServices)
+@interface SRGDataProvider (ModuleServices)
+
+/**
+ *  List modules for a specific type (e.g. events).
+ *
+ *  @param moduleType A specific module type.
+ */
+- (SRGRequest *)modulesForVendor:(SRGVendor)vendor
+                            type:(SRGModuleType)moduleType
+             withCompletionBlock:(SRGModuleListCompletionBlock)completionBlock;
+
+@end
+
+/**
+ *  List of services for popularity measurements supported by the data provider.
+ */
+@interface SRGDataProvider (PopularityServices)
+
+/**
+ *  Increase the specified social count from 1 unit for the specified subdivision.
+ */
+- (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
+                               subdivision:(SRGSubdivision *)subdivision
+                       withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
+
+/**
+ *  Increase the specified social count from 1 unit for the specified media composition.
+ */
+- (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
+                          mediaComposition:(SRGMediaComposition *)mediaComposition
+                       withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
+
+@end
+
+/**
+ *  List of URN-based services supported by the data provider. Such services do not need explicit knowledge of what
+ *  is requested (audio / video, for example) or of the business unit. They provide a way to retrieve content
+ *  from any business unit. Some restrictions may apply, though, please refer to the documentation of each request
+ *  for more information.
+ */
+@interface SRGDataProvider (URNServices)
 
 /**
  *  Retrieve the media having the specified URN.
@@ -684,7 +598,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  Retrieve medias matching a URN list.
  *
  *  @discussion The list must contain at least a URN, otherwise the result is undefined. Partial results can be
- *              returned if some URNs (but not all) are invalid. Note that you cannot mix audio and video URNs, 
+ *              returned if some URNs (but not all) are invalid. Note that you cannot mix audio and video URNs,
  *              or URNs from different business units, otherwise the request will fail.
  */
 - (SRGRequest *)mediasWithURNs:(NSArray<NSString *> *)mediaURNs
@@ -739,53 +653,6 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  */
 - (SRGFirstPageRequest *)latestMediasForModuleWithURN:(NSString *)moduleURN
                                       completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
-
-@end
-
-/**
- *  List of services for popularity measurements supported by the data provider.
- */
-@interface SRGDataProvider (PopularityServices)
-
-/**
- *  Increase the specified social count from 1 unit for the specified subdivision.
- */
-- (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
-                               subdivision:(SRGSubdivision *)subdivision
-                       withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
-
-/**
- *  Increase the specified social count from 1 unit for the specified media composition.
- */
-- (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
-                          mediaComposition:(SRGMediaComposition *)mediaComposition
-                       withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
-
-@end
-
-/**
- *  List of module services (e.g. events) supported by the data provider.
- */
-@interface SRGDataProvider (ModuleServices)
-
-/**
- *  List modules for a specific type (e.g. events).
- *
- *  @param moduleType A specific module type.
- */
-- (SRGRequest *)modulesWithType:(SRGModuleType)moduleType completionBlock:(SRGModuleListCompletionBlock)completionBlock;
-
-/**
- *  List medias for a specific module type and, optionally, a section from it.
- *
- *  @param moduleType A specific module type.
- *  @param uid        A specific module or section unique identifier.
- *  @param sectionUid An optional section uid.
- */
-- (SRGFirstPageRequest *)latestMediasForModuleWithType:(SRGModuleType)moduleType
-                                                   uid:(NSString *)uid
-                                            sectionUid:(nullable NSString *)sectionUid
-                                       completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 @end
 
