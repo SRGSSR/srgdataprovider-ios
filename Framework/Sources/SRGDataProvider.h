@@ -533,8 +533,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  List medias with specific tags.
  *
- *  @param tags              List of tags (at least one is required).
- *  @param excludedTags      An optional list of excluded tags.
+ *  @param tags               List of tags (at least one is required).
+ *  @param excludedTags       An optional list of excluded tags.
  *  @param fullLengthExcluded Set to `YES` to exclude full length videos.
  */
 - (SRGFirstPageRequest *)videosForVendor:(SRGVendor)vendor

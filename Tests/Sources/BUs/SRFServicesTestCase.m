@@ -23,11 +23,11 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 static NSString * const kTag1 = @"sportapp";
 static NSString * const kTag2 = @"curling";
 
-static NSString * const kUserId = @"$36e4751afb7be86f$340115fdcda259dc8af974989fdb98b6942d246e0a53244b75bf62760b740bcef6ec852dea79e0678aad46b67104bdb5a8e4fe08c2738e671c41b60a21019039";
-
 @interface SRFServicesTestCase : DataProviderBaseTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
+
+@property (nonatomic) NSString *userId;
 
 @end
 
@@ -38,6 +38,10 @@ static NSString * const kUserId = @"$36e4751afb7be86f$340115fdcda259dc8af974989f
 - (void)setUp
 {
     self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
+    
+    if (! self.userId) {
+        self.userId = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"https://www.srf.ch//play/services/playid/new"] encoding:NSUTF8StringEncoding error:nil];
+    }
 }
 
 - (void)tearDown
@@ -571,10 +575,12 @@ static NSString * const kUserId = @"$36e4751afb7be86f$340115fdcda259dc8af974989f
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
+
+    XCTAssertNotNil(self.userId);
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider recommendedVideosForVendor:SRGVendorSRF uid:kVideoUid userId:kUserId withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider recommendedVideosForVendor:SRGVendorSRF uid:kVideoUid userId:self.userId withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation2 fulfill];
