@@ -531,6 +531,19 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                      withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
 
 /**
+ *  List medias with specific tags.
+ *
+ *  @param tags              List of tags (at least one is required).
+ *  @param excludedTags      An optional list of excluded tags.
+ *  @param fullLengthExcluded Set to `YES` to exclude full length videos.
+ */
+- (SRGFirstPageRequest *)videosForVendor:(SRGVendor)vendor
+                                withTags:(NSArray<NSString *> *)tags
+                            excludedTags:(nullable NSArray<NSString *> *)excludedTags
+                      fullLengthExcluded:(BOOL)fullLengthExcluded
+                         completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
  *  Search audios matching a specific query.
  *
  *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
@@ -539,6 +552,24 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 - (SRGFirstPageRequest *)audiosForVendor:(SRGVendor)vendor
                            matchingQuery:(NSString *)query
                      withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
+
+@end
+
+/**
+ *  List of media recommendation services supported by the data provider.
+ */
+@interface SRGDataProvider (RecommendationServices)
+
+/**
+ *  List medias for a specific video and, optionally, a user id.
+ *
+ *  @param uid    A specific video unique identifier.
+ *  @param userId An optional user uid.
+ */
+- (SRGFirstPageRequest *)recommendedVideosForVendor:(SRGVendor)vendor
+                                                uid:(NSString *)uid
+                                             userId:(nullable NSString *)userId
+                                withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 @end
 
