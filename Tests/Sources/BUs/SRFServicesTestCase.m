@@ -27,7 +27,7 @@ static NSString * const kTag2 = @"curling";
 
 @property (nonatomic) SRGDataProvider *dataProvider;
 
-@property (nonatomic) NSString *userId;
+@property (nonatomic, copy) NSString *userId;
 
 @end
 
@@ -40,7 +40,7 @@ static NSString * const kTag2 = @"curling";
     self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
     
     if (! self.userId) {
-        self.userId = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"https://www.srf.ch//play/services/playid/new"] encoding:NSUTF8StringEncoding error:nil];
+        self.userId = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"https://www.srf.ch//play/services/playid/new"] encoding:NSUTF8StringEncoding error:NULL];
     }
 }
 
