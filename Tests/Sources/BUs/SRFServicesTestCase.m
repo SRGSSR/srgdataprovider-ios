@@ -15,13 +15,19 @@ static NSString * const kRadioShowSearchQuery = @"buchzeichen";
 
 static NSString * const kVideoSearchQuery = @"roger";
 static NSString * const kVideoURN = @"urn:srf:video:24b1f659-052e-4847-a523-a6267bd9596e";
+static NSString * const kVideoUid = @"24b1f659-052e-4847-a523-a6267bd9596e";
 
 static NSString * const kTVChannelUid = @"23FFBE1B-65CE-4188-ADD2-C724186C2C9F";
 static NSString * const kTVShowSearchQuery = @"kassensturz";
 
+static NSString * const kTag1 = @"sportapp";
+static NSString * const kTag2 = @"curling";
+
 @interface SRFServicesTestCase : DataProviderBaseTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
+
+@property (nonatomic, copy) NSString *userId;
 
 @end
 
@@ -32,6 +38,10 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
 - (void)setUp
 {
     self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
+    
+    if (! self.userId) {
+        self.userId = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"https://www.srf.ch//play/services/playid/new"] encoding:NSUTF8StringEncoding error:NULL];
+    }
 }
 
 - (void)tearDown
@@ -488,6 +498,58 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testVideosWithTags
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videosForVendor:SRGVendorSRF withTags:@[kTag1] excludedTags:nil fullLengthExcluded:YES completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videosForVendor:SRGVendorSRF withTags:@[kTag1] excludedTags:@[kTag1] fullLengthExcluded:YES completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videosForVendor:SRGVendorSRF withTags:@[kTag1, kTag2] excludedTags:nil fullLengthExcluded:YES completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation3 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videosForVendor:SRGVendorSRF withTags:@[kTag1] excludedTags:nil fullLengthExcluded:NO completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation4 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videosForVendor:SRGVendorSRF withTags:@[] excludedTags:nil fullLengthExcluded:YES completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation5 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testAudiosMatchingQuery
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
@@ -497,6 +559,31 @@ static NSString * const kTVShowSearchQuery = @"kassensturz";
         XCTAssertNotNil(total);
         XCTAssertNil(error);
         [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testRecommendedVideos
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider recommendedVideosForVendor:SRGVendorSRF uid:kVideoUid userId:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+
+    XCTAssertNotNil(self.userId);
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider recommendedVideosForVendor:SRGVendorSRF uid:kVideoUid userId:self.userId withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

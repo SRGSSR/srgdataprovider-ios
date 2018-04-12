@@ -13,24 +13,18 @@ static NSString * const kAudioOtherUid = @"not_supported";
 static NSString * const kRadioChannelUid = @"not_supported";
 static NSString * const kRadioLivestreamUid = @"not_supported";
 static NSString * const kRadioShowSearchQuery = @"not_supported";
-static NSString * const kRadioShowUid = @"not_supported";
-static NSString * const kRadioShowOtherUid = @"not_supported";
 
 static NSString * const kVideoSearchQuery = @"roger";
 static NSString * const kVideoURN = @"urn:swi:video:43017988";
-static NSString * const kVideoOtherUid = @"43007158";
+static NSString * const kVideoUid = @"43017988";
 
 static NSString * const kTVChannelUid = @"not_supported";
-static NSString * const kTVShowUid = @"3";
-static NSString * const kTVShowOtherUid = @"2";
 static NSString * const kTVShowSearchQuery = @"not_supported";
 
-static NSString * const kOnlineShowUid = @"3";
-static NSString * const kOnlineShowOtherUid = @"2";
+static NSString * const kTag1 = @"sportapp";
+static NSString * const kTag2 = @"curling";
 
-static NSString * const kTopicUid = @"1";
-
-static NSString * const kInvalidMediaId = @"999999999999999";
+static NSString * const kUserId = @"test_user_id";
 
 @interface SWIServicesTestCase : DataProviderBaseTestCase
 
@@ -494,6 +488,55 @@ static NSString * const kInvalidMediaId = @"999999999999999";
 }
 
 // Not supported for SWI
+- (void)testVideosWithTags
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videosForVendor:SRGVendorSWI withTags:@[kTag1] excludedTags:nil fullLengthExcluded:YES completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videosForVendor:SRGVendorSWI withTags:@[kTag1] excludedTags:@[kTag1] fullLengthExcluded:YES completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videosForVendor:SRGVendorSWI withTags:@[kTag1, kTag2] excludedTags:nil fullLengthExcluded:YES completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation3 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videosForVendor:SRGVendorSWI withTags:@[kTag1] excludedTags:nil fullLengthExcluded:NO completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation4 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider videosForVendor:SRGVendorSWI withTags:@[] excludedTags:nil fullLengthExcluded:YES completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation5 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// Not supported for SWI
 - (void)testAudiosMatchingQuery
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
@@ -501,6 +544,28 @@ static NSString * const kInvalidMediaId = @"999999999999999";
     [[self.dataProvider audiosForVendor:SRGVendorSWI matchingQuery:kAudioSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// Not supported for SWI
+- (void)testRecommendedVideos
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider recommendedVideosForVendor:SRGVendorSWI uid:kVideoUid userId:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider recommendedVideosForVendor:SRGVendorSWI uid:kVideoUid userId:kUserId withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

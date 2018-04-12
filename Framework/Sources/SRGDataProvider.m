@@ -497,6 +497,33 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     return [self listObjectsWithRequest:request modelClass:[SRGSearchResultMedia class] rootKey:@"searchResultListMedia" completionBlock:completionBlock];
 }
 
+- (SRGFirstPageRequest *)videosForVendor:(SRGVendor)vendor
+                                withTags:(NSArray<NSString *> *)tags
+                            excludedTags:(NSArray<NSString *> *)excludedTags
+                      fullLengthExcluded:(BOOL)fullLengthExcluded
+                         completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = nil;
+    if (fullLengthExcluded) {
+        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestByTags/excludeFullLength.json", SRGPathComponentForVendor(vendor)];
+    }
+    else {
+        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestByTags.json", SRGPathComponentForVendor(vendor)];
+    }
+    
+    NSString *includesString = [tags componentsJoinedByString:@","];
+    NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"includes" value:includesString] ];
+    if (excludedTags) {
+        NSString *excludesString = [tags componentsJoinedByString:@","];
+        queryItems = [queryItems arrayByAddingObject:[NSURLQueryItem queryItemWithName:@"excludes" value:excludesString]];
+    }
+    
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    return [self listObjectsWithRequest:request modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, error);
+    }];
+}
+
 - (SRGFirstPageRequest *)audiosForVendor:(SRGVendor)vendor
                            matchingQuery:(NSString *)query
                      withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock
@@ -505,6 +532,27 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
     NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self listObjectsWithRequest:request modelClass:[SRGSearchResultMedia class] rootKey:@"searchResultListMedia" completionBlock:completionBlock];
+}
+
+#pragma mark Recommendation services
+
+- (SRGFirstPageRequest *)recommendedVideosForVendor:(SRGVendor)vendor
+                                                uid:(NSString *)uid
+                                             userId:(NSString *)userId
+                                withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = nil;
+    if (userId) {
+        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/recommendedByUserId/%@/%@.json", SRGPathComponentForVendor(vendor), uid, userId];
+    }
+    else {
+        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/recommended/%@.json", SRGPathComponentForVendor(vendor), uid];
+    }
+    
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:request modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, error);
+    }];
 }
 
 #pragma mark Module services
