@@ -654,12 +654,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Full media information needed to play a media.
  *
- *  @param chaptersOnly If set to `YES`, the returned media composition is only made of chapters. If set to `NO`, it
- *                      may contain a mixture of chapters and segments.
+ *  @param standalone If set to `NO`, the returned media composition provides media playback information in context. If
+ *                    set to `YES`, media playback is provided without context.
  */
-- (SRGRequest *)mediaCompositionWithURN:(NSString *)mediaURN
-                           chaptersOnly:(BOOL)chaptersOnly
-                        completionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
+- (SRGRequest *)mediaCompositionForURN:(NSString *)mediaURN
+                            standalone:(BOOL)standalone
+                   withCompletionBlock:(SRGMediaCompositionCompletionBlock)completionBlock;
 
 /**
  *  Retrieve the show having the specified URN.

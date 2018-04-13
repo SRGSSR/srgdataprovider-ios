@@ -231,7 +231,7 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
     
-    SRGRequest *request = [self.dataProvider mediaCompositionWithURN:@"bad_URN" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGRequest *request = [self.dataProvider mediaCompositionForURN:@"bad_URN" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         [expectation fulfill];
     }];
     [request resume];
@@ -299,7 +299,7 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
     
-    SRGRequest *request = [self.dataProvider mediaCompositionWithURN:@"bad_URN" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGRequest *request = [self.dataProvider mediaCompositionForURN:@"bad_URN" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         XCTAssertNil(mediaComposition);
         XCTAssertEqualObjects(error.domain, SRGDataProviderErrorDomain);
         XCTAssertEqual(error.code, SRGDataProviderErrorHTTP);
@@ -342,7 +342,7 @@
         XCTAssertNil(error);
         
         SRGMedia *firstMedia = medias.firstObject;
-        SRGRequest *request2 = [self.dataProvider mediaCompositionWithURN:firstMedia.URN chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        SRGRequest *request2 = [self.dataProvider mediaCompositionForURN:firstMedia.URN standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
             XCTAssertNotNil(mediaComposition);
             XCTAssertNil(error);
             
