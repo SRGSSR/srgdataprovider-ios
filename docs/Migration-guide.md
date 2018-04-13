@@ -20,3 +20,11 @@ Requests are now expressive, easier to build, and much more reliable than before
 ## Cache
 
 Previously, model objects were cached and returned when readily available. Caching is now entirely the responsibility of `NSURLCache` and follows cache expiration header specifications.
+
+Migrating from version 5 to version 6
+==========================================
+
+Version 6 of the library performs a shift towards business unit agnostic data providers. As a result, data provider initialization does not require a business unit parameter anymore. 
+
+URN-based requests stay the same. Requests which previously depended on the business unit now require this information to be supplied when called. Redundant requests (e.g. video, audio or online media lists for some identifiers) have been removed since the URN-based requests can retrieve these medias in a universal way.
+

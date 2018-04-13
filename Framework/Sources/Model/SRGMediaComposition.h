@@ -7,7 +7,6 @@
 #import "SRGChapter.h"
 #import "SRGMedia.h"
 #import "SRGMediaParentMetadata.h"
-#import "SRGMediaURN.h"
 #import "SRGModel.h"
 #import "SRGSegment.h"
 
@@ -26,14 +25,14 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  For convenient direct retrieval of the `SRGChapter` object, use the `mainChapter` property directly.
  */
-@property (nonatomic, readonly) SRGMediaURN *chapterURN;
+@property (nonatomic, readonly, copy) NSString *chapterURN;
 
 /**
  *  The URN of the segment which should initially be played.
  *
  *  For convenient direct retrieval of the `SRGSegment` object, use the `mainSegment` property directly.
  */
-@property (nonatomic, readonly, nullable) SRGMediaURN *segmentURN;
+@property (nonatomic, readonly, copy, nullable) NSString *segmentURN;
 
 /**
  *  The list of chapters available for the media.

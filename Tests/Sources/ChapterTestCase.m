@@ -23,8 +23,8 @@ static NSURL *ServiceTestURL(void)
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Ready to play"];
     
-    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
-    [[dataProvider videoMediaCompositionWithUid:@"9116567" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL()];
+    [[dataProvider mediaCompositionForURN:@"urn:rts:video:9116567" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         SRGChapter *mainChapter = mediaComposition.mainChapter;
         XCTAssertEqual(mainChapter.resources.count, 4);
         XCTAssertEqual(mainChapter.playableResources.count, 2);
@@ -42,8 +42,8 @@ static NSURL *ServiceTestURL(void)
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Ready to play"];
     
-    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
-    [[dataProvider videoMediaCompositionWithUid:@"3608506" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL()];
+    [[dataProvider mediaCompositionForURN:@"urn:rts:video:3608506" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         SRGChapter *mainChapter = mediaComposition.mainChapter;
         XCTAssertEqual(mainChapter.resources.count, 4);
         XCTAssertEqual(mainChapter.playableResources.count, 2);
@@ -61,8 +61,8 @@ static NSURL *ServiceTestURL(void)
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Ready to play"];
     
-    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
-    [[dataProvider audioMediaCompositionWithUid:@"9098092" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL()];
+    [[dataProvider mediaCompositionForURN:@"urn:rts:audio:9098092" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         SRGChapter *mainChapter = mediaComposition.mainChapter;
         XCTAssertEqual(mainChapter.resources.count, 2);
         XCTAssertEqual(mainChapter.playableResources.count, 1);
@@ -80,8 +80,8 @@ static NSURL *ServiceTestURL(void)
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Ready to play"];
     
-    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
-    [[dataProvider audioMediaCompositionWithUid:@"3262320" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL()];
+    [[dataProvider mediaCompositionForURN:@"urn:rts:audio:3262320" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         SRGChapter *mainChapter = mediaComposition.mainChapter;
         XCTAssertEqual(mainChapter.resources.count, 4);
         XCTAssertEqual(mainChapter.playableResources.count, 2);
@@ -104,8 +104,8 @@ static NSURL *ServiceTestURL(void)
     
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Ready to play"];
     
-    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL() businessUnitIdentifier:SRGDataProviderBusinessUnitIdentifierRTS];
-    [[dataProvider videoMediaCompositionWithUid:@"9116567" chaptersOnly:NO completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL()];
+    [[dataProvider mediaCompositionForURN:@"urn:rts:video:9116567" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         SRGChapter *mainChapter = mediaComposition.mainChapter;
         XCTAssertNotEqual(mainChapter.segments.count, 0);
         
@@ -119,7 +119,7 @@ static NSURL *ServiceTestURL(void)
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Ready to play"];
     
-    [[dataProvider videoMediaCompositionWithUid:@"9116567" chaptersOnly:YES completionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    [[dataProvider mediaCompositionForURN:@"urn:rts:video:9116567" standalone:YES withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         SRGChapter *mainChapter = mediaComposition.mainChapter;
         XCTAssertEqual(mainChapter.segments.count, 0);
         

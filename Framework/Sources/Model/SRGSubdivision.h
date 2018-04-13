@@ -6,7 +6,6 @@
 
 #import "SRGModel.h"
 #import "SRGMediaMetadata.h"
-#import "SRGMediaURN.h"
 #import "SRGSubtitle.h"
 #import "SRGTypes.h"
 
@@ -20,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The URN of the full length to which the subdivision belongs, if any.
  */
-@property (nonatomic, readonly, nullable) SRGMediaURN *fullLengthURN;
+@property (nonatomic, readonly, copy, nullable) NSString *fullLengthURN;
 
 /**
  *  Return whether the subdivision must be hidden client-side.

@@ -78,7 +78,7 @@ To see examples of use, have a look a the unit test suite bundled with the proje
 
 ## Migration from versions previous versions
 
-For information about changes introduced with version 5 of the library, please read the [migration guide](Migration-guide.md).
+For information about changes introduced with major versions of the library, please read the [migration guide](Migration-guide.md).
 
 ## License
 

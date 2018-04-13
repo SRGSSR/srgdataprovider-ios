@@ -5,6 +5,10 @@ Integration Layer services are not available for all business units. The followi
 
 The maximum page size for all services supporting pagination is 100. The default page size is 10. A special _unlimited_ page size is available for some requests to return all entries at once.
 
+#### Remark
+
+Services are currently only available for SRG SSR vendors (SRF, RTS, RSI, RTR and SWI), not for regional vendors (TVO, Canal Alpha).
+
 ## TV services
 
 ### Channels and livestreams
@@ -21,6 +25,8 @@ The maximum page size for all services supporting pagination is 100. The default
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Editorial medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| Latest medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| Most popular medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 | Soon expiring medias | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ |
 | Trending medias | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Latest episodes | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
@@ -31,17 +37,12 @@ The maximum page size for all services supporting pagination is 100. The default
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Topics | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Latest medias by topic | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| Most popular medias by topic | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 
 ### Shows
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination| Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | All shows | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Shows with specific identifiers | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Single show | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Latest episodes for a show | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 | Show search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 
 #### Remark
@@ -57,7 +58,7 @@ For SWI, shows represent content categories (Business, Culture, etc.), and searc
 | Channels | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Single channel | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Livestreams by channel | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
-| Livestreams for content provider | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
+| Livestreams for content providers | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 
 #### Remark
 
@@ -78,9 +79,6 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | All shows | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ |
-| Shows with specific identifiers | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
-| Single show | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
-| Latest episodes for a show | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 | Show search | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 
 ### Songs
@@ -90,43 +88,46 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Recent songs | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 | Current song on air | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 
-## Online services
-
-### Shows
-
-| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
-|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| All shows | ✅ | N/A | ❌ | ✅ | ❌ | ✅ | ❌ |
-| Shows with specific identifiers | ✅ | N/A | ✅ | ✅ | ✅ | ❌ | N/A |
-| Single show | ✅ | N/A | ✅ | ✅ | ✅ | ❌ | N/A |
-| Latest episodes for a show | ✅ | N/A | ✅ | ✅ | ✅ | ✅ | ❌ |
-
-
 ## Live center services
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Videos | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 
-## Video services
+## Media search services
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Single video | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| List of videos | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Video media composition | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Video search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-
-## Audio services
-
-| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
-|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Single audio | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
-| List of audios | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
-| Audio media composition | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
+| Videos with tags | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
 | Audio search | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 
-## Common services
+## Recommendation services
+
+| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
+|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Recommended videos | ✅ | ✅ | ❌ | ❌ | ❌ | ⚠️ | ❌ |
+
+⚠️ Pagination is supported but the maximum page size is 50.
+
+## Module services
+
+Modules are collection of medias related to a specific context (e.g. an event).
+
+| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
+|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Module list | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+
+## Popularity services
+
+These services can be used to increase popularity indicators.
+
+| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
+|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Increase social count for a subdivision | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+| Increase social count for media composition | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+
+## URN services
 
 These services provide a way to access content from any business unit from any data provider.
 
@@ -140,24 +141,6 @@ These services provide a way to access content from any business unit from any d
 | Show by URN | ❌ | N/A | - |
 | Latest episodes for show with URN | ✅ | ❌ | - |
 | Latest medias by module URN | ✅ | ❌ | - |
-
-## Popularity services
-
-These services can be used to increase popularity indicators.
-
-| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
-|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Increase social count for a subdivision | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Increase social count for media composition | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-
-## Module services
-
-Modules are collection of medias related to a specific context (e.g. an event).
-
-| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
-|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Module list | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Latest medias for a module | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 
 ## Tokenization services
 
