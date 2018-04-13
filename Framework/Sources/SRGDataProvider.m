@@ -461,18 +461,6 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }];
 }
 
-#pragma mark Online services
-
-- (SRGFirstPageRequest *)onlineShowsForVendor:(SRGVendor)vendor
-                          withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock
-{
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/online/alphabetical/all.json", SRGPathComponentForVendor(vendor)];
-    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithRequest:request modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
-    }];
-}
-
 #pragma mark Live center services
 
 - (SRGFirstPageRequest *)liveCenterVideosForVendor:(SRGVendor)vendor

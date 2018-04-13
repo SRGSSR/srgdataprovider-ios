@@ -486,23 +486,6 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 @end
 
 /**
- *  List of online-oriented services supported by the data provider.
- */
-@interface SRGDataProvider (OnlineServices)
-
-/**
- *  @name Shows
- */
-
-/**
- *  Shows.
- */
-- (SRGFirstPageRequest *)onlineShowsForVendor:(SRGVendor)vendor
-                          withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
-
-@end
-
-/**
  *  List of services offered by the SwissTXT Live Center.
  */
 @interface SRGDataProvider (LiveCenterServices)
