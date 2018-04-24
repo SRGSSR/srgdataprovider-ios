@@ -20,6 +20,13 @@ static NSString * const kVideoURN = @"urn:rsi:video:8812327";
 static NSString * const kTVChannelUid = @"la1";
 static NSString * const kTVShowSearchQuery = @"telegiornale";
 
+static NSString * const kTVShowURN = @"urn:rsi:show:tv:3567604";
+static NSString * const kTVShowOtherURN = @"urn:rsi:show:tv:8925532";
+static NSString * const kRadioShowURN = @"urn:rsi:show:radio:2720638";
+static NSString * const kRadioShowOtherURN = @"urn:rsi:show:radio:3706987";
+static NSString * const kInvalidShowURN = @"urn:rsi:show:tv:999999999999999";
+static NSString * const kInvalidShowOtherURN = @"urn:srf:show:tv:999999999999999";
+
 static NSString * const kTag1 = @"sportapp";
 static NSString * const kTag2 = @"curling";
 
@@ -857,6 +864,59 @@ static NSString * const kUserId = @"test_user_id";
     [[self.dataProvider mediaCompositionForURN:@"urn:rsi:audio:livestream_ReteUno" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"livestream_ReteUno");
         [expectation6 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testShowsWithURNs
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsWithURNs:@[kTVShowURN, kTVShowOtherURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertEqual(shows.count, 2);
+        XCTAssertNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsWithURNs:@[kRadioShowURN, kRadioShowOtherURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertEqual(shows.count, 2);
+        XCTAssertNil(error);
+        [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsWithURNs:@[kTVShowURN, kRadioShowURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertEqual(shows.count, 2);
+        XCTAssertNil(error);
+        [expectation3 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsWithURNs:@[kTVShowURN, kRadioShowURN, kInvalidShowURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertEqual(shows.count, 2);
+        XCTAssertNil(error);
+        [expectation4 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsWithURNs:@[kTVShowURN, kRadioShowURN, kInvalidShowOtherURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertNil(shows);
+        XCTAssertNotNil(error);
+        [expectation5 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

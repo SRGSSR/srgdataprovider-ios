@@ -650,6 +650,16 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 - (SRGRequest *)showWithURN:(NSString *)showURN completionBlock:(SRGShowCompletionBlock)completionBlock;
 
 /**
+ *  Retrieve shows matching a URN list.
+ *
+ *  @discussion The list must contain at least a URN, otherwise the result is undefined. Partial results can be
+ *              returned if some URNs (but not all) are invalid. Note that you cannot mix URNs from different business
+ *              units, otherwise the request will fail.
+ */
+- (SRGRequest *)showsWithURNs:(NSArray<NSString *> *)showURNs
+              completionBlock:(SRGShowListCompletionBlock)completionBlock;
+
+/**
  *  Latest episodes for a specific show.
  *
  *  @param maximumPublicationMonth If not `nil`, medias up to the specified month are returned.

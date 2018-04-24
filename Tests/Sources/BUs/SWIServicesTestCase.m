@@ -21,6 +21,11 @@ static NSString * const kVideoUid = @"43017988";
 static NSString * const kTVChannelUid = @"not_supported";
 static NSString * const kTVShowSearchQuery = @"not_supported";
 
+static NSString * const kTVShowURN = @"urn:swi:show:tv:1";
+static NSString * const kTVShowOtherURN = @"urn:swi:show:tv:2";
+static NSString * const kInvalidShowURN = @"urn:swi:show:tv:999999999999999";
+static NSString * const kInvalidShowOtherURN = @"urn:srf:show:tv:999999999999999";
+
 static NSString * const kTag1 = @"sportapp";
 static NSString * const kTag2 = @"curling";
 
@@ -753,6 +758,40 @@ static NSString * const kUserId = @"test_user_id";
     [[self.dataProvider mediaCompositionForURN:@"urn:swi:video:43080614" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"43080614");
         [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// Only with TV shows
+- (void)testShowsWithURNs
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsWithURNs:@[kTVShowURN, kTVShowOtherURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertEqual(shows.count, 2);
+        XCTAssertNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsWithURNs:@[kTVShowURN, kTVShowOtherURN, kInvalidShowURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertEqual(shows.count, 2);
+        XCTAssertNil(error);
+        [expectation4 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsWithURNs:@[kTVShowURN, kTVShowOtherURN, kInvalidShowOtherURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertNil(shows);
+        XCTAssertNotNil(error);
+        [expectation5 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
