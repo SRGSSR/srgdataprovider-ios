@@ -25,7 +25,7 @@ static NSString * const kTVShowOtherURN = @"urn:rts:show:tv:6454706";
 static NSString * const kRadioShowURN = @"urn:rts:show:radio:8272976";
 static NSString * const kRadioShowOtherURN = @"urn:rts:show:radio:8841537";
 static NSString * const kInvalidShowURN = @"urn:rts:show:tv:999999999999999";
-static NSString * const kInvalidShowOtherURN = @"urn:srf:show:tv:999999999999999";
+static NSString * const kInvalidShowOtherBusinessUnitURN = @"urn:srf:show:tv:999999999999999";
 
 static NSString * const kTag1 = @"sportapp";
 static NSString * const kTag2 = @"curling";
@@ -929,7 +929,7 @@ static NSString * const kUserId = @"test_user_id";
     
     XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider showsWithURNs:@[kTVShowURN, kRadioShowURN, kInvalidShowOtherURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+    [[self.dataProvider showsWithURNs:@[kTVShowURN, kRadioShowURN, kInvalidShowOtherBusinessUnitURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
         XCTAssertNil(shows);
         XCTAssertNotNil(error);
         [expectation5 fulfill];
