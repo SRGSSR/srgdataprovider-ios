@@ -338,13 +338,23 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  */
 
 /**
- *  Shows.
+ *  A to Z editorial TV show list.
+ *
+ *  @discussion the optional filter parameter is one character (a-z) or #. Everything else will result
+ *  in undefined result.
+ */
+- (SRGFirstPageRequest *)tvEditorialShowsForVendor:(SRGVendor)vendor
+                                       firstCharacter:(nullable NSString *)firstCharacter
+                                  withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
+
+/**
+ *  All TV shows.
  */
 - (SRGFirstPageRequest *)tvShowsForVendor:(SRGVendor)vendor
                       withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 
 /**
- *  Search shows matching a specific query.
+ *  Search TV shows matching a specific query.
  *
  *  @discussion Some business units only support full-text search, not partial matching.
  */

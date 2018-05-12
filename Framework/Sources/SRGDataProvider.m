@@ -268,10 +268,27 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }];
 }
 
+- (SRGFirstPageRequest *)tvEditorialShowsForVendor:(SRGVendor)vendor
+                                       firstCharacter:(NSString *)firstCharacter
+                                  withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/tv/alphabetical.json", SRGPathComponentForVendor(vendor)];
+    
+    NSArray<NSURLQueryItem *> *queryItems = nil;
+    if (firstCharacter) {
+        queryItems = @[ [NSURLQueryItem queryItemWithName:@"characterFilter" value:firstCharacter] ];
+    }
+    
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:queryItems];
+    return [self listObjectsWithRequest:request modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, error);
+    }];
+}
+
 - (SRGFirstPageRequest *)tvShowsForVendor:(SRGVendor)vendor
                       withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/tv/alphabetical.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/tv/alphabetical/all.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithRequest:request modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, error);
@@ -748,7 +765,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 #pragma mark Common implementation
 
-- (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(nullable NSArray<NSURLQueryItem *> *)queryItems
+- (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
 {
     NSURL *URL = [NSURL URLWithString:[resourcePath stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLPathAllowedCharacterSet]
                         relativeToURL:self.serviceURL];
@@ -764,7 +781,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     return URLComponents.URL;
 }
 
-- (NSURLRequest *)requestForResourcePath:(NSString *)resourcePath withQueryItems:(nullable NSArray<NSURLQueryItem *> *)queryItems
+- (NSURLRequest *)requestForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
 {
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
