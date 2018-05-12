@@ -344,8 +344,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  in undefined result.
  */
 - (SRGFirstPageRequest *)tvEditorialShowsForVendor:(SRGVendor)vendor
-                                       firstCharacter:(nullable NSString *)firstCharacter
-                                  withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
+                                    firstCharacter:(nullable NSString *)firstCharacter
+                               withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 
 /**
  *  All TV shows.
@@ -458,14 +458,24 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  */
 
 /**
- *  Shows by channel.
+ *  A to Z editorial radio show list by channel.
+ *
+ *  @discussion the optional filter parameter is one character (a-z) or #. Everything else will result
+ *  in undefined result.
+ */
+- (SRGFirstPageRequest *)radioEditorialShowsForVendor:(SRGVendor)vendor
+                                           channelUid:(NSString *)channelUid
+                                       firstCharacter:(nullable NSString *)firstCharacter
+                                  withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
+
+/**
+ *  All radio Shows.
  */
 - (SRGFirstPageRequest *)radioShowsForVendor:(SRGVendor)vendor
-                                  channelUid:(NSString *)channelUid
                          withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 
 /**
- *  Search shows matching a specific query.
+ *  Search radio shows matching a specific query.
  *
  *  @discussion Some business units only support full-text search, not partial matching.
  */
