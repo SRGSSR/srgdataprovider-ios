@@ -223,8 +223,8 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider showsWithURNs:@[kTVShowSRFURN, kTVShowSRFOtherURN, kShowRTSURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
-        XCTAssertNil(shows);
-        XCTAssertNotNil(error);
+        XCTAssertEqual(shows.count, 3);
+        XCTAssertNil(error);
         [expectation3 fulfill];
     }] resume];
     
@@ -243,8 +243,8 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider showsWithURNs:@[kTVShowSRFURN, kTVShowSRFOtherURN, kInvalidShow2URN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
-        XCTAssertNil(shows);
-        XCTAssertNotNil(error);
+        XCTAssertEqual(shows.count, 2);
+        XCTAssertNil(error);
         [expectation5 fulfill];
     }] resume];
     
@@ -253,8 +253,8 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     XCTestExpectation *expectation6 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider showsWithURNs:@[kTVShowSRFURN, kTVShowSRFOtherURN, kInvalidShow3URN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
-        XCTAssertNil(shows);
-        XCTAssertNotNil(error);
+        XCTAssertEqual(shows.count, 2);
+        XCTAssertNil(error);
         [expectation6 fulfill];
     }] resume];
     

@@ -789,8 +789,8 @@ static NSString * const kUserId = @"test_user_id";
     XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider showsWithURNs:@[kTVShowURN, kTVShowOtherURN, kInvalidShowOtherBusinessUnitURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
-        XCTAssertNil(shows);
-        XCTAssertNotNil(error);
+        XCTAssertEqual(shows.count, 2);
+        XCTAssertNil(error);
         [expectation5 fulfill];
     }] resume];
     
