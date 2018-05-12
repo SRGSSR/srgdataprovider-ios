@@ -559,12 +559,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 @end
 
 /**
- *  List of media recommendation services supported by the data provider.
+ *  List of recommendation services supported by the data provider.
  */
 @interface SRGDataProvider (RecommendationServices)
 
 /**
- *  List medias for a specific video and, optionally, a user id.
+ *  Media list for a specific video and, optionally, a user id.
  *
  *  @param uid    A specific video unique identifier.
  *  @param userId An optional user uid.
@@ -573,6 +573,15 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                                                 uid:(NSString *)uid
                                              userId:(nullable NSString *)userId
                                 withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
+ *  Show list for a specific user id.
+ *
+ *  @param userId An user uid.
+ */
+- (SRGFirstPageRequest *)recommendedTvShowsForVendor:(SRGVendor)vendor
+                                              userId:(NSString *)userId
+                                 withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 @end
 

@@ -109,6 +109,7 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Recommended videos | ✅ | ✅ | ❌ | ❌ | ❌ | ⚠️ | ❌ |
+| Recommended TV shows | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 
 ⚠️ Pagination is supported but the maximum page size is 50.
 

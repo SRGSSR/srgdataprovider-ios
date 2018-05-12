@@ -577,6 +577,17 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }];
 }
 
+- (SRGFirstPageRequest *)recommendedTvShowsForVendor:(SRGVendor)vendor
+                                              userId:(NSString *)userId
+                                 withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/tv/byUserId/%@.json", SRGPathComponentForVendor(vendor), userId];
+    NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithRequest:request modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, error);
+    }];
+}
+
 #pragma mark Module services
 
 - (SRGRequest *)modulesForVendor:(SRGVendor)vendor
