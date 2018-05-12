@@ -679,7 +679,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 - (SRGRequest *)showWithURN:(NSString *)showURN completionBlock:(SRGShowCompletionBlock)completionBlock;
 
 /**
- *  Retrieve shows matching a URN list.
+ *  Retrieve shows matching an URN list.
  *
  *  @discussion The list must contain at least a URN, otherwise the result is undefined. Partial results can be
  *              returned if some URNs (but not all) are invalid. Note that you cannot mix URNs from different business
@@ -687,6 +687,15 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  */
 - (SRGRequest *)showsWithURNs:(NSArray<NSString *> *)showURNs
               completionBlock:(SRGShowListCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve popular shows for a topic URN list.
+ *
+ *  @discussion The list must contain at least a URN, otherwise the result is undefined. A list of maximum 20 topic urns
+ *              are allowed.
+ */
+- (SRGRequest *)showsForTopicURNs:(NSArray<NSString *> *)topicURNs
+                  completionBlock:(SRGShowListCompletionBlock)completionBlock;
 
 /**
  *  Latest episodes for a specific show.

@@ -27,6 +27,8 @@ static NSString * const kRadioShowOtherURN = @"urn:srf:show:radio:212ebe7d-a99e-
 static NSString * const kInvalidShowURN = @"urn:srf:show:tv:999999999999999";
 static NSString * const kInvalidShowOtherBusinessUnitURN = @"urn:rts:show:tv:999999999999999";
 
+static NSString * const kTopicURN = @"urn:srf:topic:tv:a709c610-b275-4c0c-a496-cba304c36712";
+
 static NSString * const kTag1 = @"sportapp";
 static NSString * const kTag2 = @"curling";
 
@@ -1030,6 +1032,19 @@ static NSString * const kTag2 = @"curling";
         XCTAssertNil(shows);
         XCTAssertNotNil(error);
         [expectation5 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testShowsWithTopicURNs
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsForTopicURNs:@[kTopicURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertNotNil(shows);
+        XCTAssertNil(error);
+        [expectation fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

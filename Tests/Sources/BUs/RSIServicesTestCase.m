@@ -27,6 +27,8 @@ static NSString * const kRadioShowOtherURN = @"urn:rsi:show:radio:3706987";
 static NSString * const kInvalidShowURN = @"urn:rsi:show:tv:999999999999999";
 static NSString * const kInvalidShowOtherURN = @"urn:srf:show:tv:999999999999999";
 
+static NSString * const kTopicURN = @"urn:rsi:topic:tv:20";
+
 static NSString * const kTag1 = @"sportapp";
 static NSString * const kTag2 = @"curling";
 
@@ -1015,6 +1017,19 @@ static NSString * const kUserId = @"test_user_id";
         XCTAssertNil(shows);
         XCTAssertNotNil(error);
         [expectation5 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// Not supported for RSI
+- (void)testShowsWithTopicURNs
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsForTopicURNs:@[kTopicURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

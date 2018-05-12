@@ -26,6 +26,8 @@ static NSString * const kTVShowOtherURN = @"urn:swi:show:tv:2";
 static NSString * const kInvalidShowURN = @"urn:swi:show:tv:999999999999999";
 static NSString * const kInvalidShowOtherBusinessUnitURN = @"urn:srf:show:tv:999999999999999";
 
+static NSString * const kTopicURN = @"urn:swi:topic:tv:1";
+
 static NSString * const kTag1 = @"sportapp";
 static NSString * const kTag2 = @"curling";
 
@@ -906,6 +908,19 @@ static NSString * const kUserId = @"test_user_id";
         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
         XCTAssertEqual(image.size.width, 300.);
         
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// Not supported for SWI
+- (void)testShowsWithTopicURNs
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsForTopicURNs:@[kTopicURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
         [expectation fulfill];
     }] resume];
     

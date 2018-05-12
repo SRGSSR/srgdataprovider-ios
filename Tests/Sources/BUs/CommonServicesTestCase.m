@@ -20,7 +20,9 @@ static NSString * const kRadioShowSRFURN = @"urn:srf:show:radio:da260da8-2efd-49
 
 static NSString * const kShowRTSURN = @"urn:rts:show:tv:6454706";
 
-static NSString * const kTopicURN = @"urn:rts:topic:tv:1081";
+static NSString * const kTopicRTSURN = @"urn:rts:topic:tv:1081";
+static NSString * const kTopicSRFURN = @"urn:srf:topic:tv:a709c610-b275-4c0c-a496-cba304c36712";
+static NSString * const kTopicRTRURN = @"urn:rtr:topic:tv:20e7478f-1ea1-49c3-81c2-5f157d6ff092";
 
 static NSString * const kInvalidMediaURN = @"urn:rts:video:999999999999999";
 static NSString * const kInvalidShow1URN = @"urn:srf:show:tv:999999999999999";
@@ -130,7 +132,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider latestMediasForTopicWithURN:kTopicURN completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider latestMediasForTopicWithURN:kTopicRTSURN completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -143,7 +145,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider mostPopularMediasForTopicWithURN:kTopicURN completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider mostPopularMediasForTopicWithURN:kTopicRTSURN completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -266,6 +268,49 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
         XCTAssertNil(shows);
         XCTAssertNotNil(error);
         [expectation7 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testShowsWithTopicURNs
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsForTopicURNs:@[kTopicSRFURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertNotNil(shows);
+        XCTAssertNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsForTopicURNs:@[kTopicRTRURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertNotNil(shows);
+        XCTAssertNil(error);
+        [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsForTopicURNs:@[kTopicSRFURN, kTopicRTRURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertNotNil(shows);
+        XCTAssertNil(error);
+        [expectation3 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsForTopicURNs:@[kTopicSRFURN, kTopicRTSURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error) {
+        XCTAssertNotNil(shows);
+        XCTAssertNil(error);
+        [expectation4 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
