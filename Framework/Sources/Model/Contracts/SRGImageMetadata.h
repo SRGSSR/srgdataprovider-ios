@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // Supported image types
-typedef NSString * SRGImageType NS_STRING_ENUM;
+typedef NSString * SRGImageType NS_TYPED_ENUM;
 
 OBJC_EXPORT SRGImageType const SRGImageTypeDefault;          // Default image.
 
