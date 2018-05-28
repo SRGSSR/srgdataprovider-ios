@@ -653,8 +653,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  Retrieve shows matching a URN list.
  *
  *  @discussion The list must contain at least a URN, otherwise the result is undefined. Partial results can be
- *              returned if some URNs (but not all) are invalid. Note that you cannot mix URNs from different business
- *              units, otherwise the request will fail.
+ *              returned if some URNs (but not all) are invalid. Note that you can mix URNs from different business
+ *              units.
  */
 - (SRGRequest *)showsWithURNs:(NSArray<NSString *> *)showURNs
               completionBlock:(SRGShowListCompletionBlock)completionBlock;
