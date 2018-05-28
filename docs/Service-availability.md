@@ -139,7 +139,7 @@ These services provide a way to access content from any business unit from any d
 | Most popular medias by topic URN | ✅ | ❌ | - |
 | Media composition by URN | ❌ | N/A | - |
 | Single show by URN | ❌ | N/A | - |
-| List of shows by URNs | ✅ | ❌ | For the request to succeed, URNs must belong to the same business unit |
+| List of shows by URNs | ✅ | ❌ | - |
 | Latest episodes for show with URN | ✅ | ❌ | - |
 | Latest medias by module URN | ✅ | ❌ | - |
 
