@@ -246,7 +246,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                                         date:(NSDate *)date
                          withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    if (!date) {
+    if (! date) {
         date = [NSDate date];
     }
     
@@ -404,7 +404,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                                      channelUid:(NSString *)channelUid
                             withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    if (!date) {
+    if (! date) {
         date = [NSDate date];
     }
     
@@ -721,7 +721,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                 token = [tokenDictionary objectForKey:@"authparams"];
             }
             
-            if (!token) {
+            if (! token) {
                 completionBlock(nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
                                                          code:SRGDataProviderErrorCodeInvalidData
                                                      userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The stream could not be secured.", @"The error message when the secure token cannot be retrieved to play the media stream.") }]);
@@ -830,7 +830,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         
         NSError *modelError = nil;
         id object = [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:JSONDictionary error:&modelError];
-        if (!object) {
+        if (! object) {
             SRGDataProviderLogError(@"DataProvider", @"Could not build model object of %@. Reason: %@", modelClass, modelError);
             
             completionBlock(nil, page, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
