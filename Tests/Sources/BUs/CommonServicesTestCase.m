@@ -88,8 +88,8 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider mediasWithURNs:@[kVideoRTSURN, kAudioRTSURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
-        XCTAssertNil(medias);
-        XCTAssertNotNil(error);
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
         [expectation2 fulfill];
     }] resume];
     
@@ -98,8 +98,8 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider mediasWithURNs:@[kVideoRTSURN, kMediaSRFURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
-        XCTAssertNil(medias);
-        XCTAssertNotNil(error);
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
         [expectation3 fulfill];
     }] resume];
     
