@@ -104,4 +104,21 @@
     return SRGVideoCodecJSONTransformer();
 }
 
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (! object || ! [object isKindOfClass:[self class]]) {
+        return NO;
+    }
+    
+    SRGResource *otherResource = object;
+    return [self.URL isEqual:otherResource.URL];
+}
+
+- (NSUInteger)hash
+{
+    return self.URL.hash;
+}
+
 @end
