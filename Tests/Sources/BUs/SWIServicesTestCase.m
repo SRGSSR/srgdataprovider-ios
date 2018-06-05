@@ -302,10 +302,9 @@ static NSString * const kUserId = @"test_user_id";
     
     XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request 3 succeeded"];
     
-    //FIXME: Integration Layer bug. https://srfmmz.atlassian.net/browse/PLAY-147
     [[self.dataProvider radioLivestreamsForVendor:SRGVendorSWI contentProviders:SRGContentProvidersSwissSatelliteRadio withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
-        XCTAssertNotNil(medias);
-        XCTAssertNil(error);
+        XCTAssertNil(medias);
+        XCTAssertNotNil(error);
         [expectation3 fulfill];
     }] resume];
     

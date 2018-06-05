@@ -131,17 +131,17 @@ These services can be used to increase popularity indicators.
 
 These services provide a way to access content from any business unit from any data provider.
 
-| Request | Pagination | Unlimited page size | Remarks |
-|:-- |:--:|:--:|:--:|
-| Single media by URN | ❌ | N/A | - |
-| List of medias by URNs | ✅ | ❌ | For the request to succeed, URNs must all have the same type (only videos or only audios), and must belong to the same business unit |
-| Latest medias by topic URN | ✅ | ❌ | - |
-| Most popular medias by topic URN | ✅ | ❌ | - |
-| Media composition by URN | ❌ | N/A | - |
-| Single show by URN | ❌ | N/A | - |
-| List of shows by URNs | ✅ | ❌ | - |
-| Latest episodes for show with URN | ✅ | ❌ | - |
-| Latest medias by module URN | ✅ | ❌ | - |
+| Request | Pagination | Unlimited page size |
+|:-- |:--:|:--:|
+| Single media by URN | ❌ | N/A |
+| List of medias by URNs | ✅ | ❌ |
+| Latest medias by topic URN | ✅ | ❌ |
+| Most popular medias by topic URN | ✅ | ❌ |
+| Media composition by URN | ❌ | N/A |
+| Single show by URN | ❌ | N/A |
+| List of shows by URNs | ✅ | ❌ |
+| Latest episodes for show with URN | ✅ | ❌ |
+| Latest medias by module URN | ✅ | ❌ |
 
 ## Tokenization services
 

@@ -159,7 +159,7 @@ static NSInteger s_numberOfRunningRequests = 0;
         }
         
         id JSONDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-        if (!JSONDictionary || ![JSONDictionary isKindOfClass:[NSDictionary class]]) {
+        if (! JSONDictionary || ! [JSONDictionary isKindOfClass:[NSDictionary class]]) {
             NSError *dataFormatError = [NSError errorWithDomain:SRGDataProviderErrorDomain
                                                            code:SRGDataProviderErrorCodeInvalidData
                                                        userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", @"The error message when the response from IL server is incorrect.") }];
