@@ -31,27 +31,6 @@ static void (^s_networkActivityManagementHandler)(BOOL) = nil;
 
 @implementation SRGRequest
 
-#pragma mark Class methods
-
-+ (void)enableNetworkActivityManagementWithHandler:(void (^)(BOOL))handler
-{
-    s_networkActivityManagementHandler = handler;
-    handler(s_numberOfRunningRequests != 0);
-}
-
-+ (void)enableNetworkActivityIndicatorManagement
-{
-    [self enableNetworkActivityManagementWithHandler:^(BOOL active) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = active;
-    }];
-}
-
-+ (void)disableNetworkActivityManagement
-{
-    s_networkActivityManagementHandler ? s_networkActivityManagementHandler(NO) : nil;
-    s_networkActivityManagementHandler = nil;
-}
-
 #pragma mark Object lifecycle
 
 - (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session completionBlock:(SRGRequestCompletionBlock)completionBlock
@@ -203,6 +182,31 @@ static void (^s_networkActivityManagementHandler)(BOOL) = nil;
             self,
             self.request,
             self.running ? @"YES" : @"NO"];
+}
+
+@end
+
+@implementation SRGRequest (AutomaticNetworkActivityManagement)
+
+#pragma mark Class methods
+
++ (void)enableNetworkActivityManagementWithHandler:(void (^)(BOOL))handler
+{
+    s_networkActivityManagementHandler = handler;
+    handler(s_numberOfRunningRequests != 0);
+}
+
++ (void)enableNetworkActivityIndicatorManagement
+{
+    [self enableNetworkActivityManagementWithHandler:^(BOOL active) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = active;
+    }];
+}
+
++ (void)disableNetworkActivityManagement
+{
+    s_networkActivityManagementHandler ? s_networkActivityManagementHandler(NO) : nil;
+    s_networkActivityManagementHandler = nil;
 }
 
 @end

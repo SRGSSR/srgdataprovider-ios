@@ -23,6 +23,40 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGRequest : NSObject
 
 /**
+ *  Start performing the request.
+ *
+ *  @discussion `running` is immediately set to `YES`. Attempting to resume an already running request does nothing.
+ *              You can restart a finished request by calling `-resume` again.
+ */
+- (void)resume;
+
+/**
+ *  Cancel the request.
+ *
+ *  @discussion `running` is immediately set to `NO`. Request completion blocks (@see `SRGDataProvider`) won't be called.
+ *              You can restart a cancelled request by `-calling` resume again.
+ */
+- (void)cancel;
+
+/**
+ *  Return `YES` iff the request is running. 
+ *
+ *  @discussion The request is considered running from the time it has been started to right after the associated
+ *              completion block (@see `SRGDataProvider`) has been executed. It is immediately reset to `NO`
+ *              when the request is cancelled.
+ *
+ *              This property is KVO-observable.
+ */
+@property (nonatomic, readonly, getter=isRunning) BOOL running;
+
+@end
+
+/**
+ *  Automatic network activity management for requests (opt-in).
+ */
+@interface SRGRequest (AutomaticNetworkActivityManagement)
+
+/**
  *  Enable automatic network activity indicator management. The activity indicator is automatically shown when at least
  *  one request is running.
  *
@@ -53,33 +87,6 @@ NS_ASSUME_NONNULL_BEGIN
  *              indicator management, the indicator is hidden as well.
  */
 + (void)disableNetworkActivityManagement;
-
-/**
- *  Start performing the request.
- *
- *  @discussion `running` is immediately set to `YES`. Attempting to resume an already running request does nothing.
- *              You can restart a finished request by calling `-resume` again.
- */
-- (void)resume;
-
-/**
- *  Cancel the request.
- *
- *  @discussion `running` is immediately set to `NO`. Request completion blocks (@see `SRGDataProvider`) won't be called.
- *              You can restart a cancelled request by `-calling` resume again.
- */
-- (void)cancel;
-
-/**
- *  Return `YES` iff the request is running. 
- *
- *  @discussion The request is considered running from the time it has been started to right after the associated
- *              completion block (@see `SRGDataProvider`) has been executed. It is immediately reset to `NO`
- *              when the request is cancelled.
- *
- *              This property is KVO-observable.
- */
-@property (nonatomic, readonly, getter=isRunning) BOOL running;
 
 @end
 
