@@ -397,6 +397,12 @@ NSURL *mediaURL = ...;   // This information can be retrieved from an `SRGMediaC
 }] resume];
 ```
 
+## Network activity management
+
+`SRGRequest` optionally provides a way to automatically manage your application activity indicator depending on whether requests are running or not. Call `+[SRGRequest enableNetworkActivityIndicatorManagement]` early in your application lifecycle to enable this feature.
+
+Automatic network activity indicator management should not be enabled if already performed elsewhere, as those mechanisms would most probably interfere. In such cases, you can still decide to register a custom handler using `+[SRGRequest enableNetworkActivityManagementWithHandler:]`, letting you choose how to respond to network activity changes.
+
 ## Thread-safety
 
 The library was not designed to be thread-safe. Though data retrieval occurs asynchronously, requests are expected to be started from the main thread. Accordingly, completion blocks are guaranteed to be executed on the main thread as well.
