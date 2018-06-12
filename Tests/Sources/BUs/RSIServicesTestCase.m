@@ -14,7 +14,6 @@ static NSString * const kRadioLivestreamUid = @"none_yet";
 static NSString * const kRadioShowSearchQuery = @"modem";
 
 static NSString * const kVideoSearchQuery = @"roger";
-static NSString * const kVideoUid = @"8812327";
 static NSString * const kVideoURN = @"urn:rsi:video:8812327";
 
 static NSString * const kTVChannelUid = @"la1";
@@ -556,11 +555,11 @@ static NSString * const kUserId = @"test_user_id";
 }
 
 // Not supported for RSI
-- (void)testRecommendedVideos
+- (void)testRecommendedMedias
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider recommendedVideosForVendor:SRGVendorRSI uid:kVideoUid userId:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider recommendedMediasForUrn:kVideoURN userId:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         [expectation1 fulfill];
     }] resume];
@@ -569,7 +568,7 @@ static NSString * const kUserId = @"test_user_id";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider recommendedVideosForVendor:SRGVendorRSI uid:kVideoUid userId:kUserId withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider recommendedMediasForUrn:kVideoURN userId:kUserId withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         [expectation2 fulfill];
     }] resume];

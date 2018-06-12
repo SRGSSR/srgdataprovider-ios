@@ -544,15 +544,14 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 @interface SRGDataProvider (RecommendationServices)
 
 /**
- *  List medias for a specific video and, optionally, a user id.
+ *  List medias for a specific media urn and, optionally, a user id.
  *
- *  @param uid    A specific video unique identifier.
+ *  @param urn    A specific media unique identifier.
  *  @param userId An optional user uid.
  */
-- (SRGFirstPageRequest *)recommendedVideosForVendor:(SRGVendor)vendor
-                                                uid:(NSString *)uid
-                                             userId:(nullable NSString *)userId
-                                withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)recommendedMediasForUrn:(NSString *)urn
+                                          userId:(nullable NSString *)userId
+                             withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 @end
 
