@@ -132,14 +132,16 @@ These services provide a way to access content from any business unit from any d
 | Request | Pagination | Unlimited page size |
 |:-- |:--:|:--:|
 | Single media by URN | ❌ | N/A |
-| List of medias by URNs | ✅ | ❌ |
+| List of medias by URNs | ⚠️ | ❌ |
 | Latest medias by topic URN | ✅ | ❌ |
 | Most popular medias by topic URN | ✅ | ❌ |
 | Media composition by URN | ❌ | N/A |
 | Single show by URN | ❌ | N/A |
-| List of shows by URNs | ✅ | ❌ |
+| List of shows by URNs | ⚠️ | ❌ |
 | Latest episodes for show with URN | ✅ | ❌ |
 | Latest medias by module URN | ✅ | ❌ |
+
+⚠️ No pagination. The maximum request items is 50.
 
 ## Tokenization services
 
