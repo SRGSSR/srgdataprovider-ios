@@ -561,7 +561,7 @@ static NSString * const kTag2 = @"curling";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider recommendedMediasForUrn:kVideoURN userId:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider recommendedMediasForURN:kVideoURN userId:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation1 fulfill];
@@ -573,7 +573,7 @@ static NSString * const kTag2 = @"curling";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider recommendedMediasForUrn:kVideoURN userId:self.userId withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider recommendedMediasForURN:kVideoURN userId:self.userId withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation2 fulfill];

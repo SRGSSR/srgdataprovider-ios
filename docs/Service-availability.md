@@ -141,7 +141,7 @@ These services provide a way to access content from any business unit from any d
 | Latest episodes for show with URN | ✅ | ❌ |
 | Latest medias by module URN | ✅ | ❌ |
 
-⚠️ No pagination. The maximum request items is 50.
+⚠️ No pagination. At most 50 items can be requested at a time.
 
 ## Tokenization services
 

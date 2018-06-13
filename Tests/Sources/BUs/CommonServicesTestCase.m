@@ -156,7 +156,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider recommendedMediasForUrn:kVideoRTSURN userId:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider recommendedMediasForURN:kVideoRTSURN userId:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation1 fulfill];
@@ -166,7 +166,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider recommendedMediasForUrn:kMediaSRFURN userId:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    [[self.dataProvider recommendedMediasForURN:kMediaSRFURN userId:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation2 fulfill];

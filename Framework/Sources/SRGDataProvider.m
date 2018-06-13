@@ -524,16 +524,16 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 #pragma mark Recommendation services
 
-- (SRGFirstPageRequest *)recommendedMediasForUrn:(NSString *)urn
+- (SRGFirstPageRequest *)recommendedMediasForURN:(NSString *)URN
                                           userId:(NSString *)userId
                              withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = nil;
     if (userId) {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/recommendedByUserId/byUrn/%@/%@.json", urn, userId];
+        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/recommendedByUserId/byUrn/%@/%@.json", URN, userId];
     }
     else {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/recommended/byUrn/%@.json", urn];
+        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/recommended/byUrn/%@.json", URN];
     }
     
     NSURLRequest *request = [self requestForResourcePath:resourcePath withQueryItems:nil];
