@@ -106,9 +106,7 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Recommended videos | ✅ | ✅ | ❌ | ❌ | ❌ | ⚠️ | ❌ |
-
-⚠️ Pagination is supported but the maximum page size is 50.
+| Recommended medias | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ |
 
 ## Module services
 
@@ -134,14 +132,16 @@ These services provide a way to access content from any business unit from any d
 | Request | Pagination | Unlimited page size |
 |:-- |:--:|:--:|
 | Single media by URN | ❌ | N/A |
-| List of medias by URNs | ✅ | ❌ |
+| List of medias by URNs | ⚠️ | ❌ |
 | Latest medias by topic URN | ✅ | ❌ |
 | Most popular medias by topic URN | ✅ | ❌ |
 | Media composition by URN | ❌ | N/A |
 | Single show by URN | ❌ | N/A |
-| List of shows by URNs | ✅ | ❌ |
+| List of shows by URNs | ⚠️ | ❌ |
 | Latest episodes for show with URN | ✅ | ❌ |
 | Latest medias by module URN | ✅ | ❌ |
+
+⚠️ No pagination. At most 50 items can be requested at a time.
 
 ## Tokenization services
 
