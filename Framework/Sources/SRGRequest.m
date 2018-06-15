@@ -15,6 +15,7 @@
 #import <UIKit/UIKit.h>
 
 static NSInteger s_numberOfRunningRequests = 0;
+static void (^s_networkActivityManagementHandler)(BOOL) = nil;
 
 @interface SRGRequest ()
 
@@ -38,7 +39,6 @@ static NSInteger s_numberOfRunningRequests = 0;
         self.request = request;
         self.completionBlock = completionBlock;
         self.session = session;
-        self.managingNetworkActivityIndicator = YES;
     }
     return self;
 }
@@ -50,28 +50,19 @@ static NSInteger s_numberOfRunningRequests = 0;
 
 #pragma mark Getters and setters
 
-- (void)setManagingNetworkActivityIndicator:(BOOL)managingNetworkActivityIndicator
-{
-    if (self.running) {
-        return;
-    }
-    
-    _managingNetworkActivityIndicator = managingNetworkActivityIndicator;
-}
-
 - (void)setRunning:(BOOL)running
 {
-    if (running != _running && self.managingNetworkActivityIndicator) {
+    if (running != _running) {
         if (running) {
             if (s_numberOfRunningRequests == 0) {
-                [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+                s_networkActivityManagementHandler ? s_networkActivityManagementHandler(YES) : nil;
             }
             ++s_numberOfRunningRequests;
         }
         else {
             --s_numberOfRunningRequests;
             if (s_numberOfRunningRequests == 0) {
-                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                s_networkActivityManagementHandler ? s_networkActivityManagementHandler(NO) : nil;
             }
         }
     }
@@ -191,6 +182,31 @@ static NSInteger s_numberOfRunningRequests = 0;
             self,
             self.request,
             self.running ? @"YES" : @"NO"];
+}
+
+@end
+
+@implementation SRGRequest (AutomaticNetworkActivityManagement)
+
+#pragma mark Class methods
+
++ (void)enableNetworkActivityManagementWithHandler:(void (^)(BOOL))handler
+{
+    s_networkActivityManagementHandler = handler;
+    handler(s_numberOfRunningRequests != 0);
+}
+
++ (void)enableNetworkActivityIndicatorManagement
+{
+    [self enableNetworkActivityManagementWithHandler:^(BOOL active) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = active;
+    }];
+}
+
++ (void)disableNetworkActivityManagement
+{
+    s_networkActivityManagementHandler ? s_networkActivityManagementHandler(NO) : nil;
+    s_networkActivityManagementHandler = nil;
 }
 
 @end

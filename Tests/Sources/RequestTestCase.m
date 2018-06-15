@@ -442,4 +442,88 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testNormalNetworkActivity
+{
+    NSMutableArray<NSNumber *> *states = [NSMutableArray array];
+    [SRGRequest enableNetworkActivityManagementWithHandler:^(BOOL active) {
+        [states addObject:@(active)];
+    }];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGRequest *request = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        [expectation fulfill];
+    }];
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    NSArray<NSNumber *> *expectedStates = @[@NO, @YES, @NO];
+    XCTAssertEqualObjects(states, expectedStates);
+}
+
+- (void)testEnableNetworkActivityWhenActive
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGRequest *request = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        [expectation fulfill];
+    }];
+    [request resume];
+    
+    NSMutableArray<NSNumber *> *states = [NSMutableArray array];
+    [SRGRequest enableNetworkActivityManagementWithHandler:^(BOOL active) {
+        [states addObject:@(active)];
+    }];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    NSArray<NSNumber *> *expectedStates = @[@YES, @NO];
+    XCTAssertEqualObjects(states, expectedStates);
+}
+
+- (void)testDisableNetworkActivity
+{
+    NSMutableArray<NSNumber *> *states = [NSMutableArray array];
+    [SRGRequest enableNetworkActivityManagementWithHandler:^(BOOL active) {
+        [states addObject:@(active)];
+    }];
+    
+    [SRGRequest disableNetworkActivityManagement];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGRequest *request = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        [expectation fulfill];
+    }];
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    NSArray<NSNumber *> *expectedStates = @[@NO, @NO];
+    XCTAssertEqualObjects(states, expectedStates);
+}
+
+- (void)testDisableNetworkActivityWhenActive
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    NSMutableArray<NSNumber *> *states = [NSMutableArray array];
+    [SRGRequest enableNetworkActivityManagementWithHandler:^(BOOL active) {
+        [states addObject:@(active)];
+    }];
+    
+    SRGRequest *request = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        [expectation fulfill];
+    }];
+    [request resume];
+    
+    [SRGRequest disableNetworkActivityManagement];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    NSArray<NSNumber *> *expectedStates = @[@NO, @YES, @NO];
+    XCTAssertEqualObjects(states, expectedStates);
+}
+
 @end
