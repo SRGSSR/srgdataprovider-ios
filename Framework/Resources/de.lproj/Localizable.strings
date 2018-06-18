@@ -2,13 +2,13 @@
 "Several errors have been encountered" = "Verschiedene Fehler sind aufgetreten.";
 
 /* A blocking reason message displayed to the user during the playback if a segment was skipped. */
-"The commercial content was skipped." = "Werbung darf in Play SRF nicht angezeigt werden und wird übersprungen.";
+"The commercial content was skipped." = "Werbung darf nicht angezeigt werden und wird übersprungen.";
 
 /* A blocking reason message displayed to the user during the playback if a segment was skipped. */
 "The content was skipped because it is not available anymore." = "Dieser Inhalt ist nicht mehr verfügbar und wird übersprungen.";
 
 /* A blocking reason message displayed to the user during the playback if a segment was skipped. */
-"The content was skipped because it is not available outside Switzerland." = "Dieser Inhalt ist ausserhalb der Schweiz nicht verfügbar und wird daher übersprungen.";
+"The content was skipped because it is not available outside Switzerland." = "Dieser Inhalt ist ausserhalb der Schweiz nicht verfügbar und wird übersprungen.";
 
 /* A blocking reason message displayed to the user during the playback if a segment was skipped. */
 "The content was skipped because it is not available yet. Please try again later." = "Dieser Inhalt ist noch nicht verfügbar und wird übersprungen. Bitte versuchen Sie es später noch einmal.";
