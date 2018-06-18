@@ -49,15 +49,44 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly, getter=isRunning) BOOL running;
 
+@end
+
 /**
- *  If set to `YES`, the request automatically manages the status bar network indicator visibility when it is running.
- *  The default value is `YES`.
- *
- *  @discussion If you never manage the activity indicator yourself, you can leave this value to `YES`. The activity
- *              indicator is shown when at least one request with `managingNetworkActivityIndicator` set to `YES` is 
- *              running. Conversely, it is hidden when no such request is running.
+ *  Automatic network activity management for requests (opt-in).
  */
-@property (nonatomic, getter=isManagingNetworkActivityIndicator) BOOL managingNetworkActivityIndicator;
+@interface SRGRequest (AutomaticNetworkActivityManagement)
+
+/**
+ *  Enable automatic network activity indicator management. The activity indicator is automatically shown when at least
+ *  one request is running.
+ *
+ *  Automatic network activity management is an opt-in. You should call this method early in your application lifecycle
+ *  if desired. The method can be called at any time though, the handler will be called accordingly.
+ *
+ *  @discussion Any handler previously registered with `+enableNetworkActivityManagementWithHandler:` is replaced.
+ */
++ (void)enableNetworkActivityIndicatorManagement NS_EXTENSION_UNAVAILABLE_IOS("Network activity indicator management is not available for extensions");
+
+/**
+ *  Enable automatic network activity management with a custom handler. The handler is called when network activity
+ *  changes (the network is considered to be active when at least one request is running), providing the new status as a
+ *  boolean `active` parameter.
+ *
+ *  Automatic network activity management is an opt-in. You should call this method early in your application lifecycle
+ *  if desired. The method can be called at any time though, the network activity indicator will be updated accordingly.
+ *
+ *  @discussion Any previously registered handler is replaced. If automatic indicator management was used, it is
+ *              disabled as well.
+ */
++ (void)enableNetworkActivityManagementWithHandler:(void (^)(BOOL active))handler;
+
+/**
+ *  Disable automatic network management (handler and automatic activity indicator management).
+ *
+ *  @discussion When called, any previous handler is called with `active` set to `NO`. If using automatic activity
+ *              indicator management, the indicator is hidden as well.
+ */
++ (void)disableNetworkActivityManagement;
 
 @end
 
