@@ -121,7 +121,7 @@ static void (^s_networkActivityManagementHandler)(BOOL) = nil;
             if (HTTPStatusCode >= 400) {
                 NSError *HTTPError = [NSError errorWithDomain:SRGDataProviderErrorDomain
                                                          code:SRGDataProviderErrorHTTP
-                                                     userInfo:@{ NSLocalizedDescriptionKey : [NSHTTPURLResponse play_localizedStringForStatusCode:HTTPStatusCode],
+                                                     userInfo:@{ NSLocalizedDescriptionKey : [NSHTTPURLResponse srg_localizedStringForStatusCode:HTTPStatusCode],
                                                                  NSURLErrorKey : response.URL,
                                                                  SRGDataProviderHTTPStatusCodeKey : @(HTTPStatusCode) }];
                 SRGDataProviderLogDebug(@"Request", @"Ended %@ with an HTTP error: %@", self.request.URL, HTTPError);

@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @discussion This method is a fix for the buggy +localizedStringForStatusCode: public method. See
  *                http://openradar.appspot.com/radar?id=5498641225613312.
  */
-+ (NSString *)play_localizedStringForStatusCode:(NSInteger)statusCode;
++ (NSString *)srg_localizedStringForStatusCode:(NSInteger)statusCode;
 
 @end
 
