@@ -75,7 +75,6 @@ typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows,
 typedef void (^SRGSocialCountOverviewCompletionBlock)(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error);
 typedef void (^SRGSongCompletionBlock)(SRGSong * _Nullable song, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error);
-typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable error);
 
 // Completion block signatures (with pagination support). For requests supporting it, the total number of results is returned.
 typedef void (^SRGPaginatedEpisodeCompositionCompletionBlock)(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
