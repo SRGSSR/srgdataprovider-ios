@@ -80,7 +80,6 @@
 		6FEFFF021F02A0FE00CD6FCA /* SRGAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FEFFF001F02A0FE00CD6FCA /* SRGAlbum.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FEFFF031F02A0FE00CD6FCA /* SRGAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEFFF011F02A0FE00CD6FCA /* SRGAlbum.m */; };
 		E600FE681D942348000B8A1D /* SRGDataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGDataProvider.framework */; };
-		E600FE731D94242F000B8A1D /* ServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */; };
 		E600FE7B1D9432FB000B8A1D /* SRGPage+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = E600FE7A1D9432FB000B8A1D /* SRGPage+Private.h */; };
 		E600FE801D943FB7000B8A1D /* Mantle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E600FE811D943FCD000B8A1D /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; };
@@ -246,7 +245,6 @@
 		6FEFFF001F02A0FE00CD6FCA /* SRGAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGAlbum.h; sourceTree = "<group>"; };
 		6FEFFF011F02A0FE00CD6FCA /* SRGAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGAlbum.m; sourceTree = "<group>"; };
 		E600FE631D942348000B8A1D /* SRGDataProvider-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SRGDataProvider-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServicesTestCase.m; sourceTree = "<group>"; };
 		E600FE711D9423C3000B8A1D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E600FE7A1D9432FB000B8A1D /* SRGPage+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGPage+Private.h"; sourceTree = "<group>"; };
 		E62459B61D47828D00482BE9 /* SRGRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGRequest.h; sourceTree = "<group>"; };
@@ -392,7 +390,6 @@
 				6F8201E21D9AA087001DA4DA /* RequestQueueTestCase.m */,
 				6F8201DF1D9A62D2001DA4DA /* RequestTestCase.m */,
 				6FA25CC21F194A030062A748 /* SegmentTestCase.m */,
-				E600FE6F1D9423BC000B8A1D /* ServicesTestCase.m */,
 				08879C011FEC6C1200CF3980 /* SubdivisionTestCase.m */,
 			);
 			path = Sources;
@@ -770,7 +767,6 @@
 				6F6BFCFF1FCBDB4700378FD9 /* ChapterTestCase.m in Sources */,
 				6FC361B31ECD7C8B00E01022 /* CommonServicesTestCase.m in Sources */,
 				6F8201DD1D9A3FAC001DA4DA /* DataProviderTestCase.m in Sources */,
-				E600FE731D94242F000B8A1D /* ServicesTestCase.m in Sources */,
 				6F8201E31D9AA087001DA4DA /* RequestQueueTestCase.m in Sources */,
 				6F98DD6B1E8282EB008B0B22 /* SWIServicesTestCase.m in Sources */,
 				6F6BDCEA1E826A5C004BC726 /* RSIServicesTestCase.m in Sources */,
