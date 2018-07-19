@@ -725,7 +725,9 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     
     return [[SRGFirstPageRequest alloc] initWithRequest:request session:self.session pageCompletionBlock:^(NSDictionary * _Nullable JSONDictionary, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
-            completionBlock(nil, nil, page, nil, error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil, nil, page, nil, error);
+            });
             return;
         }
         
@@ -735,20 +737,26 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
             NSArray *objects = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:&modelError];
             if (! objects) {
                 SRGDataProviderLogError(@"DataProvider", @"Could not build model object of %@. Reason: %@", modelClass, modelError);
-                completionBlock(nil, nil, page, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                                         code:SRGDataProviderErrorCodeInvalidData
-                                                                     userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(nil, nil, page, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                                             code:SRGDataProviderErrorCodeInvalidData
+                                                                         userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
+                });
                 return;
             }
             
-            completionBlock(objects, total, page, nextPage, nil);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(objects, total, page, nextPage, nil);
+            });
         }
         else {
             // This also correctly handles the special case where the number of results is a multiple of the page size. When retrieved,
             // the last link will return an empty dictionary. If total count information is available, the last link will contain it
             // as well.
             // See https://srfmmz.atlassian.net/wiki/display/SRGPLAY/Developer+Meeting+2016-10-05
-            completionBlock(@[], total, page, nil, nil);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(@[], total, page, nil, nil);
+            });
         }
     }];
 }
@@ -763,7 +771,9 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     
     return [[SRGFirstPageRequest alloc] initWithRequest:request session:self.session pageCompletionBlock:^(NSDictionary * _Nullable JSONDictionary, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
         if (error) {
-            completionBlock(nil, page, nil, error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil, page, nil, error);
+            });
             return;
         }
         
@@ -771,14 +781,17 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         id object = [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:JSONDictionary error:&modelError];
         if (! object) {
             SRGDataProviderLogError(@"DataProvider", @"Could not build model object of %@. Reason: %@", modelClass, modelError);
-            
-            completionBlock(nil, page, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                                code:SRGDataProviderErrorCodeInvalidData
-                                                            userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil, page, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                                    code:SRGDataProviderErrorCodeInvalidData
+                                                                userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
+            });
             return;
         }
         
-        completionBlock(object, page, nextPage, nil);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionBlock(object, page, nextPage, nil);
+        });
     }];
 }
 

@@ -452,7 +452,7 @@
     
     // Restart it
     [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
-        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+        return [change[NSKeyValueChangeNewKey] isEqual:@YES];
     }];
     
     [requestQueue resume];
@@ -487,7 +487,7 @@
     
     // Restart it
     [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
-        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+        return [change[NSKeyValueChangeNewKey] isEqual:@YES];
     }];
     
     [requestQueue resume];

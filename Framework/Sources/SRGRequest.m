@@ -34,18 +34,19 @@ static void (^s_networkActivityManagementHandler)(BOOL) = nil;
 - (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session completionBlock:(SRGRequestCompletionBlock)completionBlock
 {
     if (self = [super init]) {
+        // No weakify / strongify dance here, so that the request retains itself while it is running
+        void (^requestCompletionBlock)(BOOL finished, NSDictionary * _Nullable, NSError * _Nullable) = ^(BOOL finished, NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
+            if (finished) {
+                completionBlock(JSONDictionary, error);
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.running = NO;
+            });
+        };
+        
         self.session = session;
         self.request = [[SRGNetworkRequest alloc] initWithJSONDictionaryRequest:request session:session options:SRGNetworkRequestOptionIgnoreCancellationErrors completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            // No weakify / strongify dance here, so that the request retains itself while it is running
-            void (^requestCompletionBlock)(BOOL finished, NSDictionary * _Nullable, NSError * _Nullable) = ^(BOOL finished, NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (finished) {
-                        completionBlock(JSONDictionary, error);
-                    }
-                    self.running = NO;
-                });
-            };
-            
             if (error) {
                 if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
                     requestCompletionBlock(NO, nil, error);
