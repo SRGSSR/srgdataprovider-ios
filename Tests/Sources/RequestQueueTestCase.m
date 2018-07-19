@@ -6,6 +6,8 @@
 
 #import "DataProviderBaseTestCase.h"
 
+#import <SRGNetwork/SRGNetwork.h>
+
 @interface RequestQueueTestCase : DataProviderBaseTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
@@ -241,8 +243,8 @@
         }
         else {
             XCTAssertFalse(requestQueue.running);
-            XCTAssertEqualObjects(error.domain, SRGDataProviderErrorDomain);
-            XCTAssertEqual(error.code, SRGDataProviderErrorHTTP);
+            XCTAssertEqualObjects(error.domain, SRGNetworkErrorDomain);
+            XCTAssertEqual(error.code, SRGNetworkErrorHTTP);
             
             [queueFinishedExpectation fulfill];
         }

@@ -13,11 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 typedef NS_ENUM(NSInteger, SRGDataProviderErrorCode) {
     /**
-     *  An HTTP error has been encountered. The HTTP status code is available from the user info under the
-     *  `SRGDataProviderHTTPStatusCodeKey` key (as an `NSNumber`).
-     */
-    SRGDataProviderErrorHTTP,
-    /**
      *  A redirect was encountered. This is e.g. often encountered on public wifis with a login page. Use the 
      *  `SRGDataProviderRedirectionURLKey` info key to retrieve the redirection URL (as an `NSURL`).
      */

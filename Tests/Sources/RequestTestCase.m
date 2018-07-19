@@ -8,6 +8,8 @@
 
 #import "SRGRequest+Private.h"
 
+#import <SRGNetwork/SRGNetwork.h>
+
 @interface RequestTestCase : DataProviderBaseTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
@@ -301,8 +303,8 @@
     
     SRGRequest *request = [self.dataProvider mediaCompositionForURN:@"bad_URN" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         XCTAssertNil(mediaComposition);
-        XCTAssertEqualObjects(error.domain, SRGDataProviderErrorDomain);
-        XCTAssertEqual(error.code, SRGDataProviderErrorHTTP);
+        XCTAssertEqualObjects(error.domain, SRGNetworkErrorDomain);
+        XCTAssertEqual(error.code, SRGNetworkErrorHTTP);
         
         [expectation fulfill];
     }];
