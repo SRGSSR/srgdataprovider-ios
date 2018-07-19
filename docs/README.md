@@ -31,6 +31,7 @@ Then run `carthage update --platform iOS` to update the dependencies. You will n
 * `Mantle`: The framework used to parse the data.
 * `SRGDataProvider`: The main data provider framework.
 * `SRGLogger`: The framework used for internal logging.
+* `SRGNetwork`: A network framework.
 
 For more information about Carthage and its use, refer to the [official documentation](https://github.com/Carthage/Carthage).
 
