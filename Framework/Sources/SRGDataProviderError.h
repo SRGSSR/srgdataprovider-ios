@@ -36,7 +36,6 @@ OBJC_EXPORT NSString * const SRGDataProviderErrorDomain;
 /**
  *  Error user information keys, @see `SRGDataProviderErrorCode`.
  */
-OBJC_EXPORT NSString * const SRGDataProviderHTTPStatusCodeKey;
 OBJC_EXPORT NSString * const SRGDataProviderRedirectionURLKey;
 OBJC_EXPORT NSString * const SRGDataProviderErrorsKey;
 
