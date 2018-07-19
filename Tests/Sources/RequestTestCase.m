@@ -259,7 +259,7 @@
     // Restart it
     [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
         XCTAssertTrue([NSThread isMainThread]);
-        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+        return [change[NSKeyValueChangeNewKey] isEqual:@YES];
     }];
     
     [request resume];
@@ -287,7 +287,7 @@
     // Restart it
     [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
         XCTAssertTrue([NSThread isMainThread]);
-        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+        return [change[NSKeyValueChangeNewKey] isEqual:@YES];
     }];
     
     [request resume];
