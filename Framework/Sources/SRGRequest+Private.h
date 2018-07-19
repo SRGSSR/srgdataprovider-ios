@@ -26,17 +26,12 @@ typedef void (^SRGRequestCompletionBlock)(NSDictionary * _Nullable JSONDictionar
 /**
  *  The underlying low-level request.
  */
-@property (nonatomic, readonly) NSURLRequest *request;
+@property (nonatomic, readonly) NSURLRequest *URLRequest;
 
 /**
  *  The session.
  */
 @property (nonatomic, readonly) NSURLSession *session;
-
-/**
- *  The completion block.
- */
-@property (nonatomic, readonly, copy) SRGRequestCompletionBlock completionBlock;
 
 @end
 

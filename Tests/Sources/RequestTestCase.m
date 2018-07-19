@@ -409,7 +409,7 @@
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
         
-        NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].request;
+        NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
         XCTAssertEqualObjects(self.dataProvider.serviceURL.host, nextPageURLRequest.URL.host);
         XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
         [expectation fulfill];
@@ -432,7 +432,7 @@
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
         
-        NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].request;
+        NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
         XCTAssertEqualObjects(serviceURL.host, nextPageURLRequest.URL.host);
         XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
         [expectation fulfill];

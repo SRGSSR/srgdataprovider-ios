@@ -53,7 +53,7 @@
 
 - (__kindof SRGPageRequest *)requestWithPage:(SRGPage *)page withClass:(Class)cls
 {
-    NSURLRequest *request = [SRGPage request:self.request withPage:page];
+    NSURLRequest *request = [SRGPage request:self.URLRequest withPage:page];
     SRGPageRequest *pageRequest = [[cls alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
         SRGPage *nextPage = [SRGFirstPageRequest nextPageAfterPage:page fromJSONDictionary:JSONDictionary];
         self.pageCompletionBlock(JSONDictionary, JSONDictionary[@"total"],  page, nextPage, error);
