@@ -46,7 +46,7 @@ static void (^s_networkActivityManagementHandler)(BOOL) = nil;
         };
         
         self.session = session;
-        self.request = [[SRGNetworkRequest alloc] initWithJSONDictionaryURLRequest:request session:session options:SRGNetworkRequestOptionCancellationErrorsDisabled completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        self.request = [[SRGNetworkRequest alloc] initWithJSONDictionaryURLRequest:request session:session options:SRGNetworkRequestOptionCancellationErrorsProcessed completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             if (error) {
                 if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
                     requestCompletionBlock(NO, nil, error);
