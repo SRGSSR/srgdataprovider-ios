@@ -485,9 +485,11 @@
     
     [self waitForExpectationsWithTimeout:5. handler:nil];
     
-    // Restart it
+    // Restart it and wait until it is not running anymore
+    [self expectationForElapsedTimeInterval:2. withHandler:nil];
+    
     [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
-        return [change[NSKeyValueChangeNewKey] isEqual:@YES];
+        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
     }];
     
     [requestQueue resume];
