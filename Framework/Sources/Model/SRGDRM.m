@@ -6,11 +6,13 @@
 
 #import "SRGDRM.h"
 
+#import "SRGJSONTransformers.h"
+
 #import <libextobjc/libextobjc.h>
 
 @interface SRGDRM ()
 
-@property (nonatomic , copy) NSString *type;
+@property (nonatomic) SRGDRMType type;
 @property (nonatomic) NSURL *licenseURL;
 
 @end
@@ -31,6 +33,11 @@
 }
 
 #pragma mark Transformers
+
++ (NSValueTransformer *)typeJSONTransformer
+{
+    return SRGDRMTypeJSONTransformer();
+}
 
 + (NSValueTransformer *)licenseURLJSONTransformer
 {

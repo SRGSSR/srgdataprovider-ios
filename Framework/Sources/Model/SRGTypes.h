@@ -133,6 +133,28 @@ typedef NS_ENUM(NSInteger, SRGContentType) {
 };
 
 /**
+ *  Digital Rights Management (DRM) types.
+ */
+typedef NS_ENUM(NSInteger, SRGDRMType) {
+    /**
+     *  Not specified.
+     */
+    SRGDRMTypeNone = 0,
+    /**
+     *  FairPlay.
+     */
+    SRGDRMTypeFairPlay,
+    /**
+     *  Widevine.
+     */
+    SRGDRMTypeWidevine,
+    /**
+     *  PlayReady.
+     */
+    SRGDRMTypePlayReady
+};
+
+/**
  *  Media containers.
  */
 typedef NS_ENUM(NSInteger, SRGMediaContainer) {

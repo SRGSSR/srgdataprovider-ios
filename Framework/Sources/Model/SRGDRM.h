@@ -5,6 +5,7 @@
 //
 
 #import "SRGModel.h"
+#import "SRGTypes.h"
 
 /**
  *  Digital Rights Management (DRM) information.
@@ -14,7 +15,7 @@
 /**
  *  The DRM type.
  */
-@property (nonatomic, readonly, copy) NSString *type;
+@property (nonatomic, readonly) SRGDRMType type;
 
 /**
  *  The URL where license can be retrieved.
