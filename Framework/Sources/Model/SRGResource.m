@@ -22,6 +22,7 @@
 @property (nonatomic) SRGMediaContainer mediaContainer;
 @property (nonatomic) SRGAudioCodec audioCodec;
 @property (nonatomic) SRGVideoCodec videoCodec;
+@property (nonatomic) NSArray<SRGDRM *> *DRMs;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *comScoreAnalyticsLabels;
 
@@ -46,6 +47,7 @@
                        @keypath(SRGResource.new, mediaContainer) : @"mediaContainer",
                        @keypath(SRGResource.new, audioCodec) : @"audioCodec",
                        @keypath(SRGResource.new, videoCodec) : @"videoCodec",
+                       @keypath(SRGResource.new, DRMs) : @"drmList",
                        @keypath(SRGResource.new, analyticsLabels) : @"analyticsMetadata",
                        @keypath(SRGResource.new, comScoreAnalyticsLabels) : @"analyticsData" };
     });
@@ -102,6 +104,11 @@
 + (NSValueTransformer *)videoCodecJSONTransformer
 {
     return SRGVideoCodecJSONTransformer();
+}
+
++ (NSValueTransformer *)DRMsJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGDRM class]];
 }
 
 #pragma mark Equality

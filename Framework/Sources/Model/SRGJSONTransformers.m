@@ -206,6 +206,7 @@ NSValueTransformer *SRGStreamingMethodJSONTransformer(void)
                                                                                          @"RTMP" : @(SRGStreamingMethodRTMP),
                                                                                          @"HTTP" : @(SRGStreamingMethodHTTP),
                                                                                          @"HTTPS" : @(SRGStreamingMethodHTTPS),
+                                                                                         @"DASH" : @(SRGStreamingMethodDASH),
                                                                                          @"UNKNOWN" : @(SRGStreamingMethodUnknown) }
                                                                          defaultValue:@(SRGStreamingMethodNone)
                                                                   reverseDefaultValue:nil];

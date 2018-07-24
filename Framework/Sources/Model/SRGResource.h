@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGDRM.h"
 #import "SRGModel.h"
 #import "SRGTypes.h"
 
@@ -58,6 +59,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  The video codec.
  */
 @property (nonatomic, readonly) SRGVideoCodec videoCodec;
+
+/**
+ *  The list of DRMs providers supported by the stream.
+ */
+@property (nonatomic, readonly, nullable) NSArray<SRGDRM *> *DRMs;
 
 /**
  *  The list of labels which should be supplied in SRG Analytics player events.

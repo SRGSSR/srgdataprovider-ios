@@ -319,6 +319,10 @@ typedef NS_ENUM(NSInteger, SRGStreamingMethod) {
      */
     SRGStreamingMethodHTTPS,
     /**
+     *  DASH.
+     */
+    SRGStreamingMethodDASH,
+    /**
      *  Unknown.
      */
     SRGStreamingMethodUnknown
