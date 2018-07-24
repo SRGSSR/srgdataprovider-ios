@@ -220,7 +220,7 @@
     
     [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
         XCTAssertTrue([NSThread isMainThread]);
-        XCTAssertEqual(change[NSKeyValueChangeNewKey], @YES);
+        XCTAssertEqualObjects(change[NSKeyValueChangeNewKey], @YES);
         return YES;
     }];
     
