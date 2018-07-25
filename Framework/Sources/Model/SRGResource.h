@@ -79,4 +79,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface SRGResource (DRMs)
+
+/**
+ *  Return information for a DRM of the specified type, if available for the receiver.
+ */
+- (nullable SRGDRM *)DRMWithType:(SRGDRMType)type;
+
+@end
+
 NS_ASSUME_NONNULL_END

@@ -111,6 +111,14 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGDRM class]];
 }
 
+#pragma mark Helpers
+
+- (SRGDRM *)DRMWithType:(SRGDRMType)type
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGDRM.new, type), @(type)];
+    return [self.DRMs filteredArrayUsingPredicate:predicate].firstObject;
+}
+
 #pragma mark Equality
 
 - (BOOL)isEqual:(id)object
