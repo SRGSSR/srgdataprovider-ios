@@ -20,7 +20,8 @@ NSValueTransformer *SRGAudioCodecJSONTransformer(void)
                                                                                          @"AAC-HE" : @(SRGAudioCodecAAC_HE),
                                                                                          @"MP3" : @(SRGAudioCodecMP3),
                                                                                          @"MP2" : @(SRGAudioCodecMP2),
-                                                                                         @"WMAV2" : @(SRGAudioCodecWMAV2) }
+                                                                                         @"WMAV2" : @(SRGAudioCodecWMAV2),
+                                                                                         @"UNKNOWN" : @(SRGAudioCodecUnknown) }
                                                                          defaultValue:@(SRGAudioCodecNone)
                                                                   reverseDefaultValue:nil];
     });
@@ -313,7 +314,8 @@ NSValueTransformer *SRGVideoCodecJSONTransformer(void)
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"H264" : @(SRGVideoCodecH264),
                                                                                          @"VP6F" : @(SRGVideoCodecVP6F),
                                                                                          @"MPEG2" : @(SRGVideoCodecMPEG2),
-                                                                                         @"WMV3" : @(SRGVideoCodecWMV3) }
+                                                                                         @"WMV3" : @(SRGVideoCodecWMV3),
+                                                                                         @"UNKNOWN" : @(SRGVideoCodecUnknown) }
                                                                          defaultValue:@(SRGVideoCodecNone)
                                                                   reverseDefaultValue:nil];
     });
