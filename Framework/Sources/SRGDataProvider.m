@@ -740,7 +740,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completionBlock(nil, nil, page, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
                                                                              code:SRGDataProviderErrorCodeInvalidData
-                                                                         userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
+                                                                         userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", @"Error message returned when a server response data is incorrect.") }]);
                 });
                 return;
             }
@@ -784,7 +784,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
             dispatch_async(dispatch_get_main_queue(), ^{
                 completionBlock(nil, page, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
                                                                     code:SRGDataProviderErrorCodeInvalidData
-                                                                userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", nil) }]);
+                                                                userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", @"Error message returned when a server response data is incorrect.") }]);
             });
             return;
         }
