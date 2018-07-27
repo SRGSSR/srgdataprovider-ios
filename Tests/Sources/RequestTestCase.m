@@ -8,6 +8,8 @@
 
 #import "SRGRequest+Private.h"
 
+#import <SRGNetwork/SRGNetwork.h>
+
 @interface RequestTestCase : DataProviderBaseTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
@@ -218,7 +220,7 @@
     
     [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
         XCTAssertTrue([NSThread isMainThread]);
-        XCTAssertEqual(change[NSKeyValueChangeNewKey], @YES);
+        XCTAssertEqualObjects(change[NSKeyValueChangeNewKey], @YES);
         return YES;
     }];
     
@@ -259,7 +261,7 @@
     // Restart it
     [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
         XCTAssertTrue([NSThread isMainThread]);
-        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+        return [change[NSKeyValueChangeNewKey] isEqual:@YES];
     }];
     
     [request resume];
@@ -287,7 +289,7 @@
     // Restart it
     [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
         XCTAssertTrue([NSThread isMainThread]);
-        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+        return [change[NSKeyValueChangeNewKey] isEqual:@YES];
     }];
     
     [request resume];
@@ -301,8 +303,8 @@
     
     SRGRequest *request = [self.dataProvider mediaCompositionForURN:@"bad_URN" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
         XCTAssertNil(mediaComposition);
-        XCTAssertEqualObjects(error.domain, SRGDataProviderErrorDomain);
-        XCTAssertEqual(error.code, SRGDataProviderErrorHTTP);
+        XCTAssertEqualObjects(error.domain, SRGNetworkErrorDomain);
+        XCTAssertEqual(error.code, SRGNetworkErrorHTTP);
         
         [expectation fulfill];
     }];
@@ -409,7 +411,7 @@
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
         
-        NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].request;
+        NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
         XCTAssertEqualObjects(self.dataProvider.serviceURL.host, nextPageURLRequest.URL.host);
         XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
         [expectation fulfill];
@@ -432,7 +434,7 @@
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
         
-        NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].request;
+        NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
         XCTAssertEqualObjects(serviceURL.host, nextPageURLRequest.URL.host);
         XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
         [expectation fulfill];

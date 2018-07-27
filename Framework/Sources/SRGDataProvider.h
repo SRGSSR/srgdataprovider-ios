@@ -14,6 +14,7 @@
 #import "SRGChapter.h"
 #import "SRGDataProvider.h"
 #import "SRGDataProviderError.h"
+#import "SRGDRM.h"
 #import "SRGEpisode.h"
 #import "SRGEpisodeComposition.h"
 #import "SRGFirstPageRequest.h"
@@ -75,7 +76,6 @@ typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows,
 typedef void (^SRGSocialCountOverviewCompletionBlock)(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error);
 typedef void (^SRGSongCompletionBlock)(SRGSong * _Nullable song, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error);
-typedef void (^SRGURLCompletionBlock)(NSURL * _Nullable URL, NSError * _Nullable error);
 
 // Completion block signatures (with pagination support). For requests supporting it, the total number of results is returned.
 typedef void (^SRGPaginatedEpisodeCompositionCompletionBlock)(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
@@ -138,7 +138,6 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *    - Search services, whose methods start with `video` or `audio. These requests require a business unit to be specified
  *      Note that radio channels sometimes also provide content as videos.
  *    - URN-based services.
- *    - Token retrieval services.
  *
  *  Data provider methods return two kinds of request objects:
  *    - `SRGRequest` instances for standard requests without pagination support.
@@ -676,22 +675,6 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  */
 - (SRGFirstPageRequest *)latestMediasForModuleWithURN:(NSString *)moduleURN
                                       completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
-
-@end
-
-/**
- *  Media URL tokenization (common for all business units).
- */
-@interface SRGDataProvider (TokenizationServices)
-
-/**
- *  Return the provided URL, tokenized for playback.
- *
- *  @discussion The token is valid for a small amount of time (currently 30 seconds), be sure to use the tokenized URL
- *              as soon as possible. The returned URL might be the same as the input URL when no tokenization was
- *              required.
- */
-+ (SRGRequest *)tokenizeURL:(NSURL *)URL withCompletionBlock:(SRGURLCompletionBlock)completionBlock;
 
 @end
 

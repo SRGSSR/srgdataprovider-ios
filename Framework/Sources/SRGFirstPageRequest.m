@@ -33,7 +33,7 @@
 
 #pragma mark Object lifecycle
 
-- (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session pageCompletionBlock:(SRGPageCompletionBlock)pageCompletionBlock
+- (instancetype)initWithURLRequest:(NSURLRequest *)URLRequest session:(NSURLSession *)session pageCompletionBlock:(SRGPageCompletionBlock)pageCompletionBlock
 {
     SRGPage *page = [SRGPage firstPageWithSize:SRGPageDefaultSize];
     
@@ -42,7 +42,7 @@
         pageCompletionBlock(JSONDictionary, JSONDictionary[@"total"], page, nextPage, error);
     };
     
-    if (self = [super initWithRequest:request session:session completionBlock:requestCompletionBlock]) {
+    if (self = [super initWithURLRequest:URLRequest session:session completionBlock:requestCompletionBlock]) {
         self.page = page;
         self.pageCompletionBlock = pageCompletionBlock;
     }
@@ -53,8 +53,8 @@
 
 - (__kindof SRGPageRequest *)requestWithPage:(SRGPage *)page withClass:(Class)cls
 {
-    NSURLRequest *request = [SRGPage request:self.request withPage:page];
-    SRGPageRequest *pageRequest = [[cls alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
+    NSURLRequest *URLRequest = [SRGPage request:self.URLRequest withPage:page];
+    SRGPageRequest *pageRequest = [[cls alloc] initWithURLRequest:URLRequest session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
         SRGPage *nextPage = [SRGFirstPageRequest nextPageAfterPage:page fromJSONDictionary:JSONDictionary];
         self.pageCompletionBlock(JSONDictionary, JSONDictionary[@"total"],  page, nextPage, error);
     }];

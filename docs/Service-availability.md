@@ -143,16 +143,6 @@ These services provide a way to access content from any business unit from any d
 
 ⚠️ No pagination. At most 50 items can be requested at a time.
 
-## Tokenization services
-
-| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
-|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| URL tokenization | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-
-### Remark
-
-The URL tokenization service is in common to all BUs.
-
 ## Image scaling services
 
 A ⚠️ means that a service is supported, but might not return an image with the exact requested dimension.

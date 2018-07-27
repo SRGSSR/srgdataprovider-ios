@@ -76,6 +76,20 @@ NSValueTransformer *SRGContentTypeJSONTransformer(void)
     return s_transformer;
 }
 
+NSValueTransformer *SRGDRMTypeJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"FAIRPLAY" : @(SRGDRMTypeFairPlay),
+                                                                                         @"WIDEVINE" : @(SRGDRMTypeWidevine),
+                                                                                         @"PLAYREADY" : @(SRGDRMTypePlayReady) }
+                                                                         defaultValue:@(SRGDRMTypeNone)
+                                                                  reverseDefaultValue:nil];
+    });
+    return s_transformer;
+}
+
 NSValueTransformer *SRGHexColorJSONTransformer(void)
 {
     static NSValueTransformer *s_transformer;
@@ -206,6 +220,7 @@ NSValueTransformer *SRGStreamingMethodJSONTransformer(void)
                                                                                          @"RTMP" : @(SRGStreamingMethodRTMP),
                                                                                          @"HTTP" : @(SRGStreamingMethodHTTP),
                                                                                          @"HTTPS" : @(SRGStreamingMethodHTTPS),
+                                                                                         @"DASH" : @(SRGStreamingMethodDASH),
                                                                                          @"UNKNOWN" : @(SRGStreamingMethodUnknown) }
                                                                          defaultValue:@(SRGStreamingMethodNone)
                                                                   reverseDefaultValue:nil];

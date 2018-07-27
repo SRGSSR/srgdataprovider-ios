@@ -386,17 +386,6 @@ When you need to load the next page of content (if any is available), simply gen
 }
 ```
 
-## Token
-
-To play media URLs received in `SRGMediaComposition` objects, you need to retrieve a token, otherwise you will receive an unauthorized error. A special class method is provided on `SRGDataProvider` for this very special purpose:
-
-```objective-c
-NSURL *mediaURL = ...;   // This information can be retrieved from an `SRGMediaComposition`
-[[SRGDataProvider tokenizeURL:mediaURL withCompletionBlock:^(NSURL * _Nullable URL, NSError * _Nullable error) {
-    // Play the URL with a media player
-}] resume];
-```
-
 ## Network activity management
 
 `SRGRequest` optionally provides a way to automatically manage your application activity indicator depending on whether requests are running or not. Call `+[SRGRequest enableNetworkActivityIndicatorManagement]` early in your application lifecycle to enable this feature.

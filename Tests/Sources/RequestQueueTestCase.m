@@ -6,6 +6,8 @@
 
 #import "DataProviderBaseTestCase.h"
 
+#import <SRGNetwork/SRGNetwork.h>
+
 @interface RequestQueueTestCase : DataProviderBaseTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
@@ -241,8 +243,8 @@
         }
         else {
             XCTAssertFalse(requestQueue.running);
-            XCTAssertEqualObjects(error.domain, SRGDataProviderErrorDomain);
-            XCTAssertEqual(error.code, SRGDataProviderErrorHTTP);
+            XCTAssertEqualObjects(error.domain, SRGNetworkErrorDomain);
+            XCTAssertEqual(error.code, SRGNetworkErrorHTTP);
             
             [queueFinishedExpectation fulfill];
         }
@@ -450,7 +452,7 @@
     
     // Restart it
     [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
-        return [change[NSKeyValueChangeNewKey] isEqual:@NO];
+        return [change[NSKeyValueChangeNewKey] isEqual:@YES];
     }];
     
     [requestQueue resume];
@@ -483,7 +485,9 @@
     
     [self waitForExpectationsWithTimeout:5. handler:nil];
     
-    // Restart it
+    // Restart it and wait until it is not running anymore
+    [self expectationForElapsedTimeInterval:2. withHandler:nil];
+    
     [self keyValueObservingExpectationForObject:request keyPath:@"running" handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
         return [change[NSKeyValueChangeNewKey] isEqual:@NO];
     }];
