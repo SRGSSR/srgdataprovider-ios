@@ -399,8 +399,8 @@
 		E600FE5E1D942260000B8A1D /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				E600FE711D9423C3000B8A1D /* Info.plist */,
 				E600FE6E1D9423BC000B8A1D /* Sources */,
+				E600FE711D9423C3000B8A1D /* Info.plist */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -409,9 +409,9 @@
 			isa = PBXGroup;
 			children = (
 				6F6BDCE41E8262C4004BC726 /* BUs */,
-				6FD1EAEB1E8A6517007940EE /* Helpers */,
 				6F6BFCFE1FCBDB4700378FD9 /* ChapterTestCase.m */,
 				6F8201DC1D9A3FAC001DA4DA /* DataProviderTestCase.m */,
+				6FD1EAEB1E8A6517007940EE /* Helpers */,
 				087C58CF1F5D75A60058D310 /* MediaMetadataTestCase.m */,
 				6F73CDCC1EEED12700C7EC4A /* NSHTTPURLResponse_DataProviderTestCase.m */,
 				6F8201E21D9AA087001DA4DA /* RequestQueueTestCase.m */,
@@ -425,9 +425,9 @@
 		E6391A951D38E92400E4CBB9 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
-				E6391A961D38E92400E4CBB9 /* Info.plist */,
 				E6391A971D38E92400E4CBB9 /* Sources */,
 				E6C2B3CE1D39239E00B6250B /* Resources */,
+				E6391A961D38E92400E4CBB9 /* Info.plist */,
 			);
 			path = Framework;
 			sourceTree = "<group>";
