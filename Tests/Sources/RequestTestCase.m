@@ -334,6 +334,34 @@
     XCTAssertFalse(request.running);
 }
 
+- (void)testResponse
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request finished"];
+    
+    __block SRGRequest *request1 = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        XCTAssertEqual(httpResponse.statusCode, 200);
+        
+        [expectation1 fulfill];
+    }];
+    
+    [request1 resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request finished"];
+    
+    SRGRequest *request2 = [self.dataProvider mediaCompositionForURN:@"bad_URN" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        XCTAssertEqual(httpResponse.statusCode, 400);
+        
+        [expectation2 fulfill];
+    }];
+    [request2 resume];
+    
+    [self waitForExpectationsWithTimeout:5. handler:nil];
+}
+
 - (void)testNestedRequests
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
