@@ -65,25 +65,25 @@ OBJC_EXPORT NSURL *SRGIntegrationLayerStagingServiceURL(void);
 OBJC_EXPORT NSURL *SRGIntegrationLayerTestServiceURL(void);
 
 // Completion block signatures (without pagination support).
-typedef void (^SRGChannelCompletionBlock)(SRGChannel * _Nullable channel, NSError * _Nullable error);
-typedef void (^SRGChannelListCompletionBlock)(NSArray<SRGChannel *> * _Nullable channels, NSError * _Nullable error);
-typedef void (^SRGMediaCompletionBlock)(SRGMedia * _Nullable media, NSError * _Nullable error);
-typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error);
-typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error);
-typedef void (^SRGModuleListCompletionBlock)(NSArray<SRGModule *> * _Nullable modules, NSError * _Nullable error);
-typedef void (^SRGShowCompletionBlock)(SRGShow * _Nullable show, NSError * _Nullable error);
-typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, NSError * _Nullable error);
-typedef void (^SRGSocialCountOverviewCompletionBlock)(SRGSocialCountOverview * _Nullable socialCountOverview, NSError * _Nullable error);
-typedef void (^SRGSongCompletionBlock)(SRGSong * _Nullable song, NSError * _Nullable error);
-typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSError * _Nullable error);
+typedef void (^SRGChannelCompletionBlock)(SRGChannel * _Nullable channel, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGChannelListCompletionBlock)(NSArray<SRGChannel *> * _Nullable channels, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGMediaCompletionBlock)(SRGMedia * _Nullable media, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullable mediaComposition, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGModuleListCompletionBlock)(NSArray<SRGModule *> * _Nullable modules, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGShowCompletionBlock)(SRGShow * _Nullable show, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGSocialCountOverviewCompletionBlock)(SRGSocialCountOverview * _Nullable socialCountOverview, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGSongCompletionBlock)(SRGSong * _Nullable song, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSURLResponse * _Nullable response, NSError * _Nullable error);
 
 // Completion block signatures (with pagination support). For requests supporting it, the total number of results is returned.
-typedef void (^SRGPaginatedEpisodeCompositionCompletionBlock)(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
-typedef void (^SRGPaginatedMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
-typedef void (^SRGPaginatedSearchResultMediaListCompletionBlock)(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, NSNumber *total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
-typedef void (^SRGPaginatedSearchResultShowListCompletionBlock)(NSArray<SRGSearchResultShow *> * _Nullable searchResults, NSNumber *total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
-typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
-typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullable songs, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error);
+typedef void (^SRGPaginatedEpisodeCompositionCompletionBlock)(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGPaginatedMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGPaginatedSearchResultMediaListCompletionBlock)(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, NSNumber *total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGPaginatedSearchResultShowListCompletionBlock)(NSArray<SRGSearchResultShow *> * _Nullable searchResults, NSNumber *total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullable songs, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error);
 
 /**
  *  A data provider supplies metadata for all SRG SSR business units (media and show lists, mostly). Several data providers

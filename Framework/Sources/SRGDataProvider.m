@@ -123,8 +123,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channelList/tv.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGChannel class] rootKey:@"channelList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGChannel class] rootKey:@"channelList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, response, error);
     }];
 }
 
@@ -134,8 +134,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channel/%@/tv/nowAndNext.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self fetchObjectWithURLRequest:URLRequest modelClass:[SRGChannel class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(object, error);
+    return [self fetchObjectWithURLRequest:URLRequest modelClass:[SRGChannel class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(object, response, error);
     }];
 }
 
@@ -144,8 +144,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/livestreams.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, response, error);
     }];
 }
 
@@ -154,8 +154,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/scheduledLivestreams.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -164,8 +164,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/editorial.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -174,8 +174,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestEpisodes.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -184,8 +184,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/mostClicked.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -194,8 +194,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/soonExpiring.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -225,8 +225,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, response, error);
     }];
 }
 
@@ -235,8 +235,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestEpisodes.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -251,8 +251,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSString *dateString = SRGDataProviderRequestDateString(date);
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/episodesByDate/%@.json", SRGPathComponentForVendor(vendor), dateString];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -261,8 +261,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/topicList/tv.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGTopic class] rootKey:@"topicList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGTopic class] rootKey:@"topicList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, response, error);
     }];
 }
 
@@ -271,8 +271,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/tv/alphabetical.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -290,8 +290,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channelList/radio.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGChannel class] rootKey:@"channelList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGChannel class] rootKey:@"channelList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, response, error);
     }];
 }
 
@@ -308,8 +308,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
-    return [self fetchObjectWithURLRequest:URLRequest modelClass:[SRGChannel class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(object, error);
+    return [self fetchObjectWithURLRequest:URLRequest modelClass:[SRGChannel class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(object, response, error);
     }];
 }
 
@@ -319,8 +319,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/livestreamsByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, response, error);
     }];
 }
 
@@ -348,8 +348,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, response, error);
     }];
 }
 
@@ -359,8 +359,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/latestByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -370,8 +370,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/mostClickedByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -381,8 +381,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/latestEpisodesByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -392,8 +392,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -409,8 +409,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSString *dateString = SRGDataProviderRequestDateString(date);
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/episodesByDateAndChannel/%@/%@.json", SRGPathComponentForVendor(vendor), dateString, channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -420,8 +420,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/radio/alphabeticalByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -443,8 +443,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/songList/radio/byChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGSong class] rootKey:@"songList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGSong class] rootKey:@"songList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -454,8 +454,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/songList/radio/byChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:@[ [NSURLQueryItem queryItemWithName:@"onlyCurrentSong" value:@"true"] ]];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGSong class] rootKey:@"songList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects.firstObject, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGSong class] rootKey:@"songList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects.firstObject, response, error);
     }];
 }
 
@@ -466,8 +466,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/scheduledLivestreams/livecenter.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -505,8 +505,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -535,8 +535,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -549,8 +549,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSString *moduleTypeString = [SRGModuleTypeJSONTransformer() reverseTransformedValue:@(moduleType)];
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/moduleConfigList/%@.json", SRGPathComponentForVendor(vendor), moduleTypeString.lowercaseString];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGModule class] rootKey:@"moduleConfigList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGModule class] rootKey:@"moduleConfigList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, response, error);
     }];
 }
 
@@ -588,8 +588,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSDictionary *bodyJSONDictionary = subdivision.event ? @{ @"eventData" : subdivision.event } : @{};
     URLRequest.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyJSONDictionary options:0 error:NULL];
     
-    return [self fetchObjectWithURLRequest:URLRequest modelClass:[SRGSocialCountOverview class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(object, error);
+    return [self fetchObjectWithURLRequest:URLRequest modelClass:[SRGSocialCountOverview class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(object, response, error);
     }];
 }
 
@@ -606,8 +606,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/media/byUrn/%@.json", mediaURN];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self fetchObjectWithURLRequest:URLRequest modelClass:[SRGMedia class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(object, error);
+    return [self fetchObjectWithURLRequest:URLRequest modelClass:[SRGMedia class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(object, response, error);
     }];
 }
 
@@ -616,8 +616,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/byUrns.json"];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"urns" value:[mediaURNs componentsJoinedByString: @","]] ];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, response, error);
     }];
 }
 
@@ -625,8 +625,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/latest/byTopicUrn/%@.json", topicURN];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -634,8 +634,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/mostClicked/byTopicUrn/%@.json", topicURN];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -644,8 +644,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaComposition/byUrn/%@.json", mediaURN];
     NSArray<NSURLQueryItem *> *queryItems = standalone ? @[ [NSURLQueryItem queryItemWithName:@"onlyChapters" value:@"true"] ] : nil;
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems];
-    return [self fetchObjectWithURLRequest:URLRequest modelClass:[SRGMediaComposition class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(object, error);
+    return [self fetchObjectWithURLRequest:URLRequest modelClass:[SRGMediaComposition class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(object, response, error);
     }];
 }
 
@@ -653,8 +653,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/show/byUrn/%@.json", showURN];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self fetchObjectWithURLRequest:URLRequest modelClass:[SRGShow class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(object, error);
+    return [self fetchObjectWithURLRequest:URLRequest modelClass:[SRGShow class] completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(object, response, error);
     }];
 }
 
@@ -663,8 +663,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/showList/byUrns.json"];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"urns" value:[showURNs componentsJoinedByString: @","]] ];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGShow class] rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, response, error);
     }];
 }
 
@@ -680,8 +680,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/latestByModuleConfigUrn/%@.json", moduleURN];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
-    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, error);
+    return [self listObjectsWithURLRequest:URLRequest modelClass:[SRGMedia class] rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, response, error);
     }];
 }
 
@@ -716,17 +716,17 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (SRGFirstPageRequest *)listObjectsWithURLRequest:(NSURLRequest *)URLRequest
                                         modelClass:(Class)modelClass
                                            rootKey:(NSString *)rootKey
-                                   completionBlock:(void (^)(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error))completionBlock
+                                   completionBlock:(void (^)(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error))completionBlock
 {
     NSParameterAssert(URLRequest);
     NSParameterAssert(modelClass);
     NSParameterAssert(rootKey);
     NSParameterAssert(completionBlock);
     
-    return [[SRGFirstPageRequest alloc] initWithURLRequest:URLRequest session:self.session pageCompletionBlock:^(NSDictionary * _Nullable JSONDictionary, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    return [[SRGFirstPageRequest alloc] initWithURLRequest:URLRequest session:self.session pageCompletionBlock:^(NSDictionary * _Nullable JSONDictionary, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(nil, nil, page, nil, error);
+                completionBlock(nil, nil, page, nil, response, error);
             });
             return;
         }
@@ -738,15 +738,15 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
             if (! objects) {
                 SRGDataProviderLogError(@"DataProvider", @"Could not build model object of %@. Reason: %@", modelClass, modelError);
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock(nil, nil, page, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                                             code:SRGDataProviderErrorCodeInvalidData
-                                                                         userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", @"Error message returned when a server response data is incorrect.") }]);
+                    completionBlock(nil, nil, page, nil, response, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                                                      code:SRGDataProviderErrorCodeInvalidData
+                                                                                  userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", @"Error message returned when a server response data is incorrect.") }]);
                 });
                 return;
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(objects, total, page, nextPage, nil);
+                completionBlock(objects, total, page, nextPage, response, nil);
             });
         }
         else {
@@ -755,7 +755,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
             // as well.
             // See https://srfmmz.atlassian.net/wiki/display/SRGPLAY/Developer+Meeting+2016-10-05
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(@[], total, page, nil, nil);
+                completionBlock(@[], total, page, nil, response, nil);
             });
         }
     }];
@@ -763,16 +763,16 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGFirstPageRequest *)fetchObjectWithURLRequest:(NSURLRequest *)URLRequest
                                         modelClass:(Class)modelClass
-                                   completionBlock:(void (^)(id _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error))completionBlock
+                                   completionBlock:(void (^)(id _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error))completionBlock
 {
     NSParameterAssert(URLRequest);
     NSParameterAssert(modelClass);
     NSParameterAssert(completionBlock);
     
-    return [[SRGFirstPageRequest alloc] initWithURLRequest:URLRequest session:self.session pageCompletionBlock:^(NSDictionary * _Nullable JSONDictionary, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    return [[SRGFirstPageRequest alloc] initWithURLRequest:URLRequest session:self.session pageCompletionBlock:^(NSDictionary * _Nullable JSONDictionary, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(nil, page, nil, error);
+                completionBlock(nil, page, nil, response, error);
             });
             return;
         }
@@ -782,15 +782,15 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         if (! object) {
             SRGDataProviderLogError(@"DataProvider", @"Could not build model object of %@. Reason: %@", modelClass, modelError);
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(nil, page, nil, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                                    code:SRGDataProviderErrorCodeInvalidData
-                                                                userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", @"Error message returned when a server response data is incorrect.") }]);
+                completionBlock(nil, page, nil, response, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                                             code:SRGDataProviderErrorCodeInvalidData
+                                                                         userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", @"Error message returned when a server response data is incorrect.") }]);
             });
             return;
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            completionBlock(object, page, nextPage, nil);
+            completionBlock(object, page, nextPage, response, nil);
         });
     }];
 }
