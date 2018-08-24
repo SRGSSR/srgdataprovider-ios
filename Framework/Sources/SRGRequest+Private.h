@@ -9,7 +9,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // Block signatures.
-typedef void (^SRGRequestCompletionBlock)(NSDictionary * _Nullable JSONDictionary, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^SRGRequestCompletionBlock)(NSDictionary * _Nullable JSONDictionary, NSHTTPURLResponse * _Nullable HTTPresponse, NSError * _Nullable error);
 
 /**
  *  Private interface for implementation purposes.
