@@ -18,7 +18,7 @@
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
     NSString *URN = @"urn:srf:video:2c685129-bad8-4ea0-93f5-0d6cff8cb156";
-    [[dataProvider mediaCompositionForURN:URN standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPresponse, NSError * _Nullable error) {
+    [[dataProvider mediaCompositionForURN:URN standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqualObjects(mediaComposition.chapterURN, URN);
         XCTAssertNil(mediaComposition.segmentURN);
         
@@ -53,7 +53,7 @@
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
     NSString *URN = @"urn:srf:video:2c685129-bad8-4ea0-93f5-0d6cff8cb156";
-    [[dataProvider mediaCompositionForURN:URN standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPresponse, NSError * _Nullable error) {
+    [[dataProvider mediaCompositionForURN:URN standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqualObjects(mediaComposition.chapterURN, URN);
         XCTAssertNil(mediaComposition.segmentURN);
         XCTAssertEqual(mediaComposition.mainChapter.presentation, SRGPresentationDefault);
@@ -76,7 +76,7 @@
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
     NSString *URN = @"urn:rts:video:8414077";
-    [[dataProvider mediaCompositionForURN:URN standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPresponse, NSError * _Nullable error) {
+    [[dataProvider mediaCompositionForURN:URN standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqualObjects(mediaComposition.chapterURN, URN);
         XCTAssertNil(mediaComposition.segmentURN);
         XCTAssertEqual(mediaComposition.mainChapter.presentation, SRGPresentation360);
@@ -99,7 +99,7 @@
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
     NSString *URN = @"urn:srf:video:2c685129-bad8-4ea0-93f5-0d6cff8cb156";
-    [[dataProvider mediaCompositionForURN:URN standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPresponse, NSError * _Nullable error) {
+    [[dataProvider mediaCompositionForURN:URN standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqualObjects(mediaComposition.chapterURN, URN);
         XCTAssertNil(mediaComposition.segmentURN);
         

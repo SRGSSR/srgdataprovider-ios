@@ -80,9 +80,9 @@ static void (^s_networkActivityManagementHandler)(BOOL) = nil;
     }
     
     // No weakify / strongify dance here, so that the request retains itself while it is running
-    void (^requestCompletionBlock)(BOOL finished, NSDictionary * _Nullable, NSHTTPURLResponse * _Nullable HTTPresponse, NSError * _Nullable) = ^(BOOL finished, NSDictionary * _Nullable JSONDictionary, NSHTTPURLResponse * _Nullable HTTPresponse, NSError * _Nullable error) {
+    void (^requestCompletionBlock)(BOOL finished, NSDictionary * _Nullable, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable) = ^(BOOL finished, NSDictionary * _Nullable JSONDictionary, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         if (finished) {
-            self.completionBlock(JSONDictionary, HTTPresponse, error);
+            self.completionBlock(JSONDictionary, HTTPResponse, error);
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -90,7 +90,7 @@ static void (^s_networkActivityManagementHandler)(BOOL) = nil;
         });
     };
     self.request = [[SRGNetworkRequest alloc] initWithJSONDictionaryURLRequest:self.URLRequest session:self.session options:SRGNetworkRequestOptionCancellationErrorsProcessed completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSHTTPURLResponse *HTTPResponse = ([response isKindOfClass:NSHTTPURLResponse.class]) ? (NSHTTPURLResponse *)response : nil;
+        NSHTTPURLResponse *HTTPResponse = [response isKindOfClass:NSHTTPURLResponse.class] ? (NSHTTPURLResponse *)response : nil;
         if (error) {
             if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
                 requestCompletionBlock(NO, nil, HTTPResponse, error);
