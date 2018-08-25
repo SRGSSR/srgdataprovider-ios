@@ -80,9 +80,9 @@ static void (^s_networkActivityManagementHandler)(BOOL) = nil;
     }
     
     // No weakify / strongify dance here, so that the request retains itself while it is running
-    void (^requestCompletionBlock)(BOOL finished, NSDictionary * _Nullable, NSError * _Nullable) = ^(BOOL finished, NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
+    void (^requestCompletionBlock)(BOOL finished, NSDictionary * _Nullable, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable) = ^(BOOL finished, NSDictionary * _Nullable JSONDictionary, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         if (finished) {
-            self.completionBlock(JSONDictionary, error);
+            self.completionBlock(JSONDictionary, HTTPResponse, error);
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -90,24 +90,25 @@ static void (^s_networkActivityManagementHandler)(BOOL) = nil;
         });
     };
     self.request = [[SRGNetworkRequest alloc] initWithJSONDictionaryURLRequest:self.URLRequest session:self.session options:SRGNetworkRequestOptionCancellationErrorsProcessed completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *HTTPResponse = [response isKindOfClass:NSHTTPURLResponse.class] ? (NSHTTPURLResponse *)response : nil;
         if (error) {
             if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
-                requestCompletionBlock(NO, nil, error);
+                requestCompletionBlock(NO, nil, HTTPResponse, error);
             }
             else if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorServerCertificateUntrusted) {
                 NSError *friendlyError = [NSError errorWithDomain:error.domain
                                                              code:error.code
                                                          userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"You are likely connected to a public wifi network with no Internet access", @"The error message when request a media or a media list on a public network with no Internet access (e.g. SBB)"),
                                                                      NSURLErrorKey : self.URLRequest.URL }];
-                requestCompletionBlock(YES, nil, friendlyError);
+                requestCompletionBlock(YES, nil, HTTPResponse, friendlyError);
             }
             else {
-                requestCompletionBlock(YES, nil, error);
+                requestCompletionBlock(YES, nil, HTTPResponse, error);
             }
             return;
         }
         
-        requestCompletionBlock(YES, JSONDictionary, nil);
+        requestCompletionBlock(YES, JSONDictionary, HTTPResponse, nil);
     }];
     
     self.running = YES;

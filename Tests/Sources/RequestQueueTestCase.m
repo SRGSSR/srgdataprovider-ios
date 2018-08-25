@@ -63,7 +63,7 @@
         }
     }];
     
-    SRGRequest *request = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertFalse(requestQueueFinished);
         [requestQueue reportError:error];
         
@@ -115,7 +115,7 @@
                 XCTFail(@"No finished state change expected since the queue is deallocated early");
             }
         }];
-        SRGRequest *request = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+        SRGRequest *request = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
             XCTFail(@"The request must be cancelled when the parent queue is deallocated");
         }];
         [requestQueue addRequest:request resume:YES];
@@ -154,7 +154,7 @@
         }
     }];
     
-    SRGRequest *request1 = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request1 = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertFalse(requestQueueFinished);
         [requestQueue reportError:error];
         
@@ -166,7 +166,7 @@
     // The queue is immediately running
     XCTAssertTrue(requestQueue.running);
     
-    SRGRequest *request2 = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request2 = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertFalse(requestQueueFinished);
         [requestQueue reportError:error];
         
@@ -203,13 +203,13 @@
         }
     }];
     
-    SRGRequest *videosRequest = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *videosRequest = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         [requestQueue reportError:error];
         
         SRGMedia *firstMedia = medias.firstObject;
         XCTAssertNotNil(firstMedia);
         
-        SRGRequest *mediaCompositionRequest = [self.dataProvider mediaCompositionForURN:firstMedia.URN standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        SRGRequest *mediaCompositionRequest = [self.dataProvider mediaCompositionForURN:firstMedia.URN standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
             [requestQueue reportError:error];
             
             [requestsFinishedExpectation fulfill];
@@ -250,7 +250,7 @@
         }
     }];
     
-    SRGRequest *request = [self.dataProvider mediaCompositionForURN:@"invalid_URN" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGRequest *request = [self.dataProvider mediaCompositionForURN:@"invalid_URN" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         [requestQueue reportError:error];
         [requestCompletionExpectation fulfill];
     }];
@@ -285,7 +285,7 @@
         }
     }];
     
-    SRGRequest *request1 = [self.dataProvider mediaCompositionForURN:@"invalid_URN1" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGRequest *request1 = [self.dataProvider mediaCompositionForURN:@"invalid_URN1" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         [requestQueue reportError:error];
         [request1CompletionExpectation fulfill];
     }];
@@ -294,7 +294,7 @@
     // The queue is immediately running
     XCTAssertTrue(requestQueue.running);
     
-    SRGRequest *request2 = [self.dataProvider mediaCompositionForURN:@"invalid_URN2" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGRequest *request2 = [self.dataProvider mediaCompositionForURN:@"invalid_URN2" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         [requestQueue reportError:error];
         [request2CompletionExpectation fulfill];
     }];
@@ -329,7 +329,7 @@
         }
     }];
     
-    SRGRequest *request1 = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request1 = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         [requestQueue reportError:error];
         [request1CompletionExpectation fulfill];
     }];
@@ -338,7 +338,7 @@
     // The queue is not running yet
     XCTAssertFalse(requestQueue.running);
     
-    SRGRequest *request2 = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request2 = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         [requestQueue reportError:error];
         [request2CompletionExpectation fulfill];
     }];
@@ -377,7 +377,7 @@
         }
     }];
     
-    SRGRequest *request1 = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request1 = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTFail(@"Completion block must not be called when the request has been cancelled");
     }];
     [requestQueue addRequest:request1 resume:YES];
@@ -385,7 +385,7 @@
     // The queue is immediately running
     XCTAssertTrue(requestQueue.running);
     
-    SRGRequest *request2 = [self.dataProvider tvSoonExpiringMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request2 = [self.dataProvider tvSoonExpiringMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTFail(@"Completion block must not be called when the request has been cancelled");
     }];
     [requestQueue addRequest:request2 resume:YES];
@@ -410,7 +410,7 @@
         return [change[NSKeyValueChangeNewKey] isEqual:@NO];
     }];
     
-    SRGRequest *request1 = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request1 = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         // Nothing
     }];
     [requestQueue addRequest:request1 resume:YES];
@@ -424,7 +424,7 @@
         return [change[NSKeyValueChangeNewKey] isEqual:@NO];
     }];
     
-    SRGRequest *request2 = [self.dataProvider tvSoonExpiringMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request2 = [self.dataProvider tvSoonExpiringMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         // Nothing
     }];
     [requestQueue addRequest:request2 resume:YES];
@@ -436,7 +436,7 @@
 - (void)testReuse
 {
     SRGRequestQueue *requestQueue = [[SRGRequestQueue alloc] init];
-    SRGRequest *request = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *request = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         // Not interested in individual request status
     }];
     [requestQueue addRequest:request resume:NO];
@@ -471,7 +471,7 @@
             XCTAssertNotEqual(error.code, SRGDataProviderErrorMultiple);
         }
     }];
-    SRGRequest *request = [self.dataProvider mediaCompositionForURN:@"invalid_URN" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+    SRGRequest *request = [self.dataProvider mediaCompositionForURN:@"invalid_URN" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         [requestQueue reportError:error];
     }];
     [requestQueue addRequest:request resume:YES];

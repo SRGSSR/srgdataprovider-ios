@@ -33,7 +33,7 @@ To request data, use the methods available from one of the `SRGDataProvider` _Se
 For example, to get the list of SRF TV livestream list, simply call:
 
 ```objective-c
-SRGRequest *request = [[SRGDataProvider currentDataProvider] tvLivestreamsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+SRGRequest *request = [[SRGDataProvider currentDataProvider] tvLivestreamsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
     if (error) {
         // Deal with the error
         return;
@@ -63,7 +63,7 @@ Set this request property when a refresh is performed:
 ```objective-c
 - (void)refresh
 {
-    self.request = [[SRGDataProvider currentDataProvider] tvLivestreamsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    self.request = [[SRGDataProvider currentDataProvider] tvLivestreamsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         // ....
     }];
     [self.request resume];
@@ -91,7 +91,7 @@ If `self` retains the request and is referenced from its completion block, you w
 - (void)refresh
 {
     __weak __typeof(self) weakSelf = self;
-    self.request = [[SRGDataProvider currentDataProvider] tvLivestreamsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    self.request = [[SRGDataProvider currentDataProvider] tvLivestreamsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         [weakSelf doStuff];
     }];
     [self.request resume];
@@ -106,7 +106,7 @@ For Objective-C codebases, you can use the bundled `libextobjc` framework which 
 - (void)refresh
 {
     @weakify(self)
-    self.request = [[SRGDataProvider currentDataProvider] tvLivestreamsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSError * _Nullable error) {
+    self.request = [[SRGDataProvider currentDataProvider] tvLivestreamsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         @strongify(self)
         [self doStuff];
     }];
@@ -145,7 +145,7 @@ When calling `-requestWithPage:`, a page parameter of type `SRGPage` must be sup
 Here is a simple illustration of the way page retrieval conceptually works:
 
 ```objective-c
-SRGFirstPageRequest *request = [[SRGDataProvider currentDataProvider] tvEditorialMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+SRGFirstPageRequest *request = [[SRGDataProvider currentDataProvider] tvEditorialMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
    if (error) {
        // Deal with the error
        // ...
@@ -247,13 +247,13 @@ If a request does not depend on the result of another request (e.g. requesting e
     }];
     
     // Results are stored in additional NSArray properties for editorial and trending medias
-    SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] tvEditorialMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] tvEditorialMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         [requestQueue reportError:error];
         self.editorialMedias = medias;
     }];
     [requestQueue addRequest:editorialRequest resume:YES];
     
-    SRGRequest *trendingRequest = [[SRGDataProvider currentDataProvider] tvTrendingMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *trendingRequest = [[SRGDataProvider currentDataProvider] tvTrendingMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         [requestQueue reportError:error];
         self.trendingMedias = medias;
     }];
@@ -307,14 +307,14 @@ If a request depends on the result of another request, you can similarly use a r
         // ...
     }];
 
-    SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] tvEditorialMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    SRGRequest *editorialRequest = [[SRGDataProvider currentDataProvider] tvEditorialMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         if (error) {
             [requestQueue reportError:error];
             return;
         }
         
         SRGMedia *firstMedia = medias.firstObject;
-        SRGRequest *mediaCompositionRequest = [[SRGDataProvider currentDataProvider] mediaCompositionForURN:firstMedia.URN standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSError * _Nullable error) {
+        SRGRequest *mediaCompositionRequest = [[SRGDataProvider currentDataProvider] mediaCompositionForURN:firstMedia.URN standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
              if (error) {
                 [requestQueue reportError:error];
                 return;
@@ -362,7 +362,7 @@ When a full refresh is needed, create the first request and a queue which will r
         }
     }];
 
-    self.firstPageRequest = [[SRGDataProvider currentDataProvider] tvEditorialMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSError * _Nullable error) {
+    self.firstPageRequest = [[SRGDataProvider currentDataProvider] tvEditorialMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         if (error) {
             [self.requestQueue reportError:error];
             return;
