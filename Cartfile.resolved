@@ -1,5 +1,5 @@
 github "Mantle/Mantle" "2.1.0"
 github "SRGSSR/MAKVONotificationCenter" "120fb5550aee8e9b4c92439bf34533020cc43c44"
 github "SRGSSR/libextobjc" "80a882742fea920587df5c9377af68faa22be5d0"
-github "SRGSSR/srglogger-ios" "bccb78ae57b879087e819172267fd3f38f73237a"
-github "SRGSSR/srgnetwork-ios" "e6cc6dd5bfe9d7db2010ddbda15105b63e48280b"
+github "SRGSSR/srglogger-ios" "8561443d4532b9dabe56a7054074da3d70d99d5e"
+github "SRGSSR/srgnetwork-ios" "aaaa163d166533fea64e0a37e33620bae0f8b2eb"
