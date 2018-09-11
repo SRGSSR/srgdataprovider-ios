@@ -25,11 +25,8 @@
 /* A blocking reason message displayed to the user during the playback if a segment was skipped. */
 "The content was skipped to protect children. Please try again between 8AM and 6AM." = "Il cuntegn è vegnì eliminà per proteger uffants. Empruvai puspè tranter las 20.00 e las 06.00.";
 
-/* The error message when the response from IL server is incorrect. */
+/* Error message returned when a server response data is incorrect. */
 "The data is invalid." = "Las datas n'èn betg valaivlas.";
-
-/* The error message when the secure token cannot be retrieved to play the media stream. */
-"The stream could not be secured." = "Il stream na po betg vegnir sigerà.";
 
 /* A blocking reason message displayed to the user if the media can't be played. */
 "This commercial media is not available." = "Quest medium commerzial n'è betg disponibel.";

@@ -12,6 +12,7 @@
 #import "SRGDataProviderLogger.h"
 #import "SRGRequest+Private.h"
 
+#import <SRGNetwork/SRGNetwork.h>
 #import <UIKit/UIKit.h>
 
 static NSInteger s_numberOfRunningRequests = 0;
@@ -19,11 +20,11 @@ static void (^s_networkActivityManagementHandler)(BOOL) = nil;
 
 @interface SRGRequest ()
 
-@property (nonatomic) NSURLRequest *request;
+@property (nonatomic) NSURLRequest *URLRequest;
 @property (nonatomic, copy) SRGRequestCompletionBlock completionBlock;
 
-@property (nonatomic) NSURLSessionTask *sessionTask;
-@property (nonatomic, weak) NSURLSession *session;
+@property (nonatomic) NSURLSession *session;
+@property (nonatomic) SRGNetworkRequest *request;
 
 @property (nonatomic, getter=isRunning) BOOL running;
 
@@ -33,10 +34,10 @@ static void (^s_networkActivityManagementHandler)(BOOL) = nil;
 
 #pragma mark Object lifecycle
 
-- (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session completionBlock:(SRGRequestCompletionBlock)completionBlock
+- (instancetype)initWithURLRequest:(NSURLRequest *)URLRequest session:(NSURLSession *)session completionBlock:(SRGRequestCompletionBlock)completionBlock
 {
     if (self = [super init]) {
-        self.request = request;
+        self.URLRequest = URLRequest;
         self.completionBlock = completionBlock;
         self.session = session;
     }
@@ -45,7 +46,7 @@ static void (^s_networkActivityManagementHandler)(BOOL) = nil;
 
 - (void)dealloc
 {
-    [self.sessionTask cancel];
+    [self.request cancel];
 }
 
 #pragma mark Getters and setters
@@ -79,98 +80,45 @@ static void (^s_networkActivityManagementHandler)(BOOL) = nil;
     }
     
     // No weakify / strongify dance here, so that the request retains itself while it is running
-    void (^requestCompletionBlock)(BOOL finished, NSDictionary * _Nullable, NSError * _Nullable) = ^(BOOL finished, NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
+    void (^requestCompletionBlock)(BOOL finished, NSDictionary * _Nullable, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable) = ^(BOOL finished, NSDictionary * _Nullable JSONDictionary, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        if (finished) {
+            self.completionBlock(JSONDictionary, HTTPResponse, error);
+        }
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (finished) {
-                self.completionBlock(JSONDictionary, error);
-            }
             self.running = NO;
         });
     };
-    
-    SRGDataProviderLogDebug(@"Request", @"Started %@", self.request.URL);
-    
-    // Session tasks cannot be reused. To provide SRGRequest reuse, we need to instantiate another task
-    self.sessionTask = [self.session dataTaskWithRequest:self.request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        // Don't call the completion block for cancelled requests
+    self.request = [[SRGNetworkRequest alloc] initWithJSONDictionaryURLRequest:self.URLRequest session:self.session options:SRGNetworkRequestOptionCancellationErrorsProcessed completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *HTTPResponse = [response isKindOfClass:NSHTTPURLResponse.class] ? (NSHTTPURLResponse *)response : nil;
         if (error) {
             if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
-                SRGDataProviderLogDebug(@"Request", @"Cancelled %@", self.request.URL);
-                requestCompletionBlock(NO, nil, error);
+                requestCompletionBlock(NO, nil, HTTPResponse, error);
             }
             else if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorServerCertificateUntrusted) {
-                SRGDataProviderLogDebug(@"Request", @"Ended %@ with certificate trust error: %@", self.request.URL, error);
                 NSError *friendlyError = [NSError errorWithDomain:error.domain
                                                              code:error.code
                                                          userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"You are likely connected to a public wifi network with no Internet access", @"The error message when request a media or a media list on a public network with no Internet access (e.g. SBB)"),
-                                                                     NSURLErrorKey : self.request.URL }];
-                requestCompletionBlock(YES, nil, friendlyError);
+                                                                     NSURLErrorKey : self.URLRequest.URL }];
+                requestCompletionBlock(YES, nil, HTTPResponse, friendlyError);
             }
             else {
-                SRGDataProviderLogDebug(@"Request", @"Ended %@ with an error: %@", self.request.URL, error);
-                requestCompletionBlock(YES, nil, error);
+                requestCompletionBlock(YES, nil, HTTPResponse, error);
             }
             return;
         }
         
-        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-            NSHTTPURLResponse *HTTPURLResponse = (NSHTTPURLResponse *)response;
-            NSInteger HTTPStatusCode = HTTPURLResponse.statusCode;
-            
-            // Properly handle HTTP error codes >= 400 as real errors
-            if (HTTPStatusCode >= 400) {
-                NSError *HTTPError = [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                         code:SRGDataProviderErrorHTTP
-                                                     userInfo:@{ NSLocalizedDescriptionKey : [NSHTTPURLResponse play_localizedStringForStatusCode:HTTPStatusCode],
-                                                                 NSURLErrorKey : response.URL,
-                                                                 SRGDataProviderHTTPStatusCodeKey : @(HTTPStatusCode) }];
-                SRGDataProviderLogDebug(@"Request", @"Ended %@ with an HTTP error: %@", self.request.URL, HTTPError);
-                requestCompletionBlock(YES, nil, HTTPError);
-                return;
-            }
-            // Block redirects and return an error with URL information. Currently no redirection is expected for IL services, this
-            // means redirection is probably related to a public hotspot with login page (e.g. SBB)
-            else if (HTTPStatusCode >= 300) {
-                NSMutableDictionary *userInfo = [@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"You are likely connected to a public wifi network with no Internet access", @"The error message when request a media or a media list on a public network with no Internet access (e.g. SBB)"),
-                                                    NSURLErrorKey : response.URL } mutableCopy];
-                
-                NSString *redirectionURLString = HTTPURLResponse.allHeaderFields[@"Location"];
-                if (redirectionURLString) {
-                    NSURL *redirectionURL = [NSURL URLWithString:redirectionURLString];
-                    userInfo[SRGDataProviderRedirectionURLKey] = redirectionURL;
-                }
-                
-                NSError *redirectError = [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                             code:SRGDataProviderErrorRedirect
-                                                         userInfo:[userInfo copy]];
-                SRGDataProviderLogDebug(@"Request", @"Ended %@ with a redirect error: %@", self.request.URL, redirectError);
-                requestCompletionBlock(YES, nil, redirectError);
-                return;
-            }
-        }
-        
-        id JSONDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-        if (! JSONDictionary || ! [JSONDictionary isKindOfClass:[NSDictionary class]]) {
-            NSError *dataFormatError = [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                           code:SRGDataProviderErrorCodeInvalidData
-                                                       userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", @"The error message when the response from IL server is incorrect.") }];
-            SRGDataProviderLogDebug(@"Request", @"Ended %@ with a data format error: %@", self.request.URL, dataFormatError);
-            requestCompletionBlock(YES, nil, dataFormatError);
-            return;
-        }
-        
-        SRGDataProviderLogDebug(@"Request", @"Ended %@ successfully with JSON %@", self.request.URL, JSONDictionary);
-        requestCompletionBlock(YES, JSONDictionary, nil);
+        requestCompletionBlock(YES, JSONDictionary, HTTPResponse, nil);
     }];
     
     self.running = YES;
-    [self.sessionTask resume];
+    [self.request resume];
 }
 
 - (void)cancel
 {
     self.running = NO;
-    [self.sessionTask cancel];
+    [self.request cancel];
 }
 
 #pragma mark Description

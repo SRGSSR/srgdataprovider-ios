@@ -20,7 +20,8 @@ NSValueTransformer *SRGAudioCodecJSONTransformer(void)
                                                                                          @"AAC-HE" : @(SRGAudioCodecAAC_HE),
                                                                                          @"MP3" : @(SRGAudioCodecMP3),
                                                                                          @"MP2" : @(SRGAudioCodecMP2),
-                                                                                         @"WMAV2" : @(SRGAudioCodecWMAV2) }
+                                                                                         @"WMAV2" : @(SRGAudioCodecWMAV2),
+                                                                                         @"UNKNOWN" : @(SRGAudioCodecUnknown) }
                                                                          defaultValue:@(SRGAudioCodecNone)
                                                                   reverseDefaultValue:nil];
     });
@@ -71,6 +72,20 @@ NSValueTransformer *SRGContentTypeJSONTransformer(void)
                                                                                          @"LIVESTREAM" : @(SRGContentTypeLivestream),
                                                                                          @"SCHEDULED_LIVESTREAM" : @(SRGContentTypeScheduledLivestream) }
                                                                          defaultValue:@(SRGContentTypeNone)
+                                                                  reverseDefaultValue:nil];
+    });
+    return s_transformer;
+}
+
+NSValueTransformer *SRGDRMTypeJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"FAIRPLAY" : @(SRGDRMTypeFairPlay),
+                                                                                         @"WIDEVINE" : @(SRGDRMTypeWidevine),
+                                                                                         @"PLAYREADY" : @(SRGDRMTypePlayReady) }
+                                                                         defaultValue:@(SRGDRMTypeNone)
                                                                   reverseDefaultValue:nil];
     });
     return s_transformer;
@@ -206,6 +221,7 @@ NSValueTransformer *SRGStreamingMethodJSONTransformer(void)
                                                                                          @"RTMP" : @(SRGStreamingMethodRTMP),
                                                                                          @"HTTP" : @(SRGStreamingMethodHTTP),
                                                                                          @"HTTPS" : @(SRGStreamingMethodHTTPS),
+                                                                                         @"DASH" : @(SRGStreamingMethodDASH),
                                                                                          @"UNKNOWN" : @(SRGStreamingMethodUnknown) }
                                                                          defaultValue:@(SRGStreamingMethodNone)
                                                                   reverseDefaultValue:nil];
@@ -298,7 +314,8 @@ NSValueTransformer *SRGVideoCodecJSONTransformer(void)
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"H264" : @(SRGVideoCodecH264),
                                                                                          @"VP6F" : @(SRGVideoCodecVP6F),
                                                                                          @"MPEG2" : @(SRGVideoCodecMPEG2),
-                                                                                         @"WMV3" : @(SRGVideoCodecWMV3) }
+                                                                                         @"WMV3" : @(SRGVideoCodecWMV3),
+                                                                                         @"UNKNOWN" : @(SRGVideoCodecUnknown) }
                                                                          defaultValue:@(SRGVideoCodecNone)
                                                                   reverseDefaultValue:nil];
     });

@@ -33,16 +33,16 @@
 
 #pragma mark Object lifecycle
 
-- (instancetype)initWithRequest:(NSURLRequest *)request session:(NSURLSession *)session pageCompletionBlock:(SRGPageCompletionBlock)pageCompletionBlock
+- (instancetype)initWithURLRequest:(NSURLRequest *)URLRequest session:(NSURLSession *)session pageCompletionBlock:(SRGPageCompletionBlock)pageCompletionBlock
 {
     SRGPage *page = [SRGPage firstPageWithSize:SRGPageDefaultSize];
     
-    SRGRequestCompletionBlock requestCompletionBlock = ^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
+    SRGRequestCompletionBlock requestCompletionBlock = ^(NSDictionary * _Nullable JSONDictionary, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         SRGPage *nextPage = [SRGFirstPageRequest nextPageAfterPage:page fromJSONDictionary:JSONDictionary];
-        pageCompletionBlock(JSONDictionary, JSONDictionary[@"total"], page, nextPage, error);
+        pageCompletionBlock(JSONDictionary, JSONDictionary[@"total"], page, nextPage, HTTPResponse, error);
     };
     
-    if (self = [super initWithRequest:request session:session completionBlock:requestCompletionBlock]) {
+    if (self = [super initWithURLRequest:URLRequest session:session completionBlock:requestCompletionBlock]) {
         self.page = page;
         self.pageCompletionBlock = pageCompletionBlock;
     }
@@ -53,10 +53,10 @@
 
 - (__kindof SRGPageRequest *)requestWithPage:(SRGPage *)page withClass:(Class)cls
 {
-    NSURLRequest *request = [SRGPage request:self.request withPage:page];
-    SRGPageRequest *pageRequest = [[cls alloc] initWithRequest:request session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSError * _Nullable error) {
+    NSURLRequest *URLRequest = [SRGPage request:self.URLRequest withPage:page];
+    SRGPageRequest *pageRequest = [[cls alloc] initWithURLRequest:URLRequest session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         SRGPage *nextPage = [SRGFirstPageRequest nextPageAfterPage:page fromJSONDictionary:JSONDictionary];
-        self.pageCompletionBlock(JSONDictionary, JSONDictionary[@"total"],  page, nextPage, error);
+        self.pageCompletionBlock(JSONDictionary, JSONDictionary[@"total"],  page, nextPage, HTTPResponse, error);
     }];
     pageRequest.page = page;
     pageRequest.pageCompletionBlock = self.pageCompletionBlock;

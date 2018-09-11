@@ -29,7 +29,7 @@
                               @520, @521, @522, @523, @524, @525, @526, @527];
     
     for (NSNumber *statusCode in statusCodes) {
-        NSString *message = [NSHTTPURLResponse play_localizedStringForStatusCode:statusCode.integerValue];
+        NSString *message = [NSHTTPURLResponse srg_localizedStringForStatusCode:statusCode.integerValue];
         NSLog(@"%@: %@", statusCode, message);
         XCTAssertNotNil(message);
     }
