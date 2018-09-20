@@ -934,7 +934,7 @@ static NSString * const kUserId = @"test_user_id";
         
         // Resizing not well supported at the moment (image size not guaranteed). Only check image availability.
         XCTAssertNotNil(image);
-
+        
         [expectation fulfill];
     }] resume];
     

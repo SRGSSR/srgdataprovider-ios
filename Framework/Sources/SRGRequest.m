@@ -126,7 +126,7 @@ static void (^s_networkActivityManagementHandler)(BOOL) = nil;
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"<%@: %p; request = %@; running = %@>",
-            [self class],
+            self.class,
             self,
             self.request,
             self.running ? @"YES" : @"NO"];

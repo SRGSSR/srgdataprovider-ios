@@ -35,7 +35,7 @@
         s_mapping = @{ @keypath(SRGBaseTopic.new, title) : @"title",
                        @keypath(SRGBaseTopic.new, lead) : @"lead",
                        @keypath(SRGBaseTopic.new, summary) : @"description",
-                        
+                       
                        @keypath(SRGBaseTopic.new, uid) : @"id",
                        @keypath(SRGBaseTopic.new, URN) : @"urn",
                        @keypath(SRGBaseTopic.new, transmission) : @"transmission",
@@ -60,7 +60,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (! object || ! [object isKindOfClass:[self class]]) {
+    if (! object || ! [object isKindOfClass:self.class]) {
         return NO;
     }
     

@@ -35,7 +35,7 @@
                                              @keypath(SRGChapter.new, fullLengthMarkOut) : @"fullLengthMarkOut",
                                              @keypath(SRGChapter.new, resources) : @"resourceList",
                                              @keypath(SRGChapter.new, segments) : @"segmentList",
-                                              
+                                             
                                              @keypath(SRGChapter.new, preTrailerStartDate) : @"preTrailerStart",
                                              @keypath(SRGChapter.new, postTrailerEndDate) : @"postTrailerStop" }];
         s_mapping = [mapping copy];
@@ -47,7 +47,7 @@
 
 + (NSValueTransformer *)resourcesJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGResource class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGResource.class];
 }
 
 + (NSValueTransformer *)segmentsJSONTransformer
@@ -56,7 +56,7 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *JSONArray, BOOL *success, NSError *__autoreleasing *error) {
-            NSArray<SRGSegment *> *segments = [MTLJSONAdapter modelsOfClass:[SRGSegment class] fromJSONArray:JSONArray error:error];
+            NSArray<SRGSegment *> *segments = [MTLJSONAdapter modelsOfClass:SRGSegment.class fromJSONArray:JSONArray error:error];
             if (! segments) {
                 return nil;
             }

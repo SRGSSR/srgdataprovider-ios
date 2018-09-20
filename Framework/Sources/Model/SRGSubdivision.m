@@ -110,7 +110,7 @@
 
 + (NSValueTransformer *)subtitlesJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSubtitle class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGSubtitle.class];
 }
 
 + (NSValueTransformer *)mediaTypeJSONTransformer
@@ -175,12 +175,12 @@
 
 + (NSValueTransformer *)relatedContentsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGRelatedContent class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGRelatedContent.class];
 }
 
 + (NSValueTransformer *)socialCountsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSocialCount class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGSocialCount.class];
 }
 
 #pragma mark SRGImage protocol
@@ -194,7 +194,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (! object || ! [object isKindOfClass:[self class]]) {
+    if (! object || ! [object isKindOfClass:self.class]) {
         return NO;
     }
     

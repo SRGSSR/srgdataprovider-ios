@@ -108,7 +108,7 @@
 
 + (NSValueTransformer *)DRMsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGDRM class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGDRM.class];
 }
 
 #pragma mark Helpers
@@ -123,7 +123,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (! object || ! [object isKindOfClass:[self class]]) {
+    if (! object || ! [object isKindOfClass:self.class]) {
         return NO;
     }
     

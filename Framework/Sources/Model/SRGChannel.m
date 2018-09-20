@@ -69,12 +69,12 @@
 
 + (NSValueTransformer *)currentProgramJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGProgram class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGProgram.class];
 }
 
 + (NSValueTransformer *)nextProgramJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGProgram class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGProgram.class];
 }
 
 + (NSValueTransformer *)imageURLJSONTransformer
@@ -93,7 +93,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (! object || ! [object isKindOfClass:[self class]]) {
+    if (! object || ! [object isKindOfClass:self.class]) {
         return NO;
     }
     

@@ -48,22 +48,22 @@
 
 + (NSValueTransformer *)channelJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGChannel class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGChannel.class];
 }
 
 + (NSValueTransformer *)episodeJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGEpisode class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGEpisode.class];
 }
 
 + (NSValueTransformer *)showJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGShow class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGShow.class];
 }
 
 + (NSValueTransformer *)chaptersJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGChapter class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGChapter.class];
 }
 
 #pragma mark Getters and setters
@@ -201,7 +201,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (! object || ! [object isKindOfClass:[self class]]) {
+    if (! object || ! [object isKindOfClass:self.class]) {
         return NO;
     }
     

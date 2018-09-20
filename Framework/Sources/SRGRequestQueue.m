@@ -30,7 +30,7 @@ static NSMapTable<SRGRequestQueue *, NSHashTable<SRGRequest *> *> *s_relationshi
 
 + (void)initialize
 {
-    if (self != [SRGRequestQueue class]) {
+    if (self != SRGRequestQueue.class) {
         return;
     }
     
@@ -161,7 +161,7 @@ static NSMapTable<SRGRequestQueue *, NSHashTable<SRGRequest *> *> *s_relationshi
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"<%@: %p; requests = %@; running = %@>",
-            [self class],
+            self.class,
             self,
             self.requests,
             self.running ? @"YES" : @"NO"];

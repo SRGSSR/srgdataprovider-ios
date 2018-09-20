@@ -28,7 +28,7 @@
     
     // Ensure the next field is a string. In now and next requests, we have a next dictionary entry, which
     // does not correspond to next page information, but to next program information
-    return [next isKindOfClass:[NSString class]] ? [page nextPageWithURL:[NSURL URLWithString:next]] : nil;
+    return [next isKindOfClass:NSString.class] ? [page nextPageWithURL:[NSURL URLWithString:next]] : nil;
 }
 
 #pragma mark Object lifecycle
@@ -66,7 +66,7 @@
 - (SRGFirstPageRequest *)requestWithPageSize:(NSInteger)pageSize
 {
     SRGPage *page = [SRGPage firstPageWithSize:pageSize];
-    return [self requestWithPage:page withClass:[SRGFirstPageRequest class]];
+    return [self requestWithPage:page withClass:SRGFirstPageRequest.class];
 }
 
 - (SRGPageRequest *)requestWithPage:(SRGPage *)page
@@ -75,7 +75,7 @@
         page = self.page.firstPage;
     }
     
-    return [self requestWithPage:page withClass:[SRGPageRequest class]];
+    return [self requestWithPage:page withClass:SRGPageRequest.class];
 }
 
 @end
