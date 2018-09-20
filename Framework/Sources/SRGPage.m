@@ -125,7 +125,7 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p; size: %@; number: %@; URL: %@>",
+    return [NSString stringWithFormat:@"<%@: %p; size = %@; number = %@; URL = %@>",
             [self class],
             self,
             self.size == SRGPageUnlimitedSize ? @"unlimited" : @(self.size),

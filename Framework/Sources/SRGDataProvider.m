@@ -799,7 +799,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p; serviceURL: %@>",
+    return [NSString stringWithFormat:@"<%@: %p; serviceURL = %@>",
             [self class],
             self,
             self.serviceURL];
