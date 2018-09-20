@@ -7,7 +7,6 @@
 #import "SRGRequest.h"
 
 #import "NSBundle+SRGDataProvider.h"
-#import "NSHTTPURLResponse+SRGDataProvider.h"
 #import "SRGDataProviderError.h"
 #import "SRGDataProviderLogger.h"
 #import "SRGRequest+Private.h"
