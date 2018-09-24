@@ -20,6 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGDRMType type;
 
 /**
+ *  The URL where certificate can be retrieved.
+ */
+@property (nonatomic, readonly, nullable) NSURL *certificateURL;
+
+/**
  *  The URL where license can be retrieved.
  */
 @property (nonatomic, readonly, nullable) NSURL *licenseURL;
