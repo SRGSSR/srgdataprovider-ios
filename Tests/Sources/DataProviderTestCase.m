@@ -21,15 +21,14 @@
     SRGDataProvider *dataProvider1 = [[SRGDataProvider alloc] initWithServiceURL:serviceURL];
     XCTAssertEqualObjects(dataProvider1.serviceURL, [NSURL URLWithString:@"https://il.srgssr.ch/"]);
     
-    XCTAssertNil([SRGDataProvider currentDataProvider]);
-    SRGDataProvider *previousDataProvider1 = [SRGDataProvider setCurrentDataProvider:dataProvider1];
-    XCTAssertEqualObjects([SRGDataProvider currentDataProvider], dataProvider1);
-    XCTAssertNil(previousDataProvider1);
+    XCTAssertNil(SRGDataProvider.currentDataProvider);
+    SRGDataProvider.currentDataProvider = dataProvider1;
+    XCTAssertEqualObjects(SRGDataProvider.currentDataProvider, dataProvider1);
     
     SRGDataProvider *dataProvider2 = [[SRGDataProvider alloc] initWithServiceURL:serviceURL];
     XCTAssertNotNil(dataProvider2);
-    SRGDataProvider *previousDataProvider2 = [SRGDataProvider setCurrentDataProvider:dataProvider2];
-    XCTAssertEqualObjects(previousDataProvider2, dataProvider1);
+    SRGDataProvider.currentDataProvider = dataProvider2;
+    XCTAssertEqualObjects(SRGDataProvider.currentDataProvider, dataProvider2);
 }
 
 - (void)testDeallocation

@@ -48,7 +48,7 @@
                                              @keypath(SRGSearchResultMedia.new, showUid) : @"show.id",
                                              @keypath(SRGSearchResultMedia.new, showTitle) : @"show.title",
                                              @keypath(SRGSearchResultMedia.new, channelUid) : @"channelId",
-                                              
+                                             
                                              @keypath(SRGSearchResultMedia.new, uid) : @"id",
                                              @keypath(SRGSearchResultMedia.new, URN) : @"urn",
                                              @keypath(SRGSearchResultMedia.new, mediaType) : @"mediaType",
@@ -93,7 +93,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (! object || ! [object isKindOfClass:[self class]]) {
+    if (! [object isKindOfClass:self.class]) {
         return NO;
     }
     

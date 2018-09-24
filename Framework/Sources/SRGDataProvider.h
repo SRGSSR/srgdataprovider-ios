@@ -101,8 +101,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *
  *  In general, a single data provider suffices, which can be used like a singleton by instantiating it early in your application
  *  lifecycle (e.g. in your `-applicationDidFinishLaunching:withOptions:` implementation) and setting it as global shared instance
- *  by calling `-[SRGDataProvider setCurrentDataProvider:]`. You can then conveniently retrieve this shared instance with
- *  `-[SRGDataProvider currentDataProvider]`.
+ *  by setting `SRGDataProvider.currentDataProvider`. You can then conveniently retrieve this shared instance through
+ *  the same property.
  *
  *  ## Lifetime
  *
@@ -183,17 +183,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 
 /**
  *  The data provider currently set as shared instance, if any.
- *
- *  @see `-setCurrentDataProvider:`.
  */
-+ (nullable SRGDataProvider *)currentDataProvider;
-
-/**
- *  Set a data provider as shared instance for convenient retrieval via `-currentDataProvider`.
- *
- *  @return The previously installed shared instance, if any.
- */
-+ (nullable SRGDataProvider *)setCurrentDataProvider:(nullable SRGDataProvider *)currentDataProvider;
+@property (class, nonatomic, nullable) SRGDataProvider *currentDataProvider;
 
 /**
  *  Instantiate a data provider.

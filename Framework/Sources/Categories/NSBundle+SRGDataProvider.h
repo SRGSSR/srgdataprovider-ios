@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The data provider resource bundle.
  */
-+ (NSBundle *)srg_dataProviderBundle;
+@property (class, nonatomic, readonly) NSBundle *srg_dataProviderBundle;
 
 @end
 

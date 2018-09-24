@@ -61,7 +61,7 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
 
 + (SRGPage *)firstPageWithSize:(NSInteger)size
 {
-    return [[[self class] alloc] initWithSize:size number:0 URL:nil];
+    return [[self.class alloc] initWithSize:size number:0 URL:nil];
 }
 
 #pragma mark Object lifecycle
@@ -89,19 +89,19 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
 
 - (SRGPage *)nextPageWithURL:(NSURL *)URL
 {
-    return [[[self class] alloc] initWithSize:self.size number:self.number + 1 URL:URL];
+    return [[self.class alloc] initWithSize:self.size number:self.number + 1 URL:URL];
 }
 
 - (SRGPage *)firstPage
 {
-    return [[[self class] alloc] initWithSize:self.size number:0 URL:nil];
+    return [[self.class alloc] initWithSize:self.size number:0 URL:nil];
 }
 
 #pragma mark Equality
 
 - (BOOL)isEqual:(id)object
 {
-    if (! object || ! [object isKindOfClass:[self class]]) {
+    if (! [object isKindOfClass:self.class]) {
         return NO;
     }
     
@@ -118,15 +118,15 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    return [[[self class] allocWithZone:zone] initWithSize:self.size number:self.number URL:self.URL];
+    return [[self.class allocWithZone:zone] initWithSize:self.size number:self.number URL:self.URL];
 }
 
 #pragma mark Description
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p; size: %@; number: %@; URL: %@>",
-            [self class],
+    return [NSString stringWithFormat:@"<%@: %p; size = %@; number = %@; URL = %@>",
+            self.class,
             self,
             self.size == SRGPageUnlimitedSize ? @"unlimited" : @(self.size),
             @(self.number),

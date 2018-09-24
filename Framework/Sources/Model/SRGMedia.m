@@ -58,7 +58,7 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @keypath(SRGMedia.new, presentation) : @"presentation",
-                      
+                       
                        @keypath(SRGMedia.new, channel) : @"channel",
                        @keypath(SRGMedia.new, episode) : @"episode",
                        @keypath(SRGMedia.new, show) : @"show",
@@ -113,17 +113,17 @@
 
 + (NSValueTransformer *)channelJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGChannel class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGChannel.class];
 }
 
 + (NSValueTransformer *)episodeJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGEpisode class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGEpisode.class];
 }
 
 + (NSValueTransformer *)showJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGShow class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGShow.class];
 }
 
 + (NSValueTransformer *)mediaTypeJSONTransformer
@@ -183,12 +183,12 @@
 
 + (NSValueTransformer *)relatedContentsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGRelatedContent class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGRelatedContent.class];
 }
 
 + (NSValueTransformer *)socialCountsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSocialCount class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGSocialCount.class];
 }
 
 #pragma mark SRGImageMetadata protocol
@@ -202,7 +202,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (! object || ! [object isKindOfClass:[self class]]) {
+    if (! [object isKindOfClass:self.class]) {
         return NO;
     }
     

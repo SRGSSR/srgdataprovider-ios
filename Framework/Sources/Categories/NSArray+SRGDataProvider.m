@@ -23,7 +23,7 @@
     for (id object in self) {
         id formattedObject = [object srg_formattedObjectAtLevel:level + 1];
         [description appendFormat:@"%@%@,\n", fieldIndentationString, formattedObject];
-
+        
     }
     [description appendFormat:@"%@)", normalIndentationString];
     return [description copy];

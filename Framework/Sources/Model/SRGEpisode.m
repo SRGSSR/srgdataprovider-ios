@@ -64,12 +64,12 @@
 
 + (NSValueTransformer *)mediasJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGMedia class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGMedia.class];
 }
 
 + (NSValueTransformer *)socialCountJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGSocialCount class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGSocialCount.class];
 }
 
 + (NSValueTransformer *)imageURLJSONTransformer
@@ -88,7 +88,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (! object || ! [object isKindOfClass:[self class]]) {
+    if (! [object isKindOfClass:self.class]) {
         return NO;
     }
     

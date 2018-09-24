@@ -71,7 +71,7 @@ SRGImageType const SRGImageTypeModuleLogo = @"logo";
                        @keypath(SRGModule.new, title) : @"title",
                        @keypath(SRGModule.new, lead) : @"lead",
                        @keypath(SRGModule.new, summary) : @"description",
-                        
+                       
                        @keypath(SRGModule.new, uid) : @"id",
                        @keypath(SRGModule.new, URN) : @"urn",
                        @keypath(SRGModule.new, moduleType) : @"moduleConfigType",
@@ -134,7 +134,7 @@ SRGImageType const SRGImageTypeModuleLogo = @"logo";
 
 + (NSValueTransformer *)sectionsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSection class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGSection.class];
 }
 
 + (NSValueTransformer *)moduleTypeJSONTransformer
@@ -166,7 +166,7 @@ SRGImageType const SRGImageTypeModuleLogo = @"logo";
 
 - (BOOL)isEqual:(id)object
 {
-    if (! object || ! [object isKindOfClass:[self class]]) {
+    if (! [object isKindOfClass:self.class]) {
         return NO;
     }
     

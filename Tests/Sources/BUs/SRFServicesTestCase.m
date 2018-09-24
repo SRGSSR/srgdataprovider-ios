@@ -568,7 +568,7 @@ static NSString * const kTag2 = @"curling";
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
-
+    
     XCTAssertNotNil(self.userId);
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];

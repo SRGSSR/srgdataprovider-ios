@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Return the list of supported streaming methods (from the most to the least recommended method).
  */
-+ (NSArray<NSNumber *> *)supportedStreamingMethods;
+@property (class, nonatomic, readonly) NSArray<NSNumber *> *supportedStreamingMethods;
 
 /**
  *  Return the set of resources which can be actually played on the device or platform.
