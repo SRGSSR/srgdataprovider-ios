@@ -38,6 +38,7 @@
 @property (nonatomic) NSDate *date;
 @property (nonatomic) NSTimeInterval duration;
 @property (nonatomic) SRGBlockingReason originalBlockingReason;
+@property (nonatomic, getter=isPlayableAbroad) BOOL playableAbroad;
 @property (nonatomic) NSURL *podcastStandardDefinitionURL;
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
 @property (nonatomic) NSDate *startDate;
@@ -81,6 +82,7 @@
                        @keypath(SRGMedia.new, date) : @"date",
                        @keypath(SRGMedia.new, duration) : @"duration",
                        @keypath(SRGMedia.new, originalBlockingReason) : @"blockReason",
+                       @keypath(SRGMedia.new, playableAbroad) : @"playableAbroad",
                        @keypath(SRGMedia.new, podcastStandardDefinitionURL) : @"podcastSdUrl",
                        @keypath(SRGMedia.new, podcastHighDefinitionURL) : @"podcastHdUrl",
                        @keypath(SRGMedia.new, startDate) : @"validFrom",
