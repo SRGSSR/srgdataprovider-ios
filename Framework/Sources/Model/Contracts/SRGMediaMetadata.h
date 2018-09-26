@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (SRGTimeAvailability)timeAvailabilityAtDate:(NSDate *)date;
 
 /**
- *  The content is available outside Switzerland.
+ *  Return `YES` if the content is playable outside Switzerland.
  */
 @property (nonatomic, readonly, getter=isPlayableAbroad) BOOL playableAbroad;
 
