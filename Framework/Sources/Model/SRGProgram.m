@@ -74,12 +74,12 @@
 
 + (NSValueTransformer *)showJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGShow class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGShow.class];
 }
 
 + (NSValueTransformer *)presenterJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGPresenter class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGPresenter.class];
 }
 
 + (NSValueTransformer *)imageURLJSONTransformer

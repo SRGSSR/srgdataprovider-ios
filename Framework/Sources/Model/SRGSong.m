@@ -47,12 +47,12 @@
 
 + (NSValueTransformer *)artistJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGArtist class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGArtist.class];
 }
 
 + (NSValueTransformer *)albumJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGAlbum class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGAlbum.class];
 }
 
 @end

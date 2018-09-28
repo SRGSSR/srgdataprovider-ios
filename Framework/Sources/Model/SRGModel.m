@@ -26,8 +26,8 @@
     NSString *normalIndentationString = [@"" stringByPaddingToLength:level withString:@"\t" startingAtIndex:0];
     NSString *fieldIndentationString = [@"" stringByPaddingToLength:level + 1 withString:@"\t" startingAtIndex:0];
     
-    NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: %p> {\n", [self class], self];
-    NSArray *sortedPropertyKeys = [[[self class] propertyKeys].allObjects sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: %p> {\n", self.class, self];
+    NSArray *sortedPropertyKeys = [[self.class propertyKeys].allObjects sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     for (NSString *propertyKey in sortedPropertyKeys) {
         id value = [self valueForKey:propertyKey];
         if (! value) {

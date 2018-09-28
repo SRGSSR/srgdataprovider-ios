@@ -34,7 +34,7 @@
 
 + (NSValueTransformer *)subtopicsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSubtopic class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGSubtopic.class];
 }
 
 @end

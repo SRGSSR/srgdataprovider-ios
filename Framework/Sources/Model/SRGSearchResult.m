@@ -35,7 +35,7 @@
         s_mapping = @{ @keypath(SRGSearchResult.new, title) : @"title",
                        @keypath(SRGSearchResult.new, lead) : @"lead",
                        @keypath(SRGSearchResult.new, summary) : @"description",
-                        
+                       
                        @keypath(SRGSearchResult.new, imageURL) : @"imageUrl",
                        @keypath(SRGSearchResult.new, imageTitle) : @"imageTitle",
                        @keypath(SRGSearchResult.new, imageCopyright) : @"imageCopyright" };

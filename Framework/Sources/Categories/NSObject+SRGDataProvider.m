@@ -15,7 +15,7 @@
     if ([self respondsToSelector:@selector(srg_descriptionAtLevel:)]) {
         return [(id)self srg_descriptionAtLevel:level];
     }
-    else if ([self isKindOfClass:[NSString class]] || [self isKindOfClass:[NSURL class]]) {
+    else if ([self isKindOfClass:NSString.class] || [self isKindOfClass:NSURL.class]) {
         return [NSString stringWithFormat:@"\"%@\"", self];
     }
     else {

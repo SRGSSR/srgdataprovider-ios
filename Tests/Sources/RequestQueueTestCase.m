@@ -43,9 +43,9 @@
     
     XCTestExpectation *queueStartedExpectation = [self expectationWithDescription:@"Queue started"];
     XCTestExpectation *queueFinishedExpectation = [self expectationWithDescription:@"Queue finished"];
-
+    
     XCTestExpectation *requestCompletionExpectation = [self expectationWithDescription:@"Request completed"];
-
+    
     __block SRGRequestQueue *requestQueue = [[SRGRequestQueue alloc] initWithStateChangeBlock:^(BOOL finished, NSError * _Nullable error) {
         XCTAssertTrue([NSThread isMainThread]);
         XCTAssertNil(error);
@@ -105,7 +105,7 @@
 - (void)testDeallocationWithRequests
 {
     [self expectationForElapsedTimeInterval:3. withHandler:nil];
- 
+    
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-unsafe-retained-assign"
     __weak SRGRequestQueue *requestQueue;

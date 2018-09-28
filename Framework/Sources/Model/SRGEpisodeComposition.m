@@ -26,8 +26,8 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @keypath(SRGEpisodeComposition.new, channel) : @"channel",
-                        @keypath(SRGEpisodeComposition.new, show) : @"show",
-                        @keypath(SRGEpisodeComposition.new, episodes) : @"episodeList" };
+                       @keypath(SRGEpisodeComposition.new, show) : @"show",
+                       @keypath(SRGEpisodeComposition.new, episodes) : @"episodeList" };
     });
     return s_mapping;
 }
@@ -36,24 +36,24 @@
 
 + (NSValueTransformer *)channelJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGChannel class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGChannel.class];
 }
 
 + (NSValueTransformer *)showJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[SRGShow class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGShow.class];
 }
 
 + (NSValueTransformer *)episodesJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGEpisode class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGEpisode.class];
 }
 
 #pragma mark Equality
 
 - (BOOL)isEqual:(id)object
 {
-    if (! object || ! [object isKindOfClass:[self class]]) {
+    if (! [object isKindOfClass:self.class]) {
         return NO;
     }
     

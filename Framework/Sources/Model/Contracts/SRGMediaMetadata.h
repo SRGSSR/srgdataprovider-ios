@@ -55,6 +55,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (SRGTimeAvailability)timeAvailabilityAtDate:(NSDate *)date;
 
 /**
+ *  Return `YES` if the content is playable outside Switzerland.
+ */
+@property (nonatomic, readonly, getter=isPlayableAbroad) BOOL playableAbroad;
+
+/**
  *  The standard definition podcast URL.
  */
 @property (nonatomic, readonly, nullable) NSURL *podcastStandardDefinitionURL;

@@ -58,7 +58,7 @@ NSArray<SRGSegment *> *SRGSanitizedSegments(NSArray<SRGSegment *> *segments)
     NSSortDescriptor *markSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
     NSArray<NSNumber *> *orderedMarks = [marks sortedArrayUsingDescriptors:@[markSortDescriptor]];
     
-    NSDate *currentDate = [NSDate date];
+    NSDate *currentDate = NSDate.date;
     
     // For each interval defined by consecutive marks, define the segment resulting from the superposition of all
     // segments, according to a set of fixed rules.

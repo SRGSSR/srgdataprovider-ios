@@ -39,6 +39,7 @@
 @property (nonatomic) NSDate *date;
 @property (nonatomic) NSTimeInterval duration;
 @property (nonatomic) SRGBlockingReason originalBlockingReason;
+@property (nonatomic, getter=isPlayableAbroad) BOOL playableAbroad;
 @property (nonatomic) NSURL *podcastStandardDefinitionURL;
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
 @property (nonatomic) NSDate *startDate;
@@ -83,6 +84,7 @@
                        @keypath(SRGSubdivision.new, date) : @"date",
                        @keypath(SRGSubdivision.new, duration) : @"duration",
                        @keypath(SRGSubdivision.new, originalBlockingReason) : @"blockReason",
+                       @keypath(SRGSubdivision.new, playableAbroad) : @"playableAbroad",
                        @keypath(SRGSubdivision.new, podcastStandardDefinitionURL) : @"podcastSdUrl",
                        @keypath(SRGSubdivision.new, podcastHighDefinitionURL) : @"podcastHdUrl",
                        @keypath(SRGSubdivision.new, startDate) : @"validFrom",
@@ -110,7 +112,7 @@
 
 + (NSValueTransformer *)subtitlesJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSubtitle class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGSubtitle.class];
 }
 
 + (NSValueTransformer *)mediaTypeJSONTransformer
@@ -175,12 +177,12 @@
 
 + (NSValueTransformer *)relatedContentsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGRelatedContent class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGRelatedContent.class];
 }
 
 + (NSValueTransformer *)socialCountsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[SRGSocialCount class]];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGSocialCount.class];
 }
 
 #pragma mark SRGImage protocol
@@ -194,7 +196,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if (! object || ! [object isKindOfClass:[self class]]) {
+    if (! [object isKindOfClass:self.class]) {
         return NO;
     }
     

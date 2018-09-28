@@ -14,6 +14,7 @@
 
 @property (nonatomic) SRGDRMType type;
 @property (nonatomic) NSURL *licenseURL;
+@property (nonatomic) NSURL *certificateURL;
 
 @end
 
@@ -27,7 +28,8 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @keypath(SRGDRM.new, type) : @"type",
-                       @keypath(SRGDRM.new, licenseURL) : @"licenseUrl" };
+                       @keypath(SRGDRM.new, licenseURL) : @"licenseUrl",
+                       @keypath(SRGDRM.new, certificateURL) : @"certificateUrl" };
     });
     return s_mapping;
 }
@@ -40,6 +42,11 @@
 }
 
 + (NSValueTransformer *)licenseURLJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)certificateURLJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
