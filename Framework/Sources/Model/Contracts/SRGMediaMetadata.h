@@ -60,6 +60,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, getter=isPlayableAbroad) BOOL playableAbroad;
 
 /**
+ *  The youth protection color type.
+ */
+@property (nonatomic, readonly) SRGYouthProtectionColorType youthProtectionColorType;
+
+/**
  *  The standard definition podcast URL.
  */
 @property (nonatomic, readonly, nullable) NSURL *podcastStandardDefinitionURL;

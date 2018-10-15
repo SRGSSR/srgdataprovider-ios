@@ -519,3 +519,21 @@ typedef NS_ENUM(NSInteger, SRGTimeAvailability) {
      */
     SRGTimeAvailabilityNotAvailableAnymore
 };
+
+/**
+ *  Youth protection color types.
+ */
+typedef NS_ENUM(NSInteger, SRGYouthProtectionColorType) {
+    /**
+     *  Not specified.
+     */
+    SRGYouthProtectionColorTypeNone = 0,
+    /**
+     *  Yellow protection.
+     */
+    SRGYouthProtectionColorTypeYellow,
+    /**
+     *  Red protection.
+     */
+    SRGYouthProtectionColorTypeRed
+};
