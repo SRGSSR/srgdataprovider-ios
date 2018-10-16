@@ -39,7 +39,7 @@
 @property (nonatomic) NSTimeInterval duration;
 @property (nonatomic) SRGBlockingReason originalBlockingReason;
 @property (nonatomic, getter=isPlayableAbroad) BOOL playableAbroad;
-@property (nonatomic) SRGYouthProtectionColorType youthProtectionColorType;
+@property (nonatomic) SRGYouthProtectionColor youthProtectionColor;
 @property (nonatomic) NSURL *podcastStandardDefinitionURL;
 @property (nonatomic) NSURL *podcastHighDefinitionURL;
 @property (nonatomic) NSDate *startDate;
@@ -84,7 +84,7 @@
                        @keypath(SRGMedia.new, duration) : @"duration",
                        @keypath(SRGMedia.new, originalBlockingReason) : @"blockReason",
                        @keypath(SRGMedia.new, playableAbroad) : @"playableAbroad",
-                       @keypath(SRGMedia.new, youthProtectionColorType) : @"youthProtectionColor",
+                       @keypath(SRGMedia.new, youthProtectionColor) : @"youthProtectionColor",
                        @keypath(SRGMedia.new, podcastStandardDefinitionURL) : @"podcastSdUrl",
                        @keypath(SRGMedia.new, podcastHighDefinitionURL) : @"podcastHdUrl",
                        @keypath(SRGMedia.new, startDate) : @"validFrom",
@@ -165,9 +165,9 @@
     return SRGBlockingReasonJSONTransformer();
 }
 
-+ (NSValueTransformer *)youthProtectionColorTypeJSONTransformer
++ (NSValueTransformer *)youthProtectionColorJSONTransformer
 {
-    return SRGYouthProtectionColorTypeJSONTransformer();
+    return SRGYouthProtectionColorJSONTransformer();
 }
 
 + (NSValueTransformer *)podcastStandardDefinitionURLJSONTransformer

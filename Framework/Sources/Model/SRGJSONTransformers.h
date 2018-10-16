@@ -28,4 +28,4 @@ OBJC_EXPORT NSValueTransformer *SRGSubtitleFormatJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGTransmissionJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGVendorJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGVideoCodecJSONTransformer(void);
-OBJC_EXPORT NSValueTransformer *SRGYouthProtectionColorTypeJSONTransformer(void);
+OBJC_EXPORT NSValueTransformer *SRGYouthProtectionColorJSONTransformer(void);
