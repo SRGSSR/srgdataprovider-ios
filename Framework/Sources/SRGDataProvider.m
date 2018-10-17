@@ -680,7 +680,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
 {
-    NSURL *URL = [self.serviceURL URLByAppendingPathComponent:[resourcePath stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLPathAllowedCharacterSet]];
+    NSURL *URL = [self.serviceURL URLByAppendingPathComponent:resourcePath];
     NSURLComponents *URLComponents = [NSURLComponents componentsWithString:URL.absoluteString];
     
     NSMutableArray<NSURLQueryItem *> *fullQueryItems = [NSMutableArray array];
