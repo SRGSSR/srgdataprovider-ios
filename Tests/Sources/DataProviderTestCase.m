@@ -19,7 +19,7 @@
     NSURL *serviceURL = SRGIntegrationLayerProductionServiceURL();
     
     SRGDataProvider *dataProvider1 = [[SRGDataProvider alloc] initWithServiceURL:serviceURL];
-    XCTAssertEqualObjects(dataProvider1.serviceURL, [NSURL URLWithString:@"https://il.srgssr.ch/"]);
+    XCTAssertEqualObjects(dataProvider1.serviceURL, [NSURL URLWithString:@"https://il.srgssr.ch/integrationlayer/"]);
     
     XCTAssertNil(SRGDataProvider.currentDataProvider);
     SRGDataProvider.currentDataProvider = dataProvider1;
