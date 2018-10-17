@@ -451,7 +451,7 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    NSURL *serviceURL = [NSURL URLWithString:@"http://intlayer.production.srf.ch"];
+    NSURL *serviceURL = [NSURL URLWithString:@"http://intlayer.production.srf.ch/integrationlayer"];
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:serviceURL];
     dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
     

@@ -25,17 +25,17 @@ static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSD
 
 NSURL *SRGIntegrationLayerProductionServiceURL(void)
 {
-    return [NSURL URLWithString:@"https://il.srgssr.ch"];
+    return [NSURL URLWithString:@"https://il.srgssr.ch/integrationlayer"];
 }
 
 NSURL *SRGIntegrationLayerStagingServiceURL(void)
 {
-    return [NSURL URLWithString:@"https://il-stage.srgssr.ch"];
+    return [NSURL URLWithString:@"https://il-stage.srgssr.ch/integrationlayer"];
 }
 
 NSURL *SRGIntegrationLayerTestServiceURL(void)
 {
-    return [NSURL URLWithString:@"https://il-test.srgssr.ch"];
+    return [NSURL URLWithString:@"https://il-test.srgssr.ch/integrationlayer"];
 }
 
 NSString *SRGPathComponentForVendor(SRGVendor vendor)
@@ -78,14 +78,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (instancetype)initWithServiceURL:(NSURL *)serviceURL
 {
     if (self = [super init]) {
-        // According to the standard, the base URL must end with a slash or the last path component will be truncated
-        // See http://stackoverflow.com/questions/16582350/nsurl-urlwithstringrelativetourl-is-clipping-relative-url
-        if ([serviceURL.absoluteString hasSuffix:@"/"]) {
-            self.serviceURL = serviceURL;
-        }
-        else {
-            self.serviceURL = [NSURL URLWithString:[serviceURL.absoluteString stringByAppendingString:@"/"]];
-        }
+        self.serviceURL = serviceURL;
         
         // The session delegate is retained. We could have self be the delegate, but we would need a way to invalidate
         // the session (e.g. by calling -invalidateAndCancel) so that the delegate is released, and thus a data provider
@@ -119,7 +112,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (SRGRequest *)tvChannelsForVendor:(SRGVendor)vendor
                 withCompletionBlock:(SRGChannelListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channelList/tv.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/channelList/tv.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGChannel.class rootKey:@"channelList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, HTTPResponse, error);
@@ -130,7 +123,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                            withUid:(NSString *)channelUid
                    completionBlock:(SRGChannelCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channel/%@/tv/nowAndNext.json", SRGPathComponentForVendor(vendor), channelUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/channel/%@/tv/nowAndNext.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self fetchObjectWithURLRequest:URLRequest modelClass:SRGChannel.class completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(object, HTTPResponse, error);
@@ -140,7 +133,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (SRGRequest *)tvLivestreamsForVendor:(SRGVendor)vendor
                    withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/livestreams.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/livestreams.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, HTTPResponse, error);
@@ -150,7 +143,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (SRGFirstPageRequest *)tvScheduledLivestreamsForVendor:(SRGVendor)vendor
                                      withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/scheduledLivestreams.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/scheduledLivestreams.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -160,7 +153,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (SRGFirstPageRequest *)tvEditorialMediasForVendor:(SRGVendor)vendor
                                 withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/editorial.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/editorial.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -170,7 +163,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (SRGFirstPageRequest *)tvLatestMediasForVendor:(SRGVendor)vendor
                              withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestEpisodes.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestEpisodes.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -180,7 +173,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (SRGFirstPageRequest *)tvMostPopularMediasForVendor:(SRGVendor)vendor
                                   withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/mostClicked.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/mostClicked.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -190,7 +183,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (SRGFirstPageRequest *)tvSoonExpiringMediasForVendor:(SRGVendor)vendor
                                    withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/soonExpiring.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/soonExpiring.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -204,7 +197,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGRequest *)tvTrendingMediasForVendor:(SRGVendor)vendor withLimit:(NSNumber *)limit editorialLimit:(NSNumber *)editorialLimit episodesOnly:(BOOL)episodesOnly completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/trending.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/trending.json", SRGPathComponentForVendor(vendor)];
     
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
     
@@ -231,7 +224,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (SRGFirstPageRequest *)tvLatestEpisodesForVendor:(SRGVendor)vendor
                                withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestEpisodes.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestEpisodes.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -247,7 +240,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }
     
     NSString *dateString = SRGDataProviderRequestDateString(date);
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/episodesByDate/%@.json", SRGPathComponentForVendor(vendor), dateString];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/episodesByDate/%@.json", SRGPathComponentForVendor(vendor), dateString];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -257,7 +250,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (SRGRequest *)tvTopicsForVendor:(SRGVendor)vendor
               withCompletionBlock:(SRGTopicListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/topicList/tv.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/topicList/tv.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGTopic.class rootKey:@"topicList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, HTTPResponse, error);
@@ -267,7 +260,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (SRGFirstPageRequest *)tvShowsForVendor:(SRGVendor)vendor
                       withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/tv/alphabetical.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/showList/tv/alphabetical.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGShow.class rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -276,7 +269,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGFirstPageRequest *)tvShowsForVendor:(SRGVendor)vendor matchingQuery:(NSString *)query withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultListShow/tv.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultListShow/tv.json", SRGPathComponentForVendor(vendor)];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGSearchResultShow.class rootKey:@"searchResultListShow" completionBlock:completionBlock];
@@ -286,7 +279,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGRequest *)radioChannelsForVendor:(SRGVendor)vendor withCompletionBlock:(SRGChannelListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channelList/radio.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/channelList/radio.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGChannel.class rootKey:@"channelList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, HTTPResponse, error);
@@ -298,7 +291,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                         livestreamUid:(NSString *)livestreamUid
                       completionBlock:(SRGChannelCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/channel/%@/radio/nowAndNext.json", SRGPathComponentForVendor(vendor), channelUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/channel/%@/radio/nowAndNext.json", SRGPathComponentForVendor(vendor), channelUid];
     
     NSArray<NSURLQueryItem *> *queryItems = nil;
     if (livestreamUid) {
@@ -315,7 +308,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                                channelUid:(NSString *)channelUid
                       withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/livestreamsByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/audio/livestreamsByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, HTTPResponse, error);
@@ -326,7 +319,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                          contentProviders:(SRGContentProviders)contentProviders
                       withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/livestreams.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/audio/livestreams.json", SRGPathComponentForVendor(vendor)];
     NSArray<NSURLQueryItem *> *queryItems = nil;
     
     switch (contentProviders) {
@@ -355,7 +348,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                                          channelUid:(NSString *)channelUid
                                 withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/latestByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/audio/latestByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -366,7 +359,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                                               channelUid:(NSString *)channelUid
                                      withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/mostClickedByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/audio/mostClickedByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -377,7 +370,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                                            channelUid:(NSString *)channelUid
                                   withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/latestEpisodesByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/audio/latestEpisodesByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -388,7 +381,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                                          channelUid:(NSString *)channelUid
                                 withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -405,7 +398,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }
     
     NSString *dateString = SRGDataProviderRequestDateString(date);
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/audio/episodesByDateAndChannel/%@/%@.json", SRGPathComponentForVendor(vendor), dateString, channelUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/audio/episodesByDateAndChannel/%@/%@.json", SRGPathComponentForVendor(vendor), dateString, channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -416,7 +409,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                                   channelUid:(NSString *)channelUid
                          withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/showList/radio/alphabeticalByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/showList/radio/alphabeticalByChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGShow.class rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -427,7 +420,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                                matchingQuery:(NSString *)query
                          withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultListShow/radio.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultListShow/radio.json", SRGPathComponentForVendor(vendor)];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGSearchResultShow.class rootKey:@"searchResultListShow" completionBlock:completionBlock];
@@ -439,7 +432,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                                   channelUid:(NSString *)channelUid
                          withCompletionBlock:(SRGPaginatedSongListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/songList/radio/byChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/songList/radio/byChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGSong.class rootKey:@"songList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -450,7 +443,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                                channelUid:(NSString *)channelUid
                       withCompletionBlock:(SRGSongCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/songList/radio/byChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/songList/radio/byChannel/%@.json", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:@[ [NSURLQueryItem queryItemWithName:@"onlyCurrentSong" value:@"true"] ]];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGSong.class rootKey:@"songList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects.firstObject, HTTPResponse, error);
@@ -462,7 +455,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (SRGFirstPageRequest *)liveCenterVideosForVendor:(SRGVendor)vendor
                                withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/scheduledLivestreams/livecenter.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/scheduledLivestreams/livecenter.json", SRGPathComponentForVendor(vendor)];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -475,7 +468,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                            matchingQuery:(NSString *)query
                      withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultListMedia/video.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultListMedia/video.json", SRGPathComponentForVendor(vendor)];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGSearchResultMedia.class rootKey:@"searchResultListMedia" completionBlock:completionBlock];
@@ -489,10 +482,10 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = nil;
     if (fullLengthExcluded) {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestByTags/excludeFullLength.json", SRGPathComponentForVendor(vendor)];
+        resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestByTags/excludeFullLength.json", SRGPathComponentForVendor(vendor)];
     }
     else {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/mediaList/video/latestByTags.json", SRGPathComponentForVendor(vendor)];
+        resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestByTags.json", SRGPathComponentForVendor(vendor)];
     }
     
     NSString *includesString = [tags componentsJoinedByString:@","];
@@ -512,7 +505,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                            matchingQuery:(NSString *)query
                      withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/searchResultListMedia/audio.json", SRGPathComponentForVendor(vendor)];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultListMedia/audio.json", SRGPathComponentForVendor(vendor)];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGSearchResultMedia.class rootKey:@"searchResultListMedia" completionBlock:completionBlock];
@@ -526,10 +519,10 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = nil;
     if (userId) {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/recommendedByUserId/byUrn/%@/%@.json", URN, userId];
+        resourcePath = [NSString stringWithFormat:@"2.0/mediaList/recommendedByUserId/byUrn/%@/%@.json", URN, userId];
     }
     else {
-        resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/recommended/byUrn/%@.json", URN];
+        resourcePath = [NSString stringWithFormat:@"2.0/mediaList/recommended/byUrn/%@.json", URN];
     }
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
@@ -545,7 +538,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
              withCompletionBlock:(SRGModuleListCompletionBlock)completionBlock
 {
     NSString *moduleTypeString = [SRGModuleTypeJSONTransformer() reverseTransformedValue:@(moduleType)];
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/%@/moduleConfigList/%@.json", SRGPathComponentForVendor(vendor), moduleTypeString.lowercaseString];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/moduleConfigList/%@.json", SRGPathComponentForVendor(vendor), moduleTypeString.lowercaseString];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGModule.class rootKey:@"moduleConfigList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, HTTPResponse, error);
@@ -576,7 +569,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSString *endpoint = s_endpoints[@(type)];
     NSAssert(endpoint, @"A supported social count type must be provided");
     
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaStatistic/byUrn/%@/%@.json", subdivision.URN, endpoint];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/mediaStatistic/byUrn/%@/%@.json", subdivision.URN, endpoint];
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     
     NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL];
@@ -602,7 +595,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGRequest *)mediaWithURN:(NSString *)mediaURN completionBlock:(SRGMediaCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/media/byUrn/%@.json", mediaURN];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/media/byUrn/%@.json", mediaURN];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self fetchObjectWithURLRequest:URLRequest modelClass:SRGMedia.class completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(object, HTTPResponse, error);
@@ -611,7 +604,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGRequest *)mediasWithURNs:(NSArray<NSString *> *)mediaURNs completionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/byUrns.json"];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/mediaList/byUrns.json"];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"urns" value:[mediaURNs componentsJoinedByString: @","]] ];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
@@ -621,7 +614,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGFirstPageRequest *)latestMediasForTopicWithURN:(NSString *)topicURN completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/latest/byTopicUrn/%@.json", topicURN];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/mediaList/latest/byTopicUrn/%@.json", topicURN];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -630,7 +623,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGFirstPageRequest *)mostPopularMediasForTopicWithURN:(NSString *)topicURN completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/mostClicked/byTopicUrn/%@.json", topicURN];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/mediaList/mostClicked/byTopicUrn/%@.json", topicURN];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -639,7 +632,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGRequest *)mediaCompositionForURN:(NSString *)mediaURN standalone:(BOOL)standalone withCompletionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaComposition/byUrn/%@.json", mediaURN];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/mediaComposition/byUrn/%@.json", mediaURN];
     NSArray<NSURLQueryItem *> *queryItems = standalone ? @[ [NSURLQueryItem queryItemWithName:@"onlyChapters" value:@"true"] ] : nil;
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems];
     return [self fetchObjectWithURLRequest:URLRequest modelClass:SRGMediaComposition.class completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
@@ -649,7 +642,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGRequest *)showWithURN:(NSString *)showURN completionBlock:(SRGShowCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/show/byUrn/%@.json", showURN];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/show/byUrn/%@.json", showURN];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self fetchObjectWithURLRequest:URLRequest modelClass:SRGShow.class completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(object, HTTPResponse, error);
@@ -658,7 +651,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGRequest *)showsWithURNs:(NSArray<NSString *> *)showURNs completionBlock:(SRGShowListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/showList/byUrns.json"];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/showList/byUrns.json"];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"urns" value:[showURNs componentsJoinedByString: @","]] ];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGShow.class rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
@@ -668,7 +661,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(NSString *)showURN maximumPublicationMonth:(NSDate *)maximumPublicationMonth completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/episodeComposition/latestByShow/byUrn/%@.json", showURN];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/episodeComposition/latestByShow/byUrn/%@.json", showURN];
     NSArray<NSURLQueryItem *> *queryItems = maximumPublicationMonth ? @[ SRGDataProviderURLQueryItemForMaximumPublicationMonth(maximumPublicationMonth) ] : nil;
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems];
     return [self fetchObjectWithURLRequest:URLRequest modelClass:SRGEpisodeComposition.class completionBlock:completionBlock];
@@ -676,7 +669,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGFirstPageRequest *)latestMediasForModuleWithURN:(NSString *)moduleURN completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"integrationlayer/2.0/mediaList/latestByModuleConfigUrn/%@.json", moduleURN];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/mediaList/latestByModuleConfigUrn/%@.json", moduleURN];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -685,10 +678,9 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 #pragma mark Common implementation
 
-- (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(nullable NSArray<NSURLQueryItem *> *)queryItems
+- (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
 {
-    NSURL *URL = [NSURL URLWithString:[resourcePath stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLPathAllowedCharacterSet]
-                        relativeToURL:self.serviceURL];
+    NSURL *URL = [self.serviceURL URLByAppendingPathComponent:[resourcePath stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLPathAllowedCharacterSet]];
     NSURLComponents *URLComponents = [NSURLComponents componentsWithString:URL.absoluteString];
     
     NSMutableArray<NSURLQueryItem *> *fullQueryItems = [NSMutableArray array];
@@ -701,7 +693,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     return URLComponents.URL;
 }
 
-- (NSURLRequest *)URLRequestForResourcePath:(NSString *)resourcePath withQueryItems:(nullable NSArray<NSURLQueryItem *> *)queryItems
+- (NSURLRequest *)URLRequestForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
 {
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
