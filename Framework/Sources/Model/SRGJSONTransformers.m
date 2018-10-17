@@ -321,3 +321,16 @@ NSValueTransformer *SRGVideoCodecJSONTransformer(void)
     });
     return s_transformer;
 }
+
+NSValueTransformer *SRGYouthProtectionColorJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"YELLOW" : @(SRGYouthProtectionColorYellow),
+                                                                                         @"RED" : @(SRGYouthProtectionColorRed) }
+                                                                         defaultValue:@(SRGYouthProtectionColorNone)
+                                                                  reverseDefaultValue:nil];
+    });
+    return s_transformer;
+}
