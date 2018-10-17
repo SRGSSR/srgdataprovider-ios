@@ -194,8 +194,6 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 
 /**
  *  The service URL which has been set.
- *
- *  @discussion Always ends with a slash, even if the service URL set at creation does not.
  */
 @property (nonatomic, readonly) NSURL *serviceURL;
 

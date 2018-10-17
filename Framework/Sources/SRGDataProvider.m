@@ -78,14 +78,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (instancetype)initWithServiceURL:(NSURL *)serviceURL
 {
     if (self = [super init]) {
-        // According to the standard, the base URL must end with a slash or the last path component will be truncated
-        // See http://stackoverflow.com/questions/16582350/nsurl-urlwithstringrelativetourl-is-clipping-relative-url
-        if ([serviceURL.absoluteString hasSuffix:@"/"]) {
-            self.serviceURL = serviceURL;
-        }
-        else {
-            self.serviceURL = [NSURL URLWithString:[serviceURL.absoluteString stringByAppendingString:@"/"]];
-        }
+        self.serviceURL = serviceURL;
         
         // The session delegate is retained. We could have self be the delegate, but we would need a way to invalidate
         // the session (e.g. by calling -invalidateAndCancel) so that the delegate is released, and thus a data provider
@@ -687,8 +680,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
 {
-    NSURL *URL = [NSURL URLWithString:[resourcePath stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLPathAllowedCharacterSet]
-                        relativeToURL:self.serviceURL];
+    NSURL *URL = [self.serviceURL URLByAppendingPathComponent:[resourcePath stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLPathAllowedCharacterSet]];
     NSURLComponents *URLComponents = [NSURLComponents componentsWithString:URL.absoluteString];
     
     NSMutableArray<NSURLQueryItem *> *fullQueryItems = [NSMutableArray array];
