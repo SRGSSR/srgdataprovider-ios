@@ -42,7 +42,7 @@ NSString *SRGMessageForSkippedSegmentWithBlockingReason(SRGBlockingReason blocki
     return messages[@(blockingReason)];
 }
 
-NSString *SRGMessageForYouthProtectioncolor(SRGYouthProtectionColor youthProtectionColor)
+NSString *SRGMessageForYouthProtectionColor(SRGYouthProtectionColor youthProtectionColor)
 {
     static dispatch_once_t onceToken;
     static NSDictionary *messages;

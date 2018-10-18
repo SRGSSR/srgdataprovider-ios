@@ -465,7 +465,7 @@ typedef NS_ENUM(NSInteger, SRGYouthProtectionColor) {
 /**
  *  Return a suggested error message for a chapter, segment or a media youth protection color, `nil` if none.
  */
-OBJC_EXPORT NSString * _Nullable SRGMessageForYouthProtectioncolor(SRGYouthProtectionColor youthProtectionColor);
+OBJC_EXPORT NSString * _Nullable SRGMessageForYouthProtectionColor(SRGYouthProtectionColor youthProtectionColor);
 
 /**
  *  @name Data provider library types.
