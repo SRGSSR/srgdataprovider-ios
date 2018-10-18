@@ -11,6 +11,40 @@
  */
 
 /**
+ *  Audio codecs.
+ */
+typedef NS_ENUM(NSInteger, SRGAudioCodec) {
+    /**
+     *  Not specified.
+     */
+    SRGAudioCodecNone = 0,
+    /**
+     *  Advanced Audio Coding.
+     */
+    SRGAudioCodecAAC,
+    /**
+     *  High-Efficiency Advanced Audio Coding.
+     */
+    SRGAudioCodecAAC_HE,
+    /**
+     *  MP3.
+     */
+    SRGAudioCodecMP3,
+    /**
+     *  MP2.
+     */
+    SRGAudioCodecMP2,
+    /**
+     *  WMAV2.
+     */
+    SRGAudioCodecWMAV2,
+    /**
+     *  Unknown.
+     */
+    SRGAudioCodecUnknown
+};
+
+/**
  *  Reasons for content blocking.
  */
 typedef NS_ENUM(NSInteger, SRGBlockingReason) {
@@ -53,73 +87,16 @@ typedef NS_ENUM(NSInteger, SRGBlockingReason) {
 };
 
 /**
- *  Return a suggested error message for a chapter or a media blocking reason (a full episode is blocked, or we just 
+ *  Return a suggested error message for a chapter or a media blocking reason (a full episode is blocked, or we just
  *  have a media object), `nil` if none.
  */
 OBJC_EXPORT NSString * _Nullable SRGMessageForBlockedMediaWithBlockingReason(SRGBlockingReason blockingReason);
 
 /**
- *  Return a suggested error message for a segment blocking reason (just a segment of an episode is blocked, and 
+ *  Return a suggested error message for a segment blocking reason (just a segment of an episode is blocked, and
  *  skipped during the playback), `nil` if none.
  */
 OBJC_EXPORT NSString * _Nullable SRGMessageForSkippedSegmentWithBlockingReason(SRGBlockingReason blockingReason);
-
-/**
- *  Youth protection colors.
- */
-typedef NS_ENUM(NSInteger, SRGYouthProtectionColor) {
-    /**
-     *  Not specified.
-     */
-    SRGYouthProtectionColorNone = 0,
-    /**
-     *  Yellow.
-     */
-    SRGYouthProtectionColorYellow,
-    /**
-     *  Red.
-     */
-    SRGYouthProtectionColorRed
-};
-
-/**
- *  Return a suggested error message for a chapter, segment or a media youth protection color, `nil` if none.
- */
-OBJC_EXPORT NSString * _Nullable SRGMessageForYouthProtectioncolor(SRGYouthProtectionColor youthProtectionColor);
-
-/**
- *  Audio codecs.
- */
-typedef NS_ENUM(NSInteger, SRGAudioCodec) {
-    /**
-     *  Not specified.
-     */
-    SRGAudioCodecNone = 0,
-    /**
-     *  Advanced Audio Coding.
-     */
-    SRGAudioCodecAAC,
-    /**
-     *  High-Efficiency Advanced Audio Coding.
-     */
-    SRGAudioCodecAAC_HE,
-    /**
-     *  MP3.
-     */
-    SRGAudioCodecMP3,
-    /**
-     *  MP2.
-     */
-    SRGAudioCodecMP2,
-    /**
-     *  WMAV2.
-     */
-    SRGAudioCodecWMAV2,
-    /**
-     *  Unknown.
-     */
-    SRGAudioCodecUnknown
-};
 
 /**
  *  Content types.
@@ -466,6 +443,29 @@ typedef NS_ENUM(NSInteger, SRGVideoCodec) {
      */
     SRGVideoCodecUnknown
 };
+
+/**
+ *  Youth protection colors.
+ */
+typedef NS_ENUM(NSInteger, SRGYouthProtectionColor) {
+    /**
+     *  Not specified.
+     */
+    SRGYouthProtectionColorNone = 0,
+    /**
+     *  Yellow.
+     */
+    SRGYouthProtectionColorYellow,
+    /**
+     *  Red.
+     */
+    SRGYouthProtectionColorRed
+};
+
+/**
+ *  Return a suggested error message for a chapter, segment or a media youth protection color, `nil` if none.
+ */
+OBJC_EXPORT NSString * _Nullable SRGMessageForYouthProtectioncolor(SRGYouthProtectionColor youthProtectionColor);
 
 /**
  *  @name Data provider library types.
