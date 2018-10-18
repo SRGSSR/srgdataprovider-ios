@@ -65,6 +65,29 @@ OBJC_EXPORT NSString * _Nullable SRGMessageForBlockedMediaWithBlockingReason(SRG
 OBJC_EXPORT NSString * _Nullable SRGMessageForSkippedSegmentWithBlockingReason(SRGBlockingReason blockingReason);
 
 /**
+ *  Youth protection colors.
+ */
+typedef NS_ENUM(NSInteger, SRGYouthProtectionColor) {
+    /**
+     *  Not specified.
+     */
+    SRGYouthProtectionColorNone = 0,
+    /**
+     *  Yellow.
+     */
+    SRGYouthProtectionColorYellow,
+    /**
+     *  Red.
+     */
+    SRGYouthProtectionColorRed
+};
+
+/**
+ *  Return a suggested error message for a chapter, segment or a media youth protection color, `nil` if none.
+ */
+OBJC_EXPORT NSString * _Nullable SRGMessageForYouthProtectioncolor(SRGYouthProtectionColor youthProtectionColor);
+
+/**
  *  Audio codecs.
  */
 typedef NS_ENUM(NSInteger, SRGAudioCodec) {
@@ -518,22 +541,4 @@ typedef NS_ENUM(NSInteger, SRGTimeAvailability) {
      *  The media is not available anymore.
      */
     SRGTimeAvailabilityNotAvailableAnymore
-};
-
-/**
- *  Youth protection colors.
- */
-typedef NS_ENUM(NSInteger, SRGYouthProtectionColor) {
-    /**
-     *  Not specified.
-     */
-    SRGYouthProtectionColorNone = 0,
-    /**
-     *  Yellow.
-     */
-    SRGYouthProtectionColorYellow,
-    /**
-     *  Red.
-     */
-    SRGYouthProtectionColorRed
 };

@@ -41,3 +41,14 @@ NSString *SRGMessageForSkippedSegmentWithBlockingReason(SRGBlockingReason blocki
     });
     return messages[@(blockingReason)];
 }
+
+NSString *SRGMessageForYouthProtectioncolor(SRGYouthProtectionColor youthProtectionColor)
+{
+    static dispatch_once_t onceToken;
+    static NSDictionary *messages;
+    dispatch_once(&onceToken, ^{
+        messages = @{ @(SRGYouthProtectionColorYellow) : SRGDataProviderLocalizedString(@"Parental advisory", @"A youth protection message displayed to the user if the media has the yellow protection color."),
+                      @(SRGYouthProtectionColorRed) : SRGDataProviderLocalizedString(@"This program contains disturbing content and might not be suitable to some audiences", @"A youth protection message displayed to the user if the media has the red protection color.") };
+    });
+    return messages[@(youthProtectionColor)];
+}

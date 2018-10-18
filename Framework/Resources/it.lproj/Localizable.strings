@@ -1,3 +1,6 @@
+/* A youth protection message displayed to the user if the media has the yellow protection color. */
+"Parental advisory" = "Parental advisory";
+
 /* The main error message if multiple errors have been encountered. Finally, the developer could should which one to display, and not show this message. */
 "Several errors have been encountered" = "Sono stati riscontrati alcuni errori";
 
@@ -45,6 +48,9 @@
 
 /* A blocking reason message displayed to the user if the media can't be played. */
 "This media is not available." = "Questo media non è disponibile.";
+
+/* A youth protection message displayed to the user if the media has the red protection color. */
+"This program contains disturbing content and might not be suitable to some audiences" = "This program contains disturbing content and might not be suitable to some audiences";
 
 /* A blocking reason message displayed to the user if the media can't be played. */
 "To protect children, this media is only available between 11PM and 5AM." = "Per proteggere i bambini, questo media è disponibile solo fra le 23 le 5.";
