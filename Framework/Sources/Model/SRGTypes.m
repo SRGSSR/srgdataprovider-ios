@@ -52,3 +52,14 @@ NSString *SRGMessageForYouthProtectionColor(SRGYouthProtectionColor youthProtect
     });
     return s_messages[@(youthProtectionColor)];
 }
+
+NSString *SRGAccessibilityLabelForYouthProtectionColor(SRGYouthProtectionColor youthProtectionColor)
+{
+    static dispatch_once_t s_onceToken;
+    static NSDictionary *s_messages;
+    dispatch_once(&s_onceToken, ^{
+        s_messages = @{ @(SRGYouthProtectionColorYellow) : SRGDataProviderAccessibilityLocalizedString(@"Parental advisory", @"A short youth protection message stated to the user if the media has the yellow protection color."),
+                        @(SRGYouthProtectionColorRed) : SRGDataProviderAccessibilityLocalizedString(@"Desensitized public", @"A short youth protection message stated to the user if the media has the red protection color.") };
+    });
+    return s_messages[@(youthProtectionColor)];
+}
