@@ -1,6 +1,5 @@
-﻿/* A youth protection message stated to the user if the media has the red protection color. */
-"Desensitized public" = "Desensitized public";
+/* A short youth protection message stated to the user if the media has the red protection color. */
+"Desensitized public" = "Public averti";
 
-/* A youth protection message stated to the user if the media has the yellow protection color. */
-"Parental advisory" = "Parental advisory";
-
+/* A short youth protection message stated to the user if the media has the yellow protection color. */
+"Parental advisory" = "Accord parental";

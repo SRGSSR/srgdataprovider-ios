@@ -468,7 +468,7 @@ typedef NS_ENUM(NSInteger, SRGYouthProtectionColor) {
 OBJC_EXPORT NSString * _Nullable SRGMessageForYouthProtectionColor(SRGYouthProtectionColor youthProtectionColor);
 
 /**
- *  Return a suggested accessibilityLabel for a chapter, segment or a media youth protection color, `nil` if none.
+ *  Return a suggested accessibility label for a chapter, segment or a media youth protection color, `nil` if none.
  */
 OBJC_EXPORT NSString * _Nullable SRGAccessibilityLabelForYouthProtectionColor(SRGYouthProtectionColor youthProtectionColor);
 
