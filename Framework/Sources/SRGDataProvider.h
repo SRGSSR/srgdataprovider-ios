@@ -95,9 +95,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *
  *  ## Instantiation
  *
- *  You instantiate a data provider with a service base URL. The service URL must expose services whose endpoints start
- *  with 'integrationlayer/', corresponding to a working Integration Layer installation. Official server URLs are available
- *  at the top of this header files.
+ *  You instantiate a data provider with a service URL where all required service endpoints are exposed. Official service URLs
+ *  are available at the top of this header file.
  *
  *  In general, a single data provider suffices, which can be used like a singleton by instantiating it early in your application
  *  lifecycle (e.g. in your `-applicationDidFinishLaunching:withOptions:` implementation) and setting it as global shared instance
@@ -189,16 +188,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Instantiate a data provider.
  *
- *  @param serviceURL             The Integration Layer service base URL (which must expose service endpoints
- *                                starting with '/integrationlayer'). Official service URLs are available at
- *                                the top of this header file.
+ *  @param serviceURL The service URL to use. Official service URLs are available at the top of this header file.
  */
 - (instancetype)initWithServiceURL:(NSURL *)serviceURL NS_DESIGNATED_INITIALIZER;
 
 /**
  *  The service URL which has been set.
- *
- *  @discussion Always ends with a slash, even if the service URL set at creation wasn't.
  */
 @property (nonatomic, readonly) NSURL *serviceURL;
 

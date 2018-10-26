@@ -15,6 +15,7 @@
 		08879BFF1FEC597B00CF3980 /* SRGSubtopic.h in Headers */ = {isa = PBXBuildFile; fileRef = 08879BFD1FEC597B00CF3980 /* SRGSubtopic.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08879C001FEC597B00CF3980 /* SRGSubtopic.m in Sources */ = {isa = PBXBuildFile; fileRef = 08879BFE1FEC597B00CF3980 /* SRGSubtopic.m */; };
 		08879C031FEC6C1D00CF3980 /* SubdivisionTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 08879C011FEC6C1200CF3980 /* SubdivisionTestCase.m */; };
+		08AB6CDE217F4DB0002DBA43 /* Accessibility.strings in Resources */ = {isa = PBXBuildFile; fileRef = 08AB6CE0217F4DB0002DBA43 /* Accessibility.strings */; };
 		6F00E37B1E88EADB00817EC2 /* SRGPageRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F00E3791E88EADB00817EC2 /* SRGPageRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6F00E37C1E88EADB00817EC2 /* SRGPageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F00E37A1E88EADB00817EC2 /* SRGPageRequest.m */; };
 		6F00E3801E88EB3400817EC2 /* SRGPageRequest+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F00E37E1E88EB3400817EC2 /* SRGPageRequest+Private.h */; };
@@ -190,6 +191,11 @@
 		08879BFD1FEC597B00CF3980 /* SRGSubtopic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGSubtopic.h; sourceTree = "<group>"; };
 		08879BFE1FEC597B00CF3980 /* SRGSubtopic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SRGSubtopic.m; sourceTree = "<group>"; };
 		08879C011FEC6C1200CF3980 /* SubdivisionTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubdivisionTestCase.m; sourceTree = "<group>"; };
+		08AB6CDF217F4DB0002DBA43 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Accessibility.strings; sourceTree = "<group>"; };
+		08AB6CE1217F4DB4002DBA43 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Accessibility.strings; sourceTree = "<group>"; };
+		08AB6CE2217F4DB4002DBA43 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Accessibility.strings; sourceTree = "<group>"; };
+		08AB6CE3217F4DB8002DBA43 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Accessibility.strings; sourceTree = "<group>"; };
+		08AB6CE4217F4DB9002DBA43 /* rm */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = rm; path = rm.lproj/Accessibility.strings; sourceTree = "<group>"; };
 		08B2D8FD1E7FFEC0000DEF4F /* rm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = rm; path = rm.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6F00E3791E88EADB00817EC2 /* SRGPageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGPageRequest.h; sourceTree = "<group>"; };
 		6F00E37A1E88EADB00817EC2 /* SRGPageRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGPageRequest.m; sourceTree = "<group>"; };
@@ -601,6 +607,7 @@
 			children = (
 				E6C2B3CF1D39239E00B6250B /* Localizable.strings */,
 				6F00F7B52148DE650016E664 /* Info.plist */,
+				08AB6CE0217F4DB0002DBA43 /* Accessibility.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -787,6 +794,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F926BCD210F434500D2E3D0 /* Localizable.strings in Resources */,
+				08AB6CDE217F4DB0002DBA43 /* Accessibility.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -905,6 +913,18 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		08AB6CE0217F4DB0002DBA43 /* Accessibility.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				08AB6CDF217F4DB0002DBA43 /* en */,
+				08AB6CE1217F4DB4002DBA43 /* de */,
+				08AB6CE2217F4DB4002DBA43 /* fr */,
+				08AB6CE3217F4DB8002DBA43 /* it */,
+				08AB6CE4217F4DB9002DBA43 /* rm */,
+			);
+			name = Accessibility.strings;
+			sourceTree = "<group>";
+		};
 		E6C2B3CF1D39239E00B6250B /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -974,7 +994,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MARKETING_VERSION = 6.3;
+				MARKETING_VERSION = 6.3.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1070,7 +1090,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MARKETING_VERSION = 6.3;
+				MARKETING_VERSION = 6.3.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1280,7 +1300,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MARKETING_VERSION = 6.3;
+				MARKETING_VERSION = 6.3.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1336,7 +1356,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MARKETING_VERSION = 6.3;
+				MARKETING_VERSION = 6.3.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

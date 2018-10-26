@@ -231,19 +231,19 @@ NSValueTransformer *SRGStreamingMethodJSONTransformer(void)
 
 NSValueTransformer *SRGSocialCountTypeJSONTransformer(void)
 {
-    static NSValueTransformer *transformer;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        transformer =  [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"srgView": @(SRGSocialCountTypeSRGView),
-                                                                                        @"srgLike": @(SRGSocialCountTypeSRGLike),
-                                                                                        @"fbShare": @(SRGSocialCountTypeFacebookShare),
-                                                                                        @"twitterShare": @(SRGSocialCountTypeTwitterShare),
-                                                                                        @"googleShare": @(SRGSocialCountTypeGooglePlusShare),
-                                                                                        @"whatsAppShare": @(SRGSocialCountTypeWhatsAppShare) }
-                                                                        defaultValue:@(SRGSocialCountTypeNone)
-                                                                 reverseDefaultValue:nil];
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer =  [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"srgView": @(SRGSocialCountTypeSRGView),
+                                                                                          @"srgLike": @(SRGSocialCountTypeSRGLike),
+                                                                                          @"fbShare": @(SRGSocialCountTypeFacebookShare),
+                                                                                          @"twitterShare": @(SRGSocialCountTypeTwitterShare),
+                                                                                          @"googleShare": @(SRGSocialCountTypeGooglePlusShare),
+                                                                                          @"whatsAppShare": @(SRGSocialCountTypeWhatsAppShare) }
+                                                                          defaultValue:@(SRGSocialCountTypeNone)
+                                                                   reverseDefaultValue:nil];
     });
-    return transformer;
+    return s_transformer;
 }
 
 NSValueTransformer *SRGSourceJSONTransformer(void)
@@ -317,6 +317,19 @@ NSValueTransformer *SRGVideoCodecJSONTransformer(void)
                                                                                          @"WMV3" : @(SRGVideoCodecWMV3),
                                                                                          @"UNKNOWN" : @(SRGVideoCodecUnknown) }
                                                                          defaultValue:@(SRGVideoCodecNone)
+                                                                  reverseDefaultValue:nil];
+    });
+    return s_transformer;
+}
+
+NSValueTransformer *SRGYouthProtectionColorJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"YELLOW" : @(SRGYouthProtectionColorYellow),
+                                                                                         @"RED" : @(SRGYouthProtectionColorRed) }
+                                                                         defaultValue:@(SRGYouthProtectionColorNone)
                                                                   reverseDefaultValue:nil];
     });
     return s_transformer;

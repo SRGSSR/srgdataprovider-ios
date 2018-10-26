@@ -109,7 +109,7 @@ For Objective-C codebases, you can use the bundled `libextobjc` framework which 
 
 ### Request availability
 
-Request availability depends on the business unit. Refer to the provided [service compatibility matrix](Service-availability.md) for reference.
+Request availability depends on the business unit. Refer to the provided [service compatibility matrix](SERVICE_AVAILABILITY.md) for reference.
 
 ## Pagination
 

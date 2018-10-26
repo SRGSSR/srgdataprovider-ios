@@ -497,4 +497,19 @@
     [self waitForExpectationsWithTimeout:5. handler:nil];
 }
 
+- (void)testURLEncoder
+{
+    self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:[NSURL URLWithString:@"https://play-mmf.herokuapp.com/integrationlayer"]];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider latestMediasForTopicWithURN:@"urn:rts:topic:tv:bipbop And RTSInfo" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 @end
