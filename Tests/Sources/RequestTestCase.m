@@ -390,7 +390,6 @@
     // Use a small page size to be sure we get three elements in the result
     // Be sure to have only the latest pageSize set to the request.
     __block SRGRequest *request = [[[self.dataProvider tvEditorialMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotEqual(medias.count, 18);
         XCTAssertEqual(medias.count, 3);
         XCTAssertNil(error);
         
@@ -463,6 +462,23 @@
         NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
         XCTAssertEqualObjects(serviceURL.host, nextPageURLRequest.URL.host);
         XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+        [expectation fulfill];
+    }];
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testClientSideDefaultPagination
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    NSArray<NSString *> *URNs = @[@"urn:rts:video:10002568", @"urn:rts:video:10002444", @"urn:rts:video:9986412", @"urn:rts:video:9986195",
+                                  @"urn:rts:video:9948638", @"urn:rts:video:9951674", @"urn:rts:video:9951724", @"urn:rts:video:9950129",
+                                  @"urn:rts:video:9949270", @"urn:rts:video:9948800", @"urn:rts:video:9948698", @"urn:rts:video:9946068",
+                                  @"urn:rts:video:9946141"];
+    SRGRequest *request = [self.dataProvider mediasWithURNs:URNs completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertEqual(medias.count, 10);
         [expectation fulfill];
     }];
     [request resume];
