@@ -17,6 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Create a request from a URL request, starting it with the provided session, and calling the specified block on completion.
  *
+ *  @param URLRequest          The original request.
+ *  @param session             The session to use.
+ *  @param pageCompletionBlock The block to be called on completion.
+ *
  *  @discussion The completion block is called on the main thread.
  */
 - (instancetype)initWithURLRequest:(NSURLRequest *)URLRequest session:(NSURLSession *)session pageCompletionBlock:(SRGPageCompletionBlock)pageCompletionBlock;

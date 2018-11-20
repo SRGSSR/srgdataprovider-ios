@@ -469,7 +469,7 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testClientSideDefaultPagination
+- (void)testURNsDefaultPagination
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
@@ -485,6 +485,9 @@
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
+
+// TODO: Test with empty URN list
+// TODO: Test with very large URN list (only the first page, but this checks that NSURLRequest can have an arbitrary long URL)
 
 - (void)testNormalNetworkActivity
 {

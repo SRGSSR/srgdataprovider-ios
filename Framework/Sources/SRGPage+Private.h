@@ -24,22 +24,20 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Return the `SRGPage` for the first page of content, with the specified page size.
  *
- *  @param size The page size to use. Values < 1 will be fixed to 1, and values too large will be fixed to the maximum 
- *              page size.
+ *  @param request The original request.
+ *  @param size    The page size to use. Values < 1 will be fixed to 1, and values too large will be fixed to the maximum
+ *                 page size.
  */
-+ (SRGPage *)firstPageWithSize:(NSInteger)size;
++ (SRGPage *)firstPageForRequest:(NSURLRequest *)request withSize:(NSUInteger)size;
 
 /**
  *  Build the page immediately following the receiver, associating it the path where more content can be retrieved.
+ *  If no next page exists, the method returns `nil`.
  *
- *  @param path The URL were the next page of result can be retrieved.
+ *  @param request The original request.
+ *  @param nextURL The URL were a next page of result can be retrieved, if any.
  */
-- (SRGPage *)nextPageWithURL:(NSURL *)URL;
-
-/**
- *  Return the first page matching the receiver.
- */
-@property (nonatomic, readonly) SRGPage *firstPage;
+- (nullable SRGPage *)nextPageForRequest:(NSURLRequest *)request withNextURL:(nullable NSURL *)nextURL;
 
 @end
 
