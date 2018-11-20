@@ -75,7 +75,6 @@ typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medi
 typedef void (^SRGModuleListCompletionBlock)(NSArray<SRGModule *> * _Nullable modules, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGServiceMessageCompletionBlock)(SRGServiceMessage * _Nullable serviceMessage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGShowCompletionBlock)(SRGShow * _Nullable show, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
-typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGSocialCountOverviewCompletionBlock)(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGSongCompletionBlock)(SRGSong * _Nullable song, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
@@ -615,8 +614,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  @discussion Partial results can be returned if some URNs are invalid. Note that you can mix audio and video URNs,
  *              or URNs from different business units.
  */
-- (SRGRequest *)mediasWithURNs:(NSArray<NSString *> *)mediaURNs
-               completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)mediasWithURNs:(NSArray<NSString *> *)mediaURNs
+                        completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Latest medias for a specific topic.
@@ -655,8 +654,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  @discussion Partial results can be returned if some URNs are invalid. Note that you can mix TV or radio show URNs,
  *              or URNs from different business units.
  */
-- (SRGRequest *)showsWithURNs:(NSArray<NSString *> *)showURNs
-              completionBlock:(SRGShowListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)showsWithURNs:(NSArray<NSString *> *)showURNs
+                       completionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 
 /**
  *  Latest episodes for a specific show.

@@ -138,16 +138,16 @@ These services provide a way to access content from any business unit from any d
 | Request | Pagination | Unlimited page size |
 |:-- |:--:|:--:|
 | Single media by URN | ❌ | N/A |
-| List of medias by URNs | ⚠️ | ❌ |
+| List of medias by URNs | ✅ | ✅ but ⚠️ |
 | Latest medias by topic URN | ✅ | ❌ |
 | Most popular medias by topic URN | ✅ | ❌ |
 | Media composition by URN | ❌ | N/A |
 | Single show by URN | ❌ | N/A |
-| List of shows by URNs | ⚠️ | ❌ |
+| List of shows by URNs | ✅ | ✅ but ⚠️ |
 | Latest episodes for show with URN | ✅ | ❌ |
 | Latest medias by module URN | ✅ | ❌ |
 
-⚠️ No pagination. At most 50 items can be requested at a time.
+⚠️ Pagination is supported, but with a limit of 50. Attempting to request larger page sizes will fail.
 
 ## Image scaling services
 
