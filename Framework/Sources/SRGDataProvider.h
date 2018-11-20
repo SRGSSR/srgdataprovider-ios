@@ -10,6 +10,7 @@
 #import "SRGAlbum.h"
 #import "SRGArtist.h"
 #import "SRGBaseTopic.h"
+#import "SRGBroadcastInformation.h"
 #import "SRGChannel.h"
 #import "SRGChapter.h"
 #import "SRGDataProvider.h"

@@ -24,6 +24,7 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
 @property (nonatomic, copy) NSString *primaryChannelUid;
 @property (nonatomic) NSURL *bannerImageURL;
 @property (nonatomic) NSInteger numberOfEpisodes;
+@property (nonatomic) SRGBroadcastInformation *broadcastInformation;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
@@ -58,6 +59,7 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
                        @keypath(SRGShow.new, primaryChannelUid) : @"primaryChannelId",
                        @keypath(SRGShow.new, numberOfEpisodes) : @"numberOfEpisodes",
                        @keypath(SRGShow.new, bannerImageURL) : @"bannerImageUrl",
+                       @keypath(SRGShow.new, broadcastInformation) : @"broadcastInformation",
                        
                        @keypath(SRGShow.new, title) : @"title",
                        @keypath(SRGShow.new, lead) : @"lead",
@@ -115,6 +117,11 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
 + (NSValueTransformer *)bannerImageURLJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)broadcastInformationJSONTransformer
+{
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGBroadcastInformation.class];
 }
 
 + (NSValueTransformer *)transmissionJSONTransformer
