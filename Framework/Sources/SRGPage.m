@@ -30,8 +30,8 @@ const NSInteger SRGPageUnlimitedSize = NSIntegerMax;
 {
     if (page.URL) {
         NSURL *nextPageURL = page.URL;
-        if (! [page.URL.host isEqualToString:request.URL.host]) {
-            NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:page.URL resolvingAgainstBaseURL:NO];
+        if (! [nextPageURL.host isEqualToString:request.URL.host]) {
+            NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:nextPageURL resolvingAgainstBaseURL:NO];
             URLComponents.host = request.URL.host;
             nextPageURL = URLComponents.URL;
         }
