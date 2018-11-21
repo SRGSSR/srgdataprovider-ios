@@ -83,7 +83,7 @@
     XCTAssertEqual(request6.page.size, 3);
     
     // First page
-    SRGFirstPageRequest *request7 = [[[self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    SRGPageRequest *request7 = [[[self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         // Nothing, the request isn't run
     }] requestWithPageSize:36] requestWithPage:nil];
     XCTAssertFalse(request7.running);
@@ -574,6 +574,26 @@
         [expectation fulfill];
     }];
     [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testURNFirstPageOverride
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    NSArray<NSString *> *URNs = @[@"urn:rts:video:10002568", @"urn:rts:video:10002444", @"urn:rts:video:9986412", @"urn:rts:video:9986195",
+                                  @"urn:rts:video:9948638", @"urn:rts:video:9951674", @"urn:rts:video:9951724", @"urn:rts:video:9950129",
+                                  @"urn:rts:video:9949270", @"urn:rts:video:9948800", @"urn:rts:video:9948698", @"urn:rts:video:9946068",
+                                  @"urn:rts:video:9946141"];
+    SRGPageRequest *request = [[[self.dataProvider mediasWithURNs:URNs completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertEqual(medias.count, 4);
+        [expectation fulfill];
+    }] requestWithPageSize:4] requestWithPage:nil];
+    [request resume];
+    
+    XCTAssertEqual(request.page.number, 0);
+    XCTAssertEqual(request.page.size, 4);
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
