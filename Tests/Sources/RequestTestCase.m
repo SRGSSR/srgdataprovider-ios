@@ -469,7 +469,7 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testURNsDefaultPagination
+- (void)testURNListDefaultPagination
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
@@ -479,6 +479,8 @@
                                   @"urn:rts:video:9946141"];
     SRGRequest *request = [self.dataProvider mediasWithURNs:URNs completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 10);
+        XCTAssertNil(error);
+        XCTAssertNotNil(nextPage);
         [expectation fulfill];
     }];
     [request resume];
@@ -486,7 +488,21 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-// TODO: Test with empty URN list
+- (void)testEmptyURNList
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGRequest *request = [self.dataProvider mediasWithURNs:@[] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNil(medias);
+        XCTAssertNotNil(error);
+        
+        [expectation fulfill];
+    }];
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 // TODO: Test with very large URN list (only the first page, but this checks that NSURLRequest can have an arbitrary long URL)
 
 - (void)testNormalNetworkActivity

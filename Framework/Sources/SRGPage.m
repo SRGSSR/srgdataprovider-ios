@@ -58,7 +58,7 @@ const NSUInteger SRGPageUnlimitedSize = NSUIntegerMax;
     
     static NSString * const kURNsSeparator = @",";
     NSArray<NSString *> *URNs = [URNsQueryItem.value componentsSeparatedByString:kURNsSeparator];
-    if (number == 0 && URNs.count == 0) {
+    if (number == 0 && URNs.count < 2) {
         return [[self.class alloc] initWithSize:size number:0 URL:request.URL];
     }
     
