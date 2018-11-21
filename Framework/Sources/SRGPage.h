@@ -9,12 +9,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  The default page size (10 for all services).
+ *  The default page size.
  */
 static const NSUInteger SRGPageDefaultSize = 10;
 
 /**
- *  The maximum supported page size (100 for almost all services).
+ *  The maximum supported page size.
  */
 static const NSUInteger SRGPageMaximumSize = 100;
 
