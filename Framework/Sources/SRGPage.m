@@ -16,7 +16,7 @@ const NSUInteger SRGPageUnlimitedSize = NSUIntegerMax;
 
 @interface SRGPage ()
 
-@property (nonatomic) NSURLRequest *originalRequest;
+@property (nonatomic) NSURLRequest *originalURLRequest;
 @property (nonatomic) NSUInteger size;
 @property (nonatomic) NSUInteger number;
 @property (nonatomic) NSURL *URL;
@@ -29,9 +29,9 @@ const NSUInteger SRGPageUnlimitedSize = NSUIntegerMax;
 
 // Attempt to split a URL into URNs pages, client-side. If not possible or if there is no page with the specified
 // number, return `nil`.
-+ (SRGPage *)pageForURNsInOriginalRequest:(NSURLRequest *)request withSize:(NSUInteger)size number:(NSUInteger)number
++ (SRGPage *)pageForURNsInOriginalURLRequest:(NSURLRequest *)URLRequest withSize:(NSUInteger)size number:(NSUInteger)number
 {
-    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:NO];
+    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URLRequest.URL resolvingAgainstBaseURL:NO];
     NSMutableArray<NSURLQueryItem *> *queryItems = [URLComponents.queryItems mutableCopy] ?: [NSMutableArray array];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(NSURLQueryItem.new, name), @"urns"];
@@ -44,7 +44,7 @@ const NSUInteger SRGPageUnlimitedSize = NSUIntegerMax;
     static NSString * const kURNsSeparator = @",";
     NSArray<NSString *> *URNs = [URNsQueryItem.value componentsSeparatedByString:kURNsSeparator];
     if (number == 0 && URNs.count < 2) {
-        return [[self.class alloc] initWithOriginalRequest:request size:size number:0 URL:request.URL];
+        return [[self.class alloc] initWithOriginalURLRequest:URLRequest size:size number:0 URL:URLRequest.URL];
     }
     
     NSUInteger location = number * size;
@@ -58,17 +58,17 @@ const NSUInteger SRGPageUnlimitedSize = NSUIntegerMax;
     [queryItems replaceObjectAtIndex:[queryItems indexOfObject:URNsQueryItem] withObject:pageURNsQueryItem];
     
     URLComponents.queryItems = [queryItems copy];
-    return [[self.class alloc] initWithOriginalRequest:request size:size number:number URL:URLComponents.URL];
+    return [[self.class alloc] initWithOriginalURLRequest:URLRequest size:size number:number URL:URLComponents.URL];
 }
 
-+ (SRGPage *)firstPageForOriginalRequest:(NSURLRequest *)originalRequest withSize:(NSUInteger)size
++ (SRGPage *)firstPageForOriginalURLRequest:(NSURLRequest *)originalURLRequest withSize:(NSUInteger)size
 {
-    SRGPage *page = [self pageForURNsInOriginalRequest:originalRequest withSize:size number:0];
+    SRGPage *page = [self pageForURNsInOriginalURLRequest:originalURLRequest withSize:size number:0];
     if (page) {
         return page;
     }
     
-    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:originalRequest.URL resolvingAgainstBaseURL:NO];
+    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:originalURLRequest.URL resolvingAgainstBaseURL:NO];
     NSMutableArray<NSURLQueryItem *> *queryItems = [URLComponents.queryItems mutableCopy] ?: [NSMutableArray array];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K != %@", @keypath(NSURLQueryItem.new, name), @"pageSize"];
@@ -78,14 +78,15 @@ const NSUInteger SRGPageUnlimitedSize = NSUIntegerMax;
     [queryItems addObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:pageSize]];
     
     URLComponents.queryItems = [queryItems copy];
-    return [[self.class alloc] initWithOriginalRequest:originalRequest size:size number:0 URL:URLComponents.URL];
+    return [[self.class alloc] initWithOriginalURLRequest:originalURLRequest size:size number:0 URL:URLComponents.URL];
 }
 
 #pragma mark Object lifecycle
 
-- (SRGPage *)initWithOriginalRequest:(NSURLRequest *)originalRequest size:(NSUInteger)size number:(NSUInteger)number URL:(NSURL *)URL
+- (SRGPage *)initWithOriginalURLRequest:(NSURLRequest *)originalURLRequest size:(NSUInteger)size number:(NSUInteger)number URL:(NSURL *)URL
 {
-    NSParameterAssert(originalRequest);
+    NSParameterAssert(originalURLRequest);
+    NSParameterAssert(URL);
     
     if (size < 1) {
         SRGDataProviderLogWarning(@"page", @"The minimum page size is 1. This minimum value will be used.");
@@ -97,7 +98,7 @@ const NSUInteger SRGPageUnlimitedSize = NSUIntegerMax;
     }
     
     if (self = [super init]) {
-        self.originalRequest = originalRequest;
+        self.originalURLRequest = originalURLRequest;
         self.number = MAX(number, 0);
         self.size = size;
         self.URL = URL;
@@ -107,19 +108,19 @@ const NSUInteger SRGPageUnlimitedSize = NSUIntegerMax;
 
 #pragma mark Getters and setters
 
-- (NSURLRequest *)request
+- (NSURLRequest *)URLRequest
 {
     NSURL *URL = self.URL;
-    NSURLRequest *originalRequest = self.originalRequest;
+    NSURLRequest *originalURLRequest = self.originalURLRequest;
     
-    if (! [URL.host isEqualToString:originalRequest.URL.host]) {
+    if (! [URL.host isEqualToString:originalURLRequest.URL.host]) {
         NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
-        URLComponents.host = originalRequest.URL.host;
+        URLComponents.host = originalURLRequest.URL.host;
         URL = URLComponents.URL;
     }
     
     NSMutableURLRequest *pageRequest = [NSMutableURLRequest requestWithURL:URL];
-    [originalRequest.allHTTPHeaderFields enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull field, NSString * _Nonnull value, BOOL * _Nonnull stop) {
+    [originalURLRequest.allHTTPHeaderFields enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull field, NSString * _Nonnull value, BOOL * _Nonnull stop) {
         [pageRequest setValue:value forHTTPHeaderField:field];
     }];
     return [pageRequest copy];
@@ -130,16 +131,16 @@ const NSUInteger SRGPageUnlimitedSize = NSUIntegerMax;
 - (SRGPage *)nextPageWithURL:(NSURL *)URL
 {
     if (URL) {
-        return [[self.class alloc] initWithOriginalRequest:self.originalRequest size:self.size number:self.number + 1 URL:URL];
+        return [[self.class alloc] initWithOriginalURLRequest:self.originalURLRequest size:self.size number:self.number + 1 URL:URL];
     }
     else {
-        return [self.class pageForURNsInOriginalRequest:self.originalRequest withSize:self.size number:self.number + 1];
+        return [self.class pageForURNsInOriginalURLRequest:self.originalURLRequest withSize:self.size number:self.number + 1];
     }
 }
 
 - (SRGPage *)firstPageWithSize:(NSUInteger)size
 {
-    return [SRGPage firstPageForOriginalRequest:self.originalRequest withSize:size];
+    return [SRGPage firstPageForOriginalURLRequest:self.originalURLRequest withSize:size];
 }
 
 - (SRGPage *)firstPage
@@ -168,7 +169,7 @@ const NSUInteger SRGPageUnlimitedSize = NSUIntegerMax;
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    return [[self.class allocWithZone:zone] initWithOriginalRequest:self.originalRequest size:self.size number:self.number URL:self.URL];
+    return [[self.class allocWithZone:zone] initWithOriginalURLRequest:self.originalURLRequest size:self.size number:self.number URL:self.URL];
 }
 
 #pragma mark Description

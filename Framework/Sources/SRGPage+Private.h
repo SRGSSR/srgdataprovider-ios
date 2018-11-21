@@ -16,13 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Return the `SRGPage` for the first page of content, with the specified page size.
  *
- *  @param request The original request to create the first page for.
- *  @param size    The page size to use. Values < 1 will be fixed to 1, and values too large will be fixed to the maximum
- *                 page size.
+ *  @param originalURLRequest The request to create the first page for.
+ *  @param size               The page size to use. Values < 1 will be fixed to 1, and values too large will be fixed
+ *                            to the maximum page size.
  */
-// TODO: Rename request -> URLRequest everywhere for pages
-// TODO: pageSize / size consistency
-+ (SRGPage *)firstPageForOriginalRequest:(NSURLRequest *)originalRequest withSize:(NSUInteger)size;
++ (SRGPage *)firstPageForOriginalURLRequest:(NSURLRequest *)originalURLRequest withSize:(NSUInteger)size;
 
 /**
  *  Build the page immediately following the receiver, associating it the path where more content can be retrieved.
@@ -46,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The request to execute to retrieve the page.
  */
-@property (nonatomic, readonly) NSURLRequest *request;
+@property (nonatomic, readonly) NSURLRequest *URLRequest;
 
 @end
 
