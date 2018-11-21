@@ -81,7 +81,14 @@
     XCTAssertFalse(request6.running);
     XCTAssertEqual(request6.page.number, 0);
     XCTAssertEqual(request6.page.size, 3);
-    XCTAssertNotEqual(request6.page.size, 18);
+    
+    // First page
+    SRGFirstPageRequest *request7 = [[[self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        // Nothing, the request isn't run
+    }] requestWithPageSize:36] requestWithPage:nil];
+    XCTAssertFalse(request7.running);
+    XCTAssertEqual(request7.page.number, 0);
+    XCTAssertEqual(request7.page.size, 36);
 }
 
 // Use autorelease pools to force pool drain before testing weak variables (otherwise objects might have been added to

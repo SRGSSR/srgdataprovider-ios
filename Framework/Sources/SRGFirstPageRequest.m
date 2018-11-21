@@ -73,7 +73,7 @@
 - (SRGPageRequest *)requestWithPage:(SRGPage *)page
 {
     if (! page) {
-        page = [SRGPage firstPageForRequest:self.URLRequest withSize:SRGPageDefaultSize];
+        page = [SRGPage firstPageForRequest:self.URLRequest withSize:self.page.size];
     }
     
     return [self requestWithPage:page withClass:SRGPageRequest.class];
