@@ -10,10 +10,6 @@
 
 #import <libextobjc/libextobjc.h>
 
-const NSUInteger SRGPageDefaultSize = 10;
-const NSUInteger SRGPageMaximumSize = 100;
-const NSUInteger SRGPageUnlimitedSize = NSUIntegerMax;
-
 @interface SRGPage ()
 
 @property (nonatomic) NSURLRequest *originalURLRequest;
@@ -28,7 +24,7 @@ const NSUInteger SRGPageUnlimitedSize = NSUIntegerMax;
 #pragma mark Class methods
 
 // Attempt to split a URL into URNs pages, client-side. If not possible or if there is no page with the specified
-// number, return `nil`.
+// number, the method returns `nil`.
 + (SRGPage *)pageForURNsInOriginalURLRequest:(NSURLRequest *)URLRequest withSize:(NSUInteger)size number:(NSUInteger)number
 {
     NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URLRequest.URL resolvingAgainstBaseURL:NO];
@@ -119,11 +115,11 @@ const NSUInteger SRGPageUnlimitedSize = NSUIntegerMax;
         URL = URLComponents.URL;
     }
     
-    NSMutableURLRequest *pageRequest = [NSMutableURLRequest requestWithURL:URL];
+    NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL];
     [originalURLRequest.allHTTPHeaderFields enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull field, NSString * _Nonnull value, BOOL * _Nonnull stop) {
-        [pageRequest setValue:value forHTTPHeaderField:field];
+        [URLRequest setValue:value forHTTPHeaderField:field];
     }];
-    return [pageRequest copy];
+    return [URLRequest copy];
 }
 
 #pragma mark Helpers

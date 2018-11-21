@@ -23,7 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Return an equivalent request, but for the specified page. You never instantiate pages yourself, you receive them
- *  in the completion block of a service request supporting pagination.
+ *  in the completion block of a service request supporting pagination. Subsequent pages can then be retrieved by
+ *  calling this method and executing the returned request.
  *
  *  @param page The page to request. If `nil`, the first page is requested (for the same page size as the receiver).
  *
