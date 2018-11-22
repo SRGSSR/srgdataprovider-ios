@@ -750,6 +750,23 @@ static NSString * const kUserId = @"test_user_id";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testServiceMessage
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider serviceMessageForVendor:SRGVendorSWI withCompletionBlock:^(SRGServiceMessage * _Nullable serviceMessage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        if (error) {
+            XCTAssertNil(serviceMessage);
+        }
+        else {
+            XCTAssertNotNil(serviceMessage);
+        }
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testFullLength
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];

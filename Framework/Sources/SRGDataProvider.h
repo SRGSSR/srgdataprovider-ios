@@ -43,6 +43,7 @@
 #import "SRGSearchResultShow.h"
 #import "SRGSection.h"
 #import "SRGSegment.h"
+#import "SRGServiceMessage.h"
 #import "SRGShow.h"
 #import "SRGShowIdentifierMetadata.h"
 #import "SRGSocialCount.h"
@@ -72,6 +73,7 @@ typedef void (^SRGMediaCompletionBlock)(SRGMedia * _Nullable media, NSHTTPURLRes
 typedef void (^SRGMediaCompositionCompletionBlock)(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGModuleListCompletionBlock)(NSArray<SRGModule *> * _Nullable modules, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
+typedef void (^SRGServiceMessageCompletionBlock)(SRGServiceMessage * _Nullable serviceMessage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGShowCompletionBlock)(SRGShow * _Nullable show, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGSocialCountOverviewCompletionBlock)(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
@@ -554,6 +556,20 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 - (SRGRequest *)modulesForVendor:(SRGVendor)vendor
                             type:(SRGModuleType)moduleType
              withCompletionBlock:(SRGModuleListCompletionBlock)completionBlock;
+
+@end
+
+/**
+ *  General services supported by the data provider.
+ */
+@interface SRGDataProvider (GeneralServices)
+
+/**
+ *  Retrieve a message from the service about its status, if there is currently one. If none is available, the
+ *  call ends with an HTTP error.
+ */
+- (SRGRequest *)serviceMessageForVendor:(SRGVendor)vendor
+                    withCompletionBlock:(SRGServiceMessageCompletionBlock)completionBlock;
 
 @end
 

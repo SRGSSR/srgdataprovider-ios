@@ -545,6 +545,17 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }];
 }
 
+#pragma mark General services
+
+- (SRGRequest *)serviceMessageForVendor:(SRGVendor)vendor withCompletionBlock:(SRGServiceMessageCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/general/information.json", SRGPathComponentForVendor(vendor)];
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
+    return [self fetchObjectWithURLRequest:URLRequest modelClass:SRGServiceMessage.class completionBlock:^(id  _Nullable object, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        completionBlock(object, HTTPResponse, error);
+    }];
+}
+
 #pragma mark Popularity services
 
 - (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
