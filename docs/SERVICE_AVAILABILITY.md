@@ -116,6 +116,12 @@ Modules are collection of medias related to a specific context (e.g. an event).
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Module list | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 
+## General services
+
+| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
+|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Service message | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+
 ## Popularity services
 
 These services can be used to increase popularity indicators.

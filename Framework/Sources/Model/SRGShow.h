@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGBroadcastInformation.h"
 #import "SRGImageMetadata.h"
 #import "SRGMetadata.h"
 #import "SRGModel.h"
@@ -44,12 +45,12 @@ OBJC_EXPORT SRGImageType const SRGImageTypeShowBanner;          // Show banner i
 @property (nonatomic, readonly, nullable) NSURL *podcastHighDefinitionURL;
 
 /**
- *  The URL for podcast on Deezer.
+ *  The Deezer podcast URL.
  */
 @property (nonatomic, readonly, nullable) NSURL *podcastDeezerURL;
 
 /**
- *  The URL for podcast on Spotify.
+ *  The Spotify podcast URL.
  */
 @property (nonatomic, readonly, nullable) NSURL *podcastSpotifyURL;
 
@@ -62,6 +63,11 @@ OBJC_EXPORT SRGImageType const SRGImageTypeShowBanner;          // Show banner i
  *  The number of episodes available for the show.
  */
 @property (nonatomic, readonly) NSInteger numberOfEpisodes;
+
+/**
+ *  Broadcast information associated with the show.
+ */
+@property (nonatomic, readonly, nullable) SRGBroadcastInformation *broadcastInformation;
 
 @end
 
