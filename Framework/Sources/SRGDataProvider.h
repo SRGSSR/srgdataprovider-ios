@@ -495,7 +495,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  Search videos matching a specific query.
  *
  *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
- *              `-videosWithUids:completionBlock:` request with the returned search results uid list.
+ *              `-mediasWithURNs:completionBlock:` request with the returned search results URN list.
  */
 - (SRGFirstPageRequest *)videosForVendor:(SRGVendor)vendor
                            matchingQuery:(NSString *)query
@@ -518,7 +518,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  Search audios matching a specific query.
  *
  *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
- *              `-audiosWithUids:completionBlock:` request with the returned search results uid list.
+ *              `-mediasWithURNs:completionBlock:` request with the returned search results URN list.
  */
 - (SRGFirstPageRequest *)audiosForVendor:(SRGVendor)vendor
                            matchingQuery:(NSString *)query
