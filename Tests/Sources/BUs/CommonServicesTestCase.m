@@ -21,6 +21,7 @@ static NSString * const kRadioShowSRFURN = @"urn:srf:show:radio:da260da8-2efd-49
 static NSString * const kShowRTSURN = @"urn:rts:show:tv:6454706";
 
 static NSString * const kTopicURN = @"urn:rts:topic:tv:1081";
+static NSString * const kInvalidTopicURN = @"urn:srf:topic:tv:1";
 
 static NSString * const kInvalidMediaURN = @"urn:rts:video:999999999999999";
 static NSString * const kInvalidShow1URN = @"urn:srf:show:tv:999999999999999";
@@ -138,12 +139,22 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
 
 - (void)testLatestMediasForTopicWithURN
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider latestMediasForTopicWithURN:kTopicURN completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
-        [expectation fulfill];
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider latestMediasForTopicWithURN:kInvalidTopicURN completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
