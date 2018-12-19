@@ -296,9 +296,19 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     XCTestExpectation *expectation7 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider showsWithURNs:@[kInvalidShow1URN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNil(shows);
-        XCTAssertNotNil(error);
+        XCTAssertEqual(shows.count, 0);
+        XCTAssertNil(error);
         [expectation7 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation8 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsWithURNs:@[] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertEqual(shows.count, 0);
+        XCTAssertNil(error);
+        [expectation8 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
