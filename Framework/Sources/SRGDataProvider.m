@@ -738,6 +738,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                                                                                userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", @"Error message returned when a server response data is incorrect.") }]);
         };
         
+        // Remark: When the result count is equal to a multiple of the page size, the last link returns an empty list array.
+        // See https://srfmmz.atlassian.net/wiki/display/SRGPLAY/Developer+Meeting+2016-10-05
         NSError *modelError = nil;
         id JSONArray = JSONDictionary[rootKey];
         if (JSONArray && [JSONArray isKindOfClass:NSArray.class]) {
@@ -749,9 +751,6 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                 });
                 return;
             }
-            
-            // With a result count equivalents to multiple of the page size, the last link returns an empty list array.
-            // See https://srfmmz.atlassian.net/wiki/display/SRGPLAY/Developer+Meeting+2016-10-05
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 completionBlock(objects, total, page, nextPage, HTTPResponse, nil);
