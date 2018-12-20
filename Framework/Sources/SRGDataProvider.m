@@ -732,6 +732,12 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
             return;
         }
         
+        void (^invalidDataCompletionBlock)(void) = ^{
+            completionBlock(nil, nil, page, nil, HTTPResponse, [NSError errorWithDomain:SRGDataProviderErrorDomain
+                                                                                   code:SRGDataProviderErrorCodeInvalidData
+                                                                               userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", @"Error message returned when a server response data is incorrect.") }]);
+        };
+        
         NSError *modelError = nil;
         id JSONArray = JSONDictionary[rootKey];
         if (JSONArray && [JSONArray isKindOfClass:NSArray.class]) {
@@ -739,24 +745,21 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
             if (! objects) {
                 SRGDataProviderLogError(@"DataProvider", @"Could not build model object of %@. Reason: %@", modelClass, modelError);
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock(nil, nil, page, nil, HTTPResponse, [NSError errorWithDomain:SRGDataProviderErrorDomain
-                                                                                           code:SRGDataProviderErrorCodeInvalidData
-                                                                                       userInfo:@{ NSLocalizedDescriptionKey : SRGDataProviderLocalizedString(@"The data is invalid.", @"Error message returned when a server response data is incorrect.") }]);
+                    invalidDataCompletionBlock();
                 });
                 return;
             }
+            
+            // With a result count equivalents to multiple of the page size, the last link returns an empty list array.
+            // See https://srfmmz.atlassian.net/wiki/display/SRGPLAY/Developer+Meeting+2016-10-05
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 completionBlock(objects, total, page, nextPage, HTTPResponse, nil);
             });
         }
         else {
-            // This also correctly handles the special case where the number of results is a multiple of the page size. When retrieved,
-            // the last link will return an empty dictionary. If total count information is available, the last link will contain it
-            // as well.
-            // See https://srfmmz.atlassian.net/wiki/display/SRGPLAY/Developer+Meeting+2016-10-05
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(@[], total, page, nil, HTTPResponse, nil);
+                invalidDataCompletionBlock();
             });
         }
     }];
