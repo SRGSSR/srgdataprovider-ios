@@ -612,9 +612,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Retrieve medias matching a URN list.
  *
- *  @discussion The list must contain at least a URN, otherwise the result is undefined. Partial results can be
- *              returned if some URNs (but not all) are invalid. Note that you cannot mix audio and video URNs,
- *              or URNs from different business units, otherwise the request will fail.
+ *  @discussion Partial results can be returned if some URNs are invalid. Note that you can mix audio and video URNs,
+ *              or URNs from different business units.
  */
 - (SRGRequest *)mediasWithURNs:(NSArray<NSString *> *)mediaURNs
                completionBlock:(SRGMediaListCompletionBlock)completionBlock;
@@ -653,9 +652,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Retrieve shows matching a URN list.
  *
- *  @discussion The list must contain at least a URN, otherwise the result is undefined. Partial results can be
- *              returned if some URNs (but not all) are invalid. Note that you can mix URNs from different business
- *              units.
+ *  @discussion Partial results can be returned if some URNs are invalid. Note that you can mix TV or radio show URNs,
+ *              or URNs from different business units.
  */
 - (SRGRequest *)showsWithURNs:(NSArray<NSString *> *)showURNs
               completionBlock:(SRGShowListCompletionBlock)completionBlock;
