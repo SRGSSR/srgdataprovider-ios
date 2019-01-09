@@ -4,7 +4,6 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGBroadcastInformation.h"
 #import "SRGImageMetadata.h"
 #import "SRGMetadata.h"
 #import "SRGModel.h"
@@ -63,11 +62,6 @@ OBJC_EXPORT SRGImageType const SRGImageTypeShowBanner;          // Show banner i
  *  The number of episodes available for the show.
  */
 @property (nonatomic, readonly) NSInteger numberOfEpisodes;
-
-/**
- *  Broadcast information associated with the show.
- */
-@property (nonatomic, readonly, nullable) SRGBroadcastInformation *broadcastInformation;
 
 @end
 

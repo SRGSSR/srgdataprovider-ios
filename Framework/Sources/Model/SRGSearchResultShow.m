@@ -18,6 +18,7 @@
 @property (nonatomic, copy) NSString *URN;
 @property (nonatomic) SRGTransmission transmission;
 @property (nonatomic) SRGVendor vendor;
+@property (nonatomic) SRGBroadcastInformation *broadcastInformation;
 
 @end
 
@@ -34,7 +35,8 @@
         [mapping addEntriesFromDictionary:@{ @keypath(SRGSearchResultShow.new, uid) : @"id",
                                              @keypath(SRGSearchResultShow.new, URN) : @"urn",
                                              @keypath(SRGSearchResultShow.new, transmission) : @"transmission",
-                                             @keypath(SRGSearchResultShow.new, vendor) : @"vendor" }];
+                                             @keypath(SRGSearchResultShow.new, vendor) : @"vendor",
+                                             @keypath(SRGSearchResultShow.new, broadcastInformation) : @"broadcastInformation" }];
         s_mapping = [mapping copy];
     });
     return s_mapping;
@@ -50,6 +52,11 @@
 + (NSValueTransformer *)vendorJSONTransformer
 {
     return SRGVendorJSONTransformer();
+}
+
++ (NSValueTransformer *)broadcastInformationJSONTransformer
+{
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGBroadcastInformation.class];
 }
 
 #pragma mark Overrides

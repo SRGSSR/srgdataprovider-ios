@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGBroadcastInformation.h"
 #import "SRGTypes.h"
 
 #import <Foundation/Foundation.h>
@@ -34,6 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  The business unit which the show belongs to.
  */
 @property (nonatomic, readonly) SRGVendor vendor;
+
+/**
+ *  Broadcast information associated with the show.
+ */
+@property (nonatomic, readonly, nullable) SRGBroadcastInformation *broadcastInformation;
 
 @end
 
