@@ -24,7 +24,6 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
 @property (nonatomic, copy) NSString *primaryChannelUid;
 @property (nonatomic) NSURL *bannerImageURL;
 @property (nonatomic) NSInteger numberOfEpisodes;
-@property (nonatomic) SRGBroadcastInformation *broadcastInformation;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
@@ -38,6 +37,7 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
 @property (nonatomic, copy) NSString *URN;
 @property (nonatomic) SRGTransmission transmission;
 @property (nonatomic) SRGVendor vendor;
+@property (nonatomic) SRGBroadcastInformation *broadcastInformation;
 
 @end
 
