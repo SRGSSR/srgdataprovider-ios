@@ -36,7 +36,7 @@
                                              @keypath(SRGSearchResultShow.new, URN) : @"urn",
                                              @keypath(SRGSearchResultShow.new, transmission) : @"transmission",
                                              @keypath(SRGSearchResultShow.new, vendor) : @"vendor",
-         @keypath(SRGSearchResultShow.new, broadcastInformation) : @"broadcastInformation" }];
+                                             @keypath(SRGSearchResultShow.new, broadcastInformation) : @"broadcastInformation" }];
         s_mapping = [mapping copy];
     });
     return s_mapping;

@@ -59,7 +59,6 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
                        @keypath(SRGShow.new, primaryChannelUid) : @"primaryChannelId",
                        @keypath(SRGShow.new, numberOfEpisodes) : @"numberOfEpisodes",
                        @keypath(SRGShow.new, bannerImageURL) : @"bannerImageUrl",
-                       @keypath(SRGShow.new, broadcastInformation) : @"broadcastInformation",
                        
                        @keypath(SRGShow.new, title) : @"title",
                        @keypath(SRGShow.new, lead) : @"lead",
@@ -72,7 +71,8 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
                        @keypath(SRGShow.new, uid) : @"id",
                        @keypath(SRGShow.new, URN) : @"urn",
                        @keypath(SRGShow.new, transmission) : @"transmission",
-                       @keypath(SRGShow.new, vendor) : @"vendor" };
+                       @keypath(SRGShow.new, vendor) : @"vendor",
+                       @keypath(SRGShow.new, broadcastInformation) : @"broadcastInformation" };
     });
     return s_mapping;
 }
@@ -119,11 +119,6 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (NSValueTransformer *)broadcastInformationJSONTransformer
-{
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGBroadcastInformation.class];
-}
-
 + (NSValueTransformer *)transmissionJSONTransformer
 {
     return SRGTransmissionJSONTransformer();
@@ -132,6 +127,11 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
 + (NSValueTransformer *)vendorJSONTransformer
 {
     return SRGVendorJSONTransformer();
+}
+
++ (NSValueTransformer *)broadcastInformationJSONTransformer
+{
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGBroadcastInformation.class];
 }
 
 #pragma mark SRGImage protocol
