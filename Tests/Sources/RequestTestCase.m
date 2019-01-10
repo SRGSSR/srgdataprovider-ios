@@ -519,8 +519,8 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGFirstPageRequest *request = [self.dataProvider mediasWithURNs:@[] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNil(medias);
-        XCTAssertNotNil(error);
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
         XCTAssertNil(nextPage);
         [expectation fulfill];
     }];
