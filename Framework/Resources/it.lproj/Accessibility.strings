@@ -1,5 +1,5 @@
 /* A short youth protection message stated to the user if the media has the red protection color. */
-"Desensitized public" = "Desensitized public";
+"Desensitized public" = "Questo programma contiene scene che potrebbero urtare le persone più sensibili";
 
 /* A short youth protection message stated to the user if the media has the yellow protection color. */
-"Parental advisory" = "Parental advisory";
+"Parental advisory" = "Accordo parentale";

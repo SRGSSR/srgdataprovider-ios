@@ -1,5 +1,5 @@
 /* A youth protection message displayed to the user if the media has the yellow protection color. */
-"Parental advisory" = "Parental advisory";
+"Parental advisory" = "Accumpagnament dals geniturs recumandà";
 
 /* The main error message if multiple errors have been encountered. Finally, the developer could should which one to display, and not show this message. */
 "Several errors have been encountered" = "Intgins sbagls èn vegnids chattads";
@@ -50,7 +50,7 @@
 "This media is not available." = "Quest medium n'è betg disponibel.";
 
 /* A youth protection message displayed to the user if the media has the red protection color. */
-"This program contains disturbing content and might not be suitable to some audiences" = "This program contains disturbing content and might not be suitable to some audiences";
+"This program contains disturbing content and might not be suitable to some audiences" = "Il cuntegn n' è betg recumandà per utilisaturs sut 16 onns.";
 
 /* A blocking reason message displayed to the user if the media can't be played. */
 "To protect children, this media is only available between 11PM and 5AM." = "Per proteger uffants, è quest medium disponibel mo tranter las 23.00 e las 05.00.";
