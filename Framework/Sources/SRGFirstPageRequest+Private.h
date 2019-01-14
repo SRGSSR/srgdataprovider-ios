@@ -15,9 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGFirstPageRequest (Private)
 
 /**
- *  Create a request from a URL request, starting it with the provided session, and calling the specified block on completion.
+ *  Create a request from a URL request, associated with the provided session, and calling the specified block on completion.
  *
- *  @discussion The completion block is called on the main thread.
+ *  @param URLRequest          The original request.
+ *  @param session             The session to use.
+ *  @param pageCompletionBlock The block to be called on completion.
+ *
+ *  @discussion The completion block is called on a background thread.
  */
 - (instancetype)initWithURLRequest:(NSURLRequest *)URLRequest session:(NSURLSession *)session pageCompletionBlock:(SRGPageCompletionBlock)pageCompletionBlock;
 

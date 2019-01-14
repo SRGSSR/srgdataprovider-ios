@@ -78,7 +78,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider mediasWithURNs:@[kVideoRTSURN, kVideoRTSOtherURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasWithURNs:@[kVideoRTSURN, kVideoRTSOtherURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 2);
         XCTAssertNil(error);
         [expectation1 fulfill];
@@ -88,7 +88,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider mediasWithURNs:@[kVideoRTSURN, kAudioRTSURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasWithURNs:@[kVideoRTSURN, kAudioRTSURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 2);
         XCTAssertNil(error);
         [expectation2 fulfill];
@@ -98,7 +98,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     
     XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider mediasWithURNs:@[kVideoRTSURN, kMediaSRFURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasWithURNs:@[kVideoRTSURN, kMediaSRFURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 2);
         XCTAssertNil(error);
         [expectation3 fulfill];
@@ -108,7 +108,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     
     XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider mediasWithURNs:@[kVideoRTSURN, kAudioRTSURN, kInvalidMediaURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasWithURNs:@[kVideoRTSURN, kAudioRTSURN, kInvalidMediaURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 2);
         XCTAssertNil(error);
         [expectation4 fulfill];
@@ -118,7 +118,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     
     XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider mediasWithURNs:@[kInvalidMediaURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasWithURNs:@[kInvalidMediaURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 0);
         XCTAssertNil(error);
         [expectation5 fulfill];
@@ -128,7 +128,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     
     XCTestExpectation *expectation6 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider mediasWithURNs:@[] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasWithURNs:@[] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 0);
         XCTAssertNil(error);
         [expectation6 fulfill];
@@ -246,7 +246,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider showsWithURNs:@[kTVShowSRFURN, kTVShowSRFOtherURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider showsWithURNs:@[kTVShowSRFURN, kTVShowSRFOtherURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(shows.count, 2);
         XCTAssertNil(error);
         [expectation1 fulfill];
@@ -256,7 +256,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider showsWithURNs:@[kTVShowSRFURN, kRadioShowSRFURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider showsWithURNs:@[kTVShowSRFURN, kRadioShowSRFURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(shows.count, 2);
         XCTAssertNil(error);
         [expectation2 fulfill];
@@ -266,7 +266,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     
     XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider showsWithURNs:@[kTVShowSRFURN, kTVShowSRFOtherURN, kShowRTSURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider showsWithURNs:@[kTVShowSRFURN, kTVShowSRFOtherURN, kShowRTSURN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(shows.count, 3);
         XCTAssertNil(error);
         [expectation3 fulfill];
@@ -276,7 +276,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     
     XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider showsWithURNs:@[kTVShowSRFURN, kTVShowSRFOtherURN, kInvalidShow1URN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider showsWithURNs:@[kTVShowSRFURN, kTVShowSRFOtherURN, kInvalidShow1URN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(shows.count, 2);
         XCTAssertNil(error);
         [expectation4 fulfill];
@@ -286,7 +286,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     
     XCTestExpectation *expectation5 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider showsWithURNs:@[kTVShowSRFURN, kTVShowSRFOtherURN, kInvalidShow2URN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider showsWithURNs:@[kTVShowSRFURN, kTVShowSRFOtherURN, kInvalidShow2URN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(shows.count, 2);
         XCTAssertNil(error);
         [expectation5 fulfill];
@@ -296,7 +296,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     
     XCTestExpectation *expectation6 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider showsWithURNs:@[kTVShowSRFURN, kTVShowSRFOtherURN, kInvalidShow3URN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider showsWithURNs:@[kTVShowSRFURN, kTVShowSRFOtherURN, kInvalidShow3URN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(shows.count, 2);
         XCTAssertNil(error);
         [expectation6 fulfill];
@@ -306,7 +306,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     
     XCTestExpectation *expectation7 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider showsWithURNs:@[kInvalidShow1URN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider showsWithURNs:@[kInvalidShow1URN] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(shows.count, 0);
         XCTAssertNil(error);
         [expectation7 fulfill];
@@ -316,7 +316,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     
     XCTestExpectation *expectation8 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider showsWithURNs:@[] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider showsWithURNs:@[] completionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(shows.count, 0);
         XCTAssertNil(error);
         [expectation8 fulfill];

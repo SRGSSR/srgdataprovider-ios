@@ -9,19 +9,19 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  The default page size (10 for all services).
+ *  The default page size.
  */
-OBJC_EXTERN const NSInteger SRGPageDefaultSize;
+static const NSUInteger SRGPageDefaultSize = 10;
 
 /**
- *  The maximum supported page size (100 for almost all services).
+ *  The maximum supported page size.
  */
-OBJC_EXTERN const NSInteger SRGPageMaximumSize;
+static const NSUInteger SRGPageMaximumSize = 100;
 
 /**
  *  Unlimited page size (i.e. all results are returned). Not available for all services.
  */
-OBJC_EXTERN const NSInteger SRGPageUnlimitedSize;
+static const NSUInteger SRGPageUnlimitedSize = NSUIntegerMax;
 
 /**
  *  Describe a page of content. You never instantiate page objects directly, they are merely returned from requests
@@ -35,12 +35,12 @@ OBJC_EXTERN const NSInteger SRGPageUnlimitedSize;
  *  @discussion The page size is the requested page size, not the actual number of records available for the page
  *              (this information can be extracted by counting the number of objects returned by a request).
  */
-@property (nonatomic, readonly) NSInteger size;
+@property (nonatomic, readonly) NSUInteger size;
 
 /**
  *  The page number, starting at 0 for the first page.
  */
-@property (nonatomic, readonly) NSInteger number;
+@property (nonatomic, readonly) NSUInteger number;
 
 @end
 

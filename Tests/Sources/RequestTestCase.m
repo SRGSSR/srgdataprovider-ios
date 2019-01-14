@@ -51,7 +51,7 @@
     XCTAssertEqual(request2.page.size, 10);
     
     // Override with nil page
-    __block SRGPageRequest *request3 = [[self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    SRGPageRequest *request3 = [[self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         // Nothing, the request isn't run
     }] requestWithPage:nil];
     XCTAssertFalse(request3.running);
@@ -81,7 +81,14 @@
     XCTAssertFalse(request6.running);
     XCTAssertEqual(request6.page.number, 0);
     XCTAssertEqual(request6.page.size, 3);
-    XCTAssertNotEqual(request6.page.size, 18);
+    
+    // First page
+    SRGPageRequest *request7 = [[[self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        // Nothing, the request isn't run
+    }] requestWithPageSize:36] requestWithPage:nil];
+    XCTAssertFalse(request7.running);
+    XCTAssertEqual(request7.page.number, 0);
+    XCTAssertEqual(request7.page.size, 36);
 }
 
 // Use autorelease pools to force pool drain before testing weak variables (otherwise objects might have been added to
@@ -181,7 +188,7 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
     
-    __block SRGFirstPageRequest *request = [[self.dataProvider tvShowsForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    SRGFirstPageRequest *request = [[self.dataProvider tvShowsForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(shows);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -199,7 +206,7 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
     
-    __block SRGFirstPageRequest *request = [[self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    SRGFirstPageRequest *request = [[self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         [expectation fulfill];
     }] requestWithPageSize:SRGPageUnlimitedSize];
@@ -338,7 +345,7 @@
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request finished"];
     
-    __block SRGRequest *request1 = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    SRGRequest *request1 = [self.dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(HTTPResponse.statusCode, 200);
         
         [expectation1 fulfill];
@@ -389,8 +396,7 @@
     
     // Use a small page size to be sure we get three elements in the result
     // Be sure to have only the latest pageSize set to the request.
-    __block SRGRequest *request = [[[self.dataProvider tvEditorialMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotEqual(medias.count, 18);
+    SRGRequest *request = [[[self.dataProvider tvEditorialMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 3);
         XCTAssertNil(error);
         
@@ -466,6 +472,148 @@
         [expectation fulfill];
     }];
     [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testURNListDefaultPageSize
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    NSArray<NSString *> *URNs = @[@"urn:rts:video:10002568", @"urn:rts:video:10002444", @"urn:rts:video:9986412", @"urn:rts:video:9986195",
+                                  @"urn:rts:video:9948638", @"urn:rts:video:9951674", @"urn:rts:video:9951724", @"urn:rts:video:9950129",
+                                  @"urn:rts:video:9949270", @"urn:rts:video:9948800", @"urn:rts:video:9948698", @"urn:rts:video:9946068",
+                                  @"urn:rts:video:9946141"];
+    SRGFirstPageRequest *request = [self.dataProvider mediasWithURNs:URNs completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertEqual(medias.count, 10);
+        XCTAssertNil(error);
+        XCTAssertNotNil(nextPage);
+        [expectation fulfill];
+    }];
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testURNListPageSize
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    NSArray<NSString *> *URNs = @[@"urn:rts:video:10002568", @"urn:rts:video:10002444", @"urn:rts:video:9986412", @"urn:rts:video:9986195",
+                                  @"urn:rts:video:9948638", @"urn:rts:video:9951674", @"urn:rts:video:9951724", @"urn:rts:video:9950129",
+                                  @"urn:rts:video:9949270", @"urn:rts:video:9948800", @"urn:rts:video:9948698", @"urn:rts:video:9946068",
+                                  @"urn:rts:video:9946141"];
+    SRGFirstPageRequest *request = [[self.dataProvider mediasWithURNs:URNs completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertEqual(medias.count, 5);
+        XCTAssertNil(error);
+        XCTAssertNotNil(nextPage);
+        [expectation fulfill];
+    }] requestWithPageSize:5];
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testEmptyURNList
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGFirstPageRequest *request = [self.dataProvider mediasWithURNs:@[] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        XCTAssertNil(nextPage);
+        [expectation fulfill];
+    }];
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testURNListPagination
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    NSArray<NSString *> *URNs = @[@"urn:rts:video:10002568", @"urn:rts:video:10002444", @"urn:rts:video:9986412", @"urn:rts:video:9986195",
+                                  @"urn:rts:video:9948638", @"urn:rts:video:9951674", @"urn:rts:video:9951724", @"urn:rts:video:9950129",
+                                  @"urn:rts:video:9949270", @"urn:rts:video:9948800", @"urn:rts:video:9948698", @"urn:rts:video:9946068",
+                                  @"urn:rts:video:9946141"];
+    __block SRGFirstPageRequest *request = [self.dataProvider mediasWithURNs:URNs completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        if (page.number == 0) {
+            XCTAssertEqual(medias.count, 10);
+            [[request requestWithPage:nextPage] resume];
+        }
+        else if (page.number == 1) {
+            XCTAssertEqual(medias.count, 3);
+            [expectation fulfill];
+        }
+        else {
+            XCTFail(@"Only two pages exist");
+        }
+    }];
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testHugeURNList
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    NSMutableArray<NSString *> *URNs = [@[@"urn:rts:video:10002568", @"urn:rts:video:10002444", @"urn:rts:video:9986412", @"urn:rts:video:9986195",
+                                          @"urn:rts:video:9948638", @"urn:rts:video:9951674", @"urn:rts:video:9951724", @"urn:rts:video:9950129",
+                                          @"urn:rts:video:9949270", @"urn:rts:video:9948800", @"urn:rts:video:9948698", @"urn:rts:video:9946068",
+                                          @"urn:rts:video:9946141"] mutableCopy];
+    for (NSUInteger i = 0; i < 100000; ++i) {
+        [URNs addObject:NSUUID.UUID.UUIDString];
+    }
+    
+    SRGFirstPageRequest *request = [self.dataProvider mediasWithURNs:URNs completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertEqual(medias.count, 10);
+        XCTAssertNil(error);
+        XCTAssertNotNil(nextPage);
+        [expectation fulfill];
+    }];
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testURNSmallerFirstPageOverride
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    NSArray<NSString *> *URNs = @[@"urn:rts:video:10002568", @"urn:rts:video:10002444", @"urn:rts:video:9986412", @"urn:rts:video:9986195",
+                                  @"urn:rts:video:9948638", @"urn:rts:video:9951674", @"urn:rts:video:9951724", @"urn:rts:video:9950129",
+                                  @"urn:rts:video:9949270", @"urn:rts:video:9948800", @"urn:rts:video:9948698", @"urn:rts:video:9946068",
+                                  @"urn:rts:video:9946141"];
+    SRGPageRequest *request = [[[self.dataProvider mediasWithURNs:URNs completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertEqual(medias.count, 4);
+        [expectation fulfill];
+    }] requestWithPageSize:4] requestWithPage:nil];
+    [request resume];
+    
+    XCTAssertEqual(request.page.number, 0);
+    XCTAssertEqual(request.page.size, 4);
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testURNLargerFirstPageOverride
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    NSArray<NSString *> *URNs = @[@"urn:rts:video:10002568", @"urn:rts:video:10002444", @"urn:rts:video:9986412", @"urn:rts:video:9986195",
+                                  @"urn:rts:video:9948638", @"urn:rts:video:9951674", @"urn:rts:video:9951724", @"urn:rts:video:9950129",
+                                  @"urn:rts:video:9949270", @"urn:rts:video:9948800", @"urn:rts:video:9948698", @"urn:rts:video:9946068",
+                                  @"urn:rts:video:9946141"];
+    SRGPageRequest *request = [[[self.dataProvider mediasWithURNs:URNs completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertEqual(medias.count, 12);
+        [expectation fulfill];
+    }] requestWithPageSize:12] requestWithPage:nil];
+    [request resume];
+    
+    XCTAssertEqual(request.page.number, 0);
+    XCTAssertEqual(request.page.size, 12);
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
