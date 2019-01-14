@@ -22,27 +22,27 @@
 
 #pragma mark Class methods
 
-+ (SRGPage *)nextPageAfterPage:(SRGPage *)page fromJSONDictionary:(NSDictionary *)JSONDictionary
++ (SRGPage *)nextPageAfterPage:(SRGPage *)page withJSONDictionary:(NSDictionary *)JSONDictionary
 {
-    id next = JSONDictionary[@"next"];
-    
-    // Ensure the next field is a string. In now and next requests, we have a next dictionary entry, which
+    // Ensure the next field is a string. In now and next requests, we namely have a next dictionary entry, which
     // does not correspond to next page information, but to next program information
-    return [next isKindOfClass:NSString.class] ? [page nextPageWithURL:[NSURL URLWithString:next]] : nil;
+    id next = JSONDictionary[@"next"];
+    NSURL *nextURL = [next isKindOfClass:NSString.class] ? [NSURL URLWithString:next] : nil;
+    return [page nextPageWithURL:nextURL];
 }
 
 #pragma mark Object lifecycle
 
 - (instancetype)initWithURLRequest:(NSURLRequest *)URLRequest session:(NSURLSession *)session pageCompletionBlock:(SRGPageCompletionBlock)pageCompletionBlock
 {
-    SRGPage *page = [SRGPage firstPageWithSize:SRGPageDefaultSize];
+    SRGPage *page = [SRGPage firstPageForOriginalURLRequest:URLRequest withSize:SRGPageDefaultSize];
     
-    SRGRequestCompletionBlock requestCompletionBlock = ^(NSDictionary * _Nullable JSONDictionary, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        SRGPage *nextPage = [SRGFirstPageRequest nextPageAfterPage:page fromJSONDictionary:JSONDictionary];
+    SRGRequestCompletionBlock completionBlock = ^(NSDictionary * _Nullable JSONDictionary, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        SRGPage *nextPage = [SRGFirstPageRequest nextPageAfterPage:page withJSONDictionary:JSONDictionary];
         pageCompletionBlock(JSONDictionary, JSONDictionary[@"total"], page, nextPage, HTTPResponse, error);
     };
     
-    if (self = [super initWithURLRequest:URLRequest session:session completionBlock:requestCompletionBlock]) {
+    if (self = [super initWithURLRequest:page.URLRequest session:session completionBlock:completionBlock]) {
         self.page = page;
         self.pageCompletionBlock = pageCompletionBlock;
     }
@@ -53,19 +53,18 @@
 
 - (__kindof SRGPageRequest *)requestWithPage:(SRGPage *)page withClass:(Class)cls
 {
-    NSURLRequest *URLRequest = [SRGPage request:self.URLRequest withPage:page];
-    SRGPageRequest *pageRequest = [[cls alloc] initWithURLRequest:URLRequest session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        SRGPage *nextPage = [SRGFirstPageRequest nextPageAfterPage:page fromJSONDictionary:JSONDictionary];
+    SRGPageRequest *request = [[cls alloc] initWithURLRequest:page.URLRequest session:self.session completionBlock:^(NSDictionary * _Nullable JSONDictionary, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        SRGPage *nextPage = [SRGFirstPageRequest nextPageAfterPage:page withJSONDictionary:JSONDictionary];
         self.pageCompletionBlock(JSONDictionary, JSONDictionary[@"total"],  page, nextPage, HTTPResponse, error);
     }];
-    pageRequest.page = page;
-    pageRequest.pageCompletionBlock = self.pageCompletionBlock;
-    return pageRequest;
+    request.page = page;
+    request.pageCompletionBlock = self.pageCompletionBlock;
+    return request;
 }
 
-- (SRGFirstPageRequest *)requestWithPageSize:(NSInteger)pageSize
+- (SRGFirstPageRequest *)requestWithPageSize:(NSUInteger)pageSize
 {
-    SRGPage *page = [SRGPage firstPageWithSize:pageSize];
+    SRGPage *page = [self.page firstPageWithSize:pageSize];
     return [self requestWithPage:page withClass:SRGFirstPageRequest.class];
 }
 
@@ -74,7 +73,6 @@
     if (! page) {
         page = self.page.firstPage;
     }
-    
     return [self requestWithPage:page withClass:SRGPageRequest.class];
 }
 

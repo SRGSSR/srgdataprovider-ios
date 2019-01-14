@@ -1,5 +1,5 @@
 /* A short youth protection message stated to the user if the media has the red protection color. */
-"Desensitized public" = "Desensitized public";
+"Desensitized public" = "Die nachfolgende Sendung ist für Zuschauer unter 16 Jahren nicht geeignet.";
 
 /* A short youth protection message stated to the user if the media has the yellow protection color. */
-"Parental advisory" = "Parental advisory";
+"Parental advisory" = "Die nachfolgende Sendung ist für Zuschauer unter 12 Jahren nicht geeignet.";

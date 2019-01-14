@@ -9,37 +9,44 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Private interface used for implementation purposes.
+ *  Private interface used for implementation purposes. A page is created on the basis of an initial request,
+ *  stored within it, and used for generating subsequent pages (either by tweaking it locally, or by overriding
+ *  it with a new URL retrieved from a service with pagination support).
  */
 @interface SRGPage (Private)
 
 /**
- *  Start from a request and add the necessary information to access a particular page.
+ *  Return the `SRGPage` for the first page of content associated with a request, with the specified page size.
  *
- *  @param request The original request.
- *  @param page    The page.
+ *  @param originalURLRequest The request to create the first page for.
+ *  @param size               The page size to use. Values < 1 will be fixed to 1, and values too large will be fixed
+ *                            to the maximum page size.
  */
-+ (NSURLRequest *)request:(NSURLRequest *)request withPage:(SRGPage *)page;
-
-/**
- *  Return the `SRGPage` for the first page of content, with the specified page size.
- *
- *  @param size The page size to use. Values < 1 will be fixed to 1, and values too large will be fixed to the maximum 
- *              page size.
- */
-+ (SRGPage *)firstPageWithSize:(NSInteger)size;
++ (SRGPage *)firstPageForOriginalURLRequest:(NSURLRequest *)originalURLRequest withSize:(NSUInteger)size;
 
 /**
  *  Build the page immediately following the receiver, associating it the path where more content can be retrieved.
+ *  If no next page exists, the method returns `nil`.
  *
- *  @param path The URL were the next page of result can be retrieved.
+ *  @param URL The URL were a next page of result can be retrieved, if any has been provided by the service. If not
+ *             specified, the next URL is derviced from the original request, if possible.
  */
-- (SRGPage *)nextPageWithURL:(NSURL *)URL;
+- (nullable SRGPage *)nextPageWithURL:(nullable NSURL *)URL;
 
 /**
- *  Return the first page matching the receiver.
+ *  Return the first page related to the receiver, with the specified page size.
+ */
+- (SRGPage *)firstPageWithSize:(NSUInteger)size;
+
+/**
+ *  Return the first page related to the receiver, with the same page size.
  */
 @property (nonatomic, readonly) SRGPage *firstPage;
+
+/**
+ *  The request which must be executed to retrieve the page results.
+ */
+@property (nonatomic, readonly) NSURLRequest *URLRequest;
 
 @end
 

@@ -75,7 +75,6 @@ typedef void (^SRGMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medi
 typedef void (^SRGModuleListCompletionBlock)(NSArray<SRGModule *> * _Nullable modules, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGServiceMessageCompletionBlock)(SRGServiceMessage * _Nullable serviceMessage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGShowCompletionBlock)(SRGShow * _Nullable show, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
-typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGSocialCountOverviewCompletionBlock)(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGSongCompletionBlock)(SRGSong * _Nullable song, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
@@ -495,7 +494,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  Search videos matching a specific query.
  *
  *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
- *              `-videosWithUids:completionBlock:` request with the returned search results uid list.
+ *              `-mediasWithURNs:completionBlock:` request with the returned search results URN list.
  */
 - (SRGFirstPageRequest *)videosForVendor:(SRGVendor)vendor
                            matchingQuery:(NSString *)query
@@ -518,7 +517,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  Search audios matching a specific query.
  *
  *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
- *              `-audiosWithUids:completionBlock:` request with the returned search results uid list.
+ *              `-mediasWithURNs:completionBlock:` request with the returned search results URN list.
  */
 - (SRGFirstPageRequest *)audiosForVendor:(SRGVendor)vendor
                            matchingQuery:(NSString *)query
@@ -612,12 +611,11 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Retrieve medias matching a URN list.
  *
- *  @discussion The list must contain at least a URN, otherwise the result is undefined. Partial results can be
- *              returned if some URNs (but not all) are invalid. Note that you cannot mix audio and video URNs,
- *              or URNs from different business units, otherwise the request will fail.
+ *  @discussion Partial results can be returned if some URNs are invalid. Note that you can mix audio and video URNs,
+ *              or URNs from different business units.
  */
-- (SRGRequest *)mediasWithURNs:(NSArray<NSString *> *)mediaURNs
-               completionBlock:(SRGMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)mediasWithURNs:(NSArray<NSString *> *)mediaURNs
+                        completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Latest medias for a specific topic.
@@ -653,12 +651,11 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Retrieve shows matching a URN list.
  *
- *  @discussion The list must contain at least a URN, otherwise the result is undefined. Partial results can be
- *              returned if some URNs (but not all) are invalid. Note that you can mix URNs from different business
- *              units.
+ *  @discussion Partial results can be returned if some URNs are invalid. Note that you can mix TV or radio show URNs,
+ *              or URNs from different business units.
  */
-- (SRGRequest *)showsWithURNs:(NSArray<NSString *> *)showURNs
-              completionBlock:(SRGShowListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)showsWithURNs:(NSArray<NSString *> *)showURNs
+                       completionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 
 /**
  *  Latest episodes for a specific show.

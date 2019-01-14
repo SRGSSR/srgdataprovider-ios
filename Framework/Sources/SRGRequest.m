@@ -14,7 +14,7 @@
 #import <SRGNetwork/SRGNetwork.h>
 #import <UIKit/UIKit.h>
 
-static NSInteger s_numberOfRunningRequests = 0;
+static NSUInteger s_numberOfRunningRequests = 0;
 static void (^s_networkActivityManagementHandler)(BOOL) = nil;
 
 @interface SRGRequest ()
