@@ -61,6 +61,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGVideoCodec videoCodec;
 
 /**
+ *  The type of token to use for playback.
+ */
+@property (nonatomic, readonly) SRGTokenType tokenType;
+
+/**
  *  The list of DRMs providers supported by the stream.
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGDRM *> *DRMs;
