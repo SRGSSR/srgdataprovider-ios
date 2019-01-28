@@ -5,6 +5,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <SRGNetwork/SRGNetwork.h>
 
 // Public framework imports.
 #import "SRGAlbum.h"
@@ -18,7 +19,6 @@
 #import "SRGDRM.h"
 #import "SRGEpisode.h"
 #import "SRGEpisodeComposition.h"
-#import "SRGFirstPageRequest.h"
 #import "SRGImageMetadata.h"
 #import "SRGMedia.h"
 #import "SRGMediaComposition.h"
@@ -29,13 +29,9 @@
 #import "SRGModel.h"
 #import "SRGModule.h"
 #import "SRGModuleIdentifierMetadata.h"
-#import "SRGPage.h"
-#import "SRGPageRequest.h"
 #import "SRGPresenter.h"
 #import "SRGProgram.h"
 #import "SRGRelatedContent.h"
-#import "SRGRequest.h"
-#import "SRGRequestQueue.h"
 #import "SRGResource.h"
 #import "SRGScheduledLivestreamMetadata.h"
 #import "SRGSearchResult.h"
