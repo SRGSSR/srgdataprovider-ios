@@ -25,6 +25,7 @@ OBJC_EXPORT NSValueTransformer *SRGStreamingMethodJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGSocialCountTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGSourceJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGSubtitleFormatJSONTransformer(void);
+OBJC_EXPORT NSValueTransformer *SRGTokenTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGTransmissionJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGVendorJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGVideoCodecJSONTransformer(void);
