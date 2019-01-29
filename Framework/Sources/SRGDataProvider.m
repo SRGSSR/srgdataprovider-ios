@@ -761,6 +761,39 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }];
 }
 
++ (NSURLRequest *)URLRequestForURNsPageWithSize:(NSUInteger)size number:(NSUInteger)number URLRequest:(NSURLRequest *)URLRequest
+{
+    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URLRequest.URL resolvingAgainstBaseURL:NO];
+    NSMutableArray<NSURLQueryItem *> *queryItems = [URLComponents.queryItems mutableCopy] ?: [NSMutableArray array];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(NSURLQueryItem.new, name), @"urns"];
+    NSURLQueryItem *URNsQueryItem = [URLComponents.queryItems filteredArrayUsingPredicate:predicate].firstObject;
+    
+    if (! URNsQueryItem.value) {
+        return nil;
+    }
+    
+    static NSString * const kURNsSeparator = @",";
+    NSArray<NSString *> *URNs = [URNsQueryItem.value componentsSeparatedByString:kURNsSeparator];
+    if (number == 0 && URNs.count < 2) {
+        return URLRequest;
+    }
+    
+    NSUInteger location = number * size;
+    if (location >= URNs.count) {
+        return nil;
+    }
+    
+    NSRange range = NSMakeRange(location, MIN(size, URNs.count - location));
+    NSArray<NSString *> *pageURNs = [URNs subarrayWithRange:range];
+    NSURLQueryItem *pageURNsQueryItem = [NSURLQueryItem queryItemWithName:@"urns" value:[pageURNs componentsJoinedByString:kURNsSeparator]];
+    [queryItems replaceObjectAtIndex:[queryItems indexOfObject:URNsQueryItem] withObject:pageURNsQueryItem];
+    
+    URLComponents.queryItems = [queryItems copy];
+    return [NSURLRequest requestWithURL:URLComponents.URL];
+}
+
+
 - (SRGFirstPageRequest *)listPaginatedObjectsWithURLRequest:(NSURLRequest *)URLRequest
                                                  modelClass:(Class)modelClass
                                                     rootKey:(NSString *)rootKey
@@ -772,10 +805,20 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSParameterAssert(completionBlock);
     
     return [SRGFirstPageRequest JSONDictionaryRequestWithURLRequest:URLRequest session:self.session options:0 seed:^NSURLRequest *(NSURLRequest * _Nonnull URLRequest, NSUInteger size) {
+        NSURLRequest *URNsRequest = [SRGDataProvider URLRequestForURNsPageWithSize:size number:0 URLRequest:URLRequest];
+        if (URNsRequest) {
+            return URNsRequest;
+        }
+        
         NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URLRequest.URL resolvingAgainstBaseURL:NO];
         URLComponents.queryItems = @[ [NSURLQueryItem queryItemWithName:@"pageSize" value:@(size).stringValue] ];
         return [NSURLRequest requestWithURL:URLComponents.URL];
     } paginator:^NSURLRequest * _Nullable(NSURLRequest * _Nonnull URLRequest, NSDictionary * _Nullable JSONDictionary, NSURLResponse * _Nullable response, NSUInteger size, NSUInteger number) {
+        NSURLRequest *URNsRequest = [SRGDataProvider URLRequestForURNsPageWithSize:size number:number URLRequest:URLRequest];
+        if (URNsRequest) {
+            return URNsRequest;
+        }
+        
         id next = JSONDictionary[@"next"];
         NSURL *nextURL = [next isKindOfClass:NSString.class] ? [NSURL URLWithString:next] : nil;
         return nextURL ? [NSURLRequest requestWithURL:nextURL] : nil;
@@ -866,10 +909,20 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSParameterAssert(completionBlock);
     
     return [SRGFirstPageRequest JSONDictionaryRequestWithURLRequest:URLRequest session:self.session options:0 seed:^NSURLRequest *(NSURLRequest * _Nonnull URLRequest, NSUInteger size) {
+        NSURLRequest *URNsRequest = [SRGDataProvider URLRequestForURNsPageWithSize:size number:0 URLRequest:URLRequest];
+        if (URNsRequest) {
+            return URNsRequest;
+        }
+        
         NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URLRequest.URL resolvingAgainstBaseURL:NO];
         URLComponents.queryItems = @[ [NSURLQueryItem queryItemWithName:@"pageSize" value:@(size).stringValue] ];
         return [NSURLRequest requestWithURL:URLComponents.URL];
     } paginator:^NSURLRequest * _Nullable(NSURLRequest * _Nonnull URLRequest, NSDictionary * _Nullable JSONDictionary, NSURLResponse * _Nullable response, NSUInteger size, NSUInteger number) {
+        NSURLRequest *URNsRequest = [SRGDataProvider URLRequestForURNsPageWithSize:size number:number URLRequest:URLRequest];
+        if (URNsRequest) {
+            return URNsRequest;
+        }
+        
         id next = JSONDictionary[@"next"];
         NSURL *nextURL = [next isKindOfClass:NSString.class] ? [NSURL URLWithString:next] : nil;
         return nextURL ? [NSURLRequest requestWithURL:nextURL] : nil;
