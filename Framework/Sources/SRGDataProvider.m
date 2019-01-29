@@ -755,7 +755,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSParameterAssert(modelClass);
     NSParameterAssert(completionBlock);
     
-    return [SRGRequest objectRequestWithURLRequest:URLRequest session:self.session options:0 parser:^id _Nullable(NSData *data, NSError * _Nullable __autoreleasing * _Nullable pError) {
+    return [SRGRequest objectRequestWithURLRequest:URLRequest session:self.session parser:^id _Nullable(NSData *data, NSError * _Nullable __autoreleasing * _Nullable pError) {
         NSDictionary *JSONDictionary = SRGNetworkJSONDictionaryParser(data, pError);
         if (! JSONDictionary) {
             return nil;
@@ -763,10 +763,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         
         return [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:JSONDictionary error:pError];
     } completionBlock:^(id  _Nullable object, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSHTTPURLResponse *HTTPResponse = [response isKindOfClass:NSHTTPURLResponse.class] ? (NSHTTPURLResponse *)response : nil;
-            completionBlock(object, HTTPResponse, error);
-        });
+        NSHTTPURLResponse *HTTPResponse = [response isKindOfClass:NSHTTPURLResponse.class] ? (NSHTTPURLResponse *)response : nil;
+        completionBlock(object, HTTPResponse, error);
     }];
 }
 
@@ -780,7 +778,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSParameterAssert(rootKey);
     NSParameterAssert(completionBlock);
     
-    return [SRGRequest objectRequestWithURLRequest:URLRequest session:self.session options:0 parser:^id _Nullable(NSData * _Nonnull data, NSError * _Nullable __autoreleasing * _Nullable pError) {
+    return [SRGRequest objectRequestWithURLRequest:URLRequest session:self.session parser:^id _Nullable(NSData * _Nonnull data, NSError * _Nullable __autoreleasing * _Nullable pError) {
         NSDictionary *JSONDictionary = SRGNetworkJSONDictionaryParser(data, pError);
         if (! JSONDictionary) {
             return nil;
@@ -796,10 +794,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
             return @[];
         }
     } completionBlock:^(id  _Nullable object, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSHTTPURLResponse *HTTPResponse = [response isKindOfClass:NSHTTPURLResponse.class] ? (NSHTTPURLResponse *)response : nil;
-            completionBlock(object, HTTPResponse, error);
-        });
+        NSHTTPURLResponse *HTTPResponse = [response isKindOfClass:NSHTTPURLResponse.class] ? (NSHTTPURLResponse *)response : nil;
+        completionBlock(object, HTTPResponse, error);
     }];
 }
 
@@ -816,7 +812,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     __block id next = nil;
     __block NSNumber *total = nil;
     
-    return [SRGFirstPageRequest objectRequestWithURLRequest:URLRequest session:self.session options:0 parser:^id _Nullable(NSData * _Nonnull data, NSError * _Nullable __autoreleasing * _Nullable pError) {
+    return [SRGFirstPageRequest objectRequestWithURLRequest:URLRequest session:self.session parser:^id _Nullable(NSData * _Nonnull data, NSError * _Nullable __autoreleasing * _Nullable pError) {
         NSDictionary *JSONDictionary = SRGNetworkJSONDictionaryParser(data, pError);
         
         // Extract standard paginated request information values as well
@@ -842,10 +838,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         NSURL *nextURL = [next isKindOfClass:NSString.class] ? [NSURL URLWithString:next] : nil;
         return nextURL ? [NSURLRequest requestWithURL:nextURL] : nil;
     } completionBlock:^(id  _Nullable object, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSHTTPURLResponse *HTTPResponse = [response isKindOfClass:NSHTTPURLResponse.class] ? (NSHTTPURLResponse *)response : nil;
-            completionBlock(object, total, page, nextPage, HTTPResponse, error);
-        });
+        NSHTTPURLResponse *HTTPResponse = [response isKindOfClass:NSHTTPURLResponse.class] ? (NSHTTPURLResponse *)response : nil;
+        completionBlock(object, total, page, nextPage, HTTPResponse, error);
     }];
 }
 
