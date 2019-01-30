@@ -426,4 +426,25 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testRequestHeaderConsistency
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
+    dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
+    
+    __block SRGFirstPageRequest *request = [dataProvider latestMediasForTopicWithURN:@"urn:swi:topic:tv:1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertEqualObjects(HTTPResponse.URL.host, SRGIntegrationLayerProductionServiceURL().host);
+        XCTAssertEqualObjects(HTTPResponse.allHeaderFields[@"Test-Header"], @"Test-Value");
+        
+        NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
+        XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
+        XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+        [expectation fulfill];
+    }];
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 @end
