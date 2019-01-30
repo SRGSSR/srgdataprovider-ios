@@ -254,6 +254,29 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testEpisodeCompositionPagination
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
+    __block SRGFirstPageRequest *request = [[dataProvider latestEpisodesForShowWithURN:@"urn:rts:show:tv:6454717" maximumPublicationMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertEqual(episodeComposition.episodes.count, 4);
+        
+        if (page.number == 0) {
+            [[request requestWithPage:nextPage] resume];
+        }
+        else if (page.number == 1) {
+            [expectation fulfill];
+        }
+        else {
+            XCTFail(@"Only two pages exist");
+        }
+    }] requestWithPageSize:4];
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testURNListDefaultPageSize
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
