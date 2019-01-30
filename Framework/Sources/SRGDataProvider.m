@@ -826,8 +826,13 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
             return URNsRequest;
         }
         
+        if (size > SRGDataProviderMaximumPageSize && size != SRGDataProviderUnlimitedPageSize) {
+            size = SRGDataProviderMaximumPageSize;
+        }
+        
         NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URLRequest.URL resolvingAgainstBaseURL:NO];
-        URLComponents.queryItems = @[ [NSURLQueryItem queryItemWithName:@"pageSize" value:@(size).stringValue] ];
+        NSString *pageSize = (size != SRGDataProviderUnlimitedPageSize) ? @(size).stringValue : @"unlimited";
+        URLComponents.queryItems = @[ [NSURLQueryItem queryItemWithName:@"pageSize" value:pageSize] ];
         return [NSURLRequest requestWithURL:URLComponents.URL];
     } paginator:^NSURLRequest * _Nullable(NSURLRequest * _Nonnull URLRequest, id  _Nullable object, NSURLResponse * _Nullable response, NSUInteger size, NSUInteger number) {
         NSURLRequest *URNsRequest = [SRGDataProvider URLRequestForURNsPageWithSize:size number:number URLRequest:URLRequest];
