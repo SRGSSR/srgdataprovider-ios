@@ -426,22 +426,117 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testRequestHeaderConsistency
+- (void)testPaginationRequestHeaderConsistency
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
     dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
     
-    __block SRGFirstPageRequest *request = [dataProvider latestMediasForTopicWithURN:@"urn:swi:topic:tv:1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertEqualObjects(HTTPResponse.URL.host, SRGIntegrationLayerProductionServiceURL().host);
-        XCTAssertEqualObjects(HTTPResponse.allHeaderFields[@"Test-Header"], @"Test-Value");
-        
-        NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
-        XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
-        XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
-        [expectation fulfill];
-    }];
+    __block SRGFirstPageRequest *request = [[dataProvider latestMediasForTopicWithURN:@"urn:swi:topic:tv:1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        if (page.number == 0) {
+            SRGPageRequest *nextRequest = [request requestWithPage:nextPage];
+            NSURLRequest *nextPageURLRequest = nextRequest.URLRequest;
+            XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
+            XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+            
+            [nextRequest resume];
+        }
+        else if (page.number == 1) {
+            NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
+            XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
+            XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+            
+            [expectation fulfill];
+        }
+        else {
+            XCTFail(@"Only two pages exist");
+        }
+    }] requestWithPageSize:4];
+    
+    NSURLRequest *URLRequest = request.URLRequest;
+    XCTAssertEqualObjects(URLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
+    XCTAssertEqualObjects([URLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+    
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testEpisodeCompositionPaginationRequestHeaderConsistency
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
+    dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
+    
+    __block SRGFirstPageRequest *request = [[dataProvider latestEpisodesForShowWithURN:@"urn:rts:show:tv:6454706" maximumPublicationMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        if (page.number == 0) {
+            SRGPageRequest *nextRequest = [request requestWithPage:nextPage];
+            NSURLRequest *nextPageURLRequest = nextRequest.URLRequest;
+            XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
+            XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+            
+            [nextRequest resume];
+        }
+        else if (page.number == 1) {
+            NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
+            XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
+            XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+            
+            [expectation fulfill];
+        }
+        else {
+            XCTFail(@"Only two pages exist");
+        }
+    }] requestWithPageSize:4];
+    
+    NSURLRequest *URLRequest = request.URLRequest;
+    XCTAssertEqualObjects(URLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
+    XCTAssertEqualObjects([URLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+    
+    [request resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testURNPaginationRequestHeaderConsistency
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
+    dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
+    
+    NSArray<NSString *> *URNs = @[@"urn:rts:video:10002568", @"urn:rts:video:10002444", @"urn:rts:video:9986412", @"urn:rts:video:9986195",
+                                  @"urn:rts:video:9948638", @"urn:rts:video:9951674", @"urn:rts:video:9951724", @"urn:rts:video:9950129",
+                                  @"urn:rts:video:9949270", @"urn:rts:video:9948800", @"urn:rts:video:9948698", @"urn:rts:video:9946068",
+                                  @"urn:rts:video:9946141"];
+    
+    __block SRGFirstPageRequest *request = [[dataProvider mediasWithURNs:URNs completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        if (page.number == 0) {
+            SRGPageRequest *nextRequest = [request requestWithPage:nextPage];
+            NSURLRequest *nextPageURLRequest = nextRequest.URLRequest;
+            XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
+            XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+            
+            [nextRequest resume];
+        }
+        else if (page.number == 1) {
+            NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
+            XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
+            XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+            
+            [expectation fulfill];
+        }
+        else {
+            XCTFail(@"Only two pages exist");
+        }
+    }] requestWithPageSize:4];
+    
+    NSURLRequest *URLRequest = request.URLRequest;
+    XCTAssertEqualObjects(URLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
+    XCTAssertEqualObjects([URLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+    
     [request resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

@@ -71,7 +71,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 }
 
 // Attempt to split a request with a urns query parameter, returning the request for the URNs for the specified page.
-// Returns `nil` if the request cannot be split.
+// Returns `nil` if the request cannot be split. The original request is cloned to preserve its headers, most notably.
 + (NSURLRequest *)URLRequestForURNsPageWithSize:(NSUInteger)size number:(NSUInteger)number URLRequest:(NSURLRequest *)URLRequest
 {
     NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URLRequest.URL resolvingAgainstBaseURL:NO];
@@ -101,7 +101,10 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     [queryItems replaceObjectAtIndex:[queryItems indexOfObject:URNsQueryItem] withObject:pageURNsQueryItem];
     
     URLComponents.queryItems = [queryItems copy];
-    return [NSURLRequest requestWithURL:URLComponents.URL];
+    
+    NSMutableURLRequest *URNsURLRequest = [URLRequest mutableCopy];
+    URNsURLRequest.URL = URLComponents.URL;
+    return [URNsURLRequest copy];              // Not an immutable copy ;(
 }
 
 #pragma mark Object lifecycle
@@ -740,11 +743,11 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (NSURLRequest *)URLRequestForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
 {
     NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+    NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL];
     [self.globalHeaders enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull headerField, NSString * _Nonnull value, BOOL * _Nonnull stop) {
-        [request setValue:value forHTTPHeaderField:headerField];
+        [URLRequest setValue:value forHTTPHeaderField:headerField];
     }];
-    return [request copy];
+    return [URLRequest copy];              // Not an immutable copy ;(
 }
 
 - (SRGRequest *)fetchObjectWithURLRequest:(NSURLRequest *)URLRequest
@@ -832,15 +835,13 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         
         NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URLRequest.URL resolvingAgainstBaseURL:NO];
         NSMutableArray<NSURLQueryItem *> *queryItems = [URLComponents.queryItems mutableCopy] ?: [NSMutableArray array];
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K != %@", @keypath(NSURLQueryItem.new, name), @"pageSize"];
-        [queryItems filterUsingPredicate:predicate];
-        
         NSString *pageSize = (size != SRGDataProviderUnlimitedPageSize) ? @(size).stringValue : @"unlimited";
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:pageSize]];
-        
         URLComponents.queryItems = [queryItems copy];
-        return [NSURLRequest requestWithURL:URLComponents.URL];
+        
+        NSMutableURLRequest *sizedURLRequest = [URLRequest mutableCopy];
+        sizedURLRequest.URL = URLComponents.URL;
+        return [sizedURLRequest copy];              // Not an immutable copy ;(
     } paginator:^NSURLRequest * _Nullable(NSURLRequest * _Nonnull URLRequest, id  _Nullable object, NSURLResponse * _Nullable response, NSUInteger size, NSUInteger number) {
         NSURLRequest *URNsRequest = [SRGDataProvider URLRequestForURNsPageWithSize:size number:number URLRequest:URLRequest];
         if (URNsRequest) {
@@ -848,7 +849,14 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         }
         
         NSURL *nextURL = [next isKindOfClass:NSString.class] ? [NSURL URLWithString:next] : nil;
-        return nextURL ? [NSURLRequest requestWithURL:nextURL] : nil;
+        if (nextURL) {
+            NSMutableURLRequest *pageURLRequest = [URLRequest mutableCopy];
+            pageURLRequest.URL = nextURL;
+            return [pageURLRequest copy];              // Not an immutable copy ;(
+        }
+        else {
+            return nil;
+        }
     } completionBlock:^(id  _Nullable object, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *HTTPResponse = [response isKindOfClass:NSHTTPURLResponse.class] ? (NSHTTPURLResponse *)response : nil;
         completionBlock(object, total, page, nextPage, HTTPResponse, error);
