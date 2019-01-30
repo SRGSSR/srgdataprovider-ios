@@ -831,8 +831,15 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         }
         
         NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URLRequest.URL resolvingAgainstBaseURL:NO];
+        NSMutableArray<NSURLQueryItem *> *queryItems = [URLComponents.queryItems mutableCopy] ?: [NSMutableArray array];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K != %@", @keypath(NSURLQueryItem.new, name), @"pageSize"];
+        [queryItems filterUsingPredicate:predicate];
+        
         NSString *pageSize = (size != SRGDataProviderUnlimitedPageSize) ? @(size).stringValue : @"unlimited";
-        URLComponents.queryItems = @[ [NSURLQueryItem queryItemWithName:@"pageSize" value:pageSize] ];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:pageSize]];
+        
+        URLComponents.queryItems = [queryItems copy];
         return [NSURLRequest requestWithURL:URLComponents.URL];
     } paginator:^NSURLRequest * _Nullable(NSURLRequest * _Nonnull URLRequest, id  _Nullable object, NSURLResponse * _Nullable response, NSUInteger size, NSUInteger number) {
         NSURLRequest *URNsRequest = [SRGDataProvider URLRequestForURNsPageWithSize:size number:number URLRequest:URLRequest];
