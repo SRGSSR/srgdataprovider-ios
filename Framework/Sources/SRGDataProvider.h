@@ -55,6 +55,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
+ *  The default page size.
+ */
+static const NSUInteger SRGDataProviderDefaultPageSize = 10;
+
+/**
  *  The maximum supported page size.
  */
 static const NSUInteger SRGDataProviderMaximumPageSize = 100;

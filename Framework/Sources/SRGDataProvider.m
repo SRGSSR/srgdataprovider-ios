@@ -812,7 +812,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     __block id next = nil;
     __block NSNumber *total = nil;
     
-    return [SRGFirstPageRequest objectRequestWithURLRequest:URLRequest session:self.session parser:^id _Nullable(NSData * _Nonnull data, NSError * _Nullable __autoreleasing * _Nullable pError) {
+    return [[SRGFirstPageRequest objectRequestWithURLRequest:URLRequest session:self.session parser:^id _Nullable(NSData * _Nonnull data, NSError * _Nullable __autoreleasing * _Nullable pError) {
         NSDictionary *JSONDictionary = SRGNetworkJSONDictionaryParser(data, pError);
         
         // Extract standard paginated request information values as well
@@ -845,7 +845,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     } completionBlock:^(id  _Nullable object, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *HTTPResponse = [response isKindOfClass:NSHTTPURLResponse.class] ? (NSHTTPURLResponse *)response : nil;
         completionBlock(object, total, page, nextPage, HTTPResponse, error);
-    }];
+    }] requestWithPageSize:SRGDataProviderDefaultPageSize];
 }
 
 - (SRGFirstPageRequest *)listPaginatedObjectsWithURLRequest:(NSURLRequest *)URLRequest
