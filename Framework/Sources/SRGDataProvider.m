@@ -812,14 +812,16 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSParameterAssert(parser);
     NSParameterAssert(completionBlock);
     
-    __block id next = nil;
+    __block NSURL *nextURL = nil;
     __block NSNumber *total = nil;
     
     return [[SRGFirstPageRequest objectRequestWithURLRequest:URLRequest session:self.session parser:^id _Nullable(NSData * _Nonnull data, NSError * _Nullable __autoreleasing * _Nullable pError) {
         NSDictionary *JSONDictionary = SRGNetworkJSONDictionaryParser(data, pError);
         
-        // Extract standard paginated request information values as well
-        next = JSONDictionary[@"next"];
+        // Extract standard paginated request information values as well. Note that `next` is a dictionary in now & next requests,
+        // we therefore must ensure we are looking at a lin
+        id nextObject = JSONDictionary[@"next"];
+        nextURL = [nextObject isKindOfClass:NSString.class] ? [NSURL URLWithString:nextObject] : nil;
         total = JSONDictionary[@"total"];
         
         return JSONDictionary ? parser(JSONDictionary, pError) : nil;
@@ -842,13 +844,12 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         NSMutableURLRequest *sizedURLRequest = [URLRequest mutableCopy];
         sizedURLRequest.URL = URLComponents.URL;
         return [sizedURLRequest copy];              // Not an immutable copy ;(
-    } paginator:^NSURLRequest * _Nullable(NSURLRequest * _Nonnull URLRequest, id  _Nullable object, NSURLResponse * _Nullable response, NSUInteger size, NSUInteger number) {
+    } paginator:^NSURLRequest * _Nullable(NSURLRequest * _Nonnull URLRequest, id _Nullable object, NSURLResponse * _Nullable response, NSUInteger size, NSUInteger number) {
         NSURLRequest *URNsRequest = [SRGDataProvider URLRequestForURNsPageWithSize:size number:number URLRequest:URLRequest];
         if (URNsRequest) {
             return URNsRequest;
         }
         
-        NSURL *nextURL = [next isKindOfClass:NSString.class] ? [NSURL URLWithString:next] : nil;
         if (nextURL) {
             NSMutableURLRequest *pageURLRequest = [URLRequest mutableCopy];
             pageURLRequest.URL = nextURL;
