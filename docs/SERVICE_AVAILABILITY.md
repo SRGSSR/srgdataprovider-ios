@@ -99,8 +99,10 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Video search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| Videos with tags | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
+| Videos with tags | ✅ | ❌ | ❌ | ⚠️ | ❌ | ✅ | ❌ |
 | Audio search | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
+
+⚠️ RTR only supports `fullLengthExcluded:NO`.
 
 ## Recommendation services
 
