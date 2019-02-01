@@ -5,6 +5,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <SRGNetwork/SRGNetwork.h>
 
 // Public framework imports.
 #import "SRGAlbum.h"
@@ -18,7 +19,6 @@
 #import "SRGDRM.h"
 #import "SRGEpisode.h"
 #import "SRGEpisodeComposition.h"
-#import "SRGFirstPageRequest.h"
 #import "SRGImageMetadata.h"
 #import "SRGMedia.h"
 #import "SRGMediaComposition.h"
@@ -29,13 +29,9 @@
 #import "SRGModel.h"
 #import "SRGModule.h"
 #import "SRGModuleIdentifierMetadata.h"
-#import "SRGPage.h"
-#import "SRGPageRequest.h"
 #import "SRGPresenter.h"
 #import "SRGProgram.h"
 #import "SRGRelatedContent.h"
-#import "SRGRequest.h"
-#import "SRGRequestQueue.h"
 #import "SRGResource.h"
 #import "SRGScheduledLivestreamMetadata.h"
 #import "SRGSearchResult.h"
@@ -57,6 +53,21 @@
 #import "SRGTypes.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+/**
+ *  The default page size.
+ */
+static const NSUInteger SRGDataProviderDefaultPageSize = 10;
+
+/**
+ *  The maximum supported page size.
+ */
+static const NSUInteger SRGDataProviderMaximumPageSize = 100;
+
+/**
+ *  Unlimited page size (i.e. all results are returned). Not available for all services.
+ */
+static const NSUInteger SRGDataProviderUnlimitedPageSize = NSUIntegerMax;
 
 // Official version number.
 OBJC_EXPORT NSString *SRGDataProviderMarketingVersion(void);
@@ -113,14 +124,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *
  *  ## Thread-safety
  *
- *  The data provider library does not make any guarantees regarding thread safety. Though highly asynchronous in nature
- *  during data retrieval and parsing, the library components and methods are meant to be used from the main thread only.
- *  Data provider creation and requests must be performed from the main thread. Accordingly, completion blocks are guaranteed
- *  to be called on the main thread as well.
+ *  Data provider requests can be started from any thread. By default, their completion block will be called on the main
+ *  thread, though. This can be changed by calling `-requestWithOptions:` on an existing request, with the
+ *  `SRGNetworkRequestBackgroundThreadCompletionEnabled` option.
  *
- *  This choice was made to prevent programming errors, since requests will usually be triggered by user interactions,
- *  and result in the UI being updated. Trying to use this library from any other thread except the main one will result
- *  in undefined behavior (i.e. it may work or not, and may or not break in the future).
+ *  This choice has been made to avoid common programming errors. Since all request work is done on background threads,
+ *  the completion block is most of the time namely used to trigger UI updates, which have to occur on the main thread.
  *
  *  ## Service availability
  *

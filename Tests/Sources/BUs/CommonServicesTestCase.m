@@ -137,6 +137,37 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testMediasWithURNsPagination
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
+    
+    __block SRGFirstPageRequest *request1 = [[self.dataProvider mediasWithURNs:@[kVideoRTSURN, kVideoRTSOtherURN, kMediaSRFURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNil(error);
+        
+        if (page.number == 0) {
+            XCTAssertEqual(medias.count, 2);
+            XCTAssertEqualObjects(medias.firstObject.URN, kVideoRTSURN);
+            XCTAssertNotNil(nextPage);
+            
+            SRGPageRequest *request2 = [request1 requestWithPage:nextPage];
+            [request2 resume];
+        }
+        else if (page.number == 1) {
+            XCTAssertEqual(medias.count, 1);
+            XCTAssertEqualObjects(medias.firstObject.URN, kMediaSRFURN);
+            XCTAssertNil(nextPage);
+            
+            [expectation fulfill];
+        }
+        else {
+            XCTFail(@"Only two pages are expected");
+        }
+    }] requestWithPageSize:2];
+    [request1 resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testLatestMediasForTopicWithURN
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
