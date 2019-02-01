@@ -819,7 +819,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         NSDictionary *JSONDictionary = SRGNetworkJSONDictionaryParser(data, pError);
         
         // Extract standard paginated request information values as well. Note that `next` is a dictionary in now & next requests,
-        // we therefore must ensure we are looking at a lin
+        // we therefore must ensure we are looking at a link.
         id nextObject = JSONDictionary[@"next"];
         nextURL = [nextObject isKindOfClass:NSString.class] ? [NSURL URLWithString:nextObject] : nil;
         total = JSONDictionary[@"total"];
