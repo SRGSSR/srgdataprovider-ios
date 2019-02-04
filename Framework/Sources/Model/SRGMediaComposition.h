@@ -68,8 +68,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Return the media object corresponding to the media composition full-length.
  *
- *  @param For medias which are not part of a full-length (and in this regard are their own full-length), the media
- *         itself is returned.
+ *  @discussion For medias which are not part of a full-length (and in this regard are their own full-length), the media
+ *              itself is returned.
  */
 @property (nonatomic, readonly) SRGMedia *fullLengthMedia;
 
