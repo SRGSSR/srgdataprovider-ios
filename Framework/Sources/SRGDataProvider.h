@@ -209,9 +209,16 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 @property (nonatomic, readonly) NSURL *serviceURL;
 
 /**
- *  Optional global headers which will added to all requests.
+ *  Optional global headers which will added to all requests. Use with caution, as some headers might not be supported and
+ *  could lead to request failure.
  */
 @property (nonatomic, nullable) NSDictionary<NSString *, NSString *> *globalHeaders;
+
+/**
+ *  Optional global parameters which will added to all requests. Use with caution, as some parameters might not be supported
+ *  and could lead to request failure.
+ */
+@property (nonatomic, nullable) NSDictionary<NSString *, NSString *> *globalParameters;
 
 @end
 

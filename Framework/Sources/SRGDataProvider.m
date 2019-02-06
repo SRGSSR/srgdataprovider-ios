@@ -615,9 +615,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSAssert(endpoint, @"A supported social count type must be provided");
     
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/mediaStatistic/byUrn/%@/%@.json", subdivision.URN, endpoint];
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:nil];
     
-    NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL];
+    NSMutableURLRequest *URLRequest = [[self URLRequestForResourcePath:resourcePath withQueryItems:nil] mutableCopy];
     URLRequest.HTTPMethod = @"POST";
     [URLRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
@@ -725,25 +724,22 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 #pragma mark Common implementation
 
-- (NSURL *)URLForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
+- (NSURLRequest *)URLRequestForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
 {
     NSURL *URL = [self.serviceURL URLByAppendingPathComponent:resourcePath];
-    NSURLComponents *URLComponents = [NSURLComponents componentsWithString:URL.absoluteString];
+    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
     
     NSMutableArray<NSURLQueryItem *> *fullQueryItems = [NSMutableArray array];
-    [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"vector" value:@"appplay"]];
+    [self.globalParameters enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull name, NSString * _Nonnull value, BOOL * _Nonnull stop) {
+        [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:name value:value]];
+    }];
     if (queryItems) {
         [fullQueryItems addObjectsFromArray:queryItems];
     }
+    [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"vector" value:@"appplay"]];
     URLComponents.queryItems = [fullQueryItems copy];
     
-    return URLComponents.URL;
-}
-
-- (NSURLRequest *)URLRequestForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
-{
-    NSURL *URL = [self URLForResourcePath:resourcePath withQueryItems:queryItems];
-    NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL];
+    NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URLComponents.URL];
     [self.globalHeaders enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull headerField, NSString * _Nonnull value, BOOL * _Nonnull stop) {
         [URLRequest setValue:value forHTTPHeaderField:headerField];
     }];

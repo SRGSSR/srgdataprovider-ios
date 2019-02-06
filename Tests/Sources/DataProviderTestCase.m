@@ -6,6 +6,16 @@
 
 #import "DataProviderBaseTestCase.h"
 
+static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NSString *value)
+{
+    NSURLComponents *components = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSURLQueryItem * _Nullable queryItem, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return [queryItem.name isEqualToString:name];
+    }];
+    NSURLQueryItem *queryItem = [components.queryItems filteredArrayUsingPredicate:predicate].firstObject;
+    return [queryItem.value isEqualToString:value];
+}
+
 @interface DataProviderTestCase : DataProviderBaseTestCase
 
 @end
@@ -426,12 +436,13 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testPaginationRequestHeaderConsistency
+- (void)testPaginationRequestGlobalSettingsConsistency
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
     dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
+    dataProvider.globalParameters = @{ @"forceLocation" : "WW" };
     
     __block SRGFirstPageRequest *request = [[dataProvider latestMediasForTopicWithURN:@"urn:swi:topic:tv:1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         if (page.number == 0) {
@@ -439,6 +450,7 @@
             NSURLRequest *nextPageURLRequest = nextRequest.URLRequest;
             XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
             XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", "WW"));
             
             [nextRequest resume];
         }
@@ -446,6 +458,7 @@
             NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
             XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
             XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", "WW"));
             
             [expectation fulfill];
         }
@@ -457,18 +470,20 @@
     NSURLRequest *URLRequest = request.URLRequest;
     XCTAssertEqualObjects(URLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
     XCTAssertEqualObjects([URLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+    XCTAssertTrue(DataProviderURLContainsQueryParameter(URLRequest.URL, @"forceLocation", "WW"));
     
     [request resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testEpisodeCompositionPaginationRequestHeaderConsistency
+- (void)testEpisodeCompositionPaginationRequestGlobalSettingsConsistency
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
     dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
+    dataProvider.globalParameters = @{ @"forceLocation" : "WW" };
     
     __block SRGFirstPageRequest *request = [[dataProvider latestEpisodesForShowWithURN:@"urn:rts:show:tv:6454706" maximumPublicationMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         if (page.number == 0) {
@@ -476,6 +491,7 @@
             NSURLRequest *nextPageURLRequest = nextRequest.URLRequest;
             XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
             XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", "WW"));
             
             [nextRequest resume];
         }
@@ -483,6 +499,7 @@
             NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
             XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
             XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", "WW"));
             
             [expectation fulfill];
         }
@@ -494,18 +511,20 @@
     NSURLRequest *URLRequest = request.URLRequest;
     XCTAssertEqualObjects(URLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
     XCTAssertEqualObjects([URLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+    XCTAssertTrue(DataProviderURLContainsQueryParameter(URLRequest.URL, @"forceLocation", "WW"));
     
     [request resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testURNPaginationRequestHeaderConsistency
+- (void)testURNPaginationRequestGlobalSettingsConsistency
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
     dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
+    dataProvider.globalParameters = @{ @"forceLocation" : "WW" };
     
     NSArray<NSString *> *URNs = @[@"urn:rts:video:10002568", @"urn:rts:video:10002444", @"urn:rts:video:9986412", @"urn:rts:video:9986195",
                                   @"urn:rts:video:9948638", @"urn:rts:video:9951674", @"urn:rts:video:9951724", @"urn:rts:video:9950129",
@@ -518,6 +537,7 @@
             NSURLRequest *nextPageURLRequest = nextRequest.URLRequest;
             XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
             XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", "WW"));
             
             [nextRequest resume];
         }
@@ -525,6 +545,7 @@
             NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
             XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
             XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", "WW"));
             
             [expectation fulfill];
         }
@@ -536,6 +557,7 @@
     NSURLRequest *URLRequest = request.URLRequest;
     XCTAssertEqualObjects(URLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
     XCTAssertEqualObjects([URLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
+    XCTAssertTrue(DataProviderURLContainsQueryParameter(URLRequest.URL, @"forceLocation", "WW"));
     
     [request resume];
     
