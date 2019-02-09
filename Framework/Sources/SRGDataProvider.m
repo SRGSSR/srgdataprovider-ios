@@ -7,7 +7,6 @@
 #import "SRGDataProvider.h"
 
 #import "NSBundle+SRGDataProvider.h"
-#import "SRGDataProviderError.h"
 #import "SRGDataProviderLogger.h"
 #import "SRGJSONTransformers.h"
 #import "SRGSessionDelegate.h"

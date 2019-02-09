@@ -124,8 +124,6 @@
 		E6C2B3B91D3908AF00B6250B /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; };
 		E6C2B3BF1D390EEF00B6250B /* SRGMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = E6C2B3BD1D390EEF00B6250B /* SRGMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6C2B3C01D390EEF00B6250B /* SRGMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C2B3BE1D390EEF00B6250B /* SRGMedia.m */; };
-		E6C2B3C31D391D5A00B6250B /* SRGDataProviderError.h in Headers */ = {isa = PBXBuildFile; fileRef = E6C2B3C11D391D5A00B6250B /* SRGDataProviderError.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E6C2B3C41D391D5A00B6250B /* SRGDataProviderError.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C2B3C21D391D5A00B6250B /* SRGDataProviderError.m */; };
 		E6C2B3CC1D391EFD00B6250B /* NSBundle+SRGDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E6C2B3CA1D391EFD00B6250B /* NSBundle+SRGDataProvider.h */; };
 		E6C2B3CD1D391EFD00B6250B /* NSBundle+SRGDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C2B3CB1D391EFD00B6250B /* NSBundle+SRGDataProvider.m */; };
 		E6C2B3F41D392F1200B6250B /* SRGEpisode.h in Headers */ = {isa = PBXBuildFile; fileRef = E6C2B3F21D392F1200B6250B /* SRGEpisode.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -290,8 +288,6 @@
 		E6C2B3B71D39089F00B6250B /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
 		E6C2B3BD1D390EEF00B6250B /* SRGMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGMedia.h; sourceTree = "<group>"; };
 		E6C2B3BE1D390EEF00B6250B /* SRGMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGMedia.m; sourceTree = "<group>"; };
-		E6C2B3C11D391D5A00B6250B /* SRGDataProviderError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGDataProviderError.h; sourceTree = "<group>"; };
-		E6C2B3C21D391D5A00B6250B /* SRGDataProviderError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGDataProviderError.m; sourceTree = "<group>"; };
 		E6C2B3CA1D391EFD00B6250B /* NSBundle+SRGDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+SRGDataProvider.h"; sourceTree = "<group>"; };
 		E6C2B3CB1D391EFD00B6250B /* NSBundle+SRGDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+SRGDataProvider.m"; sourceTree = "<group>"; };
 		E6C2B3D01D39239E00B6250B /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -414,8 +410,6 @@
 				E6391A981D38E92400E4CBB9 /* Model */,
 				E6391A9B1D38E92400E4CBB9 /* SRGDataProvider.h */,
 				E6391A9C1D38E92400E4CBB9 /* SRGDataProvider.m */,
-				E6C2B3C11D391D5A00B6250B /* SRGDataProviderError.h */,
-				E6C2B3C21D391D5A00B6250B /* SRGDataProviderError.m */,
 				6FA09D861D9EB5CA00EDCA64 /* SRGDataProviderLogger.h */,
 			);
 			path = Sources;
@@ -604,7 +598,6 @@
 				6FC024B01E1D001600550881 /* SRGSearchResult.h in Headers */,
 				6FC024B41E1D380700550881 /* SRGSearchResultShow.h in Headers */,
 				E63DA7251D5C554A0053060E /* SRGModule.h in Headers */,
-				E6C2B3C31D391D5A00B6250B /* SRGDataProviderError.h in Headers */,
 				E68598B11D40CEC30010000A /* SRGImageMetadata.h in Headers */,
 				6FB1561E1E83D6F900389D04 /* NSObject+SRGDataProvider.h in Headers */,
 				6FB156161E83D20B00389D04 /* NSDictionary+SRGDataProvider.h in Headers */,
@@ -838,7 +831,6 @@
 				6F886E4A1F5FBA2600C8804D /* SRGSocialCountOverview.m in Sources */,
 				6FDF33D11F0236EB00BA1D6E /* SRGSegment.m in Sources */,
 				6FEFFEFB1F02A08F00CD6FCA /* SRGSong.m in Sources */,
-				E6C2B3C41D391D5A00B6250B /* SRGDataProviderError.m in Sources */,
 				6F556B401DDDD7C500B5DEA2 /* SRGEpisodeComposition.m in Sources */,
 				6FC024B91E1D381E00550881 /* SRGSearchResultMedia.m in Sources */,
 				E6C2B3CD1D391EFD00B6250B /* NSBundle+SRGDataProvider.m in Sources */,
