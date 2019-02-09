@@ -442,7 +442,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
     dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
-    dataProvider.globalParameters = @{ @"forceLocation" : "WW" };
+    dataProvider.globalParameters = @{ @"forceLocation" : @"WW" };
     
     __block SRGFirstPageRequest *request = [[dataProvider latestMediasForTopicWithURN:@"urn:swi:topic:tv:1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         if (page.number == 0) {
@@ -450,7 +450,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
             NSURLRequest *nextPageURLRequest = nextRequest.URLRequest;
             XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
             XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
-            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", "WW"));
+            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", @"WW"));
             
             [nextRequest resume];
         }
@@ -458,7 +458,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
             NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
             XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
             XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
-            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", "WW"));
+            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", @"WW"));
             
             [expectation fulfill];
         }
@@ -470,7 +470,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     NSURLRequest *URLRequest = request.URLRequest;
     XCTAssertEqualObjects(URLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
     XCTAssertEqualObjects([URLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
-    XCTAssertTrue(DataProviderURLContainsQueryParameter(URLRequest.URL, @"forceLocation", "WW"));
+    XCTAssertTrue(DataProviderURLContainsQueryParameter(URLRequest.URL, @"forceLocation", @"WW"));
     
     [request resume];
     
@@ -483,7 +483,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
     dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
-    dataProvider.globalParameters = @{ @"forceLocation" : "WW" };
+    dataProvider.globalParameters = @{ @"forceLocation" : @"WW" };
     
     __block SRGFirstPageRequest *request = [[dataProvider latestEpisodesForShowWithURN:@"urn:rts:show:tv:6454706" maximumPublicationMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         if (page.number == 0) {
@@ -491,7 +491,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
             NSURLRequest *nextPageURLRequest = nextRequest.URLRequest;
             XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
             XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
-            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", "WW"));
+            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", @"WW"));
             
             [nextRequest resume];
         }
@@ -499,7 +499,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
             NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
             XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
             XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
-            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", "WW"));
+            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", @"WW"));
             
             [expectation fulfill];
         }
@@ -511,7 +511,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     NSURLRequest *URLRequest = request.URLRequest;
     XCTAssertEqualObjects(URLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
     XCTAssertEqualObjects([URLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
-    XCTAssertTrue(DataProviderURLContainsQueryParameter(URLRequest.URL, @"forceLocation", "WW"));
+    XCTAssertTrue(DataProviderURLContainsQueryParameter(URLRequest.URL, @"forceLocation", @"WW"));
     
     [request resume];
     
@@ -524,7 +524,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
     dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
-    dataProvider.globalParameters = @{ @"forceLocation" : "WW" };
+    dataProvider.globalParameters = @{ @"forceLocation" : @"WW" };
     
     NSArray<NSString *> *URNs = @[@"urn:rts:video:10002568", @"urn:rts:video:10002444", @"urn:rts:video:9986412", @"urn:rts:video:9986195",
                                   @"urn:rts:video:9948638", @"urn:rts:video:9951674", @"urn:rts:video:9951724", @"urn:rts:video:9950129",
@@ -537,7 +537,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
             NSURLRequest *nextPageURLRequest = nextRequest.URLRequest;
             XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
             XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
-            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", "WW"));
+            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", @"WW"));
             
             [nextRequest resume];
         }
@@ -545,7 +545,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
             NSURLRequest *nextPageURLRequest = [request requestWithPage:nextPage].URLRequest;
             XCTAssertEqualObjects(nextPageURLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
             XCTAssertEqualObjects([nextPageURLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
-            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", "WW"));
+            XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", @"WW"));
             
             [expectation fulfill];
         }
@@ -557,7 +557,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     NSURLRequest *URLRequest = request.URLRequest;
     XCTAssertEqualObjects(URLRequest.URL.host, SRGIntegrationLayerProductionServiceURL().host);
     XCTAssertEqualObjects([URLRequest valueForHTTPHeaderField:@"Test-Header"], @"Test-Value");
-    XCTAssertTrue(DataProviderURLContainsQueryParameter(URLRequest.URL, @"forceLocation", "WW"));
+    XCTAssertTrue(DataProviderURLContainsQueryParameter(URLRequest.URL, @"forceLocation", @"WW"));
     
     [request resume];
     
