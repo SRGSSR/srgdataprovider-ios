@@ -158,6 +158,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
             XCTAssertNil(nextPage);
             
             [expectation fulfill];
+            request1 = nil;
         }
         else {
             XCTFail(@"Only two pages are expected");

@@ -254,6 +254,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
         }
         else if (page.number == 1) {
             [expectation fulfill];
+            request = nil;
         }
         else {
             XCTFail(@"Only first two pages are expected");
@@ -277,6 +278,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
         }
         else if (page.number == 1) {
             [expectation fulfill];
+            request = nil;
         }
         else {
             XCTFail(@"Only two pages exist");
@@ -360,6 +362,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
         else if (page.number == 1) {
             XCTAssertEqual(medias.count, 3);
             [expectation fulfill];
+            request = nil;
         }
         else {
             XCTFail(@"Only two pages exist");
@@ -461,6 +464,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
             XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", @"WW"));
             
             [expectation fulfill];
+            request = nil;
         }
         else {
             XCTFail(@"Only two pages exist");
@@ -502,6 +506,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
             XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", @"WW"));
             
             [expectation fulfill];
+            request = nil;
         }
         else {
             XCTFail(@"Only two pages exist");
@@ -548,6 +553,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
             XCTAssertTrue(DataProviderURLContainsQueryParameter(nextPageURLRequest.URL, @"forceLocation", @"WW"));
             
             [expectation fulfill];
+            request = nil;
         }
         else {
             XCTFail(@"Only two pages exist");
