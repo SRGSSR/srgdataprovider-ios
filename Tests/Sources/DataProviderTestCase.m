@@ -134,21 +134,21 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     [[[dataProvider tvChannelsForVendor:SRGVendorRTS withCompletionBlock:^(NSArray<SRGChannel *> * _Nullable channels, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertFalse(NSThread.isMainThread);
         [expectation1 fulfill];
-    }] requestWithOptions:SRGNetworkRequestBackgroundThreadCompletionEnabled] resume];
+    }] requestWithOptions:SRGRequestOptionBackgroundCompletionEnabled] resume];
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 finished"];
     
     [[[dataProvider tvLatestMediasForVendor:SRGVendorRTS withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertFalse(NSThread.isMainThread);
         [expectation2 fulfill];
-    }] requestWithOptions:SRGNetworkRequestBackgroundThreadCompletionEnabled] resume];
+    }] requestWithOptions:SRGRequestOptionBackgroundCompletionEnabled] resume];
     
     XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request 3 finished"];
     
     [[[dataProvider latestEpisodesForShowWithURN:@"urn:rts:show:tv:6454706" maximumPublicationMonth:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertFalse(NSThread.isMainThread);
         [expectation3 fulfill];
-    }] requestWithOptions:SRGNetworkRequestBackgroundThreadCompletionEnabled] resume];
+    }] requestWithOptions:SRGRequestOptionBackgroundCompletionEnabled] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
