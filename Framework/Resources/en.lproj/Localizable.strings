@@ -1,9 +1,6 @@
 /* A youth protection message displayed to the user if the media has the yellow protection color. */
 "Parental advisory" = "Parental advisory";
 
-/* The main error message if multiple errors have been encountered. Finally, the developer could should which one to display, and not show this message. */
-"Several errors have been encountered" = "Several errors have been encountered";
-
 /* A blocking reason message displayed to the user during the playback if a segment was skipped. */
 "The commercial content was skipped." = "The commercial content was skipped.";
 
@@ -27,9 +24,6 @@
 
 /* A blocking reason message displayed to the user during the playback if a segment was skipped. */
 "The content was skipped to protect children. Please try again between 8AM and 6AM." = "The content was skipped to protect children. Please try again between 8AM and 6AM.";
-
-/* Error message returned when a server response data is incorrect. */
-"The data is invalid." = "The data is invalid.";
 
 /* A blocking reason message displayed to the user if the media can't be played. */
 "This commercial media is not available." = "This commercial media is not available.";
@@ -57,6 +51,3 @@
 
 /* A blocking reason message displayed to the user if the media can't be played. */
 "To protect children, this media is only available between 8PM and 6AM." = "To protect children, this content is only available between 8PM and 6AM.";
-
-/* The error message when request a media or a media list on a public network with no Internet access (e.g. SBB) */
-"You are likely connected to a public wifi network with no Internet access" = "You are likely connected to a public wifi network with no Internet access";

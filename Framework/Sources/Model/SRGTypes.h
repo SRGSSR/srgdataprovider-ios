@@ -369,6 +369,20 @@ typedef NS_ENUM(NSInteger, SRGSubtitleFormat) {
 };
 
 /**
+ *  Token types.
+ */
+typedef NS_ENUM(NSInteger, SRGTokenType) {
+    /**
+     *  Not specified.
+     */
+    SRGTokenTypeNone = 0,
+    /**
+     *  Akamai token.
+     */
+    SRGTokenTypeAkamai
+};
+
+/**
  *  Transmission types.
  */
 typedef NS_ENUM(NSInteger, SRGTransmission) {

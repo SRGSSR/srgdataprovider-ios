@@ -486,7 +486,7 @@ static NSString * const kUserId = @"test_user_id";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-// Not supported for RTR
+// Partial supported for RTR
 - (void)testVideosWithTags
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
@@ -519,7 +519,8 @@ static NSString * const kUserId = @"test_user_id";
     XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider videosForVendor:SRGVendorRTR withTags:@[kTag1] excludedTags:nil fullLengthExcluded:NO completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(error);
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
         [expectation4 fulfill];
     }] resume];
     
