@@ -598,7 +598,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSParameterAssert(subdivision);
     
     // Won't crash in release builds, but the request will most likely fail
-    NSAssert(subdivision.event, @"Expect event information");
+    //NSAssert(subdivision.event, @"Expect event information");
     
     static dispatch_once_t s_onceToken;
     static NSDictionary<NSNumber *, NSString *> *s_endpoints;
