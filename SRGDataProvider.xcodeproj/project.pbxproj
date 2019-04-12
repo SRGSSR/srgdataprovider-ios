@@ -716,7 +716,7 @@
 			};
 			buildConfigurationList = E6AF7EF71D38B8BD00942ADA /* Build configuration list for PBXProject "SRGDataProvider" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
