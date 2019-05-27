@@ -24,6 +24,7 @@
 #import "SRGMediaIdentifierMetadata.h"
 #import "SRGMediaMetadata.h"
 #import "SRGMediaParentMetadata.h"
+#import "SRGMediaSearchQuery.h"
 #import "SRGMetadata.h"
 #import "SRGModel.h"
 #import "SRGModule.h"
@@ -585,6 +586,16 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  */
 - (SRGRequest *)serviceMessageForVendor:(SRGVendor)vendor
                     withCompletionBlock:(SRGServiceMessageCompletionBlock)completionBlock;
+
+/**
+ *  Search medias matching a specific query.
+ *
+ *  @discussion To get media objects, call the `-mediasWithURNs:completionBlock:` request with the returned search results
+ *              URN list.
+ */
+- (SRGFirstPageRequest *)mediasForVendor:(SRGVendor)vendor
+                           matchingQuery:(SRGMediaSearchQuery *)query
+                     withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Retrieve the list of shows which are searched the most.

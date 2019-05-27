@@ -123,6 +123,7 @@ Modules are collection of medias related to a specific context (e.g. an event).
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Service message | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+| Media search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 | Most searched shows | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 
 ## Popularity services

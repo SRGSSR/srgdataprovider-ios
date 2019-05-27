@@ -509,6 +509,62 @@ typedef NS_ENUM(NSInteger, SRGContentProviders) {
 };
 
 /**
+ *  Image dimensions for image retrieval.
+ */
+typedef NS_ENUM(NSInteger, SRGImageDimension) {
+    /**
+     *  Width.
+     */
+    SRGImageDimensionWidth = 0,
+    /**
+     *  Height.
+     */
+    SRGImageDimensionHeight
+};
+
+/**
+ *  Search match behavior.
+ */
+typedef NS_ENUM(NSInteger, SRGSearchMatch) {
+    /**
+     *  Match all query text items.
+     */
+    SRGSearchMatchAll = 0,
+    /**
+     *  Match any of the text items.
+     */
+    SRGSearchMatchAny
+};
+
+/**
+ *  Sort criteria.
+ */
+typedef NS_ENUM(NSInteger, SRGSortCriterium) {
+    /**
+     *  Use the default order returned by the service.
+     */
+    SRGSortCriteriumDefault = 0,
+    /**
+     *  Sort by date.
+     */
+    SRGSortCriteriumDate
+};
+
+/**
+ *  Sort directions.
+ */
+typedef NS_ENUM(NSInteger, SRGSortDirection) {
+    /**
+     *  Descending order.
+     */
+    SRGSortDirectionDescending = 0,
+    /**
+     *  Ascending order
+     */
+    SRGSortDirectionAscending
+};
+
+/**
  *  Stream types.
  */
 typedef NS_ENUM(NSInteger, SRGStreamType) {
@@ -528,20 +584,6 @@ typedef NS_ENUM(NSInteger, SRGStreamType) {
      *  DVR stream (live with timeshift support).
      */
     SRGStreamTypeDVR
-};
-
-/**
- *  Image dimensions for image retrieval.
- */
-typedef NS_ENUM(NSInteger, SRGImageDimension) {
-    /**
-     *  Width.
-     */
-    SRGImageDimensionWidth,
-    /**
-     *  Height.
-     */
-    SRGImageDimensionHeight
 };
 
 /**

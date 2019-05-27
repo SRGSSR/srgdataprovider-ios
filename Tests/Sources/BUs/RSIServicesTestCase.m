@@ -820,6 +820,22 @@ static NSString * const kUserId = @"test_user_id";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testMediasMatchingQuery
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGMediaSearchQuery *query = [[SRGMediaSearchQuery alloc] init];
+    query.text = @"roger";
+    
+    [[self.dataProvider mediasForVendor:SRGVendorRSI matchingQuery:query withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testMostSearchedShows
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
