@@ -505,17 +505,30 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  List of media search-oriented services supported by the data provider.
  */
-@interface SRGDataProvider (MediaSearchServices)
+@interface SRGDataProvider (SearchServices)
 
 /**
- *  Search videos matching a specific query.
- *
- *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
- *              `-mediasWithURNs:completionBlock:` request with the returned search results URN list.
+ *  Search medias matching a specific query.
  */
-- (SRGFirstPageRequest *)videosForVendor:(SRGVendor)vendor
-                           matchingQuery:(NSString *)query
-                     withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)mediasForVendor:(SRGVendor)vendor
+                           matchingQuery:(SRGMediaSearchQuery *)query
+                     withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
+ *  Search shows matching a specific query.
+ *
+ *  @param mediaType If set to a value different from `SRGMediaTypeNone`, filter shows for which content of the specified
+ *                   type is available.
+ */
+- (SRGFirstPageRequest *)showsForVendor:(SRGVendor)vendor
+                          matchingQuery:(NSString *)query
+                              mediaType:(SRGMediaType)mediaType
+                    withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
+/**
+ *  Retrieve the list of shows which are searched the most.
+ */
+- (SRGRequest *)mostSearchedShowsForVendor:(SRGVendor)vendor
+                       withCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
 
 /**
  *  List medias with specific tags.
@@ -529,16 +542,6 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                             excludedTags:(nullable NSArray<NSString *> *)excludedTags
                       fullLengthExcluded:(BOOL)fullLengthExcluded
                          completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
-
-/**
- *  Search audios matching a specific query.
- *
- *  @discussion Some business units only support full-text search, not partial matching. To get media objects, call the
- *              `-mediasWithURNs:completionBlock:` request with the returned search results URN list.
- */
-- (SRGFirstPageRequest *)audiosForVendor:(SRGVendor)vendor
-                           matchingQuery:(NSString *)query
-                     withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock;
 
 @end
 
@@ -586,29 +589,6 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  */
 - (SRGRequest *)serviceMessageForVendor:(SRGVendor)vendor
                     withCompletionBlock:(SRGServiceMessageCompletionBlock)completionBlock;
-
-/**
- *  Search medias matching a specific query.
- */
-- (SRGFirstPageRequest *)mediasForVendor:(SRGVendor)vendor
-                           matchingQuery:(SRGMediaSearchQuery *)query
-                     withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
-
-/**
- *  Search shows matching a specific query.
- *
- *  @param mediaType If set to a value different from `SRGMediaTypeNone`, filter shows for which content of the specified
- *                   type is available.
- */
-- (SRGFirstPageRequest *)showsForVendor:(SRGVendor)vendor
-                          matchingQuery:(NSString *)query
-                              mediaType:(SRGMediaType)mediaType
-                    withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
-/**
- *  Retrieve the list of shows which are searched the most.
- */
-- (SRGRequest *)mostSearchedShowsForVendor:(SRGVendor)vendor
-                       withCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
 
 @end
 
