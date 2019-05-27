@@ -644,8 +644,32 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSAssert(sortDirection != nil, @"Sort direction expected");
     [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sortDir" value:sortDirection]];
     
+    // FIXME: Extrac total number of items + aggregations + suggestions
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"searchResultMediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, HTTPResponse, error);
+    }];
+}
+
+- (SRGFirstPageRequest *)showsForVendor:(SRGVendor)vendor matchingQuery:(NSString *)query mediaType:(SRGMediaType)mediaType withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultShowList", SRGPathComponentForVendor(vendor)];
+    
+    static dispatch_once_t s_onceToken;
+    static NSDictionary<NSNumber *, NSString *> *s_mediaTypes;
+    dispatch_once(&s_onceToken, ^{
+        s_mediaTypes = @{ @(SRGMediaTypeVideo) : @"video",
+                          @(SRGMediaTypeAudio) : @"audio" };
+    });
+    
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray arrayWithObject:[NSURLQueryItem queryItemWithName:@"q" value:query]];
+    NSString *mediaTypeParameter = s_mediaTypes[@(mediaType)];
+    if (mediaTypeParameter) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"mediaType" value:mediaTypeParameter]];
+    }
+    
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGShow.class rootKey:@"searchResultShowList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
     }];
 }

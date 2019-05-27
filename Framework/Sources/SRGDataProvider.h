@@ -589,14 +589,21 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 
 /**
  *  Search medias matching a specific query.
- *
- *  @discussion To get media objects, call the `-mediasWithURNs:completionBlock:` request with the returned search results
- *              URN list.
  */
 - (SRGFirstPageRequest *)mediasForVendor:(SRGVendor)vendor
                            matchingQuery:(SRGMediaSearchQuery *)query
                      withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
+/**
+ *  Search shows matching a specific query.
+ *
+ *  @param mediaType If set to a value different from `SRGMediaTypeNone`, filter shows for which content of the specified
+ *                   type is available.
+ */
+- (SRGFirstPageRequest *)showsForVendor:(SRGVendor)vendor
+                          matchingQuery:(NSString *)query
+                              mediaType:(SRGMediaType)mediaType
+                    withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 /**
  *  Retrieve the list of shows which are searched the most.
  */

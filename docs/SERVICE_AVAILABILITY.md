@@ -124,6 +124,7 @@ Modules are collection of medias related to a specific context (e.g. an event).
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Service message | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Media search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| Show search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 | Most searched shows | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 
 ## Popularity services
