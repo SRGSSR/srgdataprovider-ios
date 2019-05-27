@@ -484,8 +484,9 @@ static NSString * const kUserId = @"test_user_id";
     SRGMediaSearchQuery *query = [[SRGMediaSearchQuery alloc] init];
     query.text = kVideoSearchQuery;
     
-    [[self.dataProvider mediasForVendor:SRGVendorRSI matchingQuery:query withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSNumber * _Nonnull total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasForVendor:SRGVendorRSI matchingQuery:query withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSNumber * _Nonnull total, SRGMediaSearchAggregation * _Nonnull aggregation, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
+        XCTAssertNotNil(aggregation);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];

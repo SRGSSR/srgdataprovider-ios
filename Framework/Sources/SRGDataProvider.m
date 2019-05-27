@@ -560,8 +560,28 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     
     [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeSuggestions" value:@"true"]];
     
+    __block SRGMediaSearchAggregation *aggregation = nil;
+    
+    // TODO: Factor out somehow?
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
-    return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"searchResultMediaList" completionBlock:completionBlock];
+    return [self pageRequestWithURLRequest:URLRequest parser:^id(NSDictionary *JSONDictionary, NSError *__autoreleasing *pError) {
+        id JSONArray = JSONDictionary[@"searchResultMediaList"];
+        if (JSONArray && [JSONArray isKindOfClass:NSArray.class]) {
+            aggregation = [MTLJSONAdapter modelOfClass:SRGMediaSearchAggregation.class fromJSONDictionary:JSONDictionary[@"aggregations"] error:pError];
+            if (! aggregation) {
+                return nil;
+            }
+            
+            return [MTLJSONAdapter modelsOfClass:SRGMedia.class fromJSONArray:JSONArray error:pError];
+        }
+        else {
+            // Remark: When the result count is equal to a multiple of the page size, the last link returns an empty list array.
+            // See https://srfmmz.atlassian.net/wiki/display/SRGPLAY/Developer+Meeting+2016-10-05
+            return @[];
+        }
+    } completionBlock:^(id  _Nullable object, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        completionBlock(object, total, aggregation, page, nextPage, HTTPResponse, error);
+    }];
 }
 
 - (SRGFirstPageRequest *)showsForVendor:(SRGVendor)vendor matchingQuery:(NSString *)query mediaType:(SRGMediaType)mediaType withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock

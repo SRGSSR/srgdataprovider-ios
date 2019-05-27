@@ -24,6 +24,7 @@
 #import "SRGMediaIdentifierMetadata.h"
 #import "SRGMediaMetadata.h"
 #import "SRGMediaParentMetadata.h"
+#import "SRGMediaSearchAggregation.h"
 #import "SRGMediaSearchQuery.h"
 #import "SRGMetadata.h"
 #import "SRGModel.h"
@@ -93,7 +94,7 @@ typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topi
 // Completion block signatures (with pagination support). For requests supporting it, the total number of results is returned.
 typedef void (^SRGPaginatedEpisodeCompositionCompletionBlock)(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGPaginatedMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
-typedef void (^SRGPaginatedSearchResultMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, NSNumber *total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
+typedef void (^SRGPaginatedSearchResultMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, NSNumber *total, SRGMediaSearchAggregation *aggregation, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGPaginatedSearchResultShowListCompletionBlock)(NSArray<SRGSearchResultShow *> * _Nullable searchResults, NSNumber *total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullable songs, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);

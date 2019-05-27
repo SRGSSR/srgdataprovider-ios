@@ -64,6 +64,8 @@
 		6FC5B8241E852B46003555F8 /* MAKVONotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; };
 		6FCEFEED229BD741001388F9 /* SRGMediaSearchQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCEFEEB229BD741001388F9 /* SRGMediaSearchQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FCEFEF0229BE35D001388F9 /* SRGMediaSearchQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCEFEEF229BE35D001388F9 /* SRGMediaSearchQuery.m */; };
+		6FCEFEF9229C1290001388F9 /* SRGMediaSearchAggregation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCEFEF7229C1290001388F9 /* SRGMediaSearchAggregation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6FCEFEFA229C1290001388F9 /* SRGMediaSearchAggregation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCEFEF8229C1290001388F9 /* SRGMediaSearchAggregation.m */; };
 		6FD1EAEE1E8A652E007940EE /* DataProviderBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1EAED1E8A652E007940EE /* DataProviderBaseTestCase.m */; };
 		6FDB9A8C2011DEF800EBEB3C /* SRGModuleIdentifierMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FDB9A8A2011DEF700EBEB3C /* SRGModuleIdentifierMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FDB9A8D2011DEF800EBEB3C /* SRGTopicIdentifierMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FDB9A8B2011DEF800EBEB3C /* SRGTopicIdentifierMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -228,6 +230,8 @@
 		6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAKVONotificationCenter.framework; path = Carthage/Build/iOS/MAKVONotificationCenter.framework; sourceTree = "<group>"; };
 		6FCEFEEB229BD741001388F9 /* SRGMediaSearchQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGMediaSearchQuery.h; sourceTree = "<group>"; };
 		6FCEFEEF229BE35D001388F9 /* SRGMediaSearchQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGMediaSearchQuery.m; sourceTree = "<group>"; };
+		6FCEFEF7229C1290001388F9 /* SRGMediaSearchAggregation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGMediaSearchAggregation.h; sourceTree = "<group>"; };
+		6FCEFEF8229C1290001388F9 /* SRGMediaSearchAggregation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SRGMediaSearchAggregation.m; sourceTree = "<group>"; };
 		6FD1EAEC1E8A652E007940EE /* DataProviderBaseTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataProviderBaseTestCase.h; sourceTree = "<group>"; };
 		6FD1EAED1E8A652E007940EE /* DataProviderBaseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataProviderBaseTestCase.m; sourceTree = "<group>"; };
 		6FDB9A8A2011DEF700EBEB3C /* SRGModuleIdentifierMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGModuleIdentifierMetadata.h; sourceTree = "<group>"; };
@@ -443,6 +447,8 @@
 				E6C2B3BE1D390EEF00B6250B /* SRGMedia.m */,
 				E67BB66B1D3DF13800E1FEA3 /* SRGMediaComposition.h */,
 				E67BB66C1D3DF13800E1FEA3 /* SRGMediaComposition.m */,
+				6FCEFEF7229C1290001388F9 /* SRGMediaSearchAggregation.h */,
+				6FCEFEF8229C1290001388F9 /* SRGMediaSearchAggregation.m */,
 				6FCEFEEB229BD741001388F9 /* SRGMediaSearchQuery.h */,
 				6FCEFEEF229BE35D001388F9 /* SRGMediaSearchQuery.m */,
 				6FB156101E83B60400389D04 /* SRGModel.h */,
@@ -618,6 +624,7 @@
 				6F6B641C21A6FE3600E207FC /* SRGServiceMessage.h in Headers */,
 				08879BFF1FEC597B00CF3980 /* SRGSubtopic.h in Headers */,
 				E68598C41D41029F0010000A /* SRGPresenter.h in Headers */,
+				6FCEFEF9229C1290001388F9 /* SRGMediaSearchAggregation.h in Headers */,
 				083F41561DB6D59F00FEA340 /* SRGMediaParentMetadata.h in Headers */,
 				6FDB9A8D2011DEF800EBEB3C /* SRGTopicIdentifierMetadata.h in Headers */,
 				E6AE51461D40AA0100572CE4 /* SRGSubtitle.h in Headers */,
@@ -830,6 +837,7 @@
 				6FFA11352107519D00513BFB /* SRGDRM.m in Sources */,
 				E6AE51431D40A66C00572CE4 /* SRGRelatedContent.m in Sources */,
 				6F886E4A1F5FBA2600C8804D /* SRGSocialCountOverview.m in Sources */,
+				6FCEFEFA229C1290001388F9 /* SRGMediaSearchAggregation.m in Sources */,
 				6FDF33D11F0236EB00BA1D6E /* SRGSegment.m in Sources */,
 				6FEFFEFB1F02A08F00CD6FCA /* SRGSong.m in Sources */,
 				6F556B401DDDD7C500B5DEA2 /* SRGEpisodeComposition.m in Sources */,
