@@ -589,6 +589,15 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }];
 }
 
+- (SRGRequest *)mostSearchedShowsForVendor:(SRGVendor)vendor withCompletionBlock:(SRGShowListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/showList/mostClickedSearchResults.json", SRGPathComponentForVendor(vendor)];
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithURLRequest:URLRequest modelClass:SRGShow.class rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        completionBlock(objects, HTTPResponse, error);
+    }];
+}
+
 #pragma mark Popularity services
 
 - (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
