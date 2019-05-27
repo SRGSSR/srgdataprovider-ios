@@ -483,7 +483,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGFirstPageRequest *)mediasForVendor:(SRGVendor)vendor
                            matchingQuery:(SRGMediaSearchQuery *)query
-                     withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+                     withCompletionBlock:(SRGPaginatedSearchResultMediaListCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultMediaList", SRGPathComponentForVendor(vendor)];
     
@@ -558,11 +558,10 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSAssert(sortDirection != nil, @"Sort direction expected");
     [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sortDir" value:sortDirection]];
     
-    // FIXME: Extrac total number of items + aggregations + suggestions
+    [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeSuggestions" value:@"true"]];
+    
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
-    return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"searchResultMediaList" completionBlock:^(NSArray * _Nullable objects, NSNumber * _Nullable total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        completionBlock(objects, page, nextPage, HTTPResponse, error);
-    }];
+    return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"searchResultMediaList" completionBlock:completionBlock];
 }
 
 - (SRGFirstPageRequest *)showsForVendor:(SRGVendor)vendor matchingQuery:(NSString *)query mediaType:(SRGMediaType)mediaType withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock

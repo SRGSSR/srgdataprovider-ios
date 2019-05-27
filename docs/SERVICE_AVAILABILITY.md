@@ -98,11 +98,12 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Video search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| Media search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| Show search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| Most searched shows | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Videos with tags | ✅ | ❌ | ❌ | ⚠️ | ❌ | ✅ | ❌ |
-| Audio search | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 
-⚠️ RTR only supports `fullLengthExcluded:NO`.
+⚠️ RTR only supports `fullLengthExcluded = NO`.
 
 ## Recommendation services
 
@@ -123,9 +124,6 @@ Modules are collection of medias related to a specific context (e.g. an event).
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Service message | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Media search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| Show search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| Most searched shows | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 
 ## Popularity services
 
