@@ -559,7 +559,7 @@ typedef NS_ENUM(NSInteger, SRGSortDirection) {
      */
     SRGSortDirectionDescending = 0,
     /**
-     *  Ascending order
+     *  Ascending order.
      */
     SRGSortDirectionAscending
 };

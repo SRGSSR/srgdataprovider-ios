@@ -10,6 +10,7 @@
 #import "NSDateFormatter+SRGDataProvider.h"
 #import "SRGDataProviderLogger.h"
 #import "SRGJSONTransformers.h"
+#import "SRGMediaSearchFilters+Private.h"
 #import "SRGSearchResult.h"
 #import "SRGSessionDelegate.h"
 
