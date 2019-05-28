@@ -46,7 +46,19 @@
 
 + (NSValueTransformer *)dateJSONTransformer
 {
-    return SRGISO8601DateJSONTransformer();
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        
+        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *dateString, BOOL *success, NSError *__autoreleasing *error) {
+            return [dateFormatter dateFromString:dateString];
+        } reverseBlock:^id(NSDate *date, BOOL *success, NSError *__autoreleasing *error) {
+            return [dateFormatter stringFromDate:date];
+        }];
+    });
+    return s_transformer;
 }
 
 @end
