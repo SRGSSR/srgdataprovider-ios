@@ -498,8 +498,8 @@ static NSString * const kUserId = @"test_user_id";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider showsForVendor:SRGVendorRSI matchingQuery:@"giornale" mediaType:SRGMediaTypeNone withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(shows);
+    [[self.dataProvider showsForVendor:SRGVendorRSI matchingQuery:@"giornale" mediaType:SRGMediaTypeNone withCompletionBlock:^(NSArray<SRGSearchResultShow *> * _Nullable searchResults, NSNumber * _Nonnull total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(searchResults);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];

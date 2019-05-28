@@ -71,6 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+// TODO: Rename simply as MediaAggregation
 @interface SRGMediaSearchAggregation : SRGModel
 
 @property (nonatomic, readonly) NSArray<SRGMediaTypeBucket *> *mediaTypeBuckets;
