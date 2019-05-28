@@ -6,20 +6,11 @@
 
 #import "SRGSearchResult.h"
 
-#import "NSURL+SRGDataProvider.h"
-#import "SRGJSONTransformers.h"
-
 #import <libextobjc/libextobjc.h>
 
 @interface SRGSearchResult ()
 
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *lead;
-@property (nonatomic, copy) NSString *summary;
-
-@property (nonatomic) NSURL *imageURL;
-@property (nonatomic, copy) NSString *imageTitle;
-@property (nonatomic, copy) NSString *imageCopyright;
+@property (nonatomic, copy) NSString *URN;
 
 @end
 
@@ -32,29 +23,9 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @keypath(SRGSearchResult.new, title) : @"title",
-                       @keypath(SRGSearchResult.new, lead) : @"lead",
-                       @keypath(SRGSearchResult.new, summary) : @"description",
-                       
-                       @keypath(SRGSearchResult.new, imageURL) : @"imageUrl",
-                       @keypath(SRGSearchResult.new, imageTitle) : @"imageTitle",
-                       @keypath(SRGSearchResult.new, imageCopyright) : @"imageCopyright" };
+        s_mapping = @{ @keypath(SRGSearchResult.new, URN) : @"urn" };
     });
     return s_mapping;
-}
-
-#pragma mark Transformers
-
-+ (NSValueTransformer *)imageURLJSONTransformer
-{
-    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
-}
-
-#pragma mark SRGImageMetadata protocol
-
-- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
-{
-    return [self.imageURL srg_URLForDimension:dimension withValue:value uid:nil type:type];
 }
 
 @end

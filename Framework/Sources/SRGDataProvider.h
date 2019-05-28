@@ -35,8 +35,6 @@
 #import "SRGRelatedContent.h"
 #import "SRGResource.h"
 #import "SRGScheduledLivestreamMetadata.h"
-#import "SRGSearchResult.h"
-#import "SRGSearchResultShow.h"
 #import "SRGSection.h"
 #import "SRGSegment.h"
 #import "SRGServiceMessage.h"
@@ -94,9 +92,9 @@ typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topi
 // Completion block signatures (with pagination support). For requests supporting it, the total number of results is returned.
 typedef void (^SRGPaginatedEpisodeCompositionCompletionBlock)(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGPaginatedMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
-typedef void (^SRGPaginatedMediaSearchCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, NSNumber *total, SRGMediaSearchAggregation *aggregation, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
-typedef void (^SRGPaginatedSearchResultShowListCompletionBlock)(NSArray<SRGSearchResultShow *> * _Nullable searchResults, NSNumber *total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
+typedef void (^SRGPaginatedMediaSearchCompletionBlock)(NSArray<NSString *> * _Nullable mediaURNs, NSNumber *total, SRGMediaSearchAggregation *aggregation, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
+typedef void (^SRGPaginatedShowSearchCompletionBlock)(NSArray<NSString *> * _Nullable showURNs, NSNumber *total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullable songs, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 
 /**
@@ -350,11 +348,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Search shows matching a specific query.
  *
- *  @discussion Some business units only support full-text search, not partial matching.
+ *  @discussion Some business units only support full-text search, not partial matching. To get complete show objects,
+ *              call the `-showsWithURNs:completionBlock:` request with the returned URN list.
  */
 - (SRGFirstPageRequest *)tvShowsForVendor:(SRGVendor)vendor
                             matchingQuery:(NSString *)query
-                      withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
+                      withCompletionBlock:(SRGPaginatedShowSearchCompletionBlock)completionBlock;
 
 @end
 
@@ -461,11 +460,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Search shows matching a specific query.
  *
- *  @discussion Some business units only support full-text search, not partial matching.
+ *  @discussion Some business units only support full-text search, not partial matching. To get complete show objects,
+ *              call the `-showsWithURNs:completionBlock:` request with the returned URN list.
  */
 - (SRGFirstPageRequest *)radioShowsForVendor:(SRGVendor)vendor
                                matchingQuery:(NSString *)query
-                         withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
+                         withCompletionBlock:(SRGPaginatedShowSearchCompletionBlock)completionBlock;
 
 /**
  *  @name Song list
@@ -509,6 +509,9 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 
 /**
  *  Search medias matching a specific query.
+ *
+ *  @discussion To get complete media objects, call the `-mediasWithURNs:completionBlock:` request with the returned
+ *              URN list.
  */
 - (SRGFirstPageRequest *)mediasForVendor:(SRGVendor)vendor
                            matchingQuery:(SRGMediaSearchQuery *)query
@@ -518,12 +521,13 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  Search shows matching a specific query.
  *
  *  @param mediaType If set to a value different from `SRGMediaTypeNone`, filter shows for which content of the specified
- *                   type is available.
+ *                   type is available. To get complete show objects, call the `-showsWithURNs:completionBlock:` request
+ *                   with the returned URN list.
  */
 - (SRGFirstPageRequest *)showsForVendor:(SRGVendor)vendor
                           matchingQuery:(NSString *)query
                               mediaType:(SRGMediaType)mediaType
-                    withCompletionBlock:(SRGPaginatedSearchResultShowListCompletionBlock)completionBlock;
+                    withCompletionBlock:(SRGPaginatedShowSearchCompletionBlock)completionBlock;
 /**
  *  Retrieve the list of shows which are searched the most.
  */

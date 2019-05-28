@@ -4,16 +4,24 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGImageMetadata.h"
-#import "SRGMetadata.h"
 #import "SRGModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Common base class for results of a search request.
+ *  Search result.
+ *
+ *  @discussion Unlike Integration Layer objects (which are partial versions of the real objects they are supposed to
+ *              match), we just extract basic identifier information from search results. Another request must be made
+ *              client-side to retrieve the full-fledged objects if needed. This eliminates the confusion between search
+ *              objects which are similar but not almost equal to the objects the represent.
  */
-@interface SRGSearchResult : SRGModel <SRGImageMetadata, SRGMetadata>
+@interface SRGSearchResult : SRGModel
+
+/**
+ *  The Uniform Resource Name identifying the object.
+ */
+@property (nonatomic, readonly, copy) NSString *URN;
 
 @end
 
