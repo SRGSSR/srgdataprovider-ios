@@ -7,6 +7,7 @@
 #import "SRGDataProvider.h"
 
 #import "NSBundle+SRGDataProvider.h"
+#import "NSDateFormatter+SRGDataProvider.h"
 #import "SRGDataProviderLogger.h"
 #import "SRGJSONTransformers.h"
 #import "SRGSearchResult.h"
@@ -22,9 +23,6 @@ static NSString * const SRGParsedObjectKey = @"object";
 static NSString * const SRGParsedNextURLKey = @"nextURL";
 static NSString * const SRGParsedTotalKey = @"total";
 static NSString * const SRGParsedMediaAggregationsKey = @"mediaAggregations";
-
-static NSString *SRGDataProviderRequestDateString(NSDate *date);
-static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSDate *maximumPublicationMonth);
 
 NSURL *SRGIntegrationLayerProductionServiceURL(void)
 {
@@ -271,7 +269,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         date = NSDate.date;
     }
     
-    NSString *dateString = SRGDataProviderRequestDateString(date);
+    NSString *dateString = [NSDateFormatter.srgdataprovider_dayDateFormatter stringFromDate:date];
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/episodesByDate/%@", SRGPathComponentForVendor(vendor), dateString];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
@@ -424,7 +422,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         date = NSDate.date;
     }
     
-    NSString *dateString = SRGDataProviderRequestDateString(date);
+    NSString *dateString = [NSDateFormatter.srgdataprovider_dayDateFormatter stringFromDate:date];
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/audio/episodesByDateAndChannel/%@/%@", SRGPathComponentForVendor(vendor), dateString, channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
@@ -495,88 +493,17 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 #pragma mark Search services
 
 - (SRGFirstPageRequest *)mediasForVendor:(SRGVendor)vendor
-                           matchingQuery:(SRGMediaSearchQuery *)query
-                     withCompletionBlock:(SRGPaginatedMediaSearchCompletionBlock)completionBlock
+                           matchingQuery:(NSString *)query
+                             withFilters:(SRGMediaSearchFilters *)filters
+                         completionBlock:(SRGPaginatedMediaSearchCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultMediaList", SRGPathComponentForVendor(vendor)];
     
-    static dispatch_once_t s_onceToken;
-    static NSDictionary<NSNumber *, NSString *> *s_mediaTypes;
-    static NSDictionary<NSNumber *, NSString *> *s_qualities;
-    static NSDictionary<NSNumber *, NSString *> *s_sortCriteria;
-    static NSDictionary<NSNumber *, NSString *> *s_sortDirections;
-    dispatch_once(&s_onceToken, ^{
-        s_mediaTypes = @{ @(SRGMediaTypeVideo) : @"video",
-                          @(SRGMediaTypeAudio) : @"audio" };
-        s_qualities = @{ @(SRGQualitySD) : @"sd",
-                         @(SRGQualityHD) : @"hd",
-                         @(SRGQualityHQ) : @"hd" };
-        s_sortCriteria = @{ @(SRGSortCriteriumDefault) : @"default",
-                            @(SRGSortCriteriumDate) : @"date" };
-        s_sortDirections = @{ @(SRGSortDirectionDescending) : @"desc",
-                              @(SRGSortDirectionAscending) : @"asc" };
-    });
-    
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
-    
-    if (query.text) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"q" value:query.text]];
+    if (query) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"q" value:query]];
     }
-    
-    if (query.showURNs) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"showUrns" value:[query.showURNs componentsJoinedByString:@","]]];
-    }
-    if (query.topicURNs) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"topicUrns" value:[query.topicURNs componentsJoinedByString:@","]]];
-    }
-    
-    NSString *mediaType = s_mediaTypes[@(query.mediaType)];
-    if (mediaType) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"mediaType" value:mediaType]];
-    }
-    
-    if (query.subtitlesAvailable) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"subtitlesAvailable" value:query.subtitlesAvailable.boolValue ? @"true" : @"false"]];
-    }
-    if (query.downloadAvailable) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"downloadAvailable" value:query.downloadAvailable.boolValue ? @"true" : @"false"]];
-    }
-    if (query.playableAbroad) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"playableAbroad" value:query.playableAbroad.boolValue ? @"true" : @"false"]];
-    }
-    
-    NSString *quality = s_qualities[@(query.quality)];
-    if (quality) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"quality" value:quality]];
-    }
-    
-    if (query.minimumDurationInMinutes) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"durationFromInMinutes" value:query.minimumDurationInMinutes.stringValue]];
-    }
-    if (query.maximumDurationInMinutes) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"durationToInMinutes" value:query.maximumDurationInMinutes.stringValue]];
-    }
-    
-    if (query.afterDate) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"publishedDateFrom" value:SRGDataProviderRequestDateString(query.afterDate)]];
-    }
-    if (query.beforeDate) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"publishedDateTo" value:SRGDataProviderRequestDateString(query.beforeDate)]];
-    }
-    
-    if (vendor != SRGVendorSWI) {
-        NSString *sortCriterium = s_sortCriteria[@(query.sortCriterium)];
-        NSAssert(sortCriterium != nil, @"Sort criterium expected");
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sortBy" value:sortCriterium]];
-        
-        NSString *sortDirection = s_sortDirections[@(query.sortDirection)];
-        NSAssert(sortDirection != nil, @"Sort direction expected");
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sortDir" value:sortDirection]];
-        
-        // FIXME: Suggestions are currently not parsed. Their format is sub-optimal and requires a fix, see
-        //          https://srfmmz.atlassian.net/browse/PLAY-2224
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeSuggestions" value:@"false"]];
-    }
+    [queryItems addObjectsFromArray:filters.queryItems];
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGSearchResult.class rootKey:@"searchResultMediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
@@ -795,8 +722,14 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(NSString *)showURN maximumPublicationMonth:(NSDate *)maximumPublicationMonth completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/episodeComposition/latestByShow/byUrn/%@", showURN];
-    NSArray<NSURLQueryItem *> *queryItems = maximumPublicationMonth ? @[ SRGDataProviderURLQueryItemForMaximumPublicationMonth(maximumPublicationMonth) ] : nil;
-    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems];
+    
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
+    if (maximumPublicationMonth) {
+        NSString *monthString = [NSDateFormatter.srgdataprovider_monthDateFormatter stringFromDate:maximumPublicationMonth];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"maxPublishedDate" value:monthString]];
+    }
+    
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self pageRequestWithURLRequest:URLRequest parser:^id(NSDictionary *JSONDictionary, NSError *__autoreleasing *pError) {
         return [MTLJSONAdapter modelOfClass:SRGEpisodeComposition.class fromJSONDictionary:JSONDictionary error:pError];
     } completionBlock:^(id  _Nullable object, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
@@ -1008,31 +941,4 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 NSString *SRGDataProviderMarketingVersion(void)
 {
     return [NSBundle srg_dataProviderBundle].infoDictionary[@"CFBundleShortVersionString"];
-}
-
-static NSString *SRGDataProviderRequestDateString(NSDate *date)
-{
-    NSCParameterAssert(date);
-    
-    static NSDateFormatter *s_dateFormatter;
-    static dispatch_once_t s_onceToken;
-    dispatch_once(&s_onceToken, ^{
-        s_dateFormatter = [[NSDateFormatter alloc] init];
-        s_dateFormatter.dateFormat = @"yyyy-MM-dd";
-    });
-    return [s_dateFormatter stringFromDate:date];
-}
-
-static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSDate *maximumPublicationMonth)
-{
-    NSCParameterAssert(maximumPublicationMonth);
-    
-    static NSDateFormatter *s_dateFormatter;
-    static dispatch_once_t s_onceToken;
-    dispatch_once(&s_onceToken, ^{
-        s_dateFormatter = [[NSDateFormatter alloc] init];
-        s_dateFormatter.dateFormat = @"yyyy-MM";
-    });
-    
-    return [NSURLQueryItem queryItemWithName:@"maxPublishedDate" value:[s_dateFormatter stringFromDate:maximumPublicationMonth]];
 }

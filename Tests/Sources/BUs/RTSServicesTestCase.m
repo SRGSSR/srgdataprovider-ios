@@ -475,24 +475,23 @@ static NSString * const kUserId = @"test_user_id";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    SRGMediaSearchQuery *query = [[SRGMediaSearchQuery alloc] init];
-    query.text = @"roger";
-    query.match = SRGSearchMatchAll;
-    query.showURNs = @[ @"urn:rts:show:tv:8849020", @"urn:rts:show:tv:548307" ];
-    query.topicURNs = @[ @"urn:rts:topic:tv:1081", @"urn:rts:topic:tv:1095" ];
-    query.mediaType = SRGMediaTypeVideo;
-    query.subtitlesAvailable = @NO;
-    query.downloadAvailable = @NO;
-    query.playableAbroad = @YES;
-    query.quality = SRGQualitySD;
-    query.minimumDurationInMinutes = @0.;
-    query.maximumDurationInMinutes = @60.;
-    query.beforeDate = NSDate.date;
-    query.afterDate = [NSDate dateWithTimeIntervalSince1970:0.];
-    query.sortCriterium = SRGSortCriteriumDate;
-    query.sortDirection = SRGSortDirectionAscending;
+    SRGMediaSearchFilters *filters = [[SRGMediaSearchFilters alloc] init];
+    filters.match = SRGSearchMatchAll;
+    filters.showURNs = @[ @"urn:rts:show:tv:8849020", @"urn:rts:show:tv:548307" ];
+    filters.topicURNs = @[ @"urn:rts:topic:tv:1081", @"urn:rts:topic:tv:1095" ];
+    filters.mediaType = SRGMediaTypeVideo;
+    filters.subtitlesAvailable = @NO;
+    filters.downloadAvailable = @NO;
+    filters.playableAbroad = @YES;
+    filters.quality = SRGQualitySD;
+    filters.minimumDurationInMinutes = @0.;
+    filters.maximumDurationInMinutes = @60.;
+    filters.beforeDate = NSDate.date;
+    filters.afterDate = [NSDate dateWithTimeIntervalSince1970:0.];
+    filters.sortCriterium = SRGSortCriteriumDate;
+    filters.sortDirection = SRGSortDirectionAscending;
     
-    [[self.dataProvider mediasForVendor:SRGVendorRTS matchingQuery:query withCompletionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregations, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasForVendor:SRGVendorRTS matchingQuery:@"roger" withFilters:filters completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregations, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(mediaURNs);
         XCTAssertNotNil(aggregations);
         XCTAssertNil(error);

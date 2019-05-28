@@ -11,7 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  A media search query.
  */
-// TODO: Rename as Filters
 @interface SRGMediaSearchFilters : NSObject
 
 /**

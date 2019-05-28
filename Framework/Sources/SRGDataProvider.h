@@ -25,7 +25,7 @@
 #import "SRGMediaIdentifierMetadata.h"
 #import "SRGMediaMetadata.h"
 #import "SRGMediaParentMetadata.h"
-#import "SRGMediaSearchQuery.h"
+#import "SRGMediaSearchFilters.h"
 #import "SRGMetadata.h"
 #import "SRGModel.h"
 #import "SRGModule.h"
@@ -511,11 +511,13 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  Search medias matching a specific query.
  *
  *  @discussion To get complete media objects, call the `-mediasWithURNs:completionBlock:` request with the returned
- *              URN list.
+ *              URN list. Filters are not supported for SWI (using them leads to undefined behavior, most likely
+ *              request failure).
  */
 - (SRGFirstPageRequest *)mediasForVendor:(SRGVendor)vendor
-                           matchingQuery:(SRGMediaSearchQuery *)query
-                     withCompletionBlock:(SRGPaginatedMediaSearchCompletionBlock)completionBlock;
+                           matchingQuery:(nullable NSString *)query
+                             withFilters:(nullable SRGMediaSearchFilters *)filters
+                         completionBlock:(SRGPaginatedMediaSearchCompletionBlock)completionBlock;
 
 /**
  *  Search shows matching a specific query.

@@ -475,23 +475,22 @@ static NSString * const kUserId = @"test_user_id";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    SRGMediaSearchQuery *query = [[SRGMediaSearchQuery alloc] init];
-    query.text = @"roger";
-    query.match = SRGSearchMatchAll;
-    query.showURNs = @[ @"urn:rtr:show:tv:c632f23c-f550-0001-b3ca-162012781918", @"urn:rtr:show:tv:aaf33cb0-2969-4703-9f1b-7d4cfdf0d250" ];
-    query.mediaType = SRGMediaTypeVideo;
-    query.subtitlesAvailable = @NO;
-    query.downloadAvailable = @NO;
-    query.playableAbroad = @YES;
-    query.quality = SRGQualityHD;
-    query.minimumDurationInMinutes = @0.;
-    query.maximumDurationInMinutes = @60.;
-    query.beforeDate = NSDate.date;
-    query.afterDate = [NSDate dateWithTimeIntervalSince1970:0.];
-    query.sortCriterium = SRGSortCriteriumDate;
-    query.sortDirection = SRGSortDirectionAscending;
+    SRGMediaSearchFilters *filters = [[SRGMediaSearchFilters alloc] init];
+    filters.match = SRGSearchMatchAll;
+    filters.showURNs = @[ @"urn:rtr:show:tv:c632f23c-f550-0001-b3ca-162012781918", @"urn:rtr:show:tv:aaf33cb0-2969-4703-9f1b-7d4cfdf0d250" ];
+    filters.mediaType = SRGMediaTypeVideo;
+    filters.subtitlesAvailable = @NO;
+    filters.downloadAvailable = @NO;
+    filters.playableAbroad = @YES;
+    filters.quality = SRGQualityHD;
+    filters.minimumDurationInMinutes = @0.;
+    filters.maximumDurationInMinutes = @60.;
+    filters.beforeDate = NSDate.date;
+    filters.afterDate = [NSDate dateWithTimeIntervalSince1970:0.];
+    filters.sortCriterium = SRGSortCriteriumDate;
+    filters.sortDirection = SRGSortDirectionAscending;
     
-    [[self.dataProvider mediasForVendor:SRGVendorRTR matchingQuery:query withCompletionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregations, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasForVendor:SRGVendorRTR matchingQuery:@"roger" withFilters:filters completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregations, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(mediaURNs);
         XCTAssertNotNil(aggregations);
         XCTAssertNil(error);

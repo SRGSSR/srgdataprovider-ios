@@ -480,24 +480,23 @@ static NSString * const kTag2 = @"curling";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    SRGMediaSearchQuery *query = [[SRGMediaSearchQuery alloc] init];
-    query.text = @"roger";
-    query.match = SRGSearchMatchAll;
-    query.showURNs = @[ @"urn:srf:show:tv:5327eac1-e5a1-40aa-9f71-707e48258097", @"urn:srf:show:tv:d1b1c712-f55a-4375-a472-44a94689d3c8" ];
-    query.topicURNs = @[ @"urn:srf:topic:tv:649e36d7-ff57-41c8-9c1b-7892daf15e78", @"urn:srf:topic:tv:a709c610-b275-4c0c-a496-cba304c36712" ];
-    query.mediaType = SRGMediaTypeVideo;
-    query.subtitlesAvailable = @NO;
-    query.downloadAvailable = @NO;
-    query.playableAbroad = @YES;
-    query.quality = SRGQualityHD;
-    query.minimumDurationInMinutes = @0.;
-    query.maximumDurationInMinutes = @60.;
-    query.beforeDate = NSDate.date;
-    query.afterDate = [NSDate dateWithTimeIntervalSince1970:0.];
-    query.sortCriterium = SRGSortCriteriumDate;
-    query.sortDirection = SRGSortDirectionAscending;
+    SRGMediaSearchFilters *filters = [[SRGMediaSearchFilters alloc] init];
+    filters.match = SRGSearchMatchAll;
+    filters.showURNs = @[ @"urn:srf:show:tv:5327eac1-e5a1-40aa-9f71-707e48258097", @"urn:srf:show:tv:d1b1c712-f55a-4375-a472-44a94689d3c8" ];
+    filters.topicURNs = @[ @"urn:srf:topic:tv:649e36d7-ff57-41c8-9c1b-7892daf15e78", @"urn:srf:topic:tv:a709c610-b275-4c0c-a496-cba304c36712" ];
+    filters.mediaType = SRGMediaTypeVideo;
+    filters.subtitlesAvailable = @NO;
+    filters.downloadAvailable = @NO;
+    filters.playableAbroad = @YES;
+    filters.quality = SRGQualityHD;
+    filters.minimumDurationInMinutes = @0.;
+    filters.maximumDurationInMinutes = @60.;
+    filters.beforeDate = NSDate.date;
+    filters.afterDate = [NSDate dateWithTimeIntervalSince1970:0.];
+    filters.sortCriterium = SRGSortCriteriumDate;
+    filters.sortDirection = SRGSortDirectionAscending;
     
-    [[self.dataProvider mediasForVendor:SRGVendorSRF matchingQuery:query withCompletionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregations, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasForVendor:SRGVendorSRF matchingQuery:@"roger" withFilters:filters completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregations, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(mediaURNs);
         XCTAssertNotNil(aggregations);
         XCTAssertNil(error);
