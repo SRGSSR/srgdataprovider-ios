@@ -22,7 +22,6 @@ static NSString * const SRGParsedObjectKey = @"object";
 static NSString * const SRGParsedNextURLKey = @"nextURL";
 static NSString * const SRGParsedTotalKey = @"total";
 static NSString * const SRGParsedMediaAggregationsKey = @"mediaAggregations";
-static NSString * const SRGParsedSuggestionsKey = @"suggestions";
 
 static NSString *SRGDataProviderRequestDateString(NSDate *date);
 static NSURLQueryItem *SRGDataProviderURLQueryItemForMaximumPublicationMonth(NSDate *maximumPublicationMonth);
@@ -572,7 +571,9 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSAssert(sortDirection != nil, @"Sort direction expected");
     [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sortDir" value:sortDirection]];
     
-    [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeSuggestions" value:@"true"]];
+    // FIXME: Suggestions are currently not parsed. Their format is sub-optimal and requires a fix, see
+    //          https://srfmmz.atlassian.net/browse/PLAY-2224
+    [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeSuggestions" value:@"false"]];
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"searchResultMediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
@@ -910,16 +911,14 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
             return nil;
         }
         
-        // TODO: Parse
-        id suggestions = nil;
-        
         // Extract object and standard top-level information if available
         NSMutableDictionary<NSString *, id> *parsedObjectDictionary = [NSMutableDictionary dictionary];
         parsedObjectDictionary[SRGParsedObjectKey] = object;
         parsedObjectDictionary[SRGParsedNextURLKey] = [NSURL URLWithString:JSONDictionary[@"next"]];
         parsedObjectDictionary[SRGParsedTotalKey] = JSONDictionary[@"total"];
         parsedObjectDictionary[SRGParsedMediaAggregationsKey] = aggregations;
-        parsedObjectDictionary[SRGParsedSuggestionsKey] = suggestions;
+        // TODO: Extract `SRGSearchSuggestions` stored under `SRGParsedSuggestionsKey` here when fixed, see
+        //         https://srfmmz.atlassian.net/browse/PLAY-2224
         
         return [parsedObjectDictionary copy];
     } sizer:^NSURLRequest *(NSURLRequest * _Nonnull URLRequest, NSUInteger size) {
