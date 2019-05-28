@@ -905,7 +905,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
             return nil;
         }
         
-        id aggregations = [MTLJSONAdapter modelOfClass:SRGMediaSearchAggregation.class fromJSONDictionary:JSONDictionary[@"aggregations"] error:pError];
+        id aggregations = [MTLJSONAdapter modelOfClass:SRGMediaAggregations.class fromJSONDictionary:JSONDictionary[@"aggregations"] error:pError];
         if (*pError) {
             return nil;
         }

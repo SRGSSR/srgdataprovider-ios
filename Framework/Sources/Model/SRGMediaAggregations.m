@@ -4,7 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGMediaAggregation.h"
+#import "SRGMediaAggregations.h"
 
 #import "SRGJSONTransformers.h"
 
@@ -223,7 +223,7 @@
 
 @end
 
-@implementation SRGMediaAggregation
+@implementation SRGMediaAggregations
 
 #pragma mark MTLJSONSerializing protocol
 
@@ -232,19 +232,19 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @keypath(SRGMediaAggregation.new, mediaTypeBuckets) : @"mediaTypeList",
+        s_mapping = @{ @keypath(SRGMediaAggregations.new, mediaTypeBuckets) : @"mediaTypeList",
                        
-                       @keypath(SRGMediaAggregation.new, subtitlesAvailableBuckets) : @"subtitleAvailableList",
-                       @keypath(SRGMediaAggregation.new, downloadAvailableBuckets) : @"downloadAvailableList",
-                       @keypath(SRGMediaAggregation.new, playableAbroadBuckets) : @"playableAbroadList",
+                       @keypath(SRGMediaAggregations.new, subtitlesAvailableBuckets) : @"subtitleAvailableList",
+                       @keypath(SRGMediaAggregations.new, downloadAvailableBuckets) : @"downloadAvailableList",
+                       @keypath(SRGMediaAggregations.new, playableAbroadBuckets) : @"playableAbroadList",
                        
-                       @keypath(SRGMediaAggregation.new, qualityBuckets) : @"qualityList",
+                       @keypath(SRGMediaAggregations.new, qualityBuckets) : @"qualityList",
                        
-                       @keypath(SRGMediaAggregation.new, showBuckets) : @"showList",
-                       @keypath(SRGMediaAggregation.new, topicBuckets) : @"topicList",
+                       @keypath(SRGMediaAggregations.new, showBuckets) : @"showList",
+                       @keypath(SRGMediaAggregations.new, topicBuckets) : @"topicList",
                        
-                       @keypath(SRGMediaAggregation.new, durationInMinutesBuckets) : @"durationListInMinutes",
-                       @keypath(SRGMediaAggregation.new, dateBuckets) : @"dateList" };
+                       @keypath(SRGMediaAggregations.new, durationInMinutesBuckets) : @"durationListInMinutes",
+                       @keypath(SRGMediaAggregations.new, dateBuckets) : @"dateList" };
     });
     return s_mapping;
 }
