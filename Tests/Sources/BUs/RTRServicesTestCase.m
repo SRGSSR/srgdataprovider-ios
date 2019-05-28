@@ -13,7 +13,6 @@ static NSString * const kRadioChannelUid = @"12fb886e-b7aa-4e55-beb2-45dbc619f3c
 static NSString * const kRadioLivestreamUid = @"";
 static NSString * const kRadioShowSearchQuery = @"num";
 
-static NSString * const kVideoSearchQuery = @"tennis";
 static NSString * const kVideoURN = @"urn:rtr:video:63cc0629-615c-4e97-93cc-f770d2ce4e79";
 
 static NSString * const kTVChannelUid = @"none_yet";
@@ -472,6 +471,62 @@ static NSString * const kUserId = @"test_user_id";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testMediasMatchingQuery
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGMediaSearchQuery *query = [[SRGMediaSearchQuery alloc] init];
+    query.text = @"roger";
+    query.match = SRGSearchMatchAll;
+    query.showURNs = @[ @"urn:rtr:show:tv:c632f23c-f550-0001-b3ca-162012781918", @"urn:rtr:show:tv:aaf33cb0-2969-4703-9f1b-7d4cfdf0d250" ];
+    query.mediaType = SRGMediaTypeVideo;
+    query.subtitlesAvailable = @NO;
+    query.downloadAvailable = @NO;
+    query.playableAbroad = @YES;
+    query.quality = SRGQualityHD;
+    query.minimumDurationInMinutes = @0.;
+    query.maximumDurationInMinutes = @60.;
+    query.beforeDate = NSDate.date;
+    query.afterDate = [NSDate dateWithTimeIntervalSince1970:0.];
+    query.sortCriterium = SRGSortCriteriumDate;
+    query.sortDirection = SRGSortDirectionAscending;
+    
+    [[self.dataProvider mediasForVendor:SRGVendorRTR matchingQuery:query withCompletionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregations, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaURNs);
+        XCTAssertNotNil(aggregations);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testShowsMatchingQuery
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsForVendor:SRGVendorRTR matchingQuery:kTVShowSearchQuery mediaType:SRGMediaTypeNone withCompletionBlock:^(NSArray<NSString *> * _Nullable showURNs, NSNumber * _Nonnull total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(showURNs);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testMostSearchedShows
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider mostSearchedShowsForVendor:SRGVendorRTR withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(shows);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 // Partial supported for RTR
 - (void)testVideosWithTags
 {
@@ -742,19 +797,6 @@ static NSString * const kUserId = @"test_user_id";
         else {
             XCTAssertNotNil(serviceMessage);
         }
-        [expectation fulfill];
-    }] resume];
-    
-    [self waitForExpectationsWithTimeout:30. handler:nil];
-}
-
-- (void)testMostSearchedShows
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
-    
-    [[self.dataProvider mostSearchedShowsForVendor:SRGVendorRTR withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(shows);
-        XCTAssertNil(error);
         [expectation fulfill];
     }] resume];
     

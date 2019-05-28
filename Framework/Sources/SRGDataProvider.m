@@ -522,6 +522,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     if (query.text) {
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"q" value:query.text]];
     }
+    
     if (query.showURNs) {
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"showUrns" value:[query.showURNs componentsJoinedByString:@","]]];
     }
@@ -563,17 +564,19 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"publishedDateTo" value:SRGDataProviderRequestDateString(query.beforeDate)]];
     }
     
-    NSString *sortCriterium = s_sortCriteria[@(query.sortCriterium)];
-    NSAssert(sortCriterium != nil, @"Sort criterium expected");
-    [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sortBy" value:sortCriterium]];
-    
-    NSString *sortDirection = s_sortDirections[@(query.sortDirection)];
-    NSAssert(sortDirection != nil, @"Sort direction expected");
-    [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sortDir" value:sortDirection]];
-    
-    // FIXME: Suggestions are currently not parsed. Their format is sub-optimal and requires a fix, see
-    //          https://srfmmz.atlassian.net/browse/PLAY-2224
-    [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeSuggestions" value:@"false"]];
+    if (vendor != SRGVendorSWI) {
+        NSString *sortCriterium = s_sortCriteria[@(query.sortCriterium)];
+        NSAssert(sortCriterium != nil, @"Sort criterium expected");
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sortBy" value:sortCriterium]];
+        
+        NSString *sortDirection = s_sortDirections[@(query.sortDirection)];
+        NSAssert(sortDirection != nil, @"Sort direction expected");
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sortDir" value:sortDirection]];
+        
+        // FIXME: Suggestions are currently not parsed. Their format is sub-optimal and requires a fix, see
+        //          https://srfmmz.atlassian.net/browse/PLAY-2224
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeSuggestions" value:@"false"]];
+    }
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGSearchResult.class rootKey:@"searchResultMediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {

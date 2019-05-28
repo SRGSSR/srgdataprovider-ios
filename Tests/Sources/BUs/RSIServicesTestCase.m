@@ -13,7 +13,6 @@ static NSString * const kRadioChannelUid = @"rete-uno";
 static NSString * const kRadioLivestreamUid = @"none_yet";
 static NSString * const kRadioShowSearchQuery = @"modem";
 
-static NSString * const kVideoSearchQuery = @"roger";
 static NSString * const kVideoURN = @"urn:rsi:video:8812327";
 
 static NSString * const kTVChannelUid = @"la1";
@@ -482,7 +481,7 @@ static NSString * const kUserId = @"test_user_id";
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGMediaSearchQuery *query = [[SRGMediaSearchQuery alloc] init];
-    query.text = kVideoSearchQuery;
+    query.text = @"roger";
     query.match = SRGSearchMatchAll;
     query.showURNs = @[ @"urn:rsi:show:tv:3566695", @"urn:rsi:show:tv:9376660" ];
     query.topicURNs = @[ @"urn:rsi:topic:tv:7", @"urn:rsi:topic:tv:8" ];
@@ -498,9 +497,9 @@ static NSString * const kUserId = @"test_user_id";
     query.sortCriterium = SRGSortCriteriumDate;
     query.sortDirection = SRGSortDirectionAscending;
     
-    [[self.dataProvider mediasForVendor:SRGVendorRSI matchingQuery:query withCompletionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregation, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasForVendor:SRGVendorRSI matchingQuery:query withCompletionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregations, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(mediaURNs);
-        XCTAssertNotNil(aggregation);
+        XCTAssertNotNil(aggregations);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];
@@ -512,7 +511,7 @@ static NSString * const kUserId = @"test_user_id";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider showsForVendor:SRGVendorRSI matchingQuery:@"giornale" mediaType:SRGMediaTypeNone withCompletionBlock:^(NSArray<NSString *> * _Nullable showURNs, NSNumber * _Nonnull total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider showsForVendor:SRGVendorRSI matchingQuery:kTVShowSearchQuery mediaType:SRGMediaTypeNone withCompletionBlock:^(NSArray<NSString *> * _Nullable showURNs, NSNumber * _Nonnull total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(showURNs);
         XCTAssertNil(error);
         [expectation fulfill];

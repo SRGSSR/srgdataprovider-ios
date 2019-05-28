@@ -98,12 +98,13 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Media search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| Show search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| Media search | ✅ | ✅ | ✅ | ✅ | ✅ (1) | ✅ | ❌ |
+| Show search | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 | Most searched shows | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Videos with tags | ✅ | ❌ | ❌ | ⚠️ | ❌ | ✅ | ❌ |
+| Videos with tags | ✅ | ❌ | ❌ | ⚠️ (2) | ❌ | ✅ | ❌ |
 
-⚠️ RTR only supports `fullLengthExcluded = NO`.
+(1) At the moment, SWI only supports a search term but not advanced query parameters.
+(2) RTR only supports `fullLengthExcluded = NO`.
 
 ## Recommendation services
 

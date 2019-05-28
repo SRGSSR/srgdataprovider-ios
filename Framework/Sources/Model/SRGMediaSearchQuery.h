@@ -10,6 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  A media search query.
+ *
+ *  @discussion SWI only supports `text` in queries. Attempting to fill other information leads to undefined behavior
+ *              (most likely request failure).
  */
 @interface SRGMediaSearchQuery : NSObject
 

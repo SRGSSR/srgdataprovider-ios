@@ -13,7 +13,6 @@ static NSString * const kRadioChannelUid = @"a9e7621504c6959e35c3ecbe7f6bed0446c
 static NSString * const kRadioLivestreamUid = @"none_yet";
 static NSString * const kRadioShowSearchQuery = @"supersonic";
 
-static NSString * const kVideoSearchQuery = @"tennis";
 static NSString * const kVideoURN = @"urn:rts:video:8478255";
 
 static NSString * const kTVChannelUid = @"143932a79bb5a123a646b68b1d1188d7ae493e5b";
@@ -472,6 +471,63 @@ static NSString * const kUserId = @"test_user_id";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testMediasMatchingQuery
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGMediaSearchQuery *query = [[SRGMediaSearchQuery alloc] init];
+    query.text = @"roger";
+    query.match = SRGSearchMatchAll;
+    query.showURNs = @[ @"urn:rts:show:tv:8849020", @"urn:rts:show:tv:548307" ];
+    query.topicURNs = @[ @"urn:rts:topic:tv:1081", @"urn:rts:topic:tv:1095" ];
+    query.mediaType = SRGMediaTypeVideo;
+    query.subtitlesAvailable = @NO;
+    query.downloadAvailable = @NO;
+    query.playableAbroad = @YES;
+    query.quality = SRGQualitySD;
+    query.minimumDurationInMinutes = @0.;
+    query.maximumDurationInMinutes = @60.;
+    query.beforeDate = NSDate.date;
+    query.afterDate = [NSDate dateWithTimeIntervalSince1970:0.];
+    query.sortCriterium = SRGSortCriteriumDate;
+    query.sortDirection = SRGSortDirectionAscending;
+    
+    [[self.dataProvider mediasForVendor:SRGVendorRTS matchingQuery:query withCompletionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregations, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaURNs);
+        XCTAssertNotNil(aggregations);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testShowsMatchingQuery
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsForVendor:SRGVendorRTS matchingQuery:kTVShowSearchQuery mediaType:SRGMediaTypeNone withCompletionBlock:^(NSArray<NSString *> * _Nullable showURNs, NSNumber * _Nonnull total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(showURNs);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testMostSearchedShows
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider mostSearchedShowsForVendor:SRGVendorRTS withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(shows);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 // Not supported for RTS
 - (void)testVideosWithTags
 {
@@ -782,19 +838,6 @@ static NSString * const kUserId = @"test_user_id";
         else {
             XCTAssertNotNil(serviceMessage);
         }
-        [expectation fulfill];
-    }] resume];
-    
-    [self waitForExpectationsWithTimeout:30. handler:nil];
-}
-
-- (void)testMostSearchedShows
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
-    
-    [[self.dataProvider mostSearchedShowsForVendor:SRGVendorRTS withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(shows);
-        XCTAssertNil(error);
         [expectation fulfill];
     }] resume];
     
