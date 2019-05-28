@@ -14,9 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGMediaSearchFilters : NSObject
 
 /**
- *  How the query must be matched. Defaults to `SRGSearchMatchAll`, i.e. all words in the query must be matched.
+ *  Options setting how the search query is matched.
  */
-@property (nonatomic) SRGSearchMatch match;
+@property (nonatomic) SRGSearchMatchingOptions matchingOptions;
 
 /**
  *  Restrict results to a list of show URNs.
@@ -80,8 +80,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  The sort direction to be applied. Default is `SRGSortDirectionDescending`.
  */
 @property (nonatomic) SRGSortDirection sortDirection;
-
-@property (nonatomic, readonly) NSArray<NSURLQueryItem *> *queryItems;
 
 @end
 

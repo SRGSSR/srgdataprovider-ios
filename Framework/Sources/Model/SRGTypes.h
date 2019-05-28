@@ -525,15 +525,15 @@ typedef NS_ENUM(NSInteger, SRGImageDimension) {
 /**
  *  Search match behavior.
  */
-typedef NS_ENUM(NSInteger, SRGSearchMatch) {
+typedef NS_OPTIONS(NSUInteger, SRGSearchMatchingOptions) {
     /**
-     *  Match all query text items.
+     *  Match any term within the search query. By default all search terms must be matched.
      */
-    SRGSearchMatchAll = 0,
+    SRGSearchMatchingOptionAny = (1UL << 0),
     /**
-     *  Match any of the text items.
+     *  Exact matching. Search is fuzzy by default.
      */
-    SRGSearchMatchAny
+    SRGSearchMatchingOptionExact = (1UL << 1)
 };
 
 /**

@@ -60,9 +60,19 @@ static NSString *SRGBoolParameter(BOOL boolean)
 
 @implementation SRGMediaSearchFilters
 
+#pragma mark Getters and setters
+
 - (NSArray<NSURLQueryItem *> *)queryItems
 {
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
+    
+    if ((self.matchingOptions & SRGSearchMatchingOptionAny) != 0) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"operator" value:@"or"]];
+    }
+    
+    if ((self.matchingOptions & SRGSearchMatchingOptionExact) != 0) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"enableFuzzySearch" value:@"false"]];
+    }
     
     if (self.showURNs) {
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"showUrns" value:[self.showURNs componentsJoinedByString:@","]]];
