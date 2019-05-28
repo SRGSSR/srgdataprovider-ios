@@ -26,7 +26,7 @@ static NSString *SRGQualityParameter(SRGQuality quality)
     dispatch_once(&s_onceToken, ^{
         s_qualities = @{ @(SRGQualitySD) : @"sd",
                          @(SRGQualityHD) : @"hd",
-                         @(SRGQualityHQ) : @"hd" };
+                         @(SRGQualityHQ) : @"hd" /* Same value as for HD */ };
     });
     return s_qualities[@(quality)];
 }
@@ -53,6 +53,11 @@ static NSString *SRGSortDirectionParameter(SRGSortDirection sortDirection)
     return s_sortDirections[@(sortDirection)];
 }
 
+static NSString *SRGBoolParameter(BOOL boolean)
+{
+    return boolean ? @"true" : @"false";
+}
+
 @implementation SRGMediaSearchFilters
 
 - (NSArray<NSURLQueryItem *> *)queryItems
@@ -72,13 +77,13 @@ static NSString *SRGSortDirectionParameter(SRGSortDirection sortDirection)
     }
     
     if (self.subtitlesAvailable) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"subtitlesAvailable" value:self.subtitlesAvailable.boolValue ? @"true" : @"false"]];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"subtitlesAvailable" value:SRGBoolParameter(self.subtitlesAvailable.boolValue)]];
     }
     if (self.downloadAvailable) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"downloadAvailable" value:self.downloadAvailable.boolValue ? @"true" : @"false"]];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"downloadAvailable" value:SRGBoolParameter(self.downloadAvailable.boolValue)]];
     }
     if (self.playableAbroad) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"playableAbroad" value:self.playableAbroad.boolValue ? @"true" : @"false"]];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"playableAbroad" value:SRGBoolParameter(self.playableAbroad.boolValue)]];
     }
     
     NSString *quality = SRGQualityParameter(self.quality);
@@ -94,12 +99,12 @@ static NSString *SRGSortDirectionParameter(SRGSortDirection sortDirection)
     }
     
     if (self.afterDate) {
-        NSString *afterDateString = [NSDateFormatter.srgdataprovider_dayDateFormatter stringFromDate:self.afterDate];
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"publishedDateFrom" value:afterDateString]];
+        NSString *afterDate = [NSDateFormatter.srgdataprovider_dayDateFormatter stringFromDate:self.afterDate];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"publishedDateFrom" value:afterDate]];
     }
     if (self.beforeDate) {
-        NSString *beforeDateString = [NSDateFormatter.srgdataprovider_dayDateFormatter stringFromDate:self.beforeDate];
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"publishedDateTo" value:beforeDateString]];
+        NSString *beforeDate = [NSDateFormatter.srgdataprovider_dayDateFormatter stringFromDate:self.beforeDate];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"publishedDateTo" value:beforeDate]];
     }
     
     [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sortBy" value:SRGSortCriteriumParameter(self.sortCriterium)]];

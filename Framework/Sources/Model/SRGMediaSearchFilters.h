@@ -9,12 +9,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  A media search query.
+ *  Additional filters for media search queries.
  */
 @interface SRGMediaSearchFilters : NSObject
 
 /**
- *  How the search text must be matched. Defaults to `SRGSearchMatchAll`, i.e. all words must be found.
+ *  How the query must be matched. Defaults to `SRGSearchMatchAll`, i.e. all words in the query must be matched.
  */
 @property (nonatomic) SRGSearchMatch match;
 
@@ -29,30 +29,30 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable) NSArray<NSString *> *topicURNs;
 
 /**
- *  Restrict results to a given media type. Default is `SRGMediaTypeNone`, i.e. all medias are considered.
+ *  Restrict results to a given media type. Default is `SRGMediaTypeNone`, i.e. no such filter is applied.
  */
 @property (nonatomic) SRGMediaType mediaType;
 
 /**
  *  If `@YES`, restrict results to medias with subtitles, if `@NO` to medias without. The default is `nil`, i.e.
- *  all medias are considered.
+ *  no such filter is applied.
  */
 @property (nonatomic, nullable) NSNumber *subtitlesAvailable;
 
 /**
  *  If `@YES`, restrict results to medias which can be downloaded, if `@NO` to medias which cannot be. The default is
- *  `nil`, i.e. all medias are considered.
+ *  `nil`, i.e. no such filter is applied.
  */
 @property (nonatomic, nullable) NSNumber *downloadAvailable;
 
 /**
  *  If `@YES`, restrict results to medias playable abroad, if `@NO` to medias playable within Switzerland only. The
- *  default is `nil`, i.e. all medias are considered.
+ *  default is `nil`, i.e. no such filter is applied.
  */
 @property (nonatomic, nullable) NSNumber *playableAbroad;
 
 /**
- *  Restrict results to a given quality. Default is `SRGQualityNone`, i.e. all medias are considered.
+ *  Restrict results to a given quality. Default is `SRGQualityNone`, i.e. no such filter is applied.
  *
  *  @discussion `SRGQualityHD` and `SRGQualityHQ` equivalently filter out high-quality content.
  */

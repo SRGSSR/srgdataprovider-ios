@@ -11,10 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Search result.
  *
- *  @discussion Unlike Integration Layer objects (which are partial versions of the real objects they are supposed to
- *              match), we just extract basic identifier information from search results. Another request must be made
- *              client-side to retrieve the full-fledged objects if needed. This eliminates the confusion between search
- *              objects which are similar but not almost equal to the objects the represent.
+ *  @discussion Unlike Integration Layer search result objects (which are partial representations of the real objects they
+ *              are referring to), we just extract basic identifier information from search results. Search requests will
+ *              therefore only return identifiers, forcing another request to be made to retrieve full-fledged objects.
+ *              This ensures that medias are always complete, and that our library users do not deal with partial data.
  */
 @interface SRGSearchResult : SRGModel
 

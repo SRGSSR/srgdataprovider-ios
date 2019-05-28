@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Abstract base class for a bucket.
+ *  Abstract base class for a bucket (group of items sharing a common property).
  */
 @interface SRGBucket : SRGModel
 
@@ -140,8 +140,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Aggregation information for media results, arranging medias into buckets for specific properties, with a corresponding
- *  media count per bucket.
+ *  Aggregation information for media request results, sorting medias into buckets for specific properties, with a
+ *  corresponding media count per bucket. Can be used to have a histogram view of the results.
  */
 @interface SRGMediaAggregations : SRGModel
 

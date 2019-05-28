@@ -8,6 +8,8 @@
 
 @implementation NSDateFormatter (SRGDataProvider)
 
+#pragma mark Class methods
+
 + (NSDateFormatter *)srgdataprovider_dayDateFormatter
 {
     static NSDateFormatter *s_dateFormatter;
