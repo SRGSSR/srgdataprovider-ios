@@ -483,6 +483,19 @@ static NSString * const kUserId = @"test_user_id";
     
     SRGMediaSearchQuery *query = [[SRGMediaSearchQuery alloc] init];
     query.text = kVideoSearchQuery;
+    query.match = SRGSearchMatchAll;
+    query.showURNs = [NSSet setWithObjects:@"urn:rsi:show:tv:3566695", @"urn:rsi:show:tv:9376660", nil];
+    query.mediaType = SRGMediaTypeVideo;
+    query.subtitlesAvailable = @NO;
+    query.downloadAvailable = @NO;
+    query.playableAbroad = @YES;
+    query.quality = SRGQualityHD;
+    query.minimumDurationInMinutes = @0.;
+    query.maximumDurationInMinutes = @60.;
+    query.beforeDate = NSDate.date;
+    query.afterDate = [NSDate dateWithTimeIntervalSince1970:0.];
+    query.sortCriterium = SRGSortCriteriumDate;
+    query.sortDirection = SRGSortDirectionAscending;
     
     [[self.dataProvider mediasForVendor:SRGVendorRSI matchingQuery:query withCompletionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregation, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(mediaURNs);

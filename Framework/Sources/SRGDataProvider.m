@@ -523,7 +523,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"q" value:query.text]];
     }
     if (query.showURNs) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"urns" value:[query.showURNs.allObjects componentsJoinedByString:@","]]];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"showUrns" value:[query.showURNs.allObjects componentsJoinedByString:@","]]];
     }
     if (query.topicURNs) {
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"topicUrns" value:[query.topicURNs.allObjects componentsJoinedByString:@","]]];
