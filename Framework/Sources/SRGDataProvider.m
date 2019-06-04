@@ -10,7 +10,7 @@
 #import "NSDateFormatter+SRGDataProvider.h"
 #import "SRGDataProviderLogger.h"
 #import "SRGJSONTransformers.h"
-#import "SRGMediaSearchFilters+Private.h"
+#import "SRGMediaSearchSettings+Private.h"
 #import "SRGSearchResult.h"
 #import "SRGSessionDelegate.h"
 
@@ -495,7 +495,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGFirstPageRequest *)mediasForVendor:(SRGVendor)vendor
                            matchingQuery:(NSString *)query
-                             withFilters:(SRGMediaSearchFilters *)filters
+                            withSettings:(SRGMediaSearchSettings *)settings
                          completionBlock:(SRGPaginatedMediaSearchCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultMediaList", SRGPathComponentForVendor(vendor)];
@@ -504,7 +504,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     if (query) {
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"q" value:query]];
     }
-    [queryItems addObjectsFromArray:filters.queryItems];
+    [queryItems addObjectsFromArray:settings.queryItems];
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGSearchResult.class rootKey:@"searchResultMediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {

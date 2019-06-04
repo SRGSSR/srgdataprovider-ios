@@ -4,7 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGMediaSearchFilters.h"
+#import "SRGMediaSearchSettings.h"
 
 #import "NSDateFormatter+SRGDataProvider.h"
 
@@ -58,7 +58,7 @@ static NSString *SRGBoolParameter(BOOL boolean)
     return boolean ? @"true" : @"false";
 }
 
-@implementation SRGMediaSearchFilters
+@implementation SRGMediaSearchSettings
 
 #pragma mark Getters and setters
 

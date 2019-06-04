@@ -480,7 +480,7 @@ static NSString * const kUserId = @"test_user_id";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    SRGMediaSearchFilters *filters = [[SRGMediaSearchFilters alloc] init];
+    SRGMediaSearchSettings *filters = [[SRGMediaSearchSettings alloc] init];
     filters.matchingOptions = SRGSearchMatchingOptionAny;
     filters.showURNs = @[ @"urn:rsi:show:tv:3566695", @"urn:rsi:show:tv:9376660" ];
     filters.topicURNs = @[ @"urn:rsi:topic:tv:7", @"urn:rsi:topic:tv:8" ];
@@ -496,7 +496,7 @@ static NSString * const kUserId = @"test_user_id";
     filters.sortCriterium = SRGSortCriteriumDate;
     filters.sortDirection = SRGSortDirectionAscending;
     
-    [[self.dataProvider mediasForVendor:SRGVendorRSI matchingQuery:@"roger" withFilters:filters completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregations, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasForVendor:SRGVendorRSI matchingQuery:@"roger" withSettings:filters completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregations, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(mediaURNs);
         XCTAssertNotNil(aggregations);
         XCTAssertNil(error);

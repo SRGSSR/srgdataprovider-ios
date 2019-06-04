@@ -9,9 +9,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Additional filters for media search queries.
+ *  Additional settings for media search queries.
  */
-@interface SRGMediaSearchFilters : NSObject
+@interface SRGMediaSearchSettings : NSObject
 
 /**
  *  Options setting how the search query is matched.

@@ -62,8 +62,8 @@
 		6FC5B8221E852B22003555F8 /* MAKVONotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; };
 		6FC5B8231E852B34003555F8 /* MAKVONotificationCenter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6FC5B8241E852B46003555F8 /* MAKVONotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; };
-		6FCE228E229D61AC0040DA1C /* SRGMediaSearchFilters+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCE228D229D61AC0040DA1C /* SRGMediaSearchFilters+Private.h */; };
-		6FCEFEED229BD741001388F9 /* SRGMediaSearchFilters.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCEFEEB229BD741001388F9 /* SRGMediaSearchFilters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6FCE228E229D61AC0040DA1C /* SRGMediaSearchSettings+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCE228D229D61AC0040DA1C /* SRGMediaSearchSettings+Private.h */; };
+		6FCEFEED229BD741001388F9 /* SRGMediaSearchSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCEFEEB229BD741001388F9 /* SRGMediaSearchSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FCEFEF0229BE35D001388F9 /* SRGMediaSearchFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCEFEEF229BE35D001388F9 /* SRGMediaSearchFilters.m */; };
 		6FCEFEF9229C1290001388F9 /* SRGMediaAggregations.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCEFEF7229C1290001388F9 /* SRGMediaAggregations.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FCEFEFA229C1290001388F9 /* SRGMediaAggregations.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCEFEF8229C1290001388F9 /* SRGMediaAggregations.m */; };
@@ -228,8 +228,8 @@
 		6FC024AF1E1D001600550881 /* SRGSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSearchResult.m; sourceTree = "<group>"; };
 		6FC361B21ECD7C8B00E01022 /* CommonServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonServicesTestCase.m; sourceTree = "<group>"; };
 		6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAKVONotificationCenter.framework; path = Carthage/Build/iOS/MAKVONotificationCenter.framework; sourceTree = "<group>"; };
-		6FCE228D229D61AC0040DA1C /* SRGMediaSearchFilters+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGMediaSearchFilters+Private.h"; sourceTree = "<group>"; };
-		6FCEFEEB229BD741001388F9 /* SRGMediaSearchFilters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGMediaSearchFilters.h; sourceTree = "<group>"; };
+		6FCE228D229D61AC0040DA1C /* SRGMediaSearchSettings+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGMediaSearchSettings+Private.h"; sourceTree = "<group>"; };
+		6FCEFEEB229BD741001388F9 /* SRGMediaSearchSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGMediaSearchSettings.h; sourceTree = "<group>"; };
 		6FCEFEEF229BE35D001388F9 /* SRGMediaSearchFilters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGMediaSearchFilters.m; sourceTree = "<group>"; };
 		6FCEFEF7229C1290001388F9 /* SRGMediaAggregations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGMediaAggregations.h; sourceTree = "<group>"; };
 		6FCEFEF8229C1290001388F9 /* SRGMediaAggregations.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SRGMediaAggregations.m; sourceTree = "<group>"; };
@@ -449,9 +449,9 @@
 				6FCEFEF8229C1290001388F9 /* SRGMediaAggregations.m */,
 				E67BB66B1D3DF13800E1FEA3 /* SRGMediaComposition.h */,
 				E67BB66C1D3DF13800E1FEA3 /* SRGMediaComposition.m */,
-				6FCEFEEB229BD741001388F9 /* SRGMediaSearchFilters.h */,
+				6FCEFEEB229BD741001388F9 /* SRGMediaSearchSettings.h */,
 				6FCEFEEF229BE35D001388F9 /* SRGMediaSearchFilters.m */,
-				6FCE228D229D61AC0040DA1C /* SRGMediaSearchFilters+Private.h */,
+				6FCE228D229D61AC0040DA1C /* SRGMediaSearchSettings+Private.h */,
 				6FB156101E83B60400389D04 /* SRGModel.h */,
 				6FB156111E83B60400389D04 /* SRGModel.m */,
 				E63DA7231D5C554A0053060E /* SRGModule.h */,
@@ -609,7 +609,7 @@
 				E68598AF1D40CEB90010000A /* SRGMetadata.h in Headers */,
 				E6C2B3BF1D390EEF00B6250B /* SRGMedia.h in Headers */,
 				E68598B31D40CEDA0010000A /* SRGMediaIdentifierMetadata.h in Headers */,
-				6FCE228E229D61AC0040DA1C /* SRGMediaSearchFilters+Private.h in Headers */,
+				6FCE228E229D61AC0040DA1C /* SRGMediaSearchSettings+Private.h in Headers */,
 				E68598B81D40F30B0010000A /* SRGChannel.h in Headers */,
 				E67BB66D1D3DF13800E1FEA3 /* SRGMediaComposition.h in Headers */,
 				6FB156121E83B60400389D04 /* SRGModel.h in Headers */,
@@ -631,7 +631,7 @@
 				E68598C01D40FF950010000A /* SRGProgram.h in Headers */,
 				E68598AA1D40CC750010000A /* SRGSubdivision.h in Headers */,
 				E6AE513A1D4093B700572CE4 /* NSURL+SRGDataProvider.h in Headers */,
-				6FCEFEED229BD741001388F9 /* SRGMediaSearchFilters.h in Headers */,
+				6FCEFEED229BD741001388F9 /* SRGMediaSearchSettings.h in Headers */,
 				6FEFFF021F02A0FE00CD6FCA /* SRGAlbum.h in Headers */,
 				E67BB6691D3D2FB600E1FEA3 /* SRGSocialCount.h in Headers */,
 				E67BB6651D3D295E00E1FEA3 /* SRGResource.h in Headers */,

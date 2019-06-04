@@ -25,7 +25,7 @@
 #import "SRGMediaIdentifierMetadata.h"
 #import "SRGMediaMetadata.h"
 #import "SRGMediaParentMetadata.h"
-#import "SRGMediaSearchFilters.h"
+#import "SRGMediaSearchSettings.h"
 #import "SRGMetadata.h"
 #import "SRGModel.h"
 #import "SRGModule.h"
@@ -515,7 +515,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  */
 - (SRGFirstPageRequest *)mediasForVendor:(SRGVendor)vendor
                            matchingQuery:(nullable NSString *)query
-                             withFilters:(nullable SRGMediaSearchFilters *)filters
+                            withSettings:(nullable SRGMediaSearchSettings *)settings
                          completionBlock:(SRGPaginatedMediaSearchCompletionBlock)completionBlock;
 
 /**

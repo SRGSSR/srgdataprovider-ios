@@ -480,7 +480,7 @@ static NSString * const kTag2 = @"curling";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    SRGMediaSearchFilters *filters = [[SRGMediaSearchFilters alloc] init];
+    SRGMediaSearchSettings *filters = [[SRGMediaSearchSettings alloc] init];
     filters.matchingOptions = SRGSearchMatchingOptionAny;
     filters.showURNs = @[ @"urn:srf:show:tv:5327eac1-e5a1-40aa-9f71-707e48258097", @"urn:srf:show:tv:d1b1c712-f55a-4375-a472-44a94689d3c8" ];
     filters.topicURNs = @[ @"urn:srf:topic:tv:649e36d7-ff57-41c8-9c1b-7892daf15e78", @"urn:srf:topic:tv:a709c610-b275-4c0c-a496-cba304c36712" ];
@@ -496,7 +496,7 @@ static NSString * const kTag2 = @"curling";
     filters.sortCriterium = SRGSortCriteriumDate;
     filters.sortDirection = SRGSortDirectionAscending;
     
-    [[self.dataProvider mediasForVendor:SRGVendorSRF matchingQuery:@"roger" withFilters:filters completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregations, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasForVendor:SRGVendorSRF matchingQuery:@"roger" withSettings:filters completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregations, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(mediaURNs);
         XCTAssertNotNil(aggregations);
         XCTAssertNil(error);
