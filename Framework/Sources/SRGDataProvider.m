@@ -117,6 +117,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (instancetype)initWithServiceURL:(NSURL *)serviceURL
 {
+    NSAssert(! serviceURL.fileURL, @"File URLs are not supported");
+    
     if (self = [super init]) {
         self.serviceURL = serviceURL;
         
