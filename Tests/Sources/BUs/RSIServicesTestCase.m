@@ -496,9 +496,10 @@ static NSString * const kUserId = @"test_user_id";
     filters.sortCriterium = SRGSortCriteriumDate;
     filters.sortDirection = SRGSortDirectionAscending;
     
-    [[self.dataProvider mediasForVendor:SRGVendorRSI matchingQuery:@"roger" withSettings:filters completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregations, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasForVendor:SRGVendorRSI matchingQuery:@"fderer" withSettings:filters completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(mediaURNs);
         XCTAssertNotNil(aggregations);
+        XCTAssertNotNil(suggestions);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];

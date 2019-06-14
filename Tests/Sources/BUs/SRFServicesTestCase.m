@@ -496,9 +496,10 @@ static NSString * const kTag2 = @"curling";
     filters.sortCriterium = SRGSortCriteriumDate;
     filters.sortDirection = SRGSortDirectionAscending;
     
-    [[self.dataProvider mediasForVendor:SRGVendorSRF matchingQuery:@"roger" withSettings:filters completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nonnull aggregations, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasForVendor:SRGVendorSRF matchingQuery:@"fderer" withSettings:filters completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(mediaURNs);
         XCTAssertNotNil(aggregations);
+        XCTAssertNotNil(suggestions);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];

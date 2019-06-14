@@ -38,6 +38,8 @@
 		6F805FA3229D556E00EEECC5 /* NSDateFormatter+SRGDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F805FA1229D556E00EEECC5 /* NSDateFormatter+SRGDataProvider.h */; };
 		6F805FA4229D556E00EEECC5 /* NSDateFormatter+SRGDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F805FA2229D556E00EEECC5 /* NSDateFormatter+SRGDataProvider.m */; };
 		6F8201DD1D9A3FAC001DA4DA /* DataProviderTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8201DC1D9A3FAC001DA4DA /* DataProviderTestCase.m */; };
+		6F84340822B38A19008FAD5B /* SRGSearchSuggestion.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F84340622B38A18008FAD5B /* SRGSearchSuggestion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6F84340922B38A19008FAD5B /* SRGSearchSuggestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F84340722B38A19008FAD5B /* SRGSearchSuggestion.m */; };
 		6F886E491F5FBA2600C8804D /* SRGSocialCountOverview.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F886E471F5FBA2600C8804D /* SRGSocialCountOverview.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6F886E4A1F5FBA2600C8804D /* SRGSocialCountOverview.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F886E481F5FBA2600C8804D /* SRGSocialCountOverview.m */; };
 		6F926BCD210F434500D2E3D0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E6C2B3CF1D39239E00B6250B /* Localizable.strings */; };
@@ -64,7 +66,7 @@
 		6FC5B8241E852B46003555F8 /* MAKVONotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; };
 		6FCE228E229D61AC0040DA1C /* SRGMediaSearchSettings+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCE228D229D61AC0040DA1C /* SRGMediaSearchSettings+Private.h */; };
 		6FCEFEED229BD741001388F9 /* SRGMediaSearchSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCEFEEB229BD741001388F9 /* SRGMediaSearchSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6FCEFEF0229BE35D001388F9 /* SRGMediaSearchFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCEFEEF229BE35D001388F9 /* SRGMediaSearchFilters.m */; };
+		6FCEFEF0229BE35D001388F9 /* SRGMediaSearchSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCEFEEF229BE35D001388F9 /* SRGMediaSearchSettings.m */; };
 		6FCEFEF9229C1290001388F9 /* SRGMediaAggregations.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCEFEF7229C1290001388F9 /* SRGMediaAggregations.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FCEFEFA229C1290001388F9 /* SRGMediaAggregations.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCEFEF8229C1290001388F9 /* SRGMediaAggregations.m */; };
 		6FD1EAEE1E8A652E007940EE /* DataProviderBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1EAED1E8A652E007940EE /* DataProviderBaseTestCase.m */; };
@@ -206,6 +208,8 @@
 		6F805FA1229D556E00EEECC5 /* NSDateFormatter+SRGDataProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+SRGDataProvider.h"; sourceTree = "<group>"; };
 		6F805FA2229D556E00EEECC5 /* NSDateFormatter+SRGDataProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+SRGDataProvider.m"; sourceTree = "<group>"; };
 		6F8201DC1D9A3FAC001DA4DA /* DataProviderTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataProviderTestCase.m; sourceTree = "<group>"; };
+		6F84340622B38A18008FAD5B /* SRGSearchSuggestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSearchSuggestion.h; sourceTree = "<group>"; };
+		6F84340722B38A19008FAD5B /* SRGSearchSuggestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSearchSuggestion.m; sourceTree = "<group>"; };
 		6F886E471F5FBA2600C8804D /* SRGSocialCountOverview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSocialCountOverview.h; sourceTree = "<group>"; };
 		6F886E481F5FBA2600C8804D /* SRGSocialCountOverview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSocialCountOverview.m; sourceTree = "<group>"; };
 		6F926BC5210F422A00D2E3D0 /* SRGDataProvider.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SRGDataProvider.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,7 +234,7 @@
 		6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAKVONotificationCenter.framework; path = Carthage/Build/iOS/MAKVONotificationCenter.framework; sourceTree = "<group>"; };
 		6FCE228D229D61AC0040DA1C /* SRGMediaSearchSettings+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGMediaSearchSettings+Private.h"; sourceTree = "<group>"; };
 		6FCEFEEB229BD741001388F9 /* SRGMediaSearchSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGMediaSearchSettings.h; sourceTree = "<group>"; };
-		6FCEFEEF229BE35D001388F9 /* SRGMediaSearchFilters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGMediaSearchFilters.m; sourceTree = "<group>"; };
+		6FCEFEEF229BE35D001388F9 /* SRGMediaSearchSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGMediaSearchSettings.m; sourceTree = "<group>"; };
 		6FCEFEF7229C1290001388F9 /* SRGMediaAggregations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGMediaAggregations.h; sourceTree = "<group>"; };
 		6FCEFEF8229C1290001388F9 /* SRGMediaAggregations.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SRGMediaAggregations.m; sourceTree = "<group>"; };
 		6FD1EAEC1E8A652E007940EE /* DataProviderBaseTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataProviderBaseTestCase.h; sourceTree = "<group>"; };
@@ -449,8 +453,8 @@
 				6FCEFEF8229C1290001388F9 /* SRGMediaAggregations.m */,
 				E67BB66B1D3DF13800E1FEA3 /* SRGMediaComposition.h */,
 				E67BB66C1D3DF13800E1FEA3 /* SRGMediaComposition.m */,
+				6FCEFEEF229BE35D001388F9 /* SRGMediaSearchSettings.m */,
 				6FCEFEEB229BD741001388F9 /* SRGMediaSearchSettings.h */,
-				6FCEFEEF229BE35D001388F9 /* SRGMediaSearchFilters.m */,
 				6FCE228D229D61AC0040DA1C /* SRGMediaSearchSettings+Private.h */,
 				6FB156101E83B60400389D04 /* SRGModel.h */,
 				6FB156111E83B60400389D04 /* SRGModel.m */,
@@ -466,6 +470,8 @@
 				E67BB6641D3D295E00E1FEA3 /* SRGResource.m */,
 				6FC024AE1E1D001600550881 /* SRGSearchResult.h */,
 				6FC024AF1E1D001600550881 /* SRGSearchResult.m */,
+				6F84340622B38A18008FAD5B /* SRGSearchSuggestion.h */,
+				6F84340722B38A19008FAD5B /* SRGSearchSuggestion.m */,
 				E63DA7271D5C5A390053060E /* SRGSection.h */,
 				E63DA7281D5C5A390053060E /* SRGSection.m */,
 				6FDF33CE1F0236EB00BA1D6E /* SRGSegment.h */,
@@ -636,6 +642,7 @@
 				E67BB6691D3D2FB600E1FEA3 /* SRGSocialCount.h in Headers */,
 				E67BB6651D3D295E00E1FEA3 /* SRGResource.h in Headers */,
 				08879BFB1FEC58D300CF3980 /* SRGBaseTopic.h in Headers */,
+				6F84340822B38A19008FAD5B /* SRGSearchSuggestion.h in Headers */,
 				6F37E4302003444400855E1C /* SRGSegment+Private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -810,7 +817,7 @@
 				087C58CE1F5D740F0058D310 /* SRGMediaExtendedMetadata.m in Sources */,
 				E6C2B3F91D392F1A00B6250B /* SRGShow.m in Sources */,
 				6F805FA4229D556E00EEECC5 /* NSDateFormatter+SRGDataProvider.m in Sources */,
-				6FCEFEF0229BE35D001388F9 /* SRGMediaSearchFilters.m in Sources */,
+				6FCEFEF0229BE35D001388F9 /* SRGMediaSearchSettings.m in Sources */,
 				6FB1561B1E83D21800389D04 /* NSArray+SRGDataProvider.m in Sources */,
 				E6AE513B1D4093B700572CE4 /* NSURL+SRGDataProvider.m in Sources */,
 				6FB1561F1E83D6F900389D04 /* NSObject+SRGDataProvider.m in Sources */,
@@ -837,6 +844,7 @@
 				E68598B91D40F30B0010000A /* SRGChannel.m in Sources */,
 				6FFA11352107519D00513BFB /* SRGDRM.m in Sources */,
 				E6AE51431D40A66C00572CE4 /* SRGRelatedContent.m in Sources */,
+				6F84340922B38A19008FAD5B /* SRGSearchSuggestion.m in Sources */,
 				6F886E4A1F5FBA2600C8804D /* SRGSocialCountOverview.m in Sources */,
 				6FCEFEFA229C1290001388F9 /* SRGMediaAggregations.m in Sources */,
 				6FDF33D11F0236EB00BA1D6E /* SRGSegment.m in Sources */,

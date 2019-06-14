@@ -24,6 +24,7 @@ static NSString * const SRGParsedObjectKey = @"object";
 static NSString * const SRGParsedNextURLKey = @"nextURL";
 static NSString * const SRGParsedTotalKey = @"total";
 static NSString * const SRGParsedMediaAggregationsKey = @"mediaAggregations";
+static NSString * const SRGParsedSearchSuggestionsKey = @"searchSuggestions";
 
 NSURL *SRGIntegrationLayerProductionServiceURL(void)
 {
@@ -504,12 +505,18 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     if (query) {
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"q" value:query]];
     }
+    
+    // Suggestions are not supported for SWI
+    if (vendor != SRGVendorSWI) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeSuggestions" value:@"true"]];
+    }
+    
     [queryItems addObjectsFromArray:settings.queryItems];
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGSearchResult.class rootKey:@"searchResultMediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         NSArray<NSString *> *URNs = [objects valueForKeyPath:@keypath(SRGSearchResult.new, URN)];
-        completionBlock(URNs, metadata[SRGParsedTotalKey], metadata[SRGParsedMediaAggregationsKey], page, nextPage, HTTPResponse, error);
+        completionBlock(URNs, metadata[SRGParsedTotalKey], metadata[SRGParsedMediaAggregationsKey], metadata[SRGParsedSearchSuggestionsKey], page, nextPage, HTTPResponse, error);
     }];
 }
 
@@ -835,29 +842,34 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSParameterAssert(completionBlock);
     
     return [[SRGFirstPageRequest objectRequestWithURLRequest:URLRequest session:self.session parser:^id _Nullable(NSData * _Nonnull data, NSError * _Nullable __autoreleasing * _Nullable pError) {
+        // Extract object and standard top-level information if available
+        NSMutableDictionary<NSString *, id> *parsedObjectDictionary = [NSMutableDictionary dictionary];
+        
         NSDictionary *JSONDictionary = SRGNetworkJSONDictionaryParser(data, pError);
         if (*pError) {
             return nil;
         }
         
-        id object = JSONDictionary ? parser(JSONDictionary, pError) : nil;
+        parsedObjectDictionary[SRGParsedObjectKey] = JSONDictionary ? parser(JSONDictionary, pError) : nil;
         if (*pError) {
             return nil;
         }
         
-        id aggregations = [MTLJSONAdapter modelOfClass:SRGMediaAggregations.class fromJSONDictionary:JSONDictionary[@"aggregations"] error:pError];
+        parsedObjectDictionary[SRGParsedMediaAggregationsKey] = [MTLJSONAdapter modelOfClass:SRGMediaAggregations.class fromJSONDictionary:JSONDictionary[@"aggregations"] error:pError];
         if (*pError) {
             return nil;
         }
         
-        // Extract object and standard top-level information if available
-        NSMutableDictionary<NSString *, id> *parsedObjectDictionary = [NSMutableDictionary dictionary];
-        parsedObjectDictionary[SRGParsedObjectKey] = object;
+        NSDictionary *suggestionDictionary = JSONDictionary[@"suggestionList"];
+        if (suggestionDictionary) {
+            parsedObjectDictionary[SRGParsedSearchSuggestionsKey] = [MTLJSONAdapter modelsOfClass:SRGSearchSuggestion.class fromJSONArray:JSONDictionary[@"suggestionList"] error:pError];
+            if (*pError) {
+                return nil;
+            }
+        }
+        
         parsedObjectDictionary[SRGParsedNextURLKey] = [NSURL URLWithString:JSONDictionary[@"next"]];
         parsedObjectDictionary[SRGParsedTotalKey] = JSONDictionary[@"total"];
-        parsedObjectDictionary[SRGParsedMediaAggregationsKey] = aggregations;
-        // TODO: Extract `SRGSearchSuggestions` stored under `SRGParsedSuggestionsKey` here when fixed, see
-        //         https://srfmmz.atlassian.net/browse/PLAY-2224
         
         return [parsedObjectDictionary copy];
     } sizer:^NSURLRequest *(NSURLRequest * _Nonnull URLRequest, NSUInteger size) {
