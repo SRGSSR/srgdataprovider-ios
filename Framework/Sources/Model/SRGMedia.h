@@ -4,9 +4,11 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGAudios.h"
 #import "SRGMediaMetadata.h"
 #import "SRGMediaParentMetadata.h"
 #import "SRGModel.h"
+#import "SRGSubtitles.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,6 +22,16 @@ NS_ASSUME_NONNULL_BEGIN
  *  The recommended way to present the media.
  */
 @property (nonatomic, readonly) SRGPresentation presentation;
+
+/**
+ *  Audio tracks information.
+ */
+@property (nonatomic, readonly, nullable) SRGAudios *audios;
+
+/**
+ *  Subtitles information.
+ */
+@property (nonatomic, readonly, nullable) SRGSubtitles *subtitles;
 
 @end
 

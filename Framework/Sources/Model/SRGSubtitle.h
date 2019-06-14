@@ -30,6 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, copy, nullable) NSString *locale;
 
 /**
+ *  The subtitle qualifier.
+ */
+@property (nonatomic, readonly) SRGQualifier qualifier;
+
+/**
  *  The URL where the subtitle file can be retrieved.
  */
 @property (nonatomic, readonly) NSURL *URL;

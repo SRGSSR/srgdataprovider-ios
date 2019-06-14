@@ -227,6 +227,24 @@ typedef NS_ENUM(NSInteger, SRGPresentation) {
 };
 
 /**
+ *  Language qualifier.
+ */
+typedef NS_ENUM(NSInteger, SRGQualifier) {
+    /**
+     *  Not specified.
+     */
+    SRGQualifierNone = 0,
+    /**
+     *  Subtitles for the Deaf and Hard of Hearing.
+     */
+    SRGQualifierSDH,
+    /**
+     *  Audio description track.
+     */
+    SRGQualifierAudioDescription
+};
+
+/**
  *  Media qualities.
  */
 typedef NS_ENUM(NSInteger, SRGQuality) {

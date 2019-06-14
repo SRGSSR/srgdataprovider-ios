@@ -5,6 +5,7 @@
 //
 
 #import "SRGDRM.h"
+#import "SRGLanguage.h"
 #import "SRGModel.h"
 #import "SRGTypes.h"
 
@@ -69,6 +70,16 @@ NS_ASSUME_NONNULL_BEGIN
  *  The list of DRMs providers supported by the stream.
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGDRM *> *DRMs;
+
+/**
+ *  The list of subtitles in the stream.
+ */
+@property (nonatomic, readonly, nullable) NSArray<SRGLanguage *> *subtitlesLanguages;
+
+/**
+ *  The list of audio tracks in the stream.
+ */
+@property (nonatomic, readonly, nullable) NSArray<SRGLanguage *> *audiosLanguages;
 
 /**
  *  The list of labels which should be supplied in SRG Analytics player events.

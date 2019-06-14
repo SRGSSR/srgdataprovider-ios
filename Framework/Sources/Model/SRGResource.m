@@ -24,6 +24,8 @@
 @property (nonatomic) SRGVideoCodec videoCodec;
 @property (nonatomic) SRGTokenType tokenType;
 @property (nonatomic) NSArray<SRGDRM *> *DRMs;
+@property (nonatomic) NSArray<SRGLanguage *> *subtitlesLanguages;
+@property (nonatomic) NSArray<SRGLanguage *> *audiosLanguages;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *comScoreAnalyticsLabels;
 
@@ -50,6 +52,8 @@
                        @keypath(SRGResource.new, videoCodec) : @"videoCodec",
                        @keypath(SRGResource.new, tokenType) : @"tokenType",
                        @keypath(SRGResource.new, DRMs) : @"drmList",
+                       @keypath(SRGResource.new, subtitlesLanguages) : @"subtitles",
+                       @keypath(SRGResource.new, audiosLanguages) : @"audios",
                        @keypath(SRGResource.new, analyticsLabels) : @"analyticsMetadata",
                        @keypath(SRGResource.new, comScoreAnalyticsLabels) : @"analyticsData" };
     });
@@ -116,6 +120,16 @@
 + (NSValueTransformer *)DRMsJSONTransformer
 {
     return [MTLJSONAdapter arrayTransformerWithModelClass:SRGDRM.class];
+}
+
++ (NSValueTransformer *)subtitlesLanguagesJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGLanguage.class];
+}
+
++ (NSValueTransformer *)audiosLanguagesJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGLanguage.class];
 }
 
 #pragma mark Helpers

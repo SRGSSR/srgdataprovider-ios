@@ -15,6 +15,7 @@
 @property (nonatomic) SRGSubtitleFormat format;
 @property (nonatomic, copy) NSString *language;
 @property (nonatomic, copy) NSString *locale;
+@property (nonatomic) SRGQualifier qualifier;
 @property (nonatomic) NSURL *URL;
 
 @end
@@ -31,6 +32,7 @@
         s_mapping = @{ @keypath(SRGSubtitle.new, format) : @"format",
                        @keypath(SRGSubtitle.new, language) : @"language",
                        @keypath(SRGSubtitle.new, locale) : @"locale",
+                       @keypath(SRGSubtitle.new, qualifier) : @"qualifier",
                        @keypath(SRGSubtitle.new, URL) : @"url" };
     });
     return s_mapping;
@@ -41,6 +43,11 @@
 + (NSValueTransformer *)formatJSONTransformer
 {
     return SRGSubtitleFormatJSONTransformer();
+}
+
++ (NSValueTransformer *)qualifierJSONTransformer
+{
+    return SRGQualifierJSONTransformer();
 }
 
 + (NSValueTransformer *)URLJSONTransformer

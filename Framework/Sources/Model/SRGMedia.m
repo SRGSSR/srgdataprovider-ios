@@ -15,6 +15,8 @@
 @interface SRGMedia () <SRGMediaExtendedMetadata>
 
 @property (nonatomic) SRGPresentation presentation;
+@property (nonatomic) SRGAudios *audios;
+@property (nonatomic) SRGSubtitles *subtitles;
 
 @property (nonatomic) SRGChannel *channel;
 @property (nonatomic) SRGEpisode *episode;
@@ -60,6 +62,8 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @keypath(SRGMedia.new, presentation) : @"presentation",
+                       @keypath(SRGMedia.new, audios) : @"audios",
+                       @keypath(SRGMedia.new, subtitles) : @"subtitles",
                        
                        @keypath(SRGMedia.new, channel) : @"channel",
                        @keypath(SRGMedia.new, episode) : @"episode",
@@ -113,6 +117,16 @@
 + (NSValueTransformer *)presentationJSONTransformer
 {
     return SRGPresentationJSONTransformer();
+}
+
++ (NSValueTransformer *)audiosJSONTransformer
+{
+    return  [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGAudios.class];
+}
+
++ (NSValueTransformer *)subtitlesJSONTransformer
+{
+    return  [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGSubtitles.class];
 }
 
 + (NSValueTransformer *)channelJSONTransformer
