@@ -41,4 +41,12 @@
     return SRGQualifierJSONTransformer();
 }
 
+#pragma mark SRGLanguageMetadata protocol
+
+- (NSString *)languageCode
+{
+    // According to https://en.wikipedia.org/wiki/Locale_(computer_software)
+    return [self.locale componentsSeparatedByString:@"_"].firstObject;
+}
+
 @end

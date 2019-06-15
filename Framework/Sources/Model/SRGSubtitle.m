@@ -55,4 +55,13 @@
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
+#pragma mark SRGLanguageMetadata protocol
+
+- (NSString *)languageCode
+{
+    // According to https://en.wikipedia.org/wiki/Locale_(computer_software)
+    // and https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes
+    return [self.locale componentsSeparatedByString:@"_"].firstObject ?: @"mis";
+}
+
 @end

@@ -15,6 +15,7 @@
 		082FA42A22B43FE5006BCD62 /* SRGSubtitles.m in Sources */ = {isa = PBXBuildFile; fileRef = 082FA42822B43FE5006BCD62 /* SRGSubtitles.m */; };
 		082FA42D22B44189006BCD62 /* SRGAudios.h in Headers */ = {isa = PBXBuildFile; fileRef = 082FA42B22B44189006BCD62 /* SRGAudios.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		082FA42E22B44189006BCD62 /* SRGAudios.m in Sources */ = {isa = PBXBuildFile; fileRef = 082FA42C22B44189006BCD62 /* SRGAudios.m */; };
+		082FA43122B52D46006BCD62 /* SRGLanguageMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 082FA42F22B52D46006BCD62 /* SRGLanguageMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		083F41561DB6D59F00FEA340 /* SRGMediaParentMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 083F41551DB6D59F00FEA340 /* SRGMediaParentMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		087C58CE1F5D740F0058D310 /* SRGMediaExtendedMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C58CD1F5D740F0058D310 /* SRGMediaExtendedMetadata.m */; };
 		087C58D11F5D75B10058D310 /* MediaMetadataTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C58CF1F5D75A60058D310 /* MediaMetadataTestCase.m */; };
@@ -168,6 +169,7 @@
 		082FA42822B43FE5006BCD62 /* SRGSubtitles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSubtitles.m; sourceTree = "<group>"; };
 		082FA42B22B44189006BCD62 /* SRGAudios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGAudios.h; sourceTree = "<group>"; };
 		082FA42C22B44189006BCD62 /* SRGAudios.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGAudios.m; sourceTree = "<group>"; };
+		082FA42F22B52D46006BCD62 /* SRGLanguageMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGLanguageMetadata.h; sourceTree = "<group>"; };
 		083F41551DB6D59F00FEA340 /* SRGMediaParentMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGMediaParentMetadata.h; sourceTree = "<group>"; };
 		087C58CD1F5D740F0058D310 /* SRGMediaExtendedMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGMediaExtendedMetadata.m; sourceTree = "<group>"; };
 		087C58CF1F5D75A60058D310 /* MediaMetadataTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaMetadataTestCase.m; sourceTree = "<group>"; };
@@ -523,6 +525,7 @@
 			children = (
 				E68598B01D40CEC30010000A /* SRGImageMetadata.h */,
 				6FAC25AA1F06A2B70058D53A /* SRGImageMetadata.m */,
+				082FA42F22B52D46006BCD62 /* SRGLanguageMetadata.h */,
 				6F57EA731F83CE560038153F /* SRGMediaExtendedMetadata.h */,
 				087C58CD1F5D740F0058D310 /* SRGMediaExtendedMetadata.m */,
 				E68598B21D40CED70010000A /* SRGMediaIdentifierMetadata.h */,
@@ -630,6 +633,7 @@
 				6FB1561E1E83D6F900389D04 /* NSObject+SRGDataProvider.h in Headers */,
 				6FB156161E83D20B00389D04 /* NSDictionary+SRGDataProvider.h in Headers */,
 				E68598B51D40CEEE0010000A /* SRGMediaMetadata.h in Headers */,
+				082FA43122B52D46006BCD62 /* SRGLanguageMetadata.h in Headers */,
 				E68598AF1D40CEB90010000A /* SRGMetadata.h in Headers */,
 				6F5EEF4822E17E100014A0CA /* SRGDay+Private.h in Headers */,
 				E6C2B3BF1D390EEF00B6250B /* SRGMedia.h in Headers */,
