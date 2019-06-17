@@ -21,11 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGSubtitleFormat format;
 
 /**
- *  The associated locale identifier.
- */
-@property (nonatomic, readonly, copy, nullable) NSString *locale;
-
-/**
  *  The URL where the subtitle file can be retrieved.
  */
 @property (nonatomic, readonly) NSURL *URL;

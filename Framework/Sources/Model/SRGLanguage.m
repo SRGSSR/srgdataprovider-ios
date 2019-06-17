@@ -12,7 +12,7 @@
 
 @interface SRGLanguage ()
 
-@property (nonatomic, copy) NSString *locale;
+@property (nonatomic, copy) NSLocale *locale;
 @property (nonatomic) SRGQualifier qualifier;
 @property (nonatomic, copy) NSString *language;
 
@@ -36,17 +36,14 @@
 
 #pragma mark Transformers
 
++ (NSValueTransformer *)localeJSONTransformer
+{
+    return SRGLocaleJSONTransformer();
+}
+
 + (NSValueTransformer *)qualifierJSONTransformer
 {
     return SRGQualifierJSONTransformer();
-}
-
-#pragma mark SRGLanguageMetadata protocol
-
-- (NSString *)languageCode
-{
-    // According to https://en.wikipedia.org/wiki/Locale_(computer_software)
-    return [self.locale componentsSeparatedByString:@"_"].firstObject;
 }
 
 @end

@@ -15,11 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface SRGLanguage : SRGModel <SRGLanguageMetadata>
 
-/**
- *  The associated locale identifier.
- */
-@property (nonatomic, readonly, copy) NSString *locale;
-
 @end
 
 NS_ASSUME_NONNULL_END

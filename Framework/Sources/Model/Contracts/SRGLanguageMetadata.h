@@ -16,9 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol SRGLanguageMetadata <NSObject>
 
 /**
- *  The associated language code (BP 47).
+ *  The associated locale.
  */
-@property (nonatomic, readonly, copy) NSString *languageCode;
+@property (nonatomic, readonly, copy) NSLocale *locale;
 
 /**
  *  The language qualifier.

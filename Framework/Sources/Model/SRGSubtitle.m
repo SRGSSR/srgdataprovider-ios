@@ -14,7 +14,7 @@
 
 @property (nonatomic) SRGSubtitleFormat format;
 @property (nonatomic, copy) NSString *language;
-@property (nonatomic, copy) NSString *locale;
+@property (nonatomic, copy) NSLocale *locale;
 @property (nonatomic) SRGQualifier qualifier;
 @property (nonatomic) NSURL *URL;
 
@@ -45,6 +45,11 @@
     return SRGSubtitleFormatJSONTransformer();
 }
 
++ (NSValueTransformer *)localeJSONTransformer
+{
+    return SRGLocaleJSONTransformer();
+}
+
 + (NSValueTransformer *)qualifierJSONTransformer
 {
     return SRGQualifierJSONTransformer();
@@ -57,11 +62,9 @@
 
 #pragma mark SRGLanguageMetadata protocol
 
-- (NSString *)languageCode
+- (NSLocale *)locale
 {
-    // According to https://en.wikipedia.org/wiki/Locale_(computer_software)
-    // and https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes
-    return [self.locale componentsSeparatedByString:@"_"].firstObject ?: @"mis";
+    return _locale ?: [NSLocale localeWithLocaleIdentifier:@"und"];
 }
 
 @end
