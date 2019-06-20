@@ -648,9 +648,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSString *endpoint = s_endpoints[@(type)];
     NSAssert(endpoint, @"A supported social count type must be provided");
     
-    // TODO: Remove the JSON once the following issue has been fxed: https://srfmmz.atlassian.net/browse/PLAY-2219
-    NSString *resourcePath = [NSString stringWithFormat:@"2.0/mediaStatistic/byUrn/%@/%@.json", subdivision.URN, endpoint];
-    
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/mediaStatistic/byUrn/%@/%@", subdivision.URN, endpoint];
     NSMutableURLRequest *URLRequest = [[self URLRequestForResourcePath:resourcePath withQueryItems:nil] mutableCopy];
     URLRequest.HTTPMethod = @"POST";
     [URLRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
