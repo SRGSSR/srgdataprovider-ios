@@ -4,17 +4,18 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGSearchResult.h"
+#import "SRGSearchSuggestion.h"
 
 #import <libextobjc/libextobjc.h>
 
-@interface SRGSearchResult ()
+@interface SRGSearchSuggestion ()
 
-@property (nonatomic, copy) NSString *URN;
+@property (nonatomic, copy) NSString *text;
+@property (nonatomic) NSInteger numberOfExactMatches;
 
 @end
 
-@implementation SRGSearchResult
+@implementation SRGSearchSuggestion
 
 #pragma mark MTLJSONSerializing protocol
 
@@ -23,7 +24,8 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @keypath(SRGSearchResult.new, URN) : @"urn" };
+        s_mapping = @{ @keypath(SRGSearchSuggestion.new, text) : @"text",
+                       @keypath(SRGSearchSuggestion.new, numberOfExactMatches) : @"exactMatchTotal" };
     });
     return s_mapping;
 }
