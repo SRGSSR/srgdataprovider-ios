@@ -476,6 +476,8 @@ static NSString * const kUserId = @"test_user_id";
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGMediaSearchSettings *filters = [[SRGMediaSearchSettings alloc] init];
+    filters.aggregationsEnabled = YES;
+    filters.suggestionsEnabled = YES;
     filters.matchingOptions = SRGSearchMatchingOptionAny;
     filters.showURNs = @[ @"urn:rts:show:tv:8849020", @"urn:rts:show:tv:548307" ];
     filters.topicURNs = @[ @"urn:rts:topic:tv:1081", @"urn:rts:topic:tv:1095" ];

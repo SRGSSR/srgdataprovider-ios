@@ -14,6 +14,20 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGMediaSearchSettings : NSObject
 
 /**
+ *  Whether aggregations should be returned in search results.
+ *
+ *  @discussion The default value is `NO`. Enabling aggregations results in longer response times.
+ */
+@property (nonatomic) BOOL aggregationsEnabled;
+
+/**
+ *  Whether suggestions should be returned in search results.
+ *
+ *  @discussion The default value is `NO`.
+ */
+@property (nonatomic) BOOL suggestionsEnabled;
+
+/**
  *  Options setting how the search query is matched.
  */
 @property (nonatomic) SRGSearchMatchingOptions matchingOptions;

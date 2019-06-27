@@ -5,6 +5,7 @@
 //
 
 #import "SRGMediaSearchSettings.h"
+#import "SRGTypes.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,9 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGMediaSearchSettings (Private)
 
 /**
- *  URL query items corresponding to the search settings.
+ *  URL query items corresponding to the search settings, for the specified vendor.
  */
-@property (nonatomic, readonly) NSArray<NSURLQueryItem *> *queryItems;
+- (NSArray<NSURLQueryItem *> *)queryItemsForVendor:(SRGVendor)vendor;
 
 @end
 

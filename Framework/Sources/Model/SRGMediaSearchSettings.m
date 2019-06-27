@@ -62,10 +62,13 @@ static NSString *SRGBoolParameter(BOOL boolean)
 
 #pragma mark Getters and setters
 
-- (NSArray<NSURLQueryItem *> *)queryItems
+- (NSArray<NSURLQueryItem *> *)queryItemsForVendor:(SRGVendor)vendor
 {
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
     
+    [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeAggregations" value:SRGBoolParameter(self.aggregationsEnabled)]];
+    [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeSuggestions" value:SRGBoolParameter(self.suggestionsEnabled && vendor != SRGVendorSWI)]];
+
     if ((self.matchingOptions & SRGSearchMatchingOptionAny) != 0) {
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"operator" value:@"or"]];
     }

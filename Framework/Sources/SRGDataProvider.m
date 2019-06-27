@@ -508,12 +508,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"q" value:query]];
     }
     
-    // Suggestions are not supported for SWI
-    if (vendor != SRGVendorSWI) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeSuggestions" value:@"true"]];
-    }
-    
-    [queryItems addObjectsFromArray:settings.queryItems];
+    [queryItems addObjectsFromArray:[settings queryItemsForVendor:vendor]];
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGSearchResult.class rootKey:@"searchResultMediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
