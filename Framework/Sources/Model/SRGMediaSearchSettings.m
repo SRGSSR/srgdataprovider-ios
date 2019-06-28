@@ -66,8 +66,13 @@ static NSString *SRGBoolParameter(BOOL boolean)
 {
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
     
+    // SWI has currently no support for parameters. Omit entirely
+    if (vendor == SRGVendorSWI) {
+        return [queryItems copy];
+    }
+    
     [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeAggregations" value:SRGBoolParameter(self.aggregationsEnabled)]];
-    [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeSuggestions" value:SRGBoolParameter(self.suggestionsEnabled && vendor != SRGVendorSWI)]];
+    [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeSuggestions" value:SRGBoolParameter(self.suggestionsEnabled)]];
 
     if ((self.matchingOptions & SRGSearchMatchingOptionAny) != 0) {
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"operator" value:@"or"]];

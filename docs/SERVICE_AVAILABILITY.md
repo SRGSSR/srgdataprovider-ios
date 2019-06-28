@@ -47,7 +47,7 @@ Services are currently only available for SRG SSR vendors (SRF, RTS, RSI, RTR an
 
 #### Remark
 
-For SWI, shows represent content categories (Business, Culture, etc.), and search returns only exact word matches.
+For SWI, shows represent content categories (Business, Culture, etc.) and search returns only exact word matches.
 
 ## Radio services
 
@@ -103,7 +103,7 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Most searched shows | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Videos with tags | ✅ | ❌ | ❌ | ⚠️ (2) | ❌ | ✅ | ❌ |
 
-(1) At the moment, SWI only supports a search term but not advanced query parameters.
+(1) At the moment, SWI only supports a search term but no settings. If settings are applied they will be simply ignored.
 (2) RTR only supports `fullLengthExcluded = NO`.
 
 ## Recommendation services

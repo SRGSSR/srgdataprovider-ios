@@ -480,25 +480,25 @@ static NSString * const kTag2 = @"curling";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    SRGMediaSearchSettings *filters = [[SRGMediaSearchSettings alloc] init];
-    filters.aggregationsEnabled = YES;
-    filters.suggestionsEnabled = YES;
-    filters.matchingOptions = SRGSearchMatchingOptionAny;
-    filters.showURNs = @[ @"urn:srf:show:tv:5327eac1-e5a1-40aa-9f71-707e48258097", @"urn:srf:show:tv:d1b1c712-f55a-4375-a472-44a94689d3c8" ];
-    filters.topicURNs = @[ @"urn:srf:topic:tv:649e36d7-ff57-41c8-9c1b-7892daf15e78", @"urn:srf:topic:tv:a709c610-b275-4c0c-a496-cba304c36712" ];
-    filters.mediaType = SRGMediaTypeVideo;
-    filters.subtitlesAvailable = @NO;
-    filters.downloadAvailable = @NO;
-    filters.playableAbroad = @YES;
-    filters.quality = SRGQualityHD;
-    filters.minimumDurationInMinutes = @0.;
-    filters.maximumDurationInMinutes = @60.;
-    filters.beforeDate = NSDate.date;
-    filters.afterDate = [NSDate dateWithTimeIntervalSince1970:0.];
-    filters.sortCriterium = SRGSortCriteriumDate;
-    filters.sortDirection = SRGSortDirectionAscending;
+    SRGMediaSearchSettings *settings = [[SRGMediaSearchSettings alloc] init];
+    settings.aggregationsEnabled = YES;
+    settings.suggestionsEnabled = YES;
+    settings.matchingOptions = SRGSearchMatchingOptionAny;
+    settings.showURNs = @[ @"urn:srf:show:tv:5327eac1-e5a1-40aa-9f71-707e48258097", @"urn:srf:show:tv:d1b1c712-f55a-4375-a472-44a94689d3c8" ];
+    settings.topicURNs = @[ @"urn:srf:topic:tv:649e36d7-ff57-41c8-9c1b-7892daf15e78", @"urn:srf:topic:tv:a709c610-b275-4c0c-a496-cba304c36712" ];
+    settings.mediaType = SRGMediaTypeVideo;
+    settings.subtitlesAvailable = @NO;
+    settings.downloadAvailable = @NO;
+    settings.playableAbroad = @YES;
+    settings.quality = SRGQualityHD;
+    settings.minimumDurationInMinutes = @0.;
+    settings.maximumDurationInMinutes = @60.;
+    settings.beforeDate = NSDate.date;
+    settings.afterDate = [NSDate dateWithTimeIntervalSince1970:0.];
+    settings.sortCriterium = SRGSortCriteriumDate;
+    settings.sortDirection = SRGSortDirectionAscending;
     
-    [[self.dataProvider mediasForVendor:SRGVendorSRF matchingQuery:@"fderer" withSettings:filters completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasForVendor:SRGVendorSRF matchingQuery:@"fderer" withSettings:settings completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(mediaURNs);
         XCTAssertNotNil(aggregations);
         XCTAssertNotNil(suggestions);

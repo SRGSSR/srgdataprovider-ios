@@ -475,25 +475,25 @@ static NSString * const kUserId = @"test_user_id";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    SRGMediaSearchSettings *filters = [[SRGMediaSearchSettings alloc] init];
-    filters.aggregationsEnabled = YES;
-    filters.suggestionsEnabled = YES;
-    filters.matchingOptions = SRGSearchMatchingOptionAny;
-    filters.showURNs = @[ @"urn:rts:show:tv:8849020", @"urn:rts:show:tv:548307" ];
-    filters.topicURNs = @[ @"urn:rts:topic:tv:1081", @"urn:rts:topic:tv:1095" ];
-    filters.mediaType = SRGMediaTypeVideo;
-    filters.subtitlesAvailable = @NO;
-    filters.downloadAvailable = @NO;
-    filters.playableAbroad = @YES;
-    filters.quality = SRGQualitySD;
-    filters.minimumDurationInMinutes = @0.;
-    filters.maximumDurationInMinutes = @60.;
-    filters.beforeDate = NSDate.date;
-    filters.afterDate = [NSDate dateWithTimeIntervalSince1970:0.];
-    filters.sortCriterium = SRGSortCriteriumDate;
-    filters.sortDirection = SRGSortDirectionAscending;
+    SRGMediaSearchSettings *settings = [[SRGMediaSearchSettings alloc] init];
+    settings.aggregationsEnabled = YES;
+    settings.suggestionsEnabled = YES;
+    settings.matchingOptions = SRGSearchMatchingOptionAny;
+    settings.showURNs = @[ @"urn:rts:show:tv:8849020", @"urn:rts:show:tv:548307" ];
+    settings.topicURNs = @[ @"urn:rts:topic:tv:1081", @"urn:rts:topic:tv:1095" ];
+    settings.mediaType = SRGMediaTypeVideo;
+    settings.subtitlesAvailable = @NO;
+    settings.downloadAvailable = @NO;
+    settings.playableAbroad = @YES;
+    settings.quality = SRGQualitySD;
+    settings.minimumDurationInMinutes = @0.;
+    settings.maximumDurationInMinutes = @60.;
+    settings.beforeDate = NSDate.date;
+    settings.afterDate = [NSDate dateWithTimeIntervalSince1970:0.];
+    settings.sortCriterium = SRGSortCriteriumDate;
+    settings.sortDirection = SRGSortDirectionAscending;
     
-    [[self.dataProvider mediasForVendor:SRGVendorRTS matchingQuery:@"fderer" withSettings:filters completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasForVendor:SRGVendorRTS matchingQuery:@"fderer" withSettings:settings completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(mediaURNs);
         XCTAssertNotNil(aggregations);
         XCTAssertNotNil(suggestions);
