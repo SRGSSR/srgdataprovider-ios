@@ -478,11 +478,9 @@ static NSString * const kTag2 = @"curling";
 
 - (void)testMediasMatchingQuery
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
     SRGMediaSearchSettings *settings = [[SRGMediaSearchSettings alloc] init];
-    settings.aggregationsEnabled = YES;
-    settings.suggestionsEnabled = YES;
     settings.matchingOptions = SRGSearchMatchingOptionAny;
     settings.showURNs = @[ @"urn:srf:show:tv:5327eac1-e5a1-40aa-9f71-707e48258097", @"urn:srf:show:tv:d1b1c712-f55a-4375-a472-44a94689d3c8" ];
     settings.topicURNs = @[ @"urn:srf:topic:tv:649e36d7-ff57-41c8-9c1b-7892daf15e78", @"urn:srf:topic:tv:a709c610-b275-4c0c-a496-cba304c36712" ];
@@ -500,10 +498,25 @@ static NSString * const kTag2 = @"curling";
     
     [[self.dataProvider mediasForVendor:SRGVendorSRF matchingQuery:@"fderer" withSettings:settings completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(mediaURNs);
+        XCTAssertNil(aggregations);
+        XCTAssertNil(suggestions);
+        XCTAssertNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    settings.aggregationsEnabled = YES;
+    settings.suggestionsEnabled = YES;
+    
+    [[self.dataProvider mediasForVendor:SRGVendorSRF matchingQuery:@"fderer" withSettings:settings completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaURNs);
         XCTAssertNotNil(aggregations);
         XCTAssertNotNil(suggestions);
         XCTAssertNil(error);
-        [expectation fulfill];
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

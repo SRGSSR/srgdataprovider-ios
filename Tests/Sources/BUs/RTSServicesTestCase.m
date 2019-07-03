@@ -473,11 +473,9 @@ static NSString * const kUserId = @"test_user_id";
 
 - (void)testMediasMatchingQuery
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
     SRGMediaSearchSettings *settings = [[SRGMediaSearchSettings alloc] init];
-    settings.aggregationsEnabled = YES;
-    settings.suggestionsEnabled = YES;
     settings.matchingOptions = SRGSearchMatchingOptionAny;
     settings.showURNs = @[ @"urn:rts:show:tv:8849020", @"urn:rts:show:tv:548307" ];
     settings.topicURNs = @[ @"urn:rts:topic:tv:1081", @"urn:rts:topic:tv:1095" ];
@@ -495,10 +493,25 @@ static NSString * const kUserId = @"test_user_id";
     
     [[self.dataProvider mediasForVendor:SRGVendorRTS matchingQuery:@"fderer" withSettings:settings completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(mediaURNs);
+        XCTAssertNil(aggregations);
+        XCTAssertNil(suggestions);
+        XCTAssertNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    settings.aggregationsEnabled = YES;
+    settings.suggestionsEnabled = YES;
+    
+    [[self.dataProvider mediasForVendor:SRGVendorRTS matchingQuery:@"fderer" withSettings:settings completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaURNs);
         XCTAssertNotNil(aggregations);
         XCTAssertNotNil(suggestions);
         XCTAssertNil(error);
-        [expectation fulfill];
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
