@@ -103,7 +103,7 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Most searched shows | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Videos with tags | ✅ | ❌ | ❌ | ⚠️ (2) | ❌ | ✅ | ❌ |
 
-(1) At the moment, SWI only supports a search term but no settings. If settings are applied they will be simply ignored.
+(1) At the moment, SWI only supports a search term but no settings. If settings are applied the request will fail with an error.
 (2) RTR only supports `fullLengthExcluded = NO`.
 
 ## Recommendation services

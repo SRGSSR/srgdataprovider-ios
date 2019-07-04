@@ -15,9 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGMediaSearchSettings (Private)
 
 /**
- *  URL query items corresponding to the search settings, for the specified vendor.
+ *  URL query items corresponding to the search settings.
  */
-- (NSArray<NSURLQueryItem *> *)queryItemsForVendor:(SRGVendor)vendor;
+@property (nonatomic, readonly) NSArray<NSURLQueryItem *> *queryItems;
 
 @end
 
