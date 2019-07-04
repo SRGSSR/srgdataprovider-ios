@@ -508,6 +508,11 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"q" value:query]];
     }
     
+    // If no settings are provided, apply the default ones to ensure consistent behavior.
+    if (! settings) {
+        settings = [[SRGMediaSearchSettings alloc] init];
+    }
+    
     [queryItems addObjectsFromArray:[settings queryItemsForVendor:vendor]];
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
