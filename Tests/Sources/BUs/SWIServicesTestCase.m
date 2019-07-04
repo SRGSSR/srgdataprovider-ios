@@ -478,19 +478,30 @@ static NSString * const kUserId = @"test_user_id";
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
     
-    // Parameters are not supported for SWI. Just try to enable a few, the request will ignore them
+    // Parameters are not supported for SWI and lead to request failure.
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
     
     SRGMediaSearchSettings *settings = [[SRGMediaSearchSettings alloc] init];
-    settings.aggregationsEnabled = YES;
-    settings.suggestionsEnabled = YES;
     
     [[self.dataProvider mediasForVendor:SRGVendorSWI matchingQuery:@"roger" withSettings:settings completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(mediaURNs);
-        XCTAssertNil(aggregations);     // Never for SWI
-        XCTAssertNil(suggestions);      // Never for SWI
-        XCTAssertNil(error);
+        XCTAssertNil(mediaURNs);
+        XCTAssertNil(aggregations);
+        XCTAssertNil(suggestions);
+        XCTAssertNotNil(error);
         [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider mediasForVendor:SRGVendorSWI matchingQuery:@"fderer" withSettings:nil completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaURNs);
+        XCTAssertNil(aggregations);
+        // TODO: Fails until https://srfmmz.atlassian.net/browse/PLAY-2313 has been fixed
+        XCTAssertNil(suggestions);
+        XCTAssertNil(error);
+        [expectation3 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

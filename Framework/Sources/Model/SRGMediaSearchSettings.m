@@ -60,16 +60,22 @@ static NSString *SRGBoolParameter(BOOL boolean)
 
 @implementation SRGMediaSearchSettings
 
+#pragma mark Object lifecycle
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        self.aggregationsEnabled = YES;
+        self.suggestionsEnabled = NO;
+    }
+    return self;
+}
+
 #pragma mark Getters and setters
 
-- (NSArray<NSURLQueryItem *> *)queryItemsForVendor:(SRGVendor)vendor
+- (NSArray<NSURLQueryItem *> *)queryItems
 {
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
-    
-    // SWI has currently no support for parameters. Omit entirely
-    if (vendor == SRGVendorSWI) {
-        return [queryItems copy];
-    }
     
     [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeAggregations" value:SRGBoolParameter(self.aggregationsEnabled)]];
     [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeSuggestions" value:SRGBoolParameter(self.suggestionsEnabled)]];
