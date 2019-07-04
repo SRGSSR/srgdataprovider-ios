@@ -487,7 +487,7 @@ static NSString * const kUserId = @"test_user_id";
         XCTAssertNil(mediaURNs);
         XCTAssertNil(aggregations);
         XCTAssertNil(suggestions);
-        XCTAssertNil(error);
+        XCTAssertNotNil(error);
         [expectation2 fulfill];
     }] resume];
     
@@ -495,9 +495,10 @@ static NSString * const kUserId = @"test_user_id";
     
     XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider mediasForVendor:SRGVendorRSI matchingQuery:@"fderer" withSettings:nil completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider mediasForVendor:SRGVendorSWI matchingQuery:@"fderer" withSettings:nil completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(mediaURNs);
         XCTAssertNil(aggregations);
+        // TODO: Fails until https://srfmmz.atlassian.net/browse/PLAY-2313 has been fixed
         XCTAssertNil(suggestions);
         XCTAssertNil(error);
         [expectation3 fulfill];

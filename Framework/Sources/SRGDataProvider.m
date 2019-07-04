@@ -501,11 +501,6 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                             withSettings:(SRGMediaSearchSettings *)settings
                          completionBlock:(SRGPaginatedMediaSearchCompletionBlock)completionBlock
 {
-    // If no settings are provided, apply the default ones to ensure consistent behavior.
-    if (! settings) {
-        settings = [[SRGMediaSearchSettings alloc] init];
-    }
-    
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultMediaList", SRGPathComponentForVendor(vendor)];
     
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
@@ -513,7 +508,9 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"q" value:query]];
     }
     
-    [queryItems addObjectsFromArray:settings.queryItems];
+    if (settings) {
+        [queryItems addObjectsFromArray:settings.queryItems];
+    }
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGSearchResult.class rootKey:@"searchResultMediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {

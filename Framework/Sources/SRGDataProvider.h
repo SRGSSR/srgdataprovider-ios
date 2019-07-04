@@ -512,8 +512,9 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  Search medias matching a specific query.
  *
  *  @discussion To get complete media objects, call the `-mediasWithURNs:completionBlock:` request with the returned
- *              URN list. Note that aggregations and / or suggestions require the corresponding search settings to
- *              be enabled. Refer to the Service availability matrix for information about settings support.
+ *              URN list. Refer to the Service availability matrix for information about which vendors support settings.
+ *              By default aggregations are returned, which can lead to longer reponse times. If you do not need
+ *              aggregations, provide a settings object to disable them.
  */
 - (SRGFirstPageRequest *)mediasForVendor:(SRGVendor)vendor
                            matchingQuery:(nullable NSString *)query

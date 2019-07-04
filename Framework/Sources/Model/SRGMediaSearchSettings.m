@@ -60,6 +60,17 @@ static NSString *SRGBoolParameter(BOOL boolean)
 
 @implementation SRGMediaSearchSettings
 
+#pragma mark Object lifecycle
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        self.aggregationsEnabled = YES;
+        self.suggestionsEnabled = NO;
+    }
+    return self;
+}
+
 #pragma mark Getters and setters
 
 - (NSArray<NSURLQueryItem *> *)queryItems
