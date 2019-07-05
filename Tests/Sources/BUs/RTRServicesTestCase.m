@@ -493,7 +493,6 @@ static NSString * const kUserId = @"test_user_id";
     [[self.dataProvider mediasForVendor:SRGVendorRTR matchingQuery:@"fderer" withSettings:settings completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(mediaURNs);
         XCTAssertNotNil(aggregations);
-        // TODO: Fails until https://srfmmz.atlassian.net/browse/PLAY-2313 has been fixed
         XCTAssertNil(suggestions);
         XCTAssertNil(error);
         [expectation1 fulfill];
