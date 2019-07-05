@@ -13,7 +13,6 @@ static NSString * const kRadioChannelUid = @"69e8ac16-4327-4af4-b873-fd5cd6e895a
 static NSString * const kRadioLivestreamUid = @"56d2f86a-ae7b-463b-a5ad-93fcf9fffb58";
 static NSString * const kRadioShowSearchQuery = @"buchzeichen";
 
-static NSString * const kVideoSearchQuery = @"roger";
 static NSString * const kVideoURN = @"urn:srf:video:24b1f659-052e-4847-a523-a6267bd9596e";
 
 static NSString * const kTVChannelUid = @"23FFBE1B-65CE-4188-ADD2-C724186C2C9F";
@@ -243,8 +242,8 @@ static NSString * const kTag2 = @"curling";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvShowsForVendor:SRGVendorSRF matchingQuery:kTVShowSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultShow *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(searchResults);
+    [[self.dataProvider tvShowsForVendor:SRGVendorSRF matchingQuery:kTVShowSearchQuery withCompletionBlock:^(NSArray<NSString *> * _Nullable showURNs, NSNumber * _Nonnull total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(showURNs);
         XCTAssertNotNil(total);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -428,8 +427,8 @@ static NSString * const kTag2 = @"curling";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider radioShowsForVendor:SRGVendorSRF matchingQuery:kRadioShowSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultShow *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(searchResults);
+    [[self.dataProvider radioShowsForVendor:SRGVendorSRF matchingQuery:kRadioShowSearchQuery withCompletionBlock:^(NSArray<NSString *> * _Nullable showURNs, NSNumber * _Nonnull total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(showURNs);
         XCTAssertNotNil(total);
         XCTAssertNil(error);
         [expectation fulfill];
@@ -477,13 +476,83 @@ static NSString * const kTag2 = @"curling";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testVideosMatchingQuery
+- (void)testMediasMatchingQuery
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGMediaSearchSettings *settings = [[SRGMediaSearchSettings alloc] init];
+    settings.matchingOptions = SRGSearchMatchingOptionAny;
+    settings.showURNs = @[ @"urn:srf:show:tv:5327eac1-e5a1-40aa-9f71-707e48258097", @"urn:srf:show:tv:d1b1c712-f55a-4375-a472-44a94689d3c8" ];
+    settings.topicURNs = @[ @"urn:srf:topic:tv:649e36d7-ff57-41c8-9c1b-7892daf15e78", @"urn:srf:topic:tv:a709c610-b275-4c0c-a496-cba304c36712" ];
+    settings.mediaType = SRGMediaTypeVideo;
+    settings.subtitlesAvailable = @NO;
+    settings.downloadAvailable = @NO;
+    settings.playableAbroad = @YES;
+    settings.quality = SRGQualityHD;
+    settings.minimumDurationInMinutes = @0.;
+    settings.maximumDurationInMinutes = @60.;
+    settings.beforeDate = NSDate.date;
+    settings.afterDate = [NSDate dateWithTimeIntervalSince1970:0.];
+    settings.sortCriterium = SRGSortCriteriumDate;
+    settings.sortDirection = SRGSortDirectionAscending;
+    
+    [[self.dataProvider mediasForVendor:SRGVendorSRF matchingQuery:@"fderer" withSettings:settings completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaURNs);
+        XCTAssertNotNil(aggregations);
+        XCTAssertNil(suggestions);
+        XCTAssertNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    settings.aggregationsEnabled = NO;
+    settings.suggestionsEnabled = YES;
+    
+    [[self.dataProvider mediasForVendor:SRGVendorSRF matchingQuery:@"fderer" withSettings:settings completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaURNs);
+        XCTAssertNil(aggregations);
+        XCTAssertNotNil(suggestions);
+        XCTAssertNil(error);
+        [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider mediasForVendor:SRGVendorSRF matchingQuery:@"fderer" withSettings:nil completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaURNs);
+        XCTAssertNotNil(aggregations);
+        XCTAssertNil(suggestions);
+        XCTAssertNil(error);
+        [expectation3 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testShowsMatchingQuery
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider videosForVendor:SRGVendorSRF matchingQuery:kVideoSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(searchResults);
-        XCTAssertNotNil(total);
+    [[self.dataProvider showsForVendor:SRGVendorSRF matchingQuery:kTVShowSearchQuery mediaType:SRGMediaTypeNone withCompletionBlock:^(NSArray<NSString *> * _Nullable showURNs, NSNumber * _Nonnull total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(showURNs);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testMostSearchedShows
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider mostSearchedShowsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(shows);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];
@@ -538,20 +607,6 @@ static NSString * const kTag2 = @"curling";
     [[self.dataProvider videosForVendor:SRGVendorSRF withTags:@[] excludedTags:nil fullLengthExcluded:YES completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         [expectation5 fulfill];
-    }] resume];
-    
-    [self waitForExpectationsWithTimeout:30. handler:nil];
-}
-
-- (void)testAudiosMatchingQuery
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
-    
-    [[self.dataProvider audiosForVendor:SRGVendorSRF matchingQuery:kAudioSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(searchResults);
-        XCTAssertNotNil(total);
-        XCTAssertNil(error);
-        [expectation fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

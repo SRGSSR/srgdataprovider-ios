@@ -14,7 +14,6 @@ static NSString * const kRadioChannelUid = @"not_supported";
 static NSString * const kRadioLivestreamUid = @"not_supported";
 static NSString * const kRadioShowSearchQuery = @"not_supported";
 
-static NSString * const kVideoSearchQuery = @"roger";
 static NSString * const kVideoURN = @"urn:swi:video:43017988";
 
 static NSString * const kTVChannelUid = @"not_supported";
@@ -237,7 +236,7 @@ static NSString * const kUserId = @"test_user_id";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvShowsForVendor:SRGVendorSWI matchingQuery:kTVShowSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultShow *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider tvShowsForVendor:SRGVendorSWI matchingQuery:kTVShowSearchQuery withCompletionBlock:^(NSArray<NSString *> * _Nullable showURNs, NSNumber * _Nonnull total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         [expectation fulfill];
     }] resume];
@@ -418,7 +417,7 @@ static NSString * const kUserId = @"test_user_id";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider radioShowsForVendor:SRGVendorSWI matchingQuery:kRadioShowSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultShow *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider radioShowsForVendor:SRGVendorSWI matchingQuery:kRadioShowSearchQuery withCompletionBlock:^(NSArray<NSString *> * _Nullable showURNs, NSNumber * _Nonnull total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         [expectation fulfill];
     }] resume];
@@ -465,13 +464,69 @@ static NSString * const kUserId = @"test_user_id";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testVideosMatchingQuery
+- (void)testMediasMatchingQuery
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider mediasForVendor:SRGVendorSWI matchingQuery:@"roger" withSettings:nil completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaURNs);
+        XCTAssertNil(aggregations);
+        XCTAssertNil(suggestions);
+        XCTAssertNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    // Parameters are not supported for SWI and lead to request failure.
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGMediaSearchSettings *settings = [[SRGMediaSearchSettings alloc] init];
+    
+    [[self.dataProvider mediasForVendor:SRGVendorSWI matchingQuery:@"roger" withSettings:settings completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNil(mediaURNs);
+        XCTAssertNil(aggregations);
+        XCTAssertNil(suggestions);
+        XCTAssertNotNil(error);
+        [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider mediasForVendor:SRGVendorSWI matchingQuery:@"fderer" withSettings:nil completionBlock:^(NSArray<NSString *> * _Nullable mediaURNs, NSNumber * _Nonnull total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(mediaURNs);
+        XCTAssertNil(aggregations);
+        XCTAssertNil(suggestions);
+        XCTAssertNil(error);
+        [expectation3 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// Not supported for SWI
+- (void)testShowsMatchingQuery
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider videosForVendor:SRGVendorSWI matchingQuery:kVideoSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(searchResults);
-        XCTAssertNotNil(total);
+    [[self.dataProvider showsForVendor:SRGVendorSWI matchingQuery:kTVShowSearchQuery mediaType:SRGMediaTypeNone withCompletionBlock:^(NSArray<NSString *> * _Nullable showURNs, NSNumber * _Nonnull total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNil(showURNs);
+        XCTAssertNotNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// Works, but returns an empty list (since there is no show search)
+- (void)testMostSearchedShows
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider mostSearchedShowsForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(shows);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];
@@ -523,19 +578,6 @@ static NSString * const kUserId = @"test_user_id";
     [[self.dataProvider videosForVendor:SRGVendorSWI withTags:@[] excludedTags:nil fullLengthExcluded:YES completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         [expectation5 fulfill];
-    }] resume];
-    
-    [self waitForExpectationsWithTimeout:30. handler:nil];
-}
-
-// Not supported for SWI
-- (void)testAudiosMatchingQuery
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
-    
-    [[self.dataProvider audiosForVendor:SRGVendorSWI matchingQuery:kAudioSearchQuery withCompletionBlock:^(NSArray<SRGSearchResultMedia *> * _Nullable searchResults, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(error);
-        [expectation fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

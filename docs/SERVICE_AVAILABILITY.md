@@ -47,7 +47,7 @@ Services are currently only available for SRG SSR vendors (SRF, RTS, RSI, RTR an
 
 #### Remark
 
-For SWI, shows represent content categories (Business, Culture, etc.), and search returns only exact word matches.
+For SWI, shows represent content categories (Business, Culture, etc.) and search returns only exact word matches.
 
 ## Radio services
 
@@ -94,15 +94,17 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Videos | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 
-## Media search services
+## Search services
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Video search | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| Videos with tags | ✅ | ❌ | ❌ | ⚠️ | ❌ | ✅ | ❌ |
-| Audio search | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
+| Media search | ✅ | ✅ | ✅ | ✅ | ✅ (1) | ✅ | ❌ |
+| Show search | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
+| Most searched shows | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+| Videos with tags | ✅ | ❌ | ❌ | ⚠️ (2) | ❌ | ✅ | ❌ |
 
-⚠️ RTR only supports `fullLengthExcluded:NO`.
+(1) At the moment, SWI only supports a search term but no settings. If settings are applied the request will fail with an error.
+(2) RTR only supports `fullLengthExcluded = NO`.
 
 ## Recommendation services
 
