@@ -11,12 +11,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Additional settings for media search queries.
  */
-@interface SRGMediaSearchSettings : NSObject
+@interface SRGMediaSearchSettings : NSObject <NSCopying>
 
 /**
  *  Whether aggregations should be returned in search results.
  *
- *  @discussion The default value is `NO`. Enabling aggregations results in longer response times.
+ *  @discussion The default value is `YES`. Enabling aggregations results in longer response times.
  */
 @property (nonatomic) BOOL aggregationsEnabled;
 
