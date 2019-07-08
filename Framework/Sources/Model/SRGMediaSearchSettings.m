@@ -137,39 +137,4 @@ static NSString *SRGBoolParameter(BOOL boolean)
     return [queryItems copy];
 }
 
-#pragma mark NSCopying protocol
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    SRGMediaSearchSettings *settings = [[self.class alloc] init];
-    settings.aggregationsEnabled = self.aggregationsEnabled;
-    settings.suggestionsEnabled = self.suggestionsEnabled;
-    settings.matchingOptions = self.matchingOptions;
-    settings.showURNs = self.showURNs;
-    settings.topicURNs = self.topicURNs;
-    settings.mediaType = self.mediaType;
-    settings.subtitlesAvailable = self.subtitlesAvailable;
-    settings.downloadAvailable = self.downloadAvailable;
-    settings.playableAbroad = self.playableAbroad;
-    settings.quality = self.quality;
-    settings.minimumDurationInMinutes = self.minimumDurationInMinutes;
-    settings.maximumDurationInMinutes = self.maximumDurationInMinutes;
-    settings.afterDate = self.afterDate;
-    settings.beforeDate = self.beforeDate;
-    settings.sortCriterium = self.sortCriterium;
-    settings.sortDirection = self.sortDirection;
-    return settings;
-}
-
-#pragma mark Description
-
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"<%@: %p; aggregationsEnabled = %@; suggestionsEnabled = %@>",
-            [self class],
-            self,
-            self.aggregationsEnabled ? @"YES" : @"NO",
-            self.suggestionsEnabled ? @"YES" : @"NO"];
-}
-
 @end

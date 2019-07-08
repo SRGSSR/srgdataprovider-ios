@@ -6,12 +6,14 @@
 
 #import "SRGTypes.h"
 
+#import <Mantle/Mantle.h>
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Additional settings for media search queries.
  */
-@interface SRGMediaSearchSettings : NSObject <NSCopying>
+@interface SRGMediaSearchSettings : MTLModel
 
 /**
  *  Whether aggregations should be returned in search results.
