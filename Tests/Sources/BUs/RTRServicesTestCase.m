@@ -477,7 +477,7 @@ static NSString * const kUserId = @"test_user_id";
     
     SRGMediaSearchSettings *settings = [[SRGMediaSearchSettings alloc] init];
     settings.matchingOptions = SRGSearchMatchingOptionAny;
-    settings.showURNs = @[ @"urn:rtr:show:tv:c632f23c-f550-0001-b3ca-162012781918", @"urn:rtr:show:tv:aaf33cb0-2969-4703-9f1b-7d4cfdf0d250" ];
+    settings.showURNs = [NSSet setWithObjects:@"urn:rtr:show:tv:c632f23c-f550-0001-b3ca-162012781918", @"urn:rtr:show:tv:aaf33cb0-2969-4703-9f1b-7d4cfdf0d250", nil];
     settings.mediaType = SRGMediaTypeVideo;
     settings.subtitlesAvailable = @NO;
     settings.downloadAvailable = @NO;

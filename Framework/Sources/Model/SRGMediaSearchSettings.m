@@ -73,6 +73,18 @@ static NSString *SRGBoolParameter(BOOL boolean)
 
 #pragma mark Getters and setters
 
+- (void)setShowURNs:(NSSet<NSString *> *)showURNs
+{
+    _showURNs = showURNs ?: NSSet.set;
+}
+
+#pragma mark Getters and setters
+
+- (void)setTopicURNs:(NSSet<NSString *> *)topicURNs
+{
+    _topicURNs = topicURNs ?: NSSet.set;
+}
+
 - (NSArray<NSURLQueryItem *> *)queryItems
 {
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
@@ -89,10 +101,12 @@ static NSString *SRGBoolParameter(BOOL boolean)
     }
     
     if (self.showURNs.count != 0) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"showUrns" value:[self.showURNs componentsJoinedByString:@","]]];
+        NSArray<NSString *> *showURNs = [self.showURNs sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES] ]];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"showUrns" value:[showURNs componentsJoinedByString:@","]]];
     }
     if (self.topicURNs.count != 0) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"topicUrns" value:[self.topicURNs componentsJoinedByString:@","]]];
+        NSArray<NSString *> *topicURNs = [self.topicURNs sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES] ]];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"topicUrns" value:[topicURNs componentsJoinedByString:@","]]];
     }
     
     NSString *mediaType = SRGMediaTypeParameter(self.mediaType);

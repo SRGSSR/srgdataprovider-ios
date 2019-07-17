@@ -482,8 +482,8 @@ static NSString * const kTag2 = @"curling";
     
     SRGMediaSearchSettings *settings = [[SRGMediaSearchSettings alloc] init];
     settings.matchingOptions = SRGSearchMatchingOptionAny;
-    settings.showURNs = @[ @"urn:srf:show:tv:5327eac1-e5a1-40aa-9f71-707e48258097", @"urn:srf:show:tv:d1b1c712-f55a-4375-a472-44a94689d3c8" ];
-    settings.topicURNs = @[ @"urn:srf:topic:tv:649e36d7-ff57-41c8-9c1b-7892daf15e78", @"urn:srf:topic:tv:a709c610-b275-4c0c-a496-cba304c36712" ];
+    settings.showURNs = [NSSet setWithObjects:@"urn:srf:show:tv:5327eac1-e5a1-40aa-9f71-707e48258097", @"urn:srf:show:tv:d1b1c712-f55a-4375-a472-44a94689d3c8", nil];
+    settings.topicURNs = [NSSet setWithObjects:@"urn:srf:topic:tv:649e36d7-ff57-41c8-9c1b-7892daf15e78", @"urn:srf:topic:tv:a709c610-b275-4c0c-a496-cba304c36712", nil];
     settings.mediaType = SRGMediaTypeVideo;
     settings.subtitlesAvailable = @NO;
     settings.downloadAvailable = @NO;

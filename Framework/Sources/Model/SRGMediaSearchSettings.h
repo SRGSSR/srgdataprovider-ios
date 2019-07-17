@@ -37,12 +37,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Restrict results to a list of show URNs.
  */
-@property (nonatomic, nullable) NSArray<NSString *> *showURNs;
+@property (nonatomic, null_resettable) NSSet<NSString *> *showURNs;
 
 /**
  *  Restrict results to a list of topic URNs.
  */
-@property (nonatomic, nullable) NSArray<NSString *> *topicURNs;
+@property (nonatomic, null_resettable) NSSet<NSString *> *topicURNs;
 
 /**
  *  Restrict results to a given media type. Default is `SRGMediaTypeNone`, i.e. no such filter is applied.
