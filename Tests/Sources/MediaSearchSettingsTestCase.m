@@ -6,6 +6,8 @@
 
 #import "DataProviderBaseTestCase.h"
 
+#import "SRGMediaSearchSettings+Private.h"
+
 @interface MediaSearchSettingsTestCase : DataProviderBaseTestCase
 
 @end
@@ -14,14 +16,35 @@
 
 #pragma mark Tests
 
+- (void)testInstantiation
+{
+    SRGMediaSearchSettings *settings = [[SRGMediaSearchSettings alloc] init];
+    XCTAssertTrue(settings.aggregationsEnabled);
+    XCTAssertFalse(settings.suggestionsEnabled);
+    XCTAssertEqual(settings.matchingOptions, 0);
+    XCTAssertEqualObjects(settings.showURNs, NSSet.set);
+    XCTAssertEqualObjects(settings.topicURNs, NSSet.set);
+    XCTAssertEqual(settings.mediaType, SRGMediaTypeNone);
+    XCTAssertNil(settings.subtitlesAvailable);
+    XCTAssertNil(settings.downloadAvailable);
+    XCTAssertNil(settings.playableAbroad);
+    XCTAssertEqual(settings.quality, SRGQualityNone);
+    XCTAssertNil(settings.minimumDurationInMinutes);
+    XCTAssertNil(settings.maximumDurationInMinutes);
+    XCTAssertNil(settings.afterDate);
+    XCTAssertNil(settings.beforeDate);
+    XCTAssertEqual(settings.sortCriterium, SRGSortCriteriumDefault);
+    XCTAssertEqual(settings.sortDirection, SRGSortDirectionDescending);
+}
+
 - (void)testCopy
 {
     SRGMediaSearchSettings *settings = [[SRGMediaSearchSettings alloc] init];
     settings.aggregationsEnabled = NO;
     settings.suggestionsEnabled = YES;
     settings.matchingOptions = SRGSearchMatchingOptionAny | SRGSearchMatchingOptionExact;
-    settings.showURNs = @[ @"urn:rsi:show:tv:3566695", @"urn:rsi:show:tv:9376660" ];
-    settings.topicURNs = @[ @"urn:rsi:topic:tv:7", @"urn:rsi:topic:tv:8" ];
+    settings.showURNs = [NSSet setWithObjects:@"urn:rsi:show:tv:3566695", @"urn:rsi:show:tv:9376660", nil];
+    settings.topicURNs = [NSSet setWithObjects:@"urn:rsi:topic:tv:7", @"urn:rsi:topic:tv:8", nil];
     settings.mediaType = SRGMediaTypeVideo;
     settings.subtitlesAvailable = @YES;
     settings.downloadAvailable = @YES;
@@ -51,6 +74,8 @@
     XCTAssertEqualObjects(settingsCopy.beforeDate, settings.beforeDate);
     XCTAssertEqual(settingsCopy.sortCriterium, settings.sortCriterium);
     XCTAssertEqual(settingsCopy.sortDirection, settings.sortDirection);
+    
+    XCTAssertEqualObjects(settingsCopy.queryItems, settings.queryItems);
 }
 
 - (void)testEqual
@@ -67,8 +92,8 @@
     settings3.aggregationsEnabled = NO;
     settings3.suggestionsEnabled = YES;
     settings3.matchingOptions = SRGSearchMatchingOptionAny | SRGSearchMatchingOptionExact;
-    settings3.showURNs = @[ @"urn:rsi:show:tv:3566695", @"urn:rsi:show:tv:9376660" ];
-    settings3.topicURNs = @[ @"urn:rsi:topic:tv:7", @"urn:rsi:topic:tv:8" ];
+    settings3.showURNs = [NSSet setWithObjects:@"urn:rsi:show:tv:3566695", @"urn:rsi:show:tv:9376660", nil];
+    settings3.topicURNs = [NSSet setWithObjects:@"urn:rsi:topic:tv:7", @"urn:rsi:topic:tv:8", nil];
     settings3.mediaType = SRGMediaTypeVideo;
     settings3.subtitlesAvailable = @YES;
     settings3.downloadAvailable = @YES;
@@ -85,8 +110,8 @@
     settings4.aggregationsEnabled = NO;
     settings4.suggestionsEnabled = YES;
     settings4.matchingOptions = SRGSearchMatchingOptionAny | SRGSearchMatchingOptionExact;
-    settings4.showURNs = @[ @"urn:rsi:show:tv:3566695", @"urn:rsi:show:tv:9376660" ];
-    settings4.topicURNs = @[ @"urn:rsi:topic:tv:7", @"urn:rsi:topic:tv:8" ];
+    settings4.showURNs = [NSSet setWithObjects:@"urn:rsi:show:tv:3566695", @"urn:rsi:show:tv:9376660", nil];
+    settings4.topicURNs = [NSSet setWithObjects:@"urn:rsi:topic:tv:7", @"urn:rsi:topic:tv:8", nil];
     settings4.mediaType = SRGMediaTypeVideo;
     settings4.subtitlesAvailable = @YES;
     settings4.downloadAvailable = @YES;
@@ -101,11 +126,16 @@
     
     XCTAssertEqualObjects(settings3, settings4);
     
+    XCTAssertEqualObjects(settings3.queryItems, settings4.queryItems);
+    
     SRGMediaSearchSettings *settings5 = [settings4 copy];
     settings5.aggregationsEnabled = YES;
     
     XCTAssertNotEqualObjects(settings3, settings5);
     XCTAssertNotEqualObjects(settings4, settings5);
+    
+    XCTAssertNotEqualObjects(settings3.queryItems, settings5.queryItems);
+    XCTAssertNotEqualObjects(settings4.queryItems, settings5.queryItems);
 }
 
 @end
