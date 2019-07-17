@@ -16,6 +16,27 @@
 
 #pragma mark Tests
 
+- (void)testInstantiation
+{
+    SRGMediaSearchSettings *settings = [[SRGMediaSearchSettings alloc] init];
+    XCTAssertTrue(settings.aggregationsEnabled);
+    XCTAssertFalse(settings.suggestionsEnabled);
+    XCTAssertEqual(settings.matchingOptions, 0);
+    XCTAssertEqualObjects(settings.showURNs, NSSet.set);
+    XCTAssertEqualObjects(settings.topicURNs, NSSet.set);
+    XCTAssertEqual(settings.mediaType, SRGMediaTypeNone);
+    XCTAssertNil(settings.subtitlesAvailable);
+    XCTAssertNil(settings.downloadAvailable);
+    XCTAssertNil(settings.playableAbroad);
+    XCTAssertEqual(settings.quality, SRGQualityNone);
+    XCTAssertNil(settings.minimumDurationInMinutes);
+    XCTAssertNil(settings.maximumDurationInMinutes);
+    XCTAssertNil(settings.afterDate);
+    XCTAssertNil(settings.beforeDate);
+    XCTAssertEqual(settings.sortCriterium, SRGSortCriteriumDefault);
+    XCTAssertEqual(settings.sortDirection, SRGSortDirectionDescending);
+}
+
 - (void)testCopy
 {
     SRGMediaSearchSettings *settings = [[SRGMediaSearchSettings alloc] init];

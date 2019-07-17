@@ -73,16 +73,14 @@ static NSString *SRGBoolParameter(BOOL boolean)
 
 #pragma mark Getters and setters
 
-- (void)setShowURNs:(NSSet<NSString *> *)showURNs
+- (NSSet<NSString *> *)showURNs
 {
-    _showURNs = showURNs ?: NSSet.set;
+    return _showURNs ?: NSSet.set;
 }
 
-#pragma mark Getters and setters
-
-- (void)setTopicURNs:(NSSet<NSString *> *)topicURNs
+- (NSSet<NSString *> *)topicURNs
 {
-    _topicURNs = topicURNs ?: NSSet.set;
+    return _topicURNs ?: NSSet.set;
 }
 
 - (NSArray<NSURLQueryItem *> *)queryItems
