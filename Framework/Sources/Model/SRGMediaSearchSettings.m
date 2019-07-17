@@ -88,10 +88,10 @@ static NSString *SRGBoolParameter(BOOL boolean)
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"enableFuzzySearch" value:@"false"]];
     }
     
-    if (self.showURNs) {
+    if (self.showURNs.count != 0) {
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"showUrns" value:[self.showURNs componentsJoinedByString:@","]]];
     }
-    if (self.topicURNs) {
+    if (self.topicURNs.count != 0) {
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"topicUrns" value:[self.topicURNs componentsJoinedByString:@","]]];
     }
     
