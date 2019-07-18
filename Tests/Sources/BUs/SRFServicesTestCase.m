@@ -190,7 +190,7 @@ static NSString * const kTag2 = @"curling";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    [[self.dataProvider tvEpisodesForVendor:SRGVendorSRF date:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider tvEpisodesForVendor:SRGVendorSRF day:nil withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation1 fulfill];
@@ -198,12 +198,8 @@ static NSString * const kTag2 = @"curling";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
-    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-    dateComponents.year = 2016;
-    dateComponents.month = 5;
-    dateComponents.day = 12;
-    
-    [[self.dataProvider tvEpisodesForVendor:SRGVendorSRF date:dateComponents.date withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    SRGDay *day = [SRGDay day:12 month:5 year:2016];
+    [[self.dataProvider tvEpisodesForVendor:SRGVendorSRF day:day withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation2 fulfill];
@@ -375,7 +371,7 @@ static NSString * const kTag2 = @"curling";
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request 1 succeeded"];
     
-    [[self.dataProvider radioEpisodesForVendor:SRGVendorSRF date:nil channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider radioEpisodesForVendor:SRGVendorSRF day:nil channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation1 fulfill];
@@ -383,12 +379,8 @@ static NSString * const kTag2 = @"curling";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
-    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-    dateComponents.year = 2016;
-    dateComponents.month = 5;
-    dateComponents.day = 12;
-    
-    [[self.dataProvider radioEpisodesForVendor:SRGVendorSRF date:dateComponents.date channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    SRGDay *day = [SRGDay day:12 month:5 year:2016];
+    [[self.dataProvider radioEpisodesForVendor:SRGVendorSRF day:day channelUid:kRadioChannelUid withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
         [expectation2 fulfill];
@@ -491,8 +483,8 @@ static NSString * const kTag2 = @"curling";
     settings.quality = SRGQualityHD;
     settings.minimumDurationInMinutes = @0.;
     settings.maximumDurationInMinutes = @60.;
-    settings.beforeDate = NSDate.date;
-    settings.afterDate = [NSDate dateWithTimeIntervalSince1970:0.];
+    settings.beforeDay = SRGDay.today;
+    settings.afterDay = [SRGDay dayByAddingDays:-1 months:0 years:0 toDay:SRGDay.today];
     settings.sortCriterium = SRGSortCriteriumDate;
     settings.sortDirection = SRGSortDirectionAscending;
     

@@ -371,11 +371,8 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
     
-    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-    dateComponents.year = 2016;
-    dateComponents.month = 5;
-    
-    [[self.dataProvider latestEpisodesForShowWithURN:kTVShowSRFURN maximumPublicationMonth:dateComponents.date completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    SRGMonth *month = [SRGMonth month:5 year:2016];
+    [[self.dataProvider latestEpisodesForShowWithURN:kTVShowSRFURN maximumPublicationMonth:month completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(episodeComposition);
         XCTAssertNil(error);
         [expectation2 fulfill];
