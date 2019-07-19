@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (SRGMonth *)monthByAddingMonths:(NSInteger)months years:(NSInteger)years toMonth:(SRGMonth *)month;
 
 /**
- *  Returns the date components separating two given months. Units smaller than month are always 0.
+ *  Returns the date components separating two given months.
  */
 + (NSDateComponents *)components:(NSCalendarUnit)unitFlags fromMonth:(SRGMonth *)fromMonth toMonth:(SRGMonth *)toMonth;
 
