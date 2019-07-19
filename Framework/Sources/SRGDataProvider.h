@@ -30,7 +30,6 @@
 #import "SRGModel.h"
 #import "SRGModule.h"
 #import "SRGModuleIdentifierMetadata.h"
-#import "SRGMonth.h"
 #import "SRGPresenter.h"
 #import "SRGProgram.h"
 #import "SRGRelatedContent.h"
@@ -689,13 +688,13 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Latest episodes for a specific show.
  *
- *  @param maximumPublicationMonth If not `nil`, medias up to the specified month are returned.
+ *  @param maximumPublicationDay If not `nil`, medias up to the specified day are returned.
  *
  *  @discussion Though the completion block does not return an array directly, this request supports pagination (for episodes
  *              returned in the episode composition object).
  */
 - (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(NSString *)showURN
-                              maximumPublicationMonth:(nullable SRGMonth *)maximumPublicationMonth
+                                maximumPublicationDay:(nullable SRGDay *)maximumPublicationDay
                                       completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
 /**

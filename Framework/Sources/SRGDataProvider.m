@@ -11,7 +11,6 @@
 #import "SRGDay+Private.h"
 #import "SRGJSONTransformers.h"
 #import "SRGMediaSearchSettings+Private.h"
-#import "SRGMonth+Private.h"
 #import "SRGSearchResult.h"
 #import "SRGSessionDelegate.h"
 
@@ -724,13 +723,13 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }];
 }
 
-- (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(NSString *)showURN maximumPublicationMonth:(SRGMonth *)maximumPublicationMonth completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
+- (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(NSString *)showURN maximumPublicationDay:(SRGDay *)maximumPublicationDay completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/episodeComposition/latestByShow/byUrn/%@", showURN];
     
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
-    if (maximumPublicationMonth) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"maxPublishedDate" value:maximumPublicationMonth.string]];
+    if (maximumPublicationDay) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"maxPublishedDate" value:maximumPublicationDay.string]];
     }
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
