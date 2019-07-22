@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGDay.h"
 #import "SRGTypes.h"
 
 #import <Mantle/Mantle.h>
@@ -81,10 +82,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable) NSNumber *maximumDurationInMinutes;
 
 /**
- *  The dates after / before which medias must be considered.
+ *  The days (included) after / before which medias must be considered.
  */
-@property (nonatomic, nullable) NSDate *afterDate;
-@property (nonatomic, nullable) NSDate *beforeDate;
+@property (nonatomic, nullable) SRGDay *afterDay;
+@property (nonatomic, nullable) SRGDay *beforeDay;
 
 /**
  *  The sort criterium to be applied. Default is `SRGSortCriteriumDefault`, i.e. the order is the default one
