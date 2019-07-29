@@ -6,7 +6,7 @@
 
 #import "SRGMediaSearchSettings.h"
 
-#import "NSDateFormatter+SRGDataProvider.h"
+#import "SRGDay+Private.h"
 
 static NSString *SRGMediaTypeParameter(SRGMediaType mediaType)
 {
@@ -73,6 +73,16 @@ static NSString *SRGBoolParameter(BOOL boolean)
 
 #pragma mark Getters and setters
 
+- (NSSet<NSString *> *)showURNs
+{
+    return _showURNs ?: NSSet.set;
+}
+
+- (NSSet<NSString *> *)topicURNs
+{
+    return _topicURNs ?: NSSet.set;
+}
+
 - (NSArray<NSURLQueryItem *> *)queryItems
 {
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
@@ -88,11 +98,13 @@ static NSString *SRGBoolParameter(BOOL boolean)
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"enableFuzzySearch" value:@"false"]];
     }
     
-    if (self.showURNs) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"showUrns" value:[self.showURNs componentsJoinedByString:@","]]];
+    if (self.showURNs.count != 0) {
+        NSArray<NSString *> *showURNs = [self.showURNs sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES] ]];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"showUrns" value:[showURNs componentsJoinedByString:@","]]];
     }
-    if (self.topicURNs) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"topicUrns" value:[self.topicURNs componentsJoinedByString:@","]]];
+    if (self.topicURNs.count != 0) {
+        NSArray<NSString *> *topicURNs = [self.topicURNs sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES] ]];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"topicUrns" value:[topicURNs componentsJoinedByString:@","]]];
     }
     
     NSString *mediaType = SRGMediaTypeParameter(self.mediaType);
@@ -122,13 +134,14 @@ static NSString *SRGBoolParameter(BOOL boolean)
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"durationToInMinutes" value:self.maximumDurationInMinutes.stringValue]];
     }
     
-    if (self.afterDate) {
-        NSString *afterDate = [NSDateFormatter.srgdataprovider_dayDateFormatter stringFromDate:self.afterDate];
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"publishedDateFrom" value:afterDate]];
+    SRGDay *afterDay = self.afterDay;
+    if (afterDay) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"publishedDateFrom" value:afterDay.string]];
     }
-    if (self.beforeDate) {
-        NSString *beforeDate = [NSDateFormatter.srgdataprovider_dayDateFormatter stringFromDate:self.beforeDate];
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"publishedDateTo" value:beforeDate]];
+    
+    SRGDay *beforeDay = self.beforeDay;
+    if (beforeDay) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"publishedDateTo" value:beforeDay.string]];
     }
     
     [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sortBy" value:SRGSortCriteriumParameter(self.sortCriterium)]];

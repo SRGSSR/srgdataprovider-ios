@@ -7,8 +7,8 @@
 #import "SRGDataProvider.h"
 
 #import "NSBundle+SRGDataProvider.h"
-#import "NSDateFormatter+SRGDataProvider.h"
 #import "SRGDataProviderLogger.h"
+#import "SRGDay+Private.h"
 #import "SRGJSONTransformers.h"
 #import "SRGMediaSearchSettings+Private.h"
 #import "SRGSearchResult.h"
@@ -266,15 +266,14 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 }
 
 - (SRGFirstPageRequest *)tvEpisodesForVendor:(SRGVendor)vendor
-                                        date:(NSDate *)date
+                                         day:(SRGDay *)day
                          withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    if (! date) {
-        date = NSDate.date;
+    if (! day) {
+        day = SRGDay.today;
     }
     
-    NSString *dateString = [NSDateFormatter.srgdataprovider_dayDateFormatter stringFromDate:date];
-    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/episodesByDate/%@", SRGPathComponentForVendor(vendor), dateString];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/episodesByDate/%@", SRGPathComponentForVendor(vendor), day.string];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -418,16 +417,15 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 }
 
 - (SRGFirstPageRequest *)radioEpisodesForVendor:(SRGVendor)vendor
-                                           date:(NSDate *)date
+                                            day:(SRGDay *)day
                                      channelUid:(NSString *)channelUid
                             withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
-    if (! date) {
-        date = NSDate.date;
+    if (! day) {
+        day = SRGDay.today;
     }
     
-    NSString *dateString = [NSDateFormatter.srgdataprovider_dayDateFormatter stringFromDate:date];
-    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/audio/episodesByDateAndChannel/%@/%@", SRGPathComponentForVendor(vendor), dateString, channelUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/audio/episodesByDateAndChannel/%@/%@", SRGPathComponentForVendor(vendor), day.string, channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
@@ -725,14 +723,13 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }];
 }
 
-- (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(NSString *)showURN maximumPublicationMonth:(NSDate *)maximumPublicationMonth completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
+- (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(NSString *)showURN maximumPublicationDay:(SRGDay *)maximumPublicationDay completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/episodeComposition/latestByShow/byUrn/%@", showURN];
     
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
-    if (maximumPublicationMonth) {
-        NSString *monthString = [NSDateFormatter.srgdataprovider_monthDateFormatter stringFromDate:maximumPublicationMonth];
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"maxPublishedDate" value:monthString]];
+    if (maximumPublicationDay) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"maxPublishedDate" value:maximumPublicationDay.string]];
     }
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];

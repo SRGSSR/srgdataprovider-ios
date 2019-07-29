@@ -14,7 +14,7 @@
 #import "SRGBroadcastInformation.h"
 #import "SRGChannel.h"
 #import "SRGChapter.h"
-#import "SRGDataProvider.h"
+#import "SRGDay.h"
 #import "SRGDRM.h"
 #import "SRGEpisode.h"
 #import "SRGEpisodeComposition.h"
@@ -318,12 +318,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                                withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
- *  Episodes available for the day containing the given date.
+ *  Episodes available for a given day.
  *
- *  @param date The date. If `nil`, today is used.
+ *  @param date The day. If `nil`, today is used.
  */
 - (SRGFirstPageRequest *)tvEpisodesForVendor:(SRGVendor)vendor
-                                        date:(nullable NSDate *)date
+                                         day:(nullable SRGDay *)day
                          withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
@@ -431,12 +431,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                                   withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
- *  Episodes available for the day containing the given date, for the specific channel.
+ *  Episodes available for a given day, for the specific channel.
  *
- *  @param date The date. If `nil`, today is used.
+ *  @param date The day. If `nil`, today is used.
  */
 - (SRGFirstPageRequest *)radioEpisodesForVendor:(SRGVendor)vendor
-                                           date:(nullable NSDate *)date
+                                            day:(nullable SRGDay *)day
                                      channelUid:(NSString *)channelUid
                             withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
@@ -688,14 +688,13 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Latest episodes for a specific show.
  *
- *  @param maximumPublicationMonth If not `nil`, medias up to the specified month are returned.
+ *  @param maximumPublicationDay If not `nil`, medias up to the specified day are returned.
  *
- *  @discussion Though the completion block does not return an array directly, this request supports paging (for episodes
- *              returned in the episode composition object). Unlike the equivalent TV and radio requests, this request
- *              does not support an optional date to filter only more recent media.
+ *  @discussion Though the completion block does not return an array directly, this request supports pagination (for episodes
+ *              returned in the episode composition object).
  */
 - (SRGFirstPageRequest *)latestEpisodesForShowWithURN:(NSString *)showURN
-                              maximumPublicationMonth:(nullable NSDate *)maximumPublicationMonth
+                                maximumPublicationDay:(nullable SRGDay *)maximumPublicationDay
                                       completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
 /**

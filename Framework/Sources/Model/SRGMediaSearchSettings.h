@@ -4,19 +4,22 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGDay.h"
 #import "SRGTypes.h"
+
+#import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Additional settings for media search queries.
  */
-@interface SRGMediaSearchSettings : NSObject
+@interface SRGMediaSearchSettings : MTLModel
 
 /**
  *  Whether aggregations should be returned in search results.
  *
- *  @discussion The default value is `NO`. Enabling aggregations results in longer response times.
+ *  @discussion The default value is `YES`. Enabling aggregations results in longer response times.
  */
 @property (nonatomic) BOOL aggregationsEnabled;
 
@@ -35,12 +38,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Restrict results to a list of show URNs.
  */
-@property (nonatomic, nullable) NSArray<NSString *> *showURNs;
+@property (nonatomic, null_resettable) NSSet<NSString *> *showURNs;
 
 /**
  *  Restrict results to a list of topic URNs.
  */
-@property (nonatomic, nullable) NSArray<NSString *> *topicURNs;
+@property (nonatomic, null_resettable) NSSet<NSString *> *topicURNs;
 
 /**
  *  Restrict results to a given media type. Default is `SRGMediaTypeNone`, i.e. no such filter is applied.
@@ -79,10 +82,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable) NSNumber *maximumDurationInMinutes;
 
 /**
- *  The dates after / before which medias must be considered.
+ *  The days (included) after / before which medias must be considered.
  */
-@property (nonatomic, nullable) NSDate *afterDate;
-@property (nonatomic, nullable) NSDate *beforeDate;
+@property (nonatomic, nullable) SRGDay *afterDay;
+@property (nonatomic, nullable) SRGDay *beforeDay;
 
 /**
  *  The sort criterium to be applied. Default is `SRGSortCriteriumDefault`, i.e. the order is the default one
