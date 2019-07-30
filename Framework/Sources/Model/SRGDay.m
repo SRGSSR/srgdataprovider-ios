@@ -48,6 +48,13 @@
     return [[self.class alloc] initFromDate:date];
 }
 
++ (SRGDay *)startDayForRangeOfUnit:(NSCalendarUnit)unit day:(SRGDay *)day
+{
+    NSDate *startDate;
+    [NSCalendar.currentCalendar rangeOfUnit:unit startDate:&startDate interval:nil forDate:day.date];
+    return [self dayFromDate:startDate];
+}
+
 + (NSDateComponents *)components:(NSCalendarUnit)unitFlags fromDay:(SRGDay *)fromDay toDay:(SRGDay *)toDay
 {
     return [NSCalendar.currentCalendar components:unitFlags fromDate:fromDay.date toDate:toDay.date options:0];

@@ -137,6 +137,24 @@
     XCTAssertEqualObjects(day4.string, @"2014-07-25");
 }
 
+- (void)testStartDay
+{
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.year = 2015;
+    components.month = 7;
+    components.day = 3;
+    
+    NSDate *date = [NSCalendar.currentCalendar dateFromComponents:components];
+    SRGDay *day = [SRGDay dayFromDate:date];
+    XCTAssertEqualObjects(day.string, @"2015-07-03");
+    
+    SRGDay *yearStartDay = [SRGDay startDayForRangeOfUnit:NSCalendarUnitYear day:day];
+    XCTAssertEqualObjects(yearStartDay.string, @"2015-01-01");
+    
+    SRGDay *monthStartDay = [SRGDay startDayForRangeOfUnit:NSCalendarUnitMonth day:day];
+    XCTAssertEqualObjects(monthStartDay.string, @"2015-07-01");
+}
+
 - (void)testComponents
 {
     SRGDay *fromDay = [SRGDay day:4 month:1 year:2014];
