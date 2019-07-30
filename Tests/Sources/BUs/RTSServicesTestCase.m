@@ -478,8 +478,8 @@ static NSString * const kUserId = @"test_user_id";
     settings.quality = SRGQualitySD;
     settings.minimumDurationInMinutes = @0.;
     settings.maximumDurationInMinutes = @60.;
-    settings.beforeDay = SRGDay.today;
-    settings.afterDay = [SRGDay dayByAddingDays:-1 months:0 years:0 toDay:SRGDay.today];
+    settings.toDay = SRGDay.today;
+    settings.fromDay = [SRGDay dayByAddingDays:-1 months:0 years:0 toDay:SRGDay.today];
     settings.sortCriterium = SRGSortCriteriumDate;
     settings.sortDirection = SRGSortDirectionAscending;
     

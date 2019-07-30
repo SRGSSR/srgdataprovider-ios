@@ -82,10 +82,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable) NSNumber *maximumDurationInMinutes;
 
 /**
- *  The days (included) after / before which medias must be considered.
+ *  The days (included) from / to which medias must be considered.
  */
-@property (nonatomic, nullable) SRGDay *afterDay;
-@property (nonatomic, nullable) SRGDay *beforeDay;
+@property (nonatomic, nullable) SRGDay *fromDay;
+@property (nonatomic, nullable) SRGDay *toDay;
 
 /**
  *  The sort criterium to be applied. Default is `SRGSortCriteriumDefault`, i.e. the order is the default one

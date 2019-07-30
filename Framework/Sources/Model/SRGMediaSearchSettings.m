@@ -134,14 +134,14 @@ static NSString *SRGBoolParameter(BOOL boolean)
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"durationToInMinutes" value:self.maximumDurationInMinutes.stringValue]];
     }
     
-    SRGDay *afterDay = self.afterDay;
-    if (afterDay) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"publishedDateFrom" value:afterDay.string]];
+    SRGDay *fromDay = self.fromDay;
+    if (fromDay) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"publishedDateFrom" value:fromDay.string]];
     }
     
-    SRGDay *beforeDay = self.beforeDay;
-    if (beforeDay) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"publishedDateTo" value:beforeDay.string]];
+    SRGDay *toDay = self.toDay;
+    if (toDay) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"publishedDateTo" value:toDay.string]];
     }
     
     [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sortBy" value:SRGSortCriteriumParameter(self.sortCriterium)]];
