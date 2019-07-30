@@ -43,6 +43,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSDateComponents *)components:(NSCalendarUnit)unitFlags fromDay:(SRGDay *)fromDay toDay:(SRGDay *)toDay;
 
+/**
+ *  Indicates the ordering of the receiver and another given day.
+ */
+- (NSComparisonResult)compare:(SRGDay *)day;
+
 @end
 
 NS_ASSUME_NONNULL_END

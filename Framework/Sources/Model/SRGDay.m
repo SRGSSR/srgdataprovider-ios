@@ -88,4 +88,11 @@
     return [s_dateFormatter stringFromDate:self.date];
 }
 
+#pragma mark Comparaison
+
+- (NSComparisonResult)compare:(SRGDay *)day
+{
+    return [self.date compare:day.date];
+}
+
 @end
