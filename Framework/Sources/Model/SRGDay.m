@@ -48,7 +48,7 @@
     return [[self.class alloc] initFromDate:date];
 }
 
-+ (SRGDay *)startDayForRangeOfUnit:(NSCalendarUnit)unit day:(SRGDay *)day
++ (SRGDay *)startDayForUnit:(NSCalendarUnit)unit containingDay:(SRGDay *)day
 {
     NSDate *startDate;
     [NSCalendar.currentCalendar rangeOfUnit:unit startDate:&startDate interval:nil forDate:day.date];
@@ -88,7 +88,7 @@
     return [s_dateFormatter stringFromDate:self.date];
 }
 
-#pragma mark Comparaison
+#pragma mark Comparison
 
 - (NSComparisonResult)compare:(SRGDay *)aDay
 {

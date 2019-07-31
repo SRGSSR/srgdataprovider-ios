@@ -174,10 +174,10 @@
     SRGDay *day = [SRGDay dayFromDate:date];
     XCTAssertEqualObjects(day.string, @"2015-07-03");
     
-    SRGDay *yearStartDay = [SRGDay startDayForRangeOfUnit:NSCalendarUnitYear day:day];
+    SRGDay *yearStartDay = [SRGDay startDayForUnit:NSCalendarUnitYear containingDay:day];
     XCTAssertEqualObjects(yearStartDay.string, @"2015-01-01");
     
-    SRGDay *monthStartDay = [SRGDay startDayForRangeOfUnit:NSCalendarUnitMonth day:day];
+    SRGDay *monthStartDay = [SRGDay startDayForUnit:NSCalendarUnitMonth containingDay:day];
     XCTAssertEqualObjects(monthStartDay.string, @"2015-07-01");
 }
 

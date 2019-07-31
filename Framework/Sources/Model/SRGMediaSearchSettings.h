@@ -82,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable) NSNumber *maximumDurationInMinutes;
 
 /**
- *  The days (included) from / to which medias must be considered.
+ *  The days from / to which medias must be considered (included).
  */
 @property (nonatomic, nullable) SRGDay *fromDay;
 @property (nonatomic, nullable) SRGDay *toDay;
