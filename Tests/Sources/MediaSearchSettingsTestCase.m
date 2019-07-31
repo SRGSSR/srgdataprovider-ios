@@ -31,8 +31,8 @@
     XCTAssertEqual(settings.quality, SRGQualityNone);
     XCTAssertNil(settings.minimumDurationInMinutes);
     XCTAssertNil(settings.maximumDurationInMinutes);
-    XCTAssertNil(settings.afterDay);
-    XCTAssertNil(settings.beforeDay);
+    XCTAssertNil(settings.fromDay);
+    XCTAssertNil(settings.toDay);
     XCTAssertEqual(settings.sortCriterium, SRGSortCriteriumDefault);
     XCTAssertEqual(settings.sortDirection, SRGSortDirectionDescending);
 }
@@ -52,8 +52,8 @@
     settings.quality = SRGQualityHD;
     settings.minimumDurationInMinutes = @10.;
     settings.maximumDurationInMinutes = @60.;
-    settings.afterDay = [SRGDay dayByAddingDays:-1 months:0 years:0 toDay:SRGDay.today];
-    settings.beforeDay = SRGDay.today;
+    settings.fromDay = [SRGDay dayByAddingDays:-1 months:0 years:0 toDay:SRGDay.today];
+    settings.toDay = SRGDay.today;
     settings.sortCriterium = SRGSortCriteriumDate;
     settings.sortDirection = SRGSortDirectionAscending;
     
@@ -70,8 +70,8 @@
     XCTAssertEqual(settingsCopy.quality, settings.quality);
     XCTAssertEqualObjects(settingsCopy.minimumDurationInMinutes, settings.minimumDurationInMinutes);
     XCTAssertEqualObjects(settingsCopy.maximumDurationInMinutes, settings.maximumDurationInMinutes);
-    XCTAssertEqualObjects(settingsCopy.afterDay, settings.afterDay);
-    XCTAssertEqualObjects(settingsCopy.beforeDay, settings.beforeDay);
+    XCTAssertEqualObjects(settingsCopy.fromDay, settings.fromDay);
+    XCTAssertEqualObjects(settingsCopy.toDay, settings.toDay);
     XCTAssertEqual(settingsCopy.sortCriterium, settings.sortCriterium);
     XCTAssertEqual(settingsCopy.sortDirection, settings.sortDirection);
     
@@ -85,8 +85,8 @@
     
     XCTAssertEqualObjects(settings1, settings2);
     
-    SRGDay *afterDay = [SRGDay dayByAddingDays:-1 months:0 years:0 toDay:SRGDay.today];
-    SRGDay *beforeDay = SRGDay.today;
+    SRGDay *fromDay = [SRGDay dayByAddingDays:-1 months:0 years:0 toDay:SRGDay.today];
+    SRGDay *toDay = SRGDay.today;
     
     SRGMediaSearchSettings *settings3 = [[SRGMediaSearchSettings alloc] init];
     settings3.aggregationsEnabled = NO;
@@ -101,8 +101,8 @@
     settings3.quality = SRGQualityHD;
     settings3.minimumDurationInMinutes = @10.;
     settings3.maximumDurationInMinutes = @60.;
-    settings3.afterDay = afterDay;
-    settings3.beforeDay = beforeDay;
+    settings3.fromDay = fromDay;
+    settings3.toDay = toDay;
     settings3.sortCriterium = SRGSortCriteriumDate;
     settings3.sortDirection = SRGSortDirectionAscending;
     
@@ -119,8 +119,8 @@
     settings4.quality = SRGQualityHD;
     settings4.minimumDurationInMinutes = @10.;
     settings4.maximumDurationInMinutes = @60.;
-    settings4.afterDay = afterDay;
-    settings4.beforeDay = beforeDay;
+    settings4.fromDay = fromDay;
+    settings4.toDay = toDay;
     settings4.sortCriterium = SRGSortCriteriumDate;
     settings4.sortDirection = SRGSortDirectionAscending;
     

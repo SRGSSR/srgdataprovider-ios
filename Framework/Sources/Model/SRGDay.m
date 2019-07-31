@@ -48,6 +48,13 @@
     return [[self.class alloc] initFromDate:date];
 }
 
++ (SRGDay *)startDayForUnit:(NSCalendarUnit)unit containingDay:(SRGDay *)day
+{
+    NSDate *startDate;
+    [NSCalendar.currentCalendar rangeOfUnit:unit startDate:&startDate interval:nil forDate:day.date];
+    return [self dayFromDate:startDate];
+}
+
 + (NSDateComponents *)components:(NSCalendarUnit)unitFlags fromDay:(SRGDay *)fromDay toDay:(SRGDay *)toDay
 {
     return [NSCalendar.currentCalendar components:unitFlags fromDate:fromDay.date toDate:toDay.date options:0];
@@ -79,6 +86,13 @@
         s_dateFormatter.dateFormat = @"yyyy-MM-dd";
     });
     return [s_dateFormatter stringFromDate:self.date];
+}
+
+#pragma mark Comparison
+
+- (NSComparisonResult)compare:(SRGDay *)aDay
+{
+    return [self.date compare:aDay.date];
 }
 
 @end

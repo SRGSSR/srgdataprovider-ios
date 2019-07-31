@@ -25,6 +25,8 @@
     components2.year = 2015;
     components2.month = 7;
     components2.day = 3;
+    components2.hour = 9;
+    components2.minute = 41;
 
     NSDate *date2 = [NSCalendar.currentCalendar dateFromComponents:components2];
     SRGDay *day2 = [SRGDay dayFromDate:date2];
@@ -82,6 +84,30 @@
     XCTAssertNotEqualObjects(day1, day4);
 }
 
+- (void)testCompare
+{
+    SRGDay *day1 = [SRGDay day:7 month:4 year:2010];
+    SRGDay *day2 = [SRGDay day:7 month:4 year:2010];
+    SRGDay *day3 = [SRGDay day:3 month:4 year:2010];
+    SRGDay *day4 = [SRGDay day:7 month:4 year:2011];
+    
+    XCTAssertEqual([day1 compare:day2], NSOrderedSame);
+    XCTAssertEqual([day1 compare:day3], NSOrderedDescending);
+    XCTAssertEqual([day1 compare:day4], NSOrderedAscending);
+    
+    NSDateComponents *components5 = [[NSDateComponents alloc] init];
+    components5.year = 2010;
+    components5.month = 4;
+    components5.day = 7;
+    components5.hour = 9;
+    components5.minute = 41;
+    
+    NSDate *date5 = [NSCalendar.currentCalendar dateFromComponents:components5];
+    SRGDay *day5 = [SRGDay dayFromDate:date5];
+    
+    XCTAssertEqual([day1 compare:day5], NSOrderedSame);
+}
+
 - (void)testCopy
 {
     SRGDay *day = [SRGDay day:7 month:5 year:2010];
@@ -135,6 +161,24 @@
     
     SRGDay *day4 = [SRGDay dayByAddingDays:-70 months:-15 years:0 toDay:day];
     XCTAssertEqualObjects(day4.string, @"2014-07-25");
+}
+
+- (void)testStartDay
+{
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.year = 2015;
+    components.month = 7;
+    components.day = 3;
+    
+    NSDate *date = [NSCalendar.currentCalendar dateFromComponents:components];
+    SRGDay *day = [SRGDay dayFromDate:date];
+    XCTAssertEqualObjects(day.string, @"2015-07-03");
+    
+    SRGDay *yearStartDay = [SRGDay startDayForUnit:NSCalendarUnitYear containingDay:day];
+    XCTAssertEqualObjects(yearStartDay.string, @"2015-01-01");
+    
+    SRGDay *monthStartDay = [SRGDay startDayForUnit:NSCalendarUnitMonth containingDay:day];
+    XCTAssertEqualObjects(monthStartDay.string, @"2015-07-01");
 }
 
 - (void)testComponents
