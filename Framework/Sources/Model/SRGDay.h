@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Indicates the ordering of the receiver and another given day.
  */
-- (NSComparisonResult)compare:(SRGDay *)day;
+- (NSComparisonResult)compare:(SRGDay *)aDay;
 
 @end
 

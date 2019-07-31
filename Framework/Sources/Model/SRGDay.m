@@ -90,9 +90,9 @@
 
 #pragma mark Comparaison
 
-- (NSComparisonResult)compare:(SRGDay *)day
+- (NSComparisonResult)compare:(SRGDay *)aDay
 {
-    return [self.date compare:day.date];
+    return [self.date compare:aDay.date];
 }
 
 @end
