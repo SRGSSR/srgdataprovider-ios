@@ -41,6 +41,7 @@
 #import "SRGServiceMessage.h"
 #import "SRGShow.h"
 #import "SRGShowIdentifierMetadata.h"
+#import "SRGShowStatisticOverview.h"
 #import "SRGSocialCount.h"
 #import "SRGSocialCountOverview.h"
 #import "SRGSong.h"
@@ -86,6 +87,7 @@ typedef void (^SRGModuleListCompletionBlock)(NSArray<SRGModule *> * _Nullable mo
 typedef void (^SRGServiceMessageCompletionBlock)(SRGServiceMessage * _Nullable serviceMessage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGShowCompletionBlock)(SRGShow * _Nullable show, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
+typedef void (^SRGShowStatisticOverviewCompletionBlock)(SRGShowStatisticOverview * _Nullable showStatisticOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGSocialCountOverviewCompletionBlock)(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGSongCompletionBlock)(SRGSong * _Nullable song, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
@@ -618,6 +620,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 - (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
                           mediaComposition:(SRGMediaComposition *)mediaComposition
                        withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
+
+/**
+ *  Increase the most clicked search result count for the specified  show.
+ */
+- (SRGRequest *)increaseMostClickedSearchResultsForShow:(SRGShow *)show
+                                    withCompletionBlock:(SRGShowStatisticOverviewCompletionBlock)completionBlock;
 
 @end
 

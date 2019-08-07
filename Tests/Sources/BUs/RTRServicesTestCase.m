@@ -792,6 +792,37 @@ static NSString * const kUserId = @"test_user_id";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testIncreaseMostClickedSearchResultsWithShow
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showWithURN:kTVShowURN completionBlock:^(SRGShow * _Nullable show, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(show);
+        
+        [[self.dataProvider increaseMostClickedSearchResultsForShow:show withCompletionBlock:^(SRGShowStatisticOverview * _Nullable showStatisticOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+            XCTAssertNotNil(showStatisticOverview);
+            XCTAssertNil(error);
+            [expectation1 fulfill];
+        }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showWithURN:kRadioShowURN completionBlock:^(SRGShow * _Nullable show, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(show);
+        
+        [[self.dataProvider increaseMostClickedSearchResultsForShow:show withCompletionBlock:^(SRGShowStatisticOverview * _Nullable showStatisticOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+            XCTAssertNotNil(showStatisticOverview);
+            XCTAssertNil(error);
+            [expectation2 fulfill];
+        }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testModules
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
