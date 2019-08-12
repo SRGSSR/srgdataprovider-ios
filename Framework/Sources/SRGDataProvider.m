@@ -661,8 +661,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     return [self increaseSocialCountForType:type subdivision:mediaComposition.mainSegment ?: mediaComposition.mainChapter withCompletionBlock:completionBlock];
 }
 
-- (SRGRequest *)increaseMostClickedSearchResultsForShow:(SRGShow *)show
-                                    withCompletionBlock:(SRGShowStatisticOverviewCompletionBlock)completionBlock
+- (SRGRequest *)increaseSearchResultCountForShow:(SRGShow *)show
+                             withCompletionBlock:(SRGShowStatisticOverviewCompletionBlock)completionBlock
 {
     NSParameterAssert(show);
     

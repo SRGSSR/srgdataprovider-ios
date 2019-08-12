@@ -843,14 +843,14 @@ static NSString * const kTag2 = @"curling";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testIncreaseMostClickedSearchResultsWithShow
+- (void)testIncreaseSearchResultCountWithShow
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider showWithURN:kTVShowURN completionBlock:^(SRGShow * _Nullable show, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(show);
         
-        [[self.dataProvider increaseMostClickedSearchResultsForShow:show withCompletionBlock:^(SRGShowStatisticOverview * _Nullable showStatisticOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        [[self.dataProvider increaseSearchResultCountForShow:show withCompletionBlock:^(SRGShowStatisticOverview * _Nullable showStatisticOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
             XCTAssertNotNil(showStatisticOverview);
             XCTAssertNil(error);
             [expectation1 fulfill];
@@ -864,7 +864,7 @@ static NSString * const kTag2 = @"curling";
     [[self.dataProvider showWithURN:kRadioShowURN completionBlock:^(SRGShow * _Nullable show, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(show);
         
-        [[self.dataProvider increaseMostClickedSearchResultsForShow:show withCompletionBlock:^(SRGShowStatisticOverview * _Nullable showStatisticOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        [[self.dataProvider increaseSearchResultCountForShow:show withCompletionBlock:^(SRGShowStatisticOverview * _Nullable showStatisticOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
             XCTAssertNotNil(showStatisticOverview);
             XCTAssertNil(error);
             [expectation2 fulfill];

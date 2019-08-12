@@ -622,10 +622,10 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                        withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
 
 /**
- *  Increase the most clicked search result count for the specified  show.
+ *  Increase the search result count for the specified  show.
  */
-- (SRGRequest *)increaseMostClickedSearchResultsForShow:(SRGShow *)show
-                                    withCompletionBlock:(SRGShowStatisticOverviewCompletionBlock)completionBlock;
+- (SRGRequest *)increaseSearchResultCountForShow:(SRGShow *)show
+                             withCompletionBlock:(SRGShowStatisticOverviewCompletionBlock)completionBlock;
 
 @end
 
