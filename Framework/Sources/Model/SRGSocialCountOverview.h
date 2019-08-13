@@ -11,12 +11,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Information returned as the result of a request increasing social media counters.
+ *  Information returned as result of a request updating social media counters.
  */
 @interface SRGSocialCountOverview : SRGModel <SRGMediaIdentifierMetadata>
 
 /**
- *  The updated social media and popularity information.
+ *  Social media and popularity information.
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGSocialCount *> *socialCounts;
 

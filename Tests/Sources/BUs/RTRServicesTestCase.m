@@ -792,15 +792,15 @@ static NSString * const kUserId = @"test_user_id";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testIncreaseSearchResultCountWithShow
+- (void)testIncreaseSearchResultsViewCountForShow
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider showWithURN:kTVShowURN completionBlock:^(SRGShow * _Nullable show, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(show);
         
-        [[self.dataProvider increaseSearchResultCountForShow:show withCompletionBlock:^(SRGShowStatisticOverview * _Nullable showStatisticOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-            XCTAssertNotNil(showStatisticOverview);
+        [[self.dataProvider increaseSearchResultsViewCountForShow:show withCompletionBlock:^(SRGShowStatisticsOverview * _Nullable showStatisticsOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+            XCTAssertNotNil(showStatisticsOverview);
             XCTAssertNil(error);
             [expectation1 fulfill];
         }] resume];
@@ -813,8 +813,8 @@ static NSString * const kUserId = @"test_user_id";
     [[self.dataProvider showWithURN:kRadioShowURN completionBlock:^(SRGShow * _Nullable show, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(show);
         
-        [[self.dataProvider increaseSearchResultCountForShow:show withCompletionBlock:^(SRGShowStatisticOverview * _Nullable showStatisticOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-            XCTAssertNotNil(showStatisticOverview);
+        [[self.dataProvider increaseSearchResultsViewCountForShow:show withCompletionBlock:^(SRGShowStatisticsOverview * _Nullable showStatisticsOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+            XCTAssertNotNil(showStatisticsOverview);
             XCTAssertNil(error);
             [expectation2 fulfill];
         }] resume];

@@ -41,7 +41,7 @@
 #import "SRGServiceMessage.h"
 #import "SRGShow.h"
 #import "SRGShowIdentifierMetadata.h"
-#import "SRGShowStatisticOverview.h"
+#import "SRGShowStatisticsOverview.h"
 #import "SRGSocialCount.h"
 #import "SRGSocialCountOverview.h"
 #import "SRGSong.h"
@@ -87,7 +87,7 @@ typedef void (^SRGModuleListCompletionBlock)(NSArray<SRGModule *> * _Nullable mo
 typedef void (^SRGServiceMessageCompletionBlock)(SRGServiceMessage * _Nullable serviceMessage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGShowCompletionBlock)(SRGShow * _Nullable show, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
-typedef void (^SRGShowStatisticOverviewCompletionBlock)(SRGShowStatisticOverview * _Nullable showStatisticOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
+typedef void (^SRGShowStatisticsOverviewCompletionBlock)(SRGShowStatisticsOverview * _Nullable showStatisticsOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGSocialCountOverviewCompletionBlock)(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGSongCompletionBlock)(SRGSong * _Nullable song, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topics, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
@@ -622,10 +622,10 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                        withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
 
 /**
- *  Increase the search result count for the specified  show.
+ *  Increase the number of times a show has been viewed from search results.
  */
-- (SRGRequest *)increaseSearchResultCountForShow:(SRGShow *)show
-                             withCompletionBlock:(SRGShowStatisticOverviewCompletionBlock)completionBlock;
+- (SRGRequest *)increaseSearchResultsViewCountForShow:(SRGShow *)show
+                                  withCompletionBlock:(SRGShowStatisticsOverviewCompletionBlock)completionBlock;
 
 @end
 

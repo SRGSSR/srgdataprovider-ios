@@ -661,16 +661,13 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     return [self increaseSocialCountForType:type subdivision:mediaComposition.mainSegment ?: mediaComposition.mainChapter withCompletionBlock:completionBlock];
 }
 
-- (SRGRequest *)increaseSearchResultCountForShow:(SRGShow *)show
-                             withCompletionBlock:(SRGShowStatisticOverviewCompletionBlock)completionBlock
+- (SRGRequest *)increaseSearchResultsViewCountForShow:(SRGShow *)show
+                                  withCompletionBlock:(SRGShowStatisticsOverviewCompletionBlock)completionBlock
 {
-    NSParameterAssert(show);
-    
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/showStatistic/byUrn/%@/searchResultClicked", show.URN];
     NSMutableURLRequest *URLRequest = [[self URLRequestForResourcePath:resourcePath withQueryItems:nil] mutableCopy];
     URLRequest.HTTPMethod = @"POST";
-    
-    return [self fetchObjectWithURLRequest:URLRequest modelClass:SRGShowStatisticOverview.class completionBlock:completionBlock];
+    return [self fetchObjectWithURLRequest:URLRequest modelClass:SRGShowStatisticsOverview.class completionBlock:completionBlock];
 }
 
 #pragma mark URN services

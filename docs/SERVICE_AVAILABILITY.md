@@ -134,7 +134,7 @@ These services can be used to increase popularity indicators.
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Increase social count for a subdivision | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Increase social count for media composition | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Increase search result count for a show | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+| Increase show view count from search results | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 
 ## URN services
 
