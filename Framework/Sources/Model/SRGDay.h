@@ -34,9 +34,19 @@ NS_ASSUME_NONNULL_BEGIN
 + (SRGDay *)dayByAddingDays:(NSInteger)days months:(NSInteger)months years:(NSInteger)years toDay:(SRGDay *)day;
 
 /**
- *  Returns the date components separating two given days.
+ *  Start day for a given unit (see `NSCalendarUnit` for possible values) containing a given day.
+ */
++ (SRGDay *)startDayForUnit:(NSCalendarUnit)unit containingDay:(SRGDay *)day;
+
+/**
+ *  Returns the date components separating two given days (see `NSCalendarUnit` for possible unit values).
  */
 + (NSDateComponents *)components:(NSCalendarUnit)unitFlags fromDay:(SRGDay *)fromDay toDay:(SRGDay *)toDay;
+
+/**
+ *  Indicates the ordering of the receiver and another given day.
+ */
+- (NSComparisonResult)compare:(SRGDay *)aDay;
 
 @end
 

@@ -478,8 +478,8 @@ static NSString * const kUserId = @"test_user_id";
     settings.quality = SRGQualitySD;
     settings.minimumDurationInMinutes = @0.;
     settings.maximumDurationInMinutes = @60.;
-    settings.beforeDay = SRGDay.today;
-    settings.afterDay = [SRGDay dayByAddingDays:-1 months:0 years:0 toDay:SRGDay.today];
+    settings.toDay = SRGDay.today;
+    settings.fromDay = [SRGDay dayByAddingDays:-1 months:0 years:0 toDay:SRGDay.today];
     settings.sortCriterium = SRGSortCriteriumDate;
     settings.sortDirection = SRGSortDirectionAscending;
     
@@ -828,6 +828,37 @@ static NSString * const kUserId = @"test_user_id";
             }] resume];
         }] resume];
         
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testIncreaseSearchResultsViewCountForShow
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showWithURN:kTVShowURN completionBlock:^(SRGShow * _Nullable show, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(show);
+        
+        [[self.dataProvider increaseSearchResultsViewCountForShow:show withCompletionBlock:^(SRGShowStatisticsOverview * _Nullable showStatisticsOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+            XCTAssertNotNil(showStatisticsOverview);
+            XCTAssertNil(error);
+            [expectation1 fulfill];
+        }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showWithURN:kRadioShowURN completionBlock:^(SRGShow * _Nullable show, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(show);
+        
+        [[self.dataProvider increaseSearchResultsViewCountForShow:show withCompletionBlock:^(SRGShowStatisticsOverview * _Nullable showStatisticsOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+            XCTAssertNotNil(showStatisticsOverview);
+            XCTAssertNil(error);
+            [expectation2 fulfill];
+        }] resume];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
