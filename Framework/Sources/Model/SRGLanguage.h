@@ -4,16 +4,24 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGLanguageMetadata.h"
 #import "SRGModel.h"
-#import "SRGTypes.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Language information for subtitles and audios.
+ *  Abstract base class for objects having language informations.
  */
-@interface SRGLanguage : SRGModel <SRGLanguageMetadata>
+@interface SRGLanguage : SRGModel
+
+/**
+ *  The associated locale.
+ */
+@property (nonatomic, readonly, copy) NSLocale *locale;
+
+/**
+ *  The language display name.
+ */
+@property (nonatomic, readonly, copy, nullable) NSString *language;
 
 @end
 

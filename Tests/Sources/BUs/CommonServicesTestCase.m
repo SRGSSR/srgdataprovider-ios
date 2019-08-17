@@ -384,4 +384,44 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
 
 // Cannot test -latestMediasForModuleWithURN:completionBlock: yet due to missing reliable data
 
+// TODO: to be adapt with a production content when available.
+- (void)testMediaWithSubtitleInformationsAndAudioTracks
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Ready to play"];
+    
+    self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:[NSURL URLWithString:@"https://play-mmf.herokuapp.com/integrationlayer"]];
+    [[self.dataProvider mediaWithURN:@"urn:rts:video:_rts19h30_2" completionBlock:^(SRGMedia * _Nullable media, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(media);
+        XCTAssertNil(error);
+        
+        XCTAssertEqual(media.subtitleInformations.count, 2);
+        XCTAssertEqual([media subtitleInformationsForSource:SRGSubtitleInformationSourceHLS].count, 1);
+        XCTAssertEqual([media subtitleInformationsForSource:SRGSubtitleInformationSourceExternal].count, 1);
+        XCTAssertEqual([media subtitleInformationsForSource:SRGSubtitleInformationSourceDASH].count, 0);
+        XCTAssertEqual([media recommendedSubtitleInformationSource], SRGSubtitleInformationSourceHLS);
+        XCTAssertEqual(media.audioTracks.count, 1);
+        XCTAssertEqual([media audioTracksForSource:SRGAudioTrackSourceHLS].count, 1);
+        XCTAssertEqual([media recommendedAudioTrackSource], SRGAudioTrackSourceHLS);
+        
+        SRGSubtitleInformation *HLSSubtitleInformation = [media subtitleInformationsForSource:SRGSubtitleInformationSourceHLS].firstObject;
+        XCTAssertEqual(HLSSubtitleInformation.source, SRGSubtitleInformationSourceHLS);
+        XCTAssertEqual(HLSSubtitleInformation.type, SRGSubtitleInformationTypeSDH);
+        XCTAssertNotNil(HLSSubtitleInformation.locale);
+        
+        SRGSubtitleInformation *externalSubtitleInformation = [media subtitleInformationsForSource:SRGSubtitleInformationSourceExternal].firstObject;
+        XCTAssertEqual(externalSubtitleInformation.source, SRGSubtitleInformationSourceExternal);
+        XCTAssertEqual(externalSubtitleInformation.type, SRGSubtitleInformationTypeSDH);
+        XCTAssertNotNil(externalSubtitleInformation.locale);
+        
+        SRGAudioTrack *audioTrack = media.audioTracks.firstObject;
+        XCTAssertEqual(audioTrack.source, SRGAudioTrackSourceHLS);
+        XCTAssertEqual(audioTrack.type, SRGAudioTrackTypeNone);
+        XCTAssertNotNil(audioTrack.locale);
+        
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:20. handler:nil];
+}
+
 @end

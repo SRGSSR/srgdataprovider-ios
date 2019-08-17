@@ -45,6 +45,42 @@ typedef NS_ENUM(NSInteger, SRGAudioCodec) {
 };
 
 /**
+ *  Audio track sources.
+ */
+typedef NS_ENUM(NSInteger, SRGAudioTrackSource) {
+    /**
+     *  Not specified.
+     */
+    SRGAudioTrackSourceNone = 0,
+    /**
+     *  HLS source.
+     */
+    SRGAudioTrackSourceHLS,
+    /**
+     *  HDS source.
+     */
+    SRGAudioTrackSourceHDS,
+    /**
+     *  DASH source.
+     */
+    SRGAudioTrackSourceDASH
+};
+
+/**
+ *  Audio track types.
+ */
+typedef NS_ENUM(NSInteger, SRGAudioTrackType) {
+    /**
+     *  Not specified.
+     */
+    SRGAudioTrackTypeNone = 0,
+    /**
+     *  Audio description.
+     */
+    SRGAudioTrackTypeAudioDescription
+};
+
+/**
  *  Reasons for content blocking.
  */
 typedef NS_ENUM(NSInteger, SRGBlockingReason) {
@@ -227,24 +263,6 @@ typedef NS_ENUM(NSInteger, SRGPresentation) {
 };
 
 /**
- *  Language qualifier.
- */
-typedef NS_ENUM(NSInteger, SRGQualifier) {
-    /**
-     *  Not specified.
-     */
-    SRGQualifierNone = 0,
-    /**
-     *  Subtitles for the Deaf and Hard of Hearing.
-     */
-    SRGQualifierSDH,
-    /**
-     *  Audio description track.
-     */
-    SRGQualifierAudioDescription
-};
-
-/**
  *  Media qualities.
  */
 typedef NS_ENUM(NSInteger, SRGQuality) {
@@ -384,6 +402,46 @@ typedef NS_ENUM(NSInteger, SRGSubtitleFormat) {
      *  Video Text Tracks.
      */
     SRGSubtitleFormatVTT
+};
+
+/**
+ *  Subtitle information sources.
+ */
+typedef NS_ENUM(NSInteger, SRGSubtitleInformationSource) {
+    /**
+     *  Not specified.
+     */
+    SRGSubtitleInformationSourceNone = 0,
+    /**
+     *  External source.
+     */
+    SRGSubtitleInformationSourceExternal,
+    /**
+     *  HLS source.
+     */
+    SRGSubtitleInformationSourceHLS,
+    /**
+     *  HDS source.
+     */
+    SRGSubtitleInformationSourceHDS,
+    /**
+     *  DASH source.
+     */
+    SRGSubtitleInformationSourceDASH
+};
+
+/**
+ *  Subtitle information types.
+ */
+typedef NS_ENUM(NSInteger, SRGSubtitleInformationType) {
+    /**
+     *  Not specified.
+     */
+    SRGSubtitleInformationTypeNone = 0,
+    /**
+     *  Subtitles for the Deaf and Hard of Hearing.
+     */
+    SRGSubtitleInformationTypeSDH
 };
 
 /**

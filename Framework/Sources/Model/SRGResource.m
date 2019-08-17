@@ -24,8 +24,8 @@
 @property (nonatomic) SRGVideoCodec videoCodec;
 @property (nonatomic) SRGTokenType tokenType;
 @property (nonatomic) NSArray<SRGDRM *> *DRMs;
-@property (nonatomic) NSArray<SRGLanguage *> *subtitlesLanguages;
-@property (nonatomic) NSArray<SRGLanguage *> *audiosLanguages;
+@property (nonatomic) NSArray<SRGSubtitleInformation *> *subtitleInformations;
+@property (nonatomic) NSArray<SRGAudioTrack *> *audioTracks;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *comScoreAnalyticsLabels;
 
@@ -52,8 +52,8 @@
                        @keypath(SRGResource.new, videoCodec) : @"videoCodec",
                        @keypath(SRGResource.new, tokenType) : @"tokenType",
                        @keypath(SRGResource.new, DRMs) : @"drmList",
-                       @keypath(SRGResource.new, subtitlesLanguages) : @"subtitles",
-                       @keypath(SRGResource.new, audiosLanguages) : @"audios",
+                       @keypath(SRGResource.new, subtitleInformations) : @"subtitleInformationList",
+                       @keypath(SRGResource.new, audioTracks) : @"audioTrackList",
                        @keypath(SRGResource.new, analyticsLabels) : @"analyticsMetadata",
                        @keypath(SRGResource.new, comScoreAnalyticsLabels) : @"analyticsData" };
     });
@@ -122,14 +122,14 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:SRGDRM.class];
 }
 
-+ (NSValueTransformer *)subtitlesLanguagesJSONTransformer
++ (NSValueTransformer *)subtitleInformationsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGLanguage.class];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGSubtitleInformation.class];
 }
 
-+ (NSValueTransformer *)audiosLanguagesJSONTransformer
++ (NSValueTransformer *)audioTracksJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGLanguage.class];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGAudioTrack.class];
 }
 
 #pragma mark Helpers

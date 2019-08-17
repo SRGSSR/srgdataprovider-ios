@@ -9,13 +9,12 @@
 /* Begin PBXBuildFile section */
 		08047CF72309D7E20012CFBC /* SRGProgramComposition.h in Headers */ = {isa = PBXBuildFile; fileRef = 08047CF52309D7E10012CFBC /* SRGProgramComposition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08047CF82309D7E20012CFBC /* SRGProgramComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 08047CF62309D7E20012CFBC /* SRGProgramComposition.m */; };
+		0823F2B72386DFC500251BDE /* SRGSubtitleInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 082FA42822B43FE5006BCD62 /* SRGSubtitleInformation.m */; };
 		082FA42522B439D2006BCD62 /* SRGLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 082FA42322B439D2006BCD62 /* SRGLanguage.m */; };
 		082FA42622B439D2006BCD62 /* SRGLanguage.h in Headers */ = {isa = PBXBuildFile; fileRef = 082FA42422B439D2006BCD62 /* SRGLanguage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		082FA42922B43FE5006BCD62 /* SRGSubtitles.h in Headers */ = {isa = PBXBuildFile; fileRef = 082FA42722B43FE5006BCD62 /* SRGSubtitles.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		082FA42A22B43FE5006BCD62 /* SRGSubtitles.m in Sources */ = {isa = PBXBuildFile; fileRef = 082FA42822B43FE5006BCD62 /* SRGSubtitles.m */; };
-		082FA42D22B44189006BCD62 /* SRGAudios.h in Headers */ = {isa = PBXBuildFile; fileRef = 082FA42B22B44189006BCD62 /* SRGAudios.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		082FA42E22B44189006BCD62 /* SRGAudios.m in Sources */ = {isa = PBXBuildFile; fileRef = 082FA42C22B44189006BCD62 /* SRGAudios.m */; };
-		082FA43122B52D46006BCD62 /* SRGLanguageMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 082FA42F22B52D46006BCD62 /* SRGLanguageMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		082FA42922B43FE5006BCD62 /* SRGSubtitleInformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 082FA42722B43FE5006BCD62 /* SRGSubtitleInformation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		082FA42D22B44189006BCD62 /* SRGAudioTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 082FA42B22B44189006BCD62 /* SRGAudioTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		082FA42E22B44189006BCD62 /* SRGAudioTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 082FA42C22B44189006BCD62 /* SRGAudioTrack.m */; };
 		083F41561DB6D59F00FEA340 /* SRGMediaParentMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 083F41551DB6D59F00FEA340 /* SRGMediaParentMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		087C58CE1F5D740F0058D310 /* SRGMediaExtendedMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C58CD1F5D740F0058D310 /* SRGMediaExtendedMetadata.m */; };
 		087C58D11F5D75B10058D310 /* MediaMetadataTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C58CF1F5D75A60058D310 /* MediaMetadataTestCase.m */; };
@@ -165,11 +164,10 @@
 		08047CF62309D7E20012CFBC /* SRGProgramComposition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGProgramComposition.m; sourceTree = "<group>"; };
 		082FA42322B439D2006BCD62 /* SRGLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGLanguage.m; sourceTree = "<group>"; };
 		082FA42422B439D2006BCD62 /* SRGLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGLanguage.h; sourceTree = "<group>"; };
-		082FA42722B43FE5006BCD62 /* SRGSubtitles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSubtitles.h; sourceTree = "<group>"; };
-		082FA42822B43FE5006BCD62 /* SRGSubtitles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSubtitles.m; sourceTree = "<group>"; };
-		082FA42B22B44189006BCD62 /* SRGAudios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGAudios.h; sourceTree = "<group>"; };
-		082FA42C22B44189006BCD62 /* SRGAudios.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGAudios.m; sourceTree = "<group>"; };
-		082FA42F22B52D46006BCD62 /* SRGLanguageMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGLanguageMetadata.h; sourceTree = "<group>"; };
+		082FA42722B43FE5006BCD62 /* SRGSubtitleInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSubtitleInformation.h; sourceTree = "<group>"; };
+		082FA42822B43FE5006BCD62 /* SRGSubtitleInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSubtitleInformation.m; sourceTree = "<group>"; };
+		082FA42B22B44189006BCD62 /* SRGAudioTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGAudioTrack.h; sourceTree = "<group>"; };
+		082FA42C22B44189006BCD62 /* SRGAudioTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGAudioTrack.m; sourceTree = "<group>"; };
 		083F41551DB6D59F00FEA340 /* SRGMediaParentMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGMediaParentMetadata.h; sourceTree = "<group>"; };
 		087C58CD1F5D740F0058D310 /* SRGMediaExtendedMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGMediaExtendedMetadata.m; sourceTree = "<group>"; };
 		087C58CF1F5D75A60058D310 /* MediaMetadataTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaMetadataTestCase.m; sourceTree = "<group>"; };
@@ -436,8 +434,8 @@
 				6FEFFF011F02A0FE00CD6FCA /* SRGAlbum.m */,
 				6FEFFEFC1F02A0F000CD6FCA /* SRGArtist.h */,
 				6FEFFEFD1F02A0F000CD6FCA /* SRGArtist.m */,
-				082FA42B22B44189006BCD62 /* SRGAudios.h */,
-				082FA42C22B44189006BCD62 /* SRGAudios.m */,
+				082FA42B22B44189006BCD62 /* SRGAudioTrack.h */,
+				082FA42C22B44189006BCD62 /* SRGAudioTrack.m */,
 				08879BF91FEC58D200CF3980 /* SRGBaseTopic.h */,
 				08879BFA1FEC58D200CF3980 /* SRGBaseTopic.m */,
 				6F12DB3C21A3D4690054879D /* SRGBroadcastInformation.h */,
@@ -508,8 +506,8 @@
 				6FA25CC01F19227C0062A748 /* SRGSubdivision+Private.h */,
 				E6AE51441D40AA0100572CE4 /* SRGSubtitle.h */,
 				E6AE51451D40AA0100572CE4 /* SRGSubtitle.m */,
-				082FA42722B43FE5006BCD62 /* SRGSubtitles.h */,
-				082FA42822B43FE5006BCD62 /* SRGSubtitles.m */,
+				082FA42722B43FE5006BCD62 /* SRGSubtitleInformation.h */,
+				082FA42822B43FE5006BCD62 /* SRGSubtitleInformation.m */,
 				08879BFD1FEC597B00CF3980 /* SRGSubtopic.h */,
 				08879BFE1FEC597B00CF3980 /* SRGSubtopic.m */,
 				E6391A991D38E92400E4CBB9 /* SRGTopic.h */,
@@ -525,7 +523,6 @@
 			children = (
 				E68598B01D40CEC30010000A /* SRGImageMetadata.h */,
 				6FAC25AA1F06A2B70058D53A /* SRGImageMetadata.m */,
-				082FA42F22B52D46006BCD62 /* SRGLanguageMetadata.h */,
 				6F57EA731F83CE560038153F /* SRGMediaExtendedMetadata.h */,
 				087C58CD1F5D740F0058D310 /* SRGMediaExtendedMetadata.m */,
 				E68598B21D40CED70010000A /* SRGMediaIdentifierMetadata.h */,
@@ -626,14 +623,13 @@
 				E6391AA11D38E92400E4CBB9 /* SRGDataProvider.h in Headers */,
 				6F81CF5D22E0C38800EEA2DE /* SRGDay.h in Headers */,
 				E63DA7291D5C5A390053060E /* SRGSection.h in Headers */,
-				082FA42D22B44189006BCD62 /* SRGAudios.h in Headers */,
+				082FA42D22B44189006BCD62 /* SRGAudioTrack.h in Headers */,
 				6FC024B01E1D001600550881 /* SRGSearchResult.h in Headers */,
 				E63DA7251D5C554A0053060E /* SRGModule.h in Headers */,
 				E68598B11D40CEC30010000A /* SRGImageMetadata.h in Headers */,
 				6FB1561E1E83D6F900389D04 /* NSObject+SRGDataProvider.h in Headers */,
 				6FB156161E83D20B00389D04 /* NSDictionary+SRGDataProvider.h in Headers */,
 				E68598B51D40CEEE0010000A /* SRGMediaMetadata.h in Headers */,
-				082FA43122B52D46006BCD62 /* SRGLanguageMetadata.h in Headers */,
 				E68598AF1D40CEB90010000A /* SRGMetadata.h in Headers */,
 				6F5EEF4822E17E100014A0CA /* SRGDay+Private.h in Headers */,
 				E6C2B3BF1D390EEF00B6250B /* SRGMedia.h in Headers */,
@@ -644,7 +640,7 @@
 				6FB156121E83B60400389D04 /* SRGModel.h in Headers */,
 				6FDF33D01F0236EB00BA1D6E /* SRGSegment.h in Headers */,
 				E67BB6751D3E01C900E1FEA3 /* SRGTypes.h in Headers */,
-				082FA42922B43FE5006BCD62 /* SRGSubtitles.h in Headers */,
+				082FA42922B43FE5006BCD62 /* SRGSubtitleInformation.h in Headers */,
 				6FDB9A8C2011DEF800EBEB3C /* SRGModuleIdentifierMetadata.h in Headers */,
 				E67BB6791D3E041900E1FEA3 /* SRGJSONTransformers.h in Headers */,
 				6F57EA741F83CE560038153F /* SRGMediaExtendedMetadata.h in Headers */,
@@ -837,6 +833,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08879BFC1FEC58D300CF3980 /* SRGBaseTopic.m in Sources */,
+				0823F2B72386DFC500251BDE /* SRGSubtitleInformation.m in Sources */,
 				E67BB67A1D3E041900E1FEA3 /* SRGJSONTransformers.m in Sources */,
 				08B09F6A22FB0112000EFCBB /* SRGShowStatisticsOverview.m in Sources */,
 				6FC024B11E1D001600550881 /* SRGSearchResult.m in Sources */,
@@ -860,11 +857,10 @@
 				E6C2B3C01D390EEF00B6250B /* SRGMedia.m in Sources */,
 				E6C2B3FD1D392F2300B6250B /* SRGChapter.m in Sources */,
 				08047CF82309D7E20012CFBC /* SRGProgramComposition.m in Sources */,
-				082FA42A22B43FE5006BCD62 /* SRGSubtitles.m in Sources */,
 				E6391AA01D38E92400E4CBB9 /* SRGTopic.m in Sources */,
 				E67BB66E1D3DF13800E1FEA3 /* SRGMediaComposition.m in Sources */,
 				E6C2B3F51D392F1200B6250B /* SRGEpisode.m in Sources */,
-				082FA42E22B44189006BCD62 /* SRGAudios.m in Sources */,
+				082FA42E22B44189006BCD62 /* SRGAudioTrack.m in Sources */,
 				E68598AB1D40CC750010000A /* SRGSubdivision.m in Sources */,
 				6FAC25AB1F06A2B70058D53A /* SRGImageMetadata.m in Sources */,
 				6F12DB3F21A3D4690054879D /* SRGBroadcastInformation.m in Sources */,

@@ -4,20 +4,20 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGSubtitle.h"
+#import "SRGAudioTrack.h"
 
 #import "SRGJSONTransformers.h"
 
 #import <libextobjc/libextobjc.h>
 
-@interface SRGSubtitle ()
+@interface SRGAudioTrack ()
 
-@property (nonatomic) SRGSubtitleFormat format;
-@property (nonatomic) NSURL *URL;
+@property (nonatomic) SRGAudioTrackSource source;
+@property (nonatomic) SRGAudioTrackType type;
 
 @end
 
-@implementation SRGSubtitle
+@implementation SRGAudioTrack
 
 #pragma mark MTLJSONSerializing protocol
 
@@ -27,8 +27,8 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
-        [mapping addEntriesFromDictionary:@{ @keypath(SRGSubtitle.new, format) : @"format",
-                                             @keypath(SRGSubtitle.new, URL) : @"url" }];
+        [mapping addEntriesFromDictionary:@{ @keypath(SRGAudioTrack.new, source) : @"source",
+                                             @keypath(SRGAudioTrack.new, type) : @"type" }];
         s_mapping = [mapping copy];
     });
     return s_mapping;
@@ -36,14 +36,14 @@
 
 #pragma mark Transformers
 
-+ (NSValueTransformer *)formatJSONTransformer
++ (NSValueTransformer *)sourceJSONTransformer
 {
-    return SRGSubtitleFormatJSONTransformer();
+    return SRGAudioTrackSourceJSONTransformer();
 }
 
-+ (NSValueTransformer *)URLJSONTransformer
++ (NSValueTransformer *)typeJSONTransformer
 {
-    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+    return SRGAudioTrackTypeJSONTransformer();
 }
 
 @end

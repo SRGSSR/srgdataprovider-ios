@@ -4,11 +4,11 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGAudios.h"
+#import "SRGAudioTrack.h"
 #import "SRGMediaMetadata.h"
 #import "SRGMediaParentMetadata.h"
 #import "SRGModel.h"
-#import "SRGSubtitles.h"
+#import "SRGSubtitleInformation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,14 +24,42 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGPresentation presentation;
 
 /**
- *  Audio tracks information.
+ *  Audio tracks informations.
  */
-@property (nonatomic, readonly, nullable) SRGAudios *audios;
+@property (nonatomic, readonly, nullable) NSArray<SRGAudioTrack *> *audioTracks;
 
 /**
- *  Subtitles information.
+ *  Subtitles informations.
  */
-@property (nonatomic, readonly, nullable) SRGSubtitles *subtitles;
+@property (nonatomic, readonly, nullable) NSArray<SRGSubtitleInformation *> *subtitleInformations;
+
+@end
+
+@interface SRGMedia (AudioTracks)
+
+/**
+ *  The recommended audio track source that can be used. Might return `SRGAudioTrackSourceNone` if no good match is found.
+ */
+@property (nonatomic, readonly) SRGAudioTrackSource recommendedAudioTrackSource;
+
+/**
+ *  Return audio tracks matching the specified source.
+ */
+- (nullable NSArray<SRGAudioTrack *> *)audioTracksForSource:(SRGAudioTrackSource)audioTrackSource;
+
+@end
+
+@interface SRGMedia (SubtitleInformations)
+
+/**
+ *  The recommended subtitles information source that can be used. Might return `SRGSubtitleInformationSourceNone` if no good match is found.
+ */
+@property (nonatomic, readonly) SRGSubtitleInformationSource recommendedSubtitleInformationSource;
+
+/**
+ *  Return subtitles informations matching the specified source.
+ */
+- (nullable NSArray<SRGSubtitleInformation *> *)subtitleInformationsForSource:(SRGSubtitleInformationSource)subtitleInformationSource;
 
 @end
 

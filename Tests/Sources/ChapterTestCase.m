@@ -21,7 +21,7 @@ static NSURL *ServiceTestURL(void)
 
 - (void)testResourcesForVideoOnDemand
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Ready to play"];
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Ready to play"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL()];
     [[dataProvider mediaCompositionForURN:@"urn:rts:video:9116567" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
@@ -30,8 +30,95 @@ static NSURL *ServiceTestURL(void)
         XCTAssertEqual(mainChapter.playableResources.count, 2);
         XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodHLS].count, 2);
         XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodHDS].count, 2);
+        XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodDASH].count, 0);
         XCTAssertEqual(mainChapter.recommendedStreamingMethod, SRGStreamingMethodHLS);
         XCTAssertEqual(mainChapter.recommendedSubtitleFormat, SRGSubtitleFormatVTT);
+        XCTAssertEqual([mainChapter subtitlesWithFormat:mainChapter.recommendedSubtitleFormat].count, 1);
+        
+        SRGSubtitle *subtitle = [mainChapter subtitlesWithFormat:mainChapter.recommendedSubtitleFormat].firstObject;
+        XCTAssertEqual(subtitle.format, SRGSubtitleFormatVTT);
+        XCTAssertEqual(subtitle.source, SRGSubtitleInformationSourceExternal);
+        XCTAssertEqual(subtitle.type, SRGSubtitleInformationTypeSDH);
+        XCTAssertNotNil(subtitle.locale);
+        XCTAssertNotNil(subtitle.URL);
+        
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:20. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Ready to play"];
+    
+    [[dataProvider mediaCompositionForURN:@"urn:srf:video:1b653690-a0e3-4a94-8b1d-081d971efd58" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        SRGChapter *mainChapter = mediaComposition.mainChapter;
+        XCTAssertEqual(mainChapter.resources.count, 4);
+        XCTAssertEqual(mainChapter.playableResources.count, 2);
+        XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodHLS].count, 2);
+        XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodHDS].count, 2);
+        XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodDASH].count, 0);
+        XCTAssertEqual(mainChapter.recommendedStreamingMethod, SRGStreamingMethodHLS);
+        XCTAssertEqual(mainChapter.recommendedSubtitleFormat, SRGSubtitleFormatVTT);
+        XCTAssertEqual([mainChapter subtitlesWithFormat:mainChapter.recommendedSubtitleFormat].count, 1);
+        
+        SRGSubtitle *subtitle = [mainChapter subtitlesWithFormat:mainChapter.recommendedSubtitleFormat].firstObject;
+        XCTAssertEqual(subtitle.format, SRGSubtitleFormatVTT);
+        XCTAssertEqual(subtitle.source, SRGSubtitleInformationSourceExternal);
+        XCTAssertEqual(subtitle.type, SRGSubtitleInformationTypeSDH);
+        XCTAssertNotNil(subtitle.locale);
+        XCTAssertNotNil(subtitle.URL);
+        
+        SRGResource *resource = [mainChapter resourcesForStreamingMethod:mainChapter.recommendedStreamingMethod].firstObject;
+        XCTAssertEqual(resource.subtitleInformations.count, 1);
+        
+        SRGSubtitleInformation *subtitleInformation = resource.subtitleInformations.firstObject;
+        XCTAssertEqual(subtitleInformation.source, SRGSubtitleInformationSourceHLS);
+        XCTAssertEqual(subtitleInformation.type, SRGSubtitleInformationTypeSDH);
+        XCTAssertNotNil(subtitleInformation.locale);
+        
+        [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:20. handler:nil];
+}
+
+// TODO: to be adapt with a production content when available.
+- (void)testResourcesWithSubtitleInformationsAndAudioTracks
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Ready to play"];
+
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:[NSURL URLWithString:@"https://play-mmf.herokuapp.com/integrationlayer"]];
+    [[dataProvider mediaCompositionForURN:@"urn:rts:video:_rts19h30_2" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        SRGChapter *mainChapter = mediaComposition.mainChapter;
+        XCTAssertEqual(mainChapter.resources.count, 1);
+        XCTAssertEqual(mainChapter.playableResources.count, 1);
+        XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodHLS].count, 1);
+        XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodHDS].count, 0);
+        XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodDASH].count, 0);
+        XCTAssertEqual(mainChapter.recommendedStreamingMethod, SRGStreamingMethodHLS);
+        XCTAssertEqual(mainChapter.recommendedSubtitleFormat, SRGSubtitleFormatVTT);
+        XCTAssertEqual([mainChapter subtitlesWithFormat:mainChapter.recommendedSubtitleFormat].count, 1);
+        
+        SRGSubtitle *subtitle = [mainChapter subtitlesWithFormat:mainChapter.recommendedSubtitleFormat].firstObject;
+        XCTAssertEqual(subtitle.format, SRGSubtitleFormatVTT);
+        XCTAssertEqual(subtitle.source, SRGSubtitleInformationSourceExternal);
+        XCTAssertEqual(subtitle.type, SRGSubtitleInformationTypeSDH);
+        XCTAssertNotNil(subtitle.locale);
+        XCTAssertNotNil(subtitle.URL);
+        
+        SRGResource *resource = [mainChapter resourcesForStreamingMethod:mainChapter.recommendedStreamingMethod].firstObject;
+        XCTAssertEqual(resource.subtitleInformations.count, 1);
+        XCTAssertEqual(resource.audioTracks.count, 1);
+        
+        SRGSubtitleInformation *subtitleInformation = resource.subtitleInformations.firstObject;
+        XCTAssertEqual(subtitleInformation.source, SRGSubtitleInformationSourceHLS);
+        XCTAssertEqual(subtitleInformation.type, SRGSubtitleInformationTypeSDH);
+        XCTAssertNotNil(subtitleInformation.locale);
+        
+        SRGAudioTrack *audioTrack = resource.audioTracks.firstObject;
+        XCTAssertEqual(audioTrack.source, SRGAudioTrackSourceHLS);
+        XCTAssertEqual(audioTrack.type, SRGAudioTrackTypeNone);
+        XCTAssertNotNil(audioTrack.locale);
+        
         [expectation fulfill];
     }] resume];
     

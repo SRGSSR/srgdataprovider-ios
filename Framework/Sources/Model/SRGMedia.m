@@ -15,8 +15,8 @@
 @interface SRGMedia () <SRGMediaExtendedMetadata>
 
 @property (nonatomic) SRGPresentation presentation;
-@property (nonatomic) SRGAudios *audios;
-@property (nonatomic) SRGSubtitles *subtitles;
+@property (nonatomic) NSArray<SRGAudioTrack *> *audioTracks;
+@property (nonatomic) NSArray<SRGSubtitleInformation *> *subtitleInformations;
 
 @property (nonatomic) SRGChannel *channel;
 @property (nonatomic) SRGEpisode *episode;
@@ -62,8 +62,8 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @keypath(SRGMedia.new, presentation) : @"presentation",
-                       @keypath(SRGMedia.new, audios) : @"audios",
-                       @keypath(SRGMedia.new, subtitles) : @"subtitles",
+                       @keypath(SRGMedia.new, audioTracks) : @"audioTrackList",
+                       @keypath(SRGMedia.new, subtitleInformations) : @"subtitleInformationList",
                        
                        @keypath(SRGMedia.new, channel) : @"channel",
                        @keypath(SRGMedia.new, episode) : @"episode",
@@ -119,14 +119,14 @@
     return SRGPresentationJSONTransformer();
 }
 
-+ (NSValueTransformer *)audiosJSONTransformer
++ (NSValueTransformer *)audioTracksJSONTransformer
 {
-    return  [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGAudios.class];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGAudioTrack.class];
 }
 
-+ (NSValueTransformer *)subtitlesJSONTransformer
++ (NSValueTransformer *)subtitleInformationsJSONTransformer
 {
-    return  [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGSubtitles.class];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGSubtitleInformation.class];
 }
 
 + (NSValueTransformer *)channelJSONTransformer
@@ -236,6 +236,46 @@
 - (NSUInteger)hash
 {
     return self.URN.hash;
+}
+
+@end
+
+@implementation SRGMedia (AudioTracks)
+
+- (SRGAudioTrackSource)recommendedAudioTrackSource
+{
+    SRGAudioTrackSource audioTrackSource = SRGAudioTrackSourceHLS;
+    if ([self audioTracksForSource:audioTrackSource].count != 0) {
+        return audioTrackSource;
+    }
+    
+    return SRGAudioTrackSourceNone;
+}
+
+- (NSArray<SRGAudioTrack *> *)audioTracksForSource:(SRGAudioTrackSource)audioTrackSource
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGAudioTrack.new, source), @(audioTrackSource)];
+    return [self.audioTracks filteredArrayUsingPredicate:predicate];
+}
+
+@end
+
+@implementation SRGMedia (SubtitleInformations)
+
+- (SRGSubtitleInformationSource)recommendedSubtitleInformationSource
+{
+    SRGSubtitleInformationSource subtitleInformationSource = SRGSubtitleInformationSourceHLS;
+    if ([self subtitleInformationsForSource:subtitleInformationSource].count != 0) {
+        return subtitleInformationSource;
+    }
+    
+    return SRGSubtitleInformationSourceNone;
+}
+
+- (NSArray<SRGSubtitleInformation *> *)subtitleInformationsForSource:(SRGSubtitleInformationSource)subtitleInformationSource
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGSubtitleInformation.new, source), @(subtitleInformationSource)];
+    return [self.subtitleInformations filteredArrayUsingPredicate:predicate];
 }
 
 @end

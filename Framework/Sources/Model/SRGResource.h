@@ -4,10 +4,10 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGAudioTrack.h"
 #import "SRGDRM.h"
-#import "SRGLanguage.h"
 #import "SRGModel.h"
-#import "SRGTypes.h"
+#import "SRGSubtitleInformation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -74,12 +74,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The list of subtitles in the stream.
  */
-@property (nonatomic, readonly, nullable) NSArray<SRGLanguage *> *subtitlesLanguages;
+@property (nonatomic, readonly, nullable) NSArray<SRGSubtitleInformation *> *subtitleInformations;
 
 /**
  *  The list of audio tracks in the stream.
  */
-@property (nonatomic, readonly, nullable) NSArray<SRGLanguage *> *audiosLanguages;
+@property (nonatomic, readonly, nullable) NSArray<SRGAudioTrack *> *audioTracks;
 
 /**
  *  The list of labels which should be supplied in SRG Analytics player events.
