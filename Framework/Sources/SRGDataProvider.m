@@ -168,6 +168,19 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     return [self fetchObjectWithURLRequest:URLRequest modelClass:SRGChannel.class completionBlock:completionBlock];
 }
 
+- (SRGFirstPageRequest *)tvLatestProgramsForVendor:(SRGVendor)vendor
+                                        channelUid:(NSString *)channelUid
+                                   completionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/programListComposition/tv/byChannel/%@", SRGPathComponentForVendor(vendor), channelUid];
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[NSMutableArray array]];
+    return [self pageRequestWithURLRequest:URLRequest parser:^id(NSDictionary *JSONDictionary, NSError *__autoreleasing *pError) {
+        return [MTLJSONAdapter modelOfClass:SRGProgramComposition.class fromJSONDictionary:JSONDictionary error:pError];
+    } completionBlock:^(id _Nullable object, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        completionBlock(object, page, nextPage, HTTPResponse, error);
+    }];
+}
+
 - (SRGRequest *)tvLivestreamsForVendor:(SRGVendor)vendor
                    withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
@@ -334,6 +347,19 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
     return [self fetchObjectWithURLRequest:URLRequest modelClass:SRGChannel.class completionBlock:completionBlock];
+}
+
+- (SRGFirstPageRequest *)radioLatestProgramsForVendor:(SRGVendor)vendor
+                                           channelUid:(NSString *)channelUid
+                                      completionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/programListComposition/radio/byChannel/%@", SRGPathComponentForVendor(vendor), channelUid];
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
+    return [self pageRequestWithURLRequest:URLRequest parser:^id(NSDictionary *JSONDictionary, NSError *__autoreleasing *pError) {
+        return [MTLJSONAdapter modelOfClass:SRGProgramComposition.class fromJSONDictionary:JSONDictionary error:pError];
+    } completionBlock:^(id _Nullable object, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        completionBlock(object, page, nextPage, HTTPResponse, error);
+    }];
 }
 
 - (SRGRequest *)radioLivestreamsForVendor:(SRGVendor)vendor
@@ -744,7 +770,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
     return [self pageRequestWithURLRequest:URLRequest parser:^id(NSDictionary *JSONDictionary, NSError *__autoreleasing *pError) {
         return [MTLJSONAdapter modelOfClass:SRGEpisodeComposition.class fromJSONDictionary:JSONDictionary error:pError];
-    } completionBlock:^(id  _Nullable object, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    } completionBlock:^(id _Nullable object, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(object, page, nextPage, HTTPResponse, error);
     }];
 }

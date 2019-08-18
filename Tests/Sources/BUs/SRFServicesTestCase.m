@@ -82,6 +82,19 @@ static NSString * const kTag2 = @"curling";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testTVChannelPrograms
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider tvLatestProgramsForVendor:SRGVendorSRF channelUid:kTVChannelUid completionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(programComposition);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testTVLivestreams
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
@@ -277,6 +290,19 @@ static NSString * const kTag2 = @"curling";
         XCTAssertNotNil(channel);
         XCTAssertNil(error);
         [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testRadioChannelPrograms
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider radioLatestProgramsForVendor:SRGVendorSRF channelUid:kRadioChannelUid completionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(programComposition);
+        XCTAssertNil(error);
+        [expectation fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

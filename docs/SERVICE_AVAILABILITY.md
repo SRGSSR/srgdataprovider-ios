@@ -17,6 +17,7 @@ Services are currently only available for SRG SSR vendors (SRF, RTS, RSI, RTR an
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Channels | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Single channel | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
+| Latest programs by channel | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | N/A |
 | Livestreams | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Scheduled livestreams | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 
@@ -58,6 +59,7 @@ For SWI, shows represent content categories (Business, Culture, etc.) and search
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Channels | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Single channel | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
+| Latest programs by channel | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | N/A |
 | Livestreams by channel | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Livestreams for content providers | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 
