@@ -15,7 +15,7 @@ static NSString * const kRadioShowSearchQuery = @"num";
 
 static NSString * const kVideoURN = @"urn:rtr:video:63cc0629-615c-4e97-93cc-f770d2ce4e79";
 
-static NSString * const kTVChannelUid = @"none_yet";
+static NSString * const kTVChannelUid = @"f5dc82ed-4564-4223-903f-0bf6a13c5620";
 static NSString * const kTVShowSearchQuery = @"controvers";
 
 static NSString * const kTVShowURN = @"urn:rtr:show:tv:c632f275-6e80-0001-23e4-12c019808ec0";
@@ -70,7 +70,8 @@ static NSString * const kUserId = @"test_user_id";
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider tvChannelForVendor:SRGVendorRTR withUid:kTVChannelUid completionBlock:^(SRGChannel * _Nullable channel, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(error);
+        XCTAssertNotNil(channel);
+        XCTAssertNil(error);
         [expectation fulfill];
     }] resume];
     
@@ -82,7 +83,8 @@ static NSString * const kUserId = @"test_user_id";
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider tvLatestProgramsForVendor:SRGVendorRTR channelUid:kTVChannelUid completionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(error);
+        XCTAssertNotNil(programComposition);
+        XCTAssertNil(error);
         [expectation fulfill];
     }] resume];
     
