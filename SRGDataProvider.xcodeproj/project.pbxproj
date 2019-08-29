@@ -27,8 +27,6 @@
 		6F5EEF4822E17E100014A0CA /* SRGDay+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F5EEF4622E17E100014A0CA /* SRGDay+Private.h */; };
 		6F5EEF5022E18BC70014A0CA /* DayTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5EEF4F22E18BC70014A0CA /* DayTestCase.m */; };
 		6F6A09C8210082EA004568BD /* SRGNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6A09C7210082E9004568BD /* SRGNetwork.framework */; };
-		6F6A09C921008365004568BD /* SRGNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6A09C7210082E9004568BD /* SRGNetwork.framework */; };
-		6F6A09CA2100836C004568BD /* SRGNetwork.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6F6A09C7210082E9004568BD /* SRGNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6F6B641C21A6FE3600E207FC /* SRGServiceMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F6B641A21A6FE3600E207FC /* SRGServiceMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6F6B641D21A6FE3600E207FC /* SRGServiceMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6B641B21A6FE3600E207FC /* SRGServiceMessage.m */; };
 		6F6BDCE71E8262C4004BC726 /* RTSServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6BDCE51E8262C4004BC726 /* RTSServicesTestCase.m */; };
@@ -51,7 +49,6 @@
 		6F98DD6B1E8282EB008B0B22 /* SWIServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F98DD691E8282A9008B0B22 /* SWIServicesTestCase.m */; };
 		6F9DEF3622D30A5200329878 /* MediaSearchSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DEF3522D30A5200329878 /* MediaSearchSettingsTestCase.m */; };
 		6FA09D821D9EB37600EDCA64 /* SRGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; };
-		6FA09D851D9EB39000EDCA64 /* SRGLogger.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6FA09D871D9EB5CA00EDCA64 /* SRGDataProviderLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FA09D861D9EB5CA00EDCA64 /* SRGDataProviderLogger.h */; };
 		6FA25CC31F194A030062A748 /* SegmentTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA25CC21F194A030062A748 /* SegmentTestCase.m */; };
 		6FAC25AB1F06A2B70058D53A /* SRGImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAC25AA1F06A2B70058D53A /* SRGImageMetadata.m */; };
@@ -67,8 +64,6 @@
 		6FC024B11E1D001600550881 /* SRGSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC024AF1E1D001600550881 /* SRGSearchResult.m */; };
 		6FC361B31ECD7C8B00E01022 /* CommonServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC361B21ECD7C8B00E01022 /* CommonServicesTestCase.m */; };
 		6FC5B8221E852B22003555F8 /* MAKVONotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; };
-		6FC5B8231E852B34003555F8 /* MAKVONotificationCenter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6FC5B8241E852B46003555F8 /* MAKVONotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; };
 		6FCE228E229D61AC0040DA1C /* SRGMediaSearchSettings+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCE228D229D61AC0040DA1C /* SRGMediaSearchSettings+Private.h */; };
 		6FCEFEED229BD741001388F9 /* SRGMediaSearchSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCEFEEB229BD741001388F9 /* SRGMediaSearchSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FCEFEF0229BE35D001388F9 /* SRGMediaSearchSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCEFEEF229BE35D001388F9 /* SRGMediaSearchSettings.m */; };
@@ -90,8 +85,6 @@
 		6FFA11342107519D00513BFB /* SRGDRM.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FFA11322107519D00513BFB /* SRGDRM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FFA11352107519D00513BFB /* SRGDRM.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FFA11332107519D00513BFB /* SRGDRM.m */; };
 		E600FE681D942348000B8A1D /* SRGDataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6AF7EFD1D38B8BD00942ADA /* SRGDataProvider.framework */; };
-		E600FE801D943FB7000B8A1D /* Mantle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E600FE811D943FCD000B8A1D /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; };
 		E6391A9F1D38E92400E4CBB9 /* SRGTopic.h in Headers */ = {isa = PBXBuildFile; fileRef = E6391A991D38E92400E4CBB9 /* SRGTopic.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6391AA01D38E92400E4CBB9 /* SRGTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = E6391A9A1D38E92400E4CBB9 /* SRGTopic.m */; };
 		E6391AA11D38E92400E4CBB9 /* SRGDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E6391A9B1D38E92400E4CBB9 /* SRGDataProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -101,8 +94,6 @@
 		E63DA7291D5C5A390053060E /* SRGSection.h in Headers */ = {isa = PBXBuildFile; fileRef = E63DA7271D5C5A390053060E /* SRGSection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E63DA72A1D5C5A390053060E /* SRGSection.m in Sources */ = {isa = PBXBuildFile; fileRef = E63DA7281D5C5A390053060E /* SRGSection.m */; };
 		E66BEC061DA7F08B00AD4450 /* libextobjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E66BEC051DA7F08B00AD4450 /* libextobjc.framework */; };
-		E66BEC091DA7F0A500AD4450 /* libextobjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E66BEC051DA7F08B00AD4450 /* libextobjc.framework */; };
-		E66BEC0A1DA7F0AD00AD4450 /* libextobjc.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E66BEC051DA7F08B00AD4450 /* libextobjc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E67BB6651D3D295E00E1FEA3 /* SRGResource.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6631D3D295E00E1FEA3 /* SRGResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E67BB6661D3D295E00E1FEA3 /* SRGResource.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6641D3D295E00E1FEA3 /* SRGResource.m */; };
 		E67BB6691D3D2FB600E1FEA3 /* SRGSocialCount.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6671D3D2FB600E1FEA3 /* SRGSocialCount.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -160,23 +151,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		E600FE7F1D943FAE000B8A1D /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				6F6A09CA2100836C004568BD /* SRGNetwork.framework in CopyFiles */,
-				6FC5B8231E852B34003555F8 /* MAKVONotificationCenter.framework in CopyFiles */,
-				E66BEC0A1DA7F0AD00AD4450 /* libextobjc.framework in CopyFiles */,
-				6FA09D851D9EB39000EDCA64 /* SRGLogger.framework in CopyFiles */,
-				E600FE801D943FB7000B8A1D /* Mantle.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		083F41551DB6D59F00FEA340 /* SRGMediaParentMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGMediaParentMetadata.h; sourceTree = "<group>"; };
 		087C58CD1F5D740F0058D310 /* SRGMediaExtendedMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGMediaExtendedMetadata.m; sourceTree = "<group>"; };
@@ -186,6 +160,8 @@
 		08879BFD1FEC597B00CF3980 /* SRGSubtopic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGSubtopic.h; sourceTree = "<group>"; };
 		08879BFE1FEC597B00CF3980 /* SRGSubtopic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SRGSubtopic.m; sourceTree = "<group>"; };
 		08879C011FEC6C1200CF3980 /* SubdivisionTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubdivisionTestCase.m; sourceTree = "<group>"; };
+		08A5BB3623170865002D25DB /* Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Framework.xcconfig; sourceTree = "<group>"; };
+		08A5BB3723170872002D25DB /* Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Tests.xcconfig; sourceTree = "<group>"; };
 		08AB6CDF217F4DB0002DBA43 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Accessibility.strings; sourceTree = "<group>"; };
 		08AB6CE1217F4DB4002DBA43 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Accessibility.strings; sourceTree = "<group>"; };
 		08AB6CE2217F4DB4002DBA43 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Accessibility.strings; sourceTree = "<group>"; };
@@ -332,10 +308,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6F6A09C921008365004568BD /* SRGNetwork.framework in Frameworks */,
-				6FC5B8241E852B46003555F8 /* MAKVONotificationCenter.framework in Frameworks */,
-				E66BEC091DA7F0A500AD4450 /* libextobjc.framework in Frameworks */,
-				E600FE811D943FCD000B8A1D /* Mantle.framework in Frameworks */,
 				E600FE681D942348000B8A1D /* SRGDataProvider.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,6 +364,7 @@
 			children = (
 				E600FE6E1D9423BC000B8A1D /* Sources */,
 				E600FE711D9423C3000B8A1D /* Info.plist */,
+				08A5BB3723170872002D25DB /* Tests.xcconfig */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -418,6 +391,7 @@
 				E6391A971D38E92400E4CBB9 /* Sources */,
 				E6C2B3CE1D39239E00B6250B /* Resources */,
 				E6391A961D38E92400E4CBB9 /* Info.plist */,
+				08A5BB3623170865002D25DB /* Framework.xcconfig */,
 			);
 			path = Framework;
 			sourceTree = "<group>";
@@ -691,7 +665,6 @@
 				E600FE5F1D942348000B8A1D /* Sources */,
 				E600FE601D942348000B8A1D /* Frameworks */,
 				E600FE611D942348000B8A1D /* Resources */,
-				E600FE7F1D943FAE000B8A1D /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -977,13 +950,16 @@
 				MARKETING_VERSION = 6.8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.srgssr.${TARGET_NAME}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = "Debug-static";
 		};
 		6F926BBC210F41E200D2E3D0 /* Debug-static */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08A5BB3623170865002D25DB /* Framework.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_CODE_COVERAGE = NO;
@@ -992,15 +968,13 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Build/iOS/Static",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)/Static",
 				);
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.srgssr.SRGDataProvider;
-				PRODUCT_NAME = SRGDataProvider;
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1008,17 +982,16 @@
 		};
 		6F926BBD210F41E200D2E3D0 /* Debug-static */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08A5BB3723170872002D25DB /* Tests.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.srgssr.SRGDataProvider-tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 			};
 			name = "Debug-static";
 		};
@@ -1072,14 +1045,17 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MARKETING_VERSION = 6.8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.srgssr.${TARGET_NAME}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = "Release-static";
 		};
 		6F926BBF210F41E700D2E3D0 /* Release-static */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08A5BB3623170865002D25DB /* Framework.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_CODE_COVERAGE = NO;
@@ -1088,15 +1064,13 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Build/iOS/Static",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)/Static",
 				);
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.srgssr.SRGDataProvider;
-				PRODUCT_NAME = SRGDataProvider;
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1104,22 +1078,22 @@
 		};
 		6F926BC0210F41E700D2E3D0 /* Release-static */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08A5BB3723170872002D25DB /* Tests.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.srgssr.SRGDataProvider-tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 			};
 			name = "Release-static";
 		};
 		6F926BC9210F422A00D2E3D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08A5BB3623170865002D25DB /* Framework.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1130,7 +1104,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Framework/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.srgssr.SRGDataProvider-resources";
 				PRODUCT_NAME = SRGDataProvider;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
@@ -1139,6 +1112,7 @@
 		};
 		6F926BCA210F422A00D2E3D0 /* Debug-static */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08A5BB3623170865002D25DB /* Framework.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1149,7 +1123,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Framework/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.srgssr.SRGDataProvider-resources";
 				PRODUCT_NAME = SRGDataProvider;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
@@ -1158,6 +1131,7 @@
 		};
 		6F926BCB210F422A00D2E3D0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08A5BB3623170865002D25DB /* Framework.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1168,7 +1142,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Framework/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.srgssr.SRGDataProvider-resources";
 				PRODUCT_NAME = SRGDataProvider;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
@@ -1177,6 +1150,7 @@
 		};
 		6F926BCC210F422A00D2E3D0 /* Release-static */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08A5BB3623170865002D25DB /* Framework.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1187,7 +1161,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Framework/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.srgssr.SRGDataProvider-resources";
 				PRODUCT_NAME = SRGDataProvider;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
@@ -1196,33 +1169,31 @@
 		};
 		E600FE6C1D942348000B8A1D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08A5BB3723170872002D25DB /* Tests.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.srgssr.SRGDataProvider-tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 			};
 			name = Debug;
 		};
 		E600FE6D1D942348000B8A1D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08A5BB3723170872002D25DB /* Tests.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.srgssr.SRGDataProvider-tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 			};
 			name = Release;
 		};
@@ -1283,8 +1254,10 @@
 				MARKETING_VERSION = 6.8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.srgssr.${TARGET_NAME}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Debug;
 		};
@@ -1338,14 +1311,17 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MARKETING_VERSION = 6.8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.srgssr.${TARGET_NAME}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
 		};
 		E6AF7F061D38B8BD00942ADA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08A5BB3623170865002D25DB /* Framework.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1353,13 +1329,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
 				);
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ch.srgssr.SRGDataProvider;
-				PRODUCT_NAME = SRGDataProvider;
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1367,6 +1341,7 @@
 		};
 		E6AF7F071D38B8BD00942ADA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08A5BB3623170865002D25DB /* Framework.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1374,13 +1349,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
 				);
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ch.srgssr.SRGDataProvider;
-				PRODUCT_NAME = SRGDataProvider;
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
