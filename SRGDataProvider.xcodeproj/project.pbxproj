@@ -188,6 +188,7 @@
 		6F6BDCED1E827DDB004BC726 /* RTRServicesTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRServicesTestCase.m; sourceTree = "<group>"; };
 		6F6BFCFE1FCBDB4700378FD9 /* ChapterTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChapterTestCase.m; sourceTree = "<group>"; };
 		6F6E1C721E56269100E88238 /* SRGTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGTypes.m; sourceTree = "<group>"; };
+		6F706D46231D2CD200DCBC6F /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		6F723D901E83FC9100BB5F33 /* SRGSessionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGSessionDelegate.h; sourceTree = "<group>"; };
 		6F723D911E83FC9100BB5F33 /* SRGSessionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGSessionDelegate.m; sourceTree = "<group>"; };
 		6F81CF5B22E0C38800EEA2DE /* SRGDay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGDay.h; sourceTree = "<group>"; };
@@ -515,6 +516,7 @@
 		E6AF7EF31D38B8BD00942ADA = {
 			isa = PBXGroup;
 			children = (
+				6F706D46231D2CD200DCBC6F /* Common.xcconfig */,
 				E6391A951D38E92400E4CBB9 /* Framework */,
 				E600FE5E1D942260000B8A1D /* Tests */,
 				E6AF7F921D38D52300942ADA /* Frameworks */,
@@ -968,8 +970,8 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
-					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)/Static",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_PLATFORM)",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_PLATFORM)/Static",
 				);
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -988,7 +990,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_PLATFORM)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
@@ -1064,8 +1066,8 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
-					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)/Static",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_PLATFORM)",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_PLATFORM)/Static",
 				);
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1084,7 +1086,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_PLATFORM)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
@@ -1175,7 +1177,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_PLATFORM)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
@@ -1190,7 +1192,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_PLATFORM)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
@@ -1329,7 +1331,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_PLATFORM)",
 				);
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1349,7 +1351,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBPATH)",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_PLATFORM)",
 				);
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
