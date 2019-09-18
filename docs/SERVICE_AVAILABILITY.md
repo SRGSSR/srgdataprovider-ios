@@ -31,6 +31,7 @@ Services are currently only available for SRG SSR vendors (SRF, RTS, RSI, RTR an
 | Trending medias | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Latest episodes | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 | Episodes by date | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
+| Videos with tags | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
 
 ### Topics
 
