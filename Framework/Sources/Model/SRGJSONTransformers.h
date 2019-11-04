@@ -10,8 +10,6 @@
  *  Standard transformers for use with Mantle.
  */
 OBJC_EXPORT NSValueTransformer *SRGAudioCodecJSONTransformer(void);
-OBJC_EXPORT NSValueTransformer *SRGAudioTrackSourceJSONTransformer(void);
-OBJC_EXPORT NSValueTransformer *SRGAudioTrackTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGBooleanInversionJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGBlockingReasonJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGContentTypeJSONTransformer(void);
@@ -28,10 +26,10 @@ OBJC_EXPORT NSValueTransformer *SRGStreamingMethodJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGSocialCountTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGSourceJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGSubtitleFormatJSONTransformer(void);
-OBJC_EXPORT NSValueTransformer *SRGSubtitleInformationSourceJSONTransformer(void);
-OBJC_EXPORT NSValueTransformer *SRGSubtitleInformationTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGTokenTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGTransmissionJSONTransformer(void);
+OBJC_EXPORT NSValueTransformer *SRGVariantSourceJSONTransformer(void);
+OBJC_EXPORT NSValueTransformer *SRGVariantTypeJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGVendorJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGVideoCodecJSONTransformer(void);
 OBJC_EXPORT NSValueTransformer *SRGYouthProtectionColorJSONTransformer(void);

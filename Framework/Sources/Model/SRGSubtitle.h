@@ -4,14 +4,14 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGSubtitleInformation.h"
+#import "SRGVariant.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Subtitles file information.
+ *  Subtitle file information.
  */
-@interface SRGSubtitle : SRGSubtitleInformation
+@interface SRGSubtitle : SRGVariant
 
 /**
  *  The format of the subtitle file.

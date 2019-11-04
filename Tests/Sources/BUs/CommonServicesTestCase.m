@@ -384,7 +384,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
 
 // Cannot test -latestMediasForModuleWithURN:completionBlock: yet due to missing reliable data
 
-// TODO: to be adapt with a production content when available.
+// TODO: To be updated with a production content when available.
 - (void)testMediaWithSubtitleInformationsAndAudioTracks
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Ready to play"];
@@ -394,29 +394,30 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
         XCTAssertNotNil(media);
         XCTAssertNil(error);
         
-        XCTAssertEqual(media.subtitleInformations.count, 2);
-        XCTAssertEqual([media subtitleInformationsForSource:SRGSubtitleInformationSourceHLS].count, 1);
-        XCTAssertEqual([media subtitleInformationsForSource:SRGSubtitleInformationSourceExternal].count, 1);
-        XCTAssertEqual([media subtitleInformationsForSource:SRGSubtitleInformationSourceDASH].count, 0);
-        XCTAssertEqual([media recommendedSubtitleInformationSource], SRGSubtitleInformationSourceHLS);
-        XCTAssertEqual(media.audioTracks.count, 1);
-        XCTAssertEqual([media audioTracksForSource:SRGAudioTrackSourceHLS].count, 1);
-        XCTAssertEqual([media recommendedAudioTrackSource], SRGAudioTrackSourceHLS);
+        XCTAssertEqual(media.subtitleVariants.count, 2);
+        XCTAssertEqual([media subtitleVariantsForSource:SRGVariantSourceHLS].count, 1);
+        XCTAssertEqual([media subtitleVariantsForSource:SRGVariantSourceExternal].count, 1);
+        XCTAssertEqual([media subtitleVariantsForSource:SRGVariantSourceDASH].count, 0);
+        XCTAssertEqual(media.recommendedSubtitleVariantSource, SRGVariantSourceHLS);
         
-        SRGSubtitleInformation *HLSSubtitleInformation = [media subtitleInformationsForSource:SRGSubtitleInformationSourceHLS].firstObject;
-        XCTAssertEqual(HLSSubtitleInformation.source, SRGSubtitleInformationSourceHLS);
-        XCTAssertEqual(HLSSubtitleInformation.type, SRGSubtitleInformationTypeSDH);
-        XCTAssertNotNil(HLSSubtitleInformation.locale);
+        XCTAssertEqual(media.audioVariants.count, 1);
+        XCTAssertEqual([media audioVariantsForSource:SRGVariantSourceHLS].count, 1);
+        XCTAssertEqual(media.recommendedAudioVariantSource, SRGVariantSourceHLS);
         
-        SRGSubtitleInformation *externalSubtitleInformation = [media subtitleInformationsForSource:SRGSubtitleInformationSourceExternal].firstObject;
-        XCTAssertEqual(externalSubtitleInformation.source, SRGSubtitleInformationSourceExternal);
-        XCTAssertEqual(externalSubtitleInformation.type, SRGSubtitleInformationTypeSDH);
-        XCTAssertNotNil(externalSubtitleInformation.locale);
+        SRGVariant *HLSSubtitleVariant = [media subtitleVariantsForSource:SRGVariantSourceHLS].firstObject;
+        XCTAssertEqual(HLSSubtitleVariant.source, SRGVariantSourceHLS);
+        XCTAssertEqual(HLSSubtitleVariant.type, SRGVariantTypeSDH);
+        XCTAssertNotNil(HLSSubtitleVariant.locale);
         
-        SRGAudioTrack *audioTrack = media.audioTracks.firstObject;
-        XCTAssertEqual(audioTrack.source, SRGAudioTrackSourceHLS);
-        XCTAssertEqual(audioTrack.type, SRGAudioTrackTypeNone);
-        XCTAssertNotNil(audioTrack.locale);
+        SRGVariant *externalSubtitleVariant = [media subtitleVariantsForSource:SRGVariantSourceExternal].firstObject;
+        XCTAssertEqual(externalSubtitleVariant.source, SRGVariantSourceExternal);
+        XCTAssertEqual(externalSubtitleVariant.type, SRGVariantTypeSDH);
+        XCTAssertNotNil(externalSubtitleVariant.locale);
+        
+        SRGVariant *audioVariant = media.audioVariants.firstObject;
+        XCTAssertEqual(audioVariant.source, SRGVariantSourceHLS);
+        XCTAssertEqual(audioVariant.type, SRGVariantTypeNone);
+        XCTAssertNotNil(audioVariant.locale);
         
         [expectation fulfill];
     }] resume];

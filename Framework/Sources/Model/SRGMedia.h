@@ -4,11 +4,10 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGAudioTrack.h"
 #import "SRGMediaMetadata.h"
 #import "SRGMediaParentMetadata.h"
 #import "SRGModel.h"
-#import "SRGSubtitleInformation.h"
+#import "SRGVariant.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,42 +23,42 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGPresentation presentation;
 
 /**
- *  Audio tracks informations.
+ *  Available audio variants.
  */
-@property (nonatomic, readonly, nullable) NSArray<SRGAudioTrack *> *audioTracks;
+@property (nonatomic, readonly, nullable) NSArray<SRGVariant *> *audioVariants;
 
 /**
- *  Subtitles informations.
+ *  Available subtitle variants.
  */
-@property (nonatomic, readonly, nullable) NSArray<SRGSubtitleInformation *> *subtitleInformations;
+@property (nonatomic, readonly, nullable) NSArray<SRGVariant *> *subtitleVariants;
 
 @end
 
-@interface SRGMedia (AudioTracks)
+@interface SRGMedia (AudioVariants)
 
 /**
- *  The recommended audio track source that can be used. Might return `SRGAudioTrackSourceNone` if no good match is found.
+ *  The recommended audio variant source to use. Might return `SRGVariantSourceNone` if no good match is found.
  */
-@property (nonatomic, readonly) SRGAudioTrackSource recommendedAudioTrackSource;
+@property (nonatomic, readonly) SRGVariantSource recommendedAudioVariantSource;
 
 /**
- *  Return audio tracks matching the specified source.
+ *  Return audio variants matching the specified source.
  */
-- (nullable NSArray<SRGAudioTrack *> *)audioTracksForSource:(SRGAudioTrackSource)audioTrackSource;
+- (nullable NSArray<SRGVariant *> *)audioVariantsForSource:(SRGVariantSource)source;
 
 @end
 
-@interface SRGMedia (SubtitleInformations)
+@interface SRGMedia (SubtitleVariants)
 
 /**
- *  The recommended subtitles information source that can be used. Might return `SRGSubtitleInformationSourceNone` if no good match is found.
+ *  The recommended subtitle variant source to use. Might return `SRGVariantSourceNone` if no good match is found.
  */
-@property (nonatomic, readonly) SRGSubtitleInformationSource recommendedSubtitleInformationSource;
+@property (nonatomic, readonly) SRGVariantSource recommendedSubtitleVariantSource;
 
 /**
- *  Return subtitles informations matching the specified source.
+ *  Return subtitle variants matching the specified source.
  */
-- (nullable NSArray<SRGSubtitleInformation *> *)subtitleInformationsForSource:(SRGSubtitleInformationSource)subtitleInformationSource;
+- (nullable NSArray<SRGVariant *> *)subtitleVariantsForSource:(SRGVariantSource)source;
 
 @end
 

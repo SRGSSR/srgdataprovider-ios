@@ -45,42 +45,6 @@ typedef NS_ENUM(NSInteger, SRGAudioCodec) {
 };
 
 /**
- *  Audio track sources.
- */
-typedef NS_ENUM(NSInteger, SRGAudioTrackSource) {
-    /**
-     *  Not specified.
-     */
-    SRGAudioTrackSourceNone = 0,
-    /**
-     *  HLS source.
-     */
-    SRGAudioTrackSourceHLS,
-    /**
-     *  HDS source.
-     */
-    SRGAudioTrackSourceHDS,
-    /**
-     *  DASH source.
-     */
-    SRGAudioTrackSourceDASH
-};
-
-/**
- *  Audio track types.
- */
-typedef NS_ENUM(NSInteger, SRGAudioTrackType) {
-    /**
-     *  Not specified.
-     */
-    SRGAudioTrackTypeNone = 0,
-    /**
-     *  Audio description.
-     */
-    SRGAudioTrackTypeAudioDescription
-};
-
-/**
  *  Reasons for content blocking.
  */
 typedef NS_ENUM(NSInteger, SRGBlockingReason) {
@@ -405,46 +369,6 @@ typedef NS_ENUM(NSInteger, SRGSubtitleFormat) {
 };
 
 /**
- *  Subtitle information sources.
- */
-typedef NS_ENUM(NSInteger, SRGSubtitleInformationSource) {
-    /**
-     *  Not specified.
-     */
-    SRGSubtitleInformationSourceNone = 0,
-    /**
-     *  External source.
-     */
-    SRGSubtitleInformationSourceExternal,
-    /**
-     *  HLS source.
-     */
-    SRGSubtitleInformationSourceHLS,
-    /**
-     *  HDS source.
-     */
-    SRGSubtitleInformationSourceHDS,
-    /**
-     *  DASH source.
-     */
-    SRGSubtitleInformationSourceDASH
-};
-
-/**
- *  Subtitle information types.
- */
-typedef NS_ENUM(NSInteger, SRGSubtitleInformationType) {
-    /**
-     *  Not specified.
-     */
-    SRGSubtitleInformationTypeNone = 0,
-    /**
-     *  Subtitles for the Deaf and Hard of Hearing.
-     */
-    SRGSubtitleInformationTypeSDH
-};
-
-/**
  *  Token types.
  */
 typedef NS_ENUM(NSInteger, SRGTokenType) {
@@ -485,9 +409,56 @@ typedef NS_ENUM(NSInteger, SRGTransmission) {
 };
 
 /**
+ *  Sources which variants can be retrieved from.
+ */
+typedef NS_ENUM(NSInteger, SRGVariantSource) {
+    /**
+     *  Not specified.
+     */
+    SRGVariantSourceNone = 0,
+    /**
+     *  Supplied as an external file.
+     */
+    SRGVariantSourceExternal,
+    /**
+     *  Supplied within an HLS stream.
+     */
+    SRGVariantSourceHLS,
+    /**
+     *  Supplied within an HDS stream.
+     */
+    SRGVariantSourceHDS,
+    /**
+     *  Supplied within a DASH stream.
+     */
+    SRGVariantSourceDASH
+};
+
+/**
+ *  Variant types.
+ */
+typedef NS_ENUM(NSInteger, SRGVariantType) {
+    /**
+     *  Not specified.
+     */
+    SRGVariantTypeNone = 0,
+    /**
+     *  Audio description.
+     */
+    SRGVariantTypeAudioDescription,
+    /**
+     *  Subtitles for the Deaf and Hard of Hearing.
+     */
+    SRGVariantTypeSDH
+};
+
+/**
  *  Content producers and providers.
  */
 typedef NS_ENUM(NSInteger, SRGVendor) {
+    /**
+     *  Not specified.
+     */
     SRGVendorNone = 0,
     /**
      *  SRG SSR business units.

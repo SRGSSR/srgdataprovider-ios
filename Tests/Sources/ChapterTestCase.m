@@ -37,8 +37,8 @@ static NSURL *ServiceTestURL(void)
         
         SRGSubtitle *subtitle = [mainChapter subtitlesWithFormat:mainChapter.recommendedSubtitleFormat].firstObject;
         XCTAssertEqual(subtitle.format, SRGSubtitleFormatVTT);
-        XCTAssertEqual(subtitle.source, SRGSubtitleInformationSourceExternal);
-        XCTAssertEqual(subtitle.type, SRGSubtitleInformationTypeSDH);
+        XCTAssertEqual(subtitle.source, SRGVariantSourceExternal);
+        XCTAssertEqual(subtitle.type, SRGVariantTypeSDH);
         XCTAssertNotNil(subtitle.locale);
         XCTAssertNotNil(subtitle.URL);
         
@@ -62,18 +62,18 @@ static NSURL *ServiceTestURL(void)
         
         SRGSubtitle *subtitle = [mainChapter subtitlesWithFormat:mainChapter.recommendedSubtitleFormat].firstObject;
         XCTAssertEqual(subtitle.format, SRGSubtitleFormatVTT);
-        XCTAssertEqual(subtitle.source, SRGSubtitleInformationSourceExternal);
-        XCTAssertEqual(subtitle.type, SRGSubtitleInformationTypeSDH);
+        XCTAssertEqual(subtitle.source, SRGVariantSourceExternal);
+        XCTAssertEqual(subtitle.type, SRGVariantTypeSDH);
         XCTAssertNotNil(subtitle.locale);
         XCTAssertNotNil(subtitle.URL);
         
         SRGResource *resource = [mainChapter resourcesForStreamingMethod:mainChapter.recommendedStreamingMethod].firstObject;
-        XCTAssertEqual(resource.subtitleInformations.count, 1);
+        XCTAssertEqual(resource.subtitleVariants.count, 1);
         
-        SRGSubtitleInformation *subtitleInformation = resource.subtitleInformations.firstObject;
-        XCTAssertEqual(subtitleInformation.source, SRGSubtitleInformationSourceHLS);
-        XCTAssertEqual(subtitleInformation.type, SRGSubtitleInformationTypeSDH);
-        XCTAssertNotNil(subtitleInformation.locale);
+        SRGVariant *subtitleVariant = resource.subtitleVariants.firstObject;
+        XCTAssertEqual(subtitleVariant.source, SRGVariantSourceHLS);
+        XCTAssertEqual(subtitleVariant.type, SRGVariantTypeSDH);
+        XCTAssertNotNil(subtitleVariant.locale);
         
         [expectation2 fulfill];
     }] resume];
@@ -81,7 +81,7 @@ static NSURL *ServiceTestURL(void)
     [self waitForExpectationsWithTimeout:20. handler:nil];
 }
 
-// TODO: to be adapt with a production content when available.
+// TODO: to be updated with a production content when available.
 - (void)testResourcesWithSubtitleInformationsAndAudioTracks
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Ready to play"];
@@ -100,24 +100,24 @@ static NSURL *ServiceTestURL(void)
         
         SRGSubtitle *subtitle = [mainChapter subtitlesWithFormat:mainChapter.recommendedSubtitleFormat].firstObject;
         XCTAssertEqual(subtitle.format, SRGSubtitleFormatVTT);
-        XCTAssertEqual(subtitle.source, SRGSubtitleInformationSourceExternal);
-        XCTAssertEqual(subtitle.type, SRGSubtitleInformationTypeSDH);
+        XCTAssertEqual(subtitle.source, SRGVariantSourceExternal);
+        XCTAssertEqual(subtitle.type, SRGVariantTypeSDH);
         XCTAssertNotNil(subtitle.locale);
         XCTAssertNotNil(subtitle.URL);
         
         SRGResource *resource = [mainChapter resourcesForStreamingMethod:mainChapter.recommendedStreamingMethod].firstObject;
-        XCTAssertEqual(resource.subtitleInformations.count, 1);
-        XCTAssertEqual(resource.audioTracks.count, 1);
+        XCTAssertEqual(resource.subtitleVariants.count, 1);
+        XCTAssertEqual(resource.audioVariants.count, 1);
         
-        SRGSubtitleInformation *subtitleInformation = resource.subtitleInformations.firstObject;
-        XCTAssertEqual(subtitleInformation.source, SRGSubtitleInformationSourceHLS);
-        XCTAssertEqual(subtitleInformation.type, SRGSubtitleInformationTypeSDH);
-        XCTAssertNotNil(subtitleInformation.locale);
+        SRGVariant *subtitleVariant = resource.subtitleVariants.firstObject;
+        XCTAssertEqual(subtitleVariant.source, SRGVariantSourceHLS);
+        XCTAssertEqual(subtitleVariant.type, SRGVariantTypeSDH);
+        XCTAssertNotNil(subtitleVariant.locale);
         
-        SRGAudioTrack *audioTrack = resource.audioTracks.firstObject;
-        XCTAssertEqual(audioTrack.source, SRGAudioTrackSourceHLS);
-        XCTAssertEqual(audioTrack.type, SRGAudioTrackTypeNone);
-        XCTAssertNotNil(audioTrack.locale);
+        SRGVariant *audioVariant = resource.audioVariants.firstObject;
+        XCTAssertEqual(audioVariant.source, SRGVariantSourceHLS);
+        XCTAssertEqual(audioVariant.type, SRGVariantTypeNone);
+        XCTAssertNotNil(audioVariant.locale);
         
         [expectation fulfill];
     }] resume];

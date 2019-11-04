@@ -24,8 +24,8 @@
 @property (nonatomic) SRGVideoCodec videoCodec;
 @property (nonatomic) SRGTokenType tokenType;
 @property (nonatomic) NSArray<SRGDRM *> *DRMs;
-@property (nonatomic) NSArray<SRGSubtitleInformation *> *subtitleInformations;
-@property (nonatomic) NSArray<SRGAudioTrack *> *audioTracks;
+@property (nonatomic) NSArray<SRGVariant *> *subtitleVariants;
+@property (nonatomic) NSArray<SRGVariant *> *audioVariants;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *comScoreAnalyticsLabels;
 
@@ -52,8 +52,8 @@
                        @keypath(SRGResource.new, videoCodec) : @"videoCodec",
                        @keypath(SRGResource.new, tokenType) : @"tokenType",
                        @keypath(SRGResource.new, DRMs) : @"drmList",
-                       @keypath(SRGResource.new, subtitleInformations) : @"subtitleInformationList",
-                       @keypath(SRGResource.new, audioTracks) : @"audioTrackList",
+                       @keypath(SRGResource.new, subtitleVariants) : @"subtitleInformationList",
+                       @keypath(SRGResource.new, audioVariants) : @"audioTrackList",
                        @keypath(SRGResource.new, analyticsLabels) : @"analyticsMetadata",
                        @keypath(SRGResource.new, comScoreAnalyticsLabels) : @"analyticsData" };
     });
@@ -122,14 +122,14 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:SRGDRM.class];
 }
 
-+ (NSValueTransformer *)subtitleInformationsJSONTransformer
++ (NSValueTransformer *)subtitleVariantsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGSubtitleInformation.class];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGVariant.class];
 }
 
-+ (NSValueTransformer *)audioTracksJSONTransformer
++ (NSValueTransformer *)audioVariantsJSONTransformer
 {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGAudioTrack.class];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGVariant.class];
 }
 
 #pragma mark Helpers
