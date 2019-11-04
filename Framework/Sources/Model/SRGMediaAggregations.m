@@ -35,9 +35,9 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
+        NSMutableDictionary *mapping = [super JSONKeyPathsByPropertyKey].mutableCopy;
         [mapping addEntriesFromDictionary:@{ @keypath(SRGDateBucket.new, date) : @"date" }];
-        s_mapping = [mapping copy];
+        s_mapping = mapping.copy;
     });
     return s_mapping;
 }
@@ -72,9 +72,9 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
+        NSMutableDictionary *mapping = [super JSONKeyPathsByPropertyKey].mutableCopy;
         [mapping addEntriesFromDictionary:@{ @keypath(SRGDownloadAvailableBucket.new, downloadAvailable) : @"downloadAvailable" }];
-        s_mapping = [mapping copy];
+        s_mapping = mapping.copy;
     });
     return s_mapping;
 }
@@ -90,9 +90,9 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
+        NSMutableDictionary *mapping = [super JSONKeyPathsByPropertyKey].mutableCopy;
         [mapping addEntriesFromDictionary:@{ @keypath(SRGDurationBucket.new, duration) : @"duration" }];
-        s_mapping = [mapping copy];
+        s_mapping = mapping.copy;
     });
     return s_mapping;
 }
@@ -108,9 +108,9 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
+        NSMutableDictionary *mapping = [super JSONKeyPathsByPropertyKey].mutableCopy;
         [mapping addEntriesFromDictionary:@{ @keypath(SRGMediaTypeBucket.new, mediaType) : @"mediaType" }];
-        s_mapping = [mapping copy];
+        s_mapping = mapping.copy;
     });
     return s_mapping;
 }
@@ -133,9 +133,9 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
+        NSMutableDictionary *mapping = [super JSONKeyPathsByPropertyKey].mutableCopy;
         [mapping addEntriesFromDictionary:@{ @keypath(SRGPlayableAbroadBucket.new, playableAbroad) : @"playableAbroad" }];
-        s_mapping = [mapping copy];
+        s_mapping = mapping.copy;
     });
     return s_mapping;
 }
@@ -151,9 +151,9 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
+        NSMutableDictionary *mapping = [super JSONKeyPathsByPropertyKey].mutableCopy;
         [mapping addEntriesFromDictionary:@{ @keypath(SRGQualityBucket.new, quality) : @"quality" }];
-        s_mapping = [mapping copy];
+        s_mapping = mapping.copy;
     });
     return s_mapping;
 }
@@ -176,10 +176,10 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
+        NSMutableDictionary *mapping = [super JSONKeyPathsByPropertyKey].mutableCopy;
         [mapping addEntriesFromDictionary:@{ @keypath(SRGShowBucket.new, URN) : @"urn",
                                              @keypath(SRGShowBucket.new, title) : @"title" }];
-        s_mapping = [mapping copy];
+        s_mapping = mapping.copy;
     });
     return s_mapping;
 }
@@ -195,9 +195,9 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
+        NSMutableDictionary *mapping = [super JSONKeyPathsByPropertyKey].mutableCopy;
         [mapping addEntriesFromDictionary:@{ @keypath(SRGSubtitlesAvailableBucket.new, subtitlesAvailable) : @"subtitlesAvailable" }];
-        s_mapping = [mapping copy];
+        s_mapping = mapping.copy;
     });
     return s_mapping;
 }
@@ -213,10 +213,10 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
+        NSMutableDictionary *mapping = [super JSONKeyPathsByPropertyKey].mutableCopy;
         [mapping addEntriesFromDictionary:@{ @keypath(SRGShowBucket.new, URN) : @"urn",
                                              @keypath(SRGShowBucket.new, title) : @"title" }];
-        s_mapping = [mapping copy];
+        s_mapping = mapping.copy;
     });
     return s_mapping;
 }

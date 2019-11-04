@@ -26,7 +26,7 @@
         
     }
     [description appendFormat:@"%@)", normalIndentationString];
-    return [description copy];
+    return description.copy;
 }
 
 @end

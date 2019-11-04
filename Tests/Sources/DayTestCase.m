@@ -111,7 +111,7 @@
 - (void)testCopy
 {
     SRGDay *day = [SRGDay day:7 month:5 year:2010];
-    SRGDay *dayCopy = [day copy];
+    SRGDay *dayCopy = day.copy;
     XCTAssertEqualObjects(day, dayCopy);
 }
 
