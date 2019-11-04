@@ -26,10 +26,10 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
+        NSMutableDictionary *mapping = [super JSONKeyPathsByPropertyKey].mutableCopy;
         [mapping addEntriesFromDictionary:@{ @keypath(SRGAudioTrack.new, source) : @"source",
                                              @keypath(SRGAudioTrack.new, type) : @"type" }];
-        s_mapping = [mapping copy];
+        s_mapping = mapping.copy;
     });
     return s_mapping;
 }
