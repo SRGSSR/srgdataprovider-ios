@@ -103,4 +103,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface SRGResource (AudioVariants)
+
+/**
+ *  The recommended audio variant source to use. Might return `SRGVariantSourceNone` if no good match is found.
+ */
+@property (nonatomic, readonly) SRGVariantSource recommendedAudioVariantSource;
+
+/**
+ *  Return audio variants matching the specified source.
+ */
+- (nullable NSArray<SRGVariant *> *)audioVariantsForSource:(SRGVariantSource)source;
+
+@end
+
+@interface SRGResource (SubtitleVariants)
+
+/**
+ *  The recommended subtitle variant source to use. Might return `SRGVariantSourceNone` if no good match is found.
+ */
+@property (nonatomic, readonly) SRGVariantSource recommendedSubtitleVariantSource;
+
+/**
+ *  Return subtitle variants matching the specified source.
+ */
+- (nullable NSArray<SRGVariant *> *)subtitleVariantsForSource:(SRGVariantSource)source;
+
+@end
+
+
 NS_ASSUME_NONNULL_END

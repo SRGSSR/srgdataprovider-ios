@@ -158,3 +158,43 @@
 }
 
 @end
+
+@implementation SRGResource (AudioVariants)
+
+- (SRGVariantSource)recommendedAudioVariantSource
+{
+    SRGVariantSource source = SRGVariantSourceHLS;
+    if ([self audioVariantsForSource:source].count != 0) {
+        return source;
+    }
+    
+    return SRGVariantSourceNone;
+}
+
+- (NSArray<SRGVariant *> *)audioVariantsForSource:(SRGVariantSource)source
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGVariant.new, source), @(source)];
+    return [self.audioVariants filteredArrayUsingPredicate:predicate];
+}
+
+@end
+
+@implementation SRGResource (SubtitleVariants)
+
+- (SRGVariantSource)recommendedSubtitleVariantSource
+{
+    SRGVariantSource source = SRGVariantSourceHLS;
+    if ([self subtitleVariantsForSource:source].count != 0) {
+        return source;
+    }
+    
+    return SRGVariantSourceNone;
+}
+
+- (NSArray<SRGVariant *> *)subtitleVariantsForSource:(SRGVariantSource)source
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGVariant.new, source), @(source)];
+    return [self.subtitleVariants filteredArrayUsingPredicate:predicate];
+}
+
+@end
