@@ -108,6 +108,10 @@ static NSURL *ServiceTestURL(void)
         SRGResource *resource = [mainChapter resourcesForStreamingMethod:mainChapter.recommendedStreamingMethod].firstObject;
         XCTAssertEqual(resource.subtitleVariants.count, 1);
         XCTAssertEqual(resource.audioVariants.count, 1);
+        XCTAssertEqual([resource audioVariantsForSource:SRGVariantSourceHLS].count, 1);
+        XCTAssertEqual(resource.recommendedAudioVariantSource, SRGVariantSourceHLS);
+        XCTAssertEqual([resource subtitleVariantsForSource:SRGVariantSourceHLS].count, 1);
+        XCTAssertEqual(resource.recommendedSubtitleVariantSource, SRGVariantSourceHLS);
         
         SRGVariant *subtitleVariant = resource.subtitleVariants.firstObject;
         XCTAssertEqual(subtitleVariant.source, SRGVariantSourceHLS);
