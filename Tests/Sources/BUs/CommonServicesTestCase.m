@@ -141,7 +141,8 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
     
-    __block SRGFirstPageRequest *request1 = [[self.dataProvider mediasWithURNs:@[kVideoRTSURN, kVideoRTSOtherURN, kMediaSRFURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    __block SRGFirstPageRequest *request1 = nil;
+    request1 = [[self.dataProvider mediasWithURNs:@[kVideoRTSURN, kVideoRTSOtherURN, kMediaSRFURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNil(error);
         
         if (page.number == 0) {
