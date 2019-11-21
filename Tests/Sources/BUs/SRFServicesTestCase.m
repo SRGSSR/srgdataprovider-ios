@@ -82,7 +82,7 @@ static NSString * const kTag2 = @"curling";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testTVChannelPrograms
+- (void)testTVLatestPrograms
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     

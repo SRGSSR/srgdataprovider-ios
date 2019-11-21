@@ -78,7 +78,7 @@ static NSString * const kUserId = @"test_user_id";
 }
 
 // Not supported for SWI
-- (void)testTVChannelPrograms
+- (void)testTVLatestPrograms
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
