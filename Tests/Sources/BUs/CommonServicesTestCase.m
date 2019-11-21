@@ -385,7 +385,7 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
 // Cannot test -latestMediasForModuleWithURN:completionBlock: yet due to missing reliable data
 
 // TODO: To be updated with a production content when available.
-- (void)testMediaWithSubtitleInformationsAndAudioTracks
+- (void)testMediaWithSubtitleInformationAndAudioTracks
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     

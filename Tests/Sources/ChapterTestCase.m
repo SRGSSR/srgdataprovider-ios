@@ -82,7 +82,7 @@ static NSURL *ServiceTestURL(void)
 }
 
 // TODO: to be updated with a production content when available.
-- (void)testResourcesWithSubtitleInformationsAndAudioTracks
+- (void)testResourcesWithSubtitleInformationAndAudioTracks
 {
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"Ready to play"];
 
