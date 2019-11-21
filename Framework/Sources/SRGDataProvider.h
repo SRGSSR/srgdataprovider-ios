@@ -32,6 +32,7 @@
 #import "SRGModuleIdentifierMetadata.h"
 #import "SRGPresenter.h"
 #import "SRGProgram.h"
+#import "SRGProgramComposition.h"
 #import "SRGRelatedContent.h"
 #import "SRGResource.h"
 #import "SRGScheduledLivestreamMetadata.h"
@@ -96,6 +97,7 @@ typedef void (^SRGTopicListCompletionBlock)(NSArray<SRGTopic *> * _Nullable topi
 typedef void (^SRGPaginatedEpisodeCompositionCompletionBlock)(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGPaginatedMediaListCompletionBlock)(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGPaginatedMediaSearchCompletionBlock)(NSArray<NSString *> * _Nullable mediaURNs, NSNumber *total, SRGMediaAggregations * _Nullable aggregations, NSArray<SRGSearchSuggestion *> * _Nullable suggestions, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
+typedef void (^SRGPaginatedProgramCompositionCompletionBlock)(SRGProgramComposition * _Nullable programComposition, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGPaginatedShowListCompletionBlock)(NSArray<SRGShow *> * _Nullable shows, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGPaginatedShowSearchCompletionBlock)(NSArray<NSString *> * _Nullable showURNs, NSNumber *total, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
 typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullable songs, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error);
@@ -241,13 +243,23 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                 withCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
 
 /**
- *  Specific TV channel. Use this request to obtain complete channel information, including current and next programs).
+ *  Specific TV channel. Use this request to obtain complete channel information, including current and next programs.
  *
  *  Please https://github.com/SRGSSR/srgdataprovider-ios/wiki/Channel-information for more information about this method.
  */
 - (SRGRequest *)tvChannelForVendor:(SRGVendor)vendor
                            withUid:(NSString *)channelUid
                    completionBlock:(SRGChannelCompletionBlock)completionBlock;
+
+/**
+ *  Latest programs for a specific TV channel, including current and next programs.
+ *
+ *  @discussion Though the completion block does not return an array directly, this request supports pagination (for programs
+ *              returned in the program composition object).
+ */
+- (SRGFirstPageRequest *)tvLatestProgramsForVendor:(SRGVendor)vendor
+                                        channelUid:(NSString *)channelUid
+                                   completionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock;
 
 /**
  *  List of TV livestreams.
@@ -377,7 +389,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                    withCompletionBlock:(SRGChannelListCompletionBlock)completionBlock;
 
 /**
- *  Specific radio channel. Use this request to obtain complete channel information, including current and next programs).
+ *  Specific radio channel. Use this request to obtain complete channel information, including current and next programs.
  *
  *  Please https://github.com/SRGSSR/srgdataprovider-ios/wiki/Channel-information for more information about this method.
  *
@@ -388,6 +400,16 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                               withUid:(NSString *)channelUid
                         livestreamUid:(nullable NSString *)livestreamUid
                       completionBlock:(SRGChannelCompletionBlock)completionBlock;
+
+/**
+ *  Latest programs for a specific radio channel, including current and next programs.
+ *
+ *  @discussion Though the completion block does not return an array directly, this request supports pagination (for programs
+ *              returned in the program composition object).
+ */
+- (SRGFirstPageRequest *)radioLatestProgramsForVendor:(SRGVendor)vendor
+                                           channelUid:(NSString *)channelUid
+                                      completionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock;
 
 /**
  *  List of radio livestreams for a channel.
