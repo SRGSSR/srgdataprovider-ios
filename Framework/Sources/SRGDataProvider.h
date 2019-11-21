@@ -52,6 +52,7 @@
 #import "SRGTopic.h"
 #import "SRGTopicIdentifierMetadata.h"
 #import "SRGTypes.h"
+#import "SRGVariant.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

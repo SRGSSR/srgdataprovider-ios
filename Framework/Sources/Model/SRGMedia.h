@@ -7,6 +7,7 @@
 #import "SRGMediaMetadata.h"
 #import "SRGMediaParentMetadata.h"
 #import "SRGModel.h"
+#import "SRGVariant.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,6 +21,44 @@ NS_ASSUME_NONNULL_BEGIN
  *  The recommended way to present the media.
  */
 @property (nonatomic, readonly) SRGPresentation presentation;
+
+/**
+ *  Available audio variants.
+ */
+@property (nonatomic, readonly, nullable) NSArray<SRGVariant *> *audioVariants;
+
+/**
+ *  Available subtitle variants.
+ */
+@property (nonatomic, readonly, nullable) NSArray<SRGVariant *> *subtitleVariants;
+
+@end
+
+@interface SRGMedia (AudioVariants)
+
+/**
+ *  The recommended audio variant source to use. Might return `SRGVariantSourceNone` if no good match is found.
+ */
+@property (nonatomic, readonly) SRGVariantSource recommendedAudioVariantSource;
+
+/**
+ *  Return audio variants matching the specified source.
+ */
+- (nullable NSArray<SRGVariant *> *)audioVariantsForSource:(SRGVariantSource)source;
+
+@end
+
+@interface SRGMedia (SubtitleVariants)
+
+/**
+ *  The recommended subtitle variant source to use. Might return `SRGVariantSourceNone` if no good match is found.
+ */
+@property (nonatomic, readonly) SRGVariantSource recommendedSubtitleVariantSource;
+
+/**
+ *  Return subtitle variants matching the specified source.
+ */
+- (nullable NSArray<SRGVariant *> *)subtitleVariantsForSource:(SRGVariantSource)source;
 
 @end
 

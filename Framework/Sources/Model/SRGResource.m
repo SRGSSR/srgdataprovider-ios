@@ -24,6 +24,8 @@
 @property (nonatomic) SRGVideoCodec videoCodec;
 @property (nonatomic) SRGTokenType tokenType;
 @property (nonatomic) NSArray<SRGDRM *> *DRMs;
+@property (nonatomic) NSArray<SRGVariant *> *subtitleVariants;
+@property (nonatomic) NSArray<SRGVariant *> *audioVariants;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *analyticsLabels;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *comScoreAnalyticsLabels;
 
@@ -50,6 +52,8 @@
                        @keypath(SRGResource.new, videoCodec) : @"videoCodec",
                        @keypath(SRGResource.new, tokenType) : @"tokenType",
                        @keypath(SRGResource.new, DRMs) : @"drmList",
+                       @keypath(SRGResource.new, subtitleVariants) : @"subtitleInformationList",
+                       @keypath(SRGResource.new, audioVariants) : @"audioTrackList",
                        @keypath(SRGResource.new, analyticsLabels) : @"analyticsMetadata",
                        @keypath(SRGResource.new, comScoreAnalyticsLabels) : @"analyticsData" };
     });
@@ -118,6 +122,16 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:SRGDRM.class];
 }
 
++ (NSValueTransformer *)subtitleVariantsJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGVariant.class];
+}
+
++ (NSValueTransformer *)audioVariantsJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGVariant.class];
+}
+
 #pragma mark Helpers
 
 - (SRGDRM *)DRMWithType:(SRGDRMType)type
@@ -141,6 +155,46 @@
 - (NSUInteger)hash
 {
     return self.URL.hash;
+}
+
+@end
+
+@implementation SRGResource (AudioVariants)
+
+- (SRGVariantSource)recommendedAudioVariantSource
+{
+    SRGVariantSource source = SRGVariantSourceHLS;
+    if ([self audioVariantsForSource:source].count != 0) {
+        return source;
+    }
+    
+    return SRGVariantSourceNone;
+}
+
+- (NSArray<SRGVariant *> *)audioVariantsForSource:(SRGVariantSource)source
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGVariant.new, source), @(source)];
+    return [self.audioVariants filteredArrayUsingPredicate:predicate];
+}
+
+@end
+
+@implementation SRGResource (SubtitleVariants)
+
+- (SRGVariantSource)recommendedSubtitleVariantSource
+{
+    SRGVariantSource source = SRGVariantSourceHLS;
+    if ([self subtitleVariantsForSource:source].count != 0) {
+        return source;
+    }
+    
+    return SRGVariantSourceNone;
+}
+
+- (NSArray<SRGVariant *> *)subtitleVariantsForSource:(SRGVariantSource)source
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGVariant.new, source), @(source)];
+    return [self.subtitleVariants filteredArrayUsingPredicate:predicate];
 }
 
 @end

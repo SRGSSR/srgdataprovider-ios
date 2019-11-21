@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		08047CF72309D7E20012CFBC /* SRGProgramComposition.h in Headers */ = {isa = PBXBuildFile; fileRef = 08047CF52309D7E10012CFBC /* SRGProgramComposition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08047CF82309D7E20012CFBC /* SRGProgramComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 08047CF62309D7E20012CFBC /* SRGProgramComposition.m */; };
+		082FA42522B439D2006BCD62 /* SRGVariant.m in Sources */ = {isa = PBXBuildFile; fileRef = 082FA42322B439D2006BCD62 /* SRGVariant.m */; };
+		082FA42622B439D2006BCD62 /* SRGVariant.h in Headers */ = {isa = PBXBuildFile; fileRef = 082FA42422B439D2006BCD62 /* SRGVariant.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		083F41561DB6D59F00FEA340 /* SRGMediaParentMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 083F41551DB6D59F00FEA340 /* SRGMediaParentMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		087C58CE1F5D740F0058D310 /* SRGMediaExtendedMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C58CD1F5D740F0058D310 /* SRGMediaExtendedMetadata.m */; };
 		087C58D11F5D75B10058D310 /* MediaMetadataTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C58CF1F5D75A60058D310 /* MediaMetadataTestCase.m */; };
@@ -156,6 +158,8 @@
 /* Begin PBXFileReference section */
 		08047CF52309D7E10012CFBC /* SRGProgramComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGProgramComposition.h; sourceTree = "<group>"; };
 		08047CF62309D7E20012CFBC /* SRGProgramComposition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGProgramComposition.m; sourceTree = "<group>"; };
+		082FA42322B439D2006BCD62 /* SRGVariant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGVariant.m; sourceTree = "<group>"; };
+		082FA42422B439D2006BCD62 /* SRGVariant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGVariant.h; sourceTree = "<group>"; };
 		083F41551DB6D59F00FEA340 /* SRGMediaParentMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGMediaParentMetadata.h; sourceTree = "<group>"; };
 		087C58CD1F5D740F0058D310 /* SRGMediaExtendedMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGMediaExtendedMetadata.m; sourceTree = "<group>"; };
 		087C58CF1F5D75A60058D310 /* MediaMetadataTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaMetadataTestCase.m; sourceTree = "<group>"; };
@@ -496,6 +500,8 @@
 				E6391A9A1D38E92400E4CBB9 /* SRGTopic.m */,
 				E67BB6731D3E01C900E1FEA3 /* SRGTypes.h */,
 				6F6E1C721E56269100E88238 /* SRGTypes.m */,
+				082FA42422B439D2006BCD62 /* SRGVariant.h */,
+				082FA42322B439D2006BCD62 /* SRGVariant.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -633,6 +639,7 @@
 				083F41561DB6D59F00FEA340 /* SRGMediaParentMetadata.h in Headers */,
 				6FDB9A8D2011DEF800EBEB3C /* SRGTopicIdentifierMetadata.h in Headers */,
 				E6AE51461D40AA0100572CE4 /* SRGSubtitle.h in Headers */,
+				082FA42622B439D2006BCD62 /* SRGVariant.h in Headers */,
 				E68598C01D40FF950010000A /* SRGProgram.h in Headers */,
 				E68598AA1D40CC750010000A /* SRGSubdivision.h in Headers */,
 				E6AE513A1D4093B700572CE4 /* NSURL+SRGDataProvider.h in Headers */,
@@ -812,6 +819,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08879BFC1FEC58D300CF3980 /* SRGBaseTopic.m in Sources */,
+				0823F2B72386DFC500251BDE /* SRGSubtitleInformation.m in Sources */,
 				E67BB67A1D3E041900E1FEA3 /* SRGJSONTransformers.m in Sources */,
 				08B09F6A22FB0112000EFCBB /* SRGShowStatisticsOverview.m in Sources */,
 				6FC024B11E1D001600550881 /* SRGSearchResult.m in Sources */,
@@ -831,6 +839,7 @@
 				E68598C11D40FF950010000A /* SRGProgram.m in Sources */,
 				6FEFFF031F02A0FE00CD6FCA /* SRGAlbum.m in Sources */,
 				6FB156171E83D20B00389D04 /* NSDictionary+SRGDataProvider.m in Sources */,
+				082FA42522B439D2006BCD62 /* SRGVariant.m in Sources */,
 				E6C2B3C01D390EEF00B6250B /* SRGMedia.m in Sources */,
 				E6C2B3FD1D392F2300B6250B /* SRGChapter.m in Sources */,
 				08047CF82309D7E20012CFBC /* SRGProgramComposition.m in Sources */,
