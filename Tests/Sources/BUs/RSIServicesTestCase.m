@@ -942,7 +942,7 @@ static NSString * const kUserId = @"test_user_id";
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider mediaCompositionForURN:@"urn:rsi:video:9014449" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"8950717");
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"9014650");
         [expectation2 fulfill];
     }] resume];
     
