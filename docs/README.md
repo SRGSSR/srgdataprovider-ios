@@ -1,6 +1,6 @@
-[![SRG Data Provider logo](README-images/logo.png)](https://github.com/SRGSSR/srgdataprovider-ios)
+[![SRG Data Provider logo](README-images/logo.png)](https://github.com/SRGSSR/srgdataprovider-apple)
 
-[![GitHub releases](https://img.shields.io/github/v/release/SRGSSR/srgdataprovider-ios)](https://github.com/SRGSSR/srgdataprovider-ios/releases) [![platform](https://img.shields.io/badge/platfom-ios%20%7C%20tvos%20%7C%20watchos-blue)](https://github.com/SRGSSR/srgdataprovider-ios) [![Build Status](https://travis-ci.org/SRGSSR/srgdataprovider-ios.svg?branch=master)](https://travis-ci.org/SRGSSR/srgdataprovider-ios/branches) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![GitHub license](https://img.shields.io/github/license/SRGSSR/srgdataprovider-ios)](https://github.com/SRGSSR/srgdataprovider-ios/blob/master/LICENSE)
+[![GitHub releases](https://img.shields.io/github/v/release/SRGSSR/srgdataprovider-apple)](https://github.com/SRGSSR/srgdataprovider-apple/releases) [![platform](https://img.shields.io/badge/platfom-ios%20%7C%20tvos%20%7C%20watchos-blue)](https://github.com/SRGSSR/srgdataprovider-apple) [![Build Status](https://travis-ci.org/SRGSSR/srgdataprovider-apple.svg?branch=master)](https://travis-ci.org/SRGSSR/srgdataprovider-apple/branches) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![GitHub license](https://img.shields.io/github/license/SRGSSR/srgdataprovider-apple)](https://github.com/SRGSSR/srgdataprovider-apple/blob/master/LICENSE)
 
 ## About
 
@@ -14,7 +14,7 @@ The library provides:
 
 ## Compatibility
 
-The library is suitable for applications running on iOS 9, tvOS 9, watchOS 3 and above. The project is meant to be opened with the latest Xcode version.
+The library is suitable for applications running on iOS 9, tvOS 12, watchOS 5 and above. The project is meant to be opened with the latest Xcode version.
 
 ## Contributing
 
@@ -25,7 +25,7 @@ If you want to contribute to the project, have a look at our [contributing guide
 The library can be added to a project using [Carthage](https://github.com/Carthage/Carthage) by adding the following dependency to your `Cartfile`:
     
 ```
-github "SRGSSR/srgdataprovider-ios"
+github "SRGSSR/srgdataprovider-apple"
 ```
 
 For more information about Carthage and its use, refer to the [official documentation](https://github.com/Carthage/Carthage).
@@ -90,7 +90,7 @@ To learn about how the library can be used, have a look at the [getting started 
 
 ### Logging
 
-The library internally uses the [SRG Logger](https://github.com/SRGSSR/srglogger-ios) library for logging, within the `ch.srgssr.dataprovider` subsystem. This logger either automatically integrates with your own logger, or can be easily integrated with it. Refer to the SRG Logger documentation for more information.
+The library internally uses the [SRG Logger](https://github.com/SRGSSR/srglogger-apple) library for logging, within the `ch.srgssr.dataprovider` subsystem. This logger either automatically integrates with your own logger, or can be easily integrated with it. Refer to the SRG Logger documentation for more information.
 
 ## Building the project
 
