@@ -38,7 +38,7 @@
         [description appendFormat:@"%@%@ = %@;\n", fieldIndentationString, propertyKey, formattedValue];
     }
     [description appendFormat:@"%@}", normalIndentationString];
-    return [description copy];
+    return description.copy;
 }
 
 #pragma mark Description

@@ -141,7 +141,8 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
     
-    __block SRGFirstPageRequest *request1 = [[self.dataProvider mediasWithURNs:@[kVideoRTSURN, kVideoRTSOtherURN, kMediaSRFURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    __block SRGFirstPageRequest *request1 = nil;
+    request1 = [[self.dataProvider mediasWithURNs:@[kVideoRTSURN, kVideoRTSOtherURN, kMediaSRFURN] completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNil(error);
         
         if (page.number == 0) {
@@ -382,5 +383,69 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
 }
 
 // Cannot test -latestMediasForModuleWithURN:completionBlock: yet due to missing reliable data
+
+- (void)testMediaWithSubtitleInformationAndAudioTracks
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider mediaWithURN:@"urn:srf:video:f8239f1d-c105-4f97-b6a6-1a0fe32951d4" completionBlock:^(SRGMedia * _Nullable media, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(media);
+        XCTAssertNil(error);
+        
+        XCTAssertEqual(media.subtitleVariants.count, 1);
+        XCTAssertEqual([media subtitleVariantsForSource:SRGVariantSourceHLS].count, 1);
+        XCTAssertEqual([media subtitleVariantsForSource:SRGVariantSourceExternal].count, 0);
+        XCTAssertEqual([media subtitleVariantsForSource:SRGVariantSourceDASH].count, 0);
+        XCTAssertEqual(media.recommendedSubtitleVariantSource, SRGVariantSourceHLS);
+        
+        XCTAssertEqual(media.audioVariants.count, 0);
+        
+        SRGVariant *HLSSubtitleVariant = [media subtitleVariantsForSource:SRGVariantSourceHLS].firstObject;
+        XCTAssertEqual(HLSSubtitleVariant.source, SRGVariantSourceHLS);
+        XCTAssertEqual(HLSSubtitleVariant.type, SRGVariantTypeSDH);
+        XCTAssertNotNil(HLSSubtitleVariant.locale);
+        
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:20. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:[NSURL URLWithString:@"https://play-mmf.herokuapp.com/integrationlayer"]];
+    [[self.dataProvider mediaWithURN:@"urn:rts:video:_rts19h30_2" completionBlock:^(SRGMedia * _Nullable media, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(media);
+        XCTAssertNil(error);
+        
+        XCTAssertEqual(media.subtitleVariants.count, 2);
+        XCTAssertEqual([media subtitleVariantsForSource:SRGVariantSourceHLS].count, 1);
+        XCTAssertEqual([media subtitleVariantsForSource:SRGVariantSourceExternal].count, 1);
+        XCTAssertEqual([media subtitleVariantsForSource:SRGVariantSourceDASH].count, 0);
+        XCTAssertEqual(media.recommendedSubtitleVariantSource, SRGVariantSourceHLS);
+        
+        XCTAssertEqual(media.audioVariants.count, 1);
+        XCTAssertEqual([media audioVariantsForSource:SRGVariantSourceHLS].count, 1);
+        XCTAssertEqual(media.recommendedAudioVariantSource, SRGVariantSourceHLS);
+        
+        SRGVariant *HLSSubtitleVariant = [media subtitleVariantsForSource:SRGVariantSourceHLS].firstObject;
+        XCTAssertEqual(HLSSubtitleVariant.source, SRGVariantSourceHLS);
+        XCTAssertEqual(HLSSubtitleVariant.type, SRGVariantTypeSDH);
+        XCTAssertNotNil(HLSSubtitleVariant.locale);
+        
+        SRGVariant *externalSubtitleVariant = [media subtitleVariantsForSource:SRGVariantSourceExternal].firstObject;
+        XCTAssertEqual(externalSubtitleVariant.source, SRGVariantSourceExternal);
+        XCTAssertEqual(externalSubtitleVariant.type, SRGVariantTypeSDH);
+        XCTAssertNotNil(externalSubtitleVariant.locale);
+        
+        SRGVariant *audioVariant = media.audioVariants.firstObject;
+        XCTAssertEqual(audioVariant.source, SRGVariantSourceHLS);
+        XCTAssertEqual(audioVariant.type, SRGVariantTypeNone);
+        XCTAssertNotNil(audioVariant.locale);
+        
+        [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:20. handler:nil];
+}
 
 @end

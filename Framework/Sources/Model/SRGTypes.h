@@ -409,9 +409,56 @@ typedef NS_ENUM(NSInteger, SRGTransmission) {
 };
 
 /**
+ *  Sources which variants can be retrieved from.
+ */
+typedef NS_ENUM(NSInteger, SRGVariantSource) {
+    /**
+     *  Not specified.
+     */
+    SRGVariantSourceNone = 0,
+    /**
+     *  Supplied as an external file.
+     */
+    SRGVariantSourceExternal,
+    /**
+     *  Supplied within an HLS stream.
+     */
+    SRGVariantSourceHLS,
+    /**
+     *  Supplied within an HDS stream.
+     */
+    SRGVariantSourceHDS,
+    /**
+     *  Supplied within a DASH stream.
+     */
+    SRGVariantSourceDASH
+};
+
+/**
+ *  Variant types.
+ */
+typedef NS_ENUM(NSInteger, SRGVariantType) {
+    /**
+     *  Not specified.
+     */
+    SRGVariantTypeNone = 0,
+    /**
+     *  Audio description.
+     */
+    SRGVariantTypeAudioDescription,
+    /**
+     *  Subtitles for the Deaf and Hard of Hearing.
+     */
+    SRGVariantTypeSDH
+};
+
+/**
  *  Content producers and providers.
  */
 typedef NS_ENUM(NSInteger, SRGVendor) {
+    /**
+     *  Not specified.
+     */
     SRGVendorNone = 0,
     /**
      *  SRG SSR business units.

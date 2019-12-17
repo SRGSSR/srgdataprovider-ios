@@ -78,6 +78,19 @@ static NSString * const kUserId = @"test_user_id";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testTVLatestPrograms
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider tvLatestProgramsForVendor:SRGVendorRSI channelUid:kTVChannelUid completionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(programComposition);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testTVLivestreams
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
@@ -254,6 +267,19 @@ static NSString * const kUserId = @"test_user_id";
     
     [[self.dataProvider radioChannelsForVendor:SRGVendorRSI withCompletionBlock:^(NSArray<SRGChannel *> * _Nullable channels, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(channels);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+- (void)testRadioChannelPrograms
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider radioLatestProgramsForVendor:SRGVendorRSI channelUid:kRadioChannelUid completionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(programComposition);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];
@@ -916,7 +942,7 @@ static NSString * const kUserId = @"test_user_id";
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider mediaCompositionForURN:@"urn:rsi:video:9014449" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"8950717");
+        XCTAssertEqualObjects(mediaComposition.fullLengthMedia.uid, @"9014650");
         [expectation2 fulfill];
     }] resume];
     

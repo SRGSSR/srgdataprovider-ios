@@ -244,7 +244,8 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     
     // Use a small page size to be sure we get two full pages of results (and more to come)
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
-    __block SRGFirstPageRequest *request = [[dataProvider tvEditorialMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    __block SRGFirstPageRequest *request = nil;
+    request = [[dataProvider tvEditorialMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 2);
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);
@@ -270,7 +271,8 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
-    __block SRGFirstPageRequest *request = [[dataProvider latestEpisodesForShowWithURN:@"urn:rts:show:tv:6454717" maximumPublicationDay:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    __block SRGFirstPageRequest *request = nil;
+    request = [[dataProvider latestEpisodesForShowWithURN:@"urn:rts:show:tv:6454717" maximumPublicationDay:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(episodeComposition.episodes.count, 4);
         
         if (page.number == 0) {
@@ -354,7 +356,8 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
                                   @"urn:rts:video:9949270", @"urn:rts:video:9948800", @"urn:rts:video:9948698", @"urn:rts:video:9946068",
                                   @"urn:rts:video:9946141"];
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
-    __block SRGFirstPageRequest *request = [dataProvider mediasWithURNs:URNs completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    __block SRGFirstPageRequest *request = nil;
+    request = [dataProvider mediasWithURNs:URNs completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         if (page.number == 0) {
             XCTAssertEqual(medias.count, 10);
             [[request requestWithPage:nextPage] resume];
@@ -377,10 +380,10 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    NSMutableArray<NSString *> *URNs = [@[@"urn:rts:video:10002568", @"urn:rts:video:10002444", @"urn:rts:video:9986412", @"urn:rts:video:9986195",
-                                          @"urn:rts:video:9948638", @"urn:rts:video:9951674", @"urn:rts:video:9951724", @"urn:rts:video:9950129",
-                                          @"urn:rts:video:9949270", @"urn:rts:video:9948800", @"urn:rts:video:9948698", @"urn:rts:video:9946068",
-                                          @"urn:rts:video:9946141"] mutableCopy];
+    NSMutableArray<NSString *> *URNs = @[@"urn:rts:video:10002568", @"urn:rts:video:10002444", @"urn:rts:video:9986412", @"urn:rts:video:9986195",
+                                         @"urn:rts:video:9948638", @"urn:rts:video:9951674", @"urn:rts:video:9951724", @"urn:rts:video:9950129",
+                                         @"urn:rts:video:9949270", @"urn:rts:video:9948800", @"urn:rts:video:9948698", @"urn:rts:video:9946068",
+                                         @"urn:rts:video:9946141"].mutableCopy;
     for (NSUInteger i = 0; i < 100000; ++i) {
         [URNs addObject:NSUUID.UUID.UUIDString];
     }
@@ -447,7 +450,8 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
     dataProvider.globalParameters = @{ @"forceLocation" : @"WW" };
     
-    __block SRGFirstPageRequest *request = [[dataProvider latestMediasForTopicWithURN:@"urn:swi:topic:tv:1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    __block SRGFirstPageRequest *request = nil;
+    request = [[dataProvider latestMediasForTopicWithURN:@"urn:swi:topic:tv:1" completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         if (page.number == 0) {
             SRGPageRequest *nextRequest = [request requestWithPage:nextPage];
             NSURLRequest *nextPageURLRequest = nextRequest.URLRequest;
@@ -489,7 +493,8 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     dataProvider.globalHeaders = @{ @"Test-Header" : @"Test-Value" };
     dataProvider.globalParameters = @{ @"forceLocation" : @"WW" };
     
-    __block SRGFirstPageRequest *request = [[dataProvider latestEpisodesForShowWithURN:@"urn:rts:show:tv:6454706" maximumPublicationDay:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    __block SRGFirstPageRequest *request = nil;
+    request = [[dataProvider latestEpisodesForShowWithURN:@"urn:rts:show:tv:6454706" maximumPublicationDay:nil completionBlock:^(SRGEpisodeComposition * _Nullable episodeComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         if (page.number == 0) {
             SRGPageRequest *nextRequest = [request requestWithPage:nextPage];
             NSURLRequest *nextPageURLRequest = nextRequest.URLRequest;
@@ -536,7 +541,8 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
                                   @"urn:rts:video:9949270", @"urn:rts:video:9948800", @"urn:rts:video:9948698", @"urn:rts:video:9946068",
                                   @"urn:rts:video:9946141"];
     
-    __block SRGFirstPageRequest *request = [[dataProvider mediasWithURNs:URNs completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    __block SRGFirstPageRequest *request = nil;
+    request = [[dataProvider mediasWithURNs:URNs completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         if (page.number == 0) {
             SRGPageRequest *nextRequest = [request requestWithPage:nextPage];
             NSURLRequest *nextPageURLRequest = nextRequest.URLRequest;

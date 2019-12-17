@@ -144,7 +144,7 @@
     
     // Start from the subdivision belonging to the media composition, so that values are as accurate as possible (the
     // subdivision as parameter might namely have diverged).
-    NSMutableDictionary *values = [matchingSubdivision.dictionaryValue mutableCopy];
+    NSMutableDictionary *values = matchingSubdivision.dictionaryValue.mutableCopy;
     
     // Merge with parent metadata available at the media composition level
     if (self.channel) {
@@ -176,7 +176,7 @@
 {
     for (SRGChapter *chapter in self.chapters) {
         if ([chapter isEqual:subdivision]) {
-            SRGMediaComposition *mediaComposition = [self copy];
+            SRGMediaComposition *mediaComposition = self.copy;
             mediaComposition.chapterURN = chapter.URN;
             mediaComposition.segmentURN = nil;
             return mediaComposition;
@@ -184,7 +184,7 @@
         else {
             for (SRGSegment *chapterSegment in chapter.segments) {
                 if ([chapterSegment isEqual:subdivision]) {
-                    SRGMediaComposition *mediaComposition = [self copy];
+                    SRGMediaComposition *mediaComposition = self.copy;
                     mediaComposition.chapterURN = chapter.URN;
                     mediaComposition.segmentURN = chapterSegment.URN;
                     return mediaComposition;

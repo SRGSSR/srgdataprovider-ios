@@ -15,6 +15,8 @@
 @interface SRGMedia () <SRGMediaExtendedMetadata>
 
 @property (nonatomic) SRGPresentation presentation;
+@property (nonatomic) NSArray<SRGVariant *> *audioVariants;
+@property (nonatomic) NSArray<SRGVariant *> *subtitleVariants;
 
 @property (nonatomic) SRGChannel *channel;
 @property (nonatomic) SRGEpisode *episode;
@@ -60,6 +62,8 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @keypath(SRGMedia.new, presentation) : @"presentation",
+                       @keypath(SRGMedia.new, audioVariants) : @"audioTrackList",
+                       @keypath(SRGMedia.new, subtitleVariants) : @"subtitleInformationList",
                        
                        @keypath(SRGMedia.new, channel) : @"channel",
                        @keypath(SRGMedia.new, episode) : @"episode",
@@ -113,6 +117,16 @@
 + (NSValueTransformer *)presentationJSONTransformer
 {
     return SRGPresentationJSONTransformer();
+}
+
++ (NSValueTransformer *)audioVariantsJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGVariant.class];
+}
+
++ (NSValueTransformer *)subtitleVariantsJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGVariant.class];
 }
 
 + (NSValueTransformer *)channelJSONTransformer
@@ -222,6 +236,46 @@
 - (NSUInteger)hash
 {
     return self.URN.hash;
+}
+
+@end
+
+@implementation SRGMedia (AudioVariants)
+
+- (SRGVariantSource)recommendedAudioVariantSource
+{
+    SRGVariantSource source = SRGVariantSourceHLS;
+    if ([self audioVariantsForSource:source].count != 0) {
+        return source;
+    }
+    
+    return SRGVariantSourceNone;
+}
+
+- (NSArray<SRGVariant *> *)audioVariantsForSource:(SRGVariantSource)source
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGVariant.new, source), @(source)];
+    return [self.audioVariants filteredArrayUsingPredicate:predicate];
+}
+
+@end
+
+@implementation SRGMedia (SubtitleVariants)
+
+- (SRGVariantSource)recommendedSubtitleVariantSource
+{
+    SRGVariantSource source = SRGVariantSourceHLS;
+    if ([self subtitleVariantsForSource:source].count != 0) {
+        return source;
+    }
+    
+    return SRGVariantSourceNone;
+}
+
+- (NSArray<SRGVariant *> *)subtitleVariantsForSource:(SRGVariantSource)source
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(SRGVariant.new, source), @(source)];
+    return [self.subtitleVariants filteredArrayUsingPredicate:predicate];
 }
 
 @end

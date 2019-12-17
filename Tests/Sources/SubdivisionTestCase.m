@@ -27,7 +27,7 @@
         XCTAssertEqualObjects(chapterMedia.URN, URN);
         
         // ... and from a segment copy
-        SRGMedia *chapterMediaCopy = [mediaComposition mediaForSubdivision:[mediaComposition.mainChapter copy]];
+        SRGMedia *chapterMediaCopy = [mediaComposition mediaForSubdivision:mediaComposition.mainChapter.copy];
         XCTAssertEqualObjects(chapterMediaCopy.URN, URN);
         
         // Derive a segment media
@@ -38,7 +38,7 @@
         XCTAssertEqualObjects(segmentMedia.URN, segment.URN);
         
         // ... and from a chapter copy
-        SRGMedia *segmentMediaCopy = [mediaComposition mediaForSubdivision:[segment copy]];
+        SRGMedia *segmentMediaCopy = [mediaComposition mediaForSubdivision:segment.copy];
         XCTAssertEqualObjects(segmentMediaCopy.URN, segment.URN);
         
         [expectation fulfill];
@@ -112,7 +112,7 @@
         XCTAssertEqualObjects(segmentMediaComposition.segmentURN, segment.URN);
         
         // ... and from a segment copy
-        SRGMediaComposition *segmentCopyMediaComposition = [mediaComposition mediaCompositionForSubdivision:[segment copy]];
+        SRGMediaComposition *segmentCopyMediaComposition = [mediaComposition mediaCompositionForSubdivision:segment.copy];
         XCTAssertEqualObjects(segmentCopyMediaComposition.chapterURN, URN);
         XCTAssertEqualObjects(segmentCopyMediaComposition.segmentURN, segment.URN);
         
@@ -122,7 +122,7 @@
         XCTAssertNil(chapterMediaComposition.segmentURN);
         
         // Do the same with a copy
-        SRGMediaComposition *chapterCopyMediaComposition = [segmentMediaComposition mediaCompositionForSubdivision:[segmentMediaComposition.mainChapter copy]];
+        SRGMediaComposition *chapterCopyMediaComposition = [segmentMediaComposition mediaCompositionForSubdivision:segmentMediaComposition.mainChapter.copy];
         XCTAssertEqualObjects(chapterCopyMediaComposition.chapterURN, URN);
         XCTAssertNil(chapterCopyMediaComposition.segmentURN);
         

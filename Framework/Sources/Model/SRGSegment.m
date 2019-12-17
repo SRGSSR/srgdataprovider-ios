@@ -26,10 +26,10 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        NSMutableDictionary *mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
+        NSMutableDictionary *mapping = [super JSONKeyPathsByPropertyKey].mutableCopy;
         [mapping addEntriesFromDictionary:@{ @keypath(SRGSegment.new, markIn) : @"markIn",
                                              @keypath(SRGSegment.new, markOut) : @"markOut" }];
-        s_mapping = [mapping copy];
+        s_mapping = mapping.copy;
     });
     return s_mapping;
 }
@@ -118,7 +118,7 @@ NSArray<SRGSegment *> *SRGSanitizedSegments(NSArray<SRGSegment *> *segments)
             return NSOrderedSame;
         }];
         
-        SRGSegment *matchingSegment = [[matchingSegments sortedArrayUsingDescriptors:@[sortDescriptor]].lastObject copy];
+        SRGSegment *matchingSegment = [matchingSegments sortedArrayUsingDescriptors:@[sortDescriptor]].lastObject.copy;
         SRGSegment *lastSegment = sanitizedSegments.lastObject;
         
         // Add new segment if different from the last one we already have.

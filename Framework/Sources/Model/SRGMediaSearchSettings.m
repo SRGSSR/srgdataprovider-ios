@@ -147,7 +147,7 @@ static NSString *SRGBoolParameter(BOOL boolean)
     [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sortBy" value:SRGSortCriteriumParameter(self.sortCriterium)]];
     [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sortDir" value:SRGSortDirectionParameter(self.sortDirection)]];
         
-    return [queryItems copy];
+    return queryItems.copy;
 }
 
 @end

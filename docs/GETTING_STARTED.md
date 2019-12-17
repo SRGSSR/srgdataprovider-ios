@@ -21,9 +21,9 @@ For simplicity, this getting started guide assumes that a shared data provider h
 
 ## Requests and queues
 
-The SRG Data Provider library returns instances of requests from [SRG Network](https://github.com/SRGSSR/srgnetwork-ios/issues), either simple `SRGRequest`, or `SRGFirstPageRequest` for services supporting pagination.
+The SRG Data Provider library returns instances of requests from [SRG Network](https://github.com/SRGSSR/srgnetwork-apple/issues), either simple `SRGRequest`, or `SRGFirstPageRequest` for services supporting pagination.
 
-Please carefully read the [SRG Network getting started guide](https://github.com/SRGSSR/srgnetwork-ios/blob/master/docs/GETTING_STARTED.md), which provides extensive information about request management and grouping via queues.
+Please carefully read the [SRG Network getting started guide](https://github.com/SRGSSR/srgnetwork-apple/blob/master/docs/GETTING_STARTED.md), which provides extensive information about request management and grouping via queues.
 
 ## Services
 
@@ -53,4 +53,4 @@ Request availability depends on the business unit. Refer to the provided [servic
 
 In a near future, Apple will favor HTTPS over HTTP, and require applications to explicitly declare potentially insecure connections. These guidelines are referred to as [App Transport Security (ATS)](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW33).
 
-For information about how you should configure your application to access our services, please refer to the dedicated [wiki topic](https://github.com/SRGSSR/srgdataprovider-ios/wiki/App-Transport-Security-(ATS)).
+For information about how you should configure your application to access our services, please refer to the dedicated [wiki topic](https://github.com/SRGSSR/srgdataprovider-apple/wiki/App-Transport-Security-(ATS)).

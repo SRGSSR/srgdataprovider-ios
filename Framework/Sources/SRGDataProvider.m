@@ -81,7 +81,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 + (NSURLRequest *)URLRequestForURNsPageWithSize:(NSUInteger)size number:(NSUInteger)number URLRequest:(NSURLRequest *)URLRequest
 {
     NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URLRequest.URL resolvingAgainstBaseURL:NO];
-    NSMutableArray<NSURLQueryItem *> *queryItems = [URLComponents.queryItems mutableCopy] ?: [NSMutableArray array];
+    NSMutableArray<NSURLQueryItem *> *queryItems = URLComponents.queryItems.mutableCopy ?: [NSMutableArray array];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(NSURLQueryItem.new, name), @"urns"];
     NSURLQueryItem *URNsQueryItem = [URLComponents.queryItems filteredArrayUsingPredicate:predicate].firstObject;
@@ -106,11 +106,11 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSURLQueryItem *pageURNsQueryItem = [NSURLQueryItem queryItemWithName:@"urns" value:[pageURNs componentsJoinedByString:kURNsSeparator]];
     [queryItems replaceObjectAtIndex:[queryItems indexOfObject:URNsQueryItem] withObject:pageURNsQueryItem];
     
-    URLComponents.queryItems = [queryItems copy];
+    URLComponents.queryItems = queryItems.copy;
     
-    NSMutableURLRequest *URNsURLRequest = [URLRequest mutableCopy];
+    NSMutableURLRequest *URNsURLRequest = URLRequest.mutableCopy;
     URNsURLRequest.URL = URLComponents.URL;
-    return [URNsURLRequest copy];              // Not an immutable copy ;(
+    return URNsURLRequest.copy;              // Not an immutable copy ;(
 }
 
 #pragma mark Object lifecycle
@@ -166,6 +166,19 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/channel/%@/tv/nowAndNext", SRGPathComponentForVendor(vendor), channelUid];
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
     return [self fetchObjectWithURLRequest:URLRequest modelClass:SRGChannel.class completionBlock:completionBlock];
+}
+
+- (SRGFirstPageRequest *)tvLatestProgramsForVendor:(SRGVendor)vendor
+                                        channelUid:(NSString *)channelUid
+                                   completionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/programListComposition/tv/byChannel/%@", SRGPathComponentForVendor(vendor), channelUid];
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[NSMutableArray array]];
+    return [self pageRequestWithURLRequest:URLRequest parser:^id(NSDictionary *JSONDictionary, NSError *__autoreleasing *pError) {
+        return [MTLJSONAdapter modelOfClass:SRGProgramComposition.class fromJSONDictionary:JSONDictionary error:pError];
+    } completionBlock:^(id _Nullable object, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        completionBlock(object, page, nextPage, HTTPResponse, error);
+    }];
 }
 
 - (SRGRequest *)tvLivestreamsForVendor:(SRGVendor)vendor
@@ -251,7 +264,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"onlyEpisodes" value:@"true"]];
     }
     
-    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:completionBlock];
 }
 
@@ -304,7 +317,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultShowList/tv", SRGPathComponentForVendor(vendor)];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
-    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGSearchResult.class rootKey:@"searchResultShowList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         NSArray<NSString *> *URNs = [objects valueForKeyPath:@keypath(SRGSearchResult.new, URN)];
         completionBlock(URNs, metadata[SRGParsedTotalKey], page, nextPage, HTTPResponse, error);
@@ -332,8 +345,21 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         queryItems = @[ [NSURLQueryItem queryItemWithName:@"livestreamId" value:livestreamUid] ];
     }
     
-    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
     return [self fetchObjectWithURLRequest:URLRequest modelClass:SRGChannel.class completionBlock:completionBlock];
+}
+
+- (SRGFirstPageRequest *)radioLatestProgramsForVendor:(SRGVendor)vendor
+                                           channelUid:(NSString *)channelUid
+                                      completionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/programListComposition/radio/byChannel/%@", SRGPathComponentForVendor(vendor), channelUid];
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
+    return [self pageRequestWithURLRequest:URLRequest parser:^id(NSDictionary *JSONDictionary, NSError *__autoreleasing *pError) {
+        return [MTLJSONAdapter modelOfClass:SRGProgramComposition.class fromJSONDictionary:JSONDictionary error:pError];
+    } completionBlock:^(id _Nullable object, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        completionBlock(object, page, nextPage, HTTPResponse, error);
+    }];
 }
 
 - (SRGRequest *)radioLivestreamsForVendor:(SRGVendor)vendor
@@ -449,7 +475,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultShowList/radio", SRGPathComponentForVendor(vendor)];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
-    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGSearchResult.class rootKey:@"searchResultShowList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         NSArray<NSString *> *URNs = [objects valueForKeyPath:@keypath(SRGSearchResult.new, URN)];
         completionBlock(URNs, metadata[SRGParsedTotalKey], page, nextPage, HTTPResponse, error);
@@ -510,7 +536,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         [queryItems addObjectsFromArray:settings.queryItems];
     }
     
-    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGSearchResult.class rootKey:@"searchResultMediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         NSArray<NSString *> *URNs = [objects valueForKeyPath:@keypath(SRGSearchResult.new, URN)];
         completionBlock(URNs, metadata[SRGParsedTotalKey], metadata[SRGParsedMediaAggregationsKey], metadata[SRGParsedSearchSuggestionsKey], page, nextPage, HTTPResponse, error);
@@ -537,7 +563,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"mediaType" value:mediaTypeParameter]];
     }
     
-    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGSearchResult.class rootKey:@"searchResultShowList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         NSArray<NSString *> *URNs = [objects valueForKeyPath:@keypath(SRGSearchResult.new, URN)];
         completionBlock(URNs, metadata[SRGParsedTotalKey], page, nextPage, HTTPResponse, error);
@@ -572,7 +598,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         queryItems = [queryItems arrayByAddingObject:[NSURLQueryItem queryItemWithName:@"excludes" value:excludesString]];
     }
     
-    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
     }];
@@ -644,7 +670,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     NSAssert(endpoint, @"A supported social count type must be provided");
     
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/mediaStatistic/byUrn/%@/%@", subdivision.URN, endpoint];
-    NSMutableURLRequest *URLRequest = [[self URLRequestForResourcePath:resourcePath withQueryItems:nil] mutableCopy];
+    NSMutableURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil].mutableCopy;
     URLRequest.HTTPMethod = @"POST";
     [URLRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
@@ -665,7 +691,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                                   withCompletionBlock:(SRGShowStatisticsOverviewCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/showStatistic/byUrn/%@/searchResultClicked", show.URN];
-    NSMutableURLRequest *URLRequest = [[self URLRequestForResourcePath:resourcePath withQueryItems:nil] mutableCopy];
+    NSMutableURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil].mutableCopy;
     URLRequest.HTTPMethod = @"POST";
     return [self fetchObjectWithURLRequest:URLRequest modelClass:SRGShowStatisticsOverview.class completionBlock:completionBlock];
 }
@@ -741,10 +767,10 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"maxPublishedDate" value:maximumPublicationDay.string]];
     }
     
-    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[queryItems copy]];
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
     return [self pageRequestWithURLRequest:URLRequest parser:^id(NSDictionary *JSONDictionary, NSError *__autoreleasing *pError) {
         return [MTLJSONAdapter modelOfClass:SRGEpisodeComposition.class fromJSONDictionary:JSONDictionary error:pError];
-    } completionBlock:^(id  _Nullable object, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    } completionBlock:^(id _Nullable object, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(object, page, nextPage, HTTPResponse, error);
     }];
 }
@@ -773,13 +799,13 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         [fullQueryItems addObjectsFromArray:queryItems];
     }
     [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"vector" value:@"appplay"]];
-    URLComponents.queryItems = [fullQueryItems copy];
+    URLComponents.queryItems = fullQueryItems.copy;
     
     NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URLComponents.URL];
     [self.globalHeaders enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull headerField, NSString * _Nonnull value, BOOL * _Nonnull stop) {
         [URLRequest setValue:value forHTTPHeaderField:headerField];
     }];
-    return [URLRequest copy];              // Not an immutable copy ;(
+    return URLRequest.copy;              // Not an immutable copy ;(
 }
 
 - (SRGRequest *)fetchObjectWithURLRequest:(NSURLRequest *)URLRequest
@@ -874,7 +900,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         parsedObjectDictionary[SRGParsedNextURLKey] = [NSURL URLWithString:JSONDictionary[@"next"]];
         parsedObjectDictionary[SRGParsedTotalKey] = JSONDictionary[@"total"];
         
-        return [parsedObjectDictionary copy];
+        return parsedObjectDictionary.copy;
     } sizer:^NSURLRequest *(NSURLRequest * _Nonnull URLRequest, NSUInteger size) {
         NSURLRequest *URNsRequest = [SRGDataProvider URLRequestForURNsPageWithSize:size number:0 URLRequest:URLRequest];
         if (URNsRequest) {
@@ -886,14 +912,14 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         }
         
         NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URLRequest.URL resolvingAgainstBaseURL:NO];
-        NSMutableArray<NSURLQueryItem *> *queryItems = [URLComponents.queryItems mutableCopy] ?: [NSMutableArray array];
+        NSMutableArray<NSURLQueryItem *> *queryItems = URLComponents.queryItems.mutableCopy ?: [NSMutableArray array];
         NSString *pageSize = (size != SRGDataProviderUnlimitedPageSize) ? @(size).stringValue : @"unlimited";
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:pageSize]];
-        URLComponents.queryItems = [queryItems copy];
+        URLComponents.queryItems = queryItems.copy;
         
-        NSMutableURLRequest *sizedURLRequest = [URLRequest mutableCopy];
+        NSMutableURLRequest *sizedURLRequest = URLRequest.mutableCopy;
         sizedURLRequest.URL = URLComponents.URL;
-        return [sizedURLRequest copy];              // Not an immutable copy ;(
+        return sizedURLRequest.copy;              // Not an immutable copy ;(
     } paginator:^NSURLRequest * _Nullable(NSURLRequest * _Nonnull URLRequest, NSDictionary<NSString *, id> * _Nullable parsedObjectDictionary, NSURLResponse * _Nullable response, NSUInteger size, NSUInteger number) {
         NSURLRequest *URNsRequest = [SRGDataProvider URLRequestForURNsPageWithSize:size number:number URLRequest:URLRequest];
         if (URNsRequest) {
@@ -902,9 +928,9 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
         
         NSURL *nextURL = parsedObjectDictionary[SRGParsedNextURLKey];
         if (nextURL) {
-            NSMutableURLRequest *pageURLRequest = [URLRequest mutableCopy];
+            NSMutableURLRequest *pageURLRequest = URLRequest.mutableCopy;
             pageURLRequest.URL = nextURL;
-            return [pageURLRequest copy];              // Not an immutable copy ;(
+            return pageURLRequest.copy;              // Not an immutable copy ;(
         }
         else {
             return nil;

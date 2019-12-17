@@ -6,7 +6,7 @@
 
 #import "SRGDRM.h"
 #import "SRGModel.h"
-#import "SRGTypes.h"
+#import "SRGVariant.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -71,6 +71,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) NSArray<SRGDRM *> *DRMs;
 
 /**
+ *  The subtitle variants available from the stream.
+ */
+@property (nonatomic, readonly, nullable) NSArray<SRGVariant *> *subtitleVariants;
+
+/**
+ *  The audio variants available from the stream.
+ */
+@property (nonatomic, readonly, nullable) NSArray<SRGVariant *> *audioVariants;
+
+/**
  *  The list of labels which should be supplied in SRG Analytics player events.
  *  (https://github.com/SRGSSR/srganalytics-ios).
  */
@@ -92,5 +102,34 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable SRGDRM *)DRMWithType:(SRGDRMType)type;
 
 @end
+
+@interface SRGResource (AudioVariants)
+
+/**
+ *  The recommended audio variant source to use. Might return `SRGVariantSourceNone` if no good match is found.
+ */
+@property (nonatomic, readonly) SRGVariantSource recommendedAudioVariantSource;
+
+/**
+ *  Return audio variants matching the specified source.
+ */
+- (nullable NSArray<SRGVariant *> *)audioVariantsForSource:(SRGVariantSource)source;
+
+@end
+
+@interface SRGResource (SubtitleVariants)
+
+/**
+ *  The recommended subtitle variant source to use. Might return `SRGVariantSourceNone` if no good match is found.
+ */
+@property (nonatomic, readonly) SRGVariantSource recommendedSubtitleVariantSource;
+
+/**
+ *  Return subtitle variants matching the specified source.
+ */
+- (nullable NSArray<SRGVariant *> *)subtitleVariantsForSource:(SRGVariantSource)source;
+
+@end
+
 
 NS_ASSUME_NONNULL_END

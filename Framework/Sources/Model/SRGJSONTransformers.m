@@ -143,6 +143,20 @@ NSValueTransformer *SRGISO8601DateJSONTransformer(void)
     return s_transformer;
 }
 
+NSValueTransformer *SRGLocaleJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *localeString, BOOL *success, NSError *__autoreleasing *error) {
+            return [NSLocale localeWithLocaleIdentifier:localeString];
+        } reverseBlock:^id(NSLocale *locale, BOOL *success, NSError *__autoreleasing *error) {
+            return locale.localeIdentifier;
+        }];
+    });
+    return s_transformer;
+}
+
 NSValueTransformer *SRGMediaContainerJSONTransformer(void)
 {
     static NSValueTransformer *s_transformer;
@@ -295,6 +309,34 @@ NSValueTransformer *SRGTransmissionJSONTransformer(void)
                                                                                          @"ONLINE" : @(SRGTransmissionOnline),
                                                                                          @"UNKNOWN" : @(SRGTransmissionUnknown) }
                                                                          defaultValue:@(SRGTransmissionNone)
+                                                                  reverseDefaultValue:nil];
+    });
+    return s_transformer;
+}
+
+NSValueTransformer *SRGVariantSourceJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"EXTERNAL" : @(SRGVariantSourceExternal),
+                                                                                         @"HLS" : @(SRGVariantSourceHLS),
+                                                                                         @"HDS" : @(SRGVariantSourceHDS),
+                                                                                         @"DASH" : @(SRGVariantSourceDASH) }
+                                                                         defaultValue:@(SRGVariantSourceNone)
+                                                                  reverseDefaultValue:nil];
+    });
+    return s_transformer;
+}
+
+NSValueTransformer *SRGVariantTypeJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"AUDIO_DESCRIPTION" : @(SRGVariantTypeAudioDescription),
+                                                                                         @"SDH" : @(SRGVariantTypeSDH) }
+                                                                         defaultValue:@(SRGVariantTypeNone)
                                                                   reverseDefaultValue:nil];
     });
     return s_transformer;

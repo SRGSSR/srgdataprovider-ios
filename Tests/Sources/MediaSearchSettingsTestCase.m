@@ -57,7 +57,7 @@
     settings.sortCriterium = SRGSortCriteriumDate;
     settings.sortDirection = SRGSortDirectionAscending;
     
-    SRGMediaSearchSettings *settingsCopy = [settings copy];
+    SRGMediaSearchSettings *settingsCopy = settings.copy;
     XCTAssertEqual(settingsCopy.aggregationsEnabled, settings.aggregationsEnabled);
     XCTAssertEqual(settingsCopy.suggestionsEnabled, settings.suggestionsEnabled);
     XCTAssertEqual(settingsCopy.matchingOptions, settings.matchingOptions);
@@ -128,7 +128,7 @@
     
     XCTAssertEqualObjects(settings3.queryItems, settings4.queryItems);
     
-    SRGMediaSearchSettings *settings5 = [settings4 copy];
+    SRGMediaSearchSettings *settings5 = settings4.copy;
     settings5.aggregationsEnabled = YES;
     
     XCTAssertNotEqualObjects(settings3, settings5);
