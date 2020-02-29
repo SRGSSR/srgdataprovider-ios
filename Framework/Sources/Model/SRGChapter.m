@@ -19,6 +19,8 @@
 @property (nonatomic) NSDate *preTrailerStartDate;
 @property (nonatomic) NSDate *postTrailerEndDate;
 
+@property (nonatomic) CGSize aspectRatio;
+
 @end
 
 @implementation SRGChapter
@@ -37,13 +39,20 @@
                                              @keypath(SRGChapter.new, segments) : @"segmentList",
                                              
                                              @keypath(SRGChapter.new, preTrailerStartDate) : @"preTrailerStart",
-                                             @keypath(SRGChapter.new, postTrailerEndDate) : @"postTrailerStop" }];
+                                             @keypath(SRGChapter.new, postTrailerEndDate) : @"postTrailerStop",
+                                             
+                                             @keypath(SRGChapter.new, aspectRatio) : @"aspectRatio" }];
         s_mapping = mapping.copy;
     });
     return s_mapping;
 }
 
 #pragma mark Transformers
+
++ (NSValueTransformer *)aspectRatioJSONTransformer
+{
+    return SRGAspectRatioJSONTransformer();
+}
 
 + (NSValueTransformer *)resourcesJSONTransformer
 {
@@ -77,6 +86,18 @@
 + (NSValueTransformer *)postTrailerEndDateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
+}
+
+#pragma mark Getters
+
+- (CGSize)aspectRatio
+{
+    if (self.mediaType == SRGMediaTypeVideo && CGSizeEqualToSize(_aspectRatio, CGSizeZero)) {
+        return CGSizeMake(16., 9.);
+    }
+    else {
+        return _aspectRatio;
+    }
 }
 
 @end
