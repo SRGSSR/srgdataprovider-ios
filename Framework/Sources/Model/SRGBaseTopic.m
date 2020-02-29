@@ -6,6 +6,7 @@
 
 #import "SRGBaseTopic.h"
 
+#import "NSURL+SRGDataProvider.h"
 #import "SRGJSONTransformers.h"
 
 #import <libextobjc/libextobjc.h>
@@ -20,6 +21,10 @@
 @property (nonatomic, copy) NSString *URN;
 @property (nonatomic) SRGTransmission transmission;
 @property (nonatomic) SRGVendor vendor;
+
+@property (nonatomic) NSURL *imageURL;
+@property (nonatomic, copy) NSString *imageTitle;
+@property (nonatomic, copy) NSString *imageCopyright;
 
 @end
 
@@ -39,7 +44,11 @@
                        @keypath(SRGBaseTopic.new, uid) : @"id",
                        @keypath(SRGBaseTopic.new, URN) : @"urn",
                        @keypath(SRGBaseTopic.new, transmission) : @"transmission",
-                       @keypath(SRGBaseTopic.new, vendor) : @"vendor" };
+                       @keypath(SRGBaseTopic.new, vendor) : @"vendor",
+                       
+                       @keypath(SRGBaseTopic.new, imageURL) : @"imageUrl",
+                       @keypath(SRGBaseTopic.new, imageTitle) : @"imageTitle",
+                       @keypath(SRGBaseTopic.new, imageCopyright) : @"imageCopyright" };
     });
     return s_mapping;
 }
@@ -54,6 +63,18 @@
 + (NSValueTransformer *)vendorJSONTransformer
 {
     return SRGVendorJSONTransformer();
+}
+
++ (NSValueTransformer *)imageURLJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
+#pragma mark SRGImageMetadata protocol
+
+- (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
+{
+    return [self.imageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
 }
 
 #pragma mark Equality
