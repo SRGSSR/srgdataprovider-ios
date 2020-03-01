@@ -342,7 +342,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                          withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
- *  @name Topics
+ *  @name TV Topics
  */
 
 /**
@@ -471,6 +471,16 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 - (SRGFirstPageRequest *)radioLatestVideosForVendor:(SRGVendor)vendor
                                          channelUid:(NSString *)channelUid
                                 withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
+ *  @name Radio Topics
+ */
+
+/**
+ *  Topics.
+ */
+- (SRGRequest *)radioTopicsForVendor:(SRGVendor)vendor
+                 withCompletionBlock:(SRGTopicListCompletionBlock)completionBlock;
 
 /**
  *  @name Shows

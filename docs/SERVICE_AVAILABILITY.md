@@ -38,7 +38,8 @@ Services are currently only available for SRG SSR vendors (SRF, RTS, RSI, RTR an
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Topics | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+| TV Topics | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+| Radio Topics | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | N/A |
 
 ### Shows
 
