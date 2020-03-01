@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The chapter video aspect ratio.
  *
- *  @discussion Not revelant for audio content.
+ *  @discussion Revelant only for video content.
  */
 @property (nonatomic, readonly) CGSize aspectRatio;
 
