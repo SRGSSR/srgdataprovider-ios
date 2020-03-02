@@ -243,20 +243,10 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider mediaCompositionForURN:kMediaSRFURN standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(mediaComposition);
-        XCTAssertNil(error);
-        [expectation2 fulfill];
-    }] resume];
-    
-    [self waitForExpectationsWithTimeout:30. handler:nil];
-    
-    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
-    
     [[self.dataProvider mediaCompositionForURN:kInvalidMediaURN standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNil(mediaComposition);
         XCTAssertNotNil(error);
-        [expectation3 fulfill];
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

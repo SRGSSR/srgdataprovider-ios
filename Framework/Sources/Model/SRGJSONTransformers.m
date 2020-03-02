@@ -17,19 +17,21 @@ NSValueTransformer *SRGAspectRatioJSONTransformer(void)
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *aspectRatioString, BOOL *success, NSError *__autoreleasing *error) {
-            NSArray<NSString *> *aspectRatioStrings = [aspectRatioString componentsSeparatedByString:@":"];
-            
-            CGSize aspectRatio = CGSizeMake(16., 9.);
-            if (aspectRatioStrings.count == 2) {
-                aspectRatio = CGSizeMake(aspectRatioStrings[0].integerValue, aspectRatioStrings[1].integerValue);
+            NSArray<NSString *> *aspectRatioComponents = [aspectRatioString componentsSeparatedByString:@":"];
+            if (aspectRatioComponents.count != 2) {
+                return @(SRGAspectRatioUndefined);
             }
-            return [NSValue valueWithCGSize:aspectRatio];
-        } reverseBlock:^id(NSValue *aspectRatioValue, BOOL *success, NSError *__autoreleasing *error) {
-            CGSize aspectRatio = aspectRatioValue.CGSizeValue;
             
-            return [NSString stringWithFormat:@"%ld:%ld",
-                    (long)@(aspectRatio.width).integerValue,
-                    (long)@(aspectRatio.height).integerValue];
+            CGFloat width = aspectRatioComponents[0].doubleValue;
+            CGFloat height = aspectRatioComponents[1].doubleValue;
+            if (width == 0 || height == 0) {
+                return @(SRGAspectRatioUndefined);
+            }
+            
+            return @(width / height);
+        } reverseBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
+            // No reverse transformation is provided. There is no unique string representation which can be inferred from a single scalar value
+            return nil;
         }];
     });
     return s_transformer;

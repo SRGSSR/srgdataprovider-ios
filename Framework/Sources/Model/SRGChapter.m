@@ -19,7 +19,7 @@
 @property (nonatomic) NSDate *preTrailerStartDate;
 @property (nonatomic) NSDate *postTrailerEndDate;
 
-@property (nonatomic) CGSize aspectRatio;
+@property (nonatomic) CGFloat aspectRatio;
 
 @end
 
@@ -45,6 +45,15 @@
         s_mapping = mapping.copy;
     });
     return s_mapping;
+}
+
+#pragma mark Object lifecycle
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError *__autoreleasing *)error
+{
+    NSDictionary *defaultDictionary = @{ @keypath(SRGChapter.new, aspectRatio) : @(SRGAspectRatioUndefined) };
+    NSDictionary *dictionary = [defaultDictionary mtl_dictionaryByAddingEntriesFromDictionary:dictionaryValue];
+    return [super initWithDictionary:dictionary error:error];
 }
 
 #pragma mark Transformers
@@ -86,18 +95,6 @@
 + (NSValueTransformer *)postTrailerEndDateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
-}
-
-#pragma mark Getters
-
-- (CGSize)aspectRatio
-{
-    if (self.mediaType == SRGMediaTypeVideo && CGSizeEqualToSize(_aspectRatio, CGSizeZero)) {
-        return CGSizeMake(16., 9.);
-    }
-    else {
-        return _aspectRatio;
-    }
 }
 
 @end

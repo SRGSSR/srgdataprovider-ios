@@ -17,11 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGChapter : SRGSubdivision <SRGScheduledLivestreamMetadata>
 
 /**
- *  The chapter video aspect ratio.
- *
- *  @discussion Revelant only for video content.
+ *  The aspect ratio, or `SRGAspectRatioUndefined` if undefined (e.g. audio).
  */
-@property (nonatomic, readonly) CGSize aspectRatio;
+@property (nonatomic, readonly) CGFloat aspectRatio;
 
 /**
  *  The time at which the chapter starts within its full-length (if any), in milliseconds.

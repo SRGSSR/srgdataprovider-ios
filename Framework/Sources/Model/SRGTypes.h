@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import <CoreGraphics/CoreGraphics.h>
 #import <Foundation/Foundation.h>
 
 /**
@@ -650,3 +651,8 @@ typedef NS_ENUM(NSInteger, SRGTimeAvailability) {
      */
     SRGTimeAvailabilityNotAvailableAnymore
 };
+
+/**
+ *  @name Constants
+ */
+static CGFloat SRGAspectRatioUndefined = -1.f;          // Undefined aspect ratio
