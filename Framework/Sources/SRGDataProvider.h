@@ -473,6 +473,16 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                                 withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
+ *  @name Topics
+ */
+
+/**
+ *  Topics.
+ */
+- (SRGRequest *)radioTopicsForVendor:(SRGVendor)vendor
+                 withCompletionBlock:(SRGTopicListCompletionBlock)completionBlock;
+
+/**
  *  @name Shows
  */
 
