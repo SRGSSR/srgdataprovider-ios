@@ -38,8 +38,7 @@ Services are currently only available for SRG SSR vendors (SRF, RTS, RSI, RTR an
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| TV Topics | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Radio Topics | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | N/A |
+| Topics | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 
 ### Shows
 
@@ -77,6 +76,12 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Latest episodes | ✅ | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ |
 | Episodes by date | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 | Latest videos | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ |
+
+### Topics
+
+| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
+|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Topics | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | N/A |
 
 ### Shows
 
