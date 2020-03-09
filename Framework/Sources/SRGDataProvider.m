@@ -458,6 +458,14 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     }];
 }
 
+- (SRGRequest *)radioTopicsForVendor:(SRGVendor)vendor
+                 withCompletionBlock:(SRGTopicListCompletionBlock)completionBlock
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/topicList/radio", SRGPathComponentForVendor(vendor)];
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
+    return [self listObjectsWithURLRequest:URLRequest modelClass:SRGTopic.class rootKey:@"topicList" completionBlock:completionBlock];
+}
+
 - (SRGFirstPageRequest *)radioShowsForVendor:(SRGVendor)vendor
                                   channelUid:(NSString *)channelUid
                          withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock

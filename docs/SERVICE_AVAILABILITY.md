@@ -77,6 +77,12 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Episodes by date | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 | Latest videos | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ |
 
+### Topics
+
+| Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
+|:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Topics | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | N/A |
+
 ### Shows
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
