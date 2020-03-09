@@ -19,6 +19,8 @@
 @property (nonatomic) NSDate *preTrailerStartDate;
 @property (nonatomic) NSDate *postTrailerEndDate;
 
+@property (nonatomic) CGFloat aspectRatio;
+
 @end
 
 @implementation SRGChapter
@@ -37,13 +39,29 @@
                                              @keypath(SRGChapter.new, segments) : @"segmentList",
                                              
                                              @keypath(SRGChapter.new, preTrailerStartDate) : @"preTrailerStart",
-                                             @keypath(SRGChapter.new, postTrailerEndDate) : @"postTrailerStop" }];
+                                             @keypath(SRGChapter.new, postTrailerEndDate) : @"postTrailerStop",
+                                             
+                                             @keypath(SRGChapter.new, aspectRatio) : @"aspectRatio" }];
         s_mapping = mapping.copy;
     });
     return s_mapping;
 }
 
+#pragma mark Object lifecycle
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError *__autoreleasing *)error
+{
+    NSDictionary *defaultDictionary = @{ @keypath(SRGChapter.new, aspectRatio) : @(SRGAspectRatioUndefined) };
+    NSDictionary *dictionary = [defaultDictionary mtl_dictionaryByAddingEntriesFromDictionary:dictionaryValue];
+    return [super initWithDictionary:dictionary error:error];
+}
+
 #pragma mark Transformers
+
++ (NSValueTransformer *)aspectRatioJSONTransformer
+{
+    return SRGAspectRatioJSONTransformer();
+}
 
 + (NSValueTransformer *)resourcesJSONTransformer
 {
