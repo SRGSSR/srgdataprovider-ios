@@ -241,4 +241,48 @@ static NSURL *ServiceTestURL(void)
     [self waitForExpectationsWithTimeout:20. handler:nil];
 }
 
+- (void)testAspectRatio
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL()];
+    [[dataProvider mediaCompositionForURN:@"urn:rts:video:9116567" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        SRGChapter *mainChapter = mediaComposition.mainChapter;
+        XCTAssertEqual(mainChapter.aspectRatio, SRGAspectRatioUndefined);
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[dataProvider mediaCompositionForURN:@"urn:srf:video:1b653690-a0e3-4a94-8b1d-081d971efd58" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        SRGChapter *mainChapter = mediaComposition.mainChapter;
+        XCTAssertEqual(mainChapter.aspectRatio, (CGFloat)16.f / 9.f);
+        [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[dataProvider mediaCompositionForURN:@"urn:rts:audio:8438184" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        SRGChapter *mainChapter = mediaComposition.mainChapter;
+        XCTAssertEqual(mainChapter.aspectRatio, SRGAspectRatioUndefined);
+        [expectation3 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[dataProvider mediaCompositionForURN:@"urn:srf:audio:e7cfd700-e14e-43b4-9710-3527fc2098bc" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        SRGChapter *mainChapter = mediaComposition.mainChapter;
+        XCTAssertEqual(mainChapter.aspectRatio, SRGAspectRatioUndefined);
+        [expectation4 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 @end

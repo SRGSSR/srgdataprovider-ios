@@ -11,6 +11,32 @@
 #import <Mantle/Mantle.h>
 #import <UIKit/UIKit.h>
 
+NSValueTransformer *SRGAspectRatioJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *aspectRatioString, BOOL *success, NSError *__autoreleasing *error) {
+            NSArray<NSString *> *aspectRatioComponents = [aspectRatioString componentsSeparatedByString:@":"];
+            if (aspectRatioComponents.count != 2) {
+                return @(SRGAspectRatioUndefined);
+            }
+            
+            CGFloat width = aspectRatioComponents[0].doubleValue;
+            CGFloat height = aspectRatioComponents[1].doubleValue;
+            if (width == 0 || height == 0) {
+                return @(SRGAspectRatioUndefined);
+            }
+            
+            return @(width / height);
+        } reverseBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
+            // No reverse transformation is provided. There is no unique string representation which can be inferred from a single scalar value
+            return nil;
+        }];
+    });
+    return s_transformer;
+}
+
 NSValueTransformer *SRGAudioCodecJSONTransformer(void)
 {
     static NSValueTransformer *s_transformer;
