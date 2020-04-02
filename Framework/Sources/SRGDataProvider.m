@@ -892,14 +892,17 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
             return nil;
         }
         
-        parsedObjectDictionary[SRGParsedMediaAggregationsKey] = [MTLJSONAdapter modelOfClass:SRGMediaAggregations.class fromJSONDictionary:JSONDictionary[@"aggregations"] error:pError];
-        if (*pError) {
-            return nil;
+        NSDictionary *aggregationsDictionary = JSONDictionary[@"aggregations"];
+        if (aggregationsDictionary) {
+            parsedObjectDictionary[SRGParsedMediaAggregationsKey] = [MTLJSONAdapter modelOfClass:SRGMediaAggregations.class fromJSONDictionary:aggregationsDictionary error:pError];
+            if (*pError) {
+                return nil;
+            }
         }
         
-        NSDictionary *suggestionDictionary = JSONDictionary[@"suggestionList"];
-        if (suggestionDictionary) {
-            parsedObjectDictionary[SRGParsedSearchSuggestionsKey] = [MTLJSONAdapter modelsOfClass:SRGSearchSuggestion.class fromJSONArray:JSONDictionary[@"suggestionList"] error:pError];
+        NSDictionary *suggestionsDictionary = JSONDictionary[@"suggestionList"];
+        if (suggestionsDictionary) {
+            parsedObjectDictionary[SRGParsedSearchSuggestionsKey] = [MTLJSONAdapter modelsOfClass:SRGSearchSuggestion.class fromJSONArray:suggestionsDictionary error:pError];
             if (*pError) {
                 return nil;
             }

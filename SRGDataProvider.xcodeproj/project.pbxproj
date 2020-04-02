@@ -30,7 +30,6 @@
 		6F57EA741F83CE560038153F /* SRGMediaExtendedMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F57EA731F83CE560038153F /* SRGMediaExtendedMetadata.h */; };
 		6F5EEF4822E17E100014A0CA /* SRGDay+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F5EEF4622E17E100014A0CA /* SRGDay+Private.h */; };
 		6F5EEF5022E18BC70014A0CA /* DayTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5EEF4F22E18BC70014A0CA /* DayTestCase.m */; };
-		6F6A09C8210082EA004568BD /* SRGNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6A09C7210082E9004568BD /* SRGNetwork.framework */; };
 		6F6B641C21A6FE3600E207FC /* SRGServiceMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F6B641A21A6FE3600E207FC /* SRGServiceMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6F6B641D21A6FE3600E207FC /* SRGServiceMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6B641B21A6FE3600E207FC /* SRGServiceMessage.m */; };
 		6F6BDCE71E8262C4004BC726 /* RTSServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6BDCE51E8262C4004BC726 /* RTSServicesTestCase.m */; };
@@ -52,7 +51,6 @@
 		6F926BD0210F437700D2E3D0 /* SRGDataProvider.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F926BC5210F422A00D2E3D0 /* SRGDataProvider.bundle */; };
 		6F98DD6B1E8282EB008B0B22 /* SWIServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F98DD691E8282A9008B0B22 /* SWIServicesTestCase.m */; };
 		6F9DEF3622D30A5200329878 /* MediaSearchSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DEF3522D30A5200329878 /* MediaSearchSettingsTestCase.m */; };
-		6FA09D821D9EB37600EDCA64 /* SRGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA09D811D9EB37600EDCA64 /* SRGLogger.framework */; };
 		6FA09D871D9EB5CA00EDCA64 /* SRGDataProviderLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FA09D861D9EB5CA00EDCA64 /* SRGDataProviderLogger.h */; };
 		6FA25CC31F194A030062A748 /* SegmentTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA25CC21F194A030062A748 /* SegmentTestCase.m */; };
 		6FAC25AB1F06A2B70058D53A /* SRGImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAC25AA1F06A2B70058D53A /* SRGImageMetadata.m */; };
@@ -67,7 +65,6 @@
 		6FC024B01E1D001600550881 /* SRGSearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FC024AE1E1D001600550881 /* SRGSearchResult.h */; };
 		6FC024B11E1D001600550881 /* SRGSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC024AF1E1D001600550881 /* SRGSearchResult.m */; };
 		6FC361B31ECD7C8B00E01022 /* CommonServicesTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC361B21ECD7C8B00E01022 /* CommonServicesTestCase.m */; };
-		6FC5B8221E852B22003555F8 /* MAKVONotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC5B8211E852B22003555F8 /* MAKVONotificationCenter.framework */; };
 		6FCE228E229D61AC0040DA1C /* SRGMediaSearchSettings+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCE228D229D61AC0040DA1C /* SRGMediaSearchSettings+Private.h */; };
 		6FCEFEED229BD741001388F9 /* SRGMediaSearchSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FCEFEEB229BD741001388F9 /* SRGMediaSearchSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6FCEFEF0229BE35D001388F9 /* SRGMediaSearchSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCEFEEF229BE35D001388F9 /* SRGMediaSearchSettings.m */; };
@@ -97,7 +94,6 @@
 		E63DA7261D5C554A0053060E /* SRGModule.m in Sources */ = {isa = PBXBuildFile; fileRef = E63DA7241D5C554A0053060E /* SRGModule.m */; };
 		E63DA7291D5C5A390053060E /* SRGSection.h in Headers */ = {isa = PBXBuildFile; fileRef = E63DA7271D5C5A390053060E /* SRGSection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E63DA72A1D5C5A390053060E /* SRGSection.m in Sources */ = {isa = PBXBuildFile; fileRef = E63DA7281D5C5A390053060E /* SRGSection.m */; };
-		E66BEC061DA7F08B00AD4450 /* libextobjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E66BEC051DA7F08B00AD4450 /* libextobjc.framework */; };
 		E67BB6651D3D295E00E1FEA3 /* SRGResource.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6631D3D295E00E1FEA3 /* SRGResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E67BB6661D3D295E00E1FEA3 /* SRGResource.m in Sources */ = {isa = PBXBuildFile; fileRef = E67BB6641D3D295E00E1FEA3 /* SRGResource.m */; };
 		E67BB6691D3D2FB600E1FEA3 /* SRGSocialCount.h in Headers */ = {isa = PBXBuildFile; fileRef = E67BB6671D3D2FB600E1FEA3 /* SRGSocialCount.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -125,7 +121,6 @@
 		E6AE51431D40A66C00572CE4 /* SRGRelatedContent.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AE51411D40A66C00572CE4 /* SRGRelatedContent.m */; };
 		E6AE51461D40AA0100572CE4 /* SRGSubtitle.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AE51441D40AA0100572CE4 /* SRGSubtitle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6AE51471D40AA0100572CE4 /* SRGSubtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AE51451D40AA0100572CE4 /* SRGSubtitle.m */; };
-		E6C2B3B91D3908AF00B6250B /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6C2B3B71D39089F00B6250B /* Mantle.framework */; };
 		E6C2B3BF1D390EEF00B6250B /* SRGMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = E6C2B3BD1D390EEF00B6250B /* SRGMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6C2B3C01D390EEF00B6250B /* SRGMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C2B3BE1D390EEF00B6250B /* SRGMedia.m */; };
 		E6C2B3CC1D391EFD00B6250B /* NSBundle+SRGDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E6C2B3CA1D391EFD00B6250B /* NSBundle+SRGDataProvider.h */; };
@@ -325,11 +320,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6F6A09C8210082EA004568BD /* SRGNetwork.framework in Frameworks */,
-				6FC5B8221E852B22003555F8 /* MAKVONotificationCenter.framework in Frameworks */,
-				E66BEC061DA7F08B00AD4450 /* libextobjc.framework in Frameworks */,
-				6FA09D821D9EB37600EDCA64 /* SRGLogger.framework in Frameworks */,
-				E6C2B3B91D3908AF00B6250B /* Mantle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,7 +708,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SRG;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "SRG SSR";
 				TargetAttributes = {
 					6F926BC4210F422A00D2E3D0 = {
