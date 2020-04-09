@@ -751,18 +751,24 @@ static NSString * const kUserId = @"test_user_id";
     XCTestExpectation *expectation7 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider liveCenterVideosForVendor:SRGVendorRSI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotEqual(medias.count, 0);
+        XCTAssertNotNil(medias);
         XCTAssertNil(error);
         
-        [[self.dataProvider mediaCompositionForURN:medias.firstObject.URN standalone:YES withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-            XCTAssertNotNil(mediaComposition);
-            
-            [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-                XCTAssertNotNil(socialCountOverview);
-                XCTAssertNil(error);
-                [expectation7 fulfill];
+        // Can't guarantee a media in the list.
+        if (medias.count > 0) {
+            [[self.dataProvider mediaCompositionForURN:medias.firstObject.URN standalone:YES withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+                XCTAssertNotNil(mediaComposition);
+                
+                [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+                    XCTAssertNotNil(socialCountOverview);
+                    XCTAssertNil(error);
+                    [expectation7 fulfill];
+                }] resume];
             }] resume];
-        }] resume];
+        }
+        else {
+            [expectation7 fulfill];
+        }
         
     }] resume];
     
@@ -858,18 +864,24 @@ static NSString * const kUserId = @"test_user_id";
     XCTestExpectation *expectation7 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider liveCenterVideosForVendor:SRGVendorRSI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotEqual(medias.count, 0);
+        XCTAssertNotNil(medias);
         XCTAssertNil(error);
         
-        [[self.dataProvider mediaCompositionForURN:medias.firstObject.URN standalone:YES withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-            XCTAssertNotNil(mediaComposition);
-            
-            [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-                XCTAssertNotNil(socialCountOverview);
-                XCTAssertNil(error);
-                [expectation7 fulfill];
+        // Can't guarantee a media in the list.
+        if (medias.count > 0) {
+            [[self.dataProvider mediaCompositionForURN:medias.firstObject.URN standalone:YES withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+                XCTAssertNotNil(mediaComposition);
+                
+                [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+                    XCTAssertNotNil(socialCountOverview);
+                    XCTAssertNil(error);
+                    [expectation7 fulfill];
+                }] resume];
             }] resume];
-        }] resume];
+        }
+        else {
+            [expectation7 fulfill];
+        }
         
     }] resume];
     

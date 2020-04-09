@@ -743,6 +743,32 @@ static NSString * const kUserId = @"test_user_id";
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation7 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider liveCenterVideosForVendor:SRGVendorRTR withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        
+        // Can't guarantee a media in the list.
+        if (medias.count > 0) {
+            [[self.dataProvider mediaCompositionForURN:medias.firstObject.URN standalone:YES withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+                XCTAssertNotNil(mediaComposition);
+                
+                [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+                    XCTAssertNotNil(socialCountOverview);
+                    XCTAssertNil(error);
+                    [expectation7 fulfill];
+                }] resume];
+            }] resume];
+        }
+        else {
+            [expectation7 fulfill];
+        }
+        
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
 - (void)testIncreaseSocialCountWithSubdivision
@@ -827,6 +853,32 @@ static NSString * const kUserId = @"test_user_id";
             XCTAssertNil(error);
             [expectation6 fulfill];
         }] resume];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation7 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider liveCenterVideosForVendor:SRGVendorRTR withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        
+        // Can't guarantee a media in the list.
+        if (medias.count > 0) {
+            [[self.dataProvider mediaCompositionForURN:medias.firstObject.URN standalone:YES withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+                XCTAssertNotNil(mediaComposition);
+                
+                [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+                    XCTAssertNotNil(socialCountOverview);
+                    XCTAssertNil(error);
+                    [expectation7 fulfill];
+                }] resume];
+            }] resume];
+        }
+        else {
+            [expectation7 fulfill];
+        }
+        
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
