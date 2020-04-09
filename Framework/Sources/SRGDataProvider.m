@@ -900,9 +900,9 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
             }
         }
         
-        NSDictionary *suggestionsDictionary = JSONDictionary[@"suggestionList"];
-        if (suggestionsDictionary) {
-            parsedObjectDictionary[SRGParsedSearchSuggestionsKey] = [MTLJSONAdapter modelsOfClass:SRGSearchSuggestion.class fromJSONArray:suggestionsDictionary error:pError];
+        NSArray *suggestionsArray = JSONDictionary[@"suggestionList"];
+        if (suggestionsArray) {
+            parsedObjectDictionary[SRGParsedSearchSuggestionsKey] = [MTLJSONAdapter modelsOfClass:SRGSearchSuggestion.class fromJSONArray:suggestionsArray error:pError];
             if (*pError) {
                 return nil;
             }
