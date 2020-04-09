@@ -20,6 +20,7 @@
 @property (nonatomic) NSDate *postTrailerEndDate;
 
 @property (nonatomic) CGFloat aspectRatio;
+@property (nonatomic) NSDate *referenceDate;
 
 @end
 
@@ -41,7 +42,8 @@
                                              @keypath(SRGChapter.new, preTrailerStartDate) : @"preTrailerStart",
                                              @keypath(SRGChapter.new, postTrailerEndDate) : @"postTrailerStop",
                                              
-                                             @keypath(SRGChapter.new, aspectRatio) : @"aspectRatio" }];
+                                             @keypath(SRGChapter.new, aspectRatio) : @"aspectRatio",
+                                             @keypath(SRGChapter.new, referenceDate) : @"dvrReferenceDate" }];
         s_mapping = mapping.copy;
     });
     return s_mapping;
@@ -53,7 +55,12 @@
 {
     NSDictionary *defaultDictionary = @{ @keypath(SRGChapter.new, aspectRatio) : @(SRGAspectRatioUndefined) };
     NSDictionary *dictionary = [defaultDictionary mtl_dictionaryByAddingEntriesFromDictionary:dictionaryValue];
-    return [super initWithDictionary:dictionary error:error];
+    if (self = [super initWithDictionary:dictionary error:error]) {
+        [self.segments enumerateObjectsUsingBlock:^(SRGSegment * _Nonnull segment, NSUInteger idx, BOOL * _Nonnull stop) {
+            segment.referenceDate = self.referenceDate;
+        }];
+    }
+    return self;
 }
 
 #pragma mark Transformers
@@ -93,6 +100,11 @@
 }
 
 + (NSValueTransformer *)postTrailerEndDateJSONTransformer
+{
+    return SRGISO8601DateJSONTransformer();
+}
+
++ (NSValueTransformer *)referenceDateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
 }

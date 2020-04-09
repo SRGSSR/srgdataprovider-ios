@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Chapter (unit of media playback characterized by a URL to be played).
+ *  Chapter (unit of media playback characterized by a stream URL to be played).
  */
 @interface SRGChapter : SRGSubdivision <SRGScheduledLivestreamMetadata>
 
@@ -47,6 +47,12 @@ NS_ASSUME_NONNULL_BEGIN
  *              remove all kinds of overlaps or nested segments.
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGSegment *> *segments;
+
+/**
+ *  The reference date corresponding to the beginning of the stream, if any. You can use this date to map a time
+ *  position relative to the stream (e.g. a segment mark in or mark out) to a date.
+ */
+@property (nonatomic, readonly, nullable) NSDate *referenceDate;
 
 @end
 
