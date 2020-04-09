@@ -248,7 +248,7 @@ static NSURL *ServiceTestURL(void)
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL()];
     [[dataProvider mediaCompositionForURN:@"urn:rts:video:9116567" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         SRGChapter *mainChapter = mediaComposition.mainChapter;
-        XCTAssertEqual(mainChapter.aspectRatio, SRGAspectRatioUndefined);
+        XCTAssertEqual(mainChapter.aspectRatio, (CGFloat)16.f / 9.f);
         [expectation1 fulfill];
     }] resume];
     
