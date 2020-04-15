@@ -23,7 +23,7 @@ OBJC_EXTERN NSArray<__kindof SRGSegment *> *SRGSanitizedSegments(NSArray<SRGSegm
 /**
  *  Internally used to associate with a parent chapter date, if any.
  */
-@property (nonatomic, nullable) NSDate *referenceDate;
+@property (nonatomic, nullable) NSDate *resourceReferenceDate;
 
 @end
 

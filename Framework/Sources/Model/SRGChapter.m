@@ -20,7 +20,7 @@
 @property (nonatomic) NSDate *postTrailerEndDate;
 
 @property (nonatomic) CGFloat aspectRatio;
-@property (nonatomic) NSDate *referenceDate;
+@property (nonatomic) NSDate *resourceReferenceDate;
 
 @end
 
@@ -43,7 +43,7 @@
                                              @keypath(SRGChapter.new, postTrailerEndDate) : @"postTrailerStop",
                                              
                                              @keypath(SRGChapter.new, aspectRatio) : @"aspectRatio",
-                                             @keypath(SRGChapter.new, referenceDate) : @"dvrReferenceDate" }];
+                                             @keypath(SRGChapter.new, resourceReferenceDate) : @"dvrReferenceDate" }];
         s_mapping = mapping.copy;
     });
     return s_mapping;
@@ -57,7 +57,7 @@
     NSDictionary *dictionary = [defaultDictionary mtl_dictionaryByAddingEntriesFromDictionary:dictionaryValue];
     if (self = [super initWithDictionary:dictionary error:error]) {
         [self.segments enumerateObjectsUsingBlock:^(SRGSegment * _Nonnull segment, NSUInteger idx, BOOL * _Nonnull stop) {
-            segment.referenceDate = self.referenceDate;
+            segment.resourceReferenceDate = self.resourceReferenceDate;
         }];
     }
     return self;
@@ -104,7 +104,7 @@
     return SRGISO8601DateJSONTransformer();
 }
 
-+ (NSValueTransformer *)referenceDateJSONTransformer
++ (NSValueTransformer *)resourceReferenceDateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
 }

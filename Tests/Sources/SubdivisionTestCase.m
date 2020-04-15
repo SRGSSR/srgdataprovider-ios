@@ -132,7 +132,7 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testReferenceDate
+- (void)testResourceReferenceDate
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
@@ -140,7 +140,7 @@
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:[NSURL URLWithString:@"https://play-mmf.herokuapp.com/integrationlayer"]];
     [[dataProvider mediaCompositionForURN:@"urn:rts:video:_radio_srf1_prod" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         SRGChapter *mainChapter = mediaComposition.mainChapter;
-        XCTAssertNotNil(mainChapter.referenceDate);
+        XCTAssertNotNil(mainChapter.resourceReferenceDate);
         
         [mainChapter.segments enumerateObjectsUsingBlock:^(SRGSegment * _Nonnull segment, NSUInteger idx, BOOL * _Nonnull stop) {
             XCTAssertNotNil(segment.markInDate);

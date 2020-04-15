@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  The reference date corresponding to the beginning of the stream, if any. You can use this date to map a time
  *  position relative to the stream (e.g. a segment mark in or mark out) to a date.
  */
-@property (nonatomic, readonly, nullable) NSDate *referenceDate;
+@property (nonatomic, readonly, nullable) NSDate *resourceReferenceDate;
 
 @end
 

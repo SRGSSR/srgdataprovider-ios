@@ -14,7 +14,7 @@
 
 @property (nonatomic) NSTimeInterval markIn;
 @property (nonatomic) NSTimeInterval markOut;
-@property (nonatomic) NSDate *referenceDate;
+@property (nonatomic) NSDate *resourceReferenceDate;
 
 @end
 
@@ -148,8 +148,8 @@ NSArray<SRGSegment *> *SRGSanitizedSegments(NSArray<SRGSegment *> *segments)
 
 - (NSDate *)markInDate
 {
-    if (self.referenceDate) {
-        return [self.referenceDate dateByAddingTimeInterval:self.markIn / 1000.];
+    if (self.resourceReferenceDate) {
+        return [self.resourceReferenceDate dateByAddingTimeInterval:self.markIn / 1000.];
     }
     else {
         return nil;
@@ -158,8 +158,8 @@ NSArray<SRGSegment *> *SRGSanitizedSegments(NSArray<SRGSegment *> *segments)
 
 - (NSDate *)markOutDate
 {
-    if (self.referenceDate) {
-        return [self.referenceDate dateByAddingTimeInterval:self.markOut / 1000.];
+    if (self.resourceReferenceDate) {
+        return [self.resourceReferenceDate dateByAddingTimeInterval:self.markOut / 1000.];
     }
     else {
         return nil;
