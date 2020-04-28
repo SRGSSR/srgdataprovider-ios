@@ -42,6 +42,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly, nullable) SRGPresenter *presenter;
 
+/**
+ *  The URN of the media associated with the program.
+ */
+@property (nonatomic, readonly, copy) NSString *mediaURN;
+
 @end
 
 NS_ASSUME_NONNULL_END
