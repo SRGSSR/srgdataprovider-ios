@@ -351,10 +351,17 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGFirstPageRequest *)radioLatestProgramsForVendor:(SRGVendor)vendor
                                            channelUid:(NSString *)channelUid
+                                        livestreamUid:(NSString *)livestreamUid
                                       completionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/programListComposition/radio/byChannel/%@", SRGPathComponentForVendor(vendor), channelUid];
-    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
+    
+    NSArray<NSURLQueryItem *> *queryItems = nil;
+    if (livestreamUid) {
+        queryItems = @[ [NSURLQueryItem queryItemWithName:@"livestreamId" value:livestreamUid] ];
+    }
+    
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
     return [self pageRequestWithURLRequest:URLRequest parser:^id(NSDictionary *JSONDictionary, NSError *__autoreleasing *pError) {
         return [MTLJSONAdapter modelOfClass:SRGProgramComposition.class fromJSONDictionary:JSONDictionary error:pError];
     } completionBlock:^(id _Nullable object, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {

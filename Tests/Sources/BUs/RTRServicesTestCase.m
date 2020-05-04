@@ -293,12 +293,22 @@ static NSString * const kUserId = @"test_user_id";
 
 - (void)testRadioChannelPrograms
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider radioLatestProgramsForVendor:SRGVendorRTR channelUid:kRadioChannelUid completionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider radioLatestProgramsForVendor:SRGVendorRTR channelUid:kRadioChannelUid livestreamUid:nil completionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(programComposition);
         XCTAssertNil(error);
-        [expectation fulfill];
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    // No livestreams for RTR yet
+    [[self.dataProvider radioLatestProgramsForVendor:SRGVendorRTR channelUid:kRadioChannelUid livestreamUid:kRadioLivestreamUid completionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

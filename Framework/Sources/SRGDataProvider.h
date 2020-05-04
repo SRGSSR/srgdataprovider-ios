@@ -405,11 +405,15 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Latest programs for a specific radio channel, including current and next programs.
  *
+ *  @param livestreamUid An optional radio channel unique identifier (usually regional, but might be the main one). If provided,
+ *                       the program of the specified livestream is used, otherwise the one of the main channel.
+ *
  *  @discussion Though the completion block does not return an array directly, this request supports pagination (for programs
  *              returned in the program composition object).
  */
 - (SRGFirstPageRequest *)radioLatestProgramsForVendor:(SRGVendor)vendor
                                            channelUid:(NSString *)channelUid
+                                        livestreamUid:(nullable NSString *)livestreamUid
                                       completionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock;
 
 /**
