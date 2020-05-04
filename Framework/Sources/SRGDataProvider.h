@@ -253,14 +253,18 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                    completionBlock:(SRGChannelCompletionBlock)completionBlock;
 
 /**
- *  Latest programs for a specific TV channel, including current and next programs.
+ *  Latest programs for a specific TV channel, including current and next programs. An optional date range (possibly
+ *  half-open) can be specified to only return programs entirely contained in a given interval. If no end date is
+ *  provided, only programs up to the current date are returned.
  *
  *  @discussion Though the completion block does not return an array directly, this request supports pagination (for programs
  *              returned in the program composition object).
  */
 - (SRGFirstPageRequest *)tvLatestProgramsForVendor:(SRGVendor)vendor
                                         channelUid:(NSString *)channelUid
-                                   completionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock;
+                                          fromDate:(nullable NSDate *)fromDate
+                                            toDate:(nullable NSDate *)toDate
+                               withCompletionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock;
 
 /**
  *  List of TV livestreams.
@@ -335,7 +339,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Episodes available for a given day.
  *
- *  @param date The day. If `nil`, today is used.
+ *  @param day The day. If `nil`, today is used.
  */
 - (SRGFirstPageRequest *)tvEpisodesForVendor:(SRGVendor)vendor
                                          day:(nullable SRGDay *)day
@@ -403,7 +407,9 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                       completionBlock:(SRGChannelCompletionBlock)completionBlock;
 
 /**
- *  Latest programs for a specific radio channel, including current and next programs.
+ *  Latest programs for a specific radio channel, including current and next programs. An optional date range (possibly
+ *  half-open) can be specified to only return programs entirely contained in a given interval. If no end date is
+ *  provided, only programs up to the current date are returned.
  *
  *  @param livestreamUid An optional radio channel unique identifier (usually regional, but might be the main one). If provided,
  *                       the program of the specified livestream is used, otherwise the one of the main channel.
@@ -414,7 +420,9 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 - (SRGFirstPageRequest *)radioLatestProgramsForVendor:(SRGVendor)vendor
                                            channelUid:(NSString *)channelUid
                                         livestreamUid:(nullable NSString *)livestreamUid
-                                      completionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock;
+                                             fromDate:(nullable NSDate *)fromDate
+                                               toDate:(nullable NSDate *)toDate
+                                  withCompletionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock;
 
 /**
  *  List of radio livestreams for a channel.
@@ -462,7 +470,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Episodes available for a given day, for the specific channel.
  *
- *  @param date The day. If `nil`, today is used.
+ *  @param day The day. If `nil`, today is used.
  */
 - (SRGFirstPageRequest *)radioEpisodesForVendor:(SRGVendor)vendor
                                             day:(nullable SRGDay *)day

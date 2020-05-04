@@ -55,6 +55,26 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     return s_pathComponents[@(vendor)] ?: @"not_supported";
 }
 
+// TODO: Should be discussed with the IL team. This parameter has no timezone information. This means a client in some
+//       timezone (not the one of the IL) will request receive programs not contained in the time range it asked about
+//       (since results are returned with IL timezone information, when converted back they will fall outside the
+//       initial range asked by the client). Two possible fixes.
+//         1. Have the IL support timezone in this parameter (could be optional) and use SRGISO8601DateJSONTransformer()
+//            for date construction. This is not consistent with other dates (e.g. requests by day, which have no timezone
+//            info either).
+//         2. If the IL team does not want it, we have to convert the date from the current timezone to the IL timezone
+//            first, before formatting it.
+static NSString *SRGStringFromDate(NSDate *date)
+{
+    static dispatch_once_t s_onceToken;
+    static NSDateFormatter *s_dateFormatter;
+    dispatch_once(&s_onceToken, ^{
+        s_dateFormatter = [[NSDateFormatter alloc] init];
+        [s_dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+    });
+    return [s_dateFormatter stringFromDate:date];
+}
+
 @interface SRGDataProvider ()
 
 @property (nonatomic) NSURL *serviceURL;
@@ -170,10 +190,21 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGFirstPageRequest *)tvLatestProgramsForVendor:(SRGVendor)vendor
                                         channelUid:(NSString *)channelUid
-                                   completionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock
+                                          fromDate:(NSDate *)fromDate
+                                            toDate:(NSDate *)toDate
+                               withCompletionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/programListComposition/tv/byChannel/%@", SRGPathComponentForVendor(vendor), channelUid];
-    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[NSMutableArray array]];
+    
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
+    if (fromDate) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"minEndTime" value:SRGStringFromDate(fromDate)]];
+    }
+    if (toDate) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"maxStartTime" value:SRGStringFromDate(toDate)]];
+    }
+    
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
     return [self pageRequestWithURLRequest:URLRequest parser:^id(NSDictionary *JSONDictionary, NSError *__autoreleasing *pError) {
         return [MTLJSONAdapter modelOfClass:SRGProgramComposition.class fromJSONDictionary:JSONDictionary error:pError];
     } completionBlock:^(id _Nullable object, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
@@ -352,13 +383,21 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 - (SRGFirstPageRequest *)radioLatestProgramsForVendor:(SRGVendor)vendor
                                            channelUid:(NSString *)channelUid
                                         livestreamUid:(NSString *)livestreamUid
-                                      completionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock
+                                             fromDate:(NSDate *)fromDate
+                                               toDate:(NSDate *)toDate
+                                  withCompletionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/programListComposition/radio/byChannel/%@", SRGPathComponentForVendor(vendor), channelUid];
     
-    NSArray<NSURLQueryItem *> *queryItems = nil;
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
     if (livestreamUid) {
-        queryItems = @[ [NSURLQueryItem queryItemWithName:@"livestreamId" value:livestreamUid] ];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"livestreamId" value:livestreamUid]];
+    }
+    if (fromDate) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"minEndTime" value:SRGStringFromDate(fromDate)]];
+    }
+    if (toDate) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"maxStartTime" value:SRGStringFromDate(toDate)]];
     }
     
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
