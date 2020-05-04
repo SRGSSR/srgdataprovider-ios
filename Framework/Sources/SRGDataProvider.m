@@ -55,21 +55,14 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     return s_pathComponents[@(vendor)] ?: @"not_supported";
 }
 
-// TODO: Should be discussed with the IL team. This parameter has no timezone information. This means a client in some
-//       timezone (not the one of the IL) will request receive programs not contained in the time range it asked about
-//       (since results are returned with IL timezone information, when converted back they will fall outside the
-//       initial range asked by the client). Two possible fixes.
-//         1. Have the IL support timezone in this parameter (could be optional) and use SRGISO8601DateJSONTransformer()
-//            for date construction. This is not consistent with other dates (e.g. requests by day, which have no timezone
-//            info either).
-//         2. If the IL team does not want it, we have to convert the date from the current timezone to the IL timezone
-//            first, before formatting it.
 static NSString *SRGStringFromDate(NSDate *date)
 {
     static dispatch_once_t s_onceToken;
     static NSDateFormatter *s_dateFormatter;
     dispatch_once(&s_onceToken, ^{
         s_dateFormatter = [[NSDateFormatter alloc] init];
+        [s_dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        [s_dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Zurich"]];
         [s_dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
     });
     return [s_dateFormatter stringFromDate:date];

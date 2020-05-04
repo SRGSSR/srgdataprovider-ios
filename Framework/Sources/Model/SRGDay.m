@@ -83,6 +83,8 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_dateFormatter = [[NSDateFormatter alloc] init];
+        [s_dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        [s_dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Zurich"]];
         s_dateFormatter.dateFormat = @"yyyy-MM-dd";
     });
     return [s_dateFormatter stringFromDate:self.date];
