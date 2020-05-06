@@ -18,6 +18,7 @@
 @property (nonatomic) NSURL *URL;
 @property (nonatomic) SRGShow *show;
 @property (nonatomic) SRGPresenter *presenter;
+@property (nonatomic, copy) NSString *mediaURN;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
@@ -43,6 +44,7 @@
                        @keypath(SRGProgram.new, URL) : @"url",
                        @keypath(SRGProgram.new, show) : @"show",
                        @keypath(SRGProgram.new, presenter) : @"presenter",
+                       @keypath(SRGProgram.new, mediaURN) : @"mediaUrn",
                        
                        @keypath(SRGProgram.new, title) : @"title",
                        @keypath(SRGProgram.new, lead) : @"lead",
