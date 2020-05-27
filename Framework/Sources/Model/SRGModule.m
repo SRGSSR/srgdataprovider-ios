@@ -152,13 +152,13 @@ SRGImageType const SRGImageTypeModuleLogo = @"logo";
 - (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
 {
     if ([type isEqualToString:SRGImageTypeModuleBackground]) {
-        return [self.backgroundImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
+        return [self.backgroundImageURL srg_URLForDimension:dimension withValue:value type:type];
     }
     else if ([type isEqualToString:SRGImageTypeModuleLogo]) {
-        return [self.logoImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
+        return [self.logoImageURL srg_URLForDimension:dimension withValue:value type:type];
     }
     else {
-        return [self.keyVisualImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
+        return [self.keyVisualImageURL srg_URLForDimension:dimension withValue:value type:type];
     }
 }
 

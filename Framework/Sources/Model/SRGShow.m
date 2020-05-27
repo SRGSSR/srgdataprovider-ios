@@ -139,10 +139,10 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
 - (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
 {
     if ([type isEqualToString:SRGImageTypeShowBanner]) {
-        return [self.bannerImageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
+        return [self.bannerImageURL srg_URLForDimension:dimension withValue:value type:type];
     }
     else {
-        return [self.imageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
+        return [self.imageURL srg_URLForDimension:dimension withValue:value type:type];
     }
 }
 

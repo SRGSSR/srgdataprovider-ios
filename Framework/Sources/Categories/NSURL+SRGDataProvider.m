@@ -8,24 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-static SRGDataProviderURLOverridingBlock s_imageURLOverridingBlock = nil;
-
 @implementation NSURL (SRGDataProvider)
 
-+ (void)srg_setImageURLOverridingBlock:(SRGDataProviderURLOverridingBlock)imageURLOverridingBlock
+- (NSURL *)srg_URLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
 {
-    s_imageURLOverridingBlock = imageURLOverridingBlock;
-}
-
-- (NSURL *)srg_URLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value uid:(NSString *)uid type:(SRGImageType)type
-{
-    if (s_imageURLOverridingBlock && uid) {
-        NSURL *overriddenURL = s_imageURLOverridingBlock(uid, type, dimension, value);
-        if (overriddenURL) {
-            return overriddenURL;
-        }
-    }
-    
     if (self.fileURL || value == 0.f) {
         return self;
     }
