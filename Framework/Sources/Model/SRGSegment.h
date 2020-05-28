@@ -25,18 +25,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface SRGSegment (Dates)
-
-/**
- *  The date corresponding to the mark in time, `nil` if no such relationship exists.
- */
-@property (nonatomic, readonly, nullable) NSDate *markInDate;
-
-/**
- *  The date corresponding to the mark out time, `nil` if no such relationship exists.
- */
-@property (nonatomic, readonly, nullable) NSDate *markOutDate;
-
-@end
-
 NS_ASSUME_NONNULL_END

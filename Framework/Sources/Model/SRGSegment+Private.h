@@ -18,13 +18,4 @@ NS_ASSUME_NONNULL_BEGIN
  */
 OBJC_EXTERN NSArray<__kindof SRGSegment *> *SRGSanitizedSegments(NSArray<SRGSegment *> * _Nullable segments);
 
-@interface SRGSegment (Private)
-
-/**
- *  Internally used to associate with a parent chapter date, if any.
- */
-@property (nonatomic, nullable) NSDate *resourceReferenceDate;
-
-@end
-
 NS_ASSUME_NONNULL_END
