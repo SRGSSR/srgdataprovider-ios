@@ -77,9 +77,9 @@
 
 // FIXME: Hardcoded until delivered by the IL
 
-- (NSTimeInterval)liveOffset
+- (NSTimeInterval)streamOffset
 {
-    return (self.videoCodec == SRGVideoCodecNone && self.DVR) ? 60. * 1000. : 0.;
+    return (self.videoCodec == SRGVideoCodecNone && self.DVR) ? 55. * 1000. : 0.;
 }
 
 #pragma mark Parsers

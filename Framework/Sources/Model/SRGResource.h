@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The stream offset from the real-world clock, in milliseconds (0 for on-demand or streams without DVR capabilities).
  */
-@property (nonatomic, readonly) NSTimeInterval liveOffset;
+@property (nonatomic, readonly) NSTimeInterval streamOffset;
 
 /**
  *  The list of DRMs providers supported by the stream.
