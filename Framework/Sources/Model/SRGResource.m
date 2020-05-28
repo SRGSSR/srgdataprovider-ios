@@ -79,7 +79,7 @@
 
 - (NSTimeInterval)liveOffset
 {
-    return 60.;
+    return (self.videoCodec == SRGVideoCodecNone && self.DVR) ? 60. : 0.;
 }
 
 #pragma mark Parsers
