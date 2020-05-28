@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGTokenType tokenType;
 
 /**
- *  The stream offset from the real-world clock, in seconds (0 for on-demand or streams without DVR capabilities).
+ *  The stream offset from the real-world clock, in milliseconds (0 for on-demand or streams without DVR capabilities).
  */
 @property (nonatomic, readonly) NSTimeInterval liveOffset;
 
