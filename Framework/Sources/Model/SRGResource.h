@@ -66,6 +66,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGTokenType tokenType;
 
 /**
+ *  The stream offset from the real-world clock, in seconds (0 for on-demand or streams without DVR capabilities).
+ */
+@property (nonatomic, readonly) NSTimeInterval liveOffset;
+
+/**
  *  The list of DRMs providers supported by the stream.
  */
 @property (nonatomic, readonly, nullable) NSArray<SRGDRM *> *DRMs;

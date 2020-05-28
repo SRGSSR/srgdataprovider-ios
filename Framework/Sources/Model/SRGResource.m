@@ -75,6 +75,13 @@
     }
 }
 
+// FIXME: Hardcoded until delivered by the IL
+
+- (NSTimeInterval)liveOffset
+{
+    return 60.;
+}
+
 #pragma mark Parsers
 
 + (NSValueTransformer *)URLJSONTransformer
