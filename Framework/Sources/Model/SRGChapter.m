@@ -55,7 +55,12 @@
 {
     NSDictionary *defaultDictionary = @{ @keypath(SRGChapter.new, aspectRatio) : @(SRGAspectRatioUndefined) };
     NSDictionary *dictionary = [defaultDictionary mtl_dictionaryByAddingEntriesFromDictionary:dictionaryValue];
-    return [super initWithDictionary:dictionary error:error];
+    if (self = [super initWithDictionary:dictionary error:error]) {
+        [self.segments enumerateObjectsUsingBlock:^(SRGSegment * _Nonnull segment, NSUInteger idx, BOOL * _Nonnull stop) {
+            segment.resourceReferenceDate = self.resourceReferenceDate;
+        }];
+    }
+    return self;
 }
 
 #pragma mark Transformers
