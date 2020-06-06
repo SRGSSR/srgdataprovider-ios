@@ -473,7 +473,11 @@ typedef NS_ENUM(NSInteger, SRGVendor) {
      *  Regional radios and televisions.
      */
     SRGVendorTVO,
-    SRGVendorCanalAlpha
+    SRGVendorCanalAlpha,
+    /**
+     *  Swiss satellite radios.
+     */
+    SRGVendorSSATR
 };
 
 /**

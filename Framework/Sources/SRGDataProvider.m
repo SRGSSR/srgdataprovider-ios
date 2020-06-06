@@ -50,7 +50,8 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                               @(SRGVendorRTR) : @"rtr",
                               @(SRGVendorRTS) : @"rts",
                               @(SRGVendorSRF) : @"srf",
-                              @(SRGVendorSWI) : @"swi" };
+                              @(SRGVendorSWI) : @"swi",
+                              @(SRGVendorSSATR) : @"ssatr" };
     });
     return s_pathComponents[@(vendor)] ?: @"not_supported";
 }
