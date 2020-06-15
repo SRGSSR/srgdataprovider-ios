@@ -14,6 +14,7 @@
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic) NSDate *date;
+@property (nonatomic) NSTimeInterval duration;
 @property (nonatomic, getter=isPlaying) BOOL playing;
 @property (nonatomic) SRGArtist *artist;
 @property (nonatomic) SRGAlbum *album;
@@ -31,6 +32,7 @@
     dispatch_once(&s_onceToken, ^{
         s_mapping = @{ @keypath(SRGSong.new, title) : @"title",
                        @keypath(SRGSong.new, date) : @"date",
+                       @keypath(SRGSong.new, duration) : @"duration",
                        @keypath(SRGSong.new, playing) : @"isPlayingNow",
                        @keypath(SRGSong.new, artist) : @"artist",
                        @keypath(SRGSong.new, album) : @"cd" };
