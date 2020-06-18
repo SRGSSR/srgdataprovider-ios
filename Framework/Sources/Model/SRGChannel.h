@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGChannelIdentifierMetadata.h"
 #import "SRGImageMetadata.h"
 #import "SRGMetadata.h"
 #import "SRGModel.h"
@@ -15,17 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Channel (TV, radio or online).
  */
-@interface SRGChannel : SRGModel <SRGImageMetadata, SRGMetadata>
-
-/**
- *  The unique channel identifier.
- */
-@property (nonatomic, readonly, copy) NSString *uid;
-
-/**
- *  Describes whether the channel is a TV, radio or online channel.
- */
-@property (nonatomic, readonly) SRGTransmission transmission;
+@interface SRGChannel : SRGModel <SRGChannelIdentifierMetadata, SRGImageMetadata, SRGMetadata>
 
 /**
  *  The URL at which the schedule can be retrieved.

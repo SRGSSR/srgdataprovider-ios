@@ -26,6 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSDate *date;
 
 /**
+ * The duration in milliseconds.
+ */
+@property (nonatomic, readonly) NSTimeInterval duration;
+
+/**
  *  Return `YES` iff the song is currently being played.
  */
 @property (nonatomic, readonly, getter=isPlaying) BOOL playing;
