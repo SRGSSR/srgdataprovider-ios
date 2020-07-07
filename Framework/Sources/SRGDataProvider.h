@@ -259,11 +259,15 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  half-open) can be specified to only return programs entirely contained in a given interval. If no end date is
  *  provided, only programs up to the current date are returned.
  *
+ *  @param livestreamUid An optional media unique identifier (usually regional, but might be the main one). If provided,
+ *                       the program of the specified livestream is used, otherwise the one of the main channel.
+ *
  *  @discussion Though the completion block does not return an array directly, this request supports pagination (for programs
  *              returned in the program composition object).
  */
 - (SRGFirstPageRequest *)tvLatestProgramsForVendor:(SRGVendor)vendor
                                         channelUid:(NSString *)channelUid
+                                     livestreamUid:(nullable NSString *)livestreamUid
                                           fromDate:(nullable NSDate *)fromDate
                                             toDate:(nullable NSDate *)toDate
                                withCompletionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock;
@@ -400,7 +404,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *
  *  Please https://github.com/SRGSSR/srgdataprovider-ios/wiki/Channel-information for more information about this method.
  *
- *  @param livestreamUid An optional radio channel unique identifier (usually regional, but might be the main one). If provided,
+ *  @param livestreamUid An optional media unique identifier (usually regional, but might be the main one). If provided,
  *                       the program of the specified live stream is used, otherwise the one of the main channel.
  */
 - (SRGRequest *)radioChannelForVendor:(SRGVendor)vendor
@@ -413,7 +417,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  half-open) can be specified to only return programs entirely contained in a given interval. If no end date is
  *  provided, only programs up to the current date are returned.
  *
- *  @param livestreamUid An optional radio channel unique identifier (usually regional, but might be the main one). If provided,
+ *  @param livestreamUid An optional media unique identifier (usually the main one). If provided,
  *                       the program of the specified livestream is used, otherwise the one of the main channel.
  *
  *  @discussion Though the completion block does not return an array directly, this request supports pagination (for programs

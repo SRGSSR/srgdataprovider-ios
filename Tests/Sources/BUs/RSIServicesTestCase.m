@@ -10,12 +10,13 @@ static NSString * const kAudioSearchQuery = @"tennis";
 static NSString * const kAudioURN = @"urn:rsi:audio:8800213";
 
 static NSString * const kRadioChannelUid = @"rete-uno";
-static NSString * const kRadioLivestreamUid = @"none_yet";
+static NSString * const kRadioLivestreamUid = @"livestream_ReteUno";
 static NSString * const kRadioShowSearchQuery = @"modem";
 
 static NSString * const kVideoURN = @"urn:rsi:video:8812327";
 
 static NSString * const kTVChannelUid = @"la1";
+static NSString * const kTVLivestreamUid = @"livestream_La1";
 static NSString * const kTVShowSearchQuery = @"telegiornale";
 
 static NSString * const kTVShowURN = @"urn:rsi:show:tv:3567604";
@@ -80,12 +81,22 @@ static NSString * const kUserId = @"test_user_id";
 
 - (void)testTVLatestPrograms
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvLatestProgramsForVendor:SRGVendorRSI channelUid:kTVChannelUid fromDate:nil toDate:nil withCompletionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider tvLatestProgramsForVendor:SRGVendorRSI channelUid:kTVChannelUid livestreamUid:nil fromDate:nil toDate:nil withCompletionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(programComposition);
         XCTAssertNil(error);
-        [expectation fulfill];
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider tvLatestProgramsForVendor:SRGVendorRSI channelUid:kTVChannelUid livestreamUid:kTVLivestreamUid fromDate:nil toDate:nil withCompletionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(programComposition);
+        XCTAssertNil(error);
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
@@ -288,9 +299,9 @@ static NSString * const kUserId = @"test_user_id";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
     
-    // No livestreams for RSI yet
     [[self.dataProvider radioLatestProgramsForVendor:SRGVendorRSI channelUid:kRadioChannelUid livestreamUid:kRadioLivestreamUid fromDate:nil toDate:nil withCompletionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(error);
+        XCTAssertNotNil(programComposition);
+        XCTAssertNil(error);
         [expectation2 fulfill];
     }] resume];
     
@@ -309,9 +320,9 @@ static NSString * const kUserId = @"test_user_id";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
-    // No livestreams for RSI yet
     [[self.dataProvider radioChannelForVendor:SRGVendorRSI withUid:kRadioChannelUid livestreamUid:kRadioLivestreamUid completionBlock:^(SRGChannel * _Nullable channel, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(error);
+        XCTAssertNotNil(channel);
+        XCTAssertNil(error);
         [expectation2 fulfill];
     }] resume];
     

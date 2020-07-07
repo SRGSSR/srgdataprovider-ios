@@ -186,6 +186,7 @@ static NSString *SRGStringFromDate(NSDate *date)
 
 - (SRGFirstPageRequest *)tvLatestProgramsForVendor:(SRGVendor)vendor
                                         channelUid:(NSString *)channelUid
+                                     livestreamUid:(NSString *)livestreamUid
                                           fromDate:(NSDate *)fromDate
                                             toDate:(NSDate *)toDate
                                withCompletionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock
@@ -193,6 +194,9 @@ static NSString *SRGStringFromDate(NSDate *date)
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/programListComposition/tv/byChannel/%@", SRGPathComponentForVendor(vendor), channelUid];
     
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
+    if (livestreamUid) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"livestreamId" value:livestreamUid]];
+    }
     if (fromDate) {
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"minEndTime" value:SRGStringFromDate(fromDate)]];
     }
