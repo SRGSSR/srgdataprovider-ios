@@ -75,10 +75,10 @@ static NSURL *ServiceTestURL(void)
     SRGDataProvider *dataProvider1 = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL()];
     [[dataProvider1 mediaCompositionForURN:@"urn:srf:video:f8239f1d-c105-4f97-b6a6-1a0fe32951d4" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         SRGChapter *mainChapter = mediaComposition.mainChapter;
-        XCTAssertEqual(mainChapter.resources.count, 4);
-        XCTAssertEqual(mainChapter.playableResources.count, 2);
-        XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodHLS].count, 2);
-        XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodHDS].count, 2);
+        XCTAssertEqual(mainChapter.resources.count, 2);
+        XCTAssertEqual(mainChapter.playableResources.count, 1);
+        XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodHLS].count, 1);
+        XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodHDS].count, 1);
         XCTAssertEqual([mainChapter resourcesForStreamingMethod:SRGStreamingMethodDASH].count, 0);
         XCTAssertEqual(mainChapter.recommendedStreamingMethod, SRGStreamingMethodHLS);
         XCTAssertEqual(mainChapter.recommendedSubtitleFormat, SRGSubtitleFormatNone); // APPPLAY vector does not return external files anymore.
@@ -248,7 +248,7 @@ static NSURL *ServiceTestURL(void)
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:ServiceTestURL()];
     [[dataProvider mediaCompositionForURN:@"urn:rts:video:9116567" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         SRGChapter *mainChapter = mediaComposition.mainChapter;
-        XCTAssertEqual(mainChapter.aspectRatio, SRGAspectRatioUndefined);
+        XCTAssertEqual(mainChapter.aspectRatio, (CGFloat)16.f / 9.f);
         [expectation1 fulfill];
     }] resume];
     

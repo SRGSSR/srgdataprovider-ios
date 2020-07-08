@@ -10,12 +10,13 @@ static NSString * const kAudioSearchQuery = @"roger";
 static NSString * const kAudioURN = @"urn:rts:audio:8438184";
 
 static NSString * const kRadioChannelUid = @"a9e7621504c6959e35c3ecbe7f6bed0446cdf8da";
-static NSString * const kRadioLivestreamUid = @"none_yet";
+static NSString * const kRadioLivestreamUid = @"3262320";
 static NSString * const kRadioShowSearchQuery = @"supersonic";
 
 static NSString * const kVideoURN = @"urn:rts:video:8478255";
 
 static NSString * const kTVChannelUid = @"143932a79bb5a123a646b68b1d1188d7ae493e5b";
+static NSString * const kTVLivestreamUid = @"3608506";
 static NSString * const kTVShowSearchQuery = @"entendeur";
 
 static NSString * const kTVShowURN = @"urn:rts:show:tv:6454717";
@@ -80,12 +81,22 @@ static NSString * const kUserId = @"test_user_id";
 
 - (void)testTVLatestPrograms
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvLatestProgramsForVendor:SRGVendorRTS channelUid:kTVChannelUid completionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider tvLatestProgramsForVendor:SRGVendorRTS channelUid:kTVChannelUid livestreamUid:nil fromDate:nil toDate:nil withCompletionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(programComposition);
         XCTAssertNil(error);
-        [expectation fulfill];
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider tvLatestProgramsForVendor:SRGVendorRTS channelUid:kTVChannelUid livestreamUid:kTVLivestreamUid fromDate:nil toDate:nil withCompletionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(programComposition);
+        XCTAssertNil(error);
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
@@ -282,9 +293,9 @@ static NSString * const kUserId = @"test_user_id";
     
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request 2 succeeded"];
     
-    // No livestreams for RTS yet
     [[self.dataProvider radioChannelForVendor:SRGVendorRTS withUid:kRadioChannelUid livestreamUid:kRadioLivestreamUid completionBlock:^(SRGChannel * _Nullable channel, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(error);
+        XCTAssertNotNil(channel);
+        XCTAssertNil(error);
         [expectation2 fulfill];
     }] resume];
     
@@ -293,12 +304,22 @@ static NSString * const kUserId = @"test_user_id";
 
 - (void)testRadioChannelPrograms
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider radioLatestProgramsForVendor:SRGVendorRTS channelUid:kRadioChannelUid completionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider radioLatestProgramsForVendor:SRGVendorRTS channelUid:kRadioChannelUid livestreamUid:nil fromDate:nil toDate:nil withCompletionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(programComposition);
         XCTAssertNil(error);
-        [expectation fulfill];
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider radioLatestProgramsForVendor:SRGVendorRTS channelUid:kRadioChannelUid livestreamUid:kRadioLivestreamUid fromDate:nil toDate:nil withCompletionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(programComposition);
+        XCTAssertNil(error);
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
@@ -747,18 +768,24 @@ static NSString * const kUserId = @"test_user_id";
     XCTestExpectation *expectation7 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider liveCenterVideosForVendor:SRGVendorRTS withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotEqual(medias.count, 0);
+        XCTAssertNotNil(medias);
         XCTAssertNil(error);
         
-        [[self.dataProvider mediaCompositionForURN:medias.firstObject.URN standalone:YES withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-            XCTAssertNotNil(mediaComposition);
-            
-            [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-                XCTAssertNotNil(socialCountOverview);
-                XCTAssertNil(error);
-                [expectation7 fulfill];
+        // Can't guarantee a media in the list.
+        if (medias.count > 0) {
+            [[self.dataProvider mediaCompositionForURN:medias.firstObject.URN standalone:YES withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+                XCTAssertNotNil(mediaComposition);
+                
+                [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView mediaComposition:mediaComposition withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+                    XCTAssertNotNil(socialCountOverview);
+                    XCTAssertNil(error);
+                    [expectation7 fulfill];
+                }] resume];
             }] resume];
-        }] resume];
+        }
+        else {
+            [expectation7 fulfill];
+        }
         
     }] resume];
     
@@ -854,18 +881,24 @@ static NSString * const kUserId = @"test_user_id";
     XCTestExpectation *expectation7 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider liveCenterVideosForVendor:SRGVendorRTS withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotEqual(medias.count, 0);
+        XCTAssertNotNil(medias);
         XCTAssertNil(error);
         
-        [[self.dataProvider mediaCompositionForURN:medias.firstObject.URN standalone:YES withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-            XCTAssertNotNil(mediaComposition);
-            
-            [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-                XCTAssertNotNil(socialCountOverview);
-                XCTAssertNil(error);
-                [expectation7 fulfill];
+        // Can't guarantee a media in the list.
+        if (medias.count > 0) {
+            [[self.dataProvider mediaCompositionForURN:medias.firstObject.URN standalone:YES withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+                XCTAssertNotNil(mediaComposition);
+                
+                [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView subdivision:mediaComposition.mainChapter withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+                    XCTAssertNotNil(socialCountOverview);
+                    XCTAssertNil(error);
+                    [expectation7 fulfill];
+                }] resume];
             }] resume];
-        }] resume];
+        }
+        else {
+            [expectation7 fulfill];
+        }
         
     }] resume];
     

@@ -81,7 +81,7 @@
 
 - (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
 {
-    return [self.imageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
+    return [self.imageURL srg_URLForDimension:dimension withValue:value type:type];
 }
 
 #pragma mark Equality

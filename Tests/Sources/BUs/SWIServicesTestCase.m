@@ -17,6 +17,7 @@ static NSString * const kRadioShowSearchQuery = @"not_supported";
 static NSString * const kVideoURN = @"urn:swi:video:43017988";
 
 static NSString * const kTVChannelUid = @"not_supported";
+static NSString * const kTVLivestreamUid = @"not_supported";
 static NSString * const kTVShowSearchQuery = @"not_supported";
 
 static NSString * const kTVShowURN = @"urn:swi:show:tv:1";
@@ -80,11 +81,20 @@ static NSString * const kUserId = @"test_user_id";
 // Not supported for SWI
 - (void)testTVLatestPrograms
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider tvLatestProgramsForVendor:SRGVendorSWI channelUid:kTVChannelUid completionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider tvLatestProgramsForVendor:SRGVendorSWI channelUid:kTVChannelUid livestreamUid:nil fromDate:nil toDate:nil withCompletionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(error);
-        [expectation fulfill];
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider tvLatestProgramsForVendor:SRGVendorSWI channelUid:kTVChannelUid livestreamUid:kTVLivestreamUid fromDate:nil toDate:nil withCompletionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];
@@ -116,13 +126,13 @@ static NSString * const kUserId = @"test_user_id";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+// Not supported for SWI
 - (void)testTVEditorialMedias
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider tvEditorialMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(medias);
-        XCTAssertNil(error);
+        XCTAssertNotNil(error);
         [expectation fulfill];
     }] resume];
     
@@ -293,11 +303,20 @@ static NSString * const kUserId = @"test_user_id";
 // Not supported for SWI
 - (void)testRadioChannelPrograms
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider radioLatestProgramsForVendor:SRGVendorSWI channelUid:kRadioChannelUid completionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    [[self.dataProvider radioLatestProgramsForVendor:SRGVendorSWI channelUid:kRadioChannelUid livestreamUid:nil fromDate:nil toDate:nil withCompletionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(error);
-        [expectation fulfill];
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider radioLatestProgramsForVendor:SRGVendorSWI channelUid:kRadioChannelUid livestreamUid:kRadioLivestreamUid fromDate:nil toDate:nil withCompletionBlock:^(SRGProgramComposition * _Nullable programComposition, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation2 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

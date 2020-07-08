@@ -158,7 +158,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
-    SRGFirstPageRequest *request = [dataProvider tvEditorialMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    SRGFirstPageRequest *request = [dataProvider tvLatestMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 10);
         XCTAssertNil(error);
         
@@ -174,7 +174,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
-    SRGFirstPageRequest *request = [[dataProvider tvEditorialMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    SRGFirstPageRequest *request = [[dataProvider tvLatestMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 7);
         XCTAssertNil(error);
         
@@ -190,7 +190,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     XCTestExpectation *expectation = [self expectationWithDescription:@"Requests succeeded"];
     
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
-    SRGFirstPageRequest *request = [[[dataProvider tvEditorialMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    SRGFirstPageRequest *request = [[[dataProvider tvLatestMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 3);
         XCTAssertNil(error);
         
@@ -245,7 +245,7 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     // Use a small page size to be sure we get two full pages of results (and more to come)
     SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
     __block SRGFirstPageRequest *request = nil;
-    request = [[dataProvider tvEditorialMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    request = [[dataProvider tvLatestMediasForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertEqual(medias.count, 2);
         XCTAssertNil(error);
         XCTAssertNotNil(nextPage);

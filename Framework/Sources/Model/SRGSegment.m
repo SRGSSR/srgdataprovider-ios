@@ -14,6 +14,7 @@
 
 @property (nonatomic) NSTimeInterval markIn;
 @property (nonatomic) NSTimeInterval markOut;
+@property (nonatomic) NSDate *resourceReferenceDate;
 
 @end
 
@@ -142,3 +143,27 @@ NSArray<SRGSegment *> *SRGSanitizedSegments(NSArray<SRGSegment *> *segments)
     }];
     return [sanitizedSegments filteredArrayUsingPredicate:meaningfulSegmentsPredicate];
 }
+
+@implementation SRGSegment (Dates)
+
+- (NSDate *)markInDate
+{
+    if (self.resourceReferenceDate) {
+        return [self.resourceReferenceDate dateByAddingTimeInterval:self.markIn / 1000.];
+    }
+    else {
+        return nil;
+    }
+}
+
+- (NSDate *)markOutDate
+{
+    if (self.resourceReferenceDate) {
+        return [self.resourceReferenceDate dateByAddingTimeInterval:self.markOut / 1000.];
+    }
+    else {
+        return nil;
+    }
+}
+
+@end

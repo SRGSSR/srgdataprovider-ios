@@ -13,11 +13,14 @@
 
 @interface SRGChannel ()
 
-@property (nonatomic, copy) NSString *uid;
-@property (nonatomic) SRGTransmission transmission;
 @property (nonatomic) NSURL *timetableURL;
 @property (nonatomic) SRGProgram *currentProgram;
 @property (nonatomic) SRGProgram *nextProgram;
+
+@property (nonatomic, copy) NSString *uid;
+@property (nonatomic, copy) NSString *URN;
+@property (nonatomic) SRGTransmission transmission;
+@property (nonatomic) SRGVendor vendor;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
@@ -38,11 +41,14 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @keypath(SRGChannel.new, uid) : @"id",
-                       @keypath(SRGChannel.new, transmission) : @"transmission",
-                       @keypath(SRGChannel.new, timetableURL) : @"timeTableUrl",
+        s_mapping = @{ @keypath(SRGChannel.new, timetableURL) : @"timeTableUrl",
                        @keypath(SRGChannel.new, currentProgram) : @"now",
                        @keypath(SRGChannel.new, nextProgram) : @"next",
+                       
+                       @keypath(SRGChannel.new, uid) : @"id",
+                       @keypath(SRGChannel.new, URN) : @"urn",
+                       @keypath(SRGChannel.new, transmission) : @"transmission",
+                       @keypath(SRGChannel.new, vendor) : @"vendor",
                        
                        @keypath(SRGChannel.new, title) : @"title",
                        @keypath(SRGChannel.new, lead) : @"lead",
@@ -56,11 +62,6 @@
 }
 
 #pragma mark Transformers
-
-+ (NSValueTransformer *)transmissionJSONTransformer
-{
-    return SRGTransmissionJSONTransformer();
-}
 
 + (NSValueTransformer *)timetableURLJSONTransformer
 {
@@ -77,6 +78,16 @@
     return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGProgram.class];
 }
 
++ (NSValueTransformer *)transmissionJSONTransformer
+{
+    return SRGTransmissionJSONTransformer();
+}
+
++ (NSValueTransformer *)vendorJSONTransformer
+{
+    return SRGVendorJSONTransformer();
+}
+
 + (NSValueTransformer *)imageURLJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
@@ -86,7 +97,7 @@
 
 - (NSURL *)imageURLForDimension:(SRGImageDimension)dimension withValue:(CGFloat)value type:(SRGImageType)type
 {
-    return [self.imageURL srg_URLForDimension:dimension withValue:value uid:self.uid type:type];
+    return [self.imageURL srg_URLForDimension:dimension withValue:value type:type];
 }
 
 #pragma mark Equality

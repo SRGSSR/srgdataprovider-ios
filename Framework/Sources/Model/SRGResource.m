@@ -23,6 +23,7 @@
 @property (nonatomic) SRGAudioCodec audioCodec;
 @property (nonatomic) SRGVideoCodec videoCodec;
 @property (nonatomic) SRGTokenType tokenType;
+@property (nonatomic) NSTimeInterval streamOffset;
 @property (nonatomic) NSArray<SRGDRM *> *DRMs;
 @property (nonatomic) NSArray<SRGVariant *> *subtitleVariants;
 @property (nonatomic) NSArray<SRGVariant *> *audioVariants;
@@ -51,6 +52,7 @@
                        @keypath(SRGResource.new, audioCodec) : @"audioCodec",
                        @keypath(SRGResource.new, videoCodec) : @"videoCodec",
                        @keypath(SRGResource.new, tokenType) : @"tokenType",
+                       @keypath(SRGResource.new, streamOffset) : @"streamOffset",
                        @keypath(SRGResource.new, DRMs) : @"drmList",
                        @keypath(SRGResource.new, subtitleVariants) : @"subtitleInformationList",
                        @keypath(SRGResource.new, audioVariants) : @"audioTrackList",

@@ -50,9 +50,25 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
                               @(SRGVendorRTR) : @"rtr",
                               @(SRGVendorRTS) : @"rts",
                               @(SRGVendorSRF) : @"srf",
-                              @(SRGVendorSWI) : @"swi" };
+                              @(SRGVendorSWI) : @"swi",
+                              @(SRGVendorSSATR) : @"ssatr" };
     });
     return s_pathComponents[@(vendor)] ?: @"not_supported";
+}
+
+static NSString *SRGStringFromDate(NSDate *date)
+{
+    // IL parameters are interpreted in the IL timezone (expected to be Zurich). Convert to Zurich dates so that the
+    // returned objects have dates which, when converted back to the local timezone, match the original date specified.
+    static dispatch_once_t s_onceToken;
+    static NSDateFormatter *s_dateFormatter;
+    dispatch_once(&s_onceToken, ^{
+        s_dateFormatter = [[NSDateFormatter alloc] init];
+        [s_dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        [s_dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Zurich"]];
+        [s_dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+    });
+    return [s_dateFormatter stringFromDate:date];
 }
 
 @interface SRGDataProvider ()
@@ -170,10 +186,25 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGFirstPageRequest *)tvLatestProgramsForVendor:(SRGVendor)vendor
                                         channelUid:(NSString *)channelUid
-                                   completionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock
+                                     livestreamUid:(NSString *)livestreamUid
+                                          fromDate:(NSDate *)fromDate
+                                            toDate:(NSDate *)toDate
+                               withCompletionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/programListComposition/tv/byChannel/%@", SRGPathComponentForVendor(vendor), channelUid];
-    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:[NSMutableArray array]];
+    
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
+    if (livestreamUid) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"livestreamId" value:livestreamUid]];
+    }
+    if (fromDate) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"minEndTime" value:SRGStringFromDate(fromDate)]];
+    }
+    if (toDate) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"maxStartTime" value:SRGStringFromDate(toDate)]];
+    }
+    
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
     return [self pageRequestWithURLRequest:URLRequest parser:^id(NSDictionary *JSONDictionary, NSError *__autoreleasing *pError) {
         return [MTLJSONAdapter modelOfClass:SRGProgramComposition.class fromJSONDictionary:JSONDictionary error:pError];
     } completionBlock:^(id _Nullable object, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
@@ -351,10 +382,25 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGFirstPageRequest *)radioLatestProgramsForVendor:(SRGVendor)vendor
                                            channelUid:(NSString *)channelUid
-                                      completionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock
+                                        livestreamUid:(NSString *)livestreamUid
+                                             fromDate:(NSDate *)fromDate
+                                               toDate:(NSDate *)toDate
+                                  withCompletionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/programListComposition/radio/byChannel/%@", SRGPathComponentForVendor(vendor), channelUid];
-    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
+    
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
+    if (livestreamUid) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"livestreamId" value:livestreamUid]];
+    }
+    if (fromDate) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"minEndTime" value:SRGStringFromDate(fromDate)]];
+    }
+    if (toDate) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"maxStartTime" value:SRGStringFromDate(toDate)]];
+    }
+    
+    NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
     return [self pageRequestWithURLRequest:URLRequest parser:^id(NSDictionary *JSONDictionary, NSError *__autoreleasing *pError) {
         return [MTLJSONAdapter modelOfClass:SRGProgramComposition.class fromJSONDictionary:JSONDictionary error:pError];
     } completionBlock:^(id _Nullable object, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
@@ -743,7 +789,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
 
 - (SRGRequest *)mediaCompositionForURN:(NSString *)mediaURN standalone:(BOOL)standalone withCompletionBlock:(SRGMediaCompositionCompletionBlock)completionBlock
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"2.0/mediaComposition/byUrn/%@", mediaURN];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.1/mediaComposition/byUrn/%@", mediaURN];
     NSArray<NSURLQueryItem *> *queryItems = standalone ? @[ [NSURLQueryItem queryItemWithName:@"onlyChapters" value:@"true"] ] : nil;
     NSURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems];
     return [self fetchObjectWithURLRequest:URLRequest modelClass:SRGMediaComposition.class completionBlock:completionBlock];
@@ -892,14 +938,17 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
             return nil;
         }
         
-        parsedObjectDictionary[SRGParsedMediaAggregationsKey] = [MTLJSONAdapter modelOfClass:SRGMediaAggregations.class fromJSONDictionary:JSONDictionary[@"aggregations"] error:pError];
-        if (*pError) {
-            return nil;
+        NSDictionary *aggregationsDictionary = JSONDictionary[@"aggregations"];
+        if (aggregationsDictionary) {
+            parsedObjectDictionary[SRGParsedMediaAggregationsKey] = [MTLJSONAdapter modelOfClass:SRGMediaAggregations.class fromJSONDictionary:aggregationsDictionary error:pError];
+            if (*pError) {
+                return nil;
+            }
         }
         
-        NSDictionary *suggestionDictionary = JSONDictionary[@"suggestionList"];
-        if (suggestionDictionary) {
-            parsedObjectDictionary[SRGParsedSearchSuggestionsKey] = [MTLJSONAdapter modelsOfClass:SRGSearchSuggestion.class fromJSONArray:JSONDictionary[@"suggestionList"] error:pError];
+        NSArray *suggestionsArray = JSONDictionary[@"suggestionList"];
+        if (suggestionsArray) {
+            parsedObjectDictionary[SRGParsedSearchSuggestionsKey] = [MTLJSONAdapter modelsOfClass:SRGSearchSuggestion.class fromJSONArray:suggestionsArray error:pError];
             if (*pError) {
                 return nil;
             }

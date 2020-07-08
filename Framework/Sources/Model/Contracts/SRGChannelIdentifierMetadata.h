@@ -9,14 +9,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Common protocol for media identification.
+ *  Common protocol for channel identification.
  */
-@protocol SRGMediaIdentifierMetadata <SRGIdentifierMetadata>
+@protocol SRGChannelIdentifierMetadata <SRGIdentifierMetadata>
 
 /**
- *  The media type.
+ *  The channel transmission.
  */
-@property (nonatomic, readonly) SRGMediaType mediaType;
+@property (nonatomic, readonly) SRGTransmission transmission;
 
 @end
 

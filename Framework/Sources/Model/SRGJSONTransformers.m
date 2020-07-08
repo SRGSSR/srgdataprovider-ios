@@ -379,7 +379,8 @@ NSValueTransformer *SRGVendorJSONTransformer(void)
                                                                                          @"SRF" : @(SRGVendorSRF),
                                                                                          @"SWI" : @(SRGVendorSWI),
                                                                                          @"TVO" : @(SRGVendorTVO),
-                                                                                         @"CA" : @(SRGVendorCanalAlpha) }
+                                                                                         @"CA" : @(SRGVendorCanalAlpha),
+                                                                                         @"SSATR" : @(SRGVendorSSATR) }
                                                                          defaultValue:@(SRGVendorNone)
                                                                   reverseDefaultValue:nil];
     });

@@ -110,10 +110,6 @@ The supported requests vary depending on the business unit. A [compatibility mat
 
 To see examples of use, have a look a the unit test suite bundled with the project.
 
-## Migration from versions previous versions
-
-For information about changes introduced with major versions of the library, please read the [migration guide](MIGRATION_GUIDE.md).
-
 ## License
 
 See the [LICENSE](../LICENSE) file for more information.

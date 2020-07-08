@@ -83,6 +83,9 @@
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_dateFormatter = [[NSDateFormatter alloc] init];
+        [s_dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        // No timezone specified here. This would not make sense, as no time within the day is provided anyway for
+        // proper conversion.
         s_dateFormatter.dateFormat = @"yyyy-MM-dd";
     });
     return [s_dateFormatter stringFromDate:self.date];
