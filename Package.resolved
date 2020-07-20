@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "libextobjc",
+        "repositoryURL": "https://github.com/SRGSSR/libextobjc.git",
+        "state": {
+          "branch": "feature/spm-support",
+          "revision": "bec0bafcb6f837267ac58c2babd9ff9e1402e091",
+          "version": null
+        }
+      },
+      {
+        "package": "MAKVONotificationCenter",
+        "repositoryURL": "https://github.com/SRGSSR/MAKVONotificationCenter.git",
+        "state": {
+          "branch": "feature/spm-support",
+          "revision": "60395e0601ffd4a784856b423d4cac558366276d",
+          "version": null
+        }
+      },
+      {
+        "package": "Mantle",
+        "repositoryURL": "https://github.com/SRGSSR/Mantle.git",
+        "state": {
+          "branch": "swift-package-manager-support",
+          "revision": "cd18bf7f9c6c5a0d2f4aec6012fe1615b86032fe",
+          "version": null
+        }
+      },
+      {
+        "package": "SRGLogger",
+        "repositoryURL": "https://github.com/SRGSSR/srglogger-apple.git",
+        "state": {
+          "branch": "feature/spm-support",
+          "revision": "7376f75efd8b87db58a7e5765e2288892385149e",
+          "version": null
+        }
+      },
+      {
+        "package": "SRGNetwork",
+        "repositoryURL": "https://github.com/SRGSSR/srgnetwork-apple.git",
+        "state": {
+          "branch": "feature/spm-support",
+          "revision": "234982f455a75ae4bf934e7894942a84075350f2",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
