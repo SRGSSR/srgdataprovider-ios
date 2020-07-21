@@ -1040,5 +1040,5 @@ static NSString *SRGStringFromDate(NSDate *date)
 
 NSString *SRGDataProviderMarketingVersion(void)
 {
-    return [NSBundle srg_dataProviderBundle].infoDictionary[@"CFBundleShortVersionString"];
+    return @MARKETING_VERSION;
 }
