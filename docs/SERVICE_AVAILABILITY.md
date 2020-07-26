@@ -141,8 +141,7 @@ These services can be used to increase popularity indicators.
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Increase social count for a subdivision | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Increase social count for media composition | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+| Increase social count for a media URN | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Increase show view count from search results | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 
 ## URN services

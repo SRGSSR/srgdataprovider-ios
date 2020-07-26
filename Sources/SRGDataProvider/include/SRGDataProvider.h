@@ -658,17 +658,12 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 @interface SRGDataProvider (PopularityServices)
 
 /**
- *  Increase the specified social count from 1 unit for the specified subdivision.
+ *  Increase the specified social count from 1 unit for the specified URN, with the corresponding event data
+ *  (@see `SRGSubdivision` class).
  */
 - (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
-                               subdivision:(SRGSubdivision *)subdivision
-                       withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
-
-/**
- *  Increase the specified social count from 1 unit for the specified media composition.
- */
-- (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
-                          mediaComposition:(SRGMediaComposition *)mediaComposition
+                                       URN:(NSString *)URN
+                                     event:(NSString *)event
                        withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock;
 
 /**

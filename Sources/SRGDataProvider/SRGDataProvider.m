@@ -702,14 +702,10 @@ static NSString *SRGStringFromDate(NSDate *date)
 #pragma mark Popularity services
 
 - (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
-                               subdivision:(SRGSubdivision *)subdivision
+                                       URN:(NSString *)URN
+                                     event:(NSString *)event
                        withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
 {
-    NSParameterAssert(subdivision);
-    
-    // Won't crash in release builds, but the request will most likely fail
-    NSAssert(subdivision.event, @"Expect event information");
-    
     static dispatch_once_t s_onceToken;
     static NSDictionary<NSNumber *, NSString *> *s_endpoints;
     dispatch_once(&s_onceToken, ^{
@@ -723,22 +719,13 @@ static NSString *SRGStringFromDate(NSDate *date)
     NSString *endpoint = s_endpoints[@(type)];
     NSAssert(endpoint, @"A supported social count type must be provided");
     
-    NSString *resourcePath = [NSString stringWithFormat:@"2.0/mediaStatistic/byUrn/%@/%@", subdivision.URN, endpoint];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/mediaStatistic/byUrn/%@/%@", URN, endpoint];
     NSMutableURLRequest *URLRequest = [self URLRequestForResourcePath:resourcePath withQueryItems:nil].mutableCopy;
     URLRequest.HTTPMethod = @"POST";
     [URLRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    NSDictionary *bodyJSONDictionary = subdivision.event ? @{ @"eventData" : subdivision.event } : @{};
-    URLRequest.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyJSONDictionary options:0 error:NULL];
+    URLRequest.HTTPBody = [NSJSONSerialization dataWithJSONObject:@{ @"eventData" : event } options:0 error:NULL];
     
     return [self fetchObjectWithURLRequest:URLRequest modelClass:SRGSocialCountOverview.class completionBlock:completionBlock];
-}
-
-- (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
-                          mediaComposition:(SRGMediaComposition *)mediaComposition
-                       withCompletionBlock:(SRGSocialCountOverviewCompletionBlock)completionBlock
-{
-    return [self increaseSocialCountForType:type subdivision:mediaComposition.mainSegment ?: mediaComposition.mainChapter withCompletionBlock:completionBlock];
 }
 
 - (SRGRequest *)increaseSearchResultsViewCountForShow:(SRGShow *)show
