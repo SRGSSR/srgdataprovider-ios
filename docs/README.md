@@ -1,6 +1,6 @@
 [![SRG Data Provider logo](README-images/logo.png)](https://github.com/SRGSSR/srgdataprovider-apple)
 
-[![GitHub releases](https://img.shields.io/github/v/release/SRGSSR/srgdataprovider-apple)](https://github.com/SRGSSR/srgdataprovider-apple/releases) [![platform](https://img.shields.io/badge/platfom-ios%20%7C%20tvos%20%7C%20watchos-blue)](https://github.com/SRGSSR/srgdataprovider-apple) [![Build Status](https://travis-ci.org/SRGSSR/srgdataprovider-apple.svg?branch=master)](https://travis-ci.org/SRGSSR/srgdataprovider-apple/branches) [![GitHub license](https://img.shields.io/github/license/SRGSSR/srgdataprovider-apple)](https://github.com/SRGSSR/srgdataprovider-apple/blob/master/LICENSE)
+[![GitHub releases](https://img.shields.io/github/v/release/SRGSSR/srgdataprovider-apple)](https://github.com/SRGSSR/srgdataprovider-apple/releases) [![platform](https://img.shields.io/badge/platfom-ios%20%7C%20tvos%20%7C%20watchos-blue)](https://github.com/SRGSSR/srgdataprovider-apple) [![SPM compatible](https://img.shields.io/badge/SPM-compatible-4BC51D.svg?style=flat)](https://swift.org/package-manager) [![Build Status](https://travis-ci.org/SRGSSR/srgdataprovider-apple.svg?branch=master)](https://travis-ci.org/SRGSSR/srgdataprovider-apple/branches) [![GitHub license](https://img.shields.io/github/license/SRGSSR/srgdataprovider-apple)](https://github.com/SRGSSR/srgdataprovider-apple/blob/master/LICENSE)
 
 ## About
 
