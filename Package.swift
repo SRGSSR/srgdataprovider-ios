@@ -21,19 +21,28 @@ let package = Package(
         )
     ],
     dependencies: [
+        .package(name: "libextobjc", url: "https://github.com/SRGSSR/libextobjc.git", .branch("feature/spm-support")),
         .package(name: "Mantle", url: "https://github.com/SRGSSR/Mantle.git", .branch("swift-package-manager-support")),
         .package(name: "SRGNetwork", url: "https://github.com/SRGSSR/srgnetwork-apple.git", .branch("feature/spm-support"))
     ],
     targets: [
         .target(
-            name: "SRGDataProvider",
-            dependencies: ["Mantle", "SRGNetwork"],
+            name: "SRGDataProviderModel",
+            dependencies: ["libextobjc", "Mantle"],
             resources: [
                 .process("Resources")
-            ],
+            ]
+        ),
+        .target(
+            name: "SRGDataProvider",
+            dependencies: ["SRGDataProviderModel", "SRGNetwork"],
             cSettings: [
                 .define("MARKETING_VERSION", to: "\"\(ProjectSettings.marketingVersion)\"")
             ]
+        ),
+        .target(
+            name: "SRGDataProviderCombine",
+            dependencies: ["SRGDataProviderModel"]
         ),
         .testTarget(
             name: "SRGDataProviderTests",
@@ -41,6 +50,10 @@ let package = Package(
             cSettings: [
                 .headerSearchPath("Private")
             ]
+        ),
+        .testTarget(
+            name: "SRGDataProviderCombineTests",
+            dependencies: ["SRGDataProviderCombine"]
         )
     ]
 )

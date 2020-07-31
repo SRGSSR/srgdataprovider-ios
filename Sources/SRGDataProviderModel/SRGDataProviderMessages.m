@@ -4,7 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGTypes.h"
+#import "SRGDataProviderMessages.h"
 
 #import "NSBundle+SRGDataProvider.h"
 

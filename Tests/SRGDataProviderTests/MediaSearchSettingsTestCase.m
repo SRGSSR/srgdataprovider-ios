@@ -6,9 +6,6 @@
 
 #import "DataProviderBaseTestCase.h"
 
-// Private framework header
-#import "SRGMediaSearchSettings+Private.h"
-
 @interface MediaSearchSettingsTestCase : DataProviderBaseTestCase
 
 @end

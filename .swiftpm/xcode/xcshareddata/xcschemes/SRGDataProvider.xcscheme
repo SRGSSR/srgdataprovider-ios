@@ -48,6 +48,62 @@
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SRGDataProviderCore"
+               BuildableName = "SRGDataProviderCore"
+               BlueprintName = "SRGDataProviderCore"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SRGDataProviderCombine"
+               BuildableName = "SRGDataProviderCombine"
+               BlueprintName = "SRGDataProviderCombine"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SRGDataProviderModel"
+               BuildableName = "SRGDataProviderModel"
+               BlueprintName = "SRGDataProviderModel"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SRGDataProviderInternal"
+               BuildableName = "SRGDataProviderInternal"
+               BlueprintName = "SRGDataProviderInternal"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -65,6 +121,16 @@
                BlueprintIdentifier = "SRGDataProviderTests"
                BuildableName = "SRGDataProviderTests"
                BlueprintName = "SRGDataProviderTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SRGDataProviderCombineTests"
+               BuildableName = "SRGDataProviderCombineTests"
+               BlueprintName = "SRGDataProviderCombineTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>

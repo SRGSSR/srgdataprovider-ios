@@ -7,9 +7,6 @@
 @import SRGDataProvider;
 @import XCTest;
 
-// Private framework header
-#import "SRGDay+Private.h"
-
 @interface DayTestCase : XCTestCase
 
 @end

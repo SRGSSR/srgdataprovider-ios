@@ -48,6 +48,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSComparisonResult)compare:(SRGDay *)aDay;
 
+/**
+ *  The day string representation.
+ */
+@property (nonatomic, readonly, copy) NSString *string;
+
 @end
 
 NS_ASSUME_NONNULL_END

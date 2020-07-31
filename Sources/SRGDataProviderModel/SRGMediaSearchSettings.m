@@ -6,8 +6,6 @@
 
 #import "SRGMediaSearchSettings.h"
 
-#import "SRGDay+Private.h"
-
 static NSString *SRGMediaTypeParameter(SRGMediaType mediaType)
 {
     static dispatch_once_t s_onceToken;

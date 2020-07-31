@@ -98,6 +98,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic) SRGSortDirection sortDirection;
 
+/**
+ *  URL query items corresponding to the search settings.
+ */
+@property (nonatomic, readonly) NSArray<NSURLQueryItem *> *queryItems;
+
 @end
 
 NS_ASSUME_NONNULL_END

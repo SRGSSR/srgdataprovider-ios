@@ -6,16 +6,11 @@
 
 #import "SRGDataProvider.h"
 
-#import "NSBundle+SRGDataProvider.h"
-#import "SRGDataProviderLogger.h"
-#import "SRGDay+Private.h"
-#import "SRGJSONTransformers.h"
-#import "SRGMediaSearchSettings+Private.h"
-#import "SRGSearchResult.h"
 #import "SRGSessionDelegate.h"
 
 @import libextobjc;
 @import Mantle;
+@import SRGDataProviderModel;
 
 static SRGDataProvider *s_currentDataProvider;
 

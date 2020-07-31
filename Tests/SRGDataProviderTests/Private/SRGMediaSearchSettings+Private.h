@@ -1,1 +1,0 @@
-../../../Sources/SRGDataProvider/SRGMediaSearchSettings+Private.h
