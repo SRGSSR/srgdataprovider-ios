@@ -28,14 +28,14 @@ let package = Package(
     targets: [
         .target(
             name: "SRGDataProviderModel",
-            dependencies: ["libextobjc", "Mantle"],
+            dependencies: ["libextobjc", "Mantle", "SRGNetwork"],
             resources: [
                 .process("Resources")
             ]
         ),
         .target(
             name: "SRGDataProvider",
-            dependencies: ["SRGDataProviderModel", "SRGNetwork"],
+            dependencies: ["SRGDataProviderModel"],
             cSettings: [
                 .define("MARKETING_VERSION", to: "\"\(ProjectSettings.marketingVersion)\"")
             ]

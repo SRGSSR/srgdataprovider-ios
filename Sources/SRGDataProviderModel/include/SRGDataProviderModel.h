@@ -34,6 +34,7 @@
 #import "SRGProgram.h"
 #import "SRGProgramComposition.h"
 #import "SRGRelatedContent.h"
+#import "SRGRequestBuilders.h"
 #import "SRGResource.h"
 #import "SRGScheduledLivestreamMetadata.h"
 #import "SRGSearchResult.h"

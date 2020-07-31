@@ -36,21 +36,6 @@ NSURL *SRGIntegrationLayerTestServiceURL(void)
     return [NSURL URLWithString:@"https://il-test.srgssr.ch/integrationlayer"];
 }
 
-NSString *SRGPathComponentForVendor(SRGVendor vendor)
-{
-    static dispatch_once_t s_onceToken;
-    static NSDictionary<NSNumber *, NSString *> *s_pathComponents;
-    dispatch_once(&s_onceToken, ^{
-        s_pathComponents = @{ @(SRGVendorRSI) : @"rsi",
-                              @(SRGVendorRTR) : @"rtr",
-                              @(SRGVendorRTS) : @"rts",
-                              @(SRGVendorSRF) : @"srf",
-                              @(SRGVendorSWI) : @"swi",
-                              @(SRGVendorSSATR) : @"ssatr" };
-    });
-    return s_pathComponents[@(vendor)] ?: @"not_supported";
-}
-
 static NSString *SRGStringFromDate(NSDate *date)
 {
     // IL parameters are interpreted in the IL timezone (expected to be Zurich). Convert to Zurich dates so that the
@@ -824,24 +809,7 @@ static NSString *SRGStringFromDate(NSDate *date)
 
 - (NSURLRequest *)URLRequestForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
 {
-    NSURL *URL = [self.serviceURL URLByAppendingPathComponent:resourcePath];
-    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
-    
-    NSMutableArray<NSURLQueryItem *> *fullQueryItems = [NSMutableArray array];
-    [self.globalParameters enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull name, NSString * _Nonnull value, BOOL * _Nonnull stop) {
-        [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:name value:value]];
-    }];
-    if (queryItems) {
-        [fullQueryItems addObjectsFromArray:queryItems];
-    }
-    [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"vector" value:@"appplay"]];
-    URLComponents.queryItems = fullQueryItems.copy;
-    
-    NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URLComponents.URL];
-    [self.globalHeaders enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull headerField, NSString * _Nonnull value, BOOL * _Nonnull stop) {
-        [URLRequest setValue:value forHTTPHeaderField:headerField];
-    }];
-    return URLRequest.copy;              // Not an immutable copy ;(
+    return SRGDataProviderRequest(self.serviceURL, resourcePath, queryItems, self.globalParameters, self.globalHeaders);
 }
 
 - (SRGRequest *)fetchObjectWithURLRequest:(NSURLRequest *)URLRequest
@@ -876,20 +844,7 @@ static NSString *SRGStringFromDate(NSDate *date)
     NSParameterAssert(completionBlock);
     
     return [SRGRequest objectRequestWithURLRequest:URLRequest session:self.session parser:^id _Nullable(NSData * _Nonnull data, NSError * _Nullable __autoreleasing * _Nullable pError) {
-        NSDictionary *JSONDictionary = SRGNetworkJSONDictionaryParser(data, pError);
-        if (! JSONDictionary) {
-            return nil;
-        }
-        
-        id JSONArray = JSONDictionary[rootKey];
-        if (JSONArray && [JSONArray isKindOfClass:NSArray.class]) {
-            return [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:pError];
-        }
-        else {
-            // Remark: When the result count is equal to a multiple of the page size, the last link returns an empty list array.
-            // See https://srfmmz.atlassian.net/wiki/display/SRGPLAY/Developer+Meeting+2016-10-05
-            return @[];
-        }
+        return SRGDataProviderParseObjects(data, rootKey, modelClass, pError);
     } completionBlock:^(id  _Nullable object, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *HTTPResponse = [response isKindOfClass:NSHTTPURLResponse.class] ? (NSHTTPURLResponse *)response : nil;
         completionBlock(object, HTTPResponse, error);

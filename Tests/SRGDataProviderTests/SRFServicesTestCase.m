@@ -46,6 +46,7 @@ static NSString * const kTag2 = @"curling";
     self.dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
     
     if (! self.userId) {
+        // FIXME: Replace with https://www.srf.ch/play/v3/api/srf/production/user-id/generate
         self.userId = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"https://www.srf.ch/play/services/playid/new"] encoding:NSUTF8StringEncoding error:NULL];
     }
 }

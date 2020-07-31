@@ -20,22 +20,18 @@ public struct SRGDataProvider {
     // TODO: Do request with pagination support as well (with pagination API)
     // TODO: Share common parsing logic / error handling with SRGDataProvider / SRGNetwork
     // TODO: As for DataTaskPublisher.Output, define typealias for tuples
-    // TODO: Vendor (currently hardcoded for RTS)
     public func tvChannels(for vendor: SRGVendor) -> AnyPublisher<([SRGChannel], URLResponse), Error> {
-        let request = urlRequest(for: "2.0/rts/channelList/tv")
+        let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/channelList/tv")
         return session.dataTaskPublisher(for: request).tryMap { result -> ([SRGChannel], URLResponse) in
+            // TODO: Should be in SRGNetwork combine wrapper
             if let httpResponse = result.response as? HTTPURLResponse {
                 guard (0..<400).contains(httpResponse.statusCode) else {
                     throw SRGDataProviderError.http(statusCode: httpResponse.statusCode)
                 }
             }
             
-            guard let dictionary = try JSONSerialization.jsonObject(with: result.data, options: []) as? [String: Any],
-                  let array = dictionary["channelList"] as? [Any] else {
-                return ([], result.response)
-            }
-            
-            if let channels = try MTLJSONAdapter.models(of: SRGChannel.self, fromJSONArray: array) as? [SRGChannel] {
+            // TODO: SRGNetwork should implement support for Combine and parsing errors returned to it
+            if let channels = SRGDataProviderParseObjects(result.data, "channelList", SRGChannel.self, nil /* TODO: Return to SRGNetwork */) as? [SRGChannel] {
                 return (channels, result.response)
             }
             else {
@@ -46,7 +42,7 @@ public struct SRGDataProvider {
     }
     
     public func tvLatestMedias(for vendor: SRGVendor) -> AnyPublisher<([SRGMedia], URLResponse), Error> {
-        let request = urlRequest(for: "2.0/rts/mediaList/video/latestEpisodes")
+        let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/mediaList/video/latestEpisodes")
         return session.dataTaskPublisher(for: request).tryMap { result -> ([SRGMedia], URLResponse) in
             if let httpResponse = result.response as? HTTPURLResponse {
                 guard (0..<400).contains(httpResponse.statusCode) else {
@@ -54,13 +50,8 @@ public struct SRGDataProvider {
                 }
             }
             
-            guard let dictionary = try JSONSerialization.jsonObject(with: result.data, options: []) as? [String: Any],
-                  let array = dictionary["mediaList"] as? [Any] else {
-                return ([], result.response)
-            }
-            
-            if let channels = try MTLJSONAdapter.models(of: SRGMedia.self, fromJSONArray: array) as? [SRGMedia] {
-                return (channels, result.response)
+            if let medias = SRGDataProviderParseObjects(result.data, "mediaList", SRGMedia.self, nil /* TODO: Return to SRGNetwork */) as? [SRGMedia] {
+                return (medias, result.response)
             }
             else {
                 return ([], result.response)
