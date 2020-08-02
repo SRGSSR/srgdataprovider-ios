@@ -7,7 +7,6 @@
 #import "SRGRequestBuilders.h"
 
 @import Mantle;
-@import SRGNetwork;
 
 NSURLRequest *SRGDataProviderRequest(NSURL *serviceURL, NSString *resourcePath, NSArray<NSURLQueryItem *> *queryItems, NSDictionary<NSString *, NSString *> *headers, NSDictionary<NSString *, NSString *> *parameters)
 {
@@ -29,24 +28,6 @@ NSURLRequest *SRGDataProviderRequest(NSURL *serviceURL, NSString *resourcePath, 
         [URLRequest setValue:value forHTTPHeaderField:headerField];
     }];
     return URLRequest.copy;              // Not an immutable copy ;(
-}
-
-NSArray *SRGDataProviderParseObjects(NSData *data, NSString *rootKey, Class modelClass, NSError **pError)
-{
-    NSDictionary *JSONDictionary = SRGNetworkJSONDictionaryParser(data, pError);
-    if (! JSONDictionary) {
-        return nil;
-    }
-    
-    id JSONArray = JSONDictionary[rootKey];
-    if (JSONArray && [JSONArray isKindOfClass:NSArray.class]) {
-        return [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:pError];
-    }
-    else {
-        // Remark: When the result count is equal to a multiple of the page size, the last link returns an empty list array.
-        // See https://srfmmz.atlassian.net/wiki/display/SRGPLAY/Developer+Meeting+2016-10-05
-        return @[];
-    }
 }
 
 NSString *SRGPathComponentForVendor(SRGVendor vendor)

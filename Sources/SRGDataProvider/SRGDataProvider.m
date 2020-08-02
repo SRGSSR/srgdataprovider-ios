@@ -844,7 +844,20 @@ static NSString *SRGStringFromDate(NSDate *date)
     NSParameterAssert(completionBlock);
     
     return [SRGRequest objectRequestWithURLRequest:URLRequest session:self.session parser:^id _Nullable(NSData * _Nonnull data, NSError * _Nullable __autoreleasing * _Nullable pError) {
-        return SRGDataProviderParseObjects(data, rootKey, modelClass, pError);
+        NSDictionary *JSONDictionary = SRGNetworkJSONDictionaryParser(data, pError);
+        if (! JSONDictionary) {
+            return nil;
+        }
+        
+        id JSONArray = JSONDictionary[rootKey];
+        if (JSONArray && [JSONArray isKindOfClass:NSArray.class]) {
+            return [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:pError];
+        }
+        else {
+            // Remark: When the result count is equal to a multiple of the page size, the last link returns an empty list array.
+            // See https://srfmmz.atlassian.net/wiki/display/SRGPLAY/Developer+Meeting+2016-10-05
+            return @[];
+        }
     } completionBlock:^(id  _Nullable object, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *HTTPResponse = [response isKindOfClass:NSHTTPURLResponse.class] ? (NSHTTPURLResponse *)response : nil;
         completionBlock(object, HTTPResponse, error);
