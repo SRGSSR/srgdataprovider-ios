@@ -18,6 +18,10 @@ let package = Package(
         .library(
             name: "SRGDataProvider",
             targets: ["SRGDataProvider"]
+        ),
+        .library(
+            name: "SRGDataProviderCombine",
+            targets: ["SRGDataProviderCombine"]
         )
     ],
     dependencies: [
