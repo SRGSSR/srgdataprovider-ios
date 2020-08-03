@@ -18,7 +18,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
         cancellables = []
     }
     
-    func testChannels() {
+    func testTvChannels() {
         let requestExpectation = expectation(description: "Request finished")
         
         dataProvider.tvChannels(for: .RTS).sink { completion in
@@ -54,10 +54,28 @@ final class SRGDataProviderCombineTests: XCTestCase {
         waitForExpectations(timeout: 10.0, handler: nil)
     }
     
-    func testLatestMedias() {
+    func testTvLatestMedias() {
         let requestExpectation = expectation(description: "Request finished")
         
         dataProvider.tvLatestMedias(for: .RTS).sink { completion in
+            switch completion {
+                case .finished:
+                    print("Done")
+                case let .failure(error):
+                    print("Error: \(error)")
+            }
+            requestExpectation.fulfill()
+        } receiveValue: { result in
+            print("Latest medias: \(result.0)")
+        }.store(in: &cancellables)
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+    }
+    
+    func testTvTopics() {
+        let requestExpectation = expectation(description: "Request finished")
+        
+        dataProvider.tvTopics(for: .RTS).sink { completion in
             switch completion {
                 case .finished:
                     print("Done")

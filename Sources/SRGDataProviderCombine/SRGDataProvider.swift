@@ -81,6 +81,27 @@ public struct SRGDataProvider {
             }
             .eraseToAnyPublisher()
     }
+    
+    public func tvTopics(for vendor: SRGVendor) -> AnyPublisher<([SRGTopic], URLResponse), Error> {
+        let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/topicList/tv")
+        return session.dataTaskPublisher(for: request)
+            .manageNetworkActivity()
+            .reportHttpErrors()
+            .tryMapJson([String: Any].self)
+            .tryMap { result in
+                guard let array = result.data["topicList"] as? [Any] else {
+                    throw SRGDataProviderError.invalidData
+                }
+                
+                if let topics = try MTLJSONAdapter.models(of: SRGTopic.self, fromJSONArray: array) as? [SRGTopic] {
+                    return (topics, result.response)
+                }
+                else {
+                    return ([], result.response)
+                }
+            }
+            .eraseToAnyPublisher()
+    }
         
     private func urlRequest(for resourcePath: String) -> URLRequest {
         let url = serviceUrl.appendingPathComponent(resourcePath)
