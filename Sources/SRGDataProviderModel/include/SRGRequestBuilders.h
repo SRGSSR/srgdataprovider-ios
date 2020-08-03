@@ -8,7 +8,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-OBJC_EXPORT NSURLRequest *SRGDataProviderRequest(NSURL *serviceURL, NSString *resourcePath, NSArray<NSURLQueryItem *> * _Nullable queryItems, NSDictionary<NSString *, NSString *> * _Nullable headers, NSDictionary<NSString *, NSString *> * _Nullable parameters);
 OBJC_EXPORT NSString *SRGPathComponentForVendor(SRGVendor vendor);
 
 NS_ASSUME_NONNULL_END

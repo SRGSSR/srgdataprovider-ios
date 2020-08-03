@@ -6,30 +6,6 @@
 
 #import "SRGRequestBuilders.h"
 
-@import Mantle;
-
-NSURLRequest *SRGDataProviderRequest(NSURL *serviceURL, NSString *resourcePath, NSArray<NSURLQueryItem *> *queryItems, NSDictionary<NSString *, NSString *> *headers, NSDictionary<NSString *, NSString *> *parameters)
-{
-    NSURL *URL = [serviceURL URLByAppendingPathComponent:resourcePath];
-    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
-    
-    NSMutableArray<NSURLQueryItem *> *fullQueryItems = [NSMutableArray array];
-    [parameters enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull name, NSString * _Nonnull value, BOOL * _Nonnull stop) {
-        [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:name value:value]];
-    }];
-    if (queryItems) {
-        [fullQueryItems addObjectsFromArray:queryItems];
-    }
-    [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"vector" value:@"appplay"]];
-    URLComponents.queryItems = fullQueryItems.copy;
-    
-    NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URLComponents.URL];
-    [headers enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull headerField, NSString * _Nonnull value, BOOL * _Nonnull stop) {
-        [URLRequest setValue:value forHTTPHeaderField:headerField];
-    }];
-    return URLRequest.copy;              // Not an immutable copy ;(
-}
-
 NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     static dispatch_once_t s_onceToken;
