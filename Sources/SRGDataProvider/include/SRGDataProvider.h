@@ -167,6 +167,11 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 @property (nonatomic, readonly) NSURL *serviceURL;
 
 /**
+ *  The session used to perform the requests.
+ */
+@property (nonatomic, readonly) NSURLSession *session;
+
+/**
  *  Optional global headers which will added to all requests. Use with caution, as some headers might not be supported and
  *  could lead to request failure.
  */

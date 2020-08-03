@@ -5,7 +5,7 @@
 //
 
 import Combine
-import SRGDataProviderModel
+import SRGDataProvider
 @testable import SRGDataProviderCombine
 import XCTest
 
@@ -19,7 +19,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
     var cancellables: Set<AnyCancellable>!
     
     override func setUp() {
-        dataProvider = SRGDataProvider(serviceUrl: URL(string: "https://il.srgssr.ch/integrationlayer")!)
+        dataProvider = SRGDataProvider(serviceURL: SRGIntegrationLayerProductionServiceURL())
         cancellables = []
     }
     

@@ -6,7 +6,7 @@
 
 import Combine
 import Mantle
-import SRGDataProviderModel
+import SRGDataProvider
 import SRGNetworkCombine
 
 enum SRGDataProviderError: Error {
@@ -15,14 +15,11 @@ enum SRGDataProviderError: Error {
 }
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public struct SRGDataProvider {
-    let session: URLSession = URLSession(configuration: .default, delegate: SRGSessionDelegate(), delegateQueue: nil)
-    let serviceUrl: URL
-    
+public extension SRGDataProvider {
     // TODO: Add typealiases for return publishers? (e.g. DataPublisher<[SRGChannel], Error>], DataPagePublisher<[SRGChannel], Error>])
     //       Maybe with named arguments for tuple so that .data, .response are possible in sink
     
-    public func tvChannels(for vendor: SRGVendor) -> AnyPublisher<([SRGChannel], URLResponse), Error> {
+    func tvChannels(for vendor: SRGVendor) -> AnyPublisher<([SRGChannel], URLResponse), Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/channelList/tv")
         return session.dataTaskPublisher(for: request)
             .manageNetworkActivity()
@@ -43,7 +40,7 @@ public struct SRGDataProvider {
             .eraseToAnyPublisher()
     }
     
-    public func tvTrendingMedias(for vendor: SRGVendor, limit: Int? = nil, editorialLimit: Int? = nil, episodesOnly: Bool? = nil) -> AnyPublisher<([SRGMedia], URLResponse), Error> {
+    func tvTrendingMedias(for vendor: SRGVendor, limit: Int? = nil, editorialLimit: Int? = nil, episodesOnly: Bool? = nil) -> AnyPublisher<([SRGMedia], URLResponse), Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/mediaList/video/trending")
         return session.dataTaskPublisher(for: request)
             .manageNetworkActivity()
@@ -64,7 +61,7 @@ public struct SRGDataProvider {
             .eraseToAnyPublisher()
     }
     
-    public func tvLatestMedias(for vendor: SRGVendor) -> AnyPublisher<([SRGMedia], URLResponse), Error> {
+    func tvLatestMedias(for vendor: SRGVendor) -> AnyPublisher<([SRGMedia], URLResponse), Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/mediaList/video/latestEpisodes")
         return session.dataTaskPublisher(for: request)
             .manageNetworkActivity()
@@ -85,7 +82,7 @@ public struct SRGDataProvider {
             .eraseToAnyPublisher()
     }
     
-    public func tvTopics(for vendor: SRGVendor) -> AnyPublisher<([SRGTopic], URLResponse), Error> {
+    func tvTopics(for vendor: SRGVendor) -> AnyPublisher<([SRGTopic], URLResponse), Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/topicList/tv")
         return session.dataTaskPublisher(for: request)
             .manageNetworkActivity()
@@ -106,7 +103,7 @@ public struct SRGDataProvider {
             .eraseToAnyPublisher()
     }
     
-    public func latestMediasForTopic(withUrn topicUrn: String) -> AnyPublisher<([SRGMedia], URLResponse), Error> {
+    func latestMediasForTopic(withUrn topicUrn: String) -> AnyPublisher<([SRGMedia], URLResponse), Error> {
         let request = urlRequest(for: "2.0/mediaList/latest/byTopicUrn/\(topicUrn)")
         return session.dataTaskPublisher(for: request)
             .manageNetworkActivity()
@@ -128,7 +125,7 @@ public struct SRGDataProvider {
     }
         
     private func urlRequest(for resourcePath: String) -> URLRequest {
-        let url = serviceUrl.appendingPathComponent(resourcePath)
+        let url = serviceURL.appendingPathComponent(resourcePath)
         return URLRequest(url: url)
     }
 }

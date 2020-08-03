@@ -47,7 +47,7 @@ let package = Package(
         .target(
             name: "SRGDataProviderCombine",
             dependencies: [
-                "SRGDataProviderModel",
+                "SRGDataProvider",
                 .product(name: "SRGNetworkCombine", package: "SRGNetwork")
             ]
         ),
