@@ -19,6 +19,9 @@ public struct SRGDataProvider {
     let session: URLSession = URLSession(configuration: .default, delegate: SRGSessionDelegate(), delegateQueue: nil)
     let serviceUrl: URL
     
+    // TODO: Add typealiases for return publishers? (e.g. DataPublisher<[SRGChannel], Error>], DataPagePublisher<[SRGChannel], Error>])
+    //       Maybe with named arguments for tuple so that .data, .response are possible in sink
+    
     public func tvChannels(for vendor: SRGVendor) -> AnyPublisher<([SRGChannel], URLResponse), Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/channelList/tv")
         return session.dataTaskPublisher(for: request)
@@ -95,6 +98,27 @@ public struct SRGDataProvider {
                 
                 if let topics = try MTLJSONAdapter.models(of: SRGTopic.self, fromJSONArray: array) as? [SRGTopic] {
                     return (topics, result.response)
+                }
+                else {
+                    return ([], result.response)
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    public func latestMediasForTopic(withUrn topicUrn: String) -> AnyPublisher<([SRGMedia], URLResponse), Error> {
+        let request = urlRequest(for: "2.0/mediaList/latest/byTopicUrn/\(topicUrn)")
+        return session.dataTaskPublisher(for: request)
+            .manageNetworkActivity()
+            .reportHttpErrors()
+            .tryMapJson([String: Any].self)
+            .tryMap { result in
+                guard let array = result.data["mediaList"] as? [Any] else {
+                    throw SRGDataProviderError.invalidData
+                }
+                
+                if let medias = try MTLJSONAdapter.models(of: SRGMedia.self, fromJSONArray: array) as? [SRGMedia] {
+                    return (medias, result.response)
                 }
                 else {
                     return ([], result.response)
