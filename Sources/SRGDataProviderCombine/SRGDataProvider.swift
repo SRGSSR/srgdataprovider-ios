@@ -15,37 +15,34 @@ enum SRGDataProviderError: Error {
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
-    // TODO: Add typealiases for return publishers? (e.g. DataPublisher<[SRGChannel], Error>], DataPagePublisher<[SRGChannel], Error>])
-    //       Maybe with named arguments for tuple so that .data, .response are possible in sink
-    
-    func tvChannels(for vendor: SRGVendor) -> AnyPublisher<([SRGChannel], URLResponse), Error> {
+    func tvChannels(for vendor: SRGVendor) -> AnyPublisher<(channels: [SRGChannel], response: URLResponse), Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/channelList/tv")
-        return objectsTaskPublisher(for: request, rootKey: "channelList")
+        return objectsTaskPublisher(for: request, rootKey: "channelList").map { $0 }.eraseToAnyPublisher()
     }
     
-    func tvChannel(for vendor: SRGVendor, withUid channelUid: String) -> AnyPublisher<(SRGChannel, URLResponse), Error> {
+    func tvChannel(for vendor: SRGVendor, withUid channelUid: String) -> AnyPublisher<(channel: SRGChannel, response: URLResponse), Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/channel/\(channelUid)/tv/nowAndNext")
-        return objectTaskPublisher(for: request)
+        return objectTaskPublisher(for: request).map { $0 }.eraseToAnyPublisher()
     }
     
-    func tvTrendingMedias(for vendor: SRGVendor, limit: Int? = nil, editorialLimit: Int? = nil, episodesOnly: Bool? = nil) -> AnyPublisher<([SRGMedia], URLResponse), Error> {
+    func tvTrendingMedias(for vendor: SRGVendor, limit: Int? = nil, editorialLimit: Int? = nil, episodesOnly: Bool? = nil) -> AnyPublisher<(medias: [SRGMedia], response: URLResponse), Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/mediaList/video/trending")
-        return objectsTaskPublisher(for: request, rootKey: "mediaList")
+        return objectsTaskPublisher(for: request, rootKey: "mediaList").map { $0 }.eraseToAnyPublisher()
     }
     
-    func tvLatestMedias(for vendor: SRGVendor) -> AnyPublisher<([SRGMedia], URLResponse), Error> {
+    func tvLatestMedias(for vendor: SRGVendor) -> AnyPublisher<(medias: [SRGMedia], response: URLResponse), Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/mediaList/video/latestEpisodes")
-        return objectsTaskPublisher(for: request, rootKey: "mediaList")
+        return objectsTaskPublisher(for: request, rootKey: "mediaList").map { $0 }.eraseToAnyPublisher()
     }
     
-    func tvTopics(for vendor: SRGVendor) -> AnyPublisher<([SRGTopic], URLResponse), Error> {
+    func tvTopics(for vendor: SRGVendor) -> AnyPublisher<(topics: [SRGTopic], response: URLResponse), Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/topicList/tv")
-        return objectsTaskPublisher(for: request, rootKey: "topicList")
+        return objectsTaskPublisher(for: request, rootKey: "topicList").map { $0 }.eraseToAnyPublisher()
     }
     
-    func latestMediasForTopic(withUrn topicUrn: String) -> AnyPublisher<([SRGMedia], URLResponse), Error> {
+    func latestMediasForTopic(withUrn topicUrn: String) -> AnyPublisher<(medias: [SRGMedia], response: URLResponse), Error> {
         let request = urlRequest(for: "2.0/mediaList/latest/byTopicUrn/\(topicUrn)")
-        return objectsTaskPublisher(for: request, rootKey: "mediaList")
+        return objectsTaskPublisher(for: request, rootKey: "mediaList").map { $0 }.eraseToAnyPublisher()
     }
 }
 
