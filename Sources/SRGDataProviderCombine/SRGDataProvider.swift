@@ -7,7 +7,6 @@
 import Combine
 import Mantle
 import SRGDataProvider
-import SRGNetworkCombine
 
 enum SRGDataProviderError: Error {
     case http(statusCode: Int)
@@ -134,5 +133,40 @@ class SRGSessionDelegate: NSObject, URLSessionTaskDelegate {
     func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
         // Refuse the redirection and return the redirection response (with the proper HTTP status code)
         completionHandler(nil)
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+extension Publisher {
+    public typealias Ouput<T> = (data: T, response: URLResponse)
+    
+    public func manageNetworkActivity() -> Publishers.HandleEvents<Self> where Self == URLSession.DataTaskPublisher {
+        return handleEvents { _ in
+            SRGNetworkActivityManagement.increaseNumberOfRunningRequests()
+        } receiveCompletion: { _ in
+            SRGNetworkActivityManagement.decreaseNumberOfRunningRequests()
+        } receiveCancel: {
+            SRGNetworkActivityManagement.decreaseNumberOfRunningRequests()
+        }
+    }
+    
+    public func reportHttpErrors() -> Publishers.TryMap<Self, Output> where Output == URLSession.DataTaskPublisher.Output {
+        return tryMap { result in
+            if let httpResponse = result.response as? HTTPURLResponse, httpResponse.statusCode >= 400 {
+                throw SRGDataProviderError.http(statusCode: httpResponse.statusCode)
+            }
+            return result
+        }
+    }
+    
+    public func tryMapJson<T>(_ type: T.Type) -> Publishers.TryMap<Self, Ouput<T>> where Output == URLSession.DataTaskPublisher.Output {
+        return tryMap { result in
+            if let array = try JSONSerialization.jsonObject(with: result.data, options: []) as? T {
+                return (array, result.response)
+            }
+            else {
+                throw SRGDataProviderError.invalidData
+            }
+        }
     }
 }

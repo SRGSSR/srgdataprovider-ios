@@ -27,7 +27,7 @@ let package = Package(
     dependencies: [
         .package(name: "libextobjc", url: "https://github.com/SRGSSR/libextobjc.git", .branch("feature/spm-support")),
         .package(name: "Mantle", url: "https://github.com/SRGSSR/Mantle.git", .branch("swift-package-manager-support")),
-        .package(name: "SRGNetwork", url: "https://github.com/SRGSSR/srgnetwork-apple.git", .branch("combine-support"))
+        .package(name: "SRGNetwork", url: "https://github.com/SRGSSR/srgnetwork-apple.git", .branch("feature/spm-support"))
     ],
     targets: [
         .target(
@@ -47,8 +47,7 @@ let package = Package(
         .target(
             name: "SRGDataProviderCombine",
             dependencies: [
-                "SRGDataProvider",
-                .product(name: "SRGNetworkCombine", package: "SRGNetwork")
+                "SRGDataProvider"
             ]
         ),
         .testTarget(

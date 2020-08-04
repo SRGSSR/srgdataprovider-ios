@@ -41,8 +41,8 @@
         "package": "SRGNetwork",
         "repositoryURL": "https://github.com/SRGSSR/srgnetwork-apple.git",
         "state": {
-          "branch": "combine-support",
-          "revision": "581bd9ce01184ae2b0d98dd2034087de1c3dd462",
+          "branch": "feature/spm-support",
+          "revision": "ffcf1817a2ab3d0ded4a6e86334e3cd4a277d191",
           "version": null
         }
       }
