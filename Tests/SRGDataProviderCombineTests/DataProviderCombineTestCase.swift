@@ -111,7 +111,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
                     throw TestError.missingData
                 }
             }
-            .flatMap { topic, response -> AnyPublisher<(medias: [SRGMedia], response: URLResponse), Error> in
+            .flatMap { topic, response -> AnyPublisher<SRGDataProvider.MediasOutput, Error> in
                 return self.dataProvider.latestMediasForTopic(withUrn: topic.urn)
             }
             .sink { completion in
