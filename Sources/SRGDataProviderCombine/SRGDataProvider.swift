@@ -20,80 +20,49 @@ public extension SRGDataProvider {
     
     func tvChannels(for vendor: SRGVendor) -> AnyPublisher<([SRGChannel], URLResponse), Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/channelList/tv")
-        return session.dataTaskPublisher(for: request)
-            .manageNetworkActivity()
-            .reportHttpErrors()
-            .tryMapJson([String: Any].self)
-            .tryMap { result in
-                guard let array = result.data["channelList"] as? [Any] else {
-                    throw SRGDataProviderError.invalidData
-                }
-                
-                if let channels = try MTLJSONAdapter.models(of: SRGChannel.self, fromJSONArray: array) as? [SRGChannel] {
-                    return (channels, result.response)
-                }
-                else {
-                    return ([], result.response)
-                }
-            }
-            .eraseToAnyPublisher()
+        return objectsTaskPublisher(for: request, rootKey: "channelList")
+    }
+    
+    func tvChannel(for vendor: SRGVendor, withUid channelUid: String) -> AnyPublisher<(SRGChannel, URLResponse), Error> {
+        let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/channel/\(channelUid)/tv/nowAndNext")
+        return objectTaskPublisher(for: request)
     }
     
     func tvTrendingMedias(for vendor: SRGVendor, limit: Int? = nil, editorialLimit: Int? = nil, episodesOnly: Bool? = nil) -> AnyPublisher<([SRGMedia], URLResponse), Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/mediaList/video/trending")
-        return session.dataTaskPublisher(for: request)
-            .manageNetworkActivity()
-            .reportHttpErrors()
-            .tryMapJson([String: Any].self)
-            .tryMap { result in
-                guard let array = result.data["mediaList"] as? [Any] else {
-                    throw SRGDataProviderError.invalidData
-                }
-                
-                if let medias = try MTLJSONAdapter.models(of: SRGMedia.self, fromJSONArray: array) as? [SRGMedia] {
-                    return (medias, result.response)
-                }
-                else {
-                    return ([], result.response)
-                }
-            }
-            .eraseToAnyPublisher()
+        return objectsTaskPublisher(for: request, rootKey: "mediaList")
     }
     
     func tvLatestMedias(for vendor: SRGVendor) -> AnyPublisher<([SRGMedia], URLResponse), Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/mediaList/video/latestEpisodes")
-        return session.dataTaskPublisher(for: request)
-            .manageNetworkActivity()
-            .reportHttpErrors()
-            .tryMapJson([String: Any].self)
-            .tryMap { result in
-                guard let array = result.data["mediaList"] as? [Any] else {
-                    throw SRGDataProviderError.invalidData
-                }
-                
-                if let medias = try MTLJSONAdapter.models(of: SRGMedia.self, fromJSONArray: array) as? [SRGMedia] {
-                    return (medias, result.response)
-                }
-                else {
-                    return ([], result.response)
-                }
-            }
-            .eraseToAnyPublisher()
+        return objectsTaskPublisher(for: request, rootKey: "mediaList")
     }
     
     func tvTopics(for vendor: SRGVendor) -> AnyPublisher<([SRGTopic], URLResponse), Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/topicList/tv")
+        return objectsTaskPublisher(for: request, rootKey: "topicList")
+    }
+    
+    func latestMediasForTopic(withUrn topicUrn: String) -> AnyPublisher<([SRGMedia], URLResponse), Error> {
+        let request = urlRequest(for: "2.0/mediaList/latest/byTopicUrn/\(topicUrn)")
+        return objectsTaskPublisher(for: request, rootKey: "mediaList")
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+extension SRGDataProvider {
+    fileprivate func objectsTaskPublisher<T>(for request: URLRequest, rootKey: String) -> AnyPublisher<([T], URLResponse), Error> {
         return session.dataTaskPublisher(for: request)
             .manageNetworkActivity()
             .reportHttpErrors()
             .tryMapJson([String: Any].self)
             .tryMap { result in
-                guard let array = result.data["topicList"] as? [Any] else {
+                guard let array = result.data[rootKey] as? [Any] else {
                     throw SRGDataProviderError.invalidData
                 }
                 
-                if let topics = try MTLJSONAdapter.models(of: SRGTopic.self, fromJSONArray: array) as? [SRGTopic] {
-                    return (topics, result.response)
+                if let objects = try MTLJSONAdapter.models(of: T.self as? AnyClass, fromJSONArray: array) as? [T] {
+                    return (objects, result.response)
                 }
                 else {
                     return ([], result.response)
@@ -102,28 +71,23 @@ public extension SRGDataProvider {
             .eraseToAnyPublisher()
     }
     
-    func latestMediasForTopic(withUrn topicUrn: String) -> AnyPublisher<([SRGMedia], URLResponse), Error> {
-        let request = urlRequest(for: "2.0/mediaList/latest/byTopicUrn/\(topicUrn)")
+    fileprivate func objectTaskPublisher<T>(for request: URLRequest) -> AnyPublisher<(T, URLResponse), Error> {
         return session.dataTaskPublisher(for: request)
             .manageNetworkActivity()
             .reportHttpErrors()
             .tryMapJson([String: Any].self)
             .tryMap { result in
-                guard let array = result.data["mediaList"] as? [Any] else {
-                    throw SRGDataProviderError.invalidData
-                }
-                
-                if let medias = try MTLJSONAdapter.models(of: SRGMedia.self, fromJSONArray: array) as? [SRGMedia] {
-                    return (medias, result.response)
+                if let object = try MTLJSONAdapter.model(of: T.self as? AnyClass, fromJSONDictionary: result.data) as? T {
+                    return (object, result.response)
                 }
                 else {
-                    return ([], result.response)
+                    throw SRGDataProviderError.invalidData
                 }
             }
             .eraseToAnyPublisher()
     }
-        
-    private func urlRequest(for resourcePath: String) -> URLRequest {
+    
+    fileprivate func urlRequest(for resourcePath: String) -> URLRequest {
         let url = serviceURL.appendingPathComponent(resourcePath)
         return URLRequest(url: url)
     }
