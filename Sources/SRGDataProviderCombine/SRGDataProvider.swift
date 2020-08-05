@@ -15,11 +15,24 @@ enum SRGDataProviderError: Error {
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
+    struct Page {
+        let request: URLRequest
+        
+        fileprivate init?(request: URLRequest?) {
+            if let request = request {
+                self.request = request;
+            }
+            else {
+                return nil
+            }
+        }
+    }
+    
     typealias ChannelOutput = (channel: SRGChannel, response: URLResponse)
     typealias ChannelsOutput = (channels: [SRGChannel], response: URLResponse)
     typealias TopicsOutput = (topics: [SRGTopic], response: URLResponse)
     
-    typealias MediasPageOutput = (medias: [SRGMedia], nextRequest: URLRequest?, response: URLResponse)
+    typealias MediasPageOutput = (medias: [SRGMedia], next: Page?, response: URLResponse)
     
     func tvChannels(for vendor: SRGVendor) -> AnyPublisher<ChannelsOutput, Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/channelList/tv")
@@ -33,12 +46,24 @@ public extension SRGDataProvider {
     
     func tvTrendingMedias(for vendor: SRGVendor, limit: Int? = nil, editorialLimit: Int? = nil, episodesOnly: Bool? = nil) -> AnyPublisher<MediasPageOutput, Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/mediaList/video/trending")
-        return objectsTaskPublisher(for: request, rootKey: "mediaList").map { $0 }.eraseToAnyPublisher()
+        return objectsTaskPublisher(for: request, rootKey: "mediaList").map { result in
+            (result.objects, Page(request: result.nextRequest), result.response)
+        }.eraseToAnyPublisher()
     }
     
     func tvLatestMedias(for vendor: SRGVendor) -> AnyPublisher<MediasPageOutput, Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/mediaList/video/latestEpisodes")
-        return objectsTaskPublisher(for: request, rootKey: "mediaList").map { $0 }.eraseToAnyPublisher()
+        return tvLatestMedias(for: request)
+    }
+    
+    func tvLatestMedias(for page: Page) -> AnyPublisher<MediasPageOutput, Error> {
+        return tvLatestMedias(for: page.request)
+    }
+    
+    private func tvLatestMedias(for request: URLRequest) -> AnyPublisher<MediasPageOutput, Error> {
+        return objectsTaskPublisher(for: request, rootKey: "mediaList").map { result in
+            (result.objects, Page(request: result.nextRequest), result.response)
+        }.eraseToAnyPublisher()
     }
     
     func tvTopics(for vendor: SRGVendor) -> AnyPublisher<TopicsOutput, Error> {
@@ -48,14 +73,16 @@ public extension SRGDataProvider {
     
     func latestMediasForTopic(withUrn topicUrn: String) -> AnyPublisher<MediasPageOutput, Error> {
         let request = urlRequest(for: "2.0/mediaList/latest/byTopicUrn/\(topicUrn)")
-        return objectsTaskPublisher(for: request, rootKey: "mediaList").map { $0 }.eraseToAnyPublisher()
+        return objectsTaskPublisher(for: request, rootKey: "mediaList").map { result in
+            (result.objects, Page(request: result.nextRequest), result.response)
+        }.eraseToAnyPublisher()
     }
 }
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension SRGDataProvider {
-    typealias ObjectOutput<T> = (objects: T, response: URLResponse)
-    typealias ObjectsOutput<T> = (object: [T], nextRequest: URLRequest?, response: URLResponse)
+    typealias ObjectOutput<T> = (object: T, response: URLResponse)
+    typealias ObjectsOutput<T> = (objects: [T], nextRequest: URLRequest?, response: URLResponse)
     
     fileprivate func objectsTaskPublisher<T>(for request: URLRequest, rootKey: String) -> AnyPublisher<ObjectsOutput<T>, Error> {
         return session.dataTaskPublisher(for: request)

@@ -35,8 +35,8 @@ final class SRGDataProviderCombineTests: XCTestCase {
                         print("Error: \(error)")
                 }
                 requestExpectation.fulfill()
-            } receiveValue: { result in
-                print("Result: \(result)")
+            } receiveValue: { value in
+                print("Result: \(value)")
             }.store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
@@ -54,8 +54,8 @@ final class SRGDataProviderCombineTests: XCTestCase {
                         print("Error: \(error)")
                 }
                 requestExpectation.fulfill()
-            } receiveValue: { result in
-                print("Result: \(result)")
+            } receiveValue: { value in
+                print("Result: \(value)")
             }.store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
@@ -73,8 +73,8 @@ final class SRGDataProviderCombineTests: XCTestCase {
                         print("Error: \(error)")
                 }
                 requestExpectation.fulfill()
-            } receiveValue: { result in
-                print("Result: \(result)")
+            } receiveValue: { value in
+                print("Result: \(value)")
             }.store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
@@ -92,9 +92,42 @@ final class SRGDataProviderCombineTests: XCTestCase {
                         print("Error: \(error)")
                 }
                 requestExpectation.fulfill()
-            } receiveValue: { result in
-                print("Result: \(result)")
+            } receiveValue: { value in
+                print("Result: \(value)")
             }.store(in: &cancellables)
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+    }
+    
+    func testPagesNested() {
+        // Use flat map to send next request and consolidate both result lists
+    }
+    
+    func testPagesNonNested() {
+        let requestExpectation1 = expectation(description: "Request 1 finished")
+        
+        var next: SRGDataProvider.Page?
+        dataProvider.tvLatestMedias(for: .RTS)
+            .sink { completion in
+                requestExpectation1.fulfill()
+            } receiveValue: { result in
+                next = result.next
+            }
+            .store(in: &cancellables)
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+        
+        XCTAssertNotNil(next)
+        
+        let requestExpectation2 = expectation(description: "Request 2 finished")
+        
+        dataProvider.tvLatestMedias(for: next!)
+            .sink { completion in
+                requestExpectation2.fulfill()
+            } receiveValue: { value in
+                print("Result: \(value)")
+            }
+            .store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
     }
@@ -122,8 +155,8 @@ final class SRGDataProviderCombineTests: XCTestCase {
                     print("Error: \(error)")
             }
             requestExpectation.fulfill()
-        } receiveValue: { result in
-            print("Result: \(result)")
+        } receiveValue: { value in
+            print("Result: \(value)")
         }.store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
