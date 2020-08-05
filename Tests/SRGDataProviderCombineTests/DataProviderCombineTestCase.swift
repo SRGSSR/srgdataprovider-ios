@@ -36,7 +36,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
                 }
                 requestExpectation.fulfill()
             } receiveValue: { result in
-                print("Channels: \(result.channels)")
+                print("Result: \(result)")
             }.store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
@@ -55,7 +55,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
                 }
                 requestExpectation.fulfill()
             } receiveValue: { result in
-                print("Channel: \(result.channel)")
+                print("Result: \(result)")
             }.store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
@@ -74,7 +74,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
                 }
                 requestExpectation.fulfill()
             } receiveValue: { result in
-                print("Latest medias: \(result.medias)")
+                print("Result: \(result)")
             }.store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
@@ -93,7 +93,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
                 }
                 requestExpectation.fulfill()
             } receiveValue: { result in
-                print("Latest medias: \(result.medias)")
+                print("Result: \(result)")
             }.store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
@@ -111,7 +111,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
                     throw TestError.missingData
                 }
             }
-            .flatMap { topic, response -> AnyPublisher<SRGDataProvider.MediasOutput, Error> in
+            .flatMap { topic, response -> AnyPublisher<SRGDataProvider.MediasPageOutput, Error> in
                 return self.dataProvider.latestMediasForTopic(withUrn: topic.urn)
             }
             .sink { completion in
@@ -123,7 +123,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
             }
             requestExpectation.fulfill()
         } receiveValue: { result in
-            print("Latest medias for first topic: \(result.medias)")
+            print("Result: \(result)")
         }.store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
