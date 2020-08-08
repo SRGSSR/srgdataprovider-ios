@@ -21,7 +21,7 @@ public extension SRGDataProvider {
     
     func tvChannels(for vendor: SRGVendor) -> AnyPublisher<TVChannels.Output, Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/channelList/tv")
-        return objectsTaskPublisher(for: request, rootKey: "channelList").map { ($0, $2) }.eraseToAnyPublisher()
+        return objectsTaskPublisher(for: request, rootKey: "channelList").map { $0 }.eraseToAnyPublisher()
     }
 }
 
@@ -43,19 +43,15 @@ public extension SRGDataProvider {
         public typealias Page = SRGDataProvider.Page<Self>
         public typealias Output = (medias: [SRGMedia], nextPage: Page?, response: URLResponse)
     }
-
-    func tvLatestMedias(for vendor: SRGVendor) -> AnyPublisher<TVLatestMedias.Output, Error> {
+    
+    func tvLatestMedias(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVLatestMedias.Output, Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/mediaList/video/latestEpisodes")
-        return tvLatestMedias(for: request)
+        return tvLatestMedias(at: Page(request: request, size: pageSize))
     }
     
     func tvLatestMedias(at page: TVLatestMedias.Page) -> AnyPublisher<TVLatestMedias.Output, Error> {
-        return tvLatestMedias(for: page.request)
-    }
-    
-    private func tvLatestMedias(for request: URLRequest) -> AnyPublisher<TVLatestMedias.Output, Error> {
-        return objectsTaskPublisher(for: request, rootKey: "mediaList").map { result in
-            (result.objects, Page(request: result.nextRequest), result.response)
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList").map { result in
+            (result.objects, page.next(with: result.nextRequest), result.response)
         }.eraseToAnyPublisher()
     }
 }
@@ -67,18 +63,14 @@ public extension SRGDataProvider {
         public typealias Output = (medias: [SRGMedia], nextPage: Page?, response: URLResponse)
     }
     
-    func tvTrendingMedias(for vendor: SRGVendor, limit: Int? = nil, editorialLimit: Int? = nil, episodesOnly: Bool? = nil) -> AnyPublisher<TVTrendingMedias.Output, Error> {
+    func tvTrendingMedias(for vendor: SRGVendor, limit: Int? = nil, editorialLimit: Int? = nil, episodesOnly: Bool = false, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVTrendingMedias.Output, Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/mediaList/video/trending")
-        return tvTrendingMedias(for: request)
+        return tvTrendingMedias(at: Page(request: request, size: pageSize))
     }
     
     func tvTrendingMedias(at page: TVTrendingMedias.Page) -> AnyPublisher<TVTrendingMedias.Output, Error> {
-        return tvTrendingMedias(for: page.request)
-    }
-    
-    private func tvTrendingMedias(for request: URLRequest) -> AnyPublisher<TVTrendingMedias.Output, Error> {
-        return objectsTaskPublisher(for: request, rootKey: "mediaList").map { result in
-            (result.objects, Page(request: result.nextRequest), result.response)
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList").map { result in
+            (result.objects, page.next(with: result.nextRequest), result.response)
         }.eraseToAnyPublisher()
     }
 }
@@ -91,7 +83,7 @@ public extension SRGDataProvider {
     
     func tvTopics(for vendor: SRGVendor) -> AnyPublisher<TVTopics.Output, Error> {
         let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/topicList/tv")
-        return objectsTaskPublisher(for: request, rootKey: "topicList").map { ($0, $2) }.eraseToAnyPublisher()
+        return objectsTaskPublisher(for: request, rootKey: "topicList").map { $0 }.eraseToAnyPublisher()
     }
 }
 
@@ -102,10 +94,14 @@ public extension SRGDataProvider {
         public typealias Output = (medias: [SRGMedia], nextPage: Page?, response: URLResponse)
     }
     
-    func latestMediasForTopic(withUrn topicUrn: String) -> AnyPublisher<LatestMediasForTopic.Output, Error> {
+    func latestMediasForTopic(withUrn topicUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<LatestMediasForTopic.Output, Error> {
         let request = urlRequest(for: "2.0/mediaList/latest/byTopicUrn/\(topicUrn)")
-        return objectsTaskPublisher(for: request, rootKey: "mediaList").map { result in
-            (result.objects, Page(request: result.nextRequest), result.response)
+        return latestMediasForTopic(at: Page(request: request, size: pageSize))
+    }
+    
+    func latestMediasForTopic(at page: LatestMediasForTopic.Page) -> AnyPublisher<LatestMediasForTopic.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList").map { result in
+            (result.objects, page.next(with: result.nextRequest), result.response)
         }.eraseToAnyPublisher()
     }
 }
@@ -118,10 +114,22 @@ extension SRGDataProvider {
     // and used by another one with unreliable results if the type of object does not match).
     public struct Page<T> {
         let request: URLRequest
+        let size: UInt
+        let number: UInt
         
-        fileprivate init?(request: URLRequest?) {
+        fileprivate init(request: URLRequest, size: UInt) {
+            self.init(request: request, size: size, number: 0)
+        }
+        
+        private init(request: URLRequest, size: UInt, number: UInt) {
+            self.request = request
+            self.size = size
+            self.number = number
+        }
+        
+        fileprivate func next(with request: URLRequest?) -> Page<T>? {
             if let request = request {
-                self.request = request;
+                return Page(request: request, size: size, number: number + 1)
             }
             else {
                 return nil
@@ -130,9 +138,10 @@ extension SRGDataProvider {
     }
     
     typealias ObjectOutput<T> = (object: T, response: URLResponse)
-    typealias ObjectsOutput<T> = (objects: [T], nextRequest: URLRequest?, response: URLResponse)
+    typealias ObjectsOutput<T> = (objects: [T], response: URLResponse)
+    typealias PaginatedObjectsOutput<T> = (objects: [T], nextRequest: URLRequest?, response: URLResponse)
     
-    func objectsTaskPublisher<T>(for request: URLRequest, rootKey: String) -> AnyPublisher<ObjectsOutput<T>, Error> {
+    func paginatedObjectsTaskPublisher<T>(for request: URLRequest, rootKey: String) -> AnyPublisher<PaginatedObjectsOutput<T>, Error> {
         return session.dataTaskPublisher(for: request)
             .manageNetworkActivity()
             .reportHttpErrors()
@@ -153,6 +162,14 @@ extension SRGDataProvider {
                 else {
                     return ([], nil, result.response)
                 }
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func objectsTaskPublisher<T>(for request: URLRequest, rootKey: String) -> AnyPublisher<ObjectsOutput<T>, Error> {
+        return paginatedObjectsTaskPublisher(for: request, rootKey: rootKey)
+            .map { result in
+                return (result.objects, result.response)
             }
             .eraseToAnyPublisher()
     }
