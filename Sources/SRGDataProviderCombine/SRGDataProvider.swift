@@ -41,7 +41,7 @@ public extension SRGDataProvider {
 public extension SRGDataProvider {
     enum TVLatestMedias {
         public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (medias: [SRGMedia], nextPage: Page?, response: URLResponse)
+        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
     }
     
     func tvLatestMedias(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVLatestMedias.Output, Error> {
@@ -51,7 +51,7 @@ public extension SRGDataProvider {
     
     func tvLatestMedias(at page: TVLatestMedias.Page) -> AnyPublisher<TVLatestMedias.Output, Error> {
         return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList").map { result in
-            (result.objects, page.next(with: result.nextRequest), result.response)
+            (result.objects, page, page.next(with: result.nextRequest), result.response)
         }.eraseToAnyPublisher()
     }
 }
@@ -60,7 +60,7 @@ public extension SRGDataProvider {
 public extension SRGDataProvider {
     enum TVTrendingMedias {
         public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (medias: [SRGMedia], nextPage: Page?, response: URLResponse)
+        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
     }
     
     func tvTrendingMedias(for vendor: SRGVendor, limit: Int? = nil, editorialLimit: Int? = nil, episodesOnly: Bool = false, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVTrendingMedias.Output, Error> {
@@ -70,7 +70,7 @@ public extension SRGDataProvider {
     
     func tvTrendingMedias(at page: TVTrendingMedias.Page) -> AnyPublisher<TVTrendingMedias.Output, Error> {
         return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList").map { result in
-            (result.objects, page.next(with: result.nextRequest), result.response)
+            (result.objects, page, page.next(with: result.nextRequest), result.response)
         }.eraseToAnyPublisher()
     }
 }
@@ -91,7 +91,7 @@ public extension SRGDataProvider {
 public extension SRGDataProvider {
     enum LatestMediasForTopic {
         public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (medias: [SRGMedia], nextPage: Page?, response: URLResponse)
+        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
     }
     
     func latestMediasForTopic(withUrn topicUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<LatestMediasForTopic.Output, Error> {
@@ -101,10 +101,13 @@ public extension SRGDataProvider {
     
     func latestMediasForTopic(at page: LatestMediasForTopic.Page) -> AnyPublisher<LatestMediasForTopic.Output, Error> {
         return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList").map { result in
-            (result.objects, page.next(with: result.nextRequest), result.response)
+            (result.objects, page, page.next(with: result.nextRequest), result.response)
         }.eraseToAnyPublisher()
     }
 }
+
+// TODO: Take into account page size
+// TODO: Media search request
 
 // MARK: Generic implementation
 
