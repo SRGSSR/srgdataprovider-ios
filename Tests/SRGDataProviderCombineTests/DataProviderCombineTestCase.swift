@@ -106,22 +106,22 @@ final class SRGDataProviderCombineTests: XCTestCase {
     func testPagesNonNested() {
         let requestExpectation1 = expectation(description: "Request 1 finished")
         
-        var next: SRGDataProvider.Page?
+        var nextPage: SRGDataProvider.TVLatestMedias.Page?
         dataProvider.tvLatestMedias(for: .RTS)
             .sink { completion in
                 requestExpectation1.fulfill()
             } receiveValue: { result in
-                next = result.next
+                nextPage = result.nextPage
             }
             .store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
         
-        XCTAssertNotNil(next)
+        XCTAssertNotNil(nextPage)
         
         let requestExpectation2 = expectation(description: "Request 2 finished")
         
-        dataProvider.tvLatestMedias(for: next!)
+        dataProvider.tvLatestMedias(at: nextPage!)
             .sink { completion in
                 requestExpectation2.fulfill()
             } receiveValue: { value in
@@ -144,7 +144,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
                     throw TestError.missingData
                 }
             }
-            .flatMap { topic, response -> AnyPublisher<SRGDataProvider.MediasPageOutput, Error> in
+            .flatMap { topic, response in
                 return self.dataProvider.latestMediasForTopic(withUrn: topic.urn)
             }
             .sink { completion in
