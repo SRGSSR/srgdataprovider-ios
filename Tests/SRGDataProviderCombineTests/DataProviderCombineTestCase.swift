@@ -4,9 +4,6 @@
 //  License information is available from the LICENSE file.
 //
 
-import Combine
-import SRGDataProvider
-import SRGDataProviderModel
 @testable import SRGDataProviderCombine
 import XCTest
 

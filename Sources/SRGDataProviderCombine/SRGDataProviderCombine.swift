@@ -4,11 +4,10 @@
 //  License information is available from the LICENSE file.
 //
 
-import Combine
+@_exported import Combine
+@_exported import SRGDataProviderRequests
+
 import Mantle
-import SRGDataProvider
-import SRGDataProviderRequests
-import SRGDataProviderModel
 import SRGNetwork
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
