@@ -21,32 +21,32 @@ OBJC_EXPORT NSString *SRGPathComponentForVendor(SRGVendor vendor);
 
 //--------------
 
-@interface SRGDataProvider (TvRequests)
+@interface SRGDataProvider (TVRequests)
 
-- (NSURLRequest *)requestTvChannelsForVendor:(SRGVendor)vendor;
-- (NSURLRequest *)requestTvChannelForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVChannelsForVendor:(SRGVendor)vendor;
+- (NSURLRequest *)requestTVChannelForVendor:(SRGVendor)vendor
                                     withUid:(NSString *)channelUid;
-- (NSURLRequest *)requestTvLatestProgramsForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVLatestProgramsForVendor:(SRGVendor)vendor
                                         channelUid:(NSString *)channelUid
                                      livestreamUid:(nullable NSString *)livestreamUid
                                           fromDate:(nullable NSDate *)fromDate
                                             toDate:(nullable NSDate *)toDate;
-- (NSURLRequest *)requestTvLivestreamsForVendor:(SRGVendor)vendor;
-- (NSURLRequest *)requestTvScheduledLivestreamsForVendor:(SRGVendor)vendor;
-- (NSURLRequest *)requestTvEditorialMediasForVendor:(SRGVendor)vendor;
-- (NSURLRequest *)requestTvLatestMediasForVendor:(SRGVendor)vendor;
-- (NSURLRequest *)requestTvMostPopularMediasForVendor:(SRGVendor)vendor;
-- (NSURLRequest *)requestTvSoonExpiringMediasForVendor:(SRGVendor)vendor;
-- (NSURLRequest *)requestTvTrendingMediasForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVLivestreamsForVendor:(SRGVendor)vendor;
+- (NSURLRequest *)requestTVScheduledLivestreamsForVendor:(SRGVendor)vendor;
+- (NSURLRequest *)requestTVEditorialMediasForVendor:(SRGVendor)vendor;
+- (NSURLRequest *)requestTVLatestMediasForVendor:(SRGVendor)vendor;
+- (NSURLRequest *)requestTVMostPopularMediasForVendor:(SRGVendor)vendor;
+- (NSURLRequest *)requestTVSoonExpiringMediasForVendor:(SRGVendor)vendor;
+- (NSURLRequest *)requestTVTrendingMediasForVendor:(SRGVendor)vendor
                                          withLimit:(nullable NSNumber *)limit
                                     editorialLimit:(nullable NSNumber *)editorialLimit
                                       episodesOnly:(BOOL)episodesOnly;
-- (NSURLRequest *)requestTvLatestEpisodesForVendor:(SRGVendor)vendor;
-- (NSURLRequest *)requestTvEpisodesForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVLatestEpisodesForVendor:(SRGVendor)vendor;
+- (NSURLRequest *)requestTVEpisodesForVendor:(SRGVendor)vendor
                                          day:(nullable SRGDay *)day;
-- (NSURLRequest *)requestTvTopicsForVendor:(SRGVendor)vendor;
-- (NSURLRequest *)requestTvShowsForVendor:(SRGVendor)vendor;
-- (NSURLRequest *)requestTvShowsForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVTopicsForVendor:(SRGVendor)vendor;
+- (NSURLRequest *)requestTVShowsForVendor:(SRGVendor)vendor;
+- (NSURLRequest *)requestTVShowsForVendor:(SRGVendor)vendor
                             matchingQuery:(NSString *)query;
 
 @end

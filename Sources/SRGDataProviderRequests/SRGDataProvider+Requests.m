@@ -72,22 +72,22 @@ NSString *SRGPathComponentForModuleType(SRGModuleType moduleType)
 
 @end
 
-@implementation SRGDataProvider (TvRequests)
+@implementation SRGDataProvider (TVRequests)
 
-- (NSURLRequest *)requestTvChannelsForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVChannelsForVendor:(SRGVendor)vendor
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/channelList/tv", SRGPathComponentForVendor(vendor)];
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
-- (NSURLRequest *)requestTvChannelForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVChannelForVendor:(SRGVendor)vendor
                                     withUid:(NSString *)channelUid
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/channel/%@/tv/nowAndNext", SRGPathComponentForVendor(vendor), channelUid];
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
-- (NSURLRequest *)requestTvLatestProgramsForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVLatestProgramsForVendor:(SRGVendor)vendor
                                         channelUid:(NSString *)channelUid
                                      livestreamUid:(NSString *)livestreamUid
                                           fromDate:(NSDate *)fromDate
@@ -109,43 +109,43 @@ NSString *SRGPathComponentForModuleType(SRGModuleType moduleType)
     return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
 }
 
-- (NSURLRequest *)requestTvLivestreamsForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVLivestreamsForVendor:(SRGVendor)vendor
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/livestreams", SRGPathComponentForVendor(vendor)];
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
-- (NSURLRequest *)requestTvScheduledLivestreamsForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVScheduledLivestreamsForVendor:(SRGVendor)vendor
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/scheduledLivestreams", SRGPathComponentForVendor(vendor)];
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
-- (NSURLRequest *)requestTvEditorialMediasForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVEditorialMediasForVendor:(SRGVendor)vendor
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/editorial", SRGPathComponentForVendor(vendor)];
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
-- (NSURLRequest *)requestTvLatestMediasForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVLatestMediasForVendor:(SRGVendor)vendor
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestEpisodes", SRGPathComponentForVendor(vendor)];
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
-- (NSURLRequest *)requestTvMostPopularMediasForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVMostPopularMediasForVendor:(SRGVendor)vendor
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/mostClicked", SRGPathComponentForVendor(vendor)];
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
-- (NSURLRequest *)requestTvSoonExpiringMediasForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVSoonExpiringMediasForVendor:(SRGVendor)vendor
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/soonExpiring", SRGPathComponentForVendor(vendor)];
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
-- (NSURLRequest *)requestTvTrendingMediasForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVTrendingMediasForVendor:(SRGVendor)vendor
                                          withLimit:(NSNumber *)limit
                                     editorialLimit:(NSNumber *)editorialLimit
                                       episodesOnly:(BOOL)episodesOnly
@@ -171,13 +171,13 @@ NSString *SRGPathComponentForModuleType(SRGModuleType moduleType)
     return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
 }
 
-- (NSURLRequest *)requestTvLatestEpisodesForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVLatestEpisodesForVendor:(SRGVendor)vendor
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestEpisodes", SRGPathComponentForVendor(vendor)];
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
-- (NSURLRequest *)requestTvEpisodesForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVEpisodesForVendor:(SRGVendor)vendor
                                          day:(SRGDay *)day
 {
     if (! day) {
@@ -188,19 +188,19 @@ NSString *SRGPathComponentForModuleType(SRGModuleType moduleType)
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
-- (NSURLRequest *)requestTvTopicsForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVTopicsForVendor:(SRGVendor)vendor
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/topicList/tv", SRGPathComponentForVendor(vendor)];
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
-- (NSURLRequest *)requestTvShowsForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVShowsForVendor:(SRGVendor)vendor
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/showList/tv/alphabetical", SRGPathComponentForVendor(vendor)];
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
-- (NSURLRequest *)requestTvShowsForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestTVShowsForVendor:(SRGVendor)vendor
                             matchingQuery:(NSString *)query
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultShowList/tv", SRGPathComponentForVendor(vendor)];

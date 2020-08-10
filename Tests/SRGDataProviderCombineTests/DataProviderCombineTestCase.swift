@@ -24,7 +24,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
         cancellables = []
     }
     
-    func testTvChannels() {
+    func testTVChannels() {
         let requestExpectation = expectation(description: "Request finished")
         
         dataProvider.tvChannels(for: .RTS)
@@ -43,7 +43,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
         waitForExpectations(timeout: 10.0, handler: nil)
     }
     
-    func testTvChannel() {
+    func testTVChannel() {
         let requestExpectation = expectation(description: "Request finished")
         
         dataProvider.tvChannel(for: .RTS, withUid: "143932a79bb5a123a646b68b1d1188d7ae493e5b")
@@ -62,7 +62,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
         waitForExpectations(timeout: 10.0, handler: nil)
     }
     
-    func testTvTrendingMedias() {
+    func testTVTrendingMedias() {
         let requestExpectation = expectation(description: "Request finished")
         
         dataProvider.tvTrendingMedias(for: .RTS)
@@ -81,7 +81,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
         waitForExpectations(timeout: 10.0, handler: nil)
     }
     
-    func testTvLatestMedias() {
+    func testTVLatestMedias() {
         let requestExpectation = expectation(description: "Request finished")
         
         dataProvider.tvLatestMedias(for: .RTS)
@@ -133,7 +133,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
         waitForExpectations(timeout: 10.0, handler: nil)
     }
     
-    func testTvTopics() {
+    func testTVTopics() {
         let requestExpectation = expectation(description: "Request finished")
         
         dataProvider.tvTopics(for: .RTS)

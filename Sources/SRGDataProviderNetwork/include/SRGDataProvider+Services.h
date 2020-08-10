@@ -38,7 +38,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  List of TV-oriented services supported by the data provider. Media list requests collect content for all channels
  *  and do not make any distinction between them.
  */
-@interface SRGDataProvider (TvServices)
+@interface SRGDataProvider (TVServices)
 
 /**
  *  @name Channels and livestreams
