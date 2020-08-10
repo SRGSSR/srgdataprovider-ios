@@ -4,7 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
-@import SRGDataProvider;
+@import SRGDataProviderModel;
 @import XCTest;
 
 @interface DayTestCase : XCTestCase

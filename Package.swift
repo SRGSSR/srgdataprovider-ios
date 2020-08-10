@@ -31,6 +31,12 @@ let package = Package(
     ],
     targets: [
         .target(
+            name: "SRGDataProvider",
+            cSettings: [
+                .define("MARKETING_VERSION", to: "\"\(ProjectSettings.marketingVersion)\"")
+            ]
+        ),
+        .target(
             name: "SRGDataProviderModel",
             dependencies: ["libextobjc", "Mantle"],
             resources: [
@@ -38,15 +44,8 @@ let package = Package(
             ]
         ),
         .target(
-            name: "SRGDataProvider",
-            dependencies: ["SRGDataProviderModel"],
-            cSettings: [
-                .define("MARKETING_VERSION", to: "\"\(ProjectSettings.marketingVersion)\"")
-            ]
-        ),
-        .target(
             name: "SRGDataProviderRequests",
-            dependencies: ["SRGDataProvider"]
+            dependencies: ["SRGDataProvider", "SRGDataProviderModel"]
         ),
         .target(
             name: "SRGDataProviderNetwork",
@@ -55,10 +54,10 @@ let package = Package(
         .target(
             name: "SRGDataProviderCombine",
             dependencies: ["SRGDataProviderRequests", "SRGNetwork"]
-        )/**,
+        ),
         .testTarget(
-            name: "SRGDataProviderTests",
-            dependencies: ["SRGDataProvider"],
+            name: "SRGDataProviderNetworkTests",
+            dependencies: ["SRGDataProviderNetwork"],
             cSettings: [
                 .headerSearchPath("Private")
             ]
@@ -66,6 +65,6 @@ let package = Package(
         .testTarget(
             name: "SRGDataProviderCombineTests",
             dependencies: ["SRGDataProviderCombine"]
-        )**/
+        )
     ]
 )

@@ -5,6 +5,7 @@
 //
 
 @import SRGDataProvider;
+@import SRGDataProviderModel;
 @import SRGNetwork;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -37,7 +38,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  List of TV-oriented services supported by the data provider. Media list requests collect content for all channels
  *  and do not make any distinction between them.
  */
-@interface SRGDataProvider (TVServices)
+@interface SRGDataProvider (TvServices)
 
 /**
  *  @name Channels and livestreams
@@ -492,7 +493,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *
  *  @discussion If you need to retrieve several medias, use `-mediasWithURNs:completionBlock:` instead.
  */
-- (SRGRequest *)mediaWithURN:(NSString *)mediaURN completionBlock:(SRGMediaCompletionBlock)completionBlock;
+- (SRGRequest *)mediaWithURN:(NSString *)mediaURN
+             completionBlock:(SRGMediaCompletionBlock)completionBlock;
 
 /**
  *  Retrieve medias matching a URN list.
@@ -532,7 +534,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 /**
  *  Retrieve the show having the specified URN.
  */
-- (SRGRequest *)showWithURN:(NSString *)showURN completionBlock:(SRGShowCompletionBlock)completionBlock;
+- (SRGRequest *)showWithURN:(NSString *)showURN
+            completionBlock:(SRGShowCompletionBlock)completionBlock;
 
 /**
  *  Retrieve shows matching a URN list.

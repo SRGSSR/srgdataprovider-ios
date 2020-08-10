@@ -7,6 +7,8 @@
 #import "SRGDataProvider+Network.h"
 
 @import libextobjc;
+@import Mantle;
+@import SRGDataProviderModel;
 
 // Keys for access to parsed response information
 // TODO: Share these keys
@@ -53,28 +55,6 @@ static NSString * const SRGParsedSearchSuggestionsKey = @"searchSuggestions";
     NSMutableURLRequest *URNsURLRequest = URLRequest.mutableCopy;
     URNsURLRequest.URL = URLComponents.URL;
     return URNsURLRequest.copy;              // Not an immutable copy ;(
-}
-
-- (NSURLRequest *)URLRequestForResourcePath:(NSString *)resourcePath withQueryItems:(NSArray<NSURLQueryItem *> *)queryItems
-{
-    NSURL *URL = [self.serviceURL URLByAppendingPathComponent:resourcePath];
-    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
-    
-    NSMutableArray<NSURLQueryItem *> *fullQueryItems = [NSMutableArray array];
-    [self.globalParameters enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull name, NSString * _Nonnull value, BOOL * _Nonnull stop) {
-        [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:name value:value]];
-    }];
-    if (queryItems) {
-        [fullQueryItems addObjectsFromArray:queryItems];
-    }
-    [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"vector" value:@"appplay"]];
-    URLComponents.queryItems = fullQueryItems.copy;
-    
-    NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URLComponents.URL];
-    [self.globalHeaders enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull headerField, NSString * _Nonnull value, BOOL * _Nonnull stop) {
-        [URLRequest setValue:value forHTTPHeaderField:headerField];
-    }];
-    return URLRequest.copy;              // Not an immutable copy ;(
 }
 
 - (SRGRequest *)fetchObjectWithURLRequest:(NSURLRequest *)URLRequest

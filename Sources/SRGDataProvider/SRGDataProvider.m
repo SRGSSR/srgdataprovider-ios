@@ -8,10 +8,6 @@
 
 #import "SRGSessionDelegate.h"
 
-@import libextobjc;
-@import Mantle;
-@import SRGDataProviderModel;
-
 static SRGDataProvider *s_currentDataProvider;
 
 NSURL *SRGIntegrationLayerProductionServiceURL(void)
@@ -61,7 +57,7 @@ NSURL *SRGIntegrationLayerTestServiceURL(void)
         
         // The session delegate is retained. We could have self be the delegate, but we would need a way to invalidate
         // the session (e.g. by calling -invalidateAndCancel) so that the delegate is released, and thus a data provider
-        // public invalidation method to be called for proper release. To avoid having this error-prone needs, we add
+        // public invalidation method to be called for proper release. To avoid having this error-prone need, we add
         // another object as delegate and use dealloc to invalidate the session
         NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
         SRGSessionDelegate *sessionDelegate = [[SRGSessionDelegate alloc] init];

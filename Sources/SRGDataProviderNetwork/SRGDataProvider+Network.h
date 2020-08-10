@@ -11,8 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SRGDataProvider (Network)
 
-- (NSURLRequest *)URLRequestForResourcePath:(NSString *)resourcePath withQueryItems:(nullable NSArray<NSURLQueryItem *> *)queryItems;
-
 - (SRGRequest *)fetchObjectWithURLRequest:(NSURLRequest *)URLRequest
                                modelClass:(Class)modelClass
                           completionBlock:(void (^)(id _Nullable object, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error))completionBlock;

@@ -6,6 +6,7 @@
 
 import Combine
 import SRGDataProvider
+import SRGDataProviderModel
 @testable import SRGDataProviderCombine
 import XCTest
 

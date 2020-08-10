@@ -5,7 +5,7 @@
 //
 
 @import libextobjc;
-@import SRGDataProvider;
+@import SRGDataProviderNetwork;
 @import XCTest;
 
 static NSURL *ServiceTestURL(void)
