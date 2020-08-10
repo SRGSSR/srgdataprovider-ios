@@ -7,6 +7,7 @@
 import Combine
 import Mantle
 import SRGDataProvider
+import SRGNetwork
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public enum SRGDataProviderError: Error {
@@ -108,6 +109,7 @@ public extension SRGDataProvider {
 }
 
 // TODO: Take into account page size
+// TODO: Unlimited page size supprt
 // TODO: Media search request
 
 // MARK: Generic implementation
@@ -204,13 +206,6 @@ extension SRGDataProvider {
         var updatedRequest = request
         updatedRequest.url = url;
         return updatedRequest
-    }
-}
-
-class SRGSessionDelegate: NSObject, URLSessionTaskDelegate {
-    func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
-        // Refuse the redirection and return the redirection response (with the proper HTTP status code)
-        completionHandler(nil)
     }
 }
 

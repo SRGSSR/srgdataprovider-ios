@@ -39,17 +39,23 @@ let package = Package(
         ),
         .target(
             name: "SRGDataProvider",
-            dependencies: ["SRGDataProviderModel", "SRGNetwork"],
+            dependencies: ["SRGDataProviderModel"],
             cSettings: [
                 .define("MARKETING_VERSION", to: "\"\(ProjectSettings.marketingVersion)\"")
             ]
         ),
         .target(
-            name: "SRGDataProviderCombine",
-            dependencies: [
-                "SRGDataProvider"
-            ]
+            name: "SRGDataProviderRequests",
+            dependencies: ["SRGDataProvider"]
         ),
+        .target(
+            name: "SRGDataProviderNetwork",
+            dependencies: ["SRGDataProviderRequests", "SRGNetwork"]
+        ),
+        .target(
+            name: "SRGDataProviderCombine",
+            dependencies: ["SRGDataProviderRequests", "SRGNetwork"]
+        )/**,
         .testTarget(
             name: "SRGDataProviderTests",
             dependencies: ["SRGDataProvider"],
@@ -60,6 +66,6 @@ let package = Package(
         .testTarget(
             name: "SRGDataProviderCombineTests",
             dependencies: ["SRGDataProviderCombine"]
-        )
+        )**/
     ]
 )
