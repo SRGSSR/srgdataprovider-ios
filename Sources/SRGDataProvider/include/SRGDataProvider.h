@@ -8,21 +8,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- *  The default page size.
- */
-static const NSUInteger SRGDataProviderDefaultPageSize = 10;
-
-/**
- *  The maximum supported page size.
- */
-static const NSUInteger SRGDataProviderMaximumPageSize = 100;
-
-/**
- *  Unlimited page size (i.e. all results are returned). Not available for all services.
- */
-static const NSUInteger SRGDataProviderUnlimitedPageSize = NSUIntegerMax;
-
 // Official version number.
 OBJC_EXPORT NSString *SRGDataProviderMarketingVersion(void);
 

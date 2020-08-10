@@ -641,4 +641,8 @@ typedef NS_ENUM(NSInteger, SRGTimeAvailability) {
  */
 static CGFloat SRGAspectRatioUndefined = -1.f;          // Undefined aspect ratio
 
+static const NSUInteger SRGDataProviderDefaultPageSize = 10;                // The default page size.
+static const NSUInteger SRGDataProviderMaximumPageSize = 100;               // The maximum supported page size.
+static const NSUInteger SRGDataProviderUnlimitedPageSize = NSUIntegerMax;   // Unlimited page size (i.e. all results are returned). Not available for all services.
+
 NS_ASSUME_NONNULL_END
