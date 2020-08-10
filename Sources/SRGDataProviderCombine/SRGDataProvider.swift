@@ -8,6 +8,7 @@ import Combine
 import Mantle
 import SRGDataProvider
 
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public enum SRGDataProviderError: Error {
     case http(statusCode: Int)
     case invalidData
@@ -117,8 +118,8 @@ extension SRGDataProvider {
     // and used by another one with unreliable results if the type of object does not match).
     public struct Page<T> {
         let request: URLRequest
-        let size: UInt
-        let number: UInt
+        public let size: UInt
+        public let number: UInt
         
         fileprivate init(request: URLRequest, size: UInt) {
             self.init(request: request, size: size, number: 0)
