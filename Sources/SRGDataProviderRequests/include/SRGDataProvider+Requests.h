@@ -9,18 +9,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//--------------
-// TODO: Hide after all requests migrated here
-@interface SRGDataProvider (RequestsPrivate)
-
-- (NSURLRequest *)URLRequestForResourcePath:(NSString *)resourcePath withQueryItems:(nullable NSArray<NSURLQueryItem *> *)queryItems;
-
-@end
-
-OBJC_EXPORT NSString *SRGPathComponentForVendor(SRGVendor vendor);
-
-//--------------
-
 @interface SRGDataProvider (TVRequests)
 
 - (NSURLRequest *)requestTVChannelsForVendor:(SRGVendor)vendor;

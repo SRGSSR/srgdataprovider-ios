@@ -21,7 +21,7 @@ static NSString *SRGStringFromDate(NSDate *date)
     return [s_dateFormatter stringFromDate:date];
 }
 
-NSString *SRGPathComponentForVendor(SRGVendor vendor)
+static NSString *SRGPathComponentForVendor(SRGVendor vendor)
 {
     static dispatch_once_t s_onceToken;
     static NSDictionary<NSNumber *, NSString *> *s_pathComponents;
@@ -36,7 +36,7 @@ NSString *SRGPathComponentForVendor(SRGVendor vendor)
     return s_pathComponents[@(vendor)] ?: @"not_supported";
 }
 
-NSString *SRGPathComponentForModuleType(SRGModuleType moduleType)
+static NSString *SRGPathComponentForModuleType(SRGModuleType moduleType)
 {
     static dispatch_once_t s_onceToken;
     static NSDictionary<NSNumber *, NSString *> *s_pathComponents;

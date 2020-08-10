@@ -24,7 +24,7 @@ public extension SRGDataProvider {
     }
     
     func tvChannels(for vendor: SRGVendor) -> AnyPublisher<TVChannels.Output, Error> {
-        let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/channelList/tv")
+        let request = requestTVChannels(for: vendor)
         return objectsTaskPublisher(for: request, rootKey: "channelList").map { $0 }.eraseToAnyPublisher()
     }
 }
@@ -36,7 +36,7 @@ public extension SRGDataProvider {
     }
     
     func tvChannel(for vendor: SRGVendor, withUid channelUid: String) -> AnyPublisher<TVChannel.Output, Error> {
-        let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/channel/\(channelUid)/tv/nowAndNext")
+        let request = requestTVChannel(for: vendor, withUid: channelUid)
         return objectTaskPublisher(for: request).map { $0 }.eraseToAnyPublisher()
     }
 }
@@ -49,7 +49,7 @@ public extension SRGDataProvider {
     }
     
     func tvLatestMedias(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVLatestMedias.Output, Error> {
-        let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/mediaList/video/latestEpisodes")
+        let request = requestTVLatestMedias(for: vendor)
         return tvLatestMedias(at: Page(request: request, size: pageSize))
     }
     
@@ -68,7 +68,7 @@ public extension SRGDataProvider {
     }
     
     func tvTrendingMedias(for vendor: SRGVendor, limit: Int? = nil, editorialLimit: Int? = nil, episodesOnly: Bool = false, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVTrendingMedias.Output, Error> {
-        let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/mediaList/video/trending")
+        let request = requestTVTrendingMedias(for: vendor, withLimit: limit as NSNumber?, editorialLimit: editorialLimit as NSNumber?, episodesOnly: episodesOnly)
         return tvTrendingMedias(at: Page(request: request, size: pageSize))
     }
     
@@ -86,7 +86,7 @@ public extension SRGDataProvider {
     }
     
     func tvTopics(for vendor: SRGVendor) -> AnyPublisher<TVTopics.Output, Error> {
-        let request = urlRequest(for: "2.0/\(SRGPathComponentForVendor(vendor))/topicList/tv")
+        let request = requestTVTopics(for: vendor)
         return objectsTaskPublisher(for: request, rootKey: "topicList").map { $0 }.eraseToAnyPublisher()
     }
 }
@@ -99,7 +99,7 @@ public extension SRGDataProvider {
     }
     
     func latestMediasForTopic(withUrn topicUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<LatestMediasForTopic.Output, Error> {
-        let request = urlRequest(for: "2.0/mediaList/latest/byTopicUrn/\(topicUrn)")
+        let request = requestLatestMediasForTopic(withURN: topicUrn)
         return latestMediasForTopic(at: Page(request: request, size: pageSize))
     }
     
@@ -196,11 +196,6 @@ extension SRGDataProvider {
                 }
             }
             .eraseToAnyPublisher()
-    }
-    
-    func urlRequest(for resourcePath: String) -> URLRequest {
-        let url = serviceURL.appendingPathComponent(resourcePath)
-        return URLRequest(url: url)
     }
     
     func urlRequest(from request: URLRequest, withUrl url: URL?) -> URLRequest {
