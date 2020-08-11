@@ -358,7 +358,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 @end
 
 /**
- *  List of media search-oriented services supported by the data provider.
+ *  List of search-oriented services supported by the data provider.
  */
 @interface SRGDataProvider (SearchServices)
 
