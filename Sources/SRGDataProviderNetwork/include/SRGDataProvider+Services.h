@@ -390,6 +390,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
                           matchingQuery:(NSString *)query
                               mediaType:(SRGMediaType)mediaType
                     withCompletionBlock:(SRGPaginatedShowSearchCompletionBlock)completionBlock;
+
 /**
  *  Retrieve the list of shows which are searched the most.
  */
