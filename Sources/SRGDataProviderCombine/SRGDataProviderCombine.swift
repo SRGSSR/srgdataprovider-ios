@@ -26,7 +26,9 @@ public extension SRGDataProvider {
     
     func tvChannels(for vendor: SRGVendor) -> AnyPublisher<TVChannels.Output, Error> {
         let request = requestTVChannels(for: vendor)
-        return objectsTaskPublisher(for: request, rootKey: "channelList").map { $0 }.eraseToAnyPublisher()
+        return objectsTaskPublisher(for: request, rootKey: "channelList", type: SRGChannel.self)
+            .map { $0 }
+            .eraseToAnyPublisher()
     }
 }
 
@@ -38,7 +40,9 @@ public extension SRGDataProvider {
     
     func tvChannel(for vendor: SRGVendor, withUid channelUid: String) -> AnyPublisher<TVChannel.Output, Error> {
         let request = requestTVChannel(for: vendor, withUid: channelUid)
-        return objectTaskPublisher(for: request).map { $0 }.eraseToAnyPublisher()
+        return objectTaskPublisher(for: request, type: SRGChannel.self)
+            .map { $0 }
+            .eraseToAnyPublisher()
     }
 }
 
@@ -55,7 +59,7 @@ public extension SRGDataProvider {
     }
     
     func tvLatestPrograms(at page: TVLatestPrograms.Page) -> AnyPublisher<TVLatestPrograms.Output, Error> {
-        return paginatedObjectTaskPublisher(for: page.request)
+        return paginatedObjectTaskPublisher(for: page.request, type: SRGProgramComposition.self)
             .map { result in
                 (result.object, page, page.next(with: result.nextRequest), result.response)
             }
@@ -71,7 +75,9 @@ public extension SRGDataProvider {
     
     func tvLivestreams(for vendor: SRGVendor) -> AnyPublisher<TVLivestreams.Output, Error> {
         let request = requestTVLivestreams(for: vendor)
-        return objectsTaskPublisher(for: request, rootKey: "mediaList").map { $0 }.eraseToAnyPublisher()
+        return objectsTaskPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { $0 }
+            .eraseToAnyPublisher()
     }
 }
 
@@ -88,7 +94,7 @@ public extension SRGDataProvider {
     }
     
     func tvScheduledLivestreams(at page: TVScheduledLivestreams.Page) -> AnyPublisher<TVScheduledLivestreams.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList")
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
             .map { result in
                 (result.objects, page, page.next(with: result.nextRequest), result.response)
             }
@@ -109,7 +115,7 @@ public extension SRGDataProvider {
     }
     
     func tvEditorialMedias(at page: TVEditorialMedias.Page) -> AnyPublisher<TVEditorialMedias.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList")
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
             .map { result in
                 (result.objects, page, page.next(with: result.nextRequest), result.response)
             }
@@ -130,7 +136,7 @@ public extension SRGDataProvider {
     }
     
     func tvLatestMedias(at page: TVLatestMedias.Page) -> AnyPublisher<TVLatestMedias.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList")
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
             .map { result in
                 (result.objects, page, page.next(with: result.nextRequest), result.response)
             }
@@ -151,7 +157,7 @@ public extension SRGDataProvider {
     }
     
     func tvMostPopularMedias(at page: TVMostPopularMedias.Page) -> AnyPublisher<TVMostPopularMedias.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList")
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
             .map { result in
                 (result.objects, page, page.next(with: result.nextRequest), result.response)
             }
@@ -172,7 +178,7 @@ public extension SRGDataProvider {
     }
     
     func tvSoonExpiringMedias(at page: TVSoonExpiringMedias.Page) -> AnyPublisher<TVSoonExpiringMedias.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList")
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
             .map { result in
                 (result.objects, page, page.next(with: result.nextRequest), result.response)
             }
@@ -188,7 +194,9 @@ public extension SRGDataProvider {
     
     func tvTrendingMedias(for vendor: SRGVendor, limit: Int? = nil, editorialLimit: Int? = nil, episodesOnly: Bool = false, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVTrendingMedias.Output, Error> {
         let request = requestTVTrendingMedias(for: vendor, withLimit: limit as NSNumber?, editorialLimit: editorialLimit as NSNumber?, episodesOnly: episodesOnly)
-        return objectsTaskPublisher(for: request, rootKey: "mediaList").map { $0 }.eraseToAnyPublisher()
+        return objectsTaskPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { $0 }
+            .eraseToAnyPublisher()
     }
 }
 
@@ -205,7 +213,7 @@ public extension SRGDataProvider {
     }
     
     func tvLatestEpisodes(at page: TVLatestEpisodes.Page) -> AnyPublisher<TVLatestEpisodes.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList")
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
             .map { result in
                 (result.objects, page, page.next(with: result.nextRequest), result.response)
             }
@@ -226,7 +234,7 @@ public extension SRGDataProvider {
     }
     
     func tvEpisodes(at page: TVEpisodes.Page) -> AnyPublisher<TVEpisodes.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList")
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
             .map { result in
                 (result.objects, page, page.next(with: result.nextRequest), result.response)
             }
@@ -242,7 +250,51 @@ public extension SRGDataProvider {
     
     func tvTopics(for vendor: SRGVendor) -> AnyPublisher<TVTopics.Output, Error> {
         let request = requestTVTopics(for: vendor)
-        return objectsTaskPublisher(for: request, rootKey: "topicList").map { $0 }.eraseToAnyPublisher()
+        return objectsTaskPublisher(for: request, rootKey: "topicList", type: SRGTopic.self)
+            .map { $0 }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum TVShows {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (shows: [SRGShow], page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func tvShows(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVShows.Output, Error> {
+        let request = requestTVShows(for: vendor)
+        return tvShows(at: Page(request: request, size: pageSize))
+    }
+    
+    func tvShows(at page: TVShows.Page) -> AnyPublisher<TVShows.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "showList", type: SRGShow.self)
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum TVSearchShows {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (urns: [String], page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func tvSearchShows(for vendor: SRGVendor, matchingQuery query: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVSearchShows.Output, Error> {
+        let request = requestTVSearchShows(for: vendor, matchingQuery: query)
+        return tvSearchShows(at: Page(request: request, size: pageSize))
+    }
+    
+    func tvSearchShows(at page: TVSearchShows.Page) -> AnyPublisher<TVSearchShows.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "searchResultShowList", type: SRGSearchResult.self)
+            .map { result in
+                return (result.objects.map { $0.urn }, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
     }
 }
 
@@ -259,15 +311,13 @@ public extension SRGDataProvider {
     }
     
     func latestMediasForTopic(at page: LatestMediasForTopic.Page) -> AnyPublisher<LatestMediasForTopic.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList")
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
             .map { result in
                 (result.objects, page, page.next(with: result.nextRequest), result.response)
             }
             .eraseToAnyPublisher()
     }
 }
-
-// TODO: Unlimited page size support
 
 // MARK: Generic implementation
 
@@ -322,7 +372,7 @@ extension SRGDataProvider {
             .eraseToAnyPublisher()
     }
     
-    func paginatedObjectsTaskPublisher<T>(for request: URLRequest, rootKey: String) -> AnyPublisher<PaginatedObjectsOutput<T>, Error> {
+    func paginatedObjectsTaskPublisher<T>(for request: URLRequest, rootKey: String, type: T.Type) -> AnyPublisher<PaginatedObjectsOutput<T>, Error> where T: MTLModel {
         return paginatedDictionaryTaskPublisher(for: request)
             .tryMap { result in
                 // Remark: When the result count is equal to a multiple of the page size, the last link returns an empty list array
@@ -332,7 +382,7 @@ extension SRGDataProvider {
                     return ([], nil, result.response)
                 }
                 
-                if let objects = try MTLJSONAdapter.models(of: T.self as? AnyClass, fromJSONArray: array) as? [T] {
+                if let objects = try MTLJSONAdapter.models(of: T.self, fromJSONArray: array) as? [T] {
                     return (objects, result.nextRequest, result.response)
                 }
                 else {
@@ -342,10 +392,10 @@ extension SRGDataProvider {
             .eraseToAnyPublisher()
     }
     
-    func paginatedObjectTaskPublisher<T>(for request: URLRequest) -> AnyPublisher<PaginatedObjectOutput<T>, Error> {
+    func paginatedObjectTaskPublisher<T>(for request: URLRequest, type: T.Type) -> AnyPublisher<PaginatedObjectOutput<T>, Error> where T: MTLModel {
         return paginatedDictionaryTaskPublisher(for: request)
             .tryMap { result in
-                if let object = try MTLJSONAdapter.model(of: T.self as? AnyClass, fromJSONDictionary: result.object) as? T {
+                if let object = try MTLJSONAdapter.model(of: T.self, fromJSONDictionary: result.object) as? T {
                     return (object, result.nextRequest, result.response)
                 }
                 else {
@@ -355,16 +405,16 @@ extension SRGDataProvider {
             .eraseToAnyPublisher()
     }
     
-    func objectsTaskPublisher<T>(for request: URLRequest, rootKey: String) -> AnyPublisher<ObjectsOutput<T>, Error> {
-        return paginatedObjectsTaskPublisher(for: request, rootKey: rootKey)
+    func objectsTaskPublisher<T>(for request: URLRequest, rootKey: String, type: T.Type) -> AnyPublisher<ObjectsOutput<T>, Error> where T: MTLModel {
+        return paginatedObjectsTaskPublisher(for: request, rootKey: rootKey, type: T.self)
             .map { result in
                 return (result.objects, result.response)
             }
             .eraseToAnyPublisher()
     }
     
-    func objectTaskPublisher<T>(for request: URLRequest) -> AnyPublisher<ObjectOutput<T>, Error> {
-        return paginatedObjectTaskPublisher(for: request)
+    func objectTaskPublisher<T>(for request: URLRequest, type: T.Type) -> AnyPublisher<ObjectOutput<T>, Error> where T: MTLModel {
+        return paginatedObjectTaskPublisher(for: request, type: T.self)
             .map { result in
                 return (result.object, result.response)
             }

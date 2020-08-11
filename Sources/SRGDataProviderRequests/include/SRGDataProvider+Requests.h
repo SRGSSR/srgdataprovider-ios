@@ -34,8 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
                                          day:(nullable SRGDay *)day;
 - (NSURLRequest *)requestTVTopicsForVendor:(SRGVendor)vendor;
 - (NSURLRequest *)requestTVShowsForVendor:(SRGVendor)vendor;
-- (NSURLRequest *)requestTVShowsForVendor:(SRGVendor)vendor
-                            matchingQuery:(NSString *)query;
+- (NSURLRequest *)requestTVSearchShowsForVendor:(SRGVendor)vendor
+                                  matchingQuery:(NSString *)query;
 
 @end
 

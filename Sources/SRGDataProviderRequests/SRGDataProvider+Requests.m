@@ -200,8 +200,8 @@ static NSString *SRGPathComponentForModuleType(SRGModuleType moduleType)
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
-- (NSURLRequest *)requestTVShowsForVendor:(SRGVendor)vendor
-                            matchingQuery:(NSString *)query
+- (NSURLRequest *)requestTVSearchShowsForVendor:(SRGVendor)vendor
+                                  matchingQuery:(NSString *)query
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultShowList/tv", SRGPathComponentForVendor(vendor)];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];

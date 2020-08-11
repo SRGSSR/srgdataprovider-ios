@@ -182,9 +182,9 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  @discussion Some business units only support full-text search, not partial matching. To get complete show objects,
  *              call the `-showsWithURNs:completionBlock:` request with the returned URN list.
  */
-- (SRGFirstPageRequest *)tvShowsForVendor:(SRGVendor)vendor
-                            matchingQuery:(NSString *)query
-                      withCompletionBlock:(SRGPaginatedShowSearchCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvSearchShowsForVendor:(SRGVendor)vendor
+                                  matchingQuery:(NSString *)query
+                            withCompletionBlock:(SRGPaginatedShowSearchCompletionBlock)completionBlock;
 
 @end
 

@@ -150,11 +150,11 @@ static NSString * const SRGParsedSearchSuggestionsKey = @"searchSuggestions";
     }];
 }
 
-- (SRGFirstPageRequest *)tvShowsForVendor:(SRGVendor)vendor
-                            matchingQuery:(NSString *)query
-                      withCompletionBlock:(SRGPaginatedShowSearchCompletionBlock)completionBlock
+- (SRGFirstPageRequest *)tvSearchShowsForVendor:(SRGVendor)vendor
+                                  matchingQuery:(NSString *)query
+                            withCompletionBlock:(SRGPaginatedShowSearchCompletionBlock)completionBlock
 {
-    NSURLRequest *URLRequest = [self requestTVShowsForVendor:vendor matchingQuery:query];
+    NSURLRequest *URLRequest = [self requestTVSearchShowsForVendor:vendor matchingQuery:query];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGSearchResult.class rootKey:@"searchResultShowList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         NSArray<NSString *> *URNs = [objects valueForKeyPath:@keypath(SRGSearchResult.new, URN)];
         completionBlock(URNs, metadata[SRGParsedTotalKey], page, nextPage, HTTPResponse, error);

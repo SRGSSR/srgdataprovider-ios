@@ -154,6 +154,44 @@ final class SRGDataProviderCombineTests: XCTestCase {
         waitForExpectations(timeout: 10.0, handler: nil)
     }
     
+    func testTVShows() {
+        let requestExpectation = expectation(description: "Request finished")
+        
+        dataProvider.tvShows(for: .RTS)
+            .sink { completion in
+                switch completion {
+                    case .finished:
+                        print("Done")
+                    case let .failure(error):
+                        print("Error: \(error)")
+                }
+                requestExpectation.fulfill()
+            } receiveValue: { value in
+                print("Result: \(value)")
+            }.store(in: &cancellables)
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+    }
+    
+    func testTVSearchShows() {
+        let requestExpectation = expectation(description: "Request finished")
+        
+        dataProvider.tvSearchShows(for: .RTS, matchingQuery: "journal")
+            .sink { completion in
+                switch completion {
+                    case .finished:
+                        print("Done")
+                    case let .failure(error):
+                        print("Error: \(error)")
+                }
+                requestExpectation.fulfill()
+            } receiveValue: { value in
+                print("Result: \(value)")
+            }.store(in: &cancellables)
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+    }
+    
     func testPagesNested() {
         // Use flat map to send next request and consolidate both result lists
     }
