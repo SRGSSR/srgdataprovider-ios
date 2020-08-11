@@ -52,8 +52,6 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 
 /**
  *  Specific TV channel. Use this request to obtain complete channel information, including current and next programs.
- *
- *  Please https://github.com/SRGSSR/srgdataprovider-ios/wiki/Channel-information for more information about this method.
  */
 - (SRGRequest *)tvChannelForVendor:(SRGVendor)vendor
                            withUid:(NSString *)channelUid
@@ -206,8 +204,6 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 
 /**
  *  Specific radio channel. Use this request to obtain complete channel information, including current and next programs.
- *
- *  Please https://github.com/SRGSSR/srgdataprovider-ios/wiki/Channel-information for more information about this method.
  *
  *  @param livestreamUid An optional media unique identifier (usually regional, but might be the main one). If provided,
  *                       the program of the specified live stream is used, otherwise the one of the main channel.
@@ -421,7 +417,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  List recommended medias for a specific media URN and, optionally, a user id.
  *
  *  @param URN    A specific media URN.
- *  @param userId An optional user uid.
+ *  @param userId An optional user identifier.
  */
 - (SRGFirstPageRequest *)recommendedMediasForURN:(NSString *)URN
                                           userId:(nullable NSString *)userId
@@ -466,7 +462,7 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
 
 /**
  *  Increase the specified social count from 1 unit for the specified URN, with the corresponding event data
- *  (@see `SRGSubdivision` class).
+ *  (see `SRGSubdivision` class).
  */
 - (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type
                                        URN:(NSString *)URN
