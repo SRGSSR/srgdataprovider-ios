@@ -81,7 +81,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
     func testTVTrendingMedias() {
         let requestExpectation = expectation(description: "Request finished")
         
-        dataProvider.tvTrendingMedias(for: .RTS)
+        dataProvider.tvTrendingMedias(for: .RTS, limit: 10, editorialLimit: 2, episodesOnly: true)
             .sink { completion in
                 switch completion {
                     case .finished:
@@ -101,6 +101,44 @@ final class SRGDataProviderCombineTests: XCTestCase {
         let requestExpectation = expectation(description: "Request finished")
         
         dataProvider.tvLatestMedias(for: .RTS)
+            .sink { completion in
+                switch completion {
+                    case .finished:
+                        print("Done")
+                    case let .failure(error):
+                        print("Error: \(error)")
+                }
+                requestExpectation.fulfill()
+            } receiveValue: { value in
+                print("Result: \(value)")
+            }.store(in: &cancellables)
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+    }
+    
+    func testTVLatestEpisodes() {
+        let requestExpectation = expectation(description: "Request finished")
+        
+        dataProvider.tvLatestEpisodes(for: .RTS)
+            .sink { completion in
+                switch completion {
+                    case .finished:
+                        print("Done")
+                    case let .failure(error):
+                        print("Error: \(error)")
+                }
+                requestExpectation.fulfill()
+            } receiveValue: { value in
+                print("Result: \(value)")
+            }.store(in: &cancellables)
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+    }
+    
+    func testTVEpisodes() {
+        let requestExpectation = expectation(description: "Request finished")
+        
+        dataProvider.tvEpisodes(for: .RTS, day: SRGDay(10, month: 6, year: 2020), pageSize: 30)
             .sink { completion in
                 switch completion {
                     case .finished:
