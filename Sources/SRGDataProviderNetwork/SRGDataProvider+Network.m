@@ -10,17 +10,12 @@
 @import Mantle;
 @import SRGDataProviderModel;
 
-// Keys for access to parsed response information
-// TODO: Share or hide these keys
 static NSString * const SRGParsedObjectKey = @"object";
 static NSString * const SRGParsedNextURLKey = @"nextURL";
-static NSString * const SRGParsedTotalKey = @"total";
-static NSString * const SRGParsedMediaAggregationsKey = @"mediaAggregations";
-static NSString * const SRGParsedSearchSuggestionsKey = @"searchSuggestions";
 
 @implementation SRGDataProvider (Network)
 
-// Attempt to split a request with a urns query parameter, returning the request for the URNs for the specified page.
+// Attempt to split a request with a URNs query parameter, returning the request for the URNs for the specified page.
 // Returns `nil` if the request cannot be split. The original request is cloned to preserve its headers, most notably.
 + (NSURLRequest *)URLRequestForURNsPageWithSize:(NSUInteger)size number:(NSUInteger)number URLRequest:(NSURLRequest *)URLRequest
 {

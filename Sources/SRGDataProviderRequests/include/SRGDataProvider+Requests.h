@@ -7,6 +7,11 @@
 @import SRGDataProvider;
 @import SRGDataProviderModel;
 
+/**
+ *  Common `NSURLRequest` builders for all requests supported by the data provider. Refer to the service documentation
+ *  for more information about the purpose and parameters of each request.
+ */
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SRGDataProvider (TVRequests)
