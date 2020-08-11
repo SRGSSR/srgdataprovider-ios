@@ -11,7 +11,7 @@
 @import SRGDataProviderModel;
 
 // Keys for access to parsed response information
-// TODO: Share these keys
+// TODO: Share or hide these keys
 static NSString * const SRGParsedObjectKey = @"object";
 static NSString * const SRGParsedNextURLKey = @"nextURL";
 static NSString * const SRGParsedTotalKey = @"total";
