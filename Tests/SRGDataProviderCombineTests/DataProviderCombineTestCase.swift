@@ -59,6 +59,25 @@ final class SRGDataProviderCombineTests: XCTestCase {
         waitForExpectations(timeout: 10.0, handler: nil)
     }
     
+    func testTVLatestPrograms() {
+        let requestExpectation = expectation(description: "Request finished")
+        
+        dataProvider.tvLatestPrograms(for: .RTS, channelUid: "143932a79bb5a123a646b68b1d1188d7ae493e5b")
+            .sink { completion in
+                switch completion {
+                    case .finished:
+                        print("Done")
+                    case let .failure(error):
+                        print("Error: \(error)")
+                }
+                requestExpectation.fulfill()
+            } receiveValue: { value in
+                print("Result: \(value)")
+            }.store(in: &cancellables)
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+    }
+    
     func testTVTrendingMedias() {
         let requestExpectation = expectation(description: "Request finished")
         

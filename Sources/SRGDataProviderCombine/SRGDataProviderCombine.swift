@@ -5,9 +5,11 @@
 //
 
 @_exported import Combine
-@_exported import SRGDataProviderRequests
+@_exported import SRGDataProvider
+@_exported import SRGDataProviderModel
 
 import Mantle
+import SRGDataProviderRequests
 import SRGNetwork
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
@@ -42,6 +44,27 @@ public extension SRGDataProvider {
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
+    enum TVLatestPrograms {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (programComposition: SRGProgramComposition, page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func tvLatestPrograms(for vendor: SRGVendor, channelUid: String, livestreamUid: String? = nil, from: Date? = nil, to: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVLatestPrograms.Output, Error> {
+        let request = requestTVLatestPrograms(for: vendor, channelUid: channelUid, livestreamUid: livestreamUid, from:from, to: to)
+        return tvLatestPrograms(at: Page(request: request, size: pageSize))
+    }
+    
+    func tvLatestPrograms(at page: TVLatestPrograms.Page) -> AnyPublisher<TVLatestPrograms.Output, Error> {
+        return paginatedObjectTaskPublisher(for: page.request)
+            .map { result in
+                (result.object, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
     enum TVLatestMedias {
         public typealias Page = SRGDataProvider.Page<Self>
         public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
@@ -53,9 +76,11 @@ public extension SRGDataProvider {
     }
     
     func tvLatestMedias(at page: TVLatestMedias.Page) -> AnyPublisher<TVLatestMedias.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList").map { result in
-            (result.objects, page, page.next(with: result.nextRequest), result.response)
-        }.eraseToAnyPublisher()
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList")
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
     }
 }
 
@@ -72,9 +97,11 @@ public extension SRGDataProvider {
     }
     
     func tvTrendingMedias(at page: TVTrendingMedias.Page) -> AnyPublisher<TVTrendingMedias.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList").map { result in
-            (result.objects, page, page.next(with: result.nextRequest), result.response)
-        }.eraseToAnyPublisher()
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList")
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
     }
 }
 
@@ -103,15 +130,15 @@ public extension SRGDataProvider {
     }
     
     func latestMediasForTopic(at page: LatestMediasForTopic.Page) -> AnyPublisher<LatestMediasForTopic.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList").map { result in
-            (result.objects, page, page.next(with: result.nextRequest), result.response)
-        }.eraseToAnyPublisher()
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList")
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
     }
 }
 
-// TODO: Take into account page size
-// TODO: Unlimited page size supprt
-// TODO: Media search request
+// TODO: Unlimited page size support
 
 // MARK: Generic implementation
 
@@ -146,9 +173,11 @@ extension SRGDataProvider {
     
     typealias ObjectOutput<T> = (object: T, response: URLResponse)
     typealias ObjectsOutput<T> = (objects: [T], response: URLResponse)
+    
+    typealias PaginatedObjectOutput<T> = (object: T, nextRequest: URLRequest?, response: URLResponse)
     typealias PaginatedObjectsOutput<T> = (objects: [T], nextRequest: URLRequest?, response: URLResponse)
     
-    func paginatedObjectsTaskPublisher<T>(for request: URLRequest, rootKey: String) -> AnyPublisher<PaginatedObjectsOutput<T>, Error> {
+    func paginatedDictionaryTaskPublisher(for request: URLRequest) -> AnyPublisher<PaginatedObjectOutput<[String: Any]>, Error> {
         return session.dataTaskPublisher(for: request)
             .manageNetworkActivity()
             .reportHttpErrors()
@@ -157,17 +186,41 @@ extension SRGDataProvider {
                 guard let urlString = data["next"] as? String else { return nil }
                 return URL(string: urlString)
             }
+            .map { result in
+                let nextRequest = self.urlRequest(from: request, withUrl: result.nextUrl)
+                return (result.data, nextRequest, result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func paginatedObjectsTaskPublisher<T>(for request: URLRequest, rootKey: String) -> AnyPublisher<PaginatedObjectsOutput<T>, Error> {
+        return paginatedDictionaryTaskPublisher(for: request)
             .tryMap { result in
-                guard let array = result.data[rootKey] as? [Any] else {
-                    throw SRGDataProviderError.invalidData
+                // Remark: When the result count is equal to a multiple of the page size, the last link returns an empty list array
+                //         (or no such entry at all for the episode composition request)
+                // See https://confluence.srg.beecollaboration.com/display/SRGPLAY/Developer+Meeting+2016-10-05
+                guard let array = result.object[rootKey] as? [Any] else {
+                    return ([], nil, result.response)
                 }
                 
                 if let objects = try MTLJSONAdapter.models(of: T.self as? AnyClass, fromJSONArray: array) as? [T] {
-                    let nextRequest = self.urlRequest(from: request, withUrl: result.nextUrl)
-                    return (objects, nextRequest, result.response)
+                    return (objects, result.nextRequest, result.response)
                 }
                 else {
-                    return ([], nil, result.response)
+                    throw SRGDataProviderError.invalidData
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func paginatedObjectTaskPublisher<T>(for request: URLRequest) -> AnyPublisher<PaginatedObjectOutput<T>, Error> {
+        return paginatedDictionaryTaskPublisher(for: request)
+            .tryMap { result in
+                if let object = try MTLJSONAdapter.model(of: T.self as? AnyClass, fromJSONDictionary: result.object) as? T {
+                    return (object, result.nextRequest, result.response)
+                }
+                else {
+                    throw SRGDataProviderError.invalidData
                 }
             }
             .eraseToAnyPublisher()
@@ -182,17 +235,9 @@ extension SRGDataProvider {
     }
     
     func objectTaskPublisher<T>(for request: URLRequest) -> AnyPublisher<ObjectOutput<T>, Error> {
-        return session.dataTaskPublisher(for: request)
-            .manageNetworkActivity()
-            .reportHttpErrors()
-            .tryMapJson([String: Any].self)
-            .tryMap { result in
-                if let object = try MTLJSONAdapter.model(of: T.self as? AnyClass, fromJSONDictionary: result.data) as? T {
-                    return (object, result.response)
-                }
-                else {
-                    throw SRGDataProviderError.invalidData
-                }
+        return paginatedObjectTaskPublisher(for: request)
+            .map { result in
+                return (result.object, result.response)
             }
             .eraseToAnyPublisher()
     }
@@ -231,8 +276,8 @@ extension Publisher {
     
     func tryMapJson<T>(_ type: T.Type) -> Publishers.TryMap<Self, SimpleOuput<T>> where Output == URLSession.DataTaskPublisher.Output {
         return tryMap { result in
-            if let array = try JSONSerialization.jsonObject(with: result.data, options: []) as? T {
-                return (array, result.response)
+            if let object = try JSONSerialization.jsonObject(with: result.data, options: []) as? T {
+                return (object, result.response)
             }
             else {
                 throw SRGDataProviderError.invalidData

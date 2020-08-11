@@ -90,8 +90,9 @@ static NSString * const SRGParsedSearchSuggestionsKey = @"searchSuggestions";
             return [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:pError];
         }
         else {
-            // Remark: When the result count is equal to a multiple of the page size, the last link returns an empty list array.
-            // See https://srfmmz.atlassian.net/wiki/display/SRGPLAY/Developer+Meeting+2016-10-05
+            // Remark: When the result count is equal to a multiple of the page size, the last link returns an empty list array
+            //         (or no such entry at all for the episode composition request)
+            // See https://confluence.srg.beecollaboration.com/display/SRGPLAY/Developer+Meeting+2016-10-05
             return @[];
         }
     } completionBlock:^(id  _Nullable object, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -192,8 +193,9 @@ static NSString * const SRGParsedSearchSuggestionsKey = @"searchSuggestions";
             return [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONArray error:pError];
         }
         else {
-            // Remark: When the result count is equal to a multiple of the page size, the last link returns an empty list array.
-            // See https://srfmmz.atlassian.net/wiki/display/SRGPLAY/Developer+Meeting+2016-10-05
+            // Remark: When the result count is equal to a multiple of the page size, the last link returns an empty list array
+            //         (or no such entry at all for the episode composition request)
+            // See https://confluence.srg.beecollaboration.com/display/SRGPLAY/Developer+Meeting+2016-10-05
             return @[];
         }
     } completionBlock:completionBlock];
