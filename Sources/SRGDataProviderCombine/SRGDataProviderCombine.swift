@@ -281,7 +281,7 @@ public extension SRGDataProvider {
 public extension SRGDataProvider {
     enum TVShowsMatchingQuery {
         public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (showUrns: [String], page: Page, nextPage: Page?, response: URLResponse)
+        public typealias Output = (showUrns: [String], total: UInt, page: Page, nextPage: Page?, response: URLResponse)
     }
     
     func tvShows(for vendor: SRGVendor, matchingQuery query: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVShowsMatchingQuery.Output, Error> {
@@ -292,7 +292,7 @@ public extension SRGDataProvider {
     func tvShows(at page: TVShowsMatchingQuery.Page) -> AnyPublisher<TVShowsMatchingQuery.Output, Error> {
         return paginatedObjectsTaskPublisher(for: page.request, rootKey: "searchResultShowList", type: SRGSearchResult.self)
             .map { result in
-                return (result.objects.map { $0.urn }, page, page.next(with: result.nextRequest), result.response)
+                return (result.objects.map { $0.urn }, result.total, page, page.next(with: result.nextRequest), result.response)
             }
             .eraseToAnyPublisher()
     }
@@ -519,7 +519,7 @@ public extension SRGDataProvider {
 public extension SRGDataProvider {
     enum RadioShowsMatchingQuery {
         public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (showUrns: [String], page: Page, nextPage: Page?, response: URLResponse)
+        public typealias Output = (showUrns: [String], total: UInt, page: Page, nextPage: Page?, response: URLResponse)
     }
     
     func radioShows(for vendor: SRGVendor, matchingQuery query: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<RadioShowsMatchingQuery.Output, Error> {
@@ -530,7 +530,7 @@ public extension SRGDataProvider {
     func radioShows(at page: RadioShowsMatchingQuery.Page) -> AnyPublisher<RadioShowsMatchingQuery.Output, Error> {
         return paginatedObjectsTaskPublisher(for: page.request, rootKey: "searchResultShowList", type: SRGSearchResult.self)
             .map { result in
-                (result.objects.map { $0.urn }, page, page.next(with: result.nextRequest), result.response)
+                (result.objects.map { $0.urn }, result.total, page, page.next(with: result.nextRequest), result.response)
             }
             .eraseToAnyPublisher()
     }
@@ -647,21 +647,30 @@ extension SRGDataProvider {
     typealias ObjectOutput<T> = (object: T, response: URLResponse)
     typealias ObjectsOutput<T> = (objects: [T], response: URLResponse)
     
-    typealias PaginatedObjectOutput<T> = (object: T, nextRequest: URLRequest?, response: URLResponse)
-    typealias PaginatedObjectsOutput<T> = (objects: [T], nextRequest: URLRequest?, response: URLResponse)
+    typealias PaginatedObjectOutput<T> = (object: T, total: UInt, nextRequest: URLRequest?, response: URLResponse)
+    typealias PaginatedObjectsOutput<T> = (objects: [T], total: UInt, nextRequest: URLRequest?, response: URLResponse)
     
     func paginatedDictionaryTaskPublisher(for request: URLRequest) -> AnyPublisher<PaginatedObjectOutput<[String: Any]>, Error> {
+        func extractNextUrl(from dictionary: [String: Any]) -> URL? {
+            if let nextUrlString = dictionary["next"] as? String {
+                return URL(string: nextUrlString)
+            }
+            else {
+                return nil
+            }
+        }
+        
+        func extractTotal(from dictionary: [String: Any]) -> UInt {
+            return dictionary["total"] as? UInt ?? 0
+        }
+        
         return session.dataTaskPublisher(for: request)
             .manageNetworkActivity()
             .reportHttpErrors()
             .tryMapJson([String: Any].self)
-            .extractNextPage { data in
-                guard let urlString = data["next"] as? String else { return nil }
-                return URL(string: urlString)
-            }
             .map { result in
-                let nextRequest = self.urlRequest(from: request, withUrl: result.nextUrl)
-                return (result.data, nextRequest, result.response)
+                let nextRequest = self.urlRequest(from: request, withUrl: extractNextUrl(from: result.data))
+                return (result.data, extractTotal(from: result.data), nextRequest, result.response)
             }
             .eraseToAnyPublisher()
     }
@@ -673,11 +682,11 @@ extension SRGDataProvider {
                 //         (or no such entry at all for the episode composition request)
                 // See https://confluence.srg.beecollaboration.com/display/SRGPLAY/Developer+Meeting+2016-10-05
                 guard let array = result.object[rootKey] as? [Any] else {
-                    return ([], nil, result.response)
+                    return ([], result.total, nil, result.response)
                 }
                 
                 if let objects = try MTLJSONAdapter.models(of: T.self, fromJSONArray: array) as? [T] {
-                    return (objects, result.nextRequest, result.response)
+                    return (objects, result.total, result.nextRequest, result.response)
                 }
                 else {
                     throw SRGDataProviderError.invalidData
@@ -690,7 +699,7 @@ extension SRGDataProvider {
         return paginatedDictionaryTaskPublisher(for: request)
             .tryMap { result in
                 if let object = try MTLJSONAdapter.model(of: T.self, fromJSONDictionary: result.object) as? T {
-                    return (object, result.nextRequest, result.response)
+                    return (object, result.total, result.nextRequest, result.response)
                 }
                 else {
                     throw SRGDataProviderError.invalidData
@@ -725,8 +734,7 @@ extension SRGDataProvider {
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Publisher {
-    typealias SimpleOuput<T> = (data: T, response: URLResponse)
-    typealias PageOuput<T> = (data: T, nextUrl: URL?, response: URLResponse)
+    typealias Ouput<T> = (data: T, response: URLResponse)
     
     func manageNetworkActivity() -> Publishers.HandleEvents<Self> where Self == URLSession.DataTaskPublisher {
         return handleEvents { _ in
@@ -747,7 +755,7 @@ extension Publisher {
         }
     }
     
-    func tryMapJson<T>(_ type: T.Type) -> Publishers.TryMap<Self, SimpleOuput<T>> where Output == URLSession.DataTaskPublisher.Output {
+    func tryMapJson<T>(_ type: T.Type) -> Publishers.TryMap<Self, Ouput<T>> where Output == URLSession.DataTaskPublisher.Output {
         return tryMap { result in
             if let object = try JSONSerialization.jsonObject(with: result.data, options: []) as? T {
                 return (object, result.response)
@@ -755,12 +763,6 @@ extension Publisher {
             else {
                 throw SRGDataProviderError.invalidData
             }
-        }
-    }
-    
-    func extractNextPage<T>(_ extractor: @escaping (T) -> URL?) -> Publishers.Map<Self, PageOuput<T>> where Output == SimpleOuput<T> {
-        return map { result in
-            return (result.data, extractor(result.data), result.response)
         }
     }
 }
