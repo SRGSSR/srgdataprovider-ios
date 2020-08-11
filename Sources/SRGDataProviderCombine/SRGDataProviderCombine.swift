@@ -613,6 +613,27 @@ public extension SRGDataProvider {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum MediasMatchingQuery {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (mediaUrns: [String], total: UInt, aggregations: SRGMediaAggregations?, suggestions: [SRGSearchSuggestion]?, page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func medias(for vendor: SRGVendor, matchingQuery query: String?, with settings: SRGMediaSearchSettings?, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<MediasMatchingQuery.Output, Error> {
+        let request = requestMedias(for: vendor, matchingQuery: query, with: settings)
+        return medias(at: Page(request: request, size: pageSize))
+    }
+    
+    func medias(at page: MediasMatchingQuery.Page) -> AnyPublisher<MediasMatchingQuery.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "searchResultMediaList", type: SRGSearchResult.self)
+            .map { result in
+                (result.objects.map { $0.urn }, result.total, result.aggregations, result.suggestions, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
 // MARK: Generic implementation
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
@@ -647,8 +668,8 @@ extension SRGDataProvider {
     typealias ObjectOutput<T> = (object: T, response: URLResponse)
     typealias ObjectsOutput<T> = (objects: [T], response: URLResponse)
     
-    typealias PaginatedObjectOutput<T> = (object: T, total: UInt, nextRequest: URLRequest?, response: URLResponse)
-    typealias PaginatedObjectsOutput<T> = (objects: [T], total: UInt, nextRequest: URLRequest?, response: URLResponse)
+    typealias PaginatedObjectOutput<T> = (object: T, total: UInt, aggregations: SRGMediaAggregations?, suggestions: [SRGSearchSuggestion]?, nextRequest: URLRequest?, response: URLResponse)
+    typealias PaginatedObjectsOutput<T> = (objects: [T], total: UInt, aggregations: SRGMediaAggregations?, suggestions: [SRGSearchSuggestion]?, nextRequest: URLRequest?, response: URLResponse)
     
     func paginatedDictionaryTaskPublisher(for request: URLRequest) -> AnyPublisher<PaginatedObjectOutput<[String: Any]>, Error> {
         func extractNextUrl(from dictionary: [String: Any]) -> URL? {
@@ -664,13 +685,23 @@ extension SRGDataProvider {
             return dictionary["total"] as? UInt ?? 0
         }
         
+        func extractAggregations(from dictionary: [String: Any]) -> SRGMediaAggregations? {
+            guard let aggregationsJsonDictionary = dictionary["aggregations"] as? [String: Any] else { return nil }
+            return try? MTLJSONAdapter.model(of: SRGMediaAggregations.self, fromJSONDictionary: aggregationsJsonDictionary) as? SRGMediaAggregations
+        }
+        
+        func extractSuggestions(from dictionary: [String: Any]) -> [SRGSearchSuggestion]? {
+            guard let suggestionsJsonArray = dictionary["suggestionList"] as? [Any] else { return nil }
+            return try? MTLJSONAdapter.models(of: SRGSearchSuggestion.self, fromJSONArray: suggestionsJsonArray) as? [SRGSearchSuggestion]
+        }
+        
         return session.dataTaskPublisher(for: request)
             .manageNetworkActivity()
             .reportHttpErrors()
             .tryMapJson([String: Any].self)
             .map { result in
                 let nextRequest = self.urlRequest(from: request, withUrl: extractNextUrl(from: result.data))
-                return (result.data, extractTotal(from: result.data), nextRequest, result.response)
+                return (result.data, extractTotal(from: result.data), extractAggregations(from: result.data), extractSuggestions(from: result.data), nextRequest, result.response)
             }
             .eraseToAnyPublisher()
     }
@@ -682,11 +713,11 @@ extension SRGDataProvider {
                 //         (or no such entry at all for the episode composition request)
                 // See https://confluence.srg.beecollaboration.com/display/SRGPLAY/Developer+Meeting+2016-10-05
                 guard let array = result.object[rootKey] as? [Any] else {
-                    return ([], result.total, nil, result.response)
+                    return ([], result.total, result.aggregations, result.suggestions, nil, result.response)
                 }
                 
-                if let objects = try MTLJSONAdapter.models(of: T.self, fromJSONArray: array) as? [T] {
-                    return (objects, result.total, result.nextRequest, result.response)
+                if let objects = try? MTLJSONAdapter.models(of: T.self, fromJSONArray: array) as? [T] {
+                    return (objects, result.total, result.aggregations, result.suggestions, result.nextRequest, result.response)
                 }
                 else {
                     throw SRGDataProviderError.invalidData
@@ -698,8 +729,8 @@ extension SRGDataProvider {
     func paginatedObjectTaskPublisher<T>(for request: URLRequest, type: T.Type) -> AnyPublisher<PaginatedObjectOutput<T>, Error> where T: MTLModel {
         return paginatedDictionaryTaskPublisher(for: request)
             .tryMap { result in
-                if let object = try MTLJSONAdapter.model(of: T.self, fromJSONDictionary: result.object) as? T {
-                    return (object, result.total, result.nextRequest, result.response)
+                if let object = try? MTLJSONAdapter.model(of: T.self, fromJSONDictionary: result.object) as? T {
+                    return (object, result.total, result.aggregations, result.suggestions, result.nextRequest, result.response)
                 }
                 else {
                     throw SRGDataProviderError.invalidData

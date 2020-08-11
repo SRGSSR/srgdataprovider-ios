@@ -17,6 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGMediaSearchSettings : MTLModel
 
 /**
+ *  Create an instance with default values.
+ */
+- (instancetype)init;
+
+/**
  *  Whether aggregations should be returned in search results.
  *
  *  @discussion The default value is `YES`. Enabling aggregations results in longer response times.

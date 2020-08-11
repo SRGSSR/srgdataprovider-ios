@@ -225,6 +225,28 @@ final class SRGDataProviderCombineTests: XCTestCase {
         waitForExpectations(timeout: 10.0, handler: nil)
     }
     
+    func testMediasMatchingQuery() {
+        let requestExpectation = expectation(description: "Request finished")
+        
+        let settings = SRGMediaSearchSettings()
+        settings.suggestionsEnabled = true
+        
+        dataProvider.medias(for: .RTS, matchingQuery: "fedberer", with: settings)
+            .sink { completion in
+                switch completion {
+                    case .finished:
+                        print("Done")
+                    case let .failure(error):
+                        print("Error: \(error)")
+                }
+                requestExpectation.fulfill()
+            } receiveValue: { value in
+                print("Result: \(value)")
+            }.store(in: &cancellables)
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+    }
+    
     func testTVTopics() {
         let requestExpectation = expectation(description: "Request finished")
         
