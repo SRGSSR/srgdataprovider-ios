@@ -176,7 +176,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
     func testTVSearchShows() {
         let requestExpectation = expectation(description: "Request finished")
         
-        dataProvider.tvSearchShows(for: .RTS, matchingQuery: "journal")
+        dataProvider.tvShows(for: .RTS, matchingQuery: "journal")
             .sink { completion in
                 switch completion {
                     case .finished:

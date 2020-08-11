@@ -279,20 +279,279 @@ public extension SRGDataProvider {
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
-    enum TVSearchShows {
+    enum TVShowsMatchingQuery {
         public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (urns: [String], page: Page, nextPage: Page?, response: URLResponse)
+        public typealias Output = (showUrns: [String], page: Page, nextPage: Page?, response: URLResponse)
     }
     
-    func tvSearchShows(for vendor: SRGVendor, matchingQuery query: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVSearchShows.Output, Error> {
-        let request = requestTVSearchShows(for: vendor, matchingQuery: query)
-        return tvSearchShows(at: Page(request: request, size: pageSize))
+    func tvShows(for vendor: SRGVendor, matchingQuery query: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVShowsMatchingQuery.Output, Error> {
+        let request = requestTVShows(for: vendor, matchingQuery: query)
+        return tvShows(at: Page(request: request, size: pageSize))
     }
     
-    func tvSearchShows(at page: TVSearchShows.Page) -> AnyPublisher<TVSearchShows.Output, Error> {
+    func tvShows(at page: TVShowsMatchingQuery.Page) -> AnyPublisher<TVShowsMatchingQuery.Output, Error> {
         return paginatedObjectsTaskPublisher(for: page.request, rootKey: "searchResultShowList", type: SRGSearchResult.self)
             .map { result in
                 return (result.objects.map { $0.urn }, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum RadioChannels {
+        public typealias Output = (channels: [SRGChannel], response: URLResponse)
+    }
+    
+    func radioChannels(for vendor: SRGVendor) -> AnyPublisher<RadioChannels.Output, Error> {
+        let request = requestRadioChannels(for: vendor)
+        return objectsTaskPublisher(for: request, rootKey: "channelList", type: SRGChannel.self)
+            .map { $0 }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum RadioChannel {
+        public typealias Output = (channel: SRGChannel, response: URLResponse)
+    }
+    
+    func radioChannel(for vendor: SRGVendor, withUid channelUid: String, livestreamUid: String? = nil) -> AnyPublisher<RadioChannel.Output, Error> {
+        let request = requestRadioChannel(for: vendor, withUid: channelUid, livestreamUid: livestreamUid)
+        return objectTaskPublisher(for: request, type: SRGChannel.self)
+            .map { $0 }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum RadioLatestPrograms {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (programComposition: SRGProgramComposition, page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func radioLatestPrograms(for vendor: SRGVendor, channelUid: String, livestreamUid: String? = nil, from: Date? = nil, to: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<RadioLatestPrograms.Output, Error> {
+        let request = requestRadioLatestPrograms(for: vendor, channelUid: channelUid, livestreamUid: livestreamUid, from:from, to: to)
+        return radioLatestPrograms(at: Page(request: request, size: pageSize))
+    }
+    
+    func radioLatestPrograms(at page: RadioLatestPrograms.Page) -> AnyPublisher<RadioLatestPrograms.Output, Error> {
+        return paginatedObjectTaskPublisher(for: page.request, type: SRGProgramComposition.self)
+            .map { result in
+                (result.object, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum RadioLivestreams {
+        public typealias Output = (medias: [SRGMedia], response: URLResponse)
+    }
+    
+    func radioLivestreams(for vendor: SRGVendor, channelUid: String) -> AnyPublisher<RadioLivestreams.Output, Error> {
+        let request = requestRadioLivestreams(for: vendor, channelUid: channelUid)
+        return objectsTaskPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { $0 }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum RadioLivestreamsForContentProviders {
+        public typealias Output = (medias: [SRGMedia], response: URLResponse)
+    }
+    
+    func radioLivestreams(for vendor: SRGVendor, contentProviders: SRGContentProviders) -> AnyPublisher<RadioLivestreamsForContentProviders.Output, Error> {
+        let request = requestRadioLivestreams(for: vendor, contentProviders: contentProviders)
+        return objectsTaskPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { $0 }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum RadioLatestMedias {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func radioLatestMedias(for vendor: SRGVendor, channelUid: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<RadioLatestMedias.Output, Error> {
+        let request = requestRadioLatestMedias(for: vendor, channelUid: channelUid)
+        return radioLatestMedias(at: Page(request: request, size: pageSize))
+    }
+    
+    func radioLatestMedias(at page: RadioLatestMedias.Page) -> AnyPublisher<RadioLatestMedias.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum RadioMostPopularMedias {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func radioMostPopularMedias(for vendor: SRGVendor, channelUid: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<RadioMostPopularMedias.Output, Error> {
+        let request = requestRadioMostPopularMedias(for: vendor, channelUid: channelUid)
+        return radioMostPopularMedias(at: Page(request: request, size: pageSize))
+    }
+    
+    func radioMostPopularMedias(at page: RadioMostPopularMedias.Page) -> AnyPublisher<RadioMostPopularMedias.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum RadioLatestEpisodes {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func radioLatestEpisodes(for vendor: SRGVendor, channelUid: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<RadioLatestEpisodes.Output, Error> {
+        let request = requestRadioLatestEpisodes(for: vendor, channelUid: channelUid)
+        return radioLatestEpisodes(at: Page(request: request, size: pageSize))
+    }
+    
+    func radioLatestEpisodes(at page: RadioLatestEpisodes.Page) -> AnyPublisher<RadioLatestEpisodes.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum RadioEpisodes {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func radioEpisodes(for vendor: SRGVendor, channelUid: String, day: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<RadioEpisodes.Output, Error> {
+        let request = requestRadioEpisodes(for: vendor, channelUid: channelUid, day: day)
+        return radioEpisodes(at: Page(request: request, size: pageSize))
+    }
+    
+    func radioEpisodes(at page: RadioEpisodes.Page) -> AnyPublisher<RadioEpisodes.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum RadioLatestVideos {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func radioLatestVideos(for vendor: SRGVendor, channelUid: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<RadioLatestVideos.Output, Error> {
+        let request = requestRadioLatestVideos(for: vendor, channelUid: channelUid)
+        return radioLatestVideos(at: Page(request: request, size: pageSize))
+    }
+    
+    func radioLatestVideos(at page: RadioLatestVideos.Page) -> AnyPublisher<RadioLatestVideos.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum RadioTopics {
+        public typealias Output = (topics: [SRGTopic], response: URLResponse)
+    }
+    
+    func radioTopics(for vendor: SRGVendor) -> AnyPublisher<RadioTopics.Output, Error> {
+        let request = requestRadioTopics(for: vendor)
+        return objectsTaskPublisher(for: request, rootKey: "topicList", type: SRGTopic.self)
+            .map { $0 }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum RadioShows {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (shows: [SRGShow], page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func radioShows(for vendor: SRGVendor, channelUid: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<RadioShows.Output, Error> {
+        let request = requestRadioShows(for: vendor, channelUid: channelUid)
+        return radioShows(at: Page(request: request, size: pageSize))
+    }
+    
+    func radioShows(at page: RadioShows.Page) -> AnyPublisher<RadioShows.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "showList", type: SRGShow.self)
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum RadioShowsMatchingQuery {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (showUrns: [String], page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func radioShows(for vendor: SRGVendor, matchingQuery query: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<RadioShowsMatchingQuery.Output, Error> {
+        let request = requestRadioShows(for: vendor, matchingQuery: query)
+        return radioShows(at: Page(request: request, size: pageSize))
+    }
+    
+    func radioShows(at page: RadioShowsMatchingQuery.Page) -> AnyPublisher<RadioShowsMatchingQuery.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "searchResultShowList", type: SRGSearchResult.self)
+            .map { result in
+                (result.objects.map { $0.urn }, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum RadioSongs {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (songs: [SRGSong], page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func radioSongs(for vendor: SRGVendor, channelUid: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<RadioSongs.Output, Error> {
+        let request = requestRadioSongs(for: vendor, channelUid: channelUid)
+        return radioSongs(at: Page(request: request, size: pageSize))
+    }
+    
+    func radioSongs(at page: RadioSongs.Page) -> AnyPublisher<RadioSongs.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "songList", type: SRGSong.self)
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
             }
             .eraseToAnyPublisher()
     }
@@ -311,6 +570,41 @@ public extension SRGDataProvider {
     }
     
     func latestMediasForTopic(at page: LatestMediasForTopic.Page) -> AnyPublisher<LatestMediasForTopic.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum RadioCurrentSong {
+        public typealias Output = (song: SRGSong, response: URLResponse)
+    }
+    
+    func radioCurrentSong(for vendor: SRGVendor, channelUid: String) -> AnyPublisher<RadioCurrentSong.Output, Error> {
+        let request = requestRadioCurrentSong(for: vendor, channelUid: channelUid)
+        return objectTaskPublisher(for: request, type: SRGSong.self)
+            .map { $0 }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum LiveCenterVideos {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func liveCenterVideos(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<LiveCenterVideos.Output, Error> {
+        let request = requestLiveCenterVideos(for: vendor)
+        return liveCenterVideos(at: Page(request: request, size: pageSize))
+    }
+    
+    func liveCenterVideos(at page: LiveCenterVideos.Page) -> AnyPublisher<LiveCenterVideos.Output, Error> {
         return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
             .map { result in
                 (result.objects, page, page.next(with: result.nextRequest), result.response)

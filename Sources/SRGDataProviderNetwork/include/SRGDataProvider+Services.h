@@ -182,9 +182,9 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  @discussion Some business units only support full-text search, not partial matching. To get complete show objects,
  *              call the `-showsWithURNs:completionBlock:` request with the returned URN list.
  */
-- (SRGFirstPageRequest *)tvSearchShowsForVendor:(SRGVendor)vendor
-                                  matchingQuery:(NSString *)query
-                            withCompletionBlock:(SRGPaginatedShowSearchCompletionBlock)completionBlock;
+- (SRGFirstPageRequest *)tvShowsForVendor:(SRGVendor)vendor
+                            matchingQuery:(NSString *)query
+                      withCompletionBlock:(SRGPaginatedShowSearchCompletionBlock)completionBlock;
 
 @end
 
@@ -284,8 +284,8 @@ typedef void (^SRGPaginatedSongListCompletionBlock)(NSArray<SRGSong *> * _Nullab
  *  @param day The day. If `nil`, today is used.
  */
 - (SRGFirstPageRequest *)radioEpisodesForVendor:(SRGVendor)vendor
-                                            day:(nullable SRGDay *)day
                                      channelUid:(NSString *)channelUid
+                                            day:(nullable SRGDay *)day
                             withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**

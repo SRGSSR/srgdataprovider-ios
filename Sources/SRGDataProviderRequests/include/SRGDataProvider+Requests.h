@@ -34,8 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
                                          day:(nullable SRGDay *)day;
 - (NSURLRequest *)requestTVTopicsForVendor:(SRGVendor)vendor;
 - (NSURLRequest *)requestTVShowsForVendor:(SRGVendor)vendor;
-- (NSURLRequest *)requestTVSearchShowsForVendor:(SRGVendor)vendor
-                                  matchingQuery:(NSString *)query;
+- (NSURLRequest *)requestTVShowsForVendor:(SRGVendor)vendor
+                            matchingQuery:(NSString *)query;
 
 @end
 
@@ -63,8 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURLRequest *)requestRadioLatestVideosForVendor:(SRGVendor)vendor
                                          channelUid:(NSString *)channelUid;
 - (NSURLRequest *)requestRadioEpisodesForVendor:(SRGVendor)vendor
-                                            day:(nullable SRGDay *)day
-                                     channelUid:(NSString *)channelUid;
+                                     channelUid:(NSString *)channelUid
+                                            day:(nullable SRGDay *)day;
 - (NSURLRequest *)requestRadioTopicsForVendor:(SRGVendor)vendor;
 - (NSURLRequest *)requestRadioShowsForVendor:(SRGVendor)vendor
                                   channelUid:(NSString *)channelUid;

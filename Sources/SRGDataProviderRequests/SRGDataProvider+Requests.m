@@ -200,8 +200,8 @@ static NSString *SRGPathComponentForModuleType(SRGModuleType moduleType)
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
-- (NSURLRequest *)requestTVSearchShowsForVendor:(SRGVendor)vendor
-                                  matchingQuery:(NSString *)query
+- (NSURLRequest *)requestTVShowsForVendor:(SRGVendor)vendor
+                            matchingQuery:(NSString *)query
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultShowList/tv", SRGPathComponentForVendor(vendor)];
     NSArray<NSURLQueryItem *> *queryItems = @[ [NSURLQueryItem queryItemWithName:@"q" value:query] ];
@@ -315,8 +315,8 @@ static NSString *SRGPathComponentForModuleType(SRGModuleType moduleType)
 }
 
 - (NSURLRequest *)requestRadioEpisodesForVendor:(SRGVendor)vendor
-                                            day:(SRGDay *)day
                                      channelUid:(NSString *)channelUid
+                                            day:(SRGDay *)day
 {
     if (! day) {
         day = SRGDay.today;
