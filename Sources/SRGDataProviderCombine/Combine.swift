@@ -5,10 +5,10 @@
 //
 
 import Combine
-import Mantle
 import SRGDataProvider
 import SRGDataProviderModel
 
+@_implementationOnly import Mantle
 @_implementationOnly import SRGDataProviderRequests
 @_implementationOnly import SRGNetwork
     
