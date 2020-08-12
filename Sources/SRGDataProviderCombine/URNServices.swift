@@ -160,7 +160,7 @@ public extension SRGDataProvider {
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
     enum Shows {
-        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Page = SRGDataProvider.URNPage<Self>
         public typealias Output = (shows: [SRGShow], page: Page, nextPage: Page?, response: URLResponse)
     }
     
@@ -172,7 +172,7 @@ public extension SRGDataProvider {
      */
     func shows(withUrns urns: [String], pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<Shows.Output, Error> {
         let request = requestShows(withURNs: urns)
-        return shows(at: Page(request: request, size: pageSize))
+        return shows(at: URNPage(originalRequest: request, size: pageSize))
     }
     
     /**
@@ -181,7 +181,7 @@ public extension SRGDataProvider {
     func shows(at page: Shows.Page) -> AnyPublisher<Shows.Output, Error> {
         return paginatedObjectsTaskPublisher(for: page.request, rootKey: "showList", type: SRGShow.self)
             .map { result in
-                (result.objects, page, page.next(with: result.nextRequest), result.response)
+                (result.objects, page, page.next(), result.response)
             }
             .eraseToAnyPublisher()
     }
