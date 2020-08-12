@@ -36,7 +36,7 @@ public extension SRGDataProvider {
     func medias(at page: MediasMatchingQuery.Page) -> AnyPublisher<MediasMatchingQuery.Output, Error> {
         return paginatedObjectsTaskPublisher(for: page.request, rootKey: "searchResultMediaList", type: SRGSearchResult.self)
             .map { result in
-                (result.objects.map { $0.urn }, result.total, result.aggregations, result.suggestions, page, page.next(with: result.nextRequest), result.response)
+                (result.objects.map(\.urn), result.total, result.aggregations, result.suggestions, page, page.next(with: result.nextRequest), result.response)
             }
             .eraseToAnyPublisher()
     }
@@ -66,7 +66,7 @@ public extension SRGDataProvider {
     func shows(at page: ShowsMatchingQuery.Page) -> AnyPublisher<ShowsMatchingQuery.Output, Error> {
         return paginatedObjectsTaskPublisher(for: page.request, rootKey: "searchResultShowList", type: SRGSearchResult.self)
             .map { result in
-                (result.objects.map { $0.urn }, result.total, page, page.next(with: result.nextRequest), result.response)
+                (result.objects.map(\.urn), result.total, page, page.next(with: result.nextRequest), result.response)
             }
             .eraseToAnyPublisher()
     }

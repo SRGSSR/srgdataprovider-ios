@@ -333,7 +333,7 @@ public extension SRGDataProvider {
     func radioShows(at page: RadioShowsMatchingQuery.Page) -> AnyPublisher<RadioShowsMatchingQuery.Output, Error> {
         return paginatedObjectsTaskPublisher(for: page.request, rootKey: "searchResultShowList", type: SRGSearchResult.self)
             .map { result in
-                (result.objects.map { $0.urn }, result.total, page, page.next(with: result.nextRequest), result.response)
+                (result.objects.map(\.urn), result.total, page, page.next(with: result.nextRequest), result.response)
             }
             .eraseToAnyPublisher()
     }

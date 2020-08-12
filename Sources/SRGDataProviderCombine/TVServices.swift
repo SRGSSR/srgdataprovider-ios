@@ -386,7 +386,7 @@ public extension SRGDataProvider {
     func tvShows(at page: TVShowsMatchingQuery.Page) -> AnyPublisher<TVShowsMatchingQuery.Output, Error> {
         return paginatedObjectsTaskPublisher(for: page.request, rootKey: "searchResultShowList", type: SRGSearchResult.self)
             .map { result in
-                return (result.objects.map { $0.urn }, result.total, page, page.next(with: result.nextRequest), result.response)
+                return (result.objects.map(\.urn), result.total, page, page.next(with: result.nextRequest), result.response)
             }
             .eraseToAnyPublisher()
     }
