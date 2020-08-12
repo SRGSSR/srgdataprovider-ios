@@ -44,7 +44,39 @@ extension SRGDataProvider {
          *  Create the first page.
          */
         init(request: URLRequest, size: UInt) {
-            self.init(request: request, size: size, number: 0)
+            func clampedSize(size: UInt) -> UInt {
+                if size > SRGDataProviderMaximumPageSize && size != SRGDataProviderUnlimitedPageSize {
+                    return SRGDataProviderMaximumPageSize;
+                }
+                else {
+                    return size
+                }
+            }
+            
+            func updatedRequest(from request: URLRequest, with url: URL) -> URLRequest {
+                var updatedRequest = request
+                updatedRequest.url = url
+                return updatedRequest
+            }
+            
+            func urlRequest(_ request: URLRequest, withSize size: UInt) -> URLRequest {
+                guard let url = request.url,
+                      var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+                    return request
+                    
+                }
+                
+                var queryItems = components.queryItems ?? []
+                let pageSize = (size != SRGDataProviderUnlimitedPageSize) ? String(size) : "unlimited"
+                queryItems.append(URLQueryItem(name: "pageSize", value: pageSize))
+                components.queryItems = queryItems
+                
+                guard let fullUrl = components.url else { return request }
+                return updatedRequest(from: request, with: fullUrl)
+            }
+            
+            let pageSize = clampedSize(size: size)
+            self.init(request: urlRequest(request, withSize: pageSize), size: pageSize, number: 0)
         }
         
         /**
@@ -70,7 +102,6 @@ extension SRGDataProvider {
     }
 }
     
-
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension SRGDataProvider {
     typealias PaginatedObjectsOutput<T> = (objects: [T], total: UInt, aggregations: SRGMediaAggregations?, suggestions: [SRGSearchSuggestion]?, nextRequest: URLRequest?, response: URLResponse)
@@ -133,6 +164,13 @@ extension SRGDataProvider {
             }
         }
         
+        func updatedRequest(from request: URLRequest, with url: URL?) -> URLRequest? {
+            guard let url = url else { return nil }
+            var updatedRequest = request
+            updatedRequest.url = url
+            return updatedRequest
+        }
+        
         func extractTotal(from dictionary: [String: Any]) -> UInt {
             return dictionary["total"] as? UInt ?? 0
         }
@@ -147,19 +185,12 @@ extension SRGDataProvider {
             return try? MTLJSONAdapter.models(of: SRGSearchSuggestion.self, fromJSONArray: suggestionsJsonArray) as? [SRGSearchSuggestion]
         }
         
-        func urlRequest(from request: URLRequest, withUrl url: URL?) -> URLRequest {
-            guard let url = url else { return request }
-            var updatedRequest = request
-            updatedRequest.url = url;
-            return updatedRequest
-        }
-        
         return session.dataTaskPublisher(for: request)
             .manageNetworkActivity()
             .reportHttpErrors()
             .tryMapJson([String: Any].self)
             .map { result in
-                let nextRequest = urlRequest(from: request, withUrl: extractNextUrl(from: result.data))
+                let nextRequest = updatedRequest(from: request, with: extractNextUrl(from: result.data))
                 return (result.data, extractTotal(from: result.data), extractAggregations(from: result.data), extractSuggestions(from: result.data), nextRequest, result.response)
             }
             .eraseToAnyPublisher()

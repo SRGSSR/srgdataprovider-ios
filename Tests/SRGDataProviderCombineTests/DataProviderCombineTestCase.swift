@@ -138,7 +138,7 @@ final class SRGDataProviderCombineTests: XCTestCase {
     func testTVEpisodes() {
         let requestExpectation = expectation(description: "Request finished")
         
-        dataProvider.tvEpisodes(for: .RTS, day: SRGDay(10, month: 6, year: 2020), pageSize: 30)
+        dataProvider.tvEpisodes(for: .RTS, day: SRGDay(10, month: 6, year: 2020), pageSize: 20)
             .sink { completion in
                 switch completion {
                     case .finished:
