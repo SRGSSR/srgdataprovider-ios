@@ -27,13 +27,7 @@ The library must be integrated using [Swift Package Manager](https://swift.org/p
 
 ## Usage
 
-When you want to use classes or functions provided by the library in your code, you must import it from your source files first. Objective-C applications can only use the SRG Network based API:
-
-```objective-c
-@import SRGDataProviderNetwork;
-```
-
-Projects in Swift can either use the Combine API:
+When you want to use classes or functions provided by the library in your code, you must import it from your source files first. Projects in Swift can either use the Combine API:
 
 ```swift
 import SRGDataProviderCombine
@@ -45,7 +39,25 @@ or SRG Network based requests and queues:
 import SRGDataProviderNetwork
 ```
 
-Both approaches can be used within the same project, though you should preferably choose one approach and stick with it for consistency. 
+Objective-C applications can only use the SRG Network based API:
+
+```objective-c
+@import SRGDataProviderNetwork;
+```
+
+Both approaches can be used within the same project, though you should preferably choose one approach and stick with it for consistency.
+
+Where only data model references are required, you can simply import the model framework, in Swift:
+
+```swift
+import SRGDataProviderModel
+```
+
+or in Objective-C:
+
+```objective-c
+@import SRGDataProviderModel;
+```
 
 For Swift projects supporting iOS 13+, tvOS 13+ or watchOS 6+, the use of Combine is strongly recommended, as it allows SRG SSR data retrieval tasks to be freely and reliably mixed with other asynchronous work (e.g. local data retrieval from a Core Data stack).
 
