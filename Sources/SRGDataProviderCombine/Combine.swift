@@ -8,9 +8,9 @@ import Combine
 import Mantle
 import SRGDataProvider
 import SRGDataProviderModel
-import SRGNetwork
 
 @_implementationOnly import SRGDataProviderRequests
+@_implementationOnly import SRGNetwork
     
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension SRGDataProvider {
