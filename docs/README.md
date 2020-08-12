@@ -4,13 +4,14 @@
 
 ## About
 
-The SRG Data Provider library for iOS provides a simple way to retrieve metadata for all SRG SSRG business units in a common format.
+The SRG Data Provider library provides a simple way to retrieve metadata for all SRG SSRG business units in a common format.
 
 The library provides:
 
 * Requests to get the usual metadata associated with SRG SSR productions.
 * A flat object model to easily access the data relevant to front-end users.
-* A convenient way to perform requests, either in parallel or in cascade.
+* Combine data publishers (iOS 13+, tvOS 13+, watchOS 6+).
+* An alternative way to perform requests for applications which cannot use Combine, based on [SRG Network](https://github.com/SRGSSR/srgnetwork-apple).
 
 ## Compatibility
 
@@ -26,17 +27,25 @@ The library must be integrated using [Swift Package Manager](https://swift.org/p
 
 ## Usage
 
-When you want to use classes or functions provided by the library in your code, you must import it from your source files first. In Objective-C:
+When you want to use classes or functions provided by the library in your code, you must import it from your source files first. Objective-C applications can only use the SRG Network based API:
 
 ```objective-c
-@import SRGDataProvider;
+@import SRGDataProviderNetwork;
 ```
 
-or in Swift:
+Projects in Swift can either use the Combine API:
 
 ```swift
-import SRGDataProvider
+import SRGDataProviderCombine
 ```
+
+or SRG Network based requests and queues:
+
+```swift
+import SRGDataProviderNetwork
+```
+
+Both approaches can be used within the same project, though you should preferably choose one approach and stick with it for consistency. For Swift projects supporting iOS 13+, tvOS 13+ or watchOS 6+, the use of Combine is strongly recommended, as it allows SRG SSR data retrieval tasks to be freely and reliably mixed with other asynchronous work (e.g. local data retrieval from a Core Data stack).
 
 ### Working with the library
 

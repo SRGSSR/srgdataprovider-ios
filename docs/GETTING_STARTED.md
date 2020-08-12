@@ -5,13 +5,25 @@ This getting started guide discusses all concepts required to use the SRG Data P
 
 ## Data provider instantation and access
 
-At its core, the SRG Data Provider library reduces to a single data provider class, `SRGDataProvider`, which you instantiate for a service URL, for example:
+At its core, the SRG Data Provider library reduces to a single data provider class, `SRGDataProvider`, which you instantiate for a service URL, for example in Swift:
+
+```swift
+let dataProvider = SRGDataProvider(serviceURL: SRGIntegrationLayerProductionServiceURL())
+```
+
+or in Objective-C:
 
 ```objective-c
 SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
 ```
 
-A set of constants for common service URLs (production, staging and test) is provided. You can have several data providers in an application, though most applications should require only one. To make it easier to access the main data provider of an application, the `SRGDataProvider` class provides a class property to set and retrive it as shared instance:
+A set of constants for common service URLs (production, staging and test) is provided. You can have several data providers in an application, though most applications should require only one. To make it easier to access the main data provider of an application, the `SRGDataProvider` class provides a class property to set and retrive it as shared instance in in Swift:
+
+```swift
+SRGDataProvider.current = SRGDataProvider(serviceURL: SRGIntegrationLayerProductionServiceURL())
+```
+
+or in Objective-C:
 
 ```objective-c
 SRGDataProvider.currentDataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
@@ -19,17 +31,44 @@ SRGDataProvider.currentDataProvider = [[SRGDataProvider alloc] initWithServiceUR
 
 For simplicity, this getting started guide assumes that a shared data provider has been set. If you cannot use the shared instance, store the data providers you instantiated somewhere and provide access to them in some way.
 
+## Combine data publishers
+
+The `SRGDataProviderCombine` library provides publishers which can then be used exactly like a usual `URLSession` publisher, for example:
+
+```swift
+var cancellables = Set<AnyCancellable>();
+
+// ...
+
+dataProvider.tvLivestreams(for: .SRF)
+	.receive(on: RunLoop.main)
+	.map { $0.medias }
+	.replaceError(with: [])
+	.assign(to: \.medias, on: self)
+	.store(in: &cancellables)
+```
+
+This example creates a publisher to retrieve SRF event livestreams, assigning them on to a `medias` property on the main thread. The subscription is stored into `cancellables`, a set of `AnyCancellable`, for automatic cancellation if the set is deallocated.
+
 ## Requests and queues
 
-The SRG Data Provider library returns instances of requests from [SRG Network](https://github.com/SRGSSR/srgnetwork-apple/issues), either simple `SRGRequest`, or `SRGFirstPageRequest` for services supporting pagination.
+The `SRGDataProviderNetwork` library returns instances of requests from [SRG Network](https://github.com/SRGSSR/srgnetwork-apple/issues), either simple `SRGRequest`, or `SRGFirstPageRequest` for services supporting pagination.
 
-Please carefully read the [SRG Network getting started guide](https://github.com/SRGSSR/srgnetwork-apple/blob/master/docs/GETTING_STARTED.md), which provides extensive information about request management and grouping via queues.
+For example, retrieving SRF livestreams is achieved as follows in Swift:
 
-## Services
+```swift
+let request = SRGDataProvider.current!.tvLivestreams(for: .RTS) { (medias, response, error) in
+    if let error = error {
+        // Deal with the error
+        return
+    }
+    
+    // Proceed further, e.g. display the medias
+}
+request.resume()
+```
 
-To request data, use the methods available from one of the `SRGDataProvider` _Services_ category. All service methods return an `SRGBaseRequest` instance (or an instance of a subclass thereof), providing you with a common interface to manage requests.
-
-For example, to get the list of SRF TV livestream list, simply call:
+or in Objective-C:
 
 ```objective-c
 SRGRequest *request = [SRGDataProvider.currentDataProvider tvLivestreamsForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
@@ -43,7 +82,11 @@ SRGRequest *request = [SRGDataProvider.currentDataProvider tvLivestreamsForVendo
 [request resume];
 ```
 
-Note that the completion block of a cancelled request will not be called.
+Please carefully read the [SRG Network getting started guide](https://github.com/SRGSSR/srgnetwork-apple/blob/master/docs/GETTING_STARTED.md), which provides extensive information about request management and grouping via queues.
+
+## Services
+
+To request data, use the methods available from one of the `SRGDataProvider` _Services_ category. All service methods return an `SRGBaseRequest` instance (or an instance of a subclass thereof), providing you with a common interface to manage requests.
 
 ## Service availability
 
