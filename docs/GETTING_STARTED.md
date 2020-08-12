@@ -29,11 +29,11 @@ or in Objective-C:
 SRGDataProvider.currentDataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
 ```
 
-For simplicity, this getting started guide assumes that a shared data provider has been set. If you cannot use the shared instance, store the data providers you instantiated somewhere and provide access to them in some way.
+For simplicity, this getting started guide assumes that a shared data provider has been set. Note that all requests associated with a data provider will be cancelled if it gets deallocated. If you cannot or don't want to use the shared instance, you must therefore store the data providers you instantiated somewhere and provide access to them in some other way. 
 
 ## Combine data publishers
 
-The `SRGDataProviderCombine` library provides publishers which can then be used exactly like a usual `URLSession` publisher, for example:
+The `SRGDataProviderCombine` library provides Combine publishers which can then be used exactly like a usual `URLSession` data task publisher, for example:
 
 ```swift
 var cancellables = Set<AnyCancellable>();
@@ -48,7 +48,7 @@ dataProvider.tvLivestreams(for: .SRF)
 	.store(in: &cancellables)
 ```
 
-This example creates a publisher to retrieve SRF event livestreams, assigning them on to a `medias` property on the main thread. The subscription is stored into `cancellables`, a set of `AnyCancellable`, for automatic cancellation if the set is deallocated.
+This example creates a publisher to retrieve SRF TV livestreams, assigning them to a `medias` property on the main thread. The subscription is stored into `cancellables` for automatic cancellation associated with the enclosing context.
 
 ## Requests and queues
 
@@ -84,16 +84,12 @@ SRGRequest *request = [SRGDataProvider.currentDataProvider tvLivestreamsForVendo
 
 Please carefully read the [SRG Network getting started guide](https://github.com/SRGSSR/srgnetwork-apple/blob/master/docs/GETTING_STARTED.md), which provides extensive information about request management and grouping via queues.
 
-## Services
-
-To request data, use the methods available from one of the `SRGDataProvider` _Services_ category. All service methods return an `SRGBaseRequest` instance (or an instance of a subclass thereof), providing you with a common interface to manage requests.
-
 ## Service availability
 
 Request availability depends on the business unit. Refer to the provided [service compatibility matrix](SERVICE_AVAILABILITY.md) for reference. This matrix also provides information about page constraints for services supporting pagination.
 
 ## App Transport Security (ATS)
 
-In a near future, Apple will favor HTTPS over HTTP, and require applications to explicitly declare potentially insecure connections. These guidelines are referred to as [App Transport Security (ATS)](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW33).
+In the future, Apple will likely favor HTTPS over HTTP, and require applications to explicitly declare potentially insecure connections. These guidelines are referred to as [App Transport Security (ATS)](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW33).
 
 For information about how you should configure your application to access our services, please refer to the dedicated [wiki topic](https://github.com/SRGSSR/srgdataprovider-apple/wiki/App-Transport-Security-(ATS)).

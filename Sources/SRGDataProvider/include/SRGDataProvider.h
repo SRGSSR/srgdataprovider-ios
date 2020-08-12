@@ -25,18 +25,18 @@ OBJC_EXPORT NSURL *SRGIntegrationLayerTestServiceURL(void);
  *  built-in iOS URL cache (`NSURLCache`). No additional application setup is required.
  *
  *  Two similar APIs are provided for data retrieval:
+ *    - A Combine-based API, only callable from Swift code, and which requires iOS 13+, tvOS 13+ or watchOS 6+.
  *    - An API based on SRG Network requets and queues. This API can be used by Objective-C and Swift code for all
  *      supported OS versions.
- *    - A Combine-based API, only callable from Swift code, and which requires iOS 13+, tvOS 13+ or watchOS 6+.
  *
- *  The Combine-based is a modern API providing many benefits (a simple API relying on an official SDK and the possibility
- *  to mix network requets with any kind of asynchronous task using a single formalism). It is now the recommended API if
- *  your project can adopt it.
+ *  The Combine-based API is modern and provides additional benefits (it relies on an official Apple SDK and makes it
+ *  possible to mix network requets with any kind of asynchronous task using a single formalism). It is therefore the
+ *  recommended API if your project can adopt it.
  *
- *  The SRG Network based API provides APIs with similar philosophy (yet neither functional, nor reactive), most notably
- *  thanks to how requests and queues interact with each other. But since they are limited to network tasks, they do
- *  not offer seamless integration with any kind of asynchronous work (like Combine does), which is why you should prefer
- *  the Combine-based API if you can afford to.
+ *  The SRG Network based API provides a formalism with similar philosophy (yet neither functional, nor reactive), built
+ *  on requests and queues to allow requests to be made in sequence or in parallel. But since this custom formalism is
+ *  limited to network tasks, it does not offer seamless integration with other kinds of asynchronous work, which is why
+ *  you should prefer the Combine-based API if you can afford to.
  *
  *  ## Imports
  *
@@ -44,7 +44,8 @@ OBJC_EXPORT NSURL *SRGIntegrationLayerTestServiceURL(void);
  *    - To use the modern Combine API, import `SRGDataProviderCombine`.
  *    - To use the SRG Network based API, import `SRGDataProviderNetwork`.
  *
- *  You can mix both APIs in a single project, though we recommend you choose one and stick with it if you can.
+ *  You can mix both APIs in a single project (even in a single file), though we recommend you choose one and stick with
+ *  it if you can.
  *
  *  ## Instantiation
  *
@@ -64,7 +65,7 @@ OBJC_EXPORT NSURL *SRGIntegrationLayerTestServiceURL(void);
  *
  *  ## Services
  *
- *  The data provider library provides several services to retrieve various kinds of data:
+ *  The data provider library provides several services to retrieve various kinds of data, for example:
  *    - TV-related services, whose methods start with `tv`. These requests return TV-specific content and require a
  *      business unit to be specified.
  *    - Radio related services (which commonly require a channel identifier to be specified), whose methods start with
@@ -79,7 +80,7 @@ OBJC_EXPORT NSURL *SRGIntegrationLayerTestServiceURL(void);
  *  result.
  *
  *  Most applications will not directly request the next page of content when they complete, though. In general, the
- *  next page should be stored by your application, so that it is readily available when the next request needs
+ *  next page must be stored by your application somewhere, so that it is readily available when the next request needs
  *  to be generated (e.g. when scrolling reaches the bottom of a result table).
  *
  *  Note that you cannot generate arbitrary pages (e.g. you can ask to get the 4th page of content with a page size of
@@ -89,25 +90,31 @@ OBJC_EXPORT NSURL *SRGIntegrationLayerTestServiceURL(void);
  *
  *  ## Requesting data with Combine
  *
- *  To request data with Combine, use one of the service methods available on `SRGDataProvider` returning a publisher.
- *  Then subscribe to this publisher to receive data and errors, as you would with a usual `NSURLSession` publisher.
+ *  To request data with Combine, use one of the service methods available on `SRGDataProvider` which return a publisher.
+ *  Then subscribe to this publisher to receive data and errors, as you would with a usual `URLSession` publisher.
  *
- *  Performing requets in a serial or parallel way is achieved entirely using Combine formalism. The SRG Data Provider
- *  Combine framework therefore does not introduce any additional formalism. You should be a bit familiar with Combine or
- *  Functional Reactive Programming (FRP) in general. If not, here are a few useful resources:
- *    - Practical Combine (https://practicalcombine.com/), a friendly introduction to FRP and Combine.
- *    - Using Combine (https://heckj.github.io/swiftui-notes/), an online example-oriented book, but less friendly.
+ *  Performing requests in a serial or parallel way is achieved entirely using Combine formalism. The SRG Data Provider
+ *  Combine framework therefore does not introduce any additional APIs for such purposes. You should therefore be familiar
+ *  with Combine or Functional Reactive Programming (FRP) in general to use the library efficiently. If not, here are a
+ *  few useful resources you can start with:
+ *    - Practical Combine (https://practicalcombine.com), a friendly introduction to FRP and Combine.
+ *    - Using Combine (https://heckj.github.io/swiftui-notes), an online example-oriented book, but with a steeper
+ *    . learning curve.
+ *
+ *  As with normal `URLSession` data publishers, requests are only made by a publisher once a subscription has been made,
+ *  and a corresponding `AnyCancellable` can be stored and used for early request cancellation.
  *
  *  ### Threading considerations
  *
- *  Combine publishers perform work in the background and SRG Data Provider preserves this behavior. If you need your
- *  subscribers to receive results on the main thread (e.g. for UI updates), remember to use the `.receive(on:)`
- *  operator.
+ *  Combine publishers perform work in the background and SRG Data Provider Combine library preserves this behavior. If
+ *  you need your subscribers to receive results on the main thread (e.g. for UI updates), always remember to use the
+ *  `.receive(on:)` operator in your subscriber pipeline.
  *
  *  ### Requests with pagination support
  *
  *  Publishers for services supporting pagination return a `page` and an optional `nextPage` in their output. These
- *  pages can be used with companion service methods returning the publisher for another page of content.
+ *  pages can be used with companion service methods, available next to the main method, and containing an `at:`
+ *  parameter for the page to generate a publisher for.
  *
  *  ## Requesting data with SRG Network
  *
@@ -128,9 +135,7 @@ OBJC_EXPORT NSURL *SRGIntegrationLayerTestServiceURL(void);
  *  `SRGNetworkRequestBackgroundThreadCompletionEnabled` option.
  *
  *  This choice has been made to avoid common programming errors. Since all request work is done on background threads,
- *  the completion block is most of the time namely used to trigger UI updates, which have to occur on the main thread.
- *
- *  Note that the Combine API works differently to preserve its asynchronous natural behavior by default.
+ *  the completion block is most of the time used to trigger UI updates, which have to occur on the main thread.
  *
  *  ### Requests with pagination support
  *
@@ -153,6 +158,11 @@ OBJC_EXPORT NSURL *SRGIntegrationLayerTestServiceURL(void);
  *  completion block to notify when some of them start, or when all requests have ended. Queues let you manage parallel
  *  or cascading requests with a unified formalism, and provide a way to report errors along the way. For more information,
  *  please have a look at SRG Network documentation.
+ *
+ *  ## Network activity indicator management
+ *
+ *  Reference-counted network activity management is made by `SRGNetwork`, whether you use the Combine or SRG Network
+ *  libraries (or both). Simply call `+[SRGNetworkActivityManagement enable]` to enable it.
  *
  *  ## Service availability
  *

@@ -10,7 +10,7 @@ The library provides:
 
 * Requests to get the usual metadata associated with SRG SSR productions.
 * A flat object model to easily access the data relevant to front-end users.
-* Combine data publishers (iOS 13+, tvOS 13+, watchOS 6+).
+* [Combine](https://developer.apple.com/documentation/combine) data publishers available for iOS 13+, tvOS 13+ and watchOS 6+.
 * An alternative way to perform requests for applications which cannot use Combine, based on [SRG Network](https://github.com/SRGSSR/srgnetwork-apple).
 
 ## Compatibility
@@ -45,7 +45,9 @@ or SRG Network based requests and queues:
 import SRGDataProviderNetwork
 ```
 
-Both approaches can be used within the same project, though you should preferably choose one approach and stick with it for consistency. For Swift projects supporting iOS 13+, tvOS 13+ or watchOS 6+, the use of Combine is strongly recommended, as it allows SRG SSR data retrieval tasks to be freely and reliably mixed with other asynchronous work (e.g. local data retrieval from a Core Data stack).
+Both approaches can be used within the same project, though you should preferably choose one approach and stick with it for consistency. 
+
+For Swift projects supporting iOS 13+, tvOS 13+ or watchOS 6+, the use of Combine is strongly recommended, as it allows SRG SSR data retrieval tasks to be freely and reliably mixed with other asynchronous work (e.g. local data retrieval from a Core Data stack).
 
 ### Working with the library
 
