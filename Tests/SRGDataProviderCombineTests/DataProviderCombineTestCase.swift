@@ -271,6 +271,25 @@ final class SRGDataProviderCombineTests: XCTestCase {
         waitForExpectations(timeout: 10.0, handler: nil)
     }
     
+    func testUnlimitedPageSize() {
+        let requestExpectation = expectation(description: "Request finished")
+        
+        dataProvider.tvShows(for: .RTS, pageSize: SRGDataProviderUnlimitedPageSize)
+            .sink { completion in
+                switch completion {
+                    case .finished:
+                        print("Done")
+                    case let .failure(error):
+                        print("Error: \(error)")
+                }
+                requestExpectation.fulfill()
+            } receiveValue: { value in
+                print("Result: \(value)")
+            }.store(in: &cancellables)
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+    }
+    
     func testTVTopics() {
         let requestExpectation = expectation(description: "Request finished")
         
