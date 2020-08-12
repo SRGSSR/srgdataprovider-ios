@@ -8,7 +8,44 @@
 
 #import "SRGDataProvider+RequestBuilders.h"
 
+@import libextobjc;
+
 @implementation SRGDataProvider (URNRequests)
+
++ (NSURLRequest *)URLRequestForURNsPageWithSize:(NSUInteger)size number:(NSUInteger)number URLRequest:(NSURLRequest *)URLRequest
+{
+    NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URLRequest.URL resolvingAgainstBaseURL:NO];
+    NSMutableArray<NSURLQueryItem *> *queryItems = URLComponents.queryItems.mutableCopy ?: [NSMutableArray array];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(NSURLQueryItem.new, name), @"urns"];
+    NSURLQueryItem *URNsQueryItem = [URLComponents.queryItems filteredArrayUsingPredicate:predicate].firstObject;
+    
+    if (! URNsQueryItem.value) {
+        return nil;
+    }
+    
+    static NSString * const kURNsSeparator = @",";
+    NSArray<NSString *> *URNs = [URNsQueryItem.value componentsSeparatedByString:kURNsSeparator];
+    if (number == 0 && URNs.count < 2) {
+        return URLRequest;
+    }
+    
+    NSUInteger location = number * size;
+    if (location >= URNs.count) {
+        return nil;
+    }
+    
+    NSRange range = NSMakeRange(location, MIN(size, URNs.count - location));
+    NSArray<NSString *> *pageURNs = [URNs subarrayWithRange:range];
+    NSURLQueryItem *pageURNsQueryItem = [NSURLQueryItem queryItemWithName:@"urns" value:[pageURNs componentsJoinedByString:kURNsSeparator]];
+    [queryItems replaceObjectAtIndex:[queryItems indexOfObject:URNsQueryItem] withObject:pageURNsQueryItem];
+    
+    URLComponents.queryItems = queryItems.copy;
+    
+    NSMutableURLRequest *URNsURLRequest = URLRequest.mutableCopy;
+    URNsURLRequest.URL = URLComponents.URL;
+    return URNsURLRequest.copy;              // Not an immutable copy ;(
+}
 
 - (NSURLRequest *)requestMediaWithURN:(NSString *)mediaURN
 {

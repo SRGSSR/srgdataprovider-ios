@@ -15,6 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface SRGDataProvider (URNRequests)
 
+/**
+ *  Attempts to split a request with a URNs query parameter, returning the request for the URNs for the specified page.
+ *  Returns `nil` if the no request can be extracted for the specified settings.
+ *
+ *  Note that the original request is cloned to preserve its content.
+ */
++ (nullable NSURLRequest *)URLRequestForURNsPageWithSize:(NSUInteger)size number:(NSUInteger)number URLRequest:(NSURLRequest *)URLRequest;
+
 - (NSURLRequest *)requestMediaWithURN:(NSString *)mediaURN;
 - (NSURLRequest *)requestMediasWithURNs:(NSArray<NSString *> *)mediaURNs;
 - (NSURLRequest *)requestLatestMediasForTopicWithURN:(NSString *)topicURN;

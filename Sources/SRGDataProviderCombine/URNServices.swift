@@ -35,7 +35,7 @@ public extension SRGDataProvider {
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
     enum Medias {
-        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Page = SRGDataProvider.URNPage<Self>
         public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
     }
     
@@ -47,7 +47,7 @@ public extension SRGDataProvider {
      */
     func medias(withUrns urns: [String], pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<Medias.Output, Error> {
         let request = requestMedias(withURNs: urns)
-        return medias(at: Page(request: request, size: pageSize))
+        return medias(at: URNPage(originalRequest: request, size: pageSize))
     }
     
     /**
@@ -56,7 +56,7 @@ public extension SRGDataProvider {
     func medias(at page: Medias.Page) -> AnyPublisher<Medias.Output, Error> {
         return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
             .map { result in
-                (result.objects, page, page.next(with: result.nextRequest), result.response)
+                (result.objects, page, page.next(), result.response)
             }
             .eraseToAnyPublisher()
     }

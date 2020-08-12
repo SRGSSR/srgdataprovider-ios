@@ -247,6 +247,30 @@ final class SRGDataProviderCombineTests: XCTestCase {
         waitForExpectations(timeout: 10.0, handler: nil)
     }
     
+    func testURNPagination() {
+        let urns = ["urn:rts:video:10002568", "urn:rts:video:10002444", "urn:rts:video:9986412", "urn:rts:video:9986195",
+                     "urn:rts:video:9948638", "urn:rts:video:9951674", "urn:rts:video:9951724", "urn:rts:video:9950129",
+                     "urn:rts:video:9949270", "urn:rts:video:9948800", "urn:rts:video:9948698", "urn:rts:video:9946068",
+                     "urn:rts:video:9946141"]
+        
+        let requestExpectation = expectation(description: "Request finished")
+        
+        dataProvider.medias(withUrns: urns, pageSize: 5)
+            .sink { completion in
+                switch completion {
+                    case .finished:
+                        print("Done")
+                    case let .failure(error):
+                        print("Error: \(error)")
+                }
+                requestExpectation.fulfill()
+            } receiveValue: { value in
+                print("Result: \(value)")
+            }.store(in: &cancellables)
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+    }
+    
     func testTVTopics() {
         let requestExpectation = expectation(description: "Request finished")
         
