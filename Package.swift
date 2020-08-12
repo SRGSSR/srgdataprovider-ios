@@ -16,8 +16,8 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "SRGDataProvider",
-            targets: ["SRGDataProvider"]
+            name: "SRGDataProviderNetwork",
+            targets: ["SRGDataProviderNetwork"]
         ),
         .library(
             name: "SRGDataProviderCombine",
