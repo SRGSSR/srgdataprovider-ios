@@ -4,12 +4,13 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "DataProviderBaseTestCase.h"
+@import SRGDataProviderModel;
+@import XCTest;
 
 // Private framework header
 #import "SRGJSONTransformers.h"
 
-@interface MediaMetadataTestCase : DataProviderBaseTestCase
+@interface MediaMetadataTestCase : XCTestCase
 
 @end
 

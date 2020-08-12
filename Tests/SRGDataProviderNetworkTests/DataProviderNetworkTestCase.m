@@ -4,7 +4,8 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "DataProviderBaseTestCase.h"
+@import SRGDataProviderNetwork;
+@import XCTest;
 
 static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NSString *value)
 {
@@ -16,39 +17,25 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     return [queryItem.value isEqualToString:value];
 }
 
-@interface DataProviderTestCase : DataProviderBaseTestCase
+@interface DataProviderNetworkTestCase : XCTestCase
 
 @end
 
-@implementation DataProviderTestCase
+@implementation DataProviderNetworkTestCase
+
+#pragma mark Helpers
+
+- (XCTestExpectation *)expectationForElapsedTimeInterval:(NSTimeInterval)timeInterval withHandler:(void (^)(void))handler
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:[NSString stringWithFormat:@"Wait for %@ seconds", @(timeInterval)]];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [expectation fulfill];
+        handler ? handler() : nil;
+    });
+    return expectation;
+}
 
 #pragma mark Tests
-
-- (void)testCreation
-{
-    NSURL *serviceURL = SRGIntegrationLayerProductionServiceURL();
-    
-    SRGDataProvider *dataProvider1 = [[SRGDataProvider alloc] initWithServiceURL:serviceURL];
-    XCTAssertEqualObjects(dataProvider1.serviceURL, SRGIntegrationLayerProductionServiceURL());
-    
-    XCTAssertNil(SRGDataProvider.currentDataProvider);
-    SRGDataProvider.currentDataProvider = dataProvider1;
-    XCTAssertEqualObjects(SRGDataProvider.currentDataProvider, dataProvider1);
-    
-    SRGDataProvider *dataProvider2 = [[SRGDataProvider alloc] initWithServiceURL:serviceURL];
-    XCTAssertNotNil(dataProvider2);
-    SRGDataProvider.currentDataProvider = dataProvider2;
-    XCTAssertEqualObjects(SRGDataProvider.currentDataProvider, dataProvider2);
-}
-
-- (void)testDeallocation
-{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-unsafe-retained-assign"
-    __weak SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
-    XCTAssertNil(dataProvider);
-#pragma clang diagnostic pop
-}
 
 - (void)testRequestCancellationOnProviderDeallocation
 {

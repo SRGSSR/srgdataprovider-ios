@@ -4,7 +4,8 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "DataProviderBaseTestCase.h"
+@import SRGDataProviderNetwork;
+@import XCTest;
 
 static NSString * const kVideoRTSURN = @"urn:rts:video:8478255";
 static NSString * const kVideoRTSOtherURN = @"urn:rts:video:8478153";
@@ -28,7 +29,7 @@ static NSString * const kInvalidShow1URN = @"urn:srf:show:tv:999999999999999";
 static NSString * const kInvalidShow2URN = @"urn:rts:show:tv:999999999999999";
 static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
 
-@interface CommonServicesTestCase : DataProviderBaseTestCase
+@interface CommonServicesTestCase : XCTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
 

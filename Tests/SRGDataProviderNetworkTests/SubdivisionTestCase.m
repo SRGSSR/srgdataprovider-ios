@@ -4,9 +4,10 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "DataProviderBaseTestCase.h"
+@import SRGDataProviderNetwork;
+@import XCTest;
 
-@interface SubdivisionTestCase : DataProviderBaseTestCase
+@interface SubdivisionTestCase : XCTestCase
 
 @end
 

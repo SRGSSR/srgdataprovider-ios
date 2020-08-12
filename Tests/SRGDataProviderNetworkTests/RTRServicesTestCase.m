@@ -4,7 +4,8 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "DataProviderBaseTestCase.h"
+@import SRGDataProviderNetwork;
+@import XCTest;
 
 static NSString * const kAudioSearchQuery = @"roger";
 static NSString * const kAudioURN = @"urn:rtr:audio:4e0291b5-b718-480c-840e-80c746dff1a8";
@@ -31,7 +32,7 @@ static NSString * const kTag2 = @"curling";
 
 static NSString * const kUserId = @"test_user_id";
 
-@interface RTRServicesTestCase : DataProviderBaseTestCase
+@interface RTRServicesTestCase : XCTestCase
 
 @property (nonatomic) SRGDataProvider *dataProvider;
 

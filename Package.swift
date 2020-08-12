@@ -56,11 +56,19 @@ let package = Package(
             dependencies: ["SRGDataProviderRequests", "SRGNetwork"]
         ),
         .testTarget(
-            name: "SRGDataProviderNetworkTests",
-            dependencies: ["SRGDataProviderNetwork"],
+            name: "SRGDataProviderTests",
+            dependencies: ["SRGDataProvider"]
+        ),
+        .testTarget(
+            name: "SRGDataProviderModelTests",
+            dependencies: ["SRGDataProviderModel"],
             cSettings: [
                 .headerSearchPath("Private")
             ]
+        ),
+        .testTarget(
+            name: "SRGDataProviderNetworkTests",
+            dependencies: ["SRGDataProviderNetwork"]
         ),
         .testTarget(
             name: "SRGDataProviderCombineTests",
