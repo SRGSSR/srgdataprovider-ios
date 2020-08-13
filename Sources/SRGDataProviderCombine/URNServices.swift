@@ -238,7 +238,7 @@ public extension SRGDataProvider {
      *  Next page of results.
      */
     func latestMediasForModule(at page: LatestMediasForModule.Page) -> AnyPublisher<LatestMediasForModule.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaLst", type: SRGMedia.self)
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
             .map { result in
                 (result.objects, page, page.next(with: result.nextRequest), result.response)
             }
