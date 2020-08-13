@@ -250,7 +250,7 @@ public extension SRGDataProvider {
      *  - Parameter editorialLimit: The maximum number of editorial recommendations returned (if `nil`, all are returned).
      *  - Parameter episodesOnly: Whether only episodes must be returned.
      */
-    func tvTrendingMedias(for vendor: SRGVendor, limit: Int? = nil, editorialLimit: Int? = nil, episodesOnly: Bool = false) -> AnyPublisher<TVTrendingMedias.Output, Error> {
+    func tvTrendingMedias(for vendor: SRGVendor, limit: UInt? = nil, editorialLimit: UInt? = nil, episodesOnly: Bool = false) -> AnyPublisher<TVTrendingMedias.Output, Error> {
         let request = requestTVTrendingMedias(for: vendor, withLimit: limit as NSNumber?, editorialLimit: editorialLimit as NSNumber?, episodesOnly: episodesOnly)
         return objectsTaskPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
             .map { $0 }
