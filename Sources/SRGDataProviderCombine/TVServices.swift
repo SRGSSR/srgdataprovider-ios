@@ -109,7 +109,7 @@ public extension SRGDataProvider {
     /**
      *  List of TV scheduled livestreams.
      */
-    func tvLatestPrograms(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVScheduledLivestreams.Output, Error> {
+    func tvScheduledLivestreams(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVScheduledLivestreams.Output, Error> {
         let request = requestTVScheduledLivestreams(for: vendor)
         return tvScheduledLivestreams(at: Page(request: request, size: pageSize))
     }
