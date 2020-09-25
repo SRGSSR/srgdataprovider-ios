@@ -1,88 +1,65 @@
 [![SRG Data Provider logo](README-images/logo.png)](https://github.com/SRGSSR/srgdataprovider-apple)
 
-[![GitHub releases](https://img.shields.io/github/v/release/SRGSSR/srgdataprovider-apple)](https://github.com/SRGSSR/srgdataprovider-apple/releases) [![platform](https://img.shields.io/badge/platfom-ios%20%7C%20tvos%20%7C%20watchos-blue)](https://github.com/SRGSSR/srgdataprovider-apple) [![Build Status](https://travis-ci.org/SRGSSR/srgdataprovider-apple.svg?branch=master)](https://travis-ci.org/SRGSSR/srgdataprovider-apple/branches) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![GitHub license](https://img.shields.io/github/license/SRGSSR/srgdataprovider-apple)](https://github.com/SRGSSR/srgdataprovider-apple/blob/master/LICENSE)
+[![GitHub releases](https://img.shields.io/github/v/release/SRGSSR/srgdataprovider-apple)](https://github.com/SRGSSR/srgdataprovider-apple/releases) [![platform](https://img.shields.io/badge/platfom-ios%20%7C%20tvos%20%7C%20watchos-blue)](https://github.com/SRGSSR/srgdataprovider-apple) [![SPM compatible](https://img.shields.io/badge/SPM-compatible-4BC51D.svg?style=flat)](https://swift.org/package-manager) [![Build Status](https://travis-ci.org/SRGSSR/srgdataprovider-apple.svg?branch=master)](https://travis-ci.org/SRGSSR/srgdataprovider-apple/branches) [![GitHub license](https://img.shields.io/github/license/SRGSSR/srgdataprovider-apple)](https://github.com/SRGSSR/srgdataprovider-apple/blob/master/LICENSE)
 
 ## About
 
-The SRG Data Provider library for iOS provides a simple way to retrieve metadata for all SRG SSRG business units in a common format.
+The SRG Data Provider library provides a simple way to retrieve metadata for all SRG SSRG business units in a common format.
 
 The library provides:
 
 * Requests to get the usual metadata associated with SRG SSR productions.
 * A flat object model to easily access the data relevant to front-end users.
-* A convenient way to perform requests, either in parallel or in cascade.
+* [Combine](https://developer.apple.com/documentation/combine) data publishers available for iOS 13+, tvOS 13+ and watchOS 6+.
+* An alternative way to perform requests for applications which cannot use Combine, based on [SRG Network](https://github.com/SRGSSR/srgnetwork-apple).
 
 ## Compatibility
 
-The library is suitable for applications running on iOS 9, tvOS 12, watchOS 5 and above. The project is meant to be opened with the latest Xcode version.
+The library is suitable for applications running on iOS 9, tvOS 12, watchOS 5 and above. The project is meant to be compiled with the latest Xcode version.
 
 ## Contributing
 
 If you want to contribute to the project, have a look at our [contributing guide](CONTRIBUTING.md).
 
-## Installation
+## Integration
 
-The library can be added to a project using [Carthage](https://github.com/Carthage/Carthage) by adding the following dependency to your `Cartfile`:
-    
-```
-github "SRGSSR/srgdataprovider-apple"
-```
-
-For more information about Carthage and its use, refer to the [official documentation](https://github.com/Carthage/Carthage).
-
-### Dependencies
-
-The library requires the following frameworks to be added to any target requiring it:
-
-* `libextobjc`: A utility framework
-* `MAKVONotificationCenter`: A safe KVO framework.
-* `Mantle`: The framework used to parse the data.
-* `SRGDataProvider`: The main library framework.
-* `SRGLogger`: The framework used for internal logging.
-* `SRGNetwork`: A networking framework.
-
-### Dynamic framework integration
-
-1. Run `carthage update` to update the dependencies (which is equivalent to `carthage update --configuration Release`). 
-2. Add the frameworks listed above and generated in the `Carthage/Build/(iOS|tvOS|watchOS)` folder to your target _Embedded binaries_.
-
-If your target is building an application, a few more steps are required:
-
-1. Add a _Run script_ build phase to your target, with `/usr/local/bin/carthage copy-frameworks` as command.
-2. Add each of the required frameworks above as input file `$(SRCROOT)/Carthage/Build/(iOS|tvOS|watchOS)/FrameworkName.framework`.
-
-### Static framework integration
-
-1. Run `carthage update --configuration Release-static` to update the dependencies. 
-2. Add the frameworks listed above and generated in the `Carthage/Build/(iOS|tvOS|watchOS)/Static` folder to the _Linked frameworks and libraries_ list of your target.
-3. Also add any resource bundle `.bundle` found within the `.framework` folders to your target directly.
-4. Add the `-all_load` flag to your target _Other linker flags_.
+The library must be integrated using [Swift Package Manager](https://swift.org/package-manager) directly [within Xcode](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app). You can also declare the library as a dependency of another one directly in the associated `Package.swift` manifest.
 
 ## Usage
 
-When you want to use classes or functions provided by the library in your code, you must import it from your source files first.
-
-### Usage from Objective-C source files
-
-Import the global header file using:
-
-```objective-c
-#import <SRGDataProvider/SRGDataProvider.h>
-```
-
-or directly import the module itself:
-
-```objective-c
-@import SRGDataProvider;
-```
-
-### Usage from Swift source files
-
-Import the module where needed:
+When you want to use classes or functions provided by the library in your code, you must import it from your source files first. Projects in Swift can either use the Combine API:
 
 ```swift
-import SRGDataProvider
+import SRGDataProviderCombine
 ```
+
+or SRG Network based requests and queues:
+
+```swift
+import SRGDataProviderNetwork
+```
+
+Objective-C applications can only use the SRG Network based API:
+
+```objective-c
+@import SRGDataProviderNetwork;
+```
+
+Both approaches can be used within the same project, though you should preferably choose one approach and stick with it for consistency.
+
+Where only data model references are required, you can simply import the model framework, in Swift:
+
+```swift
+import SRGDataProviderModel
+```
+
+or in Objective-C:
+
+```objective-c
+@import SRGDataProviderModel;
+```
+
+For Swift projects supporting iOS 13+, tvOS 13+ or watchOS 6+, the use of Combine is strongly recommended, as it allows SRG SSR data retrieval tasks to be freely and reliably mixed with other asynchronous work (e.g. local data retrieval from a Core Data stack).
 
 ### Working with the library
 
@@ -91,16 +68,6 @@ To learn about how the library can be used, have a look at the [getting started 
 ### Logging
 
 The library internally uses the [SRG Logger](https://github.com/SRGSSR/srglogger-apple) library for logging, within the `ch.srgssr.dataprovider` subsystem. This logger either automatically integrates with your own logger, or can be easily integrated with it. Refer to the SRG Logger documentation for more information.
-
-## Building the project
-
-A [Makefile](../Makefile) provides several targets to build and package the library. The available targets can be listed by running the following command from the project root folder:
-
-```
-make help
-```
-
-Alternatively, you can of course open the project with Xcode and use the available schemes.
 
 ## Supported requests
 
