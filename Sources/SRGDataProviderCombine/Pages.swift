@@ -90,7 +90,7 @@ extension SRGDataProvider {
     }
     
     /**
-     *  Describes a page of URNs.
+     *  Describes a page of URNs built client-side.
      *
      *  Uses generics to have a different page type associated with each kind of request, so that pages generated
      *  by some kind of request cannot be used with another kind of request.
@@ -99,8 +99,11 @@ extension SRGDataProvider {
         /// The original unpaginated request.
         private let originalRequest: URLRequest
         
-        /// The page request
+        /// The page request.
         let request: URLRequest
+        
+        /// The query parameter under which a comma-separated list of URNs is available in the request.
+        let queryParameter: String
         
         /// The size of the page.
         public let size: UInt
@@ -111,9 +114,20 @@ extension SRGDataProvider {
         /**
          *  Create the first page.
          */
-        init(originalRequest: URLRequest, size: UInt) {
-            let request = SRGDataProvider.urlRequestForURNsPage(withSize: size, number: 0, urlRequest: originalRequest) ?? originalRequest
-            self.init(originalRequest: originalRequest, request: request, size: size, number: 0)
+        init(originalRequest: URLRequest, queryParameter: String, size: UInt) {
+            let request = SRGDataProvider.urlRequestForURNsPage(withSize: size, number: 0, urlRequest: originalRequest, queryParameter: queryParameter) ?? originalRequest
+            self.init(originalRequest: originalRequest, request: request, queryParameter: queryParameter, size: size, number: 0)
+        }
+        
+        /**
+         *  Create an arbitrary page.
+         */
+        private init(originalRequest: URLRequest, request: URLRequest, queryParameter: String, size: UInt, number: UInt) {
+            self.originalRequest = originalRequest
+            self.request = request
+            self.queryParameter = queryParameter
+            self.size = size
+            self.number = number
         }
         
         /**
@@ -121,22 +135,12 @@ extension SRGDataProvider {
          */
         func next() -> URNPage<T>? {
             let nextNumber = number + 1
-            if let request = SRGDataProvider.urlRequestForURNsPage(withSize: size, number: nextNumber, urlRequest: originalRequest) {
-                return URNPage(originalRequest: originalRequest, request: request, size: size, number: nextNumber)
+            if let request = SRGDataProvider.urlRequestForURNsPage(withSize: size, number: nextNumber, urlRequest: originalRequest, queryParameter: queryParameter) {
+                return URNPage(originalRequest: originalRequest, request: request, queryParameter: queryParameter, size: size, number: nextNumber)
             }
             else {
                 return nil
             }
-        }
-        
-        /**
-         *  Create an arbitrary page.
-         */
-        private init(originalRequest: URLRequest, request: URLRequest, size: UInt, number: UInt) {
-            self.originalRequest = originalRequest
-            self.request = request
-            self.size = size
-            self.number = number
         }
     }
 }

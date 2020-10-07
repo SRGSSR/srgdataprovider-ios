@@ -158,6 +158,7 @@ These services provide a way to access content from any business unit from any d
 | Single show by URN | ❌ | N/A |
 | List of shows by URNs | ✅ | ✅ but ⚠️ |
 | Latest episodes for show with URN | ✅ | ❌ |
+| Latest medias for shows with URNs | ✅ | ❌ |
 | Latest medias by module URN | ✅ | ❌ |
 
 ⚠️ Pagination is supported, but with a limit of 50. Attempting to request larger page sizes will fail.

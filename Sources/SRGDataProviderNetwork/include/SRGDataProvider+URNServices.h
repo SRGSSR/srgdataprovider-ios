@@ -89,6 +89,18 @@ NS_ASSUME_NONNULL_BEGIN
                                       completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
 /**
+ *  Latest medias for a show list.
+ *
+ *  @param filter                The filter which must be applied to results.
+ *  @param maximumPublicationDay If not `nil`, medias up to the specified day are returned.
+ *
+ */
+- (SRGFirstPageRequest *)latestMediasForShowsWithURNs:(NSArray<NSString *> *)showURNs
+                                               filter:(SRGEpisodeFilter)filter
+                                maximumPublicationDay:(nullable SRGDay *)maximumPublicationDay
+                                      completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
  *  List medias for a specific module.
  */
 - (SRGFirstPageRequest *)latestMediasForModuleWithURN:(NSString *)moduleURN

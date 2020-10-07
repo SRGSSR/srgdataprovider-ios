@@ -21,7 +21,7 @@
 - (SRGFirstPageRequest *)mediasWithURNs:(NSArray<NSString *> *)mediaURNs completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     NSURLRequest *URLRequest = [self requestMediasWithURNs:mediaURNs];
-    return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    return [self listClientSidePaginatedObjectsWithURLRequest:URLRequest queryParameter:@"urns" modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
     }];
 }
@@ -57,7 +57,7 @@
 - (SRGFirstPageRequest *)showsWithURNs:(NSArray<NSString *> *)showURNs completionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock
 {
     NSURLRequest *URLRequest = [self requestShowsWithURNs:showURNs];
-    return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGShow.class rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    return [self listClientSidePaginatedObjectsWithURLRequest:URLRequest queryParameter:@"urns" modelClass:SRGShow.class rootKey:@"showList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
     }];
 }
@@ -69,6 +69,14 @@
         return [MTLJSONAdapter modelOfClass:SRGEpisodeComposition.class fromJSONDictionary:JSONDictionary error:pError];
     } completionBlock:^(id _Nullable object, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(object, page, nextPage, HTTPResponse, error);
+    }];
+}
+
+- (SRGFirstPageRequest *)latestMediasForShowsWithURNs:(NSArray<NSString *> *)showURNs filter:(SRGEpisodeFilter)filter maximumPublicationDay:(SRGDay *)maximumPublicationDay completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+{
+    NSURLRequest *URLRequest = [self requestLatestMediasForShowsWithURNs:showURNs filter:filter maximumPublicationDay:maximumPublicationDay];
+    return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, HTTPResponse, error);
     }];
 }
 
