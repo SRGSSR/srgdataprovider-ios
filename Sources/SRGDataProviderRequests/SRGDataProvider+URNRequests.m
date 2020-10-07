@@ -118,6 +118,22 @@
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"maxPublishedDate" value:maximumPublicationDay.string]];
     }
     
+    switch (filter) {
+        case SRGEpisodeFilterEpisodesOnly: {
+            [queryItems addObject:[NSURLQueryItem queryItemWithName:@"onlyEpisodes" value:@"true"]];
+            break;
+        }
+            
+        case SRGEpisodeFilterExcludingEpisodes: {
+            [queryItems addObject:[NSURLQueryItem queryItemWithName:@"excludingEpisodes" value:@"true"]];
+            break;
+        }
+            
+        default: {
+            break;
+        }
+    }
+    
     return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
 }
 
