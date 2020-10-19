@@ -151,14 +151,14 @@ These services provide a way to access content from any business unit from any d
 | Request | Pagination | Unlimited page size |
 |:-- |:--:|:--:|
 | Single media by URN | ❌ | N/A |
-| List of medias by URNs | ✅ | ✅ but ⚠️ |
+| List of medias by URNs | ✅ ⚠️ | ❌ |
 | Latest medias by topic URN | ✅ | ❌ |
 | Most popular medias by topic URN | ✅ | ❌ |
 | Media composition by URN | ❌ | N/A |
 | Single show by URN | ❌ | N/A |
-| List of shows by URNs | ✅ | ✅ but ⚠️ |
+| List of shows by URNs | ✅ ⚠️ | ❌ |
 | Latest episodes for show with URN | ✅ | ❌ |
-| Latest medias for shows with URNs | ✅ | ❌ |
+| Latest medias for shows with URNs (10 max.) | ✅ | ❌ |
 | Latest medias by module URN | ✅ | ❌ |
 
 ⚠️ Pagination is supported, but with a limit of 50. Attempting to request larger page sizes will fail.
