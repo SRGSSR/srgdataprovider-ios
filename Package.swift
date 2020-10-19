@@ -26,7 +26,7 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "libextobjc", url: "https://github.com/SRGSSR/libextobjc.git", .branch("master")),
-        .package(name: "Mantle", url: "https://github.com/Mantle/Mantle.git", .branch("master")),
+        .package(name: "Mantle", url: "https://github.com/Mantle/Mantle.git", .upToNextMinor(from: "2.1.5")),
         .package(name: "SRGNetwork", url: "https://github.com/SRGSSR/srgnetwork-apple.git", .branch("develop"))
     ],
     targets: [
