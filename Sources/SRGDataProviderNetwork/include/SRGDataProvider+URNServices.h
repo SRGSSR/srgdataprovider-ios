@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  */
 - (SRGFirstPageRequest *)latestMediasForShowsWithURNs:(NSArray<NSString *> *)showURNs
-                                               filter:(SRGEpisodeFilter)filter
+                                               filter:(SRGMediaFilter)filter
                                 maximumPublicationDay:(nullable SRGDay *)maximumPublicationDay
                                       completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 

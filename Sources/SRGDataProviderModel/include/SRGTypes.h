@@ -541,24 +541,6 @@ typedef NS_ENUM(NSInteger, SRGContentProviders) {
 };
 
 /**
- *  Filter for requesting episodes.
- */
-typedef NS_ENUM(NSInteger, SRGEpisodeFilter) {
-    /**
-     *  No filter.
-     */
-    SRGEpisodeFilterNone = 0,
-    /**
-     *  Only episodes.
-     */
-    SRGEpisodeFilterEpisodesOnly,
-    /**
-     *  Exclude episodes.
-     */
-    SRGEpisodeFilterExcludingEpisodes
-};
-
-/**
  *  Image dimensions for image retrieval.
  */
 typedef NS_ENUM(NSInteger, SRGImageDimension) {
@@ -570,6 +552,24 @@ typedef NS_ENUM(NSInteger, SRGImageDimension) {
      *  Height.
      */
     SRGImageDimensionHeight
+};
+
+/**
+ *  Filter for requesting medias.
+ */
+typedef NS_ENUM(NSInteger, SRGMediaFilter) {
+    /**
+     *  No filter.
+     */
+    SRGMediaFilterNone = 0,
+    /**
+     *  Only episodes.
+     */
+    SRGMediaFilterEpisodesOnly,
+    /**
+     *  Exclude episodes.
+     */
+    SRGMediaFilterEpisodesExcluded
 };
 
 /**

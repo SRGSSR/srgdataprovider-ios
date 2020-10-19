@@ -226,7 +226,7 @@ public extension SRGDataProvider {
         public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
     }
     
-    func latestMediasForShows(withUrns urns: [String], filter: SRGEpisodeFilter = .none, maximumPublicationDay: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<LatestMediasForShows.Output, Error> {
+    func latestMediasForShows(withUrns urns: [String], filter: SRGMediaFilter = .none, maximumPublicationDay: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<LatestMediasForShows.Output, Error> {
         let request = requestLatestMediasForShows(withURNs: urns, filter: filter, maximumPublicationDay: maximumPublicationDay)
         return latestMediasForShows(at: Page(request: request, size: pageSize))
     }

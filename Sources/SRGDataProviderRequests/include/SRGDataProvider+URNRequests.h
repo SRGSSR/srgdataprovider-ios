@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURLRequest *)requestLatestEpisodesForShowWithURN:(NSString *)showURN
                                 maximumPublicationDay:(nullable SRGDay *)maximumPublicationDay;
 - (NSURLRequest *)requestLatestMediasForShowsWithURNs:(NSArray<NSString *> *)showURNs
-                                               filter:(SRGEpisodeFilter)filter
+                                               filter:(SRGMediaFilter)filter
                                 maximumPublicationDay:(nullable SRGDay *)maximumPublicationDay;
 - (NSURLRequest *)requestLatestMediasForModuleWithURN:(NSString *)moduleURN;
 

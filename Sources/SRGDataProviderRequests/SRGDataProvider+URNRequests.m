@@ -107,7 +107,7 @@
 }
 
 - (NSURLRequest *)requestLatestMediasForShowsWithURNs:(NSArray<NSString *> *)showURNs
-                                               filter:(SRGEpisodeFilter)filter
+                                               filter:(SRGMediaFilter)filter
                                 maximumPublicationDay:(SRGDay *)maximumPublicationDay
 {
     NSString *resourcePath = @"2.0/mediaList/latest/byShowUrns";
@@ -119,12 +119,12 @@
     }
     
     switch (filter) {
-        case SRGEpisodeFilterEpisodesOnly: {
+        case SRGMediaFilterEpisodesOnly: {
             [queryItems addObject:[NSURLQueryItem queryItemWithName:@"onlyEpisodes" value:@"true"]];
             break;
         }
             
-        case SRGEpisodeFilterExcludingEpisodes: {
+        case SRGMediaFilterEpisodesExcluded: {
             [queryItems addObject:[NSURLQueryItem queryItemWithName:@"excludingEpisodes" value:@"true"]];
             break;
         }
