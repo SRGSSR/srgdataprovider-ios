@@ -175,7 +175,7 @@ static NSDictionary *SRGDataProviderParser(NSData * _Nonnull data, id (^parser)(
     } completionBlock:completionBlock];
 }
 
-- (SRGFirstPageRequest *)listClientSidePaginatedObjectsWithURLRequest:(NSURLRequest *)URLRequest
+- (SRGFirstPageRequest *)clientSideListPaginatedObjectsWithURLRequest:(NSURLRequest *)URLRequest
                                                        queryParameter:(NSString *)queryParameter
                                                            modelClass:(Class)modelClass
                                                               rootKey:(NSString *)rootKey

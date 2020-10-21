@@ -65,7 +65,7 @@ static NSString * const SRGParsedSearchSuggestionsKey = @"searchSuggestions";
  *  provided root key. Pagination is built client-side by reading a string comma-delimited strings from the specified
  *  query parameter.
  */
-- (SRGFirstPageRequest *)listClientSidePaginatedObjectsWithURLRequest:(NSURLRequest *)URLRequest
+- (SRGFirstPageRequest *)clientSideListPaginatedObjectsWithURLRequest:(NSURLRequest *)URLRequest
                                                        queryParameter:(NSString *)queryParameter
                                                            modelClass:(Class)modelClass
                                                               rootKey:(NSString *)rootKey
