@@ -383,6 +383,30 @@ static NSString * const kInvalidShow3URN = @"urn:show:tv:999999999999999";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testLatestMediasForShowsWithURNs
+{
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider latestMediasForShowsWithURNs:@[ @"urn:srf:show:tv:ff969c14-c5a7-44ab-ab72-14d4c9e427a9", @"urn:srf:show:tv:c38cc259-b5cd-4ac1-b901-e3fddd901a3d", @"urn:srf:show:tv:f65591cd-9f47-4264-abc0-7063f1a11159", @"urn:srf:show:tv:cb28dd84-f0c8-4024-8f20-1a29f5a4ceb7" ] filter:SRGMediaFilterNone maximumPublicationDay:nil completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    SRGDay *day = [SRGDay day:31 month:5 year:2016];
+    [[self.dataProvider latestMediasForShowsWithURNs:@[ @"urn:srf:show:tv:ff969c14-c5a7-44ab-ab72-14d4c9e427a9", @"urn:srf:show:tv:c38cc259-b5cd-4ac1-b901-e3fddd901a3d" ] filter:SRGMediaFilterEpisodesOnly maximumPublicationDay:day completionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 // Cannot test -latestMediasForModuleWithURN:completionBlock: yet due to missing reliable data
 
 - (void)testMediaWithSubtitleInformationAndAudioTracks

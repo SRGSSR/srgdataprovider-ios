@@ -555,6 +555,24 @@ typedef NS_ENUM(NSInteger, SRGImageDimension) {
 };
 
 /**
+ *  Filter for requesting medias.
+ */
+typedef NS_ENUM(NSInteger, SRGMediaFilter) {
+    /**
+     *  No filter.
+     */
+    SRGMediaFilterNone = 0,
+    /**
+     *  Only episodes.
+     */
+    SRGMediaFilterEpisodesOnly,
+    /**
+     *  Exclude episodes.
+     */
+    SRGMediaFilterEpisodesExcluded
+};
+
+/**
  *  Search match behavior.
  */
 typedef NS_OPTIONS(NSUInteger, SRGSearchMatchingOptions) {

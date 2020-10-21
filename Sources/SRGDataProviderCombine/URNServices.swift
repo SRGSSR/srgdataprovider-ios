@@ -47,7 +47,7 @@ public extension SRGDataProvider {
      */
     func medias(withUrns urns: [String], pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<Medias.Output, Error> {
         let request = requestMedias(withURNs: urns)
-        return medias(at: URNPage(originalRequest: request, size: pageSize))
+        return medias(at: URNPage(originalRequest: request, queryParameter: "urns", size: pageSize))
     }
     
     /**
@@ -172,7 +172,7 @@ public extension SRGDataProvider {
      */
     func shows(withUrns urns: [String], pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<Shows.Output, Error> {
         let request = requestShows(withURNs: urns)
-        return shows(at: URNPage(originalRequest: request, size: pageSize))
+        return shows(at: URNPage(originalRequest: request, queryParameter: "urns", size: pageSize))
     }
     
     /**
@@ -214,6 +214,27 @@ public extension SRGDataProvider {
         return paginatedObjectTaskPublisher(for: page.request, type: SRGEpisodeComposition.self)
             .map { result in
                 (result.object, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum LatestMediasForShows {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func latestMediasForShows(withUrns urns: [String], filter: SRGMediaFilter = .none, maximumPublicationDay: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<LatestMediasForShows.Output, Error> {
+        let request = requestLatestMediasForShows(withURNs: urns, filter: filter, maximumPublicationDay: maximumPublicationDay)
+        return latestMediasForShows(at: Page(request: request, size: pageSize))
+    }
+    
+    func latestMediasForShows(at page: LatestMediasForShows.Page) -> AnyPublisher<LatestMediasForShows.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
             }
             .eraseToAnyPublisher()
     }

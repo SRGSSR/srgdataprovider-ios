@@ -16,12 +16,15 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGDataProvider (URNRequests)
 
 /**
- *  Attempts to split a request with a URNs query parameter, returning the request for the URNs for the specified page.
- *  Returns `nil` if the no request can be extracted for the specified settings.
+ *  Attempts to split a request whose requested item list is provided through a query parameter containing a list
+ *  of URNs. If successful the request for the URNs for the specified page is returned, otherwise `nil`.
  *
  *  Note that the original request is cloned to preserve its content.
  */
-+ (nullable NSURLRequest *)URLRequestForURNsPageWithSize:(NSUInteger)size number:(NSUInteger)number URLRequest:(NSURLRequest *)URLRequest;
++ (nullable NSURLRequest *)URLRequestForURNsPageWithSize:(NSUInteger)size
+                                                  number:(NSUInteger)number
+                                              URLRequest:(NSURLRequest *)URLRequest
+                                          queryParameter:(NSString *)queryParameter;
 
 - (NSURLRequest *)requestMediaWithURN:(NSString *)mediaURN;
 - (NSURLRequest *)requestMediasWithURNs:(NSArray<NSString *> *)mediaURNs;
@@ -32,6 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURLRequest *)requestShowWithURN:(NSString *)showURN;
 - (NSURLRequest *)requestShowsWithURNs:(NSArray<NSString *> *)showURNs;
 - (NSURLRequest *)requestLatestEpisodesForShowWithURN:(NSString *)showURN
+                                maximumPublicationDay:(nullable SRGDay *)maximumPublicationDay;
+- (NSURLRequest *)requestLatestMediasForShowsWithURNs:(NSArray<NSString *> *)showURNs
+                                               filter:(SRGMediaFilter)filter
                                 maximumPublicationDay:(nullable SRGDay *)maximumPublicationDay;
 - (NSURLRequest *)requestLatestMediasForModuleWithURN:(NSString *)moduleURN;
 

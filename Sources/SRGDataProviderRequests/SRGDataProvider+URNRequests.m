@@ -12,12 +12,12 @@
 
 @implementation SRGDataProvider (URNRequests)
 
-+ (NSURLRequest *)URLRequestForURNsPageWithSize:(NSUInteger)size number:(NSUInteger)number URLRequest:(NSURLRequest *)URLRequest
++ (NSURLRequest *)URLRequestForURNsPageWithSize:(NSUInteger)size number:(NSUInteger)number URLRequest:(NSURLRequest *)URLRequest queryParameter:(NSString *)queryParameter
 {
     NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URLRequest.URL resolvingAgainstBaseURL:NO];
     NSMutableArray<NSURLQueryItem *> *queryItems = URLComponents.queryItems.mutableCopy ?: [NSMutableArray array];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(NSURLQueryItem.new, name), @"urns"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @keypath(NSURLQueryItem.new, name), queryParameter];
     NSURLQueryItem *URNsQueryItem = [URLComponents.queryItems filteredArrayUsingPredicate:predicate].firstObject;
     
     if (! URNsQueryItem.value) {
@@ -101,6 +101,37 @@
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
     if (maximumPublicationDay) {
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"maxPublishedDate" value:maximumPublicationDay.string]];
+    }
+    
+    return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
+}
+
+- (NSURLRequest *)requestLatestMediasForShowsWithURNs:(NSArray<NSString *> *)showURNs
+                                               filter:(SRGMediaFilter)filter
+                                maximumPublicationDay:(SRGDay *)maximumPublicationDay
+{
+    NSString *resourcePath = @"2.0/mediaList/latest/byShowUrns";
+    
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
+    [queryItems addObject:[NSURLQueryItem queryItemWithName:@"urns" value:[showURNs componentsJoinedByString: @","]]];
+    if (maximumPublicationDay) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"maxPublishedDate" value:maximumPublicationDay.string]];
+    }
+    
+    switch (filter) {
+        case SRGMediaFilterEpisodesOnly: {
+            [queryItems addObject:[NSURLQueryItem queryItemWithName:@"onlyEpisodes" value:@"true"]];
+            break;
+        }
+            
+        case SRGMediaFilterEpisodesExcluded: {
+            [queryItems addObject:[NSURLQueryItem queryItemWithName:@"excludingEpisodes" value:@"true"]];
+            break;
+        }
+            
+        default: {
+            break;
+        }
     }
     
     return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];

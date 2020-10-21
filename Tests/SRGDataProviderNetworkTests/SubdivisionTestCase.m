@@ -137,9 +137,8 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    // TODO: Use production streams when program information officially delivered
-    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:[NSURL URLWithString:@"https://play-mmf.herokuapp.com/integrationlayer"]];
-    [[dataProvider mediaCompositionForURN:@"urn:rts:video:_radio_srf1_prod" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+    SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
+    [[dataProvider mediaCompositionForURN:@"urn:srf:audio:69e8ac16-4327-4af4-b873-fd5cd6e895a7" standalone:NO withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         SRGChapter *mainChapter = mediaComposition.mainChapter;
         XCTAssertNotNil(mainChapter.resourceReferenceDate);
         
