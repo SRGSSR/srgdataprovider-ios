@@ -29,7 +29,8 @@ final class DataProviderCombineTestCase: XCTestCase {
                 requestExpectation.fulfill()
             } receiveValue: { value in
                 XCTAssertNotNil(value.channels)
-            }.store(in: &cancellables)
+            }
+            .store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
     }
@@ -79,10 +80,11 @@ final class DataProviderCombineTestCase: XCTestCase {
                 return self.dataProvider.latestMediasForTopic(withUrn: topic.urn)
             }
             .sink { completion in
-            requestExpectation.fulfill()
-        } receiveValue: { value in
-            XCTAssertNotNil(value.medias)
-        }.store(in: &cancellables)
+                requestExpectation.fulfill()
+            } receiveValue: { value in
+                XCTAssertNotNil(value.medias)
+            }
+            .store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
     }
