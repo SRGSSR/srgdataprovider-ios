@@ -141,8 +141,7 @@ These services can be used to increase popularity indicators.
 
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Increase social count for a subdivision | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Increase social count for media composition | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+| Increase social count for a media URN | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Increase show view count from search results | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 
 ## URN services
@@ -152,13 +151,14 @@ These services provide a way to access content from any business unit from any d
 | Request | Pagination | Unlimited page size |
 |:-- |:--:|:--:|
 | Single media by URN | ❌ | N/A |
-| List of medias by URNs | ✅ | ✅ but ⚠️ |
+| List of medias by URNs | ✅ ⚠️ | ❌ |
 | Latest medias by topic URN | ✅ | ❌ |
 | Most popular medias by topic URN | ✅ | ❌ |
 | Media composition by URN | ❌ | N/A |
 | Single show by URN | ❌ | N/A |
-| List of shows by URNs | ✅ | ✅ but ⚠️ |
+| List of shows by URNs | ✅ ⚠️ | ❌ |
 | Latest episodes for show with URN | ✅ | ❌ |
+| Latest medias for shows with URNs (10 max.) | ✅ | ❌ |
 | Latest medias by module URN | ✅ | ❌ |
 
 ⚠️ Pagination is supported, but with a limit of 50. Attempting to request larger page sizes will fail.
