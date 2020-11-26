@@ -74,6 +74,12 @@ NS_ASSUME_NONNULL_BEGIN
                                 withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
+ *  Medias picked for hero stage display.
+ */
+- (SRGRequest *)tvHeroStageMediasForVendor:(SRGVendor)vendor
+                       withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
  *  Latest medias.
  */
 - (SRGFirstPageRequest *)tvLatestMediasForVendor:(SRGVendor)vendor

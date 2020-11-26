@@ -68,6 +68,13 @@
     }];
 }
 
+- (SRGRequest *)tvHeroStageMediasForVendor:(SRGVendor)vendor
+                       withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
+{
+    NSURLRequest *URLRequest = [self requestTVHeroStageMediasForVendor:vendor];
+    return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:completionBlock];
+}
+
 - (SRGFirstPageRequest *)tvLatestMediasForVendor:(SRGVendor)vendor
                              withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {

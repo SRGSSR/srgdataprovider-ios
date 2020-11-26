@@ -149,6 +149,19 @@ static NSString * const kTag2 = @"curling";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testTVHeroStageMedias
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider tvHeroStageMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testTVLatestMedias
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request 1 succeeded"];

@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURLRequest *)requestTVLivestreamsForVendor:(SRGVendor)vendor;
 - (NSURLRequest *)requestTVScheduledLivestreamsForVendor:(SRGVendor)vendor;
 - (NSURLRequest *)requestTVEditorialMediasForVendor:(SRGVendor)vendor;
+- (NSURLRequest *)requestTVHeroStageMediasForVendor:(SRGVendor)vendor;
 - (NSURLRequest *)requestTVLatestMediasForVendor:(SRGVendor)vendor;
 - (NSURLRequest *)requestTVMostPopularMediasForVendor:(SRGVendor)vendor;
 - (NSURLRequest *)requestTVSoonExpiringMediasForVendor:(SRGVendor)vendor;

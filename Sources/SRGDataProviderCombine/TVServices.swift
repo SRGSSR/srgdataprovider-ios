@@ -157,6 +157,23 @@ public extension SRGDataProvider {
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
+    enum TVHeroStageMedias {
+        public typealias Output = (medias: [SRGMedia], response: URLResponse)
+    }
+    
+    /**
+     *  Medias which have been picked by editors.
+     */
+    func tvHeroStageMedias(for vendor: SRGVendor) -> AnyPublisher<TVHeroStageMedias.Output, Error> {
+        let request = requestTVHeroStageMedias(for: vendor)
+        return objectsTaskPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { $0 }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
     enum TVLatestMedias {
         public typealias Page = SRGDataProvider.Page<Self>
         public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
