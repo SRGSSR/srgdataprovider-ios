@@ -74,6 +74,12 @@ NS_ASSUME_NONNULL_BEGIN
                                 withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
+ *  Medias picked for hero stage display.
+ */
+- (SRGRequest *)tvHeroStageMediasForVendor:(SRGVendor)vendor
+                       withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock;
+
+/**
  *  Latest medias.
  */
 - (SRGFirstPageRequest *)tvLatestMediasForVendor:(SRGVendor)vendor
@@ -120,6 +126,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (SRGFirstPageRequest *)tvLatestEpisodesForVendor:(SRGVendor)vendor
                                withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
+ *  Latest web first episodes.
+ */
+- (SRGFirstPageRequest *)tvLatestWebFirstEpisodesForVendor:(SRGVendor)vendor
+                                       withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
  *  Episodes available for a given day.

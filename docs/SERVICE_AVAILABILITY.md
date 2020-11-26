@@ -26,11 +26,13 @@ Services are currently only available for SRG SSR vendors (SRF, RTS, RSI, RTR an
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Editorial medias | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
+| Hero stage medias | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | Latest medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 | Most popular medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 | Soon expiring medias | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ |
 | Trending medias | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Latest episodes | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| Latest web first episodes | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ |
 | Episodes by date | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 | Videos with tags | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
 
