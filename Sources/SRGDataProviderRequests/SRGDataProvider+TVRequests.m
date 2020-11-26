@@ -113,6 +113,12 @@
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
+- (NSURLRequest *)requestTVLatestWebFirstEpisodesForVendor:(SRGVendor)vendor
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestEpisodes/webFirst", SRGPathComponentForVendor(vendor)];
+    return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
+}
+
 - (NSURLRequest *)requestTVEpisodesForVendor:(SRGVendor)vendor
                                          day:(SRGDay *)day
 {

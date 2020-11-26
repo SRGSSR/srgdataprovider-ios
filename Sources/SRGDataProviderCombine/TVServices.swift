@@ -287,6 +287,33 @@ public extension SRGDataProvider {
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
+    enum TVLatestWebFirstEpisodes {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    /**
+     *  Latest web first episodes.
+     */
+    func tvLatestWebFirstEpisodes(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVLatestWebFirstEpisodes.Output, Error> {
+        let request = requestTVLatestWebFirstEpisodes(for: vendor)
+        return tvLatestWebFirstEpisodes(at: Page(request: request, size: pageSize))
+    }
+    
+    /**
+     *  Next page of results.
+     */
+    func tvLatestWebFirstEpisodes(at page: TVLatestWebFirstEpisodes.Page) -> AnyPublisher<TVLatestWebFirstEpisodes.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
     enum TVEpisodes {
         public typealias Page = SRGDataProvider.Page<Self>
         public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)

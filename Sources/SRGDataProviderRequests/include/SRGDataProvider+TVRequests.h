@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
                                     editorialLimit:(nullable NSNumber *)editorialLimit
                                       episodesOnly:(BOOL)episodesOnly;
 - (NSURLRequest *)requestTVLatestEpisodesForVendor:(SRGVendor)vendor;
+- (NSURLRequest *)requestTVLatestWebFirstEpisodesForVendor:(SRGVendor)vendor;
 - (NSURLRequest *)requestTVEpisodesForVendor:(SRGVendor)vendor
                                          day:(nullable SRGDay *)day;
 - (NSURLRequest *)requestTVTopicsForVendor:(SRGVendor)vendor;

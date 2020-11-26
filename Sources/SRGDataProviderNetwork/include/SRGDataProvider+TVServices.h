@@ -122,6 +122,12 @@ NS_ASSUME_NONNULL_BEGIN
                                withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
+ *  Latest web first episodes.
+ */
+- (SRGFirstPageRequest *)tvLatestWebFirstEpisodesForVendor:(SRGVendor)vendor
+                                       withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
  *  Episodes available for a given day.
  *
  *  @param day The day. If `nil`, today is used.
