@@ -160,6 +160,7 @@ These services provide a way to access content from any business unit from any d
 | Single show by URN | ❌ | N/A |
 | List of shows by URNs | ✅ ⚠️ | ❌ |
 | Latest episodes for show with URN | ✅ | ❌ |
+| Latest medias for show with URN | ✅ | ❌ |
 | Latest medias for shows with URNs (10 max.) | ✅ | ❌ |
 | Latest medias by module URN | ✅ | ❌ |
 

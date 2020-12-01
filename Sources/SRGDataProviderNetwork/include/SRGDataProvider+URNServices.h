@@ -89,6 +89,12 @@ NS_ASSUME_NONNULL_BEGIN
                                       completionBlock:(SRGPaginatedEpisodeCompositionCompletionBlock)completionBlock;
 
 /**
+ *  Latest medias for a specific show.
+ */
+- (SRGFirstPageRequest *)latestMediasForShowWithURN:(NSString *)showURN
+                                    completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
  *  Latest medias for a show list.
  *
  *  @param filter                The filter which must be applied to results.

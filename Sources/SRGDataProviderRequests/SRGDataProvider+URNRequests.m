@@ -106,6 +106,12 @@
     return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
 }
 
+- (NSURLRequest *)requestLatestMediasForShowWithURN:(NSString *)showURN
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/mediaList/latest/byShowUrn/%@", showURN];
+    return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
+}
+
 - (NSURLRequest *)requestLatestMediasForShowsWithURNs:(NSArray<NSString *> *)showURNs
                                                filter:(SRGMediaFilter)filter
                                 maximumPublicationDay:(SRGDay *)maximumPublicationDay
