@@ -221,6 +221,27 @@ public extension SRGDataProvider {
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
+    enum LatestMediasForShow {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    func latestMediasForShow(withUrn showUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<LatestMediasForShow.Output, Error> {
+        let request = requestLatestMediasForShow(withURN: showUrn)
+        return latestMediasForShow(at: Page(request: request, size: pageSize))
+    }
+    
+    func latestMediasForShow(at page: LatestMediasForShow.Page) -> AnyPublisher<LatestMediasForShow.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
     enum LatestMediasForShows {
         public typealias Page = SRGDataProvider.Page<Self>
         public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)

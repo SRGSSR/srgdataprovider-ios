@@ -63,6 +63,12 @@
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
+- (NSURLRequest *)requestTVHeroStageMediasForVendor:(SRGVendor)vendor
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/heroStage", SRGPathComponentForVendor(vendor)];
+    return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
+}
+
 - (NSURLRequest *)requestTVLatestMediasForVendor:(SRGVendor)vendor
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestEpisodes", SRGPathComponentForVendor(vendor)];
@@ -110,6 +116,12 @@
 - (NSURLRequest *)requestTVLatestEpisodesForVendor:(SRGVendor)vendor
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestEpisodes", SRGPathComponentForVendor(vendor)];
+    return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
+}
+
+- (NSURLRequest *)requestTVLatestWebFirstEpisodesForVendor:(SRGVendor)vendor
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/latestEpisodes/webFirst", SRGPathComponentForVendor(vendor)];
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 

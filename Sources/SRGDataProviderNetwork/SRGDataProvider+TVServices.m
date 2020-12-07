@@ -68,6 +68,13 @@
     }];
 }
 
+- (SRGRequest *)tvHeroStageMediasForVendor:(SRGVendor)vendor
+                       withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
+{
+    NSURLRequest *URLRequest = [self requestTVHeroStageMediasForVendor:vendor];
+    return [self listObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:completionBlock];
+}
+
 - (SRGFirstPageRequest *)tvLatestMediasForVendor:(SRGVendor)vendor
                              withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
@@ -110,6 +117,14 @@
                                withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     NSURLRequest *URLRequest = [self requestTVLatestEpisodesForVendor:vendor];
+    return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, HTTPResponse, error);
+    }];
+}
+
+- (SRGFirstPageRequest *)tvLatestWebFirstEpisodesForVendor:(SRGVendor)vendor withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+{
+    NSURLRequest *URLRequest = [self requestTVLatestWebFirstEpisodesForVendor:vendor];
     return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(objects, page, nextPage, HTTPResponse, error);
     }];

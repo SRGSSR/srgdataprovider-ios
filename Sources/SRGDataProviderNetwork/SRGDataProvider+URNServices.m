@@ -72,6 +72,14 @@
     }];
 }
 
+- (SRGFirstPageRequest *)latestMediasForShowWithURN:(NSString *)showURN completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
+{
+    NSURLRequest *URLRequest = [self requestLatestMediasForShowWithURN:showURN];
+    return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGMedia.class rootKey:@"mediaList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        completionBlock(objects, page, nextPage, HTTPResponse, error);
+    }];
+}
+
 - (SRGFirstPageRequest *)latestMediasForShowsWithURNs:(NSArray<NSString *> *)showURNs filter:(SRGMediaFilter)filter maximumPublicationDay:(SRGDay *)maximumPublicationDay completionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock
 {
     NSURLRequest *URLRequest = [self requestLatestMediasForShowsWithURNs:showURNs filter:filter maximumPublicationDay:maximumPublicationDay];

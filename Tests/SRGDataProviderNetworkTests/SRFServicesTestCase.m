@@ -149,6 +149,19 @@ static NSString * const kTag2 = @"curling";
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
+- (void)testTVHeroStageMedias
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider tvHeroStageMediasForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(medias);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
 - (void)testTVLatestMedias
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request 1 succeeded"];
@@ -208,6 +221,19 @@ static NSString * const kTag2 = @"curling";
     [[self.dataProvider tvLatestEpisodesForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(medias);
         XCTAssertNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// Not supported for SRF
+- (void)testTVLatestWebFirstEpisodes
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider tvLatestWebFirstEpisodesForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
         [expectation fulfill];
     }] resume];
     
@@ -781,33 +807,6 @@ static NSString * const kTag2 = @"curling";
             XCTAssertNil(error);
             [expectation6 fulfill];
         }] resume];
-    }] resume];
-    
-    [self waitForExpectationsWithTimeout:30. handler:nil];
-    
-    XCTestExpectation *expectation7 = [self expectationWithDescription:@"Request succeeded"];
-    
-    [[self.dataProvider liveCenterVideosForVendor:SRGVendorSRF withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(medias);
-        XCTAssertNil(error);
-        
-        // Can't guarantee a media in the list.
-        if (medias.count > 0) {
-            [[self.dataProvider mediaCompositionForURN:medias.firstObject.URN standalone:YES withCompletionBlock:^(SRGMediaComposition * _Nullable mediaComposition, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-                XCTAssertNotNil(mediaComposition);
-                
-                SRGChapter *mainChapter = mediaComposition.mainChapter;
-                [[self.dataProvider increaseSocialCountForType:SRGSocialCountTypeSRGView URN:mainChapter.URN event:mainChapter.event withCompletionBlock:^(SRGSocialCountOverview * _Nullable socialCountOverview, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-                    XCTAssertNotNil(socialCountOverview);
-                    XCTAssertNil(error);
-                    [expectation7 fulfill];
-                }] resume];
-            }] resume];
-        }
-        else {
-            [expectation7 fulfill];
-        }
-        
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

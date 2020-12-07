@@ -157,6 +157,23 @@ public extension SRGDataProvider {
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
+    enum TVHeroStageMedias {
+        public typealias Output = (medias: [SRGMedia], response: URLResponse)
+    }
+    
+    /**
+     *  Medias which have been picked by editors.
+     */
+    func tvHeroStageMedias(for vendor: SRGVendor) -> AnyPublisher<TVHeroStageMedias.Output, Error> {
+        let request = requestTVHeroStageMedias(for: vendor)
+        return objectsTaskPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { $0 }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
     enum TVLatestMedias {
         public typealias Page = SRGDataProvider.Page<Self>
         public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
@@ -277,6 +294,33 @@ public extension SRGDataProvider {
      *  Next page of results.
      */
     func tvLatestEpisodes(at page: TVLatestEpisodes.Page) -> AnyPublisher<TVLatestEpisodes.Output, Error> {
+        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { result in
+                (result.objects, page, page.next(with: result.nextRequest), result.response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension SRGDataProvider {
+    enum TVLatestWebFirstEpisodes {
+        public typealias Page = SRGDataProvider.Page<Self>
+        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
+    }
+    
+    /**
+     *  Latest web first episodes.
+     */
+    func tvLatestWebFirstEpisodes(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVLatestWebFirstEpisodes.Output, Error> {
+        let request = requestTVLatestWebFirstEpisodes(for: vendor)
+        return tvLatestWebFirstEpisodes(at: Page(request: request, size: pageSize))
+    }
+    
+    /**
+     *  Next page of results.
+     */
+    func tvLatestWebFirstEpisodes(at page: TVLatestWebFirstEpisodes.Page) -> AnyPublisher<TVLatestWebFirstEpisodes.Output, Error> {
         return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
             .map { result in
                 (result.objects, page, page.next(with: result.nextRequest), result.response)

@@ -26,11 +26,13 @@ Services are currently only available for SRG SSR vendors (SRF, RTS, RSI, RTR an
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Editorial medias | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
+| Hero stage medias | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | Latest medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 | Most popular medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 | Soon expiring medias | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ |
 | Trending medias | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Latest episodes | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| Latest web first episodes | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ |
 | Episodes by date | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 | Videos with tags | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
 
@@ -158,6 +160,7 @@ These services provide a way to access content from any business unit from any d
 | Single show by URN | ❌ | N/A |
 | List of shows by URNs | ✅ ⚠️ | ❌ |
 | Latest episodes for show with URN | ✅ | ❌ |
+| Latest medias for show with URN | ✅ | ❌ |
 | Latest medias for shows with URNs (10 max.) | ✅ | ❌ |
 | Latest medias by module URN | ✅ | ❌ |
 
