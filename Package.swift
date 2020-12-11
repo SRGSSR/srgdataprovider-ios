@@ -3,7 +3,7 @@
 import PackageDescription
 
 struct ProjectSettings {
-    static let marketingVersion: String = "9.1.0"
+    static let marketingVersion: String = "9.1.1"
 }
 
 let package = Package(
@@ -33,7 +33,8 @@ let package = Package(
         .target(
             name: "SRGDataProvider",
             cSettings: [
-                .define("MARKETING_VERSION", to: "\"\(ProjectSettings.marketingVersion)\"")
+                .define("MARKETING_VERSION", to: "\"\(ProjectSettings.marketingVersion)\""),
+                .define("NS_BLOCK_ASSERTIONS", to: "1", .when(configuration: .release))
             ]
         ),
         .target(
@@ -41,15 +42,24 @@ let package = Package(
             dependencies: ["libextobjc", "Mantle"],
             resources: [
                 .process("Resources")
+            ],
+            cSettings:[
+                .define("NS_BLOCK_ASSERTIONS", to: "1", .when(configuration: .release))
             ]
         ),
         .target(
             name: "SRGDataProviderRequests",
-            dependencies: ["SRGDataProvider", "SRGDataProviderModel"]
+            dependencies: ["SRGDataProvider", "SRGDataProviderModel"],
+            cSettings:[
+                .define("NS_BLOCK_ASSERTIONS", to: "1", .when(configuration: .release))
+            ]
         ),
         .target(
             name: "SRGDataProviderNetwork",
-            dependencies: ["SRGDataProviderRequests", "SRGNetwork"]
+            dependencies: ["SRGDataProviderRequests", "SRGNetwork"],
+            cSettings:[
+                .define("NS_BLOCK_ASSERTIONS", to: "1", .when(configuration: .release))
+            ]
         ),
         .target(
             name: "SRGDataProviderCombine",
