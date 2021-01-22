@@ -42,8 +42,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Retrieve the list of shows which are searched the most.
+ *
+ *
+ *  @param transmission If set to a value different from `SRGTransmissionNone`, only `SRGTransmissionTV` and
+ *                      `SRGTransmissionRadio` are known requests.
  */
 - (SRGRequest *)mostSearchedShowsForVendor:(SRGVendor)vendor
+                              transmission:(SRGTransmission)transmission
                        withCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
 
 /**

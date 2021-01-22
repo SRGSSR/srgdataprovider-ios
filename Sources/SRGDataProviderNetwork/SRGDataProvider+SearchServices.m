@@ -37,9 +37,9 @@
     }];
 }
 
-- (SRGRequest *)mostSearchedShowsForVendor:(SRGVendor)vendor withCompletionBlock:(SRGShowListCompletionBlock)completionBlock
+- (SRGRequest *)mostSearchedShowsForVendor:(SRGVendor)vendor transmission:(SRGTransmission)transmission withCompletionBlock:(SRGShowListCompletionBlock)completionBlock
 {
-    NSURLRequest *URLRequest = [self requestMostSearchedShowsForVendor:vendor];
+    NSURLRequest *URLRequest = [self requestMostSearchedShowsForVendor:vendor transmission:transmission];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGShow.class rootKey:@"showList" completionBlock:completionBlock];
 }
 

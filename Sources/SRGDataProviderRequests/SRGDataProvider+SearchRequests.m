@@ -51,8 +51,19 @@
 }
 
 - (NSURLRequest *)requestMostSearchedShowsForVendor:(SRGVendor)vendor
+                                       transmission:(SRGTransmission)transmission
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/showList/mostClickedSearchResults", SRGPathComponentForVendor(vendor)];
+    static dispatch_once_t s_onceToken;
+    static NSDictionary<NSNumber *, NSString *> *s_transmissionTypes;
+    dispatch_once(&s_onceToken, ^{
+        s_transmissionTypes = @{  @(SRGTransmissionNone) : @"",
+                                  @(SRGTransmissionTV) : @"tv/",
+                                  @(SRGTransmissionRadio) : @"radio/" };
+    });
+    
+    NSString *transmissionTypePath = s_transmissionTypes[@(transmission)];
+    NSAssert(transmissionTypePath, @"A supported transmission type must be provided");
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/showList/%@mostClickedSearchResults", SRGPathComponentForVendor(vendor), transmissionTypePath];
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }
 
