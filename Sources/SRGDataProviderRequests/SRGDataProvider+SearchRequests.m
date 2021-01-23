@@ -51,17 +51,18 @@
 }
 
 - (NSURLRequest *)requestMostSearchedShowsForVendor:(SRGVendor)vendor
-                                          mediaType:(SRGMediaType)mediaType
+                               matchingTransmission:(SRGTransmission)transmission
 {
     static dispatch_once_t s_onceToken;
     static NSDictionary<NSNumber *, NSString *> *s_transmissionPaths;
     dispatch_once(&s_onceToken, ^{
-        s_transmissionPaths = @{ @(SRGMediaTypeNone) : @"",
-                                 @(SRGMediaTypeVideo) : @"tv/",
-                                 @(SRGMediaTypeAudio) : @"radio/" };
+        s_transmissionPaths = @{  @(SRGTransmissionNone) : @"",
+                                  @(SRGTransmissionTV) : @"tv/",
+                                  @(SRGTransmissionRadio) : @"radio/" };
     });
     
-    NSString *transmissionPath = s_transmissionPaths[@(mediaType)];
+    NSString *transmissionPath = s_transmissionPaths[@(transmission)];
+    NSAssert(transmissionPath, @"Only None, TV and Radio transmissions are supported for most searched shows");
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/showList/%@mostClickedSearchResults", SRGPathComponentForVendor(vendor), transmissionPath];
     return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
 }

@@ -81,11 +81,11 @@ public extension SRGDataProvider {
     /**
      *  Retrieve the list of shows which are searched the most.
      *
-     *  If set to a value different from `SRGMediaTypeNone`, filter most searched shows for which content of
-     *  the specified type is available.
+     *  If set to a value different from `SRGTransmissionNone`, filter most searched shows for the specified transmission.
+     *
      */
-    func mostSearchedShows(for vendor: SRGVendor, mediaType: SRGMediaType) -> AnyPublisher<MostSearchedShows.Output, Error> {
-        let request = requestMostSearchedShows(for: vendor, mediaType: mediaType)
+    func mostSearchedShows(for vendor: SRGVendor, matchingTransmission transmission: SRGTransmission) -> AnyPublisher<MostSearchedShows.Output, Error> {
+        let request = requestMostSearchedShows(for: vendor, matching: transmission)
         return objectsTaskPublisher(for: request, rootKey: "showList", type: SRGShow.self)
             .map { $0 }
             .eraseToAnyPublisher()

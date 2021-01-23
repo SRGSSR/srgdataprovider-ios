@@ -38,10 +38,10 @@
 }
 
 - (SRGRequest *)mostSearchedShowsForVendor:(SRGVendor)vendor
-                                 mediaType:(SRGMediaType)mediaType
+                      matchingTransmission:(SRGTransmission)transmission
                        withCompletionBlock:(SRGShowListCompletionBlock)completionBlock
 {
-    NSURLRequest *URLRequest = [self requestMostSearchedShowsForVendor:vendor mediaType:mediaType];
+    NSURLRequest *URLRequest = [self requestMostSearchedShowsForVendor:vendor matchingTransmission:transmission];
     return [self listObjectsWithURLRequest:URLRequest modelClass:SRGShow.class rootKey:@"showList" completionBlock:completionBlock];
 }
 
