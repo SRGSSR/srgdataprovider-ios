@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
                           matchingQuery:(NSString *)query
                               mediaType:(SRGMediaType)mediaType;
 - (NSURLRequest *)requestMostSearchedShowsForVendor:(SRGVendor)vendor
-                                       transmission:(SRGTransmission)transmission;
+                                          mediaType:(SRGMediaType)mediaType;
 - (NSURLRequest *)requestVideosForVendor:(SRGVendor)vendor
                                 withTags:(NSArray<NSString *> *)tags
                             excludedTags:(nullable NSArray<NSString *> *)excludedTags

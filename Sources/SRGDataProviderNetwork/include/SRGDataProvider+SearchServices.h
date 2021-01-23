@@ -44,11 +44,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  Retrieve the list of shows which are searched the most.
  *
  *
- *  @param transmission If set to a value different from `SRGTransmissionNone`, only `SRGTransmissionTV` and
- *                      `SRGTransmissionRadio` are known requests.
+ *  @param mediaType If set to a value different from `SRGMediaTypeNone`, filter most searched shows for which content of
+ *                   the specified type is available.
  */
 - (SRGRequest *)mostSearchedShowsForVendor:(SRGVendor)vendor
-                              transmission:(SRGTransmission)transmission
+                                 mediaType:(SRGMediaType)mediaType
                        withCompletionBlock:(SRGShowListCompletionBlock)completionBlock;
 
 /**
