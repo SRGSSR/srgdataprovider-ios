@@ -82,9 +82,8 @@ public extension SRGDataProvider {
      *  Retrieve the list of shows which are searched the most.
      *
      *  If set to a value different from `SRGTransmissionNone`, filter most searched shows for the specified transmission.
-     *
      */
-    func mostSearchedShows(for vendor: SRGVendor, matchingTransmission transmission: SRGTransmission) -> AnyPublisher<MostSearchedShows.Output, Error> {
+    func mostSearchedShows(for vendor: SRGVendor, matching transmission: SRGTransmission = .none) -> AnyPublisher<MostSearchedShows.Output, Error> {
         let request = requestMostSearchedShows(for: vendor, matching: transmission)
         return objectsTaskPublisher(for: request, rootKey: "showList", type: SRGShow.self)
             .map { $0 }
