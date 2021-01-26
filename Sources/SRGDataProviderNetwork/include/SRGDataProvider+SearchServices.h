@@ -43,9 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Retrieve the list of shows which are searched the most.
  *
- *
  *  @param transmission If set to a value different from `SRGTransmissionNone`, filter most searched shows for the specified
- *  transmission.
+ *                      transmission.
  */
 - (SRGRequest *)mostSearchedShowsForVendor:(SRGVendor)vendor
                       matchingTransmission:(SRGTransmission)transmission

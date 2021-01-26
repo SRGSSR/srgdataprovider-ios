@@ -111,11 +111,12 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Media search | ✅ | ✅ | ✅ | ✅ | ✅ (1) | ✅ | ❌ |
 | Show search | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-| Most searched shows | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Videos with tags | ✅ | ❌ | ❌ | ⚠️ (2) | ❌ | ✅ | ❌ |
+| Most searched shows (2) | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+| Videos with tags | ✅ | ❌ | ❌ | ⚠️ (3) | ❌ | ✅ | ❌ |
 
 (1) At the moment, SWI only supports a search term but no settings. If settings are applied the request will fail with an error.
-(2) RTR only supports `fullLengthExcluded = NO`.
+(2) Search can be optionally filtered by transmission. Only TV and radio are supported at the moment.
+(3) RTR only supports `fullLengthExcluded = NO`.
 
 ## Recommendation services
 
