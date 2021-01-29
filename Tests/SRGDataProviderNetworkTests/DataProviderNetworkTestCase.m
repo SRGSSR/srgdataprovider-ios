@@ -67,7 +67,6 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
         
         [expectation1 fulfill];
     }];
-    
     [request1 resume];
     
     [self waitForExpectationsWithTimeout:5. handler:nil];
@@ -82,6 +81,27 @@ static BOOL DataProviderURLContainsQueryParameter(NSURL *URL, NSString *name, NS
     [request2 resume];
     
     [self waitForExpectationsWithTimeout:5. handler:nil];
+}
+
+- (void)testVectorResponse
+{
+   SRGDataProvider *dataProvider = [[SRGDataProvider alloc] initWithServiceURL:SRGIntegrationLayerProductionServiceURL()];
+   
+   XCTestExpectation *expectation = [self expectationWithDescription:@"Request finished"];
+   
+   SRGFirstPageRequest *request = [dataProvider tvLatestEpisodesForVendor:SRGVendorSWI withCompletionBlock:^(NSArray<SRGMedia *> * _Nullable medias, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+#if TARGET_OS_TV
+       XCTAssertTrue([HTTPResponse.URL.query.lowercaseString containsString:@"vector=tvplay"]);
+#else
+       XCTAssertTrue([HTTPResponse.URL.query.lowercaseString containsString:@"vector=appplay"]);
+#endif
+       XCTAssertEqual(HTTPResponse.statusCode, 200);
+       
+       [expectation fulfill];
+   }];
+   [request resume];
+   
+   [self waitForExpectationsWithTimeout:5. handler:nil];
 }
 
 - (void)testDefaultMainThreadCompletion

@@ -5,6 +5,11 @@ Integration Layer services are not available for all business units. The followi
 
 The maximum page size for all services supporting pagination is 100. The default page size is defined by the Integration Layer and is 10. A special _unlimited_ page size is available for some requests to return all entries at once.
 
+Services are requested with an Integration Layer vector, which can deliver an adapted content to the platform. The library uses:
+
+ * `appplay` when running on iOS and watchOS.
+ * `tvplay` when running on tvOS.
+
 #### Remark
 
 Services are currently only available for SRG SSR vendors (SRF, RTS, RSI, RTR and SWI), not for regional vendors (TVO, Canal Alpha).
