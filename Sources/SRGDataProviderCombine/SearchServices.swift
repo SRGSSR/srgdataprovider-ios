@@ -61,6 +61,17 @@ public extension SRGDataProvider {
     }
     
     /**
+     *  Search shows matching a specific query.
+     *
+     *  If set to a value different from `SRGTransmissionNone`, filter shows for the specified transmission. To get
+     *  complete show objects, call the `shows(withUrns:)` request with the returned URN list.
+     */
+    func shows(for vendor: SRGVendor, matchingQuery query: String, transmission: SRGTransmission = .none, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<ShowsMatchingQuery.Output, Error> {
+        let request = requestShows(for: vendor, matchingQuery: query, transmission: transmission)
+        return shows(at: Page(request: request, size: pageSize))
+    }
+    
+    /**
      *  Next page of results.
      */
     func shows(at page: ShowsMatchingQuery.Page) -> AnyPublisher<ShowsMatchingQuery.Output, Error> {
