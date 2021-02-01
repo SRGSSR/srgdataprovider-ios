@@ -1,17 +1,17 @@
-[![SRG Data Provider logo](README-images/logo.png)](https://github.com/SRGSSR/srgdataprovider-apple)
+[![SRG Data Provider logo](README-images/logo.png)](https://github.com/SRGSSR/srgdataprovider-apple)
 
 [![GitHub releases](https://img.shields.io/github/v/release/SRGSSR/srgdataprovider-apple)](https://github.com/SRGSSR/srgdataprovider-apple/releases) [![platform](https://img.shields.io/badge/platfom-ios%20%7C%20tvos%20%7C%20watchos-blue)](https://github.com/SRGSSR/srgdataprovider-apple) [![SPM compatible](https://img.shields.io/badge/SPM-compatible-4BC51D.svg?style=flat)](https://swift.org/package-manager) [![GitHub license](https://img.shields.io/github/license/SRGSSR/srgdataprovider-apple)](https://github.com/SRGSSR/srgdataprovider-apple/blob/master/LICENSE)
 
 ## About
 
-The SRG Data Provider library provides a simple way to retrieve metadata for all SRG SSRG business units in a common format.
+The SRG Data Provider library provides a simple way to retrieve metadata for all SRG SSRG business units in a common format.
 
 The library provides:
 
-* Requests to get the usual metadata associated with SRG SSR productions.
+* Requests to get the usual metadata associated with SRG SSR productions.
 * A flat object model to easily access the data relevant to front-end users.
 * [Combine](https://developer.apple.com/documentation/combine) data publishers available for iOS 13+, tvOS 13+ and watchOS 6+.
-* An alternative way to perform requests for applications which cannot use Combine, based on [SRG Network](https://github.com/SRGSSR/srgnetwork-apple).
+* An alternative way to perform requests for applications which cannot use Combine, based on [SRG Network](https://github.com/SRGSSR/srgnetwork-apple).
 
 ## Compatibility
 
@@ -33,13 +33,13 @@ When you want to use classes or functions provided by the library in your code, 
 import SRGDataProviderCombine
 ```
 
-or SRG Network based requests and queues:
+or SRG Network based requests and queues:
 
 ```swift
 import SRGDataProviderNetwork
 ```
 
-Objective-C applications can only use the SRG Network based API:
+Objective-C applications can only use the SRG Network based API:
 
 ```objective-c
 @import SRGDataProviderNetwork;
@@ -59,7 +59,7 @@ or in Objective-C:
 @import SRGDataProviderModel;
 ```
 
-For Swift projects supporting iOS 13+, tvOS 13+ or watchOS 6+, the use of Combine is strongly recommended, as it allows SRG SSR data retrieval tasks to be freely and reliably mixed with other asynchronous work (e.g. local data retrieval from a Core Data stack).
+For Swift projects supporting iOS 13+, tvOS 13+ or watchOS 6+, the use of Combine is strongly recommended, as it allows SRG SSR data retrieval tasks to be freely and reliably mixed with other asynchronous work (e.g. local data retrieval from a Core Data stack).
 
 ### Working with the library
 
@@ -67,7 +67,7 @@ To learn about how the library can be used, have a look at the [getting started 
 
 ### Logging
 
-The library internally uses the [SRG Logger](https://github.com/SRGSSR/srglogger-apple) library for logging, within the `ch.srgssr.dataprovider` subsystem. This logger either automatically integrates with your own logger, or can be easily integrated with it. Refer to the SRG Logger documentation for more information.
+The library internally uses the [SRG Logger](https://github.com/SRGSSR/srglogger-apple) library for logging, within the `ch.srgssr.dataprovider` subsystem. This logger either automatically integrates with your own logger, or can be easily integrated with it. Refer to the SRG Logger documentation for more information.
 
 ## Supported requests
 
