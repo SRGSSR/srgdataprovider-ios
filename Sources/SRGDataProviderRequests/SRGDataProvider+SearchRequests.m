@@ -67,7 +67,6 @@
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultShowList%@", SRGPathComponentForVendor(vendor), transmissionPath];
 
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray arrayWithObject:[NSURLQueryItem queryItemWithName:@"q" value:query]];
-    
     return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
 }
 
