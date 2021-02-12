@@ -39,7 +39,7 @@ final class DataProviderCombineTestCase: XCTestCase {
         let requestExpectation1 = expectation(description: "Request 1 finished")
         
         var nextPage: SRGDataProvider.TVLatestMedias.Page?
-        dataProvider.tvLatestMedias(for: .RTS)
+        dataProvider.tvLatestMedias(for: .SRF)
             .sink { completion in
                 requestExpectation1.fulfill()
             } receiveValue: { result in

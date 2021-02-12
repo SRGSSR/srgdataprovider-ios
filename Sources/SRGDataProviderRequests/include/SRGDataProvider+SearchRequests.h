@@ -21,7 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURLRequest *)requestShowsForVendor:(SRGVendor)vendor
                           matchingQuery:(NSString *)query
                               mediaType:(SRGMediaType)mediaType;
-- (NSURLRequest *)requestMostSearchedShowsForVendor:(SRGVendor)vendor;
+- (NSURLRequest *)requestShowsForVendor:(SRGVendor)vendor
+                          matchingQuery:(NSString *)query
+                           transmission:(SRGTransmission)transmission;
+- (NSURLRequest *)requestMostSearchedShowsForVendor:(SRGVendor)vendor
+                               matchingTransmission:(SRGTransmission)transmission;
 - (NSURLRequest *)requestVideosForVendor:(SRGVendor)vendor
                                 withTags:(NSArray<NSString *> *)tags
                             excludedTags:(nullable NSArray<NSString *> *)excludedTags

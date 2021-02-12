@@ -60,7 +60,11 @@ NSString *SRGPathComponentForModuleType(SRGModuleType moduleType)
     if (queryItems) {
         [fullQueryItems addObjectsFromArray:queryItems];
     }
+#if TARGET_OS_TV
+    [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"vector" value:@"tvplay"]];
+#else
     [fullQueryItems addObject:[NSURLQueryItem queryItemWithName:@"vector" value:@"appplay"]];
+#endif
     URLComponents.queryItems = fullQueryItems.copy;
     
     NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URLComponents.URL];

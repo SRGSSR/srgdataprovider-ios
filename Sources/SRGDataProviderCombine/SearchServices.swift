@@ -52,11 +52,22 @@ public extension SRGDataProvider {
     /**
      *  Search shows matching a specific query.
      *
-     *  If set to a value different from `SRGMediaTypeNone`, filter shows for which content of the specified type is
+     *  If the media type is set to a value different from `.none`, filter shows for which content of the specified type is
      *  available. To get complete show objects, call the `shows(withUrns:)` request with the returned URN list.
      */
-    func shows(for vendor: SRGVendor, matchingQuery query: String, mediaType: SRGMediaType, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<ShowsMatchingQuery.Output, Error> {
+    func shows(for vendor: SRGVendor, matchingQuery query: String, mediaType: SRGMediaType = .none, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<ShowsMatchingQuery.Output, Error> {
         let request = requestShows(for: vendor, matchingQuery: query, mediaType: mediaType)
+        return shows(at: Page(request: request, size: pageSize))
+    }
+    
+    /**
+     *  Search shows matching a specific query.
+     *
+     *  If the transmission is set to a value different from `.none`, filter shows for the specified transmission. To get
+     *  complete show objects, call the `shows(withUrns:)` request with the returned URN list.
+     */
+    func shows(for vendor: SRGVendor, matchingQuery query: String, transmission: SRGTransmission = .none, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<ShowsMatchingQuery.Output, Error> {
+        let request = requestShows(for: vendor, matchingQuery: query, transmission: transmission)
         return shows(at: Page(request: request, size: pageSize))
     }
     
@@ -80,9 +91,11 @@ public extension SRGDataProvider {
     
     /**
      *  Retrieve the list of shows which are searched the most.
+     *
+     *  If set to a value different from `SRGTransmissionNone`, filter most searched shows for the specified transmission.
      */
-    func mostSearchedShows(for vendor: SRGVendor) -> AnyPublisher<MostSearchedShows.Output, Error> {
-        let request = requestMostSearchedShows(for: vendor)
+    func mostSearchedShows(for vendor: SRGVendor, matching transmission: SRGTransmission = .none) -> AnyPublisher<MostSearchedShows.Output, Error> {
+        let request = requestMostSearchedShows(for: vendor, matching: transmission)
         return objectsTaskPublisher(for: request, rootKey: "showList", type: SRGShow.self)
             .map { $0 }
             .eraseToAnyPublisher()

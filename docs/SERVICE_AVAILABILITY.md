@@ -5,6 +5,11 @@ Integration Layer services are not available for all business units. The followi
 
 The maximum page size for all services supporting pagination is 100. The default page size is defined by the Integration Layer and is 10. A special _unlimited_ page size is available for some requests to return all entries at once.
 
+Services are requested with an Integration Layer vector, which can deliver an adapted content to the platform. The library uses:
+
+ * `appplay` when running on iOS and watchOS.
+ * `tvplay` when running on tvOS.
+
 #### Remark
 
 Services are currently only available for SRG SSR vendors (SRF, RTS, RSI, RTR and SWI), not for regional vendors (TVO, Canal Alpha).
@@ -110,12 +115,13 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Media search | ✅ | ✅ | ✅ | ✅ | ✅ (1) | ✅ | ❌ |
-| Show search | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-| Most searched shows | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
-| Videos with tags | ✅ | ❌ | ❌ | ⚠️ (2) | ❌ | ✅ | ❌ |
+| Show search (2) | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
+| Most searched shows (2) | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
+| Videos with tags | ✅ | ❌ | ❌ | ⚠️ (3) | ❌ | ✅ | ❌ |
 
 (1) At the moment, SWI only supports a search term but no settings. If settings are applied the request will fail with an error.
-(2) RTR only supports `fullLengthExcluded = NO`.
+(2) Search can be optionally filtered by transmission. Only TV and radio are supported at the moment.
+(3) RTR only supports `fullLengthExcluded = NO`.
 
 ## Recommendation services
 
