@@ -41,6 +41,18 @@ NS_ASSUME_NONNULL_BEGIN
                     withCompletionBlock:(SRGPaginatedShowSearchCompletionBlock)completionBlock;
 
 /**
+ *  Search shows matching a specific query.
+ *
+ *  @param transmission If set to a value different from `SRGTransmissionNone`, filter shows for the specified transmission.
+ *                      To get complete show objects, call the `-showsWithURNs:completionBlock:` request with the
+ *                      returned URN list.
+ */
+- (SRGFirstPageRequest *)showsForVendor:(SRGVendor)vendor
+                          matchingQuery:(NSString *)query
+                           transmission:(SRGTransmission)transmission
+                    withCompletionBlock:(SRGPaginatedShowSearchCompletionBlock)completionBlock;
+
+/**
  *  Retrieve the list of shows which are searched the most.
  *
  *  @param transmission If set to a value different from `SRGTransmissionNone`, filter most searched shows for the specified

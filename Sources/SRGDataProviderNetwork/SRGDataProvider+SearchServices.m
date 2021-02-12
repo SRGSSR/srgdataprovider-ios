@@ -37,6 +37,18 @@
     }];
 }
 
+- (SRGFirstPageRequest *)showsForVendor:(SRGVendor)vendor
+                          matchingQuery:(NSString *)query
+                           transmission:(SRGTransmission)transmission
+                    withCompletionBlock:(SRGPaginatedShowSearchCompletionBlock)completionBlock
+{
+    NSURLRequest *URLRequest = [self requestShowsForVendor:vendor matchingQuery:query transmission:transmission];
+    return [self listPaginatedObjectsWithURLRequest:URLRequest modelClass:SRGSearchResult.class rootKey:@"searchResultShowList" completionBlock:^(NSArray * _Nullable objects, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        NSArray<NSString *> *URNs = [objects valueForKeyPath:@keypath(SRGSearchResult.new, URN)];
+        completionBlock(URNs, metadata[SRGParsedTotalKey], page, nextPage, HTTPResponse, error);
+    }];
+}
+
 - (SRGRequest *)mostSearchedShowsForVendor:(SRGVendor)vendor
                       matchingTransmission:(SRGTransmission)transmission
                        withCompletionBlock:(SRGShowListCompletionBlock)completionBlock

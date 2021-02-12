@@ -610,12 +610,42 @@ static NSString * const kUserId = @"test_user_id";
 
 - (void)testShowsMatchingQuery
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    XCTestExpectation *expectation1 = [self expectationWithDescription:@"Request succeeded"];
     
     [[self.dataProvider showsForVendor:SRGVendorRTS matchingQuery:kTVShowSearchQuery mediaType:SRGMediaTypeNone withCompletionBlock:^(NSArray<NSString *> * _Nullable showURNs, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         XCTAssertNotNil(showURNs);
         XCTAssertNil(error);
-        [expectation fulfill];
+        [expectation1 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsForVendor:SRGVendorRTS matchingQuery:kTVShowSearchQuery mediaType:SRGMediaTypeVideo withCompletionBlock:^(NSArray<NSString *> * _Nullable showURNs, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(showURNs);
+        XCTAssertNil(error);
+        [expectation2 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation3 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsForVendor:SRGVendorRTS matchingQuery:kTVShowSearchQuery transmission:SRGTransmissionNone withCompletionBlock:^(NSArray<NSString *> * _Nullable showURNs, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(showURNs);
+        XCTAssertNil(error);
+        [expectation3 fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+    
+    XCTestExpectation *expectation4 = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider showsForVendor:SRGVendorRTS matchingQuery:kTVShowSearchQuery transmission:SRGTransmissionTV withCompletionBlock:^(NSArray<NSString *> * _Nullable showURNs, NSNumber * _Nullable total, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(showURNs);
+        XCTAssertNil(error);
+        [expectation4 fulfill];
     }] resume];
     
     [self waitForExpectationsWithTimeout:30. handler:nil];

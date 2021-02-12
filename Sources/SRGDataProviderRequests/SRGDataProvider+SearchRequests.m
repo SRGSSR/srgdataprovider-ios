@@ -50,6 +50,26 @@
     return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
 }
 
+- (NSURLRequest *)requestShowsForVendor:(SRGVendor)vendor
+                          matchingQuery:(NSString *)query
+                           transmission:(SRGTransmission)transmission
+{
+    static dispatch_once_t s_onceToken;
+    static NSDictionary<NSNumber *, NSString *> *s_transmissionPaths;
+    dispatch_once(&s_onceToken, ^{
+        s_transmissionPaths = @{  @(SRGTransmissionNone) : @"",
+                                  @(SRGTransmissionTV) : @"/tv",
+                                  @(SRGTransmissionRadio) : @"/radio" };
+    });
+    
+    NSString *transmissionPath = s_transmissionPaths[@(transmission)];
+    NSAssert(transmissionPath, @"Only None, TV and Radio transmissions are supported for shows ssearch");
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/searchResultShowList%@", SRGPathComponentForVendor(vendor), transmissionPath];
+
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray arrayWithObject:[NSURLQueryItem queryItemWithName:@"q" value:query]];
+    return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
+}
+
 - (NSURLRequest *)requestMostSearchedShowsForVendor:(SRGVendor)vendor
                                matchingTransmission:(SRGTransmission)transmission
 {

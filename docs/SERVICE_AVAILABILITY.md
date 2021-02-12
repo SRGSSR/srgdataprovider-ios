@@ -115,7 +115,7 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Media search | ✅ | ✅ | ✅ | ✅ | ✅ (1) | ✅ | ❌ |
-| Show search | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
+| Show search (2) | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 | Most searched shows (2) | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Videos with tags | ✅ | ❌ | ❌ | ⚠️ (3) | ❌ | ✅ | ❌ |
 
