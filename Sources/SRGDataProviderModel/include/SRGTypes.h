@@ -90,6 +90,82 @@ typedef NS_ENUM(NSInteger, SRGBlockingReason) {
 };
 
 /**
+ *  Content presentation types
+ */
+typedef NS_ENUM(NSInteger, SRGContentPresentationType) {
+    /**
+     *  Not specified.
+     */
+    SRGContentPresentationTypeNone = 0,
+    /**
+     *  Swimlane (horizontal row).
+     */
+    SRGContentPresentationTypeSwimlane,
+    /**
+     *  Hero.
+     */
+    SRGContentPresentationTypeHero,
+    /**
+     *  Grid.
+     */
+    SRGContentPresentationTypeGrid,
+    /**
+     *  Hightlight (focus on a single item).
+     */
+    SRGContentPresentationTypeHighlight
+};
+
+/**
+ *  Content section types.
+ */
+typedef NS_ENUM(NSInteger, SRGContentSectionType) {
+    /**
+     *  Not specified.
+     */
+    SRGContentSectionTypeNone = 0,
+    /**
+     *  List of medias.
+     */
+    SRGContentSectionTypeMedias,
+    /**
+     *  Show followed by a list of medias.
+     */
+    SRGContentSectionTypeShowHighlight,
+    /**
+     *  List of shows.
+     */
+    SRGContentSectionTypeShows,
+    /**
+     *  Events.
+     */
+    SRGContentSectionTypeEvents,
+    /**
+     *  Favorites shows.
+     */
+    SRGContentSectionTypeFavoriteShows,
+    /**
+     *  Livestreams.
+     */
+    SRGContentSectionTypeLivestreams,
+    /**
+     *  Personalized program.
+     */
+    SRGContentSectionTypePersonalizedProgram,
+    /**
+     *  Resume playback.
+     */
+    SRGContentSectionTypeResumePlayback,
+    /**
+     *  Topic selector.
+     */
+    SRGContentSectionTypeTopicSelector,
+    /**
+     *  Watch later.
+     */
+    SRGContentSectionTypeWatchLater
+};
+
+/**
  *  Content types.
  */
 typedef NS_ENUM(NSInteger, SRGContentType) {
