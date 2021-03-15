@@ -90,9 +90,14 @@ typedef NS_ENUM(NSInteger, SRGBlockingReason) {
 };
 
 /**
- *  Content presentation types
+ *  Content presentation types.
  */
 typedef NS_ENUM(NSInteger, SRGContentPresentationType) {
+    
+    /**
+     *  @name Generic presentations.
+     */
+    
     /**
      *  Not specified.
      */
@@ -110,9 +115,46 @@ typedef NS_ENUM(NSInteger, SRGContentPresentationType) {
      */
     SRGContentPresentationTypeGrid,
     /**
-     *  Hightlight (focus on a single item).
+     *  Media highlight (focus on a single media).
      */
-    SRGContentPresentationTypeHighlight
+    SRGContentPresentationTypeMediaHighlight,
+    /**
+     *  Show highlight (focus on a single show).
+     */
+    SRGContentPresentationTypeShowHighlight,
+    
+    /**
+     *  @name Presentations for predefined sections.
+     */
+    
+    /**
+     *  Swimlanes displaying events.
+     */
+    SRGContentPresentationTypeEvents,
+    /**
+     *  Favorite shows.
+     */
+    SRGContentPresentationTypeFavoriteShows,
+    /**
+     *  Livestreams.
+     */
+    SRGContentPresentationTypeLivestreams,
+    /**
+     *  Topic selector.
+     */
+    SRGContentPresentationTypeTopicSelector,
+    /**
+     *  Resume playback.
+     */
+    SRGContentPresentationTypeResumePlayback,
+    /**
+     *  Watch later.
+     */
+    SRGContentPresentationTypeWatchLater,
+    /**
+     *  Personalized program.
+     */
+    SRGContentPresentationTypePersonalizedProgram
 };
 
 /**
@@ -136,33 +178,9 @@ typedef NS_ENUM(NSInteger, SRGContentSectionType) {
      */
     SRGContentSectionTypeShows,
     /**
-     *  Events.
+     *  Predefined section with content supplied client-side.
      */
-    SRGContentSectionTypeEvents,
-    /**
-     *  Favorites shows.
-     */
-    SRGContentSectionTypeFavoriteShows,
-    /**
-     *  Livestreams.
-     */
-    SRGContentSectionTypeLivestreams,
-    /**
-     *  Personalized program.
-     */
-    SRGContentSectionTypePersonalizedProgram,
-    /**
-     *  Resume playback.
-     */
-    SRGContentSectionTypeResumePlayback,
-    /**
-     *  Topic selector.
-     */
-    SRGContentSectionTypeTopicSelector,
-    /**
-     *  Watch later.
-     */
-    SRGContentSectionTypeWatchLater
+    SRGContentSectionTypePredefined
 };
 
 /**

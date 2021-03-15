@@ -30,24 +30,24 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) SRGContentSectionType type;
 
 /**
- *  Return `YES` iff the section has been published.
+ *  `YES` iff the section has been published.
  */
 @property (nonatomic, readonly, getter=isPublished) BOOL published;
 
 /**
- *  Return `YES` iff the section contains personalized content.
+ *  `YES` iff the section contains personalized content.
  */
 @property (nonatomic, readonly, getter=isPersonalized) BOOL personalized;
 
 /**
  *  The date at which the section is made available.
  */
-@property (nonatomic, readonly) NSDate *startDate;
+@property (nonatomic, readonly, nullable) NSDate *startDate;
 
 /**
  *  The date at which the section is not available anymore.
  */
-@property (nonatomic, readonly) NSDate *endDate;
+@property (nonatomic, readonly, nullable) NSDate *endDate;
 
 @end
 
