@@ -45,7 +45,7 @@
 
 + (NSValueTransformer *)typeJSONTransformer
 {
-    return SRGContentTypeJSONTransformer();
+    return SRGContentPresentationTypeJSONTransformer();
 }
 
 @end

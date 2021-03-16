@@ -95,7 +95,7 @@ typedef NS_ENUM(NSInteger, SRGBlockingReason) {
 typedef NS_ENUM(NSInteger, SRGContentPresentationType) {
     
     /**
-     *  @name Generic presentations.
+     *  @name Standard presentations.
      */
     
     /**

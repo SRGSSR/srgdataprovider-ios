@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Describes how content must be presented on screen.
+ *  Describes how content should be presented.
  */
 @interface SRGContentPresentation : SRGModel
 
