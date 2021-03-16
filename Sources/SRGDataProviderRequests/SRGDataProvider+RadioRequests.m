@@ -22,9 +22,9 @@
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/channel/%@/radio/nowAndNext", SRGPathComponentForVendor(vendor), channelUid];
     
-    NSArray<NSURLQueryItem *> *queryItems = nil;
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
     if (livestreamUid) {
-        queryItems = @[ [NSURLQueryItem queryItemWithName:@"livestreamId" value:livestreamUid] ];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"livestreamId" value:livestreamUid]];
     }
     
     return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
@@ -63,16 +63,16 @@
                                   contentProviders:(SRGContentProviders)contentProviders
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/audio/livestreams", SRGPathComponentForVendor(vendor)];
-    NSArray<NSURLQueryItem *> *queryItems = nil;
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
     
     switch (contentProviders) {
         case SRGContentProvidersAll: {
-            queryItems = @[ [NSURLQueryItem queryItemWithName:@"includeThirdPartyStreams" value:@"true" ] ];
+            [queryItems addObject:[NSURLQueryItem queryItemWithName:@"includeThirdPartyStreams" value:@"true"]];
             break;
         }
             
         case SRGContentProvidersSwissSatelliteRadio: {
-            queryItems = @[ [NSURLQueryItem queryItemWithName:@"onlyThirdPartyContentProvider" value:@"ssatr" ] ];
+            [queryItems addObject:[NSURLQueryItem queryItemWithName:@"onlyThirdPartyContentProvider" value:@"ssatr"]];
             break;
         }
             
@@ -81,7 +81,7 @@
         }
     }
     
-    return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems];
+    return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
 }
 
 - (NSURLRequest *)requestRadioLatestMediasForVendor:(SRGVendor)vendor
