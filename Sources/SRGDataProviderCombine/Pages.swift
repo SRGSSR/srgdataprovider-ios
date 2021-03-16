@@ -51,7 +51,11 @@ extension SRGDataProvider {
                 guard let url = request.url,
                       var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
                     return request
-                    
+                }
+                
+#warning("Workaround until the Integration Layer supports pagination for PAC section requests")
+                if components.path.components(separatedBy: "/").contains("section") {
+                    return request
                 }
                 
                 var queryItems = components.queryItems ?? []
