@@ -119,7 +119,7 @@ public extension SRGDataProvider {
 public extension SRGDataProvider {
     enum ShowsForContentSection {
         public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (medias: [SRGShow], page: Page, nextPage: Page?, response: URLResponse)
+        public typealias Output = (shows: [SRGShow], page: Page, nextPage: Page?, response: URLResponse)
     }
     
     /**
