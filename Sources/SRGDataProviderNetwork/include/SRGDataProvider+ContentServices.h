@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
  *                   specific date.
  */
 - (SRGRequest *)contentPageForVendor:(SRGVendor)vendor
-                             pageUid:(NSString *)pageUid
+                                 uid:(NSString *)uid
                            published:(BOOL)published
                               atDate:(nullable NSDate *)date
                  withCompletionBlock:(SRGContentPageCompletionBlock)completionBlock;
@@ -54,6 +54,67 @@ NS_ASSUME_NONNULL_BEGIN
                            published:(BOOL)published
                               atDate:(nullable NSDate *)date
                  withCompletionBlock:(SRGContentPageCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve a section of content given by its unique identifier.
+ *
+ *  @param published Set this parameter to `YES` to look only for published sections.
+ */
+- (SRGRequest *)contentSectionForVendor:(SRGVendor)vendor
+                                    uid:(NSString *)uid
+                              published:(BOOL)published
+                    withCompletionBlock:(SRGContentSectionCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve medias associated with a content section.
+ *
+ *  @param userId    An optional user identifier.
+ *  @param published Set this parameter to `YES` to look only for published pages.
+ *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
+ *                   specific date.
+ *
+ *  @discussion The section itself must be of type `SRGContentSectionTypeMedias`.
+ */
+- (SRGFirstPageRequest *)mediasForVendor:(SRGVendor)vendor
+                       contentSectionUid:(NSString *)contentSectionUid
+                                  userId:(nullable NSString *)userId
+                               published:(BOOL)published
+                                  atDate:(nullable NSDate *)date
+                     withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve shows associated with a content section.
+ *
+ *  @param userId    An optional user identifier.
+ *  @param published Set this parameter to `YES` to look only for published pages.
+ *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
+ *                   specific date.
+ *
+ *  @discussion The section itself must be of type `SRGContentSectionTypeShows`.
+ */
+- (SRGFirstPageRequest *)showsForVendor:(SRGVendor)vendor
+                      contentSectionUid:(NSString *)contentSectionUid
+                                 userId:(nullable NSString *)userId
+                              published:(BOOL)published
+                                 atDate:(nullable NSDate *)date
+                    withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
+
+/**
+ *  Retrieve the show highlight associated with a content section (show and paginated media list).
+ *
+ *  @param userId    An optional user identifier.
+ *  @param published Set this parameter to `YES` to look only for published pages.
+ *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
+ *                   specific date.
+ *
+ *  @discussion The section itself must be of type `SRGContentSectionTypeShowHighlight`.
+ */
+- (SRGFirstPageRequest *)showHighlightForVendor:(SRGVendor)vendor
+                              contentSectionUid:(NSString *)contentSectionUid
+                                         userId:(nullable NSString *)userId
+                                      published:(BOOL)published
+                                         atDate:(nullable NSDate *)date
+                            withCompletionBlock:(SRGPaginatedShowHighlightCompletionBlock)completionBlock;
 
 @end
 

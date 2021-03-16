@@ -11,11 +11,11 @@
 @implementation SRGDataProvider (ContentRequests)
 
 - (NSURLRequest *)requestContentPageForVendor:(SRGVendor)vendor
-                                      pageUid:(NSString *)pageUid
+                                          uid:(NSString *)uid
                                     published:(BOOL)published
                                        atDate:(NSDate *)date
 {
-    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/page/%@", SRGPathComponentForVendor(vendor), pageUid];
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/page/%@", SRGPathComponentForVendor(vendor), uid];
     
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
     if (! published) {
@@ -61,6 +61,86 @@
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/page/byTopicUrn/%@", SRGPathComponentForVendor(vendor), topicURN];
     
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
+    if (! published) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"published" value:@"false"]];
+    }
+    if (date) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"previewDate" value:SRGStringFromDate(date)]];
+    }
+    
+    return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
+}
+
+- (NSURLRequest *)requestContentSectionForVendor:(SRGVendor)vendor
+                                             uid:(NSString *)uid
+                                       published:(BOOL)published
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/section/%@", SRGPathComponentForVendor(vendor), uid];
+    
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
+    if (! published) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"published" value:@"false"]];
+    }
+    
+    return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
+}
+
+- (NSURLRequest *)requestMediasForVendor:(SRGVendor)vendor
+                       contentSectionUid:(NSString *)contentSectionUid
+                                  userId:(NSString *)userId
+                               published:(BOOL)published
+                                  atDate:(NSDate *)date
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/section/mediaSection/%@", SRGPathComponentForVendor(vendor), contentSectionUid];
+    
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
+    if (userId) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"userId" value:userId]];
+    }
+    if (! published) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"published" value:@"false"]];
+    }
+    if (date) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"previewDate" value:SRGStringFromDate(date)]];
+    }
+    
+    return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
+}
+
+- (NSURLRequest *)requestShowsForVendor:(SRGVendor)vendor
+                      contentSectionUid:(NSString *)contentSectionUid
+                                 userId:(NSString *)userId
+                              published:(BOOL)published
+                                 atDate:(NSDate *)date
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/section/showSection/%@", SRGPathComponentForVendor(vendor), contentSectionUid];
+    
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
+    if (userId) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"userId" value:userId]];
+    }
+    if (! published) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"published" value:@"false"]];
+    }
+    if (date) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"previewDate" value:SRGStringFromDate(date)]];
+    }
+    
+    return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
+}
+
+- (NSURLRequest *)requestShowHighlightForVendor:(SRGVendor)vendor
+                              contentSectionUid:(NSString *)contentSectionUid
+                                         userId:(NSString *)userId
+                                      published:(BOOL)published
+                                         atDate:(NSDate *)date
+{
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/section/mediaSectionWithShow/%@", SRGPathComponentForVendor(vendor), contentSectionUid];
+    
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray array];
+    if (userId) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"userId" value:userId]];
+    }
     if (! published) {
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"published" value:@"false"]];
     }

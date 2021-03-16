@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGDataProvider (ContentRequests)
 
 - (NSURLRequest *)requestContentPageForVendor:(SRGVendor)vendor
-                                      pageUid:(NSString *)pageUid
+                                          uid:(NSString *)uid
                                     published:(BOOL)published
                                        atDate:(nullable NSDate *)date;
 - (NSURLRequest *)requestContentPageForVendor:(SRGVendor)vendor
@@ -27,6 +27,25 @@ NS_ASSUME_NONNULL_BEGIN
                                  topicWithURN:(NSString *)topicURN
                                     published:(BOOL)published
                                        atDate:(nullable NSDate *)date;
+
+- (NSURLRequest *)requestContentSectionForVendor:(SRGVendor)vendor
+                                             uid:(NSString *)uid
+                                       published:(BOOL)published;
+- (NSURLRequest *)requestMediasForVendor:(SRGVendor)vendor
+                       contentSectionUid:(NSString *)contentSectionUid
+                                  userId:(nullable NSString *)userId
+                               published:(BOOL)published
+                                  atDate:(nullable NSDate *)date;
+- (NSURLRequest *)requestShowsForVendor:(SRGVendor)vendor
+                      contentSectionUid:(NSString *)contentSectionUid
+                                 userId:(nullable NSString *)userId
+                              published:(BOOL)published
+                                 atDate:(nullable NSDate *)date;
+- (NSURLRequest *)requestShowHighlightForVendor:(SRGVendor)vendor
+                              contentSectionUid:(NSString *)contentSectionUid
+                                         userId:(nullable NSString *)userId
+                                      published:(BOOL)published
+                                         atDate:(nullable NSDate *)date;
 
 @end
 
