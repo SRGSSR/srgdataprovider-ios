@@ -19,6 +19,7 @@
 @property (nonatomic, getter=isPersonalized) BOOL personalized;
 @property (nonatomic) NSDate *startDate;
 @property (nonatomic) NSDate *endDate;
+@property (nonatomic) SRGContentPresentation *presentation;
 
 @end
 
@@ -37,7 +38,8 @@
                        @keypath(SRGContentSection.new, published) : @"isPublished",
                        @keypath(SRGContentSection.new, personalized) : @"hasPersonalizedContent",
                        @keypath(SRGContentSection.new, startDate) : @"start",
-                       @keypath(SRGContentSection.new, endDate) : @"end" };
+                       @keypath(SRGContentSection.new, endDate) : @"end",
+                       @keypath(SRGContentSection.new, presentation) : @"representation" };
     });
     return s_mapping;
 }
@@ -62,6 +64,11 @@
 + (NSValueTransformer *)endDateJSONTransformer
 {
     return SRGISO8601DateJSONTransformer();
+}
+
++ (NSValueTransformer *)presentationJSONTransformer
+{
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGContentPresentation.class];
 }
 
 @end

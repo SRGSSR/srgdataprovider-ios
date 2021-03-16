@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGContentPresentation.h"
 #import "SRGModel.h"
 #import "SRGTypes.h"
 
@@ -48,6 +49,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  The date at which the section is not available anymore.
  */
 @property (nonatomic, readonly, nullable) NSDate *endDate;
+
+/**
+ *  Presentation information for the section.
+ */
+@property (nonatomic, readonly) SRGContentPresentation *presentation;
 
 @end
 
