@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
                                  userId:(nullable NSString *)userId
                               published:(BOOL)published
                                  atDate:(nullable NSDate *)date;
-- (NSURLRequest *)requestShowHighlightForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestShowAndMediasForVendor:(SRGVendor)vendor
                               contentSectionUid:(NSString *)contentSectionUid
                                          userId:(nullable NSString *)userId
                                       published:(BOOL)published

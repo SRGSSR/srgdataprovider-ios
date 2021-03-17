@@ -89,7 +89,7 @@ public extension SRGDataProvider {
     }
     
     /**
-     *  Retrieve medias associated with a content section.
+     *  Retrieve medias for a content section.
      *
      *  @param userId    An optional user identifier.
      *  @param published Set this parameter to `YES` to look only for published pages.
@@ -123,7 +123,7 @@ public extension SRGDataProvider {
     }
     
     /**
-     *  Retrieve shows associated with a content section.
+     *  Retrieve shows for a content section.
      *
      *  @param userId    An optional user identifier.
      *  @param published Set this parameter to `YES` to look only for published pages.
@@ -151,31 +151,31 @@ public extension SRGDataProvider {
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
-    enum ShowHighlightForContentSection {
+    enum ShowAndMediasForContentSection {
         public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (showHighlight: SRGShowHighlight, page: Page, nextPage: Page?, response: URLResponse)
+        public typealias Output = (showAndMedias: SRGShowAndMedias, page: Page, nextPage: Page?, response: URLResponse)
     }
     
     /**
-     *  Retrieve the show highlight associated with a content section (show and paginated media list).
+     *  Retrieve the show and medias for a content section.
      *
      *  @param userId    An optional user identifier.
      *  @param published Set this parameter to `YES` to look only for published pages.
      *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
      *                   specific date.
      *
-     *  @discussion The section itself must be of type `SRGContentSectionTypeShowHighlight`.
+     *  @discussion The section itself must be of type `SRGContentSectionTypeShowAndMedias`.
      */
-    func showHighlight(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<ShowHighlightForContentSection.Output, Error> {
-        let request = requestShowHighlight(for: vendor, contentSectionUid: contentSectionUid, userId: userId, published: published, at: date)
-        return showHighlight(at: Page(request: request, size: pageSize))
+    func showAndMedias(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<ShowAndMediasForContentSection.Output, Error> {
+        let request = requestShowAndMedias(for: vendor, contentSectionUid: contentSectionUid, userId: userId, published: published, at: date)
+        return showAndMedias(at: Page(request: request, size: pageSize))
     }
     
     /**
      *  Next page of results.
      */
-    func showHighlight(at page: ShowHighlightForContentSection.Page) -> AnyPublisher<ShowHighlightForContentSection.Output, Error> {
-        return paginatedObjectTaskPublisher(for: page.request, type: SRGShowHighlight.self)
+    func showAndMedias(at page: ShowAndMediasForContentSection.Page) -> AnyPublisher<ShowAndMediasForContentSection.Output, Error> {
+        return paginatedObjectTaskPublisher(for: page.request, type: SRGShowAndMedias.self)
             .map { result in
                 (result.object, page, page.next(with: result.nextRequest), result.response)
             }

@@ -172,7 +172,7 @@ typedef NS_ENUM(NSInteger, SRGContentSectionType) {
     /**
      *  Show followed by a list of medias.
      */
-    SRGContentSectionTypeShowHighlight,
+    SRGContentSectionTypeShowAndMedias,
     /**
      *  List of shows.
      */

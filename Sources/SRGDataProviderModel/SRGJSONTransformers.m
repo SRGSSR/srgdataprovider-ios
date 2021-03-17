@@ -92,7 +92,7 @@ NSValueTransformer *SRGContentSectionTypeJSONTransformer(void)
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
         s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"MediaSection" : @(SRGContentSectionTypeMedias),
-                                                                                         @"MediaSectionWithShow" : @(SRGContentSectionTypeShowHighlight),
+                                                                                         @"MediaSectionWithShow" : @(SRGContentSectionTypeShowAndMedias),
                                                                                          @"ShowSection" : @(SRGContentSectionTypeShows),
                                                                                          @"SimpleSection" : @(SRGContentSectionTypePredefined) }
                                                                          defaultValue:@(SRGContentSectionTypeNone)

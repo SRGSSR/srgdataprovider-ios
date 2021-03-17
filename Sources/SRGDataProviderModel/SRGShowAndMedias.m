@@ -4,18 +4,18 @@
 //  License information is available from the LICENSE file.
 //
 
-#import "SRGShowHighlight.h"
+#import "SRGShowAndMedias.h"
 
 @import libextobjc;
 
-@interface SRGShowHighlight ()
+@interface SRGShowAndMedias ()
 
 @property (nonatomic) SRGShow *show;
 @property (nonatomic) NSArray<SRGMedia *> *medias;
 
 @end
 
-@implementation SRGShowHighlight
+@implementation SRGShowAndMedias
 
 #pragma mark MTLJSONSerializing protocol
 
@@ -24,8 +24,8 @@
     static NSDictionary *s_mapping;
     static dispatch_once_t s_onceToken;
     dispatch_once(&s_onceToken, ^{
-        s_mapping = @{ @keypath(SRGShowHighlight.new, show) : @"show",
-                       @keypath(SRGShowHighlight.new, medias) : @"mediaList" };
+        s_mapping = @{ @keypath(SRGShowAndMedias.new, show) : @"show",
+                       @keypath(SRGShowAndMedias.new, medias) : @"mediaList" };
     });
     return s_mapping;
 }
@@ -50,8 +50,8 @@
         return NO;
     }
     
-    SRGShowHighlight *otherShowHighlight = object;
-    return [self.show.URN isEqual:otherShowHighlight.show.URN];
+    SRGShowAndMedias *otherShowAndMedias = object;
+    return [self.show.URN isEqual:otherShowAndMedias.show.URN];
 }
 
 - (NSUInteger)hash

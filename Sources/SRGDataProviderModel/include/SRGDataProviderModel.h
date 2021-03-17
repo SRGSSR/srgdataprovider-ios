@@ -44,7 +44,7 @@
 #import "SRGSegment.h"
 #import "SRGServiceMessage.h"
 #import "SRGShow.h"
-#import "SRGShowHighlight.h"
+#import "SRGShowAndMedias.h"
 #import "SRGShowIdentifierMetadata.h"
 #import "SRGShowStatisticsOverview.h"
 #import "SRGSocialCount.h"

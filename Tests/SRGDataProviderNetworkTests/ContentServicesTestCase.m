@@ -108,12 +108,12 @@
     [self waitForExpectationsWithTimeout:30. handler:nil];
 }
 
-- (void)testShowHighlightForContentSection
+- (void)testShowAndMediasForContentSection
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
     
-    [[self.dataProvider showHighlightForVendor:SRGVendorRTS contentSectionUid:@"8c135f15-3762-4777-af5a-c719c18a3068" userId:nil published:YES atDate:nil withCompletionBlock:^(SRGShowHighlight * _Nullable showHighlight, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
-        XCTAssertNotNil(showHighlight);
+    [[self.dataProvider showAndMediasForVendor:SRGVendorRTS contentSectionUid:@"8c135f15-3762-4777-af5a-c719c18a3068" userId:nil published:YES atDate:nil withCompletionBlock:^(SRGShowAndMedias * _Nullable showAndMedias, SRGPage * _Nonnull page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(showAndMedias);
         XCTAssertNil(error);
         [expectation fulfill];
     }] resume];

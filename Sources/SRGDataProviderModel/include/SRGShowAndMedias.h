@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Show highlight (show with associated media list).
  */
-@interface SRGShowHighlight : SRGModel
+@interface SRGShowAndMedias : SRGModel
 
 /**
  *  The show.

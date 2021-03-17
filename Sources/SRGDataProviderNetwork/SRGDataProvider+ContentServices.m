@@ -77,16 +77,16 @@
     }];
 }
 
-- (SRGFirstPageRequest *)showHighlightForVendor:(SRGVendor)vendor
+- (SRGFirstPageRequest *)showAndMediasForVendor:(SRGVendor)vendor
                               contentSectionUid:(NSString *)contentSectionUid
                                          userId:(NSString *)userId
                                       published:(BOOL)published
                                          atDate:(NSDate *)date
-                            withCompletionBlock:(SRGPaginatedShowHighlightCompletionBlock)completionBlock
+                            withCompletionBlock:(SRGPaginatedShowAndMediaListCompletionBlock)completionBlock
 {
-    NSURLRequest *URLRequest = [self requestShowHighlightForVendor:vendor contentSectionUid:contentSectionUid userId:userId published:published atDate:date];
+    NSURLRequest *URLRequest = [self requestShowAndMediasForVendor:vendor contentSectionUid:contentSectionUid userId:userId published:published atDate:date];
     return [self pageRequestWithURLRequest:URLRequest parser:^id(NSDictionary *JSONDictionary, NSError *__autoreleasing *pError) {
-        return [MTLJSONAdapter modelOfClass:SRGShowHighlight.class fromJSONDictionary:JSONDictionary error:pError];
+        return [MTLJSONAdapter modelOfClass:SRGShowAndMedias.class fromJSONDictionary:JSONDictionary error:pError];
     } completionBlock:^(id _Nullable object, NSDictionary<NSString *,id> *metadata, SRGPage *page, SRGPage * _Nullable nextPage, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
         completionBlock(object, page, nextPage, HTTPResponse, error);
     }];

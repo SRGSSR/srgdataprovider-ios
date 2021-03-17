@@ -129,7 +129,7 @@
     return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
 }
 
-- (NSURLRequest *)requestShowHighlightForVendor:(SRGVendor)vendor
+- (NSURLRequest *)requestShowAndMediasForVendor:(SRGVendor)vendor
                               contentSectionUid:(NSString *)contentSectionUid
                                          userId:(NSString *)userId
                                       published:(BOOL)published

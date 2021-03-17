@@ -164,7 +164,7 @@ These services return content configured by editors through the Play Application
 | Section | ❌ | N/A |
 | Medias for a section | ✅ | ❌ |
 | Shows for a section | ✅ | ❌ |
-| Show highlight (show + associated medias) for a section | ✅ | ❌ |
+| Show with medias for a section | ✅ | ❌ |
 
 ## URN services
 

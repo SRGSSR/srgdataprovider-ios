@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
                     withCompletionBlock:(SRGContentSectionCompletionBlock)completionBlock;
 
 /**
- *  Retrieve medias associated with a content section.
+ *  Retrieve medias for a content section.
  *
  *  @param userId    An optional user identifier.
  *  @param published Set this parameter to `YES` to look only for published pages.
@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
                      withCompletionBlock:(SRGPaginatedMediaListCompletionBlock)completionBlock;
 
 /**
- *  Retrieve shows associated with a content section.
+ *  Retrieve shows for a content section.
  *
  *  @param userId    An optional user identifier.
  *  @param published Set this parameter to `YES` to look only for published pages.
@@ -100,21 +100,21 @@ NS_ASSUME_NONNULL_BEGIN
                     withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 
 /**
- *  Retrieve the show highlight associated with a content section (show and paginated media list).
+ *  Retrieve the show and medias for a content section.
  *
  *  @param userId    An optional user identifier.
  *  @param published Set this parameter to `YES` to look only for published pages.
  *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
  *                   specific date.
  *
- *  @discussion The section itself must be of type `SRGContentSectionTypeShowHighlight`.
+ *  @discussion The section itself must be of type `SRGContentSectionTypeShowAndMedias`.
  */
-- (SRGFirstPageRequest *)showHighlightForVendor:(SRGVendor)vendor
+- (SRGFirstPageRequest *)showAndMediasForVendor:(SRGVendor)vendor
                               contentSectionUid:(NSString *)contentSectionUid
                                          userId:(nullable NSString *)userId
                                       published:(BOOL)published
                                          atDate:(nullable NSDate *)date
-                            withCompletionBlock:(SRGPaginatedShowHighlightCompletionBlock)completionBlock;
+                            withCompletionBlock:(SRGPaginatedShowAndMediaListCompletionBlock)completionBlock;
 
 @end
 
