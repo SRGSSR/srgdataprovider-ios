@@ -18,12 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The show.
  */
+// TODO: Should be mandatory? Discuss with the PAC team, currently not the case
 @property (nonatomic, readonly, nullable) SRGShow *show;
 
 /**
  *  The associated media list.
  */
-@property (nonatomic, readonly, nullable) NSArray<SRGMedia *> *medias;
+@property (nonatomic, readonly) NSArray<SRGMedia *> *medias;
 
 @end
 
