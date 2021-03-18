@@ -144,6 +144,10 @@ typedef NS_ENUM(NSInteger, SRGContentPresentationType) {
      */
     SRGContentPresentationTypeTopicSelector,
     /**
+     *  Show access.
+     */
+    SRGContentPresentationTypeShowAccess,
+    /**
      *  Resume playback.
      */
     SRGContentPresentationTypeResumePlayback,

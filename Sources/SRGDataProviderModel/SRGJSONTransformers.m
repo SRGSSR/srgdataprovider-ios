@@ -115,6 +115,7 @@ NSValueTransformer *SRGContentPresentationTypeJSONTransformer(void)
                                                                                          @"FavoriteShows" : @(SRGContentPresentationTypeFavoriteShows),
                                                                                          @"Livestreams" : @(SRGContentPresentationTypeLivestreams),
                                                                                          @"TopicSelector" : @(SRGContentPresentationTypeTopicSelector),
+                                                                                         @"ShowAccess" : @(SRGContentPresentationTypeShowAccess),
                                                                                          @"ContinueWatching" : @(SRGContentPresentationTypeResumePlayback),
                                                                                          @"WatchLater" : @(SRGContentPresentationTypeWatchLater),
                                                                                          @"MyProgram" : @(SRGContentPresentationTypePersonalizedProgram) }
