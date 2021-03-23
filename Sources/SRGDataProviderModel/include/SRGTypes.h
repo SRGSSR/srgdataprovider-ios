@@ -128,10 +128,6 @@ typedef NS_CLOSED_ENUM(NSInteger, SRGContentPresentationType) {
      */
     
     /**
-     *  Swimlanes displaying events.
-     */
-    SRGContentPresentationTypeEvents,
-    /**
      *  Favorite shows.
      */
     SRGContentPresentationTypeFavoriteShows,

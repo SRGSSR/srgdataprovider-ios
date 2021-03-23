@@ -111,7 +111,6 @@ NSValueTransformer *SRGContentPresentationTypeJSONTransformer(void)
                                                                                          @"Grid" : @(SRGContentPresentationTypeGrid),
                                                                                          @"MediaElement" : @(SRGContentPresentationTypeMediaHighlight),
                                                                                          @"ShowElement" : @(SRGContentPresentationTypeShowHighlight),
-                                                                                         @"EventModules" : @(SRGContentPresentationTypeEvents),
                                                                                          @"FavoriteShows" : @(SRGContentPresentationTypeFavoriteShows),
                                                                                          @"Livestreams" : @(SRGContentPresentationTypeLivestreams),
                                                                                          @"TopicSelector" : @(SRGContentPresentationTypeTopicSelector),
