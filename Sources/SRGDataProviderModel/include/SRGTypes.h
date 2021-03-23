@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Audio codecs.
  */
-typedef NS_ENUM(NSInteger, SRGAudioCodec) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGAudioCodec) {
     /**
      *  Not specified.
      */
@@ -50,7 +50,7 @@ typedef NS_ENUM(NSInteger, SRGAudioCodec) {
 /**
  *  Reasons for content blocking.
  */
-typedef NS_ENUM(NSInteger, SRGBlockingReason) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGBlockingReason) {
     /**
      *  The content is not blocked.
      */
@@ -92,7 +92,7 @@ typedef NS_ENUM(NSInteger, SRGBlockingReason) {
 /**
  *  Content presentation types.
  */
-typedef NS_ENUM(NSInteger, SRGContentPresentationType) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGContentPresentationType) {
     
     /**
      *  @name Standard presentations.
@@ -164,7 +164,7 @@ typedef NS_ENUM(NSInteger, SRGContentPresentationType) {
 /**
  *  Content section types.
  */
-typedef NS_ENUM(NSInteger, SRGContentSectionType) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGContentSectionType) {
     /**
      *  Not specified.
      */
@@ -190,7 +190,7 @@ typedef NS_ENUM(NSInteger, SRGContentSectionType) {
 /**
  *  Content types.
  */
-typedef NS_ENUM(NSInteger, SRGContentType) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGContentType) {
     /**
      *  Not specified.
      */
@@ -224,7 +224,7 @@ typedef NS_ENUM(NSInteger, SRGContentType) {
 /**
  *  Digital Rights Management (DRM) types.
  */
-typedef NS_ENUM(NSInteger, SRGDRMType) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGDRMType) {
     /**
      *  Not specified.
      */
@@ -246,7 +246,7 @@ typedef NS_ENUM(NSInteger, SRGDRMType) {
 /**
  *  Media containers.
  */
-typedef NS_ENUM(NSInteger, SRGMediaContainer) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGMediaContainer) {
     /**
      *  Not specified.
      */
@@ -268,7 +268,7 @@ typedef NS_ENUM(NSInteger, SRGMediaContainer) {
 /**
  *  Media types.
  */
-typedef NS_ENUM(NSInteger, SRGMediaType) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGMediaType) {
     /**
      *  Not specified.
      */
@@ -286,7 +286,7 @@ typedef NS_ENUM(NSInteger, SRGMediaType) {
 /**
  *  Module types.
  */
-typedef NS_ENUM(NSInteger, SRGModuleType) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGModuleType) {
     /**
      *  Not specified.
      */
@@ -300,7 +300,7 @@ typedef NS_ENUM(NSInteger, SRGModuleType) {
 /**
  *  Content presentation types.
  */
-typedef NS_ENUM(NSInteger, SRGPresentation) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGPresentation) {
     /**
      *  Not specified.
      */
@@ -318,7 +318,7 @@ typedef NS_ENUM(NSInteger, SRGPresentation) {
 /**
  *  Media qualities.
  */
-typedef NS_ENUM(NSInteger, SRGQuality) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGQuality) {
     /**
      *  Not specified.
      */
@@ -340,7 +340,7 @@ typedef NS_ENUM(NSInteger, SRGQuality) {
 /**
  *  Types of social or popularity measurement services.
  */
-typedef NS_ENUM(NSInteger, SRGSocialCountType) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGSocialCountType) {
     /**
      *  Not specified.
      */
@@ -374,7 +374,7 @@ typedef NS_ENUM(NSInteger, SRGSocialCountType) {
 /**
  *  Media providing sources
  */
-typedef NS_ENUM(NSInteger, SRGSource) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGSource) {
     /**
      *  Not specified.
      */
@@ -396,7 +396,7 @@ typedef NS_ENUM(NSInteger, SRGSource) {
 /**
  *  Streaming methods.
  */
-typedef NS_ENUM(NSInteger, SRGStreamingMethod) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGStreamingMethod) {
     /**
      *  Not specified.
      */
@@ -442,7 +442,7 @@ typedef NS_ENUM(NSInteger, SRGStreamingMethod) {
 /**
  *  Subtitle formats.
  */
-typedef NS_ENUM(NSInteger, SRGSubtitleFormat) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGSubtitleFormat) {
     /**
      *  Not specified.
      */
@@ -460,7 +460,7 @@ typedef NS_ENUM(NSInteger, SRGSubtitleFormat) {
 /**
  *  Token types.
  */
-typedef NS_ENUM(NSInteger, SRGTokenType) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGTokenType) {
     /**
      *  Not specified.
      */
@@ -474,7 +474,7 @@ typedef NS_ENUM(NSInteger, SRGTokenType) {
 /**
  *  Transmission types.
  */
-typedef NS_ENUM(NSInteger, SRGTransmission) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGTransmission) {
     /**
      *  Not specified.
      */
@@ -500,7 +500,7 @@ typedef NS_ENUM(NSInteger, SRGTransmission) {
 /**
  *  Sources which variants can be retrieved from.
  */
-typedef NS_ENUM(NSInteger, SRGVariantSource) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGVariantSource) {
     /**
      *  Not specified.
      */
@@ -526,7 +526,7 @@ typedef NS_ENUM(NSInteger, SRGVariantSource) {
 /**
  *  Variant types.
  */
-typedef NS_ENUM(NSInteger, SRGVariantType) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGVariantType) {
     /**
      *  Not specified.
      */
@@ -544,7 +544,7 @@ typedef NS_ENUM(NSInteger, SRGVariantType) {
 /**
  *  Content producers and providers.
  */
-typedef NS_ENUM(NSInteger, SRGVendor) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGVendor) {
     /**
      *  Not specified.
      */
@@ -571,7 +571,7 @@ typedef NS_ENUM(NSInteger, SRGVendor) {
 /**
  *  Video codecs.
  */
-typedef NS_ENUM(NSInteger, SRGVideoCodec) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGVideoCodec) {
     /**
      *  Not specified.
      */
@@ -601,7 +601,7 @@ typedef NS_ENUM(NSInteger, SRGVideoCodec) {
 /**
  *  Youth protection colors.
  */
-typedef NS_ENUM(NSInteger, SRGYouthProtectionColor) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGYouthProtectionColor) {
     /**
      *  Not specified.
      */
@@ -623,7 +623,7 @@ typedef NS_ENUM(NSInteger, SRGYouthProtectionColor) {
 /**
  *  Content providers.
  */
-typedef NS_ENUM(NSInteger, SRGContentProviders) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGContentProviders) {
     /**
      *  Default behavior (does not include third party content).
      */
@@ -641,7 +641,7 @@ typedef NS_ENUM(NSInteger, SRGContentProviders) {
 /**
  *  Image dimensions for image retrieval.
  */
-typedef NS_ENUM(NSInteger, SRGImageDimension) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGImageDimension) {
     /**
      *  Width.
      */
@@ -655,7 +655,7 @@ typedef NS_ENUM(NSInteger, SRGImageDimension) {
 /**
  *  Filter for requesting medias.
  */
-typedef NS_ENUM(NSInteger, SRGMediaFilter) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGMediaFilter) {
     /**
      *  No filter.
      */
@@ -687,7 +687,7 @@ typedef NS_OPTIONS(NSUInteger, SRGSearchMatchingOptions) {
 /**
  *  Sort criteria.
  */
-typedef NS_ENUM(NSInteger, SRGSortCriterium) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGSortCriterium) {
     /**
      *  Use the default order returned by the service.
      */
@@ -701,7 +701,7 @@ typedef NS_ENUM(NSInteger, SRGSortCriterium) {
 /**
  *  Sort directions.
  */
-typedef NS_ENUM(NSInteger, SRGSortDirection) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGSortDirection) {
     /**
      *  Descending order.
      */
@@ -715,7 +715,7 @@ typedef NS_ENUM(NSInteger, SRGSortDirection) {
 /**
  *  Stream types.
  */
-typedef NS_ENUM(NSInteger, SRGStreamType) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGStreamType) {
     /**
      *  Not specified.
      */
@@ -737,7 +737,7 @@ typedef NS_ENUM(NSInteger, SRGStreamType) {
 /**
  *  Media time availability.
  */
-typedef NS_ENUM(NSInteger, SRGTimeAvailability) {
+typedef NS_CLOSED_ENUM(NSInteger, SRGTimeAvailability) {
     /**
      *  The media is available.
      */
