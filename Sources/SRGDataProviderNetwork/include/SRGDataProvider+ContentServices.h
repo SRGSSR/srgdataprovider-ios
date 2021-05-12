@@ -20,8 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Retrieve a page of content given by its unique identifier.
  *
  *  @param published Set this parameter to `YES` to look only for published pages.
- *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
- *                   specific date.
+ *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or
+ *                   at a specific date.
  */
 - (SRGRequest *)contentPageForVendor:(SRGVendor)vendor
                                  uid:(NSString *)uid
@@ -33,8 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Retrieve the default content page for medias of the specified type.
  *
  *  @param published Set this parameter to `YES` to look only for published pages.
- *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
- *                   specific date.
+ *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or
+ *                   at a specific date.
  */
 - (SRGRequest *)contentPageForVendor:(SRGVendor)vendor
                            mediaType:(SRGMediaType)mediaType
@@ -46,8 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Retrieve a page of content for a specific topic.
  *
  *  @param published Set this parameter to `YES` to look only for published pages.
- *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
- *                   specific date.
+ *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or
+ *                   at a specific date.
  */
 - (SRGRequest *)contentPageForVendor:(SRGVendor)vendor
                         topicWithURN:(NSString *)topicURN
@@ -70,8 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param userId    An optional user identifier.
  *  @param published Set this parameter to `YES` to look only for published pages.
- *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
- *                   specific date.
+ *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or
+ *                   at a specific date.
  *
  *  @discussion The section itself must be of type `SRGContentSectionTypeMedias`.
  */
@@ -87,8 +87,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param userId    An optional user identifier.
  *  @param published Set this parameter to `YES` to look only for published pages.
- *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
- *                   specific date.
+ *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or
+ *                   at a specific date.
  *
  *  @discussion The section itself must be of type `SRGContentSectionTypeShows`.
  */
@@ -104,8 +104,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param userId    An optional user identifier.
  *  @param published Set this parameter to `YES` to look only for published pages.
- *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
- *                   specific date.
+ *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or
+ *                   at a specific date.
  *
  *  @discussion The section itself must be of type `SRGContentSectionTypeShowAndMedias`.
  */

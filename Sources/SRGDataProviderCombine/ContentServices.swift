@@ -9,177 +9,121 @@
 import Combine
 
 /**
- *  Content services supported by the data provider. These services return content configured by editors through
- *  the Play Application Configurator tool (PAC).
+ *  Services returning content configured by editors throug the Play Application Configurator tool (PAC).
  */
-
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
-    enum ContentPage {
-        public typealias Output = (contentPage: SRGContentPage, response: URLResponse)
-    }
-    
     /**
      *  Retrieve a page of content given by its unique identifier.
      *
-     *  @param published Set this parameter to `YES` to look only for published pages.
-     *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
-     *                   specific date.
+     *  - Parameter published: Set this parameter to `true` to look only for published pages.
+     *  - Parameter date: The page content might change over time. Use `nil` to retrieve the page as it looks now, or
+     *                    at a specific date.
      */
-    func contentPage(for vendor: SRGVendor, uid: String, published: Bool = true, at date: Date? = nil) -> AnyPublisher<ContentPage.Output, Error> {
+    func contentPage(for vendor: SRGVendor, uid: String, published: Bool = true, at date: Date? = nil) -> AnyPublisher<SRGContentPage, Error> {
         let request = requestContentPage(for: vendor, uid: uid, published: published, at: date)
-        return objectTaskPublisher(for: request, type: SRGContentPage.self)
-            .map { $0 }
+        return objectPublisher(for: request, type: SRGContentPage.self)
+            .map { $0.object }
             .eraseToAnyPublisher()
     }
     
     /**
      *  Retrieve the default content page for medias of the specified type.
      *
-     *  @param published Set this parameter to `YES` to look only for published pages.
-     *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
-     *                   specific date.
+     *  - Parameter published: Set this parameter to `true` to look only for published pages.
+     *  - Parameter date: The page content might change over time. Use `nil` to retrieve the page as it looks now, or
+     *                    at a specific date.
      */
-    func contentPage(for vendor: SRGVendor, mediaType: SRGMediaType, published: Bool = true, at date: Date? = nil) -> AnyPublisher<ContentPage.Output, Error> {
+    func contentPage(for vendor: SRGVendor, mediaType: SRGMediaType, published: Bool = true, at date: Date? = nil) -> AnyPublisher<SRGContentPage, Error> {
         let request = requestContentPage(for: vendor, mediaType: mediaType, published: published, at: date)
-        return objectTaskPublisher(for: request, type: SRGContentPage.self)
-            .map { $0 }
+        return objectPublisher(for: request, type: SRGContentPage.self)
+            .map { $0.object }
             .eraseToAnyPublisher()
     }
     
     /**
      *  Retrieve a page of content for a specific topic.
      *
-     *  @param published Set this parameter to `YES` to look only for published pages.
-     *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
-     *                   specific date.
+     *  - Parameter published: Set this parameter to `true` to look only for published pages.
+     *  - Parameter date: The page content might change over time. Use `nil` to retrieve the page as it looks now, or
+     *                    at a specific date.
      */
-    func contentPage(for vendor: SRGVendor, topicWithUrn topicUrn: String, published: Bool = true, at date: Date? = nil) -> AnyPublisher<ContentPage.Output, Error> {
+    func contentPage(for vendor: SRGVendor, topicWithUrn topicUrn: String, published: Bool = true, at date: Date? = nil) -> AnyPublisher<SRGContentPage, Error> {
         let request = requestContentPage(for: vendor, topicWithURN: topicUrn, published: published, at: date)
-        return objectTaskPublisher(for: request, type: SRGContentPage.self)
-            .map { $0 }
+        return objectPublisher(for: request, type: SRGContentPage.self)
+            .map { $0.object }
             .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum ContentSection {
-        public typealias Output = (contentSection: SRGContentSection, response: URLResponse)
     }
     
     /**
      *  Retrieve a section of content given by its unique identifier.
      *
-     *  @param published Set this parameter to `YES` to look only for published sections.
+     *  - Parameter published: Set this parameter to `true` to look only for published sections.
      */
-    func contentSection(for vendor: SRGVendor, uid: String, published: Bool = true) -> AnyPublisher<ContentSection.Output, Error> {
+    func contentSection(for vendor: SRGVendor, uid: String, published: Bool = true) -> AnyPublisher<SRGContentSection, Error> {
         let request = requestContentSection(for: vendor, uid: uid, published: published)
-        return objectTaskPublisher(for: request, type: SRGContentSection.self)
-            .map { $0 }
+        return objectPublisher(for: request, type: SRGContentSection.self)
+            .map { $0.object }
             .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum MediasForContentSection {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
     }
     
     /**
      *  Retrieve medias for a content section.
      *
-     *  @param userId    An optional user identifier.
-     *  @param published Set this parameter to `YES` to look only for published pages.
-     *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
-     *                   specific date.
+     *  - Parameter userId: An optional user identifier.
+     *  - Parameter published: Set this parameter to `true` to look only for published pages.
+     *  - Parameter date: The page content might change over time. Use `nil` to retrieve the page as it looks now, or
+     *                    at a specific date.
      *
-     *  @discussion The section itself must be of type `SRGContentSectionTypeMedias`.
+     *  - Remark: The section itself must be of type `SRGContentSectionTypeMedias`.
      */
-    func medias(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<MediasForContentSection.Output, Error> {
+    func medias(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestMedias(for: vendor, contentSectionUid: contentSectionUid, userId: userId, published: published, at: date)
-        return medias(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func medias(at page: MediasForContentSection.Page) -> AnyPublisher<MediasForContentSection.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { result in
-                return (result.objects, page, page.next(with: result.nextRequest), result.response)
-            }
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
+            .map { $0.objects }
             .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum ShowsForContentSection {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (shows: [SRGShow], page: Page, nextPage: Page?, response: URLResponse)
     }
     
     /**
      *  Retrieve shows for a content section.
      *
-     *  @param userId    An optional user identifier.
-     *  @param published Set this parameter to `YES` to look only for published pages.
-     *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
-     *                   specific date.
+     *  - Parameter userId: An optional user identifier.
+     *  - Parameter published: Set this parameter to `true` to look only for published pages.
+     *  - Parameter date: The page content might change over time. Use `nil` to retrieve the page as it looks now, or
+     *                    at a specific date.
      *
-     *  @discussion The section itself must be of type `SRGContentSectionTypeShows`.
+     *  - Remark: The section itself must be of type `SRGContentSectionTypeShows`.
      */
-    func shows(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<ShowsForContentSection.Output, Error> {
+    func shows(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGShow], Error> {
         let request = requestShows(for: vendor, contentSectionUid: contentSectionUid, userId: userId, published: published, at: date)
-        return shows(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func shows(at page: ShowsForContentSection.Page) -> AnyPublisher<ShowsForContentSection.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "showList", type: SRGShow.self)
-            .map { result in
-                return (result.objects, page, page.next(with: result.nextRequest), result.response)
-            }
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "showList", type: SRGShow.self, trigger: trigger)
+            .map { $0.objects }
             .eraseToAnyPublisher()
     }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
+    
     enum ShowAndMediasForContentSection {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (showAndMedias: SRGShowAndMedias, page: Page, nextPage: Page?, response: URLResponse)
+        public typealias Output = (show: SRGShow?, medias: [SRGMedia])
     }
     
     /**
      *  Retrieve the show and medias for a content section.
      *
-     *  @param userId    An optional user identifier.
-     *  @param published Set this parameter to `YES` to look only for published pages.
-     *  @param date      The page content might change over time. Use `nil` to retrieve the page as it looks now, or a
-     *                   specific date.
+     *  - Parameter userId: An optional user identifier.
+     *  - Parameter published: Set this parameter to `true` to look only for published pages.
+     *  - Parameter date The page content might change over time. Use `nil` to retrieve the page as it looks now, or
+     *                   at a specific date.
      *
-     *  @discussion The section itself must be of type `SRGContentSectionTypeShowAndMedias`.
+     *  - Remark: The section itself must be of type `SRGContentSectionTypeShowAndMedias`.
      */
-    func showAndMedias(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<ShowAndMediasForContentSection.Output, Error> {
+    func showAndMedias(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<ShowAndMediasForContentSection.Output, Error> {
         let request = requestShowAndMedias(for: vendor, contentSectionUid: contentSectionUid, userId: userId, published: published, at: date)
-        return showAndMedias(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func showAndMedias(at page: ShowAndMediasForContentSection.Page) -> AnyPublisher<ShowAndMediasForContentSection.Output, Error> {
-        return paginatedObjectTaskPublisher(for: page.request, type: SRGShowAndMedias.self)
-            .map { result in
-                (result.object, page, page.next(with: result.nextRequest), result.response)
-            }
-            .eraseToAnyPublisher()
+        return paginatedObjectTriggeredPublisher(at: Page(request: request, size: pageSize), type: SRGShowAndMedias.self, trigger: trigger) { object, showAndMedias in
+            let show = object?.show ?? showAndMedias.show
+            let medias = (object?.medias ?? []) + showAndMedias.medias
+            return (show, medias)
+        }
+        .map { $0.object }
+        .eraseToAnyPublisher()
     }
 }
 

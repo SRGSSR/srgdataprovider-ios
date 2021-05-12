@@ -21,44 +21,35 @@ final class DataProviderCombineTestCase: XCTestCase {
         cancellables = []
     }
     
-    func testTVChannels() {
+    func testRequest() {
         let requestExpectation = expectation(description: "Request finished")
         
         dataProvider.tvChannels(for: .RTS)
-            .sink { completion in
+            .sink(receiveCompletion: { _ in
+                // No pagination, pipeline ends with the first result received
                 requestExpectation.fulfill()
-            } receiveValue: { value in
-                XCTAssertNotNil(value.channels)
-            }
+            }, receiveValue: { medias in
+                print("\(medias)")
+                XCTAssertNotNil(medias)
+            })
             .store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
     }
     
-    func testParallelRequests() {
-        let requestExpectation1 = expectation(description: "Request 1 finished")
+    func testPaginatedRequest() {
+        let requestExpectation = expectation(description: "Request finished")
         
-        var nextPage: SRGDataProvider.TVLatestMedias.Page?
-        dataProvider.tvLatestMedias(for: .SRF)
-            .sink { completion in
-                requestExpectation1.fulfill()
-            } receiveValue: { result in
-                nextPage = result.nextPage
-            }
-            .store(in: &cancellables)
-        
-        waitForExpectations(timeout: 10.0, handler: nil)
-        
-        XCTAssertNotNil(nextPage)
-        
-        let requestExpectation2 = expectation(description: "Request 2 finished")
-        
-        dataProvider.tvLatestMedias(at: nextPage!)
-            .sink { completion in
-                requestExpectation2.fulfill()
-            } receiveValue: { value in
-                XCTAssertNotNil(value.medias)
-            }
+        dataProvider.latestMediasForShow(withUrn: "urn:rts:show:tv:532539")
+            .sink(receiveCompletion: { _ in
+                // Nothing
+            }, receiveValue: { medias in
+                print("\(medias)")
+                XCTAssertNotNil(medias)
+                
+                // Pipeline stays open unless pages are exhausted. Fulfills after receiving the first value
+                requestExpectation.fulfill()
+            })
             .store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
@@ -68,22 +59,26 @@ final class DataProviderCombineTestCase: XCTestCase {
         let requestExpectation = expectation(description: "Request finished")
         
         dataProvider.tvTopics(for: .RTS)
-            .tryMap { topics, response -> (SRGTopic, URLResponse) in
+            .tryMap { topics -> SRGTopic in
                 if let firstTopic = topics.first {
-                    return (firstTopic, response)
+                    return firstTopic
                 }
                 else {
                     throw TestError.missingData
                 }
             }
-            .flatMap { topic, response in
+            .flatMap { topic in
                 return self.dataProvider.latestMediasForTopic(withUrn: topic.urn)
             }
-            .sink { completion in
+            .sink(receiveCompletion: { _ in
+                // Nothing
+            }, receiveValue: { medias in
+                print("\(medias)")
+                XCTAssertNotNil(medias)
+                
+                // Pipeline stays open unless pages are exhausted. Fulfills after receiving the first value
                 requestExpectation.fulfill()
-            } receiveValue: { value in
-                XCTAssertNotNil(value.medias)
-            }
+            })
             .store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)

@@ -137,7 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
                          withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 
 /**
- *  Search shows matching a specific query.
+ *  Search shows matching a specific query, returning the matching URN list.
  *
  *  @discussion Some business units only support full-text search, not partial matching. To get complete show objects,
  *              call the `-showsWithURNs:completionBlock:` request with the returned URN list.

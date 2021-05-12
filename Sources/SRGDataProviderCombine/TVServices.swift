@@ -9,51 +9,32 @@
 import Combine
 
 /**
- *  List of TV-oriented services supported by the data provider. Media list requests collect content for all channels
- *  and do not make any distinction between them.
+ *  Services for TV channels and livestreams.
  */
-
-// MARK: - Channels and livestreams
-
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
-    enum TVChannels {
-        public typealias Output = (channels: [SRGChannel], response: URLResponse)
-    }
-    
     /**
      *  List of TV channels.
      */
-    func tvChannels(for vendor: SRGVendor) -> AnyPublisher<TVChannels.Output, Error> {
+    func tvChannels(for vendor: SRGVendor) -> AnyPublisher<[SRGChannel], Error> {
         let request = requestTVChannels(for: vendor)
-        return objectsTaskPublisher(for: request, rootKey: "channelList", type: SRGChannel.self)
-            .map { $0 }
+        return objectsPublisher(for: request, rootKey: "channelList", type: SRGChannel.self)
+            .map { $0.objects }
             .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum TVChannel {
-        public typealias Output = (channel: SRGChannel, response: URLResponse)
     }
     
     /**
      *  Specific TV channel. Use this request to obtain complete channel information, including current and next programs.
      */
-    func tvChannel(for vendor: SRGVendor, withUid channelUid: String) -> AnyPublisher<TVChannel.Output, Error> {
+    func tvChannel(for vendor: SRGVendor, withUid channelUid: String) -> AnyPublisher<SRGChannel, Error> {
         let request = requestTVChannel(for: vendor, withUid: channelUid)
-        return objectTaskPublisher(for: request, type: SRGChannel.self)
-            .map { $0 }
+        return objectPublisher(for: request, type: SRGChannel.self)
+            .map { $0.object }
             .eraseToAnyPublisher()
     }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
+    
     enum TVLatestPrograms {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (programComposition: SRGProgramComposition, page: Page, nextPage: Page?, response: URLResponse)
+        public typealias Output = (channel: SRGChannel, programs: [SRGProgram])
     }
     
     /**
@@ -64,201 +45,94 @@ public extension SRGDataProvider {
      *  - Parameter livestreamUid: An optional media unique identifier (usually regional, but might be the main one). If
      *    provided, the program of the specified livestream is used, otherwise the one of the main channel.
      *
-     *  Though the completion block does not return an array directly, this request supports pagination (for programs
-     *  returned in the program composition object).
+     *  - Remark: Though the completion block does not return an array directly, this request supports pagination (for programs
+     *            returned in the program composition object).
      */
-    func tvLatestPrograms(for vendor: SRGVendor, channelUid: String, livestreamUid: String? = nil, from: Date? = nil, to: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVLatestPrograms.Output, Error> {
+    func tvLatestPrograms(for vendor: SRGVendor, channelUid: String, livestreamUid: String? = nil, from: Date? = nil, to: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<TVLatestPrograms.Output, Error> {
         let request = requestTVLatestPrograms(for: vendor, channelUid: channelUid, livestreamUid: livestreamUid, from:from, to: to)
-        return tvLatestPrograms(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func tvLatestPrograms(at page: TVLatestPrograms.Page) -> AnyPublisher<TVLatestPrograms.Output, Error> {
-        return paginatedObjectTaskPublisher(for: page.request, type: SRGProgramComposition.self)
-            .map { result in
-                (result.object, page, page.next(with: result.nextRequest), result.response)
-            }
-            .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum TVLivestreams {
-        public typealias Output = (medias: [SRGMedia], response: URLResponse)
+        return paginatedObjectTriggeredPublisher(at: Page(request: request, size: pageSize), type: SRGProgramComposition.self, trigger: trigger) { object, programComposition in
+            let channel = object?.channel ?? programComposition.channel
+            let programs = (object?.programs ?? []) + (programComposition.programs ?? [])
+            return (channel, programs)
+        }
+        .map { $0.object }
+        .eraseToAnyPublisher()
     }
     
     /**
      *  List of TV livestreams.
      */
-    func tvLivestreams(for vendor: SRGVendor) -> AnyPublisher<TVLivestreams.Output, Error> {
+    func tvLivestreams(for vendor: SRGVendor) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVLivestreams(for: vendor)
-        return objectsTaskPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { $0 }
+        return objectsPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { $0.objects }
             .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum TVScheduledLivestreams {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
     }
     
     /**
      *  List of TV scheduled livestreams.
      */
-    func tvScheduledLivestreams(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVScheduledLivestreams.Output, Error> {
+    func tvScheduledLivestreams(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVScheduledLivestreams(for: vendor)
-        return tvScheduledLivestreams(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func tvScheduledLivestreams(at page: TVScheduledLivestreams.Page) -> AnyPublisher<TVScheduledLivestreams.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { result in
-                (result.objects, page, page.next(with: result.nextRequest), result.response)
-            }
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
+            .map { $0.objects }
             .eraseToAnyPublisher()
     }
 }
 
-// MARK: - Media and episode retrieval
-
+/**
+ *  Services for TV medias and episodes.
+ */
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
-    enum TVEditorialMedias {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
-    }
-    
     /**
      *  Medias which have been picked by editors.
      */
-    func tvEditorialMedias(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVEditorialMedias.Output, Error> {
+    func tvEditorialMedias(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVEditorialMedias(for: vendor)
-        return tvEditorialMedias(at: Page(request: request, size: pageSize))
-    }
-
-    /**
-     *  Next page of results.
-     */
-    func tvEditorialMedias(at page: TVEditorialMedias.Page) -> AnyPublisher<TVEditorialMedias.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { result in
-                (result.objects, page, page.next(with: result.nextRequest), result.response)
-            }
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
+            .map { $0.objects }
             .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum TVHeroStageMedias {
-        public typealias Output = (medias: [SRGMedia], response: URLResponse)
     }
     
     /**
      *  Medias which have been picked by editors.
      */
-    func tvHeroStageMedias(for vendor: SRGVendor) -> AnyPublisher<TVHeroStageMedias.Output, Error> {
+    func tvHeroStageMedias(for vendor: SRGVendor) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVHeroStageMedias(for: vendor)
-        return objectsTaskPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { $0 }
+        return objectsPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { $0.objects }
             .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum TVLatestMedias {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
     }
     
     /**
      *  Latest medias.
      */
-    func tvLatestMedias(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVLatestMedias.Output, Error> {
+    func tvLatestMedias(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVLatestMedias(for: vendor)
-        return tvLatestMedias(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func tvLatestMedias(at page: TVLatestMedias.Page) -> AnyPublisher<TVLatestMedias.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { result in
-                (result.objects, page, page.next(with: result.nextRequest), result.response)
-            }
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
+            .map { $0.objects }
             .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum TVMostPopularMedias {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
     }
     
     /**
      *  Most popular medias.
      */
-    func tvMostPopularMedias(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVMostPopularMedias.Output, Error> {
+    func tvMostPopularMedias(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVMostPopularMedias(for: vendor)
-        return tvMostPopularMedias(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func tvMostPopularMedias(at page: TVMostPopularMedias.Page) -> AnyPublisher<TVMostPopularMedias.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { result in
-                (result.objects, page, page.next(with: result.nextRequest), result.response)
-            }
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
+            .map { $0.objects }
             .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum TVSoonExpiringMedias {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
     }
     
     /**
      *  Medias which will soon expire.
      */
-    func tvSoonExpiringMedias(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVSoonExpiringMedias.Output, Error> {
+    func tvSoonExpiringMedias(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVSoonExpiringMedias(for: vendor)
-        return tvSoonExpiringMedias(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func tvSoonExpiringMedias(at page: TVSoonExpiringMedias.Page) -> AnyPublisher<TVSoonExpiringMedias.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { result in
-                (result.objects, page, page.next(with: result.nextRequest), result.response)
-            }
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
+            .map { $0.objects }
             .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum TVTrendingMedias {
-        public typealias Output = (medias: [SRGMedia], response: URLResponse)
     }
     
     /**
@@ -269,73 +143,31 @@ public extension SRGDataProvider {
      *  - Parameter editorialLimit: The maximum number of editorial recommendations returned (if `nil`, all are returned).
      *  - Parameter episodesOnly: Whether only episodes must be returned.
      */
-    func tvTrendingMedias(for vendor: SRGVendor, limit: UInt? = nil, editorialLimit: UInt? = nil, episodesOnly: Bool = false) -> AnyPublisher<TVTrendingMedias.Output, Error> {
+    func tvTrendingMedias(for vendor: SRGVendor, limit: UInt? = nil, editorialLimit: UInt? = nil, episodesOnly: Bool = false) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVTrendingMedias(for: vendor, withLimit: limit as NSNumber?, editorialLimit: editorialLimit as NSNumber?, episodesOnly: episodesOnly)
-        return objectsTaskPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { $0 }
+        return objectsPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
+            .map { $0.objects }
             .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum TVLatestEpisodes {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
     }
     
     /**
      *  Latest episodes.
      */
-    func tvLatestEpisodes(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVLatestEpisodes.Output, Error> {
+    func tvLatestEpisodes(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVLatestEpisodes(for: vendor)
-        return tvLatestEpisodes(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func tvLatestEpisodes(at page: TVLatestEpisodes.Page) -> AnyPublisher<TVLatestEpisodes.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { result in
-                (result.objects, page, page.next(with: result.nextRequest), result.response)
-            }
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
+            .map { $0.objects }
             .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum TVLatestWebFirstEpisodes {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
     }
     
     /**
      *  Latest web first episodes.
      */
-    func tvLatestWebFirstEpisodes(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVLatestWebFirstEpisodes.Output, Error> {
+    func tvLatestWebFirstEpisodes(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVLatestWebFirstEpisodes(for: vendor)
-        return tvLatestWebFirstEpisodes(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func tvLatestWebFirstEpisodes(at page: TVLatestWebFirstEpisodes.Page) -> AnyPublisher<TVLatestWebFirstEpisodes.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { result in
-                (result.objects, page, page.next(with: result.nextRequest), result.response)
-            }
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
+            .map { $0.objects }
             .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum TVEpisodes {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
     }
     
     /**
@@ -343,96 +175,60 @@ public extension SRGDataProvider {
      *
      *  - Parameter day: The day. If `nil`, today is used.
      */
-    func tvEpisodes(for vendor: SRGVendor, day: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVEpisodes.Output, Error> {
+    func tvEpisodes(for vendor: SRGVendor, day: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVEpisodes(for: vendor, day: day)
-        return tvEpisodes(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func tvEpisodes(at page: TVEpisodes.Page) -> AnyPublisher<TVEpisodes.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { result in
-                (result.objects, page, page.next(with: result.nextRequest), result.response)
-            }
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
+            .map { $0.objects }
             .eraseToAnyPublisher()
     }
 }
 
-// MARK: - Topics
-
+/**
+ *  Services for TV topics.
+ */
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
-    enum TVTopics {
-        public typealias Output = (topics: [SRGTopic], response: URLResponse)
-    }
-    
     /**
      *  Topics.
      */
-    func tvTopics(for vendor: SRGVendor) -> AnyPublisher<TVTopics.Output, Error> {
+    func tvTopics(for vendor: SRGVendor) -> AnyPublisher<[SRGTopic], Error> {
         let request = requestTVTopics(for: vendor)
-        return objectsTaskPublisher(for: request, rootKey: "topicList", type: SRGTopic.self)
-            .map { $0 }
+        return objectsPublisher(for: request, rootKey: "topicList", type: SRGTopic.self)
+            .map { $0.objects }
             .eraseToAnyPublisher()
     }
 }
 
-// MARK: - Shows
-
+/**
+ *  Services for TV shows.
+ */
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
-    enum TVShows {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (shows: [SRGShow], page: Page, nextPage: Page?, response: URLResponse)
-    }
-    
     /**
      *  Shows.
      */
-    func tvShows(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVShows.Output, Error> {
+    func tvShows(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGShow], Error> {
         let request = requestTVShows(for: vendor)
-        return tvShows(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func tvShows(at page: TVShows.Page) -> AnyPublisher<TVShows.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "showList", type: SRGShow.self)
-            .map { result in
-                (result.objects, page, page.next(with: result.nextRequest), result.response)
-            }
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "showList", type: SRGShow.self, trigger: trigger)
+            .map { $0.objects }
             .eraseToAnyPublisher()
     }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
+    
     enum TVShowsMatchingQuery {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (showUrns: [String], total: UInt, page: Page, nextPage: Page?, response: URLResponse)
+        public typealias Output = (showUrns: [String], total: UInt)
     }
     
     /**
-     *  Search shows matching a specific query.
+     *  Search shows matching a specific query, returning the matching URN list.
      *
      *  Some business units only support full-text search, not partial matching. To get complete show objects, call
      *  the `shows(withUrns:)` request with the returned URN list.
      */
-    func tvShows(for vendor: SRGVendor, matchingQuery query: String, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<TVShowsMatchingQuery.Output, Error> {
+    func tvShows(for vendor: SRGVendor, matchingQuery query: String, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<TVShowsMatchingQuery.Output, Error> {
         let request = requestTVShows(for: vendor, matchingQuery: query)
-        return tvShows(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func tvShows(at page: TVShowsMatchingQuery.Page) -> AnyPublisher<TVShowsMatchingQuery.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "searchResultShowList", type: SRGSearchResult.self)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "searchResultShowList", type: SRGSearchResult.self, trigger: trigger)
             .map { result in
-                return (result.objects.map(\.urn), result.total, page, page.next(with: result.nextRequest), result.response)
+                return (result.objects.map(\.urn), result.total)
             }
             .eraseToAnyPublisher()
     }

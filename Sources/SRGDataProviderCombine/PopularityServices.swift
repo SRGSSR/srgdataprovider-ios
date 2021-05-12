@@ -9,40 +9,28 @@
 import Combine
 
 /**
- *  List of services for popularity measurements supported by the data provider.
+ *  Services for popularity measurements.
  */
-
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
-    enum IncreaseSocialCount {
-        public typealias Output = (overview: SRGSocialCountOverview, response: URLResponse)
-    }
-    
     /**
-     *  Increase the specified social count from 1 unit for the specified URN, with the corresponding event data
-     *  (see `SRGSubdivision` class).
+     *  Increase the specified social count of 1 unit for the specified URN, with the corresponding opaque event
+     *  information (see `SRGSubdivision` class).
      */
-    func increaseSocialCount(for type: SRGSocialCountType, urn: String, event: String) -> AnyPublisher<IncreaseSocialCount.Output, Error> {
+    func increaseSocialCount(for type: SRGSocialCountType, urn: String, event: String) -> AnyPublisher<SRGSocialCountOverview, Error> {
         let request = requestIncreaseSocialCount(for: type, urn: urn, event: event)
-        return objectTaskPublisher(for: request, type: SRGSocialCountOverview.self)
-            .map { $0 }
+        return objectPublisher(for: request, type: SRGSocialCountOverview.self)
+            .map { $0.object }
             .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum IncreaseShowSearchResultsViewCount {
-        public typealias Output = (overview: SRGShowStatisticsOverview, response: URLResponse)
     }
     
     /**
      *  Increase the number of times a show has been viewed from search results.
      */
-    func increaseSearchResultsViewCount(for show: SRGShow) -> AnyPublisher<IncreaseShowSearchResultsViewCount.Output, Error> {
+    func increaseSearchResultsViewCount(for show: SRGShow) -> AnyPublisher<SRGShowStatisticsOverview, Error> {
         let request = requestIncreaseSearchResultsViewCount(for: show)
-        return objectTaskPublisher(for: request, type: SRGShowStatisticsOverview.self)
-            .map { $0 }
+        return objectPublisher(for: request, type: SRGShowStatisticsOverview.self)
+            .map { $0.object }
             .eraseToAnyPublisher()
     }
 }

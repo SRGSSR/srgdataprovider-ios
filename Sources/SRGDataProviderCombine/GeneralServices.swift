@@ -9,23 +9,18 @@
 import Combine
 
 /**
- *  General services supported by the data provider.
+ *  General services.
  */
-
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
-    enum ServiceMessage {
-        public typealias Output = (message: SRGServiceMessage, response: URLResponse)
-    }
-    
     /**
      *  Retrieve a message from the service about its status, if there is currently one. If none is available, the
      *  call ends with an HTTP error.
      */
-    func serviceMessage(for vendor: SRGVendor) -> AnyPublisher<ServiceMessage.Output, Error> {
+    func serviceMessage(for vendor: SRGVendor) -> AnyPublisher<SRGServiceMessage, Error> {
         let request = requestServiceMessage(for: vendor)
-        return objectTaskPublisher(for: request, type: SRGServiceMessage.self)
-            .map { $0 }
+        return objectPublisher(for: request, type: SRGServiceMessage.self)
+            .map { $0.object }
             .eraseToAnyPublisher()
     }
 }

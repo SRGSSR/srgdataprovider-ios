@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The channel which the programs belong to.
  */
-@property (nonatomic, readonly, nullable) SRGChannel *channel;
+@property (nonatomic, readonly) SRGChannel *channel;
 
 /**
  *  The list of programs.
