@@ -35,7 +35,7 @@ private extension SRGDataProvider {
                     return (objects, result.total, result.aggregations, result.suggestions, result.nextRequest)
                 }
                 else {
-                    throw SRGDataProviderError.invalidData
+                    throw URLError(.cannotDecodeContentData)
                 }
             }
             .eraseToAnyPublisher()

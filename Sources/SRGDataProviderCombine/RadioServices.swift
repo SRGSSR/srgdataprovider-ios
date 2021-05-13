@@ -188,11 +188,20 @@ public extension SRGDataProvider {
     }
     
     /**
-     *  Current song by channel.
+     *  Current song by channel. Fails with an error if no song is currently being played on air.
      */
     func radioCurrentSong(for vendor: SRGVendor, channelUid: String) -> AnyPublisher<SRGSong, Error> {
         let request = requestRadioCurrentSong(for: vendor, channelUid: channelUid)
-        return objectPublisher(for: request, type: SRGSong.self)
+        return objectsPublisher(for: request, rootKey: "songList", type: SRGSong.self)
+            .tryMap { songs in
+                if let song = songs.first {
+                    return song
+                }
+                else {
+                    throw SRGDataProviderError.http(statusCode: 404)
+                }
+            }
+            .eraseToAnyPublisher()
     }
 }
 
