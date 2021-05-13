@@ -26,7 +26,7 @@ public extension SRGDataProvider {
      *  returned, which can lead to longer response times. If you do not need aggregations, provide a settings object
      *  to disable them.
      */
-    func medias(for vendor: SRGVendor, matchingQuery query: String?, with settings: SRGMediaSearchSettings?, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = Trigger()) -> AnyPublisher<MediasMatchingQuery.Output, Error> {
+    func medias(for vendor: SRGVendor, matchingQuery query: String?, with settings: SRGMediaSearchSettings? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = Trigger()) -> AnyPublisher<MediasMatchingQuery.Output, Error> {
         let request = requestMedias(for: vendor, matchingQuery: query, with: settings)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "searchResultMediaList", type: SRGSearchResult.self, trigger: trigger)
             .map { result in
