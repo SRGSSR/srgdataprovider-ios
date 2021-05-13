@@ -21,8 +21,6 @@ public extension SRGDataProvider {
     func modules(for vendor: SRGVendor, type: SRGModuleType) -> AnyPublisher<[SRGModule], Error> {
         let request = requestModules(for: vendor, type: type)
         return objectsPublisher(for: request, rootKey: "moduleConfigList", type: SRGModule.self)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
 }
 

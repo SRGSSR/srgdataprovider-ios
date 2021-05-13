@@ -13,46 +13,10 @@ import SRGDataProviderModel
 @_implementationOnly import Mantle
 @_implementationOnly import SRGDataProviderRequests
 @_implementationOnly import SRGNetwork
-
-@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    /**
-     *  Common type for triggers driving other processes (e.g. page retrieval).
-     */
-    typealias Trigger = AnyPublisher<Void, Never>
-}
-
-@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider.Trigger {
-    /**
-     *  Active trigger which can be pulled.
-     */
-    static let active: PassthroughSubject<Void, Never> = {
-        return PassthroughSubject<Void, Never>()
-    }()
-    
-    /**
-     *  Inactive trigger that can never be pulled.
-     */
-    static let inactive: SRGDataProvider.Trigger = {
-        return Empty<Void, Never>(completeImmediately: false)
-            .eraseToAnyPublisher()
-    }()
-}
-
-@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension PassthroughSubject where Output == Void, Failure == Never {
-    /**
-     *  Pull a trigger to signal to the process it controls it must perform its task.
-     */
-    func pull() {
-        return send(())
-    }
-}
     
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-extension SRGDataProvider {
-    typealias PaginatedObjectsOutput<T> = (objects: [T], total: UInt, aggregations: SRGMediaAggregations?, suggestions: [SRGSearchSuggestion]?, nextRequest: URLRequest?, response: URLResponse)
+private extension SRGDataProvider {
+    typealias PaginatedObjectsOutput<T> = (objects: [T], total: UInt, aggregations: SRGMediaAggregations?, suggestions: [SRGSearchSuggestion]?, nextRequest: URLRequest?)
     
     /**
      *  A publisher able to retrieve possibly paginated arrays of objects.
@@ -64,11 +28,11 @@ extension SRGDataProvider {
                 //         (or no such entry at all for the episode composition request)
                 // See https://confluence.srg.beecollaboration.com/display/SRGPLAY/Developer+Meeting+2016-10-05
                 guard let array = result.object[rootKey] as? [Any] else {
-                    return ([], result.total, result.aggregations, result.suggestions, nil, result.response)
+                    return ([], result.total, result.aggregations, result.suggestions, nil)
                 }
                 
                 if let objects = try? MTLJSONAdapter.models(of: T.self, fromJSONArray: array) as? [T] {
-                    return (objects, result.total, result.aggregations, result.suggestions, result.nextRequest, result.response)
+                    return (objects, result.total, result.aggregations, result.suggestions, result.nextRequest)
                 }
                 else {
                     throw SRGDataProviderError.invalidData
@@ -83,16 +47,11 @@ extension SRGDataProvider {
     typealias PaginatedObjectsTriggeredOutput<T> = (objects: [T], total: UInt, aggregations: SRGMediaAggregations?, suggestions: [SRGSearchSuggestion]?)
     
     /**
-     *  A publisher that recursively retrieves possibly paginated arrays of objects. The first page is automatically retrieved
-     *  when connecting a subscriber. Subsequent page retrieval is requested through a `Trigger` stored separately. Consolidated
-     *  results are added to the current object array and are provided to subscribers when available. The pipeline reaches
-     *  completion when the last page of content has been reached.
-     *
      *  Inspired from RXSwift code, see for example:
      *    https://github.com/RxSwiftCommunity/RxPager/blob/master/RxPager/Classes/RxPager.swift
      *    https://stackoverflow.com/a/39645113/760435
      */
-    func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, trigger: Trigger, currentOutput: PaginatedObjectsTriggeredOutput<T>? = nil) -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
+    private func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, trigger: Trigger, currentOutput: PaginatedObjectsTriggeredOutput<T>?) -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
         return paginatedObjectsPublisher(for: page.request, rootKey: rootKey, type: T.self)
             .flatMap { result -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> in
                 let output = (currentOutput?.objects ?? [] + result.objects, result.total, result.aggregations, result.suggestions)
@@ -112,11 +71,27 @@ extension SRGDataProvider {
             }
             .eraseToAnyPublisher()
     }
+    
+    /**
+     *  A publisher that recursively retrieves possibly paginated arrays of objects. The first page is automatically retrieved
+     *  when connecting a subscriber. Subsequent page retrieval is requested through a `Trigger` stored separately. Consolidated
+     *  results are added to the current object array and are provided to subscribers when available. The pipeline reaches
+     *  completion when the last page of content has been reached.
+     */
+    func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, trigger: Trigger) -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
+        return paginatedObjectsTriggeredPublisher(at: page, rootKey: rootKey, type: type, trigger: trigger, currentOutput: nil)
+    }
+    
+    func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, trigger: Trigger) -> AnyPublisher<[T], Error> where T: MTLModel, P: NextLinkable {
+        return paginatedObjectsTriggeredPublisher(at: page, rootKey: rootKey, type: type, trigger: trigger, currentOutput: nil)
+            .map { $0.objects }
+            .eraseToAnyPublisher()
+    }
 }
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-extension SRGDataProvider {
-    typealias PaginatedObjectOutput<T> = (object: T, total: UInt, aggregations: SRGMediaAggregations?, suggestions: [SRGSearchSuggestion]?, nextRequest: URLRequest?, response: URLResponse)
+private extension SRGDataProvider {
+    typealias PaginatedObjectOutput<T> = (object: T, total: UInt, aggregations: SRGMediaAggregations?, suggestions: [SRGSearchSuggestion]?, nextRequest: URLRequest?)
     
     /**
      *  A publisher able to retrieve possibly paginated objects (one object per page).
@@ -125,7 +100,7 @@ extension SRGDataProvider {
         return paginatedDictionaryPublisher(for: request)
             .tryMap { result in
                 if let object = try? MTLJSONAdapter.model(of: T.self, fromJSONDictionary: result.object) as? T {
-                    return (object, result.total, result.aggregations, result.suggestions, result.nextRequest, result.response)
+                    return (object, result.total, result.aggregations, result.suggestions, result.nextRequest)
                 }
                 else {
                     throw SRGDataProviderError.invalidData
@@ -174,7 +149,7 @@ extension SRGDataProvider {
             .tryMapJson([String: Any].self)
             .map { result in
                 let nextRequest = updatedRequest(from: request, with: extractNextUrl(from: result.data))
-                return (result.data, extractTotal(from: result.data), extractAggregations(from: result.data), extractSuggestions(from: result.data), nextRequest, result.response)
+                return (result.data, extractTotal(from: result.data), extractAggregations(from: result.data), extractSuggestions(from: result.data), nextRequest)
             }
             .eraseToAnyPublisher()
     }
@@ -195,7 +170,7 @@ extension SRGDataProvider {
      *    https://github.com/RxSwiftCommunity/RxPager/blob/master/RxPager/Classes/RxPager.swift
      *    https://stackoverflow.com/a/39645113/760435
      */
-    func paginatedObjectTriggeredPublisher<T, U, P>(at page: P, type: T.Type, trigger: Trigger, currentOutput: PaginatedObjectTriggeredOutput<U>? = nil, reducer: @escaping PaginatedObjectReducer<T, U>) -> AnyPublisher<PaginatedObjectTriggeredOutput<U>, Error> where T: MTLModel, P: NextLinkable {
+    private func paginatedObjectTriggeredPublisher<T, U, P>(at page: P, type: T.Type, trigger: Trigger, currentOutput: PaginatedObjectTriggeredOutput<U>?, reducer: @escaping PaginatedObjectReducer<T, U>) -> AnyPublisher<PaginatedObjectTriggeredOutput<U>, Error> where T: MTLModel, P: NextLinkable {
         return paginatedObjectPublisher(for: page.request, type: T.self)
             .flatMap { result -> AnyPublisher<PaginatedObjectTriggeredOutput<U>, Error> in
                 let output = (reducer(currentOutput?.object, result.object), result.total, result.aggregations, result.suggestions)
@@ -213,20 +188,26 @@ extension SRGDataProvider {
             }
             .eraseToAnyPublisher()
     }
+    
+    func paginatedObjectTriggeredPublisher<T, U, P>(at page: P, type: T.Type, trigger: Trigger, reducer: @escaping PaginatedObjectReducer<T, U>) -> AnyPublisher<PaginatedObjectTriggeredOutput<U>, Error> where T: MTLModel, P: NextLinkable {
+        return paginatedObjectTriggeredPublisher(at: page, type: type, trigger: trigger, currentOutput: nil, reducer: reducer)
+    }
+    
+    func paginatedObjectTriggeredPublisher<T, U, P>(at page: P, type: T.Type, trigger: Trigger, reducer: @escaping PaginatedObjectReducer<T, U>) -> AnyPublisher<U, Error> where T: MTLModel, P: NextLinkable {
+        return paginatedObjectTriggeredPublisher(at: page, type: type, trigger: trigger, currentOutput: nil, reducer: reducer)
+            .map { $0.object }
+            .eraseToAnyPublisher()
+    }
 }
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension SRGDataProvider {
-    typealias ObjectsOutput<T> = (objects: [T], response: URLResponse)
-    
     /**
      *  A publisher able to retrieve non-paginated arrays of objects.
      */
-    func objectsPublisher<T>(for request: URLRequest, rootKey: String, type: T.Type) -> AnyPublisher<ObjectsOutput<T>, Error> where T: MTLModel {
+    func objectsPublisher<T>(for request: URLRequest, rootKey: String, type: T.Type) -> AnyPublisher<[T], Error> where T: MTLModel {
         return paginatedObjectsPublisher(for: request, rootKey: rootKey, type: T.self)
-            .map { result in
-                return (result.objects, result.response)
-            }
+            .map { $0.objects }
             .eraseToAnyPublisher()
     }
     
@@ -234,22 +215,18 @@ extension SRGDataProvider {
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension SRGDataProvider {
-    typealias ObjectOutput<T> = (object: T, response: URLResponse)
-    
     /**
      *  A publisher able to retrieve a single object.
      */
-    func objectPublisher<T>(for request: URLRequest, type: T.Type) -> AnyPublisher<ObjectOutput<T>, Error> where T: MTLModel {
+    func objectPublisher<T>(for request: URLRequest, type: T.Type) -> AnyPublisher<T, Error> where T: MTLModel {
         return paginatedObjectPublisher(for: request, type: T.self)
-            .map { result in
-                return (result.object, result.response)
-            }
+            .map { $0.object }
             .eraseToAnyPublisher()
     }
 }
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-extension Publisher {
+private extension Publisher {
     typealias Ouput<T> = (data: T, response: URLResponse)
     
     /**

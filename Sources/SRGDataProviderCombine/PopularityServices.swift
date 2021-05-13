@@ -20,8 +20,6 @@ public extension SRGDataProvider {
     func increaseSocialCount(for type: SRGSocialCountType, urn: String, event: String) -> AnyPublisher<SRGSocialCountOverview, Error> {
         let request = requestIncreaseSocialCount(for: type, urn: urn, event: event)
         return objectPublisher(for: request, type: SRGSocialCountOverview.self)
-            .map { $0.object }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -30,8 +28,6 @@ public extension SRGDataProvider {
     func increaseSearchResultsViewCount(for show: SRGShow) -> AnyPublisher<SRGShowStatisticsOverview, Error> {
         let request = requestIncreaseSearchResultsViewCount(for: show)
         return objectPublisher(for: request, type: SRGShowStatisticsOverview.self)
-            .map { $0.object }
-            .eraseToAnyPublisher()
     }
 }
 

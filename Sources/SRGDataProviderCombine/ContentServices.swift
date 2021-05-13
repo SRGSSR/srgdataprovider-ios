@@ -9,7 +9,7 @@
 import Combine
 
 /**
- *  Services returning content configured by editors throug the Play Application Configurator tool (PAC).
+ *  Services returning content configured by editors through the Play Application Configurator tool (PAC).
  */
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
@@ -23,8 +23,6 @@ public extension SRGDataProvider {
     func contentPage(for vendor: SRGVendor, uid: String, published: Bool = true, at date: Date? = nil) -> AnyPublisher<SRGContentPage, Error> {
         let request = requestContentPage(for: vendor, uid: uid, published: published, at: date)
         return objectPublisher(for: request, type: SRGContentPage.self)
-            .map { $0.object }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -37,8 +35,6 @@ public extension SRGDataProvider {
     func contentPage(for vendor: SRGVendor, mediaType: SRGMediaType, published: Bool = true, at date: Date? = nil) -> AnyPublisher<SRGContentPage, Error> {
         let request = requestContentPage(for: vendor, mediaType: mediaType, published: published, at: date)
         return objectPublisher(for: request, type: SRGContentPage.self)
-            .map { $0.object }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -51,8 +47,6 @@ public extension SRGDataProvider {
     func contentPage(for vendor: SRGVendor, topicWithUrn topicUrn: String, published: Bool = true, at date: Date? = nil) -> AnyPublisher<SRGContentPage, Error> {
         let request = requestContentPage(for: vendor, topicWithURN: topicUrn, published: published, at: date)
         return objectPublisher(for: request, type: SRGContentPage.self)
-            .map { $0.object }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -63,8 +57,6 @@ public extension SRGDataProvider {
     func contentSection(for vendor: SRGVendor, uid: String, published: Bool = true) -> AnyPublisher<SRGContentSection, Error> {
         let request = requestContentSection(for: vendor, uid: uid, published: published)
         return objectPublisher(for: request, type: SRGContentSection.self)
-            .map { $0.object }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -80,8 +72,6 @@ public extension SRGDataProvider {
     func medias(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestMedias(for: vendor, contentSectionUid: contentSectionUid, userId: userId, published: published, at: date)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -97,8 +87,6 @@ public extension SRGDataProvider {
     func shows(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGShow], Error> {
         let request = requestShows(for: vendor, contentSectionUid: contentSectionUid, userId: userId, published: published, at: date)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "showList", type: SRGShow.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     enum ShowAndMediasForContentSection {
@@ -122,8 +110,6 @@ public extension SRGDataProvider {
             let medias = (object?.medias ?? []) + showAndMedias.medias
             return (show, medias)
         }
-        .map { $0.object }
-        .eraseToAnyPublisher()
     }
 }
 

@@ -19,8 +19,6 @@ public extension SRGDataProvider {
     func liveCenterVideos(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestLiveCenterVideos(for: vendor)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
 }
 

@@ -24,8 +24,6 @@ public extension SRGDataProvider {
     func media(withUrn urn: String) -> AnyPublisher<SRGMedia, Error> {
         let request = requestMedia(withURN: urn)
         return objectPublisher(for: request, type: SRGMedia.self)
-            .map { $0.object }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -37,8 +35,6 @@ public extension SRGDataProvider {
     func medias(withUrns urns: [String], pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestMedias(withURNs: urns)
         return paginatedObjectsTriggeredPublisher(at: URNPage(originalRequest: request, queryParameter: "urns", size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -49,8 +45,6 @@ public extension SRGDataProvider {
     func latestMediasForTopic(withUrn topicUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestLatestMediasForTopic(withURN: topicUrn)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -61,8 +55,6 @@ public extension SRGDataProvider {
     func mostPopularMediasForTopic(withUrn topicUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestMostPopularMediasForTopic(withURN: topicUrn)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -74,8 +66,6 @@ public extension SRGDataProvider {
     func mediaComposition(forUrn urn: String, standalone: Bool = false) -> AnyPublisher<SRGMediaComposition, Error> {
         let request = requestMediaComposition(forURN: urn, standalone: standalone)
         return objectPublisher(for: request, type: SRGMediaComposition.self)
-            .map { $0.object }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -84,8 +74,6 @@ public extension SRGDataProvider {
     func show(withUrn urn: String) -> AnyPublisher<SRGShow, Error> {
         let request = requestShow(withURN: urn)
         return objectPublisher(for: request, type: SRGShow.self)
-            .map { $0.object }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -97,8 +85,6 @@ public extension SRGDataProvider {
     func shows(withUrns urns: [String], pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGShow], Error> {
         let request = requestShows(withURNs: urns)
         return paginatedObjectsTriggeredPublisher(at: URNPage(originalRequest: request, queryParameter: "urns", size: pageSize), rootKey: "showList", type: SRGShow.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     enum LatestEpisodesForShow {
@@ -121,8 +107,6 @@ public extension SRGDataProvider {
             let episodes = (object?.episodes ?? []) + (episodeComposition.episodes ?? [])
             return (channel, show, episodes)
         }
-        .map { $0.object }
-        .eraseToAnyPublisher()
     }
     
     /**
@@ -131,8 +115,6 @@ public extension SRGDataProvider {
     func latestMediasForShow(withUrn showUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestLatestMediasForShow(withURN: showUrn)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -144,8 +126,6 @@ public extension SRGDataProvider {
     func latestMediasForShows(withUrns urns: [String], filter: SRGMediaFilter = .none, maximumPublicationDay: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestLatestMediasForShows(withURNs: urns, filter: filter, maximumPublicationDay: maximumPublicationDay)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -154,8 +134,6 @@ public extension SRGDataProvider {
     func latestMediasForModule(withUrn moduleUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestLatestMediasForModule(withURN: moduleUrn)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
 }
 

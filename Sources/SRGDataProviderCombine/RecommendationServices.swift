@@ -22,8 +22,6 @@ public extension SRGDataProvider {
     func recommendedMedias(forUrn urn: String, userId: String?, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestRecommendedMedias(forURN: urn, userId: userId)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
 }
 

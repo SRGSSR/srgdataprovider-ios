@@ -77,8 +77,6 @@ public extension SRGDataProvider {
     func mostSearchedShows(for vendor: SRGVendor, matching transmission: SRGTransmission = .none) -> AnyPublisher<[SRGShow], Error> {
         let request = requestMostSearchedShows(for: vendor, matching: transmission)
         return objectsPublisher(for: request, rootKey: "showList", type: SRGShow.self)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -91,8 +89,6 @@ public extension SRGDataProvider {
     func videos(for vendor: SRGVendor, withTags tags: [String], excludedTags: [String]? = nil, fullLengthExcluded: Bool = false, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestVideos(for: vendor, withTags: tags, excludedTags: excludedTags, fullLengthExcluded: fullLengthExcluded)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
 }
 

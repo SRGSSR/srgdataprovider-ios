@@ -19,8 +19,6 @@ public extension SRGDataProvider {
     func radioChannels(for vendor: SRGVendor) -> AnyPublisher<[SRGChannel], Error> {
         let request = requestRadioChannels(for: vendor)
         return objectsPublisher(for: request, rootKey: "channelList", type: SRGChannel.self)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -34,8 +32,6 @@ public extension SRGDataProvider {
     func radioChannel(for vendor: SRGVendor, withUid channelUid: String, livestreamUid: String? = nil) -> AnyPublisher<SRGChannel, Error> {
         let request = requestRadioChannel(for: vendor, withUid: channelUid, livestreamUid: livestreamUid)
         return objectPublisher(for: request, type: SRGChannel.self)
-            .map { $0.object }
-            .eraseToAnyPublisher()
     }
     
     enum RadioLatestPrograms {
@@ -60,8 +56,6 @@ public extension SRGDataProvider {
             let programs = (object?.programs ?? []) + (programComposition.programs ?? [])
             return (channel, programs)
         }
-        .map { $0.object }
-        .eraseToAnyPublisher()
     }
     
     /**
@@ -72,8 +66,6 @@ public extension SRGDataProvider {
     func radioLivestreams(for vendor: SRGVendor, channelUid: String) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestRadioLivestreams(for: vendor, channelUid: channelUid)
         return objectsPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -84,8 +76,6 @@ public extension SRGDataProvider {
     func radioLivestreams(for vendor: SRGVendor, contentProviders: SRGContentProviders) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestRadioLivestreams(for: vendor, contentProviders: contentProviders)
         return objectsPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
 }
 
@@ -100,8 +90,6 @@ public extension SRGDataProvider {
     func radioLatestMedias(for vendor: SRGVendor, channelUid: String, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestRadioLatestMedias(for: vendor, channelUid: channelUid)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -110,8 +98,6 @@ public extension SRGDataProvider {
     func radioMostPopularMedias(for vendor: SRGVendor, channelUid: String, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestRadioMostPopularMedias(for: vendor, channelUid: channelUid)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -120,8 +106,6 @@ public extension SRGDataProvider {
     func radioLatestEpisodes(for vendor: SRGVendor, channelUid: String, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestRadioLatestEpisodes(for: vendor, channelUid: channelUid)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -132,8 +116,6 @@ public extension SRGDataProvider {
     func radioEpisodes(for vendor: SRGVendor, channelUid: String, day: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestRadioEpisodes(for: vendor, channelUid: channelUid, day: day)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -142,8 +124,6 @@ public extension SRGDataProvider {
     func radioLatestVideos(for vendor: SRGVendor, channelUid: String, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestRadioLatestVideos(for: vendor, channelUid: channelUid)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
 }
 
@@ -158,8 +138,6 @@ public extension SRGDataProvider {
     func radioTopics(for vendor: SRGVendor) -> AnyPublisher<[SRGTopic], Error> {
         let request = requestRadioTopics(for: vendor)
         return objectsPublisher(for: request, rootKey: "topicList", type: SRGTopic.self)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
 }
 
@@ -174,8 +152,6 @@ public extension SRGDataProvider {
     func radioShows(for vendor: SRGVendor, channelUid: String, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGShow], Error> {
         let request = requestRadioShows(for: vendor, channelUid: channelUid)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "showList", type: SRGShow.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     enum RadioShowsMatchingQuery {
@@ -209,8 +185,6 @@ public extension SRGDataProvider {
     func radioSongs(for vendor: SRGVendor, channelUid: String, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGSong], Error> {
         let request = requestRadioSongs(for: vendor, channelUid: channelUid)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "songList", type: SRGSong.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -219,8 +193,6 @@ public extension SRGDataProvider {
     func radioCurrentSong(for vendor: SRGVendor, channelUid: String) -> AnyPublisher<SRGSong, Error> {
         let request = requestRadioCurrentSong(for: vendor, channelUid: channelUid)
         return objectPublisher(for: request, type: SRGSong.self)
-            .map { $0.object }
-            .eraseToAnyPublisher()
     }
 }
 

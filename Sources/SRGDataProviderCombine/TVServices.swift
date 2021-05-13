@@ -19,8 +19,6 @@ public extension SRGDataProvider {
     func tvChannels(for vendor: SRGVendor) -> AnyPublisher<[SRGChannel], Error> {
         let request = requestTVChannels(for: vendor)
         return objectsPublisher(for: request, rootKey: "channelList", type: SRGChannel.self)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -29,8 +27,6 @@ public extension SRGDataProvider {
     func tvChannel(for vendor: SRGVendor, withUid channelUid: String) -> AnyPublisher<SRGChannel, Error> {
         let request = requestTVChannel(for: vendor, withUid: channelUid)
         return objectPublisher(for: request, type: SRGChannel.self)
-            .map { $0.object }
-            .eraseToAnyPublisher()
     }
     
     enum TVLatestPrograms {
@@ -55,8 +51,6 @@ public extension SRGDataProvider {
             let programs = (object?.programs ?? []) + (programComposition.programs ?? [])
             return (channel, programs)
         }
-        .map { $0.object }
-        .eraseToAnyPublisher()
     }
     
     /**
@@ -65,8 +59,6 @@ public extension SRGDataProvider {
     func tvLivestreams(for vendor: SRGVendor) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVLivestreams(for: vendor)
         return objectsPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -75,8 +67,6 @@ public extension SRGDataProvider {
     func tvScheduledLivestreams(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVScheduledLivestreams(for: vendor)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
 }
 
@@ -91,8 +81,6 @@ public extension SRGDataProvider {
     func tvEditorialMedias(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVEditorialMedias(for: vendor)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -101,8 +89,6 @@ public extension SRGDataProvider {
     func tvHeroStageMedias(for vendor: SRGVendor) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVHeroStageMedias(for: vendor)
         return objectsPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -111,8 +97,6 @@ public extension SRGDataProvider {
     func tvLatestMedias(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVLatestMedias(for: vendor)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -121,8 +105,6 @@ public extension SRGDataProvider {
     func tvMostPopularMedias(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVMostPopularMedias(for: vendor)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -131,8 +113,6 @@ public extension SRGDataProvider {
     func tvSoonExpiringMedias(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVSoonExpiringMedias(for: vendor)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -146,8 +126,6 @@ public extension SRGDataProvider {
     func tvTrendingMedias(for vendor: SRGVendor, limit: UInt? = nil, editorialLimit: UInt? = nil, episodesOnly: Bool = false) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVTrendingMedias(for: vendor, withLimit: limit as NSNumber?, editorialLimit: editorialLimit as NSNumber?, episodesOnly: episodesOnly)
         return objectsPublisher(for: request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -156,8 +134,6 @@ public extension SRGDataProvider {
     func tvLatestEpisodes(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVLatestEpisodes(for: vendor)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -166,8 +142,6 @@ public extension SRGDataProvider {
     func tvLatestWebFirstEpisodes(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVLatestWebFirstEpisodes(for: vendor)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     /**
@@ -178,8 +152,6 @@ public extension SRGDataProvider {
     func tvEpisodes(for vendor: SRGVendor, day: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVEpisodes(for: vendor, day: day)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
 }
 
@@ -194,8 +166,6 @@ public extension SRGDataProvider {
     func tvTopics(for vendor: SRGVendor) -> AnyPublisher<[SRGTopic], Error> {
         let request = requestTVTopics(for: vendor)
         return objectsPublisher(for: request, rootKey: "topicList", type: SRGTopic.self)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
 }
 
@@ -210,8 +180,6 @@ public extension SRGDataProvider {
     func tvShows(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = .inactive) -> AnyPublisher<[SRGShow], Error> {
         let request = requestTVShows(for: vendor)
         return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "showList", type: SRGShow.self, trigger: trigger)
-            .map { $0.objects }
-            .eraseToAnyPublisher()
     }
     
     enum TVShowsMatchingQuery {

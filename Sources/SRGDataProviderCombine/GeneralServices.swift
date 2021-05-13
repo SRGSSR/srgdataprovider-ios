@@ -20,8 +20,6 @@ public extension SRGDataProvider {
     func serviceMessage(for vendor: SRGVendor) -> AnyPublisher<SRGServiceMessage, Error> {
         let request = requestServiceMessage(for: vendor)
         return objectPublisher(for: request, type: SRGServiceMessage.self)
-            .map { $0.object }
-            .eraseToAnyPublisher()
     }
 }
 
