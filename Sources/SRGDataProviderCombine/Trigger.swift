@@ -6,39 +6,20 @@
 
 import Foundation
 
+/**
+ *  Trigger for publishers waiting for a signal to continue their processing.
+ */
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    /**
-     *  Common type for triggers driving other processes (e.g. page retrieval).
-     */
-    typealias Trigger = AnyPublisher<Void, Never>
-}
-
-@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider.Trigger {
-    /**
-     *  Active trigger which can be pulled.
-     */
-    static let active: PassthroughSubject<Void, Never> = {
-        return PassthroughSubject<Void, Never>()
-    }()
+public struct Trigger {
+    let subject = PassthroughSubject<Void, Never>()
+    
+    public init() {}
     
     /**
-     *  Inactive trigger that can never be pulled.
+     *  Tell the associated publisher to continue its processing.
      */
-    static let inactive: SRGDataProvider.Trigger = {
-        return Empty<Void, Never>(completeImmediately: false)
-            .eraseToAnyPublisher()
-    }()
-}
-
-@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension PassthroughSubject where Output == Void, Failure == Never {
-    /**
-     *  Pull a trigger to signal to the process it controls it must perform its task.
-     */
-    func pull() {
-        return send(())
+    public func pull() {
+        subject.send(())
     }
 }
 
