@@ -33,22 +33,31 @@ For simplicity, this getting started guide assumes that a shared data provider h
 
 ## Combine data publishers
 
-The `SRGDataProviderCombine` library provides Combine publishers which can then be used exactly like a usual `URLSession` data task publisher, for example:
+The `SRGDataProviderCombine` library provides Combine publishers for each supported request, for example to retrieve TV livestreams:
 
 ```swift
-var cancellables = Set<AnyCancellable>();
+dataProvider.tvLivestreams(for: .SRF)
+```
+
+Combine publishers support pagination for most services. Getting more pages of content is achieved by providing a `Trigger` as parameter of the request, maintained separately, and which you can pull when a new page of content must be retrieved (e.g. a table view was scrolled to its bottom and you need to display more content):
+
+```swift
+let trigger = Trigger()
 
 // ...
 
-dataProvider.tvLivestreams(for: .SRF)
-	.receive(on: RunLoop.main)
-	.map { $0.medias }
-	.replaceError(with: [])
-	.assign(to: \.medias, on: self)
-	.store(in: &cancellables)
+dataProvider.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", trigger: trigger)
 ```
 
-This example creates a publisher to retrieve SRF TV livestreams, assigning them to a `medias` property on the main thread. The subscription is stored into `cancellables` for automatic cancellation associated with the enclosing context.
+When you want a new page of content simply call:
+
+```swift
+trigger.pull()
+```
+
+and the publisher will retrieve and provide updated results to the same pipeline. Note that the publisher only completes when all pages of results have been exhausted.
+
+For more information about Combine itself, please have a look at the [official documentation](https://developer.apple.com/documentation/combine). The [Using Combine book](https://heckj.github.io/swiftui-notes) is also a great reference but not a mild introduction if you need to learn functional and reactive programming first.
 
 ## Requests and queues
 
