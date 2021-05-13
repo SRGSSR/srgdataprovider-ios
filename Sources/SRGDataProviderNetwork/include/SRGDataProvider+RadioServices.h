@@ -160,7 +160,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Current song by channel.
  *
- *  @discussion If no song is currently being played, the completion block is called with both song and error set to `nil`.
+ *  @discussion If no song is currently being played the completion block is called with both song and error set to `nil`.
  */
 - (SRGRequest *)radioCurrentSongForVendor:(SRGVendor)vendor
                                channelUid:(NSString *)channelUid

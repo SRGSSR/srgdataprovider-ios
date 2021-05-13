@@ -29,15 +29,15 @@ extension SRGDataProvider {
     /**
      *  Describes a page of content.
      */
-    public struct Page: NextLinkable {
+    struct Page: NextLinkable {
         /// The request associated with the page.
         let request: URLRequest
         
         /// The size of the page.
-        public let size: UInt
+        let size: UInt
         
         /// The page number.
-        public let number: UInt
+        let number: UInt
         
         /**
          *  Create the first page.
@@ -98,7 +98,7 @@ extension SRGDataProvider {
     /**
      *  Describes a page of URNs built client-side.
      */
-    public struct URNPage: NextLinkable {
+    struct URNPage: NextLinkable {
         /// The original unpaginated request.
         private let originalRequest: URLRequest
         
@@ -109,10 +109,10 @@ extension SRGDataProvider {
         let queryParameter: String
         
         /// The size of the page.
-        public let size: UInt
+        let size: UInt
         
         /// The page number.
-        public let number: UInt
+        let number: UInt
         
         /**
          *  Create the first page.
@@ -149,13 +149,13 @@ extension SRGDataProvider {
 }
 
 extension SRGDataProvider.Page: CustomStringConvertible {
-    public var description: String {
+    var description: String {
         return "Page \(number) (size \(size)): \(request.url!)"
     }
 }
 
 extension SRGDataProvider.URNPage: CustomStringConvertible {
-    public var description: String {
+    var description: String {
         return "Page \(number) (size \(size)): \(request.url!)"
     }
 }
