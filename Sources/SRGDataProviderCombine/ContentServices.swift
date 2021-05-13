@@ -105,11 +105,9 @@ public extension SRGDataProvider {
      */
     func showAndMedias(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = Trigger()) -> AnyPublisher<ShowAndMediasForContentSection.Output, Error> {
         let request = requestShowAndMedias(for: vendor, contentSectionUid: contentSectionUid, userId: userId, published: published, at: date)
-        return paginatedObjectTriggeredPublisher(at: Page(request: request, size: pageSize), type: SRGShowAndMedias.self, trigger: trigger) { object, showAndMedias in
-            let show = object?.show ?? showAndMedias.show
-            let medias = (object?.medias ?? []) + showAndMedias.medias
-            return (show, medias)
-        }
+        return paginatedObjectTriggeredPublisher(at: Page(request: request, size: pageSize), type: SRGShowAndMedias.self, trigger: trigger)
+            .map { ($0.show, $0.medias) }
+            .eraseToAnyPublisher()
     }
 }
 

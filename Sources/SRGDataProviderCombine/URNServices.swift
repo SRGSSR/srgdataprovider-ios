@@ -101,12 +101,9 @@ public extension SRGDataProvider {
      */
     func latestEpisodesForShow(withUrn showUrn: String, maximumPublicationDay: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = Trigger()) -> AnyPublisher<LatestEpisodesForShow.Output, Error> {
         let request = requestLatestEpisodesForShow(withURN: showUrn, maximumPublicationDay: maximumPublicationDay)
-        return paginatedObjectTriggeredPublisher(at: Page(request: request, size: pageSize), type: SRGEpisodeComposition.self, trigger: trigger) { object, episodeComposition in
-            let channel = object?.channel ?? episodeComposition.channel
-            let show = object?.show ?? episodeComposition.show
-            let episodes = (object?.episodes ?? []) + (episodeComposition.episodes ?? [])
-            return (channel, show, episodes)
-        }
+        return paginatedObjectTriggeredPublisher(at: Page(request: request, size: pageSize), type: SRGEpisodeComposition.self, trigger: trigger)
+            .map { ($0.channel, $0.show, $0.episodes ?? []) }
+            .eraseToAnyPublisher()
     }
     
     /**

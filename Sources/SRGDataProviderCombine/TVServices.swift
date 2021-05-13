@@ -46,11 +46,9 @@ public extension SRGDataProvider {
      */
     func tvLatestPrograms(for vendor: SRGVendor, channelUid: String, livestreamUid: String? = nil, from: Date? = nil, to: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = Trigger()) -> AnyPublisher<TVLatestPrograms.Output, Error> {
         let request = requestTVLatestPrograms(for: vendor, channelUid: channelUid, livestreamUid: livestreamUid, from:from, to: to)
-        return paginatedObjectTriggeredPublisher(at: Page(request: request, size: pageSize), type: SRGProgramComposition.self, trigger: trigger) { object, programComposition in
-            let channel = object?.channel ?? programComposition.channel
-            let programs = (object?.programs ?? []) + (programComposition.programs ?? [])
-            return (channel, programs)
-        }
+        return paginatedObjectTriggeredPublisher(at: Page(request: request, size: pageSize), type: SRGProgramComposition.self, trigger: trigger)
+            .map { ($0.channel, $0.programs ?? []) }
+            .eraseToAnyPublisher()
     }
     
     /**
