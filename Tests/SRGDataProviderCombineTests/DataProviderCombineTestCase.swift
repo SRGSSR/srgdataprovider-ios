@@ -97,4 +97,29 @@ final class DataProviderCombineTestCase: XCTestCase {
         
         waitForExpectations(timeout: 10.0, handler: nil)
     }
+    
+    func testExhaustiveRequest() {
+        let requestExpectation = expectation(description: "Request finished")
+        
+        let trigger = Trigger()
+        
+        // TODO: Workaround. Can we do better?
+        let urns = ["urn:rts:show:tv:9517680", "urn:rts:show:tv:1799609", "urn:rts:show:tv:11178126", "urn:rts:show:tv:9720862", "urn:rts:show:tv:548307", "urn:rts:show:tv:10875381", "urn:rts:show:tv:11511172", "urn:rts:show:tv:11340592", "urn:rts:show:tv:11430664"]
+        dataProvider.shows(withUrns: urns, pageSize: 3, trigger: trigger)
+            .handleEvents(receiveOutput: { _ in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    trigger.pull()
+                }
+            })
+            .scan([]) { $0 + $1 }
+            .sink { completion in
+                print("Completion: \(completion)")
+                requestExpectation.fulfill()
+            } receiveValue: { shows in
+                print("Received \(shows.count): \(shows.map { $0.title })")
+            }
+            .store(in: &cancellables)
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+    }
 }
