@@ -4,6 +4,8 @@
 //  License information is available from the LICENSE file.
 //
 
+import Foundation
+
 /**
  *  Errors possibly emitted by the data provider.
  */
