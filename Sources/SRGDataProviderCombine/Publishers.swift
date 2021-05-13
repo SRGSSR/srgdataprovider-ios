@@ -54,7 +54,8 @@ extension SRGDataProvider {
     private func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, trigger: Trigger, currentOutput: PaginatedObjectsTriggeredOutput<T>?) -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
         return paginatedObjectsPublisher(for: page.request, rootKey: rootKey, type: T.self)
             .flatMap { result -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> in
-                let output = (currentOutput?.objects ?? [] + result.objects, result.total, result.aggregations, result.suggestions)
+                let objects = (currentOutput?.objects ?? []) + result.objects
+                let output = (objects, result.total, result.aggregations, result.suggestions)
                 if let nextPage = page.next(with: result.nextRequest) {
                     return self.paginatedObjectsTriggeredPublisher(at: nextPage, rootKey: rootKey, type: type, trigger: trigger, currentOutput: output)
                         // In inverse order: Publish available results and wait for the trigger before proceeding with the
