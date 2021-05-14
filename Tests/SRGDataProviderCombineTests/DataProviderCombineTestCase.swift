@@ -105,10 +105,10 @@ final class DataProviderCombineTestCase: XCTestCase {
         
         // TODO: Workaround. Can we do better?
         let urns = ["urn:rts:show:tv:9517680", "urn:rts:show:tv:1799609", "urn:rts:show:tv:11178126", "urn:rts:show:tv:9720862", "urn:rts:show:tv:548307", "urn:rts:show:tv:10875381", "urn:rts:show:tv:11511172", "urn:rts:show:tv:11340592", "urn:rts:show:tv:11430664"]
-        dataProvider.shows(withUrns: urns, pageSize: 3, trigger: trigger)
+        dataProvider.shows(withUrns: urns, pageSize: 3, triggerId: trigger.id(1))
             .handleEvents(receiveOutput: { _ in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                    trigger.pull()
+                    trigger.signal(1)
                 }
             })
             .scan([]) { $0 + $1 }

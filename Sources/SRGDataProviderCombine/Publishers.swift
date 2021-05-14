@@ -56,15 +56,15 @@ extension SRGDataProvider {
      *    https://github.com/RxSwiftCommunity/RxPager/blob/master/RxPager/Classes/RxPager.swift
      *    https://stackoverflow.com/a/39645113/760435
      */
-     func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, trigger: Trigger) -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
+    func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, triggerId: Trigger.Id?) -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
         return paginatedObjectsPublisher(for: page.request, rootKey: rootKey, type: T.self)
             .flatMap { result -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> in
                 let output = (result.objects, result.total, result.aggregations, result.suggestions)
                 if let nextPage = page.next(with: result.nextRequest) {
-                    return self.paginatedObjectsTriggeredPublisher(at: nextPage, rootKey: rootKey, type: type, trigger: trigger)
+                    return self.paginatedObjectsTriggeredPublisher(at: nextPage, rootKey: rootKey, type: type, triggerId: triggerId)
                         // In inverse order: Publish available results and wait for the trigger before proceeding with the
                         // next page of results.
-                        .prepend(Empty(completeImmediately: false).prefix(untilOutputFrom: trigger.subject.setFailureType(to: Error.self)))
+                        .prepend(Empty(completeImmediately: false).prefix(untilOutputFrom: Trigger.sentinel(for: triggerId).setFailureType(to: Error.self)))
                         .prepend(output)
                         .eraseToAnyPublisher()
                 }
@@ -80,8 +80,8 @@ extension SRGDataProvider {
     /**
      *  Convenience publisher emitting arrays of objects directly.
      */
-    func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, trigger: Trigger) -> AnyPublisher<[T], Error> where T: MTLModel, P: NextLinkable {
-        return paginatedObjectsTriggeredPublisher(at: page, rootKey: rootKey, type: type, trigger: trigger)
+    func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, triggerId: Trigger.Id?) -> AnyPublisher<[T], Error> where T: MTLModel, P: NextLinkable {
+        return paginatedObjectsTriggeredPublisher(at: page, rootKey: rootKey, type: type, triggerId: triggerId)
             .map { $0.objects }
             .eraseToAnyPublisher()
     }
@@ -167,13 +167,13 @@ extension SRGDataProvider {
      *    https://github.com/RxSwiftCommunity/RxPager/blob/master/RxPager/Classes/RxPager.swift
      *    https://stackoverflow.com/a/39645113/760435
      */
-    private func paginatedObjectTriggeredPublisher<T, P>(at page: P, type: T.Type, trigger: Trigger) -> AnyPublisher<PaginatedObjectTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
+    private func paginatedObjectTriggeredPublisher<T, P>(at page: P, type: T.Type, triggerId: Trigger.Id?) -> AnyPublisher<PaginatedObjectTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
         return paginatedObjectPublisher(for: page.request, type: T.self)
             .flatMap { result -> AnyPublisher<PaginatedObjectTriggeredOutput<T>, Error> in
                 let output = (result.object, result.total, result.aggregations, result.suggestions)
                 if let nextPage = page.next(with: result.nextRequest) {
-                    return self.paginatedObjectTriggeredPublisher(at: nextPage, type: type, trigger: trigger)
-                        .prepend(Empty(completeImmediately: false).prefix(untilOutputFrom: trigger.subject.setFailureType(to: Error.self)))
+                    return self.paginatedObjectTriggeredPublisher(at: nextPage, type: type, triggerId: triggerId)
+                        .prepend(Empty(completeImmediately: false).prefix(untilOutputFrom: Trigger.sentinel(for: triggerId).setFailureType(to: Error.self)))
                         .prepend(output)
                         .eraseToAnyPublisher()
                 }
@@ -189,8 +189,8 @@ extension SRGDataProvider {
     /**
      *  Convenience publisher emitting single objects directly.
      */
-    func paginatedObjectTriggeredPublisher<T, P>(at page: P, type: T.Type, trigger: Trigger) -> AnyPublisher<T, Error> where T: MTLModel, P: NextLinkable {
-        return paginatedObjectTriggeredPublisher(at: page, type: type, trigger: trigger)
+    func paginatedObjectTriggeredPublisher<T, P>(at page: P, type: T.Type, triggerId: Trigger.Id?) -> AnyPublisher<T, Error> where T: MTLModel, P: NextLinkable {
+        return paginatedObjectTriggeredPublisher(at: page, type: type, triggerId: triggerId)
             .map { $0.object }
             .eraseToAnyPublisher()
     }

@@ -69,9 +69,9 @@ public extension SRGDataProvider {
      *
      *  - Remark: The section itself must be of type `SRGContentSectionTypeMedias`.
      */
-    func medias(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = Trigger()) -> AnyPublisher<[SRGMedia], Error> {
+    func medias(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, triggerId: Trigger.Id? = nil) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestMedias(for: vendor, contentSectionUid: contentSectionUid, userId: userId, published: published, at: date)
-        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, trigger: trigger)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, triggerId: triggerId)
     }
     
     /**
@@ -84,9 +84,9 @@ public extension SRGDataProvider {
      *
      *  - Remark: The section itself must be of type `SRGContentSectionTypeShows`.
      */
-    func shows(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = Trigger()) -> AnyPublisher<[SRGShow], Error> {
+    func shows(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, triggerId: Trigger.Id? = nil) -> AnyPublisher<[SRGShow], Error> {
         let request = requestShows(for: vendor, contentSectionUid: contentSectionUid, userId: userId, published: published, at: date)
-        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "showList", type: SRGShow.self, trigger: trigger)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "showList", type: SRGShow.self, triggerId: triggerId)
     }
     
     enum ShowAndMediasForContentSection {
@@ -103,9 +103,9 @@ public extension SRGDataProvider {
      *
      *  - Remark: The section itself must be of type `SRGContentSectionTypeShowAndMedias`.
      */
-    func showAndMedias(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, trigger: Trigger = Trigger()) -> AnyPublisher<ShowAndMediasForContentSection.Output, Error> {
+    func showAndMedias(for vendor: SRGVendor, contentSectionUid: String, userId: String? = nil, published: Bool = true, at date: Date? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, triggerId: Trigger.Id? = nil) -> AnyPublisher<ShowAndMediasForContentSection.Output, Error> {
         let request = requestShowAndMedias(for: vendor, contentSectionUid: contentSectionUid, userId: userId, published: published, at: date)
-        return paginatedObjectTriggeredPublisher(at: Page(request: request, size: pageSize), type: SRGShowAndMedias.self, trigger: trigger)
+        return paginatedObjectTriggeredPublisher(at: Page(request: request, size: pageSize), type: SRGShowAndMedias.self, triggerId: triggerId)
             .map { ($0.show, $0.medias) }
             .eraseToAnyPublisher()
     }

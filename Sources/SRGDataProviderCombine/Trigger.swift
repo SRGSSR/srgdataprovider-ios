@@ -11,15 +11,50 @@ import Combine
  */
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public struct Trigger {
-    let subject = PassthroughSubject<Void, Never>()
+    public typealias Index = Int
+    public typealias Subject = PassthroughSubject<Index, Never>
+    public typealias Publisher = AnyPublisher<Index, Never>
+    
+    public typealias Id = (publisher: Publisher, index: Index)
+    
+    let subject = Subject()
+    
+    static func sentinel(for triggerId: Trigger.Id?) -> AnyPublisher<Bool, Never> {
+        if let triggerId = triggerId {
+            return triggerId.publisher
+                .contains(triggerId.index)
+                .eraseToAnyPublisher()
+        }
+        else {
+            return PassthroughSubject<Bool, Never>().eraseToAnyPublisher()
+        }
+    }
     
     public init() {}
+    
+    var publisher: Publisher {
+        return subject.eraseToAnyPublisher()
+    }
+    
+    /**
+     *  Generate an identifier with the specified index.
+     */
+    public func id(_ index: Index) -> Id {
+        return (publisher, index)
+    }
+    
+    /**
+     *  Generate an identifier from a hashable instance.
+     */
+    public func id<T>(_ t: T) -> Id where T: Hashable {
+        return (publisher, t.hashValue)
+    }
     
     /**
      *  Tell the associated publisher to continue its processing.
      */
-    public func pull() {
-        subject.send(())
+    public func signal(_ index: Index) {
+        subject.send(index)
     }
 }
 

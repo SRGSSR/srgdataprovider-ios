@@ -36,58 +36,92 @@ For simplicity this getting started guide assumes that a shared data provider ha
 The `SRGDataProviderCombine` library provides Combine publishers for each supported request, 
 When subscribing to an SRG Data Provider publisher the corresponding request is performed and results are delivered to the pipeline.
 
-### Publishers without pagination support
+SRG Data Provider offers two kinds of publishers:
 
-You can tell that a publisher does not support pagination if its signature does not contain any `pageSize` or `trigger` parameters. For example there are only a few TV livestreams you always can retrieve in a single operation:
+- Simple publishers without pagination support. These publishers complete once they delivered their results.
+- Publishers with pagination support, whose signature contain `pageSize` and `triggerId` parameters. These publishers only complete once all pages of content they can deliver have been exhausted.
+
+SRG Data Provider publishers, whether they support pagination or not, can be seen as some kinds of _data sockets_. You subscribe to them, receive results, and ask them when more data is desired.
+
+For more information about Combine itself, please have a look at the [official documentation](https://developer.apple.com/documentation/combine). The [Using Combine book](https://heckj.github.io/swiftui-notes) is also a great reference but a steep introduction if you have no prior knowledge of functional and reactive programming.
+
+### Simple publishers
+
+Publishers without pagination support are easy to use. Just obtain the publisher for the request you need and write a corresponding pipeline, for example:
 
 ```swift
 dataProvider.tvLivestreams(for: .SRF)
+    // Rest of the pipeline
 ```
-
-Simple publishers without pagination support complete when they deliver their results or fail.
 
 ### Publishers supporting pagination
 
-Publishers supporting pagination contain a `pageSize` parameter in their signature. They can be seen as a kind of _open socket_, to which you can ask the next page of results when needed. To support this mechanism publishers supporting pagination require a trigger to be instantiated and stored separately:
+Publishers supporting pagination are used like simple publishers, with the exception that you need to request further pages of results when needed.
+
+#### Triggers
+
+Requesting further results requires a trigger to be instantiated and stored separately:
 
 ```swift
 let trigger = Trigger()
 ```
 
-This trigger must be provided when you create the publisher:
+A trigger is a local communication channel with a set of publishers. To setup a communication channel with a publisher you must assign it a unique `Int` identifier at construction time. This identifier is obtained from the `trigger` instance with the help of an arbitrary associated `Int` index, e.g. 1234:
 
 ```swift
-dataProvider.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", trigger: trigger)
+dataProvider.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", triggerId: trigger.id(1234))
+    // Rest of the pipeline
 ```
 
-After a page of content has been delivered to the pipeline the publisher stays idle until you signal it must fetch the next page of results. This is done by pulling the trigger associated with it:
+The publisher emits the first page of results with the first subscription, then sits idle. When you need the next page of results simply request it using the same trigger and index:
 
 ```swift
-trigger.pull()
+trigger.signal(1234)
 ```
 
-Subscribers will receive the next batch of results, not the consolidated list. The reason is that you might want to use a flat map for additional processing of results (e.g. fetching all medias if you are fetching pages of of URNs first). If results were accumulated these additional operations would be accumulated unnecessarily.
+If a next page of results is available it will be retrieved and delivered to the pipeline.
 
-Fortunately accumulating results delivered by a pipeline is simple. You should use `scan` as it will deliver consolidated results as they are made available:
+#### Trigger identifiers
+
+In general you should avoid assigning the same identifier to several publishers, except if you want to trigger them as a group. Assigning indices manually is possible (especially if there is some logical ordering involved), but if requests are related to a `Hashable` type there is a better way. For example, if each request is associated with a section:
 
 ```swift
-dataProvider.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", trigger: trigger)
-    scan([]) { $0 + $1 }
+enum Section: Hashable { /* ... */ }
 ```
 
-The second example below shows how you can simply retrieve URNs for a search criterium, replace them with media objects by fetching them in batch with another request, accumulating the results each time a new page of search results is retrieved:
+you can simply generate the identifier for one of its instances `section` as follows:
 
 ```swift
-dataProvider.medias(for: .RTS, matchingQuery: "jour", pageSize: 20, trigger: trigger)
+dataProvider.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", triggerId: trigger.id(section))
+    // Rest of the pipeline
+```
+
+In general you should have a `Trigger` in each local context where you need to control pagination, e.g. in a view model instance. Application-wide triggers must be avoided for obvious reasons. When you have a trigger, create identifiers from `Hashable` types if possible to automatically avoid collisions, otherwise carefully assign indices as you want. 
+
+#### Accumulating results
+
+Subscribers receive results in pages, not as a consolidated list. The reason is that you might want to use a flat map for additional processing of each page of results. If results were accumulated with each update these additional operations would pile up inefficiently.
+
+Fortunately accumulating results delivered by a pipeline is simple. You should use `scan` to consolidate results as they are made available, for example:
+
+```swift
+dataProvider.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", triggerId: triggerId)
+    .scan([]) { $0 + $1 }
+    // Rest of the pipeline
+```
+
+The second example below shows how you can search medias URNs. Search services deliver URN lists, which you can replace with media objects by additionally fetching them, accumulating the results each time a new page of medias has been retrieved:
+
+```swift
+dataProvider.medias(for: .RTS, matchingQuery: "jour", pageSize: 20, triggerId: triggerId)
     .flatMap { result in
         return SRGDataProvider.current!.medias(withUrns: result.mediaUrns, pageSize: 20)
     }
     .scan([]) { $0 + $1 }
+    // Rest of the pipeline
 ```
 
-Note that the publisher only completes when all pages of results have been exhausted. This is why you should probably avoid reducers, as they will prevent results from propagating down the pipeline until all pages of results have been exhausted.
-
-For more information about Combine itself, please have a look at the [official documentation](https://developer.apple.com/documentation/combine). The [Using Combine book](https://heckj.github.io/swiftui-notes) is also a great reference but not a mild introduction if you need to learn functional and reactive programming first.
+Since the publisher only completes when all pages of results have been exhausted you usually want to avoid reducers, as they will prevent results from propagating down the pipeline until all upstream publishers have completed, i.e. until all pages of content have been exhausted.
 
 ## Requests and queues
 
