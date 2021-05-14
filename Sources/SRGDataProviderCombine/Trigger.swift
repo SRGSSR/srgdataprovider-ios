@@ -51,10 +51,17 @@ public struct Trigger {
     }
     
     /**
-     *  Tell the associated publisher to continue its processing.
+     *  Tell the associated publisher to continue its processing for the specified index.
      */
     public func signal(_ index: Index) {
         subject.send(index)
+    }
+    
+    /**
+     *  Tell the associated publisher to continue for some hashable instance.
+     */
+    public func signal<T>(_ t: T) where T: Hashable {
+        subject.send(t.hashValue)
     }
 }
 

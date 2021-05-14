@@ -96,6 +96,12 @@ dataProvider.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", triggerId: t
     // Rest of the pipeline
 ```
 
+and request the next page of results with the `section` directly:
+
+```swift
+trigger.signal(section)
+```
+
 In general you should have a `Trigger` in each local context where you need to control pagination, e.g. in a view model instance. Application-wide triggers must be avoided for obvious reasons. When you have a trigger, create identifiers from `Hashable` types if possible to automatically avoid collisions, otherwise carefully assign indices as you want. 
 
 #### Accumulating results
