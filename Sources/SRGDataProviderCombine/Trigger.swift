@@ -17,7 +17,7 @@ public struct Trigger {
     
     public typealias Id = (publisher: Publisher, index: Index)
     
-    let subject = Subject()
+    private let subject = Subject()
     
     static func sentinel(for triggerId: Trigger.Id?) -> AnyPublisher<Bool, Never> {
         if let triggerId = triggerId {
@@ -32,7 +32,7 @@ public struct Trigger {
     
     public init() {}
     
-    var publisher: Publisher {
+    private var publisher: Publisher {
         return subject.eraseToAnyPublisher()
     }
     
