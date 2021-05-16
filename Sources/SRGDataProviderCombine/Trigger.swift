@@ -47,7 +47,7 @@ public struct Trigger {
      *  Generate an identifier from a hashable instance.
      */
     public func id<T>(_ t: T) -> Id where T: Hashable {
-        return (publisher, t.hashValue)
+        return id(t.hashValue)
     }
     
     /**
@@ -61,7 +61,7 @@ public struct Trigger {
      *  Tell the associated publisher to continue for some hashable instance.
      */
     public func signal<T>(_ t: T) where T: Hashable {
-        subject.send(t.hashValue)
+        signal(t.hashValue)
     }
 }
 
