@@ -49,8 +49,9 @@ extension SRGDataProvider {
     /**
      *  A publisher that recursively retrieves possibly paginated arrays of objects. The first page is automatically retrieved
      *  when connecting a subscriber. Subsequent page retrieval is requested through a `Trigger` stored separately. Consolidated
-     *  results are added to the current object array and are provided to subscribers when available. The pipeline reaches
-     *  completion when the last page of content has been reached.
+     *  results are added to the current object array and are provided to subscribers when available. If a trigger id is attached
+     *  the pipeline reaches completion when the last page of content has been exhausted. If no trigger id is attached the pipeline
+     *  completes immediately after returning the first page of results.
      *
      *  Inspired from RXSwift code, see for example:
      *    https://github.com/RxSwiftCommunity/RxPager/blob/master/RxPager/Classes/RxPager.swift
@@ -60,7 +61,7 @@ extension SRGDataProvider {
         return paginatedObjectsPublisher(for: page.request, rootKey: rootKey, type: T.self)
             .flatMap { result -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> in
                 let output = (result.objects, result.total, result.aggregations, result.suggestions)
-                if let nextPage = page.next(with: result.nextRequest) {
+                if let triggerId = triggerId, let nextPage = page.next(with: result.nextRequest) {
                     return self.paginatedObjectsTriggeredPublisher(at: nextPage, rootKey: rootKey, type: type, triggerId: triggerId)
                         // In inverse order: Publish available results and wait for the trigger before proceeding with the
                         // next page of results.
@@ -171,7 +172,7 @@ extension SRGDataProvider {
         return paginatedObjectPublisher(for: page.request, type: T.self)
             .flatMap { result -> AnyPublisher<PaginatedObjectTriggeredOutput<T>, Error> in
                 let output = (result.object, result.total, result.aggregations, result.suggestions)
-                if let nextPage = page.next(with: result.nextRequest) {
+                if let triggerId = triggerId, let nextPage = page.next(with: result.nextRequest) {
                     return self.paginatedObjectTriggeredPublisher(at: nextPage, type: type, triggerId: triggerId)
                         .prepend(Empty(completeImmediately: false).prefix(untilOutputFrom: Trigger.sentinel(for: triggerId).setFailureType(to: Error.self)))
                         .prepend(output)

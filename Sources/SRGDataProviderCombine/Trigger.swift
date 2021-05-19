@@ -11,23 +11,18 @@ import Combine
  */
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public struct Trigger {
-    public typealias Index = Int
-    public typealias Subject = PassthroughSubject<Index, Never>
-    public typealias Publisher = AnyPublisher<Index, Never>
+    public typealias Identifier = Int
+    public typealias Subject = PassthroughSubject<Identifier, Never>
+    public typealias Publisher = AnyPublisher<Identifier, Never>
     
-    public typealias Id = (publisher: Publisher, index: Index)
+    public typealias Id = (publisher: Publisher, identifier: Identifier)
     
     private let subject = Subject()
     
-    static func sentinel(for triggerId: Trigger.Id?) -> AnyPublisher<Bool, Never> {
-        if let triggerId = triggerId {
-            return triggerId.publisher
-                .contains(triggerId.index)
-                .eraseToAnyPublisher()
-        }
-        else {
-            return PassthroughSubject<Bool, Never>().eraseToAnyPublisher()
-        }
+    static func sentinel(for triggerId: Trigger.Id) -> AnyPublisher<Bool, Never> {
+        return triggerId.publisher
+            .contains(triggerId.identifier)
+            .eraseToAnyPublisher()
     }
     
     public init() {}
@@ -37,10 +32,10 @@ public struct Trigger {
     }
     
     /**
-     *  Generate an identifier with the specified index.
+     *  Generate an identifier from an integer value.
      */
-    public func id(_ index: Index) -> Id {
-        return (publisher, index)
+    public func id(_ identifier: Identifier) -> Id {
+        return (publisher, identifier)
     }
     
     /**
@@ -51,14 +46,14 @@ public struct Trigger {
     }
     
     /**
-     *  Tell the associated publisher to continue its processing for the specified index.
+     *  Ask the publisher matching the specified identifier to continue its work.
      */
-    public func signal(_ index: Index) {
-        subject.send(index)
+    public func signal(_ identifier: Identifier) {
+        subject.send(identifier)
     }
     
     /**
-     *  Tell the associated publisher to continue for some hashable instance.
+     *  Ask the publisher matching the specified hashable instance to continue its work.
      */
     public func signal<T>(_ t: T) where T: Hashable {
         signal(t.hashValue)

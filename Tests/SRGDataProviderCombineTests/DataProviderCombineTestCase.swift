@@ -40,29 +40,10 @@ final class DataProviderCombineTestCase: XCTestCase {
         
         dataProvider.tvChannels(for: .RTS)
             .sink(receiveCompletion: { _ in
-                // No pagination, pipeline ends with the first result received
                 requestExpectation.fulfill()
             }, receiveValue: { medias in
                 print("\(medias)")
                 XCTAssertNotNil(medias)
-            })
-            .store(in: &cancellables)
-        
-        waitForExpectations(timeout: 10.0, handler: nil)
-    }
-    
-    func testPaginatedRequest() {
-        let requestExpectation = expectation(description: "Request finished")
-        
-        dataProvider.latestMediasForShow(withUrn: "urn:rts:show:tv:532539")
-            .sink(receiveCompletion: { _ in
-                // Nothing
-            }, receiveValue: { medias in
-                print("\(medias)")
-                XCTAssertNotNil(medias)
-                
-                // Pipeline stays open unless pages are exhausted. Fulfills after receiving the first value
-                requestExpectation.fulfill()
             })
             .store(in: &cancellables)
         
@@ -103,10 +84,10 @@ final class DataProviderCombineTestCase: XCTestCase {
         
         let trigger = Trigger()
         
-        // TODO: Workaround. Can we do better?
         let urns = ["urn:rts:show:tv:9517680", "urn:rts:show:tv:1799609", "urn:rts:show:tv:11178126", "urn:rts:show:tv:9720862", "urn:rts:show:tv:548307", "urn:rts:show:tv:10875381", "urn:rts:show:tv:11511172", "urn:rts:show:tv:11340592", "urn:rts:show:tv:11430664"]
         dataProvider.shows(withUrns: urns, pageSize: 3, triggerId: trigger.id(1))
             .handleEvents(receiveOutput: { _ in
+                // TODO: Workaround. Can we do better?
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                     trigger.signal(1)
                 }
