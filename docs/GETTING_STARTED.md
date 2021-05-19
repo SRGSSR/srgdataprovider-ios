@@ -54,7 +54,7 @@ SRGDataProvider.current!.tvLivestreams(for: .SRF)
 
 The publisher completes once the results have been delivered or an error has been encountered.
 
-Publishers optionally support pagination behave identically when their `triggerId` parameter is omitted or `nil`:
+Publishers optionally supporting pagination behave in a similar way when their `triggerId` parameter is omitted (or `nil`):
 
 ```swift
 SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", pageSize: 50)
