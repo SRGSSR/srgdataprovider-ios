@@ -138,6 +138,12 @@ SRGDataProvider.current!.medias(for: .RTS, matchingQuery: "jour", pageSize: 20, 
 
 Since the publisher only completes when all pages of results have been exhausted you usually want to avoid reducers, as they will prevent results from propagating down the pipeline until all upstream publishers have completed, i.e. until all pages of content have been exhausted.
 
+#### Error management
+
+Subscribers for which pagination has been enabled may fail when retrieving the first page of content, propagating the corresponding error downstream.
+
+If the first page of results could be retrieved, though, and if attempting to load an additional page of content fails, for example because the network connection dropped, the operation will silently fail without delivering any additional page to the pipeline. The operation might be reatttempted using the same trigger and identifier as many times as needed.
+
 ## Requests and queues
 
 The `SRGDataProviderNetwork` library returns instances of requests from [SRG Network](https://github.com/SRGSSR/srgnetwork-apple/issues), either simple `SRGRequest`, or `SRGFirstPageRequest` for services supporting pagination.
