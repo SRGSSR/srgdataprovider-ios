@@ -66,6 +66,7 @@ extension SRGDataProvider {
                         // In inverse order: Publish available results and wait for the trigger before proceeding with the
                         // next page of results.
                         .prepend(Empty(completeImmediately: false).prefix(untilOutputFrom: Trigger.sentinel(for: triggerId).setFailureType(to: Error.self)))
+                        .retry(.max)
                         .prepend(output)
                         .eraseToAnyPublisher()
                 }
@@ -174,7 +175,10 @@ extension SRGDataProvider {
                 let output = (result.object, result.total, result.aggregations, result.suggestions)
                 if let triggerId = triggerId, let nextPage = page.next(with: result.nextRequest) {
                     return self.paginatedObjectTriggeredPublisher(at: nextPage, type: type, triggerId: triggerId)
+                        // In inverse order: Publish available results and wait for the trigger before proceeding with the
+                        // next page of results.
                         .prepend(Empty(completeImmediately: false).prefix(untilOutputFrom: Trigger.sentinel(for: triggerId).setFailureType(to: Error.self)))
+                        .retry(.max)
                         .prepend(output)
                         .eraseToAnyPublisher()
                 }
