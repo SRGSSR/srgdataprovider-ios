@@ -100,6 +100,8 @@ public extension Publisher {
      *  the second publisher emits a value the upstream publishers executes normally once.
      */
     func publishAgain<S>(on signal: S) -> AnyPublisher<Self.Output, Self.Failure> where S: Publisher, S.Failure == Never {
+        // Use `prepend(_:)` to trigger an initial update
+        // Inspired from https://stackoverflow.com/questions/66075000/swift-combine-publishers-where-one-hasnt-sent-a-value-yet
         return signal
             .map { _ in }
             .prepend(())
@@ -112,7 +114,7 @@ public extension Publisher {
     }
     
     /**
-     *  Make the upstream publisher wait until a second signal publsher emits some value.
+     *  Make the upstream publisher wait until a second signal publisher emits some value.
      */
     func wait<S>(until signal: S) -> AnyPublisher<Self.Output, Self.Failure> where S: Publisher, S.Failure == Never {
         return self
