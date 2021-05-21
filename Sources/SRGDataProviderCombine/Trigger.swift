@@ -7,12 +7,8 @@
 import Combine
 
 /**
- *  A trigger provides a context in which signals can be sent to an associated set of publishers. For each publisher
- *  to which a signal must be sent, an identifier must be retrieved from the trigger first (using an index or, better,
- *  some hashable value).
- *
- *  This identifier mzst itself be used to create an associated sentinel. A sentinel is a publisher which responds
- *  to an associated signal by emitting a value and completing.
+ *  A trigger provides a context in which signals can be sent to an associated set of publishers called sentinels.
+ *  When a matching signal is received by a sentinel it responds by emitting a value without completing.
  */
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public struct Trigger {
@@ -21,23 +17,7 @@ public struct Trigger {
     public typealias Publisher = AnyPublisher<Index, Never>
     public typealias Sentinel = AnyPublisher<Void, Never>
     
-    public typealias Id = (publisher: Publisher, index: Index)
-    
     private let subject = Subject()
-    
-    /**
-     *  Create a sentinel which emits a value when the corresponding signal is received.
-     */
-    public static func sentinel(for triggerId: Trigger.Id) -> Sentinel {
-        return sentinel(for: triggerId.publisher, index: triggerId.index)
-    }
-    
-    private static func sentinel(for publisher: Publisher, index: Index) -> Sentinel {
-        return publisher
-            .contains(index)
-            .map { _ in }
-            .eraseToAnyPublisher()
-    }
     
     /**
      *  Create a trigger.
@@ -46,20 +26,6 @@ public struct Trigger {
     
     private var publisher: Publisher {
         return subject.eraseToAnyPublisher()
-    }
-    
-    /**
-     *  Generate an identifier for some index.
-     */
-    public func id(_ index: Index) -> Id {
-        return (publisher, index)
-    }
-    
-    /**
-     *  Generate an identifier for some hashable value.
-     */
-    public func id<T>(_ t: T) -> Id where T: Hashable {
-        return id(t.hashValue)
     }
     
     /**
@@ -88,6 +54,42 @@ public struct Trigger {
      */
     public func sentinel<T>(for t: T) -> Sentinel where T: Hashable {
         return Self.sentinel(for: publisher, index: t.hashValue)
+    }
+    
+    private static func sentinel(for publisher: Publisher, index: Index) -> Sentinel {
+        return publisher
+            .filter { $0 == index }
+            .map { _ in }
+            .eraseToAnyPublisher()
+    }
+}
+
+/**
+ *  Trigger identifiers provide a way to conveniently pass trigger definitions around as a single value.
+ */
+@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension Trigger {
+    typealias Id = (publisher: Publisher, index: Index)
+    
+    /**
+     *  Generate a trigger identifier associated with the specified index.
+     */
+    func id(_ index: Index) -> Id {
+        return (publisher, index)
+    }
+    
+    /**
+     *  Generate a trigger identifier associated with the specified hashable value.
+     */
+    func id<T>(_ t: T) -> Id where T: Hashable {
+        return id(t.hashValue)
+    }
+    
+    /**
+     *  Create a sentinel from a trigger identifier.
+     */
+    static func sentinel(for triggerId: Trigger.Id) -> Sentinel {
+        return sentinel(for: triggerId.publisher, index: triggerId.index)
     }
 }
 
