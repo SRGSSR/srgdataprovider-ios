@@ -7,28 +7,41 @@
 import Combine
 
 /**
- *  Trigger for publishers waiting for a signal to continue their processing.
+ *  A trigger provides a context in which signals can be sent to an associated set of publishers. For each publisher
+ *  to which a signal must be sent, an identifier must be retrieved from the trigger first (using an index or, better,
+ *  some hashable value).
+ *
+ *  This identifier mzst itself be used to create an associated sentinel. A sentinel is a publisher which responds
+ *  to an associated signal by emitting a value and completing.
  */
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public struct Trigger {
-    public typealias Identifier = Int
-    public typealias Subject = PassthroughSubject<Identifier, Never>
-    public typealias Publisher = AnyPublisher<Identifier, Never>
+    public typealias Index = Int
+    public typealias Subject = PassthroughSubject<Index, Never>
+    public typealias Publisher = AnyPublisher<Index, Never>
+    public typealias Sentinel = AnyPublisher<Void, Never>
     
-    public typealias Id = (publisher: Publisher, identifier: Identifier)
+    public typealias Id = (publisher: Publisher, index: Index)
     
     private let subject = Subject()
     
     /**
-     *  Create a sentinel which emits a signal bound to some trigger identifier.
+     *  Create a sentinel which emits a value when the corresponding signal is received.
      */
-    public static func sentinel(for triggerId: Trigger.Id) -> AnyPublisher<Void, Never> {
-        return triggerId.publisher
-            .contains(triggerId.identifier)
+    public static func sentinel(for triggerId: Trigger.Id) -> Sentinel {
+        return sentinel(for: triggerId.publisher, index: triggerId.index)
+    }
+    
+    private static func sentinel(for publisher: Publisher, index: Index) -> Sentinel {
+        return publisher
+            .contains(index)
             .map { _ in }
             .eraseToAnyPublisher()
     }
     
+    /**
+     *  Create a trigger.
+     */
     public init() {}
     
     private var publisher: Publisher {
@@ -36,31 +49,45 @@ public struct Trigger {
     }
     
     /**
-     *  Generate an identifier from an integer value.
+     *  Generate an identifier for some index.
      */
-    public func id(_ identifier: Identifier) -> Id {
-        return (publisher, identifier)
+    public func id(_ index: Index) -> Id {
+        return (publisher, index)
     }
     
     /**
-     *  Generate an identifier from a hashable instance.
+     *  Generate an identifier for some hashable value.
      */
     public func id<T>(_ t: T) -> Id where T: Hashable {
         return id(t.hashValue)
     }
     
     /**
-     *  Ask the publisher matching the specified identifier to continue its work.
+     *  Send a signal to publishers associated with the specified index.
      */
-    public func signal(_ identifier: Identifier) {
-        subject.send(identifier)
+    public func signal(_ index: Index) {
+        subject.send(index)
     }
     
     /**
-     *  Ask the publisher matching the specified hashable instance to continue its work.
+     *  Send a signal to publishers associated with the specified hashable value.
      */
     public func signal<T>(_ t: T) where T: Hashable {
         signal(t.hashValue)
+    }
+    
+    /**
+     *  Create a sentinel associated with the receiver and triggered by a signal (associated with some index).
+     */
+    public func sentinel(for index: Index) -> Sentinel {
+        return Self.sentinel(for: publisher, index: index)
+    }
+    
+    /**
+     *  Create a sentinel associated with the receiver and triggered by a signal (associated with some hashable value).
+     */
+    public func sentinel<T>(for t: T) -> Sentinel where T: Hashable {
+        return Self.sentinel(for: publisher, index: t.hashValue)
     }
 }
 
@@ -70,7 +97,7 @@ public extension Publisher {
      *  Make the upstream publisher execute again when a second signal publisher emits some value. No matter whether
      *  the second publisher emits a value the upstream publishers executes normally once.
      */
-    func publishAgain<S>(when signal: S) -> AnyPublisher<Self.Output, Self.Failure> where S: Publisher, S.Failure == Never {
+    func publishAgain<S>(on signal: S) -> AnyPublisher<Self.Output, Self.Failure> where S: Publisher, S.Failure == Never {
         return signal
             .map { _ in }
             .prepend(())
