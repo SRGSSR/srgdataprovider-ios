@@ -85,7 +85,7 @@ extension SRGDataProvider {
      */
     func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, triggerId: Trigger.Id?) -> AnyPublisher<[T], Error> where T: MTLModel, P: NextLinkable {
         return paginatedObjectsTriggeredPublisher(at: page, rootKey: rootKey, type: type, triggerId: triggerId)
-            .map { $0.objects }
+            .map(\.objects)
             .eraseToAnyPublisher()
     }
 }
@@ -198,7 +198,7 @@ extension SRGDataProvider {
      */
     func paginatedObjectTriggeredPublisher<T, P>(at page: P, type: T.Type, triggerId: Trigger.Id?) -> AnyPublisher<T, Error> where T: MTLModel, P: NextLinkable {
         return paginatedObjectTriggeredPublisher(at: page, type: type, triggerId: triggerId)
-            .map { $0.object }
+            .map(\.object)
             .eraseToAnyPublisher()
     }
 }
@@ -210,7 +210,7 @@ extension SRGDataProvider {
      */
     func objectsPublisher<T>(for request: URLRequest, rootKey: String, type: T.Type) -> AnyPublisher<[T], Error> where T: MTLModel {
         return paginatedObjectsPublisher(for: request, rootKey: rootKey, type: T.self)
-            .map { $0.objects }
+            .map(\.objects)
             .eraseToAnyPublisher()
     }
     
@@ -223,7 +223,7 @@ extension SRGDataProvider {
      */
     func objectPublisher<T>(for request: URLRequest, type: T.Type) -> AnyPublisher<T, Error> where T: MTLModel {
         return paginatedObjectPublisher(for: request, type: T.self)
-            .map { $0.object }
+            .map(\.object)
             .eraseToAnyPublisher()
     }
 }

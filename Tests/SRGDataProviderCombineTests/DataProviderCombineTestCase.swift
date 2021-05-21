@@ -98,7 +98,7 @@ final class DataProviderCombineTestCase: XCTestCase {
                 print("Completion: \(completion)")
                 requestExpectation.fulfill()
             } receiveValue: { shows in
-                print("Received \(shows.count): \(shows.map { $0.title })")
+                print("Received \(shows.count): \(shows.map(\.title))")
             }
             .store(in: &cancellables)
         
