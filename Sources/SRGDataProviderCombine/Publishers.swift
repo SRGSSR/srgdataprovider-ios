@@ -59,7 +59,7 @@ extension SRGDataProvider {
      */
     func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, triggerId: Trigger.Id?) -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
         return paginatedObjectsPublisher(for: page.request, rootKey: rootKey, type: T.self)
-            .flatMap { result -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> in
+            .map { result -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> in
                 let output = (result.objects, result.total, result.aggregations, result.suggestions)
                 if let triggerId = triggerId, let nextPage = page.next(with: result.nextRequest) {
                     return self.paginatedObjectsTriggeredPublisher(at: nextPage, rootKey: rootKey, type: type, triggerId: triggerId)
@@ -76,6 +76,7 @@ extension SRGDataProvider {
                         .eraseToAnyPublisher()
                 }
             }
+            .switchToLatest()
             .eraseToAnyPublisher()
     }
     
@@ -171,7 +172,7 @@ extension SRGDataProvider {
      */
     private func paginatedObjectTriggeredPublisher<T, P>(at page: P, type: T.Type, triggerId: Trigger.Id?) -> AnyPublisher<PaginatedObjectTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
         return paginatedObjectPublisher(for: page.request, type: T.self)
-            .flatMap { result -> AnyPublisher<PaginatedObjectTriggeredOutput<T>, Error> in
+            .map { result -> AnyPublisher<PaginatedObjectTriggeredOutput<T>, Error> in
                 let output = (result.object, result.total, result.aggregations, result.suggestions)
                 if let triggerId = triggerId, let nextPage = page.next(with: result.nextRequest) {
                     return self.paginatedObjectTriggeredPublisher(at: nextPage, type: type, triggerId: triggerId)
@@ -188,6 +189,7 @@ extension SRGDataProvider {
                         .eraseToAnyPublisher()
                 }
             }
+            .switchToLatest()
             .eraseToAnyPublisher()
     }
     

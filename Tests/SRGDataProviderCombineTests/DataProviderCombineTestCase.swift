@@ -62,9 +62,10 @@ final class DataProviderCombineTestCase: XCTestCase {
                     throw TestError.missingData
                 }
             }
-            .flatMap { topic in
+            .map { topic in
                 return self.dataProvider.latestMediasForTopic(withUrn: topic.urn)
             }
+            .switchToLatest()
             .sink(receiveCompletion: { _ in
                 // Nothing
             }, receiveValue: { medias in

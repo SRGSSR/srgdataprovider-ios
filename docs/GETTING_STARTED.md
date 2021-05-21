@@ -129,9 +129,10 @@ The second example below shows how to search for medias. Search services deliver
 
 ```swift
 SRGDataProvider.current!.medias(for: .RTS, matchingQuery: "jour", pageSize: 20, triggerId: triggerId)
-    .flatMap { result in
+    .map { result in
         return SRGDataProvider.current!.medias(withUrns: result.mediaUrns, pageSize: 20)
     }
+    .switchToLatest()
     .scan([]) { $0 + $1 }
     // Rest of the pipeline
 ```

@@ -104,9 +104,10 @@ public extension Publisher {
             .map { _ in }
             .prepend(())
             .setFailureType(to: Self.Failure.self)          // TODO: Remove when iOS 14 is the minimum deployment target
-            .flatMap { _ in
+            .map { _ in
                 return self
             }
+            .switchToLatest()
             .eraseToAnyPublisher()
     }
     
