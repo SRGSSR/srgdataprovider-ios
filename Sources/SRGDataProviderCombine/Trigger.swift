@@ -22,9 +22,10 @@ public struct Trigger {
     /**
      *  Create a sentinel which emits a signal bound to some trigger identifier.
      */
-    public static func sentinel(for triggerId: Trigger.Id) -> AnyPublisher<Bool, Never> {
+    public static func sentinel(for triggerId: Trigger.Id) -> AnyPublisher<Void, Never> {
         return triggerId.publisher
             .contains(triggerId.identifier)
+            .map { _ in }
             .eraseToAnyPublisher()
     }
     
