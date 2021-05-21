@@ -103,4 +103,6 @@ final class DataProviderCombineTestCase: XCTestCase {
         
         waitForExpectations(timeout: 10.0, handler: nil)
     }
+    
+    // TODO: Should test Triggers and associated publisher operators
 }

@@ -63,9 +63,9 @@ extension SRGDataProvider {
                 let output = (result.objects, result.total, result.aggregations, result.suggestions)
                 if let triggerId = triggerId, let nextPage = page.next(with: result.nextRequest) {
                     return self.paginatedObjectsTriggeredPublisher(at: nextPage, rootKey: rootKey, type: type, triggerId: triggerId)
-                        // In inverse order: Publish available results and wait for the trigger before proceeding with the
-                        // next page of results.
-                        .prepend(Empty(completeImmediately: false).prefix(untilOutputFrom: Trigger.sentinel(for: triggerId).setFailureType(to: Error.self)))
+                        // Publish available results first, then wait for signal to load next page. If a failure is encountered
+                        // wait again to retry (no limit).
+                        .wait(until: Trigger.sentinel(for: triggerId))
                         .retry(.max)
                         .prepend(output)
                         .eraseToAnyPublisher()
@@ -175,9 +175,9 @@ extension SRGDataProvider {
                 let output = (result.object, result.total, result.aggregations, result.suggestions)
                 if let triggerId = triggerId, let nextPage = page.next(with: result.nextRequest) {
                     return self.paginatedObjectTriggeredPublisher(at: nextPage, type: type, triggerId: triggerId)
-                        // In inverse order: Publish available results and wait for the trigger before proceeding with the
-                        // next page of results.
-                        .prepend(Empty(completeImmediately: false).prefix(untilOutputFrom: Trigger.sentinel(for: triggerId).setFailureType(to: Error.self)))
+                        // Publish available results first, then wait for signal to load next page. If a failure is encountered
+                        // wait again to retry (no limit).
+                        .wait(until: Trigger.sentinel(for: triggerId))
                         .retry(.max)
                         .prepend(output)
                         .eraseToAnyPublisher()
