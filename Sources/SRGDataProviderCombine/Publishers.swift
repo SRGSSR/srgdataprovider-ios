@@ -57,12 +57,12 @@ extension SRGDataProvider {
      *    https://github.com/RxSwiftCommunity/RxPager/blob/master/RxPager/Classes/RxPager.swift
      *    https://stackoverflow.com/a/39645113/760435
      */
-    func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, triggeredBy triggerable: Triggerable?) -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
+    func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, paginatedBy triggerable: Triggerable?) -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
         return paginatedObjectsPublisher(for: page.request, rootKey: rootKey, type: T.self)
             .map { result -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> in
                 let output = (result.objects, result.total, result.aggregations, result.suggestions)
                 if let triggerable = triggerable, let nextPage = page.next(with: result.nextRequest) {
-                    return self.paginatedObjectsTriggeredPublisher(at: nextPage, rootKey: rootKey, type: type, triggeredBy: triggerable)
+                    return self.paginatedObjectsTriggeredPublisher(at: nextPage, rootKey: rootKey, type: type, paginatedBy: triggerable)
                         // Publish available results first, then wait for signal to load next page. If a failure is encountered
                         // wait again to retry (no limit).
                         .wait(until: triggerable.signal())
@@ -83,8 +83,8 @@ extension SRGDataProvider {
     /**
      *  Convenience publisher emitting arrays of objects directly.
      */
-    func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, triggeredBy triggerable: Triggerable?) -> AnyPublisher<[T], Error> where T: MTLModel, P: NextLinkable {
-        return paginatedObjectsTriggeredPublisher(at: page, rootKey: rootKey, type: type, triggeredBy: triggerable)
+    func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, paginatedBy triggerable: Triggerable?) -> AnyPublisher<[T], Error> where T: MTLModel, P: NextLinkable {
+        return paginatedObjectsTriggeredPublisher(at: page, rootKey: rootKey, type: type, paginatedBy: triggerable)
             .map(\.objects)
             .eraseToAnyPublisher()
     }
@@ -170,12 +170,12 @@ extension SRGDataProvider {
      *    https://github.com/RxSwiftCommunity/RxPager/blob/master/RxPager/Classes/RxPager.swift
      *    https://stackoverflow.com/a/39645113/760435
      */
-    private func paginatedObjectTriggeredPublisher<T, P>(at page: P, type: T.Type, triggeredBy triggerable: Triggerable?) -> AnyPublisher<PaginatedObjectTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
+    private func paginatedObjectTriggeredPublisher<T, P>(at page: P, type: T.Type, paginatedBy triggerable: Triggerable?) -> AnyPublisher<PaginatedObjectTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
         return paginatedObjectPublisher(for: page.request, type: T.self)
             .map { result -> AnyPublisher<PaginatedObjectTriggeredOutput<T>, Error> in
                 let output = (result.object, result.total, result.aggregations, result.suggestions)
                 if let triggerable = triggerable, let nextPage = page.next(with: result.nextRequest) {
-                    return self.paginatedObjectTriggeredPublisher(at: nextPage, type: type, triggeredBy: triggerable)
+                    return self.paginatedObjectTriggeredPublisher(at: nextPage, type: type, paginatedBy: triggerable)
                         // Publish available results first, then wait for signal to load next page. If a failure is encountered
                         // wait again to retry (no limit).
                         .wait(until: triggerable.signal())
@@ -196,8 +196,8 @@ extension SRGDataProvider {
     /**
      *  Convenience publisher emitting single objects directly.
      */
-    func paginatedObjectTriggeredPublisher<T, P>(at page: P, type: T.Type, triggeredBy triggerable: Triggerable?) -> AnyPublisher<T, Error> where T: MTLModel, P: NextLinkable {
-        return paginatedObjectTriggeredPublisher(at: page, type: type, triggeredBy: triggerable)
+    func paginatedObjectTriggeredPublisher<T, P>(at page: P, type: T.Type, paginatedBy triggerable: Triggerable?) -> AnyPublisher<T, Error> where T: MTLModel, P: NextLinkable {
+        return paginatedObjectTriggeredPublisher(at: page, type: type, paginatedBy: triggerable)
             .map(\.object)
             .eraseToAnyPublisher()
     }

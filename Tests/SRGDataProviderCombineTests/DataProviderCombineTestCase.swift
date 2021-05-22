@@ -86,7 +86,7 @@ final class DataProviderCombineTestCase: XCTestCase {
         let trigger = Trigger()
         
         let urns = ["urn:rts:show:tv:9517680", "urn:rts:show:tv:1799609", "urn:rts:show:tv:11178126", "urn:rts:show:tv:9720862", "urn:rts:show:tv:548307", "urn:rts:show:tv:10875381", "urn:rts:show:tv:11511172", "urn:rts:show:tv:11340592", "urn:rts:show:tv:11430664"]
-        dataProvider.shows(withUrns: urns, pageSize: 3, triggeredBy: trigger.triggerable(activatedBy: 1))
+        dataProvider.shows(withUrns: urns, pageSize: 3, paginatedBy: trigger.triggerable(activatedBy: 1))
             .handleEvents(receiveOutput: { _ in
                 // TODO: Workaround. Can we do better?
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {

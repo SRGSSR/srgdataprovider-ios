@@ -39,7 +39,7 @@ When subscribing to an SRG Data Provider publisher the corresponding request is 
 SRG Data Provider offers two kinds of publishers:
 
 - Publishers without pagination support.
-- Publishers optionally supporting pagination, characterized by a signature containing `triggeredBy` and `pageSize` parameters.
+- Publishers optionally supporting pagination, characterized by a signature containing `paginatedBy` and `pageSize` parameters.
 
 For more information about Combine itself, please have a look at the [official documentation](https://developer.apple.com/documentation/combine). The [Using Combine book](https://heckj.github.io/swiftui-notes) is also a great reference but a steep introduction if you have no prior knowledge of functional and reactive programming.
 
@@ -54,7 +54,7 @@ SRGDataProvider.current!.tvLivestreams(for: .SRF)
 
 The publisher completes once the results have been delivered or an error has been encountered.
 
-Publishers optionally supporting pagination behave in a similar way when their `triggeredBy` parameter is omitted or `nil`:
+Publishers optionally supporting pagination behave in a similar way when their `paginatedBy` parameter is omitted or `nil`:
 
 ```swift
 SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", pageSize: 50)
@@ -65,7 +65,7 @@ In this case only a single page of results is returned and the publisher complet
 
 ### Pagination
 
-Setting `triggeredBy` enables pagination support and lets you control when a new page of results must be loaded. Note that a publisher for which pagination has been enabled will only complete once all pages of results have been exhausted.
+Setting `paginatedBy` enables pagination support and lets you control when a new page of results must be loaded. Note that a publisher for which pagination has been enabled will only complete once all pages of results have been exhausted.
 
 #### Triggers
 
@@ -78,7 +78,7 @@ let trigger = Trigger()
 A trigger defines a local context for communication with a set of publishers. To be able to ask some paginated publisher for a next page of content you must associate it with some `Triggerable`, obtained from the trigger for some integer index:
 
 ```swift
-SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", triggeredBy: trigger.triggerable(activatedBy: 1))
+SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", paginatedBy: trigger.triggerable(activatedBy: 1))
     // Rest of the pipeline
 ```
 
@@ -103,7 +103,7 @@ enum Section: Hashable { /* ... */ }
 you can use the section itself as index:
 
 ```swift
-SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", triggeredBy: trigger.triggerable(activatedBy: section))
+SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", paginatedBy: trigger.triggerable(activatedBy: section))
     // Rest of the pipeline
 ```
 
@@ -122,7 +122,7 @@ Subscribers receive results in pages, not as a consolidated list. The reason is 
 Fortunately accumulating results delivered by a pipeline is simple. You should use `scan` to consolidate results as they are made available, for example:
 
 ```swift
-SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", triggeredBy: trigger.triggerable(activatedBy: 2))
+SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", paginatedBy: trigger.triggerable(activatedBy: 2))
     .scan([]) { $0 + $1 }
     // Rest of the pipeline
 ```
@@ -130,7 +130,7 @@ SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", 
 The second example below shows how to search for medias. Search services deliver URN lists, which you can replace with media objects by additionally fetching them, accumulating the results each time a new page of medias has been retrieved:
 
 ```swift
-SRGDataProvider.current!.medias(for: .RTS, matchingQuery: "jour", pageSize: 20, triggeredBy: trigger.triggerable(activatedBy: 3))
+SRGDataProvider.current!.medias(for: .RTS, matchingQuery: "jour", pageSize: 20, paginatedBy: trigger.triggerable(activatedBy: 3))
     .map { result in
         return SRGDataProvider.current!.medias(withUrns: result.mediaUrns, pageSize: 20)
     }
