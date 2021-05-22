@@ -65,7 +65,7 @@ extension SRGDataProvider {
                     return self.paginatedObjectsTriggeredPublisher(at: nextPage, rootKey: rootKey, type: type, paginatedBy: triggerable)
                         // Publish available results first, then wait for signal to load next page. If a failure is encountered
                         // wait again to retry (no limit).
-                        .wait(until: triggerable.signal())
+                        .wait(untilOutputFrom: triggerable.signal())
                         .retry(.max)
                         .prepend(output)
                         .eraseToAnyPublisher()
@@ -178,7 +178,7 @@ extension SRGDataProvider {
                     return self.paginatedObjectTriggeredPublisher(at: nextPage, type: type, paginatedBy: triggerable)
                         // Publish available results first, then wait for signal to load next page. If a failure is encountered
                         // wait again to retry (no limit).
-                        .wait(until: triggerable.signal())
+                        .wait(untilOutputFrom: triggerable.signal())
                         .retry(.max)
                         .prepend(output)
                         .eraseToAnyPublisher()
@@ -234,7 +234,7 @@ public extension Publisher {
      *  Make the upstream publisher execute again when a second signal publisher emits some value. No matter whether
      *  the second publisher emits a value the upstream publishers executes normally once.
      */
-    func publishAgain<S>(on signal: S) -> AnyPublisher<Self.Output, Self.Failure> where S: Publisher, S.Failure == Never {
+    func publishAgain<S>(onOutputFrom signal: S) -> AnyPublisher<Self.Output, Self.Failure> where S: Publisher, S.Failure == Never {
         // Use `prepend(_:)` to trigger an initial update
         // Inspired from https://stackoverflow.com/questions/66075000/swift-combine-publishers-where-one-hasnt-sent-a-value-yet
         return signal
@@ -251,7 +251,7 @@ public extension Publisher {
     /**
      *  Make the upstream publisher wait until a second signal publisher emits some value.
      */
-    func wait<S>(until signal: S) -> AnyPublisher<Self.Output, Self.Failure> where S: Publisher, S.Failure == Never {
+    func wait<S>(untilOutputFrom signal: S) -> AnyPublisher<Self.Output, Self.Failure> where S: Publisher, S.Failure == Never {
         return self
             .prepend(
                 Empty(completeImmediately: false)
