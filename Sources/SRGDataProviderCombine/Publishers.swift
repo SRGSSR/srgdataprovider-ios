@@ -234,7 +234,7 @@ public extension Publisher {
      *  Make the upstream publisher execute again when a second signal publisher emits some value. No matter whether
      *  the second publisher emits a value the upstream publishers executes normally once.
      */
-    func publishAgain<S>(onOutputFrom signal: S) -> AnyPublisher<Self.Output, Self.Failure> where S: Publisher, S.Failure == Never {
+    func `repeat`<S>(onOutputFrom signal: S) -> AnyPublisher<Self.Output, Self.Failure> where S: Publisher, S.Failure == Never {
         // Use `prepend(_:)` to trigger an initial update
         // Inspired from https://stackoverflow.com/questions/66075000/swift-combine-publishers-where-one-hasnt-sent-a-value-yet
         return signal
