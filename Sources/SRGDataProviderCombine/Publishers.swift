@@ -57,15 +57,15 @@ extension SRGDataProvider {
      *    https://github.com/RxSwiftCommunity/RxPager/blob/master/RxPager/Classes/RxPager.swift
      *    https://stackoverflow.com/a/39645113/760435
      */
-    func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, triggerId: Trigger.Id?) -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
+    func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, triggeredBy triggerable: Triggerable?) -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
         return paginatedObjectsPublisher(for: page.request, rootKey: rootKey, type: T.self)
             .map { result -> AnyPublisher<PaginatedObjectsTriggeredOutput<T>, Error> in
                 let output = (result.objects, result.total, result.aggregations, result.suggestions)
-                if let triggerId = triggerId, let nextPage = page.next(with: result.nextRequest) {
-                    return self.paginatedObjectsTriggeredPublisher(at: nextPage, rootKey: rootKey, type: type, triggerId: triggerId)
+                if let triggerable = triggerable, let nextPage = page.next(with: result.nextRequest) {
+                    return self.paginatedObjectsTriggeredPublisher(at: nextPage, rootKey: rootKey, type: type, triggeredBy: triggerable)
                         // Publish available results first, then wait for signal to load next page. If a failure is encountered
                         // wait again to retry (no limit).
-                        .wait(until: Trigger.sentinel(for: triggerId))
+                        .wait(until: triggerable.receiver())
                         .retry(.max)
                         .prepend(output)
                         .eraseToAnyPublisher()
@@ -83,8 +83,8 @@ extension SRGDataProvider {
     /**
      *  Convenience publisher emitting arrays of objects directly.
      */
-    func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, triggerId: Trigger.Id?) -> AnyPublisher<[T], Error> where T: MTLModel, P: NextLinkable {
-        return paginatedObjectsTriggeredPublisher(at: page, rootKey: rootKey, type: type, triggerId: triggerId)
+    func paginatedObjectsTriggeredPublisher<T, P>(at page: P, rootKey: String, type: T.Type, triggeredBy triggerable: Triggerable?) -> AnyPublisher<[T], Error> where T: MTLModel, P: NextLinkable {
+        return paginatedObjectsTriggeredPublisher(at: page, rootKey: rootKey, type: type, triggeredBy: triggerable)
             .map(\.objects)
             .eraseToAnyPublisher()
     }
@@ -170,15 +170,15 @@ extension SRGDataProvider {
      *    https://github.com/RxSwiftCommunity/RxPager/blob/master/RxPager/Classes/RxPager.swift
      *    https://stackoverflow.com/a/39645113/760435
      */
-    private func paginatedObjectTriggeredPublisher<T, P>(at page: P, type: T.Type, triggerId: Trigger.Id?) -> AnyPublisher<PaginatedObjectTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
+    private func paginatedObjectTriggeredPublisher<T, P>(at page: P, type: T.Type, triggeredBy triggerable: Triggerable?) -> AnyPublisher<PaginatedObjectTriggeredOutput<T>, Error> where T: MTLModel, P: NextLinkable {
         return paginatedObjectPublisher(for: page.request, type: T.self)
             .map { result -> AnyPublisher<PaginatedObjectTriggeredOutput<T>, Error> in
                 let output = (result.object, result.total, result.aggregations, result.suggestions)
-                if let triggerId = triggerId, let nextPage = page.next(with: result.nextRequest) {
-                    return self.paginatedObjectTriggeredPublisher(at: nextPage, type: type, triggerId: triggerId)
+                if let triggerable = triggerable, let nextPage = page.next(with: result.nextRequest) {
+                    return self.paginatedObjectTriggeredPublisher(at: nextPage, type: type, triggeredBy: triggerable)
                         // Publish available results first, then wait for signal to load next page. If a failure is encountered
                         // wait again to retry (no limit).
-                        .wait(until: Trigger.sentinel(for: triggerId))
+                        .wait(until: triggerable.receiver())
                         .retry(.max)
                         .prepend(output)
                         .eraseToAnyPublisher()
@@ -196,8 +196,8 @@ extension SRGDataProvider {
     /**
      *  Convenience publisher emitting single objects directly.
      */
-    func paginatedObjectTriggeredPublisher<T, P>(at page: P, type: T.Type, triggerId: Trigger.Id?) -> AnyPublisher<T, Error> where T: MTLModel, P: NextLinkable {
-        return paginatedObjectTriggeredPublisher(at: page, type: type, triggerId: triggerId)
+    func paginatedObjectTriggeredPublisher<T, P>(at page: P, type: T.Type, triggeredBy triggerable: Triggerable?) -> AnyPublisher<T, Error> where T: MTLModel, P: NextLinkable {
+        return paginatedObjectTriggeredPublisher(at: page, type: type, triggeredBy: triggerable)
             .map(\.object)
             .eraseToAnyPublisher()
     }
@@ -224,6 +224,39 @@ extension SRGDataProvider {
     func objectPublisher<T>(for request: URLRequest, type: T.Type) -> AnyPublisher<T, Error> where T: MTLModel {
         return paginatedObjectPublisher(for: request, type: T.self)
             .map(\.object)
+            .eraseToAnyPublisher()
+    }
+}
+
+@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public extension Publisher {
+    /**
+     *  Make the upstream publisher execute again when a second signal publisher emits some value. No matter whether
+     *  the second publisher emits a value the upstream publishers executes normally once.
+     */
+    func publishAgain<S>(on signal: S) -> AnyPublisher<Self.Output, Self.Failure> where S: Publisher, S.Failure == Never {
+        // Use `prepend(_:)` to trigger an initial update
+        // Inspired from https://stackoverflow.com/questions/66075000/swift-combine-publishers-where-one-hasnt-sent-a-value-yet
+        return signal
+            .map { _ in }
+            .prepend(())
+            .setFailureType(to: Self.Failure.self)          // TODO: Remove when iOS 14 is the minimum deployment target
+            .map { _ in
+                return self
+            }
+            .switchToLatest()
+            .eraseToAnyPublisher()
+    }
+    
+    /**
+     *  Make the upstream publisher wait until a second signal publisher emits some value.
+     */
+    func wait<S>(until signal: S) -> AnyPublisher<Self.Output, Self.Failure> where S: Publisher, S.Failure == Never {
+        return self
+            .prepend(
+                Empty(completeImmediately: false)
+                    .prefix(untilOutputFrom: signal)
+            )
             .eraseToAnyPublisher()
     }
 }

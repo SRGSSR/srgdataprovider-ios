@@ -16,9 +16,9 @@ public extension SRGDataProvider {
     /**
      *  List of videos available from the Live Center.
      */
-    func liveCenterVideos(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, triggerId: Trigger.Id? = nil) -> AnyPublisher<[SRGMedia], Error> {
+    func liveCenterVideos(for vendor: SRGVendor, pageSize: UInt = SRGDataProviderDefaultPageSize, triggeredBy triggerable: Triggerable? = nil) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestLiveCenterVideos(for: vendor)
-        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, triggerId: triggerId)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, triggeredBy: triggerable)
     }
 }
 
