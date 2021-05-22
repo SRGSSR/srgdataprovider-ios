@@ -65,7 +65,7 @@ extension SRGDataProvider {
                     return self.paginatedObjectsTriggeredPublisher(at: nextPage, rootKey: rootKey, type: type, triggeredBy: triggerable)
                         // Publish available results first, then wait for signal to load next page. If a failure is encountered
                         // wait again to retry (no limit).
-                        .wait(until: triggerable.receiver())
+                        .wait(until: triggerable.signal())
                         .retry(.max)
                         .prepend(output)
                         .eraseToAnyPublisher()
@@ -178,7 +178,7 @@ extension SRGDataProvider {
                     return self.paginatedObjectTriggeredPublisher(at: nextPage, type: type, triggeredBy: triggerable)
                         // Publish available results first, then wait for signal to load next page. If a failure is encountered
                         // wait again to retry (no limit).
-                        .wait(until: triggerable.receiver())
+                        .wait(until: triggerable.signal())
                         .retry(.max)
                         .prepend(output)
                         .eraseToAnyPublisher()

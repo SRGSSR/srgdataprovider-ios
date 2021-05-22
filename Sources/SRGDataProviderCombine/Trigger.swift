@@ -7,15 +7,15 @@
 import Combine
 
 /**
- *  A trigger is a device used to send signals to an associated set of publisher receivers. Sending a signal
- *  through a trigger will make receivers which understand it respond by emitting a void value. Note that
- *  receiver publishers never complete and thus can be sent as many signals as needed.
+ *  A trigger is a device used to control a set of signal publishers. Signal publishers are publishers remotely
+ *  controlled by the trigger which emit a void value when activated. Signal publishers never complete and thus
+ *  can be activated as many times as needed.
  */
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public struct Trigger {
     public typealias Index = Int
     public typealias Publisher = AnyPublisher<Index, Never>
-    public typealias Receiver = AnyPublisher<Void, Never>
+    public typealias Signal = AnyPublisher<Void, Never>
     
     private typealias Sender = PassthroughSubject<Index, Never>
     
@@ -31,9 +31,9 @@ public struct Trigger {
     }
     
     /**
-     *  Create an associated receiver understanding a given integer signal.
+     *  Create an associated signal activated by some integer index.
      */
-    public func receiver(for index: Index) -> Receiver {
+    public func signal(activatedBy index: Index) -> Signal {
         return publisher
             .filter { $0 == index }
             .map { _ in }
@@ -41,43 +41,43 @@ public struct Trigger {
     }
     
     /**
-     *  Create an associated receiver understanding a given hashable signal.
+     *  Create an associated signal activated by some hashable value.
      */
-    public func receiver<T>(for t: T) -> Receiver where T: Hashable {
-        return receiver(for: t.hashValue)
+    public func signal<T>(activatedBy t: T) -> Signal where T: Hashable {
+        return signal(activatedBy: t.hashValue)
     }
     
     /**
-     *  Send an integer signal. Receivers understanding it will respond by emitting a void value.
+     *  Activate associated signal publishers matching the provided integer index, making them emit a single void value.
      */
-    public func signal(_ index: Index) {
+    public func activate(for index: Index) {
         sender.send(index)
     }
     
     /**
-     *  Send a hashable signal. Receivers understanding it will respond by emitting a void value.
+     *  Activate associated signal publishers matching the provided hashable value, making them emit a single void value.
      */
-    public func signal<T>(_ t: T) where T: Hashable {
-        signal(t.hashValue)
+    public func activate<T>(for t: T) where T: Hashable {
+        activate(for: t.hashValue)
     }
     
     /**
-     *  Cereate a triggerable understanding a given integer signal emitted by the trigger.
+     *  Create a triggerable activated by the specified index.
      */
-    public func triggerable(with index: Index) -> Triggerable {
-        return Triggerable(for: self, index: index)
+    public func triggerable(activatedBy index: Index) -> Triggerable {
+        return Triggerable(for: self, activatedBy: index)
     }
     
     /**
-     *  Cereate a triggerable understanding a given hashable signal emitted by the trigger.
+     *  Create a triggerable activated by the specified hashable value.
      */
-    public func triggerable<T>(with t: T) -> Triggerable where T: Hashable {
-        return Triggerable(for: self, index: t.hashValue)
+    public func triggerable<T>(activatedBy t: T) -> Triggerable where T: Hashable {
+        return Triggerable(for: self, activatedBy: t.hashValue)
     }
 }
 
 /**
- *  Context for creating triggerable publishers.
+ *  A triggerable contains the context needed to create a signal associated with some trigger and index.
  */
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public struct Triggerable {
@@ -85,18 +85,18 @@ public struct Triggerable {
     private let index: Trigger.Index
     
     /**
-     *  Create a triggerable understanding the given integer signal when sent from the specified trigger.
+     *  Create a triggerable for the specified trigger and index.
      */
-    init(for trigger: Trigger, index: Trigger.Index) {
+    init(for trigger: Trigger, activatedBy index: Trigger.Index) {
         self.trigger = trigger
         self.index = index
     }
     
     /**
-     *  Return the associated receiver publisher emitting void values when triggered.
+     *  Return the associated signal publisher.
      */
-    public func receiver() -> Trigger.Receiver {
-        return trigger.receiver(for: index)
+    public func signal() -> Trigger.Signal {
+        return trigger.signal(activatedBy: index)
     }
 }
 

@@ -78,14 +78,14 @@ let trigger = Trigger()
 A trigger defines a local context for communication with a set of publishers. To be able to ask some paginated publisher for a next page of content you must associate it with some `Triggerable`, obtained from the trigger for some integer index:
 
 ```swift
-SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", triggeredBy: trigger.triggerable(with: 1))
+SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", triggeredBy: trigger.triggerable(activatedBy: 1))
     // Rest of the pipeline
 ```
 
-The publisher emits the first page of results with the first subscription then waits. When you need the next page of results simply request it using the same trigger and index:
+The publisher emits the first page of results with the first subscription then waits. When you need the next page of results simply activate the trigger for the corresponding index:
 
 ```swift
-trigger.signal(1)
+trigger.activate(for: 1)
 ```
 
 If a next page of results is available it will be retrieved and delivered to the same pipeline.
@@ -103,14 +103,14 @@ enum Section: Hashable { /* ... */ }
 you can use the section itself as index:
 
 ```swift
-SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", triggeredBy: trigger.triggerable(with: section))
+SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", triggeredBy: trigger.triggerable(activatedBy: section))
     // Rest of the pipeline
 ```
 
 and request the next page of results accordingly:
 
 ```swift
-trigger.signal(section)
+trigger.activate(for: section)
 ```
 
 In general you should have a `Trigger` in each local context where you need to control pagination, e.g. in a view model instance. Application-wide triggers must be avoided so that you do not incorrectly assign the same index to unrelated publishers throughout your application.
@@ -122,7 +122,7 @@ Subscribers receive results in pages, not as a consolidated list. The reason is 
 Fortunately accumulating results delivered by a pipeline is simple. You should use `scan` to consolidate results as they are made available, for example:
 
 ```swift
-SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", triggeredBy: trigger.triggerable(with: 2))
+SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", triggeredBy: trigger.triggerable(activatedBy: 2))
     .scan([]) { $0 + $1 }
     // Rest of the pipeline
 ```
@@ -130,7 +130,7 @@ SRGDataProvider.current!.latestMediasForShow(withUrn: "urn:rts:show:tv:532539", 
 The second example below shows how to search for medias. Search services deliver URN lists, which you can replace with media objects by additionally fetching them, accumulating the results each time a new page of medias has been retrieved:
 
 ```swift
-SRGDataProvider.current!.medias(for: .RTS, matchingQuery: "jour", pageSize: 20, triggeredBy: trigger.triggerable(with: 3))
+SRGDataProvider.current!.medias(for: .RTS, matchingQuery: "jour", pageSize: 20, triggeredBy: trigger.triggerable(activatedBy: 3))
     .map { result in
         return SRGDataProvider.current!.medias(withUrns: result.mediaUrns, pageSize: 20)
     }
