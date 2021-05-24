@@ -13,24 +13,6 @@ import Combine
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension Publisher {
     /**
-     *  Make the upstream publisher execute again when a second signal publisher emits some value. No matter whether
-     *  the second publisher emits a value the upstream publishers executes normally once.
-     */
-    func `repeat`<S>(onOutputFrom signal: S) -> AnyPublisher<Self.Output, Self.Failure> where S: Publisher, S.Failure == Never {
-        // Use `prepend(_:)` to trigger an initial update
-        // Inspired from https://stackoverflow.com/questions/66075000/swift-combine-publishers-where-one-hasnt-sent-a-value-yet
-        return signal
-            .map { _ in }
-            .prepend(())
-            .setFailureType(to: Self.Failure.self)          // TODO: Remove when iOS 14 is the minimum deployment target
-            .map { _ in
-                return self
-            }
-            .switchToLatest()
-            .eraseToAnyPublisher()
-    }
-    
-    /**
      *  Make the upstream publisher wait until a second signal publisher emits some value.
      */
     func wait<S>(untilOutputFrom signal: S) -> AnyPublisher<Self.Output, Self.Failure> where S: Publisher, S.Failure == Never {
@@ -45,6 +27,23 @@ public extension Publisher {
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension Publishers {
+    /**
+     *  Make the upstream publisher execute once and repeat when a second signal publisher emits some value.
+     */
+    static func PublishAndRepeat<S, P>(onOutputFrom signal: S, _ publisher: @escaping () -> P) -> AnyPublisher<P.Output, P.Failure> where S: Publisher, P: Publisher, S.Failure == Never {
+        // Use `prepend(_:)` to trigger an initial update
+        // Inspired from https://stackoverflow.com/questions/66075000/swift-combine-publishers-where-one-hasnt-sent-a-value-yet
+        return signal
+            .map { _ in }
+            .prepend(())
+            .setFailureType(to: P.Failure.self)          // TODO: Remove when iOS 14 is the minimum deployment target
+            .map { _ in
+                return publisher()
+            }
+            .switchToLatest()
+            .eraseToAnyPublisher()
+    }
+    
     /**
      *  Accumulate the latest values emitted by several publishers into an array. All the publishers must emit a
      *  value before `AccumulateLatestMany` emits a value, as for `CombineLatest`.
