@@ -46,20 +46,18 @@ public extension Publisher {
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension Publishers {
     /**
-     *  Accumulate the latest values emitted by several publishers into an array. The order of the items in the
-     *  array matches the order of the publishers. All the publishers must emit a value before `AccumulateLatest`
-     *  emits a value, as for `CombineLatest`.
+     *  Accumulate the latest values emitted by several publishers into an array. All the publishers must emit a
+     *  value before `AccumulateLatestMany` emits a value, as for `CombineLatest`.
      */
-    static func AccumulateLatest<T>(_ publishers: AnyPublisher<T, Error>...) -> AnyPublisher<[T], Error> {
-        return AccumulateLatest(publishers)
+    static func AccumulateLatestMany<T>(_ publishers: AnyPublisher<T, Error>...) -> AnyPublisher<[T], Error> {
+        return AccumulateLatestMany(publishers)
     }
     
     /**
-     *  Accumulate the latest values emitted by a sequence of publishers into an array. The order of the items in
-     *  the array matches the order of the publishers. All the publishers must emit a value before `AccumulateLatest`
-     *  emits a value, as for `CombineLatest`.
+     *  Accumulate the latest values emitted by a sequence of publishers into an array. All the publishers must
+     *  emit a value before `AccumulateLatestMany` emits a value, as for `CombineLatest`.
      */
-    static func AccumulateLatest<S, T>(_ publishers: S) -> AnyPublisher<[T], Error> where S: Swift.Sequence, S.Element == AnyPublisher<T, Error> {
+    static func AccumulateLatestMany<S, T>(_ publishers: S) -> AnyPublisher<[T], Error> where S: Swift.Sequence, S.Element == AnyPublisher<T, Error> {
         let publishersArray = Array(publishers)
         
         // Recursively split in two until we can process groups of 2 or 3 items
@@ -80,8 +78,8 @@ public extension Publishers {
         else {
             let half = publishersArray.count / 2
             return Publishers.CombineLatest(
-                AccumulateLatest(Array(publishersArray[0..<half])),
-                AccumulateLatest(Array(publishersArray[half..<publishersArray.count]))
+                AccumulateLatestMany(Array(publishersArray[0..<half])),
+                AccumulateLatestMany(Array(publishersArray[half..<publishersArray.count]))
             )
             .map { array1, array2 in
                 return array1 + array2
