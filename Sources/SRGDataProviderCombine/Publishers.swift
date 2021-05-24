@@ -49,7 +49,7 @@ public extension Publishers {
      *  Accumulate the latest values emitted by several publishers into an array. All the publishers must emit a
      *  value before `AccumulateLatestMany` emits a value, as for `CombineLatest`.
      */
-    static func AccumulateLatestMany<T>(_ publishers: AnyPublisher<T, Error>...) -> AnyPublisher<[T], Error> {
+    static func AccumulateLatestMany<Output, Failure>(_ publishers: AnyPublisher<Output, Failure>...) -> AnyPublisher<[Output], Failure> {
         return AccumulateLatestMany(publishers)
     }
     
@@ -57,7 +57,7 @@ public extension Publishers {
      *  Accumulate the latest values emitted by a sequence of publishers into an array. All the publishers must
      *  emit a value before `AccumulateLatestMany` emits a value, as for `CombineLatest`.
      */
-    static func AccumulateLatestMany<S, T>(_ publishers: S) -> AnyPublisher<[T], Error> where S: Swift.Sequence, S.Element == AnyPublisher<T, Error> {
+    static func AccumulateLatestMany<S, Output, Failure>(_ publishers: S) -> AnyPublisher<[Output], Failure> where S: Swift.Sequence, S.Element == AnyPublisher<Output, Failure> {
         let publishersArray = Array(publishers)
         
         // Recursively split in two until we can process groups of 2 or 3 items
