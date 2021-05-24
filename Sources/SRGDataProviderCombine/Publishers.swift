@@ -60,7 +60,17 @@ public extension Publishers {
         let publishersArray = Array(publishers)
         
         // Recursively split in two until we can process groups of 2 or 3 items
-        if publishersArray.count == 2 {
+        if publishersArray.count == 0 {
+            return Just([])
+                .setFailureType(to: Failure.self)
+                .eraseToAnyPublisher()
+        }
+        else if publishersArray.count == 1 {
+            return publishersArray[0]
+                .map { [$0] }
+                .eraseToAnyPublisher()
+        }
+        else if publishersArray.count == 2 {
             return Publishers.CombineLatest(publishersArray[0], publishersArray[1])
                 .map { t1, t2 in
                     return [t1, t2]
