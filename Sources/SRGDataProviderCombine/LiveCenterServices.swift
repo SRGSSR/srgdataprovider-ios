@@ -8,6 +8,8 @@
 
 import Combine
 
+@_implementationOnly import SRGDataProviderRequests
+
 /**
  *  Services offered by the SwissTXT Live Center.
  */

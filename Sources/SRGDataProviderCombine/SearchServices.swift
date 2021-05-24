@@ -8,6 +8,8 @@
 
 import Combine
 
+@_implementationOnly import SRGDataProviderRequests
+
 /**
  *  Search-oriented services.
  */

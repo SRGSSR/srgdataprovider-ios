@@ -8,6 +8,8 @@
 
 import Combine
 
+@_implementationOnly import SRGDataProviderRequests
+
 /**
  *  List of media recommendation services supported by the data provider.
  */

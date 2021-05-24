@@ -8,6 +8,8 @@
 
 import Combine
 
+@_implementationOnly import SRGDataProviderRequests
+
 /**
  *  List of URN-based services supported by the data provider. Such services do not need explicit knowledge of what
  *  is requested (audio / video, for example) or of the business unit. They provide a way to retrieve content

@@ -8,6 +8,8 @@
 
 import Combine
 
+@_implementationOnly import SRGDataProviderRequests
+
 /**
  *  Module services (e.g. events) supported by the data provider.
  */

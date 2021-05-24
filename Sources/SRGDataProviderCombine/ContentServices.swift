@@ -8,6 +8,8 @@
 
 import Combine
 
+@_implementationOnly import SRGDataProviderRequests
+
 /**
  *  Services returning content configured by editors through the Play Application Configurator tool (PAC).
  */
