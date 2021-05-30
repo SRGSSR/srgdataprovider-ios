@@ -16,27 +16,20 @@ import Combine
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public struct Trigger {
     public typealias Index = Int
-    public typealias Publisher = AnyPublisher<Index, Never>
     public typealias Signal = AnyPublisher<Void, Never>
     
-    private typealias Sender = PassthroughSubject<Index, Never>
-    
-    private let sender = Sender()
+    private let sender = PassthroughSubject<Index, Never>()
     
     /**
      *  Create a trigger.
      */
     public init() {}
     
-    private var publisher: Publisher {
-        return sender.eraseToAnyPublisher()
-    }
-    
     /**
      *  Create an associated signal activated by some integer index.
      */
     public func signal(activatedBy index: Index) -> Signal {
-        return publisher
+        return sender
             .filter { $0 == index }
             .map { _ in }
             .eraseToAnyPublisher()
