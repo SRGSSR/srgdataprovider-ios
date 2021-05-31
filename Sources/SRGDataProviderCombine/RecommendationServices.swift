@@ -21,9 +21,9 @@ public extension SRGDataProvider {
      *  - Parameter URN: A specific media URN.
      *  - Parameter userId: An optional user identifier.
      */
-    func recommendedMedias(forUrn urn: String, userId: String?, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy triggerable: Triggerable? = nil) -> AnyPublisher<[SRGMedia], Error> {
+    func recommendedMedias(forUrn urn: String, userId: String?, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestRecommendedMedias(forURN: urn, userId: userId)
-        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: triggerable)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: signal)
     }
 }
 

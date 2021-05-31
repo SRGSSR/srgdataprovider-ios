@@ -34,9 +34,9 @@ public extension SRGDataProvider {
      *  Partial results can be returned if some URNs are invalid. Note that you can mix audio and video URNs, or URNs
      *  from different business units.
      */
-    func medias(withUrns urns: [String], pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy triggerable: Triggerable? = nil) -> AnyPublisher<[SRGMedia], Error> {
+    func medias(withUrns urns: [String], pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestMedias(withURNs: urns)
-        return paginatedObjectsTriggeredPublisher(at: URNPage(originalRequest: request, queryParameter: "urns", size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: triggerable)
+        return paginatedObjectsTriggeredPublisher(at: URNPage(originalRequest: request, queryParameter: "urns", size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: signal)
     }
     
     /**
@@ -44,9 +44,9 @@ public extension SRGDataProvider {
      *
      *  - Parameter topicURN: The unique topic URN.
      */
-    func latestMediasForTopic(withUrn topicUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy triggerable: Triggerable? = nil) -> AnyPublisher<[SRGMedia], Error> {
+    func latestMediasForTopic(withUrn topicUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestLatestMediasForTopic(withURN: topicUrn)
-        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: triggerable)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: signal)
     }
     
     /**
@@ -54,9 +54,9 @@ public extension SRGDataProvider {
      *
      *  - Parameter topicURN: The unique topic URN.
      */
-    func mostPopularMediasForTopic(withUrn topicUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy triggerable: Triggerable? = nil) -> AnyPublisher<[SRGMedia], Error> {
+    func mostPopularMediasForTopic(withUrn topicUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestMostPopularMediasForTopic(withURN: topicUrn)
-        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: triggerable)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: signal)
     }
     
     /**
@@ -84,9 +84,9 @@ public extension SRGDataProvider {
      *  Partial results can be returned if some URNs are invalid. Note that you can mix TV or radio show URNs, or URNs
      *  from different business units.
      */
-    func shows(withUrns urns: [String], pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy triggerable: Triggerable? = nil) -> AnyPublisher<[SRGShow], Error> {
+    func shows(withUrns urns: [String], pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<[SRGShow], Error> {
         let request = requestShows(withURNs: urns)
-        return paginatedObjectsTriggeredPublisher(at: URNPage(originalRequest: request, queryParameter: "urns", size: pageSize), rootKey: "showList", type: SRGShow.self, paginatedBy: triggerable)
+        return paginatedObjectsTriggeredPublisher(at: URNPage(originalRequest: request, queryParameter: "urns", size: pageSize), rootKey: "showList", type: SRGShow.self, paginatedBy: signal)
     }
     
     enum LatestEpisodesForShow {
@@ -101,9 +101,9 @@ public extension SRGDataProvider {
      *  - Remark: Though the completion block does not return an array directly, this request supports pagination (for episodes
      *            returned in the episode composition object).
      */
-    func latestEpisodesForShow(withUrn showUrn: String, maximumPublicationDay: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy triggerable: Triggerable? = nil) -> AnyPublisher<LatestEpisodesForShow.Output, Error> {
+    func latestEpisodesForShow(withUrn showUrn: String, maximumPublicationDay: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<LatestEpisodesForShow.Output, Error> {
         let request = requestLatestEpisodesForShow(withURN: showUrn, maximumPublicationDay: maximumPublicationDay)
-        return paginatedObjectTriggeredPublisher(at: Page(request: request, size: pageSize), type: SRGEpisodeComposition.self, paginatedBy: triggerable)
+        return paginatedObjectTriggeredPublisher(at: Page(request: request, size: pageSize), type: SRGEpisodeComposition.self, paginatedBy: signal)
             .map { ($0.channel, $0.show, $0.episodes ?? []) }
             .eraseToAnyPublisher()
     }
@@ -111,9 +111,9 @@ public extension SRGDataProvider {
     /**
      *  Latest medias for a specific show.
      */
-    func latestMediasForShow(withUrn showUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy triggerable: Triggerable? = nil) -> AnyPublisher<[SRGMedia], Error> {
+    func latestMediasForShow(withUrn showUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestLatestMediasForShow(withURN: showUrn)
-        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: triggerable)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: signal)
     }
     
     /**
@@ -122,17 +122,17 @@ public extension SRGDataProvider {
      *  - Parameter filter: The filter which must be applied to results.
      *  - Parameter maximumPublicationDay: If not `nil`, medias up to the specified day are returned.
      */
-    func latestMediasForShows(withUrns urns: [String], filter: SRGMediaFilter = .none, maximumPublicationDay: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy triggerable: Triggerable? = nil) -> AnyPublisher<[SRGMedia], Error> {
+    func latestMediasForShows(withUrns urns: [String], filter: SRGMediaFilter = .none, maximumPublicationDay: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestLatestMediasForShows(withURNs: urns, filter: filter, maximumPublicationDay: maximumPublicationDay)
-        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: triggerable)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: signal)
     }
     
     /**
      *  List medias for a specific module.
      */
-    func latestMediasForModule(withUrn moduleUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy triggerable: Triggerable? = nil) -> AnyPublisher<[SRGMedia], Error> {
+    func latestMediasForModule(withUrn moduleUrn: String, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestLatestMediasForModule(withURN: moduleUrn)
-        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: triggerable)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: signal)
     }
 }
 

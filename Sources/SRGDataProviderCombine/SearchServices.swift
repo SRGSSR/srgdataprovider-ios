@@ -28,9 +28,9 @@ public extension SRGDataProvider {
      *  returned, which can lead to longer response times. If you do not need aggregations, provide a settings object
      *  to disable them.
      */
-    func medias(for vendor: SRGVendor, matchingQuery query: String?, with settings: SRGMediaSearchSettings? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy triggerable: Triggerable? = nil) -> AnyPublisher<MediasMatchingQuery.Output, Error> {
+    func medias(for vendor: SRGVendor, matchingQuery query: String?, with settings: SRGMediaSearchSettings? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<MediasMatchingQuery.Output, Error> {
         let request = requestMedias(for: vendor, matchingQuery: query, with: settings)
-        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "searchResultMediaList", type: SRGSearchResult.self, paginatedBy: triggerable)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "searchResultMediaList", type: SRGSearchResult.self, paginatedBy: signal)
             .map { result in
                 (result.objects.map(\.urn), result.total, result.aggregations, result.suggestions)
             }
@@ -47,9 +47,9 @@ public extension SRGDataProvider {
      *  If the media type is set to a value different from `.none`, filter shows for which content of the specified type is
      *  available. To get complete show objects, call the `shows(withUrns:)` request with the returned URN list.
      */
-    func shows(for vendor: SRGVendor, matchingQuery query: String, mediaType: SRGMediaType = .none, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy triggerable: Triggerable? = nil) -> AnyPublisher<ShowsMatchingQuery.Output, Error> {
+    func shows(for vendor: SRGVendor, matchingQuery query: String, mediaType: SRGMediaType = .none, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<ShowsMatchingQuery.Output, Error> {
         let request = requestShows(for: vendor, matchingQuery: query, mediaType: mediaType)
-        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "searchResultShowList", type: SRGSearchResult.self, paginatedBy: triggerable)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "searchResultShowList", type: SRGSearchResult.self, paginatedBy: signal)
             .map { result in
                 (result.objects.map(\.urn), result.total)
             }
@@ -62,9 +62,9 @@ public extension SRGDataProvider {
      *  If the transmission is set to a value different from `.none`, filter shows for the specified transmission. To get
      *  complete show objects, call the `shows(withUrns:)` request with the returned URN list.
      */
-    func shows(for vendor: SRGVendor, matchingQuery query: String, transmission: SRGTransmission = .none, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy triggerable: Triggerable? = nil) -> AnyPublisher<ShowsMatchingQuery.Output, Error> {
+    func shows(for vendor: SRGVendor, matchingQuery query: String, transmission: SRGTransmission = .none, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<ShowsMatchingQuery.Output, Error> {
         let request = requestShows(for: vendor, matchingQuery: query, transmission: transmission)
-        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "searchResultShowList", type: SRGSearchResult.self, paginatedBy: triggerable)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "searchResultShowList", type: SRGSearchResult.self, paginatedBy: signal)
             .map { result in
                 (result.objects.map(\.urn), result.total)
             }
@@ -88,9 +88,9 @@ public extension SRGDataProvider {
      *  - Parameter excludedTags: An optional list of excluded tags.
      *  - Parameter fullLengthExcluded: Set to `YES` to exclude full length videos.
      */
-    func videos(for vendor: SRGVendor, withTags tags: [String], excludedTags: [String]? = nil, fullLengthExcluded: Bool = false, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy triggerable: Triggerable? = nil) -> AnyPublisher<[SRGMedia], Error> {
+    func videos(for vendor: SRGVendor, withTags tags: [String], excludedTags: [String]? = nil, fullLengthExcluded: Bool = false, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestVideos(for: vendor, withTags: tags, excludedTags: excludedTags, fullLengthExcluded: fullLengthExcluded)
-        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: triggerable)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: signal)
     }
 }
 
