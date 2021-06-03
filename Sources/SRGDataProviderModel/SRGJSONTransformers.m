@@ -110,6 +110,7 @@ NSValueTransformer *SRGContentPresentationTypeJSONTransformer(void)
                                                                                          @"HeroStage" : @(SRGContentPresentationTypeHero),
                                                                                          @"Grid" : @(SRGContentPresentationTypeGrid),
                                                                                          @"MediaElement" : @(SRGContentPresentationTypeMediaHighlight),
+                                                                                         @"MediaElementSwimlane" : @(SRGContentPresentationTypeMediaHighlightSwimlane),
                                                                                          @"ShowElement" : @(SRGContentPresentationTypeShowHighlight),
                                                                                          @"FavoriteShows" : @(SRGContentPresentationTypeFavoriteShows),
                                                                                          @"Livestreams" : @(SRGContentPresentationTypeLivestreams),

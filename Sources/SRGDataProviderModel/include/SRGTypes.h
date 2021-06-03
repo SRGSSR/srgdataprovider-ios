@@ -119,6 +119,10 @@ typedef NS_CLOSED_ENUM(NSInteger, SRGContentPresentationType) {
      */
     SRGContentPresentationTypeMediaHighlight,
     /**
+     *  Media highlight swimlane (focus on a several medias).
+     */
+    SRGContentPresentationTypeMediaHighlightSwimlane,
+    /**
      *  Show highlight (focus on a single show).
      */
     SRGContentPresentationTypeShowHighlight,
