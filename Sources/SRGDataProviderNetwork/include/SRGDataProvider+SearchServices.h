@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGDataProvider (SearchServices)
 
 /**
- *  Search medias matching a specific query.
+ *  Search medias matching a specific query, returning the matching URN list.
  *
  *  @discussion To get complete media objects, call the `-mediasWithURNs:completionBlock:` request with the returned
  *              URN list. Refer to the Service availability matrix for information about which vendors support settings.
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
                          completionBlock:(SRGPaginatedMediaSearchCompletionBlock)completionBlock;
 
 /**
- *  Search shows matching a specific query.
+ *  Search shows matching a specific query, returning the matching URN list.
  *
  *  @param mediaType If set to a value different from `SRGMediaTypeNone`, filter shows for which content of the specified
  *                   type is available. To get complete show objects, call the `-showsWithURNs:completionBlock:` request
@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
                     withCompletionBlock:(SRGPaginatedShowSearchCompletionBlock)completionBlock;
 
 /**
- *  Search shows matching a specific query.
+ *  Search shows matching a specific query, returning the matching URN list.
  *
  *  @param transmission If set to a value different from `SRGTransmissionNone`, filter shows for the specified transmission.
  *                      To get complete show objects, call the `-showsWithURNs:completionBlock:` request with the

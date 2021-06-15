@@ -8,6 +8,11 @@ import SRGDataProvider
 
 @_implementationOnly import SRGDataProviderRequests
 
+protocol NextLinkable {
+    var request: URLRequest { get }
+    func next(with request: URLRequest?) -> Self?
+}
+
 extension SRGDataProvider {
     /**
      *  Ensure correct page values in the expected range.
@@ -23,19 +28,16 @@ extension SRGDataProvider {
     
     /**
      *  Describes a page of content.
-     *
-     *  Uses generics to have a different page type associated with each kind of request, so that pages generated
-     *  by some kind of request cannot be used with another kind of request.
      */
-    public struct Page<T> {
+    struct Page: NextLinkable {
         /// The request associated with the page.
         let request: URLRequest
         
         /// The size of the page.
-        public let size: UInt
+        let size: UInt
         
         /// The page number.
-        public let number: UInt
+        let number: UInt
         
         /**
          *  Create the first page.
@@ -51,7 +53,11 @@ extension SRGDataProvider {
                 guard let url = request.url,
                       var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
                     return request
-                    
+                }
+                
+#warning("Workaround until the Integration Layer supports pagination for PAC section requests")
+                if components.path.components(separatedBy: "/").contains("section") {
+                    return request
                 }
                 
                 var queryItems = components.queryItems ?? []
@@ -79,7 +85,7 @@ extension SRGDataProvider {
         /**
          *  Generate the next page for the receiver, associating the provided request with it.
          */
-        func next(with request: URLRequest?) -> Page<T>? {
+        func next(with request: URLRequest?) -> Page? {
             if let request = request {
                 return Page(request: request, size: size, number: number + 1)
             }
@@ -91,11 +97,8 @@ extension SRGDataProvider {
     
     /**
      *  Describes a page of URNs built client-side.
-     *
-     *  Uses generics to have a different page type associated with each kind of request, so that pages generated
-     *  by some kind of request cannot be used with another kind of request.
      */
-    public struct URNPage<T> {
+    struct URNPage: NextLinkable {
         /// The original unpaginated request.
         private let originalRequest: URLRequest
         
@@ -106,10 +109,10 @@ extension SRGDataProvider {
         let queryParameter: String
         
         /// The size of the page.
-        public let size: UInt
+        let size: UInt
         
         /// The page number.
-        public let number: UInt
+        let number: UInt
         
         /**
          *  Create the first page.
@@ -133,7 +136,7 @@ extension SRGDataProvider {
         /**
          *  Generate the next page for the receiver.
          */
-        func next() -> URNPage<T>? {
+        func next(with request: URLRequest?) -> URNPage? {
             let nextNumber = number + 1
             if let request = SRGDataProvider.urlRequestForURNsPage(withSize: size, number: nextNumber, urlRequest: originalRequest, queryParameter: queryParameter) {
                 return URNPage(originalRequest: originalRequest, request: request, queryParameter: queryParameter, size: size, number: nextNumber)
@@ -146,13 +149,13 @@ extension SRGDataProvider {
 }
 
 extension SRGDataProvider.Page: CustomStringConvertible {
-    public var description: String {
+    var description: String {
         return "Page \(number) (size \(size)): \(request.url!)"
     }
 }
 
 extension SRGDataProvider.URNPage: CustomStringConvertible {
-    public var description: String {
+    var description: String {
         return "Page \(number) (size \(size)): \(request.url!)"
     }
 }

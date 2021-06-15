@@ -152,6 +152,20 @@ These services can be used to increase popularity indicators.
 | Increase social count for a media URN | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Increase show view count from search results | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 
+## Content services
+
+These services return content configured by editors through the Play Application Configurator tool (PAC). They are supported by all business units.
+
+| Request | Pagination | Unlimited page size |
+|:-- |:--:|:--:|
+| Page | ❌ | N/A |
+| Page for a media type | ❌ | N/A |
+| Page for a topic | ❌ | N/A |
+| Section | ❌ | N/A |
+| Medias for a section | ✅ | ❌ |
+| Shows for a section | ✅ | ❌ |
+| Show with medias for a section | ✅ | ❌ |
+
 ## URN services
 
 These services provide a way to access content from any business unit from any data provider.

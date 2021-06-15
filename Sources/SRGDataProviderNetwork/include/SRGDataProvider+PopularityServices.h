@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SRGDataProvider (PopularityServices)
 
 /**
- *  Increase the specified social count from 1 unit for the specified URN, with the corresponding event data
+ *  Increase the specified social count of 1 unit for the specified URN, with the corresponding event data
  *  (see `SRGSubdivision` class).
  */
 - (SRGRequest *)increaseSocialCountForType:(SRGSocialCountType)type

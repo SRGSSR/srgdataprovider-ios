@@ -107,6 +107,12 @@ static NSDictionary *SRGDataProviderParser(NSData * _Nonnull data, id (^parser)(
         }
         
         NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:URLRequest.URL resolvingAgainstBaseURL:NO];
+        
+#warning Workaround until the Integration Layer supports pagination for PAC section requests
+        if ([URLComponents.path.pathComponents containsObject:@"section"]) {
+            return URLRequest;
+        }
+        
         NSMutableArray<NSURLQueryItem *> *queryItems = URLComponents.queryItems.mutableCopy ?: [NSMutableArray array];
         NSString *pageSize = (size != SRGDataProviderUnlimitedPageSize) ? @(size).stringValue : @"unlimited";
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"pageSize" value:pageSize]];
