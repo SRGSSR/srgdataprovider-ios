@@ -224,4 +224,16 @@
     XCTAssertEqual(components7.second, 0);
 }
 
+- (void)testDateRepresentation
+{
+    SRGDay *day = [SRGDay day:3 month:1 year:2016];
+    NSDateComponents *components = [NSCalendar.currentCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:day.date];
+    XCTAssertEqual(components.year, 2016);
+    XCTAssertEqual(components.month, 1);
+    XCTAssertEqual(components.day, 3);
+    XCTAssertEqual(components.hour, 0);
+    XCTAssertEqual(components.minute, 0);
+    XCTAssertEqual(components.second, 0);
+}
+
 @end
