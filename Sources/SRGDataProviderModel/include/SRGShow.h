@@ -61,7 +61,7 @@ OBJC_EXPORT SRGImageType const SRGImageTypeShowBanner;          // Show banner i
 /**
  *  The number of episodes available for the show.
  */
-@property (nonatomic, readonly) NSInteger numberOfEpisodes;
+@property (nonatomic, readonly, nullable) NSNumber *numberOfEpisodes;
 
 @end
 

@@ -33,6 +33,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly, nullable) SRGProgram *nextProgram;
 
+/**
+ *  The presenter information.
+ */
+@property (nonatomic, readonly, nullable) SRGPresenter *presenter;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -17,8 +17,24 @@
 @property (nonatomic) NSDate *endDate;
 @property (nonatomic) NSURL *URL;
 @property (nonatomic) SRGShow *show;
-@property (nonatomic) SRGPresenter *presenter;
+@property (nonatomic) NSArray<SRGProgram *> *subprograms;
 @property (nonatomic, copy) NSString *mediaURN;
+@property (nonatomic, copy) NSString *genre;
+@property (nonatomic) NSNumber *seasonNumber;
+@property (nonatomic) NSNumber *episodeNumber;
+@property (nonatomic) NSNumber *numberOfEpisodes;
+@property (nonatomic) NSNumber *productionYear;
+@property (nonatomic, copy) NSString *productionCountry;
+@property (nonatomic) SRGBlockingReason ageRating;
+@property (nonatomic, copy) NSString *originalTitle;
+@property (nonatomic) NSArray<SRGCrewMember *> *crewMembers;
+@property (nonatomic) BOOL isRebroadcast;
+@property (nonatomic, copy) NSString *rebroadcastDescription;
+@property (nonatomic) BOOL subtitlesAvailable;
+@property (nonatomic) BOOL alternateAudioAvailable;
+@property (nonatomic) BOOL signLanguageAvailable;
+@property (nonatomic) BOOL audioDescriptionAvailable;
+@property (nonatomic) BOOL dolbyDigitalAvailable;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;
@@ -43,8 +59,25 @@
                        @keypath(SRGProgram.new, endDate) : @"endTime",
                        @keypath(SRGProgram.new, URL) : @"url",
                        @keypath(SRGProgram.new, show) : @"show",
-                       @keypath(SRGProgram.new, presenter) : @"presenter",
+                       @keypath(SRGProgram.new, subprograms) : @"subPogramList",
                        @keypath(SRGProgram.new, mediaURN) : @"mediaUrn",
+                       @keypath(SRGProgram.new, genre) : @"genre",
+                       @keypath(SRGProgram.new, seasonNumber) : @"seasonNumber",
+                       @keypath(SRGProgram.new, episodeNumber) : @"episodeNumber",
+                       @keypath(SRGProgram.new, numberOfEpisodes) : @"episodesTotal",
+                       @keypath(SRGProgram.new, productionYear) : @"productionYear",
+                       @keypath(SRGProgram.new, productionCountry) : @"productionCountry",
+                       @keypath(SRGProgram.new, ageRating) : @"ageRating",
+                       @keypath(SRGProgram.new, originalTitle) : @"originalTitle",
+                       
+                       @keypath(SRGProgram.new, crewMembers) : @"creditList",
+                       @keypath(SRGProgram.new, isRebroadcast) : @"isRepetition",
+                       @keypath(SRGProgram.new, rebroadcastDescription) : @"repetitionDescription",
+                       @keypath(SRGProgram.new, subtitlesAvailable) : @"subtitlesAvailable",
+                       @keypath(SRGProgram.new, alternateAudioAvailable) : @"hasTwoLanguages",
+                       @keypath(SRGProgram.new, signLanguageAvailable) : @"hasSignLanguage",
+                       @keypath(SRGProgram.new, audioDescriptionAvailable) : @"hasVisualDescription",
+                       @keypath(SRGProgram.new, dolbyDigitalAvailable) : @"isDolbyDigital",
                        
                        @keypath(SRGProgram.new, title) : @"title",
                        @keypath(SRGProgram.new, lead) : @"lead",
@@ -79,9 +112,19 @@
     return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGShow.class];
 }
 
-+ (NSValueTransformer *)presenterJSONTransformer
++ (NSValueTransformer *)subprogramsJSONTransformer
 {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:SRGPresenter.class];
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGProgram.class];
+}
+
++ (NSValueTransformer *)ageRatingJSONTransformer
+{
+    return SRGBlockingReasonJSONTransformer();
+}
+
++ (NSValueTransformer *)crewMembersJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:SRGCrewMember.class];
 }
 
 + (NSValueTransformer *)imageURLJSONTransformer

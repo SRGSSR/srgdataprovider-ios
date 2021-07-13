@@ -23,7 +23,7 @@ SRGImageType const SRGImageTypeShowBanner = @"banner";
 @property (nonatomic) NSURL *podcastSpotifyURL;
 @property (nonatomic, copy) NSString *primaryChannelUid;
 @property (nonatomic) NSURL *bannerImageURL;
-@property (nonatomic) NSInteger numberOfEpisodes;
+@property (nonatomic) NSNumber *numberOfEpisodes;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *lead;

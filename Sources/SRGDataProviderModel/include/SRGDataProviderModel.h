@@ -14,6 +14,7 @@
 #import "SRGContentPage.h"
 #import "SRGContentPresentation.h"
 #import "SRGContentSection.h"
+#import "SRGCrewMember.h"
 #import "SRGDataProviderMessages.h"
 #import "SRGDay.h"
 #import "SRGDRM.h"

@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The URN of the associated topic, if any.
  */
-@property (nonatomic, readonly, nullable, copy) NSString *topicURN;
+@property (nonatomic, readonly, copy, nullable) NSString *topicURN;
 
 /**
  *  The sections contained in the page.

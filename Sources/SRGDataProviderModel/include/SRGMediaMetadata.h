@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Title suited for accessibility purposes (e.g. VoiceOver).
  */
-@property (nonatomic, readonly, nullable, copy) NSString *accessibilityTitle;
+@property (nonatomic, readonly, copy, nullable) NSString *accessibilityTitle;
 
 /**
  *  The list of contents related to the media.
