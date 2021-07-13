@@ -22,7 +22,8 @@ Services are currently only available for SRG SSR vendors (SRF, RTS, RSI, RTR an
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Channels | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Single channel | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
-| Latest programs by channel | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | N/A |
+| Latest programs by channel | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
+| Programs for all channels on a specific day | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Livestreams | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Scheduled livestreams | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 
@@ -31,7 +32,7 @@ Services are currently only available for SRG SSR vendors (SRF, RTS, RSI, RTR an
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Editorial medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| Hero stage medias | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| Hero stage medias | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | N/A |
 | Latest medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 | Most popular medias | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 | Soon expiring medias | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ |
@@ -66,7 +67,7 @@ For SWI, shows represent content categories (Business, Culture, etc.) and search
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Channels | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Single channel | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
-| Latest programs by channel | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | N/A |
+| Latest programs by channel | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 | Livestreams by channel | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 | Livestreams for content providers | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
 
@@ -115,7 +116,7 @@ Regional livestreams only exist for SRF, otherwise only main livestreams are ava
 | Request | SRF | RTS | RSI | RTR | SWI | Pagination | Unlimited page size |
 |:-- |:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Media search | ✅ | ✅ | ✅ | ✅ | ✅ (1) | ✅ | ❌ |
-| Show search (2) | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
+| Show search (2) | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Most searched shows (2) | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | N/A |
 | Videos with tags | ✅ | ❌ | ❌ | ⚠️ (3) | ❌ | ✅ | ❌ |
 
@@ -194,8 +195,8 @@ A ⚠️ means that a service is supported, but might not return an image with t
 |:-- |:--:|:--:|:--:|:--:|:--:|
 | Video image with width | ✅ | ✅ | ⚠️ | ✅ | ✅ |
 | Video image with height | ✅ | ✅ | ❌| ✅ | ⚠️ |
-| Audio image with width | ✅ | ✅ | ⚠️ | ✅ | N/A |
-| Audio image with height | ⚠️ | ✅ | ❌ | ⚠️ | N/A |
+| Audio image with width | ✅ | ✅ | ⚠️ | ✅ | ❌ |
+| Audio image with height | ⚠️ | ✅ | ❌ | ⚠️ | ❌ |
 
 ### Remark
 

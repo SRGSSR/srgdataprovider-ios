@@ -111,7 +111,7 @@ public extension SRGDataProvider {
     /**
      *  Episodes available for a given day, for the specific channel.
      *
-     *  - Parameter day: The day. If `nil`, today is used.
+     *  - Parameter day: The day. If `nil` today is used.
      */
     func radioEpisodes(for vendor: SRGVendor, channelUid: String, day: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestRadioEpisodes(for: vendor, channelUid: channelUid, day: day)

@@ -52,6 +52,15 @@ NS_ASSUME_NONNULL_BEGIN
                                withCompletionBlock:(SRGPaginatedProgramCompositionCompletionBlock)completionBlock;
 
 /**
+ *  Programs for all TV channels on a specific day.
+ *
+ *  @param day The day. If `nil` today is used.
+ */
+- (SRGRequest *)tvProgramsForVendor:(SRGVendor)vendor
+                                day:(nullable SRGDay *)day
+                withCompletionBlock:(SRGProgramCompositionListCompletionBlock)completionBlock;
+
+/**
  *  List of TV livestreams.
  */
 - (SRGRequest *)tvLivestreamsForVendor:(SRGVendor)vendor
@@ -136,7 +145,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Episodes available for a given day.
  *
- *  @param day The day. If `nil`, today is used.
+ *  @param day The day. If `nil` today is used.
  */
 - (SRGFirstPageRequest *)tvEpisodesForVendor:(SRGVendor)vendor
                                          day:(nullable SRGDay *)day

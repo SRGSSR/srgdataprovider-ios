@@ -101,7 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Episodes available for a given day, for the specific channel.
  *
- *  @param day The day. If `nil`, today is used.
+ *  @param day The day. If `nil` today is used.
  */
 - (SRGFirstPageRequest *)radioEpisodesForVendor:(SRGVendor)vendor
                                      channelUid:(NSString *)channelUid

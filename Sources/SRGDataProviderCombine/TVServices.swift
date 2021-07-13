@@ -54,6 +54,16 @@ public extension SRGDataProvider {
     }
     
     /**
+     *  Programs for all TV channels on a specific day.
+     *
+     *  - Parameter day: The day. If `nil` today is used.
+     */
+    func tvPrograms(for vendor: SRGVendor, day: SRGDay? = nil) -> AnyPublisher<[SRGProgramComposition], Error> {
+        let request = requestTVPrograms(for: vendor, day: day)
+        return objectsPublisher(for: request, rootKey: "programGuide", type: SRGProgramComposition.self)
+    }
+    
+    /**
      *  List of TV livestreams.
      */
     func tvLivestreams(for vendor: SRGVendor) -> AnyPublisher<[SRGMedia], Error> {
@@ -147,7 +157,7 @@ public extension SRGDataProvider {
     /**
      *  Episodes available for a given day.
      *
-     *  - Parameter day: The day. If `nil`, today is used.
+     *  - Parameter day: The day. If `nil` today is used.
      */
     func tvEpisodes(for vendor: SRGVendor, day: SRGDay? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestTVEpisodes(for: vendor, day: day)

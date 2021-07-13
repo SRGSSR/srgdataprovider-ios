@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
                                      livestreamUid:(nullable NSString *)livestreamUid
                                           fromDate:(nullable NSDate *)fromDate
                                             toDate:(nullable NSDate *)toDate;
+- (NSURLRequest *)requestTVProgramsForVendor:(SRGVendor)vendor
+                                         day:(nullable SRGDay *)day;
 - (NSURLRequest *)requestTVLivestreamsForVendor:(SRGVendor)vendor;
 - (NSURLRequest *)requestTVScheduledLivestreamsForVendor:(SRGVendor)vendor;
 - (NSURLRequest *)requestTVEditorialMediasForVendor:(SRGVendor)vendor;

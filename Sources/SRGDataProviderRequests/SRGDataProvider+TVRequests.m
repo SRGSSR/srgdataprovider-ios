@@ -45,6 +45,17 @@
     return [self URLRequestForResourcePath:resourcePath withQueryItems:queryItems.copy];
 }
 
+- (NSURLRequest *)requestTVProgramsForVendor:(SRGVendor)vendor
+                                         day:(SRGDay *)day
+{
+    if (! day) {
+        day = SRGDay.today;
+    }
+    
+    NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/programGuide/tv/byDate/%@", SRGPathComponentForVendor(vendor), day.string];
+    return [self URLRequestForResourcePath:resourcePath withQueryItems:nil];
+}
+
 - (NSURLRequest *)requestTVLivestreamsForVendor:(SRGVendor)vendor
 {
     NSString *resourcePath = [NSString stringWithFormat:@"2.0/%@/mediaList/video/livestreams", SRGPathComponentForVendor(vendor)];

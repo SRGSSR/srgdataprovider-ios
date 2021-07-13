@@ -102,6 +102,19 @@ static NSString * const kUserId = @"test_user_id";
 }
 
 // Not supported for SWI
+- (void)testTVPrograms
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];
+    
+    [[self.dataProvider tvProgramsForVendor:SRGVendorSWI day:nil withCompletionBlock:^(NSArray<SRGProgramComposition *> * _Nullable programCompositions, NSHTTPURLResponse * _Nullable HTTPResponse, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:30. handler:nil];
+}
+
+// Not supported for SWI
 - (void)testTVLivestreams
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Request succeeded"];

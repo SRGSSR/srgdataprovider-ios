@@ -43,6 +43,14 @@
     }];
 }
 
+- (SRGRequest *)tvProgramsForVendor:(SRGVendor)vendor
+                                day:(SRGDay *)day
+                withCompletionBlock:(SRGProgramCompositionListCompletionBlock)completionBlock
+{
+    NSURLRequest *URLRequest = [self requestTVProgramsForVendor:vendor day:day];
+    return [self listObjectsWithURLRequest:URLRequest modelClass:SRGProgramComposition.class rootKey:@"programGuide" completionBlock:completionBlock];
+}
+
 - (SRGRequest *)tvLivestreamsForVendor:(SRGVendor)vendor
                    withCompletionBlock:(SRGMediaListCompletionBlock)completionBlock
 {
