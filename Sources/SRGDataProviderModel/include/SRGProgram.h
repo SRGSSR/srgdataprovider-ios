@@ -8,7 +8,6 @@
 #import "SRGImageMetadata.h"
 #import "SRGMetadata.h"
 #import "SRGModel.h"
-#import "SRGPresenter.h"
 #import "SRGShow.h"
 #import "SRGTypes.h"
 
