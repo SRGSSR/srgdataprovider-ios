@@ -79,11 +79,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, copy, nullable) NSString *productionCountry;
 
 /**
- *  The age rating.
- */
-@property (nonatomic, readonly) SRGBlockingReason ageRating;
-
-/**
  *  The original title.
  */
 @property (nonatomic, readonly, copy, nullable) NSString *originalTitle;
