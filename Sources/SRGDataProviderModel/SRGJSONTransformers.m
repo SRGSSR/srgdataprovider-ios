@@ -86,6 +86,45 @@ NSValueTransformer *SRGBooleanInversionJSONTransformer(void)
     return s_transformer;
 }
 
+NSValueTransformer *SRGContentSectionTypeJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"MediaSection" : @(SRGContentSectionTypeMedias),
+                                                                                         @"MediaSectionWithShow" : @(SRGContentSectionTypeShowAndMedias),
+                                                                                         @"ShowSection" : @(SRGContentSectionTypeShows),
+                                                                                         @"SimpleSection" : @(SRGContentSectionTypePredefined) }
+                                                                         defaultValue:@(SRGContentSectionTypeNone)
+                                                                  reverseDefaultValue:nil];
+    });
+    return s_transformer;
+}
+
+NSValueTransformer *SRGContentPresentationTypeJSONTransformer(void)
+{
+    static NSValueTransformer *s_transformer;
+    static dispatch_once_t s_onceToken;
+    dispatch_once(&s_onceToken, ^{
+        s_transformer = [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{ @"Swimlane" : @(SRGContentPresentationTypeSwimlane),
+                                                                                         @"HeroStage" : @(SRGContentPresentationTypeHero),
+                                                                                         @"Grid" : @(SRGContentPresentationTypeGrid),
+                                                                                         @"MediaElement" : @(SRGContentPresentationTypeMediaHighlight),
+                                                                                         @"MediaElementSwimlane" : @(SRGContentPresentationTypeMediaHighlightSwimlane),
+                                                                                         @"ShowElement" : @(SRGContentPresentationTypeShowHighlight),
+                                                                                         @"FavoriteShows" : @(SRGContentPresentationTypeFavoriteShows),
+                                                                                         @"Livestreams" : @(SRGContentPresentationTypeLivestreams),
+                                                                                         @"TopicSelector" : @(SRGContentPresentationTypeTopicSelector),
+                                                                                         @"ShowAccess" : @(SRGContentPresentationTypeShowAccess),
+                                                                                         @"ContinueWatching" : @(SRGContentPresentationTypeResumePlayback),
+                                                                                         @"WatchLater" : @(SRGContentPresentationTypeWatchLater),
+                                                                                         @"MyProgram" : @(SRGContentPresentationTypePersonalizedProgram) }
+                                                                         defaultValue:@(SRGContentPresentationTypeNone)
+                                                                  reverseDefaultValue:nil];
+    });
+    return s_transformer;
+}
+
 NSValueTransformer *SRGContentTypeJSONTransformer(void)
 {
     static NSValueTransformer *s_transformer;

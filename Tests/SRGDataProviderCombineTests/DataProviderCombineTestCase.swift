@@ -21,44 +21,30 @@ final class DataProviderCombineTestCase: XCTestCase {
         cancellables = []
     }
     
-    func testTVChannels() {
+    func testSingleObjectRequest() {
         let requestExpectation = expectation(description: "Request finished")
         
-        dataProvider.tvChannels(for: .RTS)
-            .sink { completion in
+        dataProvider.radioCurrentSong(for: .RTS, channelUid: "a9e7621504c6959e35c3ecbe7f6bed0446cdf8da")
+            .sink(receiveCompletion: { completion in
                 requestExpectation.fulfill()
-            } receiveValue: { value in
-                XCTAssertNotNil(value.channels)
-            }
+            }, receiveValue: { song in
+                print("\(song)")
+            })
             .store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
     }
     
-    func testParallelRequests() {
-        let requestExpectation1 = expectation(description: "Request 1 finished")
+    func testRequest() {
+        let requestExpectation = expectation(description: "Request finished")
         
-        var nextPage: SRGDataProvider.TVLatestMedias.Page?
-        dataProvider.tvLatestMedias(for: .SRF)
-            .sink { completion in
-                requestExpectation1.fulfill()
-            } receiveValue: { result in
-                nextPage = result.nextPage
-            }
-            .store(in: &cancellables)
-        
-        waitForExpectations(timeout: 10.0, handler: nil)
-        
-        XCTAssertNotNil(nextPage)
-        
-        let requestExpectation2 = expectation(description: "Request 2 finished")
-        
-        dataProvider.tvLatestMedias(at: nextPage!)
-            .sink { completion in
-                requestExpectation2.fulfill()
-            } receiveValue: { value in
-                XCTAssertNotNil(value.medias)
-            }
+        dataProvider.tvChannels(for: .RTS)
+            .sink(receiveCompletion: { _ in
+                requestExpectation.fulfill()
+            }, receiveValue: { medias in
+                print("\(medias)")
+                XCTAssertNotNil(medias)
+            })
             .store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
@@ -68,24 +54,56 @@ final class DataProviderCombineTestCase: XCTestCase {
         let requestExpectation = expectation(description: "Request finished")
         
         dataProvider.tvTopics(for: .RTS)
-            .tryMap { topics, response -> (SRGTopic, URLResponse) in
+            .tryMap { topics -> SRGTopic in
                 if let firstTopic = topics.first {
-                    return (firstTopic, response)
+                    return firstTopic
                 }
                 else {
                     throw TestError.missingData
                 }
             }
-            .flatMap { topic, response in
+            .map { topic in
                 return self.dataProvider.latestMediasForTopic(withUrn: topic.urn)
             }
-            .sink { completion in
+            .switchToLatest()
+            .sink(receiveCompletion: { _ in
+                // Nothing
+            }, receiveValue: { medias in
+                print("\(medias)")
+                XCTAssertNotNil(medias)
+                
+                // Pipeline stays open unless pages are exhausted. Fulfills after receiving the first value
                 requestExpectation.fulfill()
-            } receiveValue: { value in
-                XCTAssertNotNil(value.medias)
+            })
+            .store(in: &cancellables)
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+    }
+    
+    func testExhaustiveRequest() {
+        let requestExpectation = expectation(description: "Request finished")
+        
+        let trigger = Trigger()
+        
+        let urns = ["urn:rts:show:tv:9517680", "urn:rts:show:tv:1799609", "urn:rts:show:tv:11178126", "urn:rts:show:tv:9720862", "urn:rts:show:tv:548307", "urn:rts:show:tv:10875381", "urn:rts:show:tv:11511172", "urn:rts:show:tv:11340592", "urn:rts:show:tv:11430664"]
+        dataProvider.shows(withUrns: urns, pageSize: 3, paginatedBy: trigger.signal(activatedBy: 1))
+            .handleEvents(receiveOutput: { _ in
+                // TODO: Workaround. Can we do better?
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    trigger.activate(for: 1)
+                }
+            })
+            .scan([]) { $0 + $1 }
+            .sink { completion in
+                print("Completion: \(completion)")
+                requestExpectation.fulfill()
+            } receiveValue: { shows in
+                print("Received \(shows.count): \(shows.map(\.title))")
             }
             .store(in: &cancellables)
         
         waitForExpectations(timeout: 10.0, handler: nil)
     }
+    
+    // TODO: Should test Triggers and associated publisher operators
 }

@@ -49,7 +49,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSComparisonResult)compare:(SRGDay *)aDay;
 
 /**
- *  The day string representation.
+ *  Representation of the day as an `NSDate` (midnight for the current calendar).
+ */
+@property (nonatomic, readonly) NSDate *date;
+
+/**
+ *  Representation of the day as a string (yyyy-MM-dd).
  */
 @property (nonatomic, readonly, copy) NSString *string;
 

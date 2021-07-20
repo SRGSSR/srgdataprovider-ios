@@ -137,7 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
                          withCompletionBlock:(SRGPaginatedShowListCompletionBlock)completionBlock;
 
 /**
- *  Search shows matching a specific query.
+ *  Search shows matching a specific query, returning the matching URN list.
  *
  *  @discussion Some business units only support full-text search, not partial matching. To get complete show objects,
  *              call the `-showsWithURNs:completionBlock:` request with the returned URN list.
@@ -160,7 +160,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Current song by channel.
  *
- *  @discussion If no song is currently being played, the completion block is called with both song and error set to `nil`.
+ *  @discussion If no song is currently being played the completion block is called with both song and error set to `nil`.
  */
 - (SRGRequest *)radioCurrentSongForVendor:(SRGVendor)vendor
                                channelUid:(NSString *)channelUid

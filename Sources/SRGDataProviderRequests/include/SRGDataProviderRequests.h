@@ -4,6 +4,7 @@
 //  License information is available from the LICENSE file.
 //
 
+#import "SRGDataProvider+ContentRequests.h"
 #import "SRGDataProvider+GeneralRequests.h"
 #import "SRGDataProvider+LiveCenterRequests.h"
 #import "SRGDataProvider+ModuleRequests.h"

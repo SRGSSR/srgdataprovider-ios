@@ -8,87 +8,67 @@
 
 import Combine
 
+@_implementationOnly import SRGDataProviderRequests
+
 /**
- *  List of search-oriented services supported by the data provider.
+ *  Search-oriented services.
  */
 
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension SRGDataProvider {
     enum MediasMatchingQuery {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (mediaUrns: [String], total: UInt, aggregations: SRGMediaAggregations?, suggestions: [SRGSearchSuggestion]?, page: Page, nextPage: Page?, response: URLResponse)
+        public typealias Output = (mediaUrns: [String], total: UInt, aggregations: SRGMediaAggregations?, suggestions: [SRGSearchSuggestion]?)
     }
     
     /**
-     *  Search medias matching a specific query.
+     *  Search medias matching a specific query, returning the matching URN list.
      *
      *  To get complete media objects, call the `medias(withUrns:)` request with the returned URN list. Refer to the
      *  Service availability matrix for information about which vendors support settings. By default aggregations are
      *  returned, which can lead to longer response times. If you do not need aggregations, provide a settings object
      *  to disable them.
      */
-    func medias(for vendor: SRGVendor, matchingQuery query: String?, with settings: SRGMediaSearchSettings?, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<MediasMatchingQuery.Output, Error> {
+    func medias(for vendor: SRGVendor, matchingQuery query: String?, with settings: SRGMediaSearchSettings? = nil, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<MediasMatchingQuery.Output, Error> {
         let request = requestMedias(for: vendor, matchingQuery: query, with: settings)
-        return medias(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func medias(at page: MediasMatchingQuery.Page) -> AnyPublisher<MediasMatchingQuery.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "searchResultMediaList", type: SRGSearchResult.self)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "searchResultMediaList", type: SRGSearchResult.self, paginatedBy: signal)
             .map { result in
-                (result.objects.map(\.urn), result.total, result.aggregations, result.suggestions, page, page.next(with: result.nextRequest), result.response)
+                (result.objects.map(\.urn), result.total, result.aggregations, result.suggestions)
             }
             .eraseToAnyPublisher()
     }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
+    
     enum ShowsMatchingQuery {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (showUrns: [String], total: UInt, page: Page, nextPage: Page?, response: URLResponse)
+        public typealias Output = (showUrns: [String], total: UInt)
     }
     
     /**
-     *  Search shows matching a specific query.
+     *  Search shows matching a specific query, returning the matching URN list.
      *
      *  If the media type is set to a value different from `.none`, filter shows for which content of the specified type is
      *  available. To get complete show objects, call the `shows(withUrns:)` request with the returned URN list.
      */
-    func shows(for vendor: SRGVendor, matchingQuery query: String, mediaType: SRGMediaType = .none, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<ShowsMatchingQuery.Output, Error> {
+    func shows(for vendor: SRGVendor, matchingQuery query: String, mediaType: SRGMediaType = .none, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<ShowsMatchingQuery.Output, Error> {
         let request = requestShows(for: vendor, matchingQuery: query, mediaType: mediaType)
-        return shows(at: Page(request: request, size: pageSize))
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "searchResultShowList", type: SRGSearchResult.self, paginatedBy: signal)
+            .map { result in
+                (result.objects.map(\.urn), result.total)
+            }
+            .eraseToAnyPublisher()
     }
     
     /**
-     *  Search shows matching a specific query.
+     *  Search shows matching a specific query, returning the matching URN list.
      *
      *  If the transmission is set to a value different from `.none`, filter shows for the specified transmission. To get
      *  complete show objects, call the `shows(withUrns:)` request with the returned URN list.
      */
-    func shows(for vendor: SRGVendor, matchingQuery query: String, transmission: SRGTransmission = .none, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<ShowsMatchingQuery.Output, Error> {
+    func shows(for vendor: SRGVendor, matchingQuery query: String, transmission: SRGTransmission = .none, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<ShowsMatchingQuery.Output, Error> {
         let request = requestShows(for: vendor, matchingQuery: query, transmission: transmission)
-        return shows(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func shows(at page: ShowsMatchingQuery.Page) -> AnyPublisher<ShowsMatchingQuery.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "searchResultShowList", type: SRGSearchResult.self)
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "searchResultShowList", type: SRGSearchResult.self, paginatedBy: signal)
             .map { result in
-                (result.objects.map(\.urn), result.total, page, page.next(with: result.nextRequest), result.response)
+                (result.objects.map(\.urn), result.total)
             }
             .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum MostSearchedShows {
-        public typealias Output = (shows: [SRGShow], response: URLResponse)
     }
     
     /**
@@ -96,19 +76,9 @@ public extension SRGDataProvider {
      *
      *  If set to a value different from `SRGTransmissionNone`, filter most searched shows for the specified transmission.
      */
-    func mostSearchedShows(for vendor: SRGVendor, matching transmission: SRGTransmission = .none) -> AnyPublisher<MostSearchedShows.Output, Error> {
+    func mostSearchedShows(for vendor: SRGVendor, matching transmission: SRGTransmission = .none) -> AnyPublisher<[SRGShow], Error> {
         let request = requestMostSearchedShows(for: vendor, matching: transmission)
-        return objectsTaskPublisher(for: request, rootKey: "showList", type: SRGShow.self)
-            .map { $0 }
-            .eraseToAnyPublisher()
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public extension SRGDataProvider {
-    enum VideosWithTags {
-        public typealias Page = SRGDataProvider.Page<Self>
-        public typealias Output = (medias: [SRGMedia], page: Page, nextPage: Page?, response: URLResponse)
+        return objectsPublisher(for: request, rootKey: "showList", type: SRGShow.self)
     }
     
     /**
@@ -118,20 +88,9 @@ public extension SRGDataProvider {
      *  - Parameter excludedTags: An optional list of excluded tags.
      *  - Parameter fullLengthExcluded: Set to `YES` to exclude full length videos.
      */
-    func videos(for vendor: SRGVendor, withTags tags: [String], excludedTags: [String]? = nil, fullLengthExcluded: Bool = false, pageSize: UInt = SRGDataProviderDefaultPageSize) -> AnyPublisher<VideosWithTags.Output, Error> {
+    func videos(for vendor: SRGVendor, withTags tags: [String], excludedTags: [String]? = nil, fullLengthExcluded: Bool = false, pageSize: UInt = SRGDataProviderDefaultPageSize, paginatedBy signal: Trigger.Signal? = nil) -> AnyPublisher<[SRGMedia], Error> {
         let request = requestVideos(for: vendor, withTags: tags, excludedTags: excludedTags, fullLengthExcluded: fullLengthExcluded)
-        return videos(at: Page(request: request, size: pageSize))
-    }
-    
-    /**
-     *  Next page of results.
-     */
-    func videos(at page: VideosWithTags.Page) -> AnyPublisher<VideosWithTags.Output, Error> {
-        return paginatedObjectsTaskPublisher(for: page.request, rootKey: "mediaList", type: SRGMedia.self)
-            .map { result in
-                (result.objects, page, page.next(with: result.nextRequest), result.response)
-            }
-            .eraseToAnyPublisher()
+        return paginatedObjectsTriggeredPublisher(at: Page(request: request, size: pageSize), rootKey: "mediaList", type: SRGMedia.self, paginatedBy: signal)
     }
 }
 
